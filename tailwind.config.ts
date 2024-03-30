@@ -23,7 +23,7 @@ const config: Config = {
         blue:'#3C00DC',
         agyellow:'#F5EB00',
         agwhite: '#FEFFFF',
-        bgblue:'#3C00DC54'
+        bgblue:'#3C00DC54',
       },
     },
   },

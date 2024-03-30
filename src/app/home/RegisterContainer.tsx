@@ -1,18 +1,16 @@
 import { useState } from "react";
 import Header from "./Header"
 
-const Register = () => {
+interface RegisterProps {
+    isRegistered: boolean;
+    handleRegister: () => void;
+    isSuccess: boolean;
+    handleSuccess: () => void;
+}
 
-    const [isRegistered, setIsRegistered] = useState<boolean>(false);
-    const [isSuccess, setIsSuccess] = useState<boolean>(false);
+const Register = ({ isRegistered, handleRegister, isSuccess, handleSuccess }: RegisterProps) => {
 
-    const handleRegister = () => {
-        setIsRegistered(!isRegistered);
-    };
 
-    const handleSuccess = () => {
-        setIsSuccess(!isSuccess);
-    }
 
     return (
         <div className='flex'>
@@ -47,14 +45,14 @@ const Register = () => {
                     </p> */}
                 </div>
             </div>
-                : isSuccess ? <div className="absolute w-full flex items-center flex-col mt-96">
+                : isSuccess ? <div className="absolute w-full flex items-center flex-col mt-72">
                     <p className="font-sans text-8xl font-black text-center">
                         Success!
                     </p>
                     <p className="font-sans text-xl font- mt-4">
                         Here’s your NFT:
                     </p>
-                    <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-1 my-4 ml-4">
+                    <div className="bg-gray-800 text-white bg-gradient-to-r from-brblue via-brred p-1 my-4 ml-4">
                         <div className="bg-agblack w-[272px] flex flex-col items-center p-4">
                             <div className='h-[52px] w-[172px]'>
                                 <img
@@ -100,24 +98,25 @@ const Register = () => {
                                     41,415.65
                                 </p>
                             </div>
-                            <div className="flex flex-col items-start w-[312px]">
-                                <p className="text-base font-sans font-blank text-agwhite">
-                                10 Points / $1
+                            <div className="p-4 flex flex-col items-start w-full">
+                                <p className="text-base font-sans font-bold text-agwhite uppercase">
+                                    Transaction Details
                                 </p>
-                                <p className="text-base font-sans font-blank text-agwhite">
-                                    Transaction ID:<br/>
-                                    0x22d1219b09fc08e46273f0f354ba208c93eb07f897aeeeedff7ab6ebddab7e5A
-                                </p>
+                                <div className="text-base font-sans font-blank text-agwhite">
+                                    <p>
+                                        10 Points / $1
+                                    </p>
+                                    <p>
+                                        Transaction ID:
+                                    </p>
+                                    <p className="whitespace-normal break-words font-sans text-base w-[200px]">
+                                        0x22d1219b09fc08e46273f0f354ba208c93eb07f897aeeeedff7ab6ebddab7e5A
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div className='h-screen w-full'>
-                        <img
-                            src={"reg_footer.svg"}
-                            alt="reg_footer"
-                            className="h-full w-full object-cover"
-                        />
-                    </div>
+
                 </div> : <div className="absolute w-full flex items-center flex-col mt-96">
                     <p className="font-sans text-8xl font-black text-center">
                         You’re<br /> Registered!
