@@ -17,7 +17,7 @@ const HomeContainer = () => {
   const handleRegister = () => {
     console.log("registering");
 
-    // setIsRegistered(!isRegistered);
+    setIsRegistered(!isRegistered);
   };
 
   const handleSuccess = () => {
