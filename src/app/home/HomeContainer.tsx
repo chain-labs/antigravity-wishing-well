@@ -41,7 +41,7 @@ const HomeContainer = () => {
       <div id="team"></div>
       <Team />
       <StayUpdated />
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };
