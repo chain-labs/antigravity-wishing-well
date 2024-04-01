@@ -3,6 +3,7 @@ import Header from "./Header";
 import Image from "next/image";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
+import Link from "next/link";
 
 interface RegisterProps {
   isRegistered: boolean;
@@ -47,12 +48,12 @@ const Register = ({
             <p className="font-black font-sans text-6xl lg:text-8xl text-white text-center lg:text-left">
               Join The Revolution!
             </p>
-            <p className="font-normal font-general-sans text-lg lg:text-xl text-white text-center lg:text-left mt-2 lg:mt-4">
+            {/* <p className="font-normal font-general-sans text-lg lg:text-xl text-white text-center lg:text-left mt-2 lg:mt-4">
               Do you wish there was a project that could help the people take
               back economic power of crypto from banks and governments? <br />
               Contribute now and freely mine, claim, mint, unwrap, and scrape
               crypto.
-            </p>
+            </p> */}
             <div className="flex flex-col lg:flex-row mt-3 lg:mt-5">
               <button
                 onClick={account.isConnected ? handleRegister : handleLogin}
@@ -68,17 +69,19 @@ const Register = ({
                 </div>
                 {account.isConnected ? "REGISTER NOW" : "CONNECT WALLET"}
               </button>
-              <button className="flex items-center gap-x-2 justify-center font-sans text-agwhite font-bold rounded-lg bg-agblack bg-opacity-65 px-5 py-2 lg:px-6 lg:py-4 shadow-button">
-                <div className="relative h-6 w-6">
-                  <Image
-                    src="info.svg"
-                    className="lg:w-8 lg:h-8 mr-2"
-                    alt="info_icon"
-                    fill
-                  />
-                </div>
-                LEARN MORE
-              </button>
+              <Link href="/#value">
+                <button className="flex items-center gap-x-2 justify-center font-sans text-agwhite font-bold rounded-lg bg-agblack bg-opacity-65 px-5 py-2 lg:px-6 lg:py-4 shadow-button">
+                  <div className="relative h-6 w-6">
+                    <Image
+                      src="info.svg"
+                      className="lg:w-8 lg:h-8 mr-2"
+                      alt="info_icon"
+                      fill
+                    />
+                  </div>
+                  LEARN MORE
+                </button>
+              </Link>
             </div>
             {account.isConnected && (
               <p className="font-sane font-normal text-sm text-agwhite lg:text-xl mt-2 lg:mt-4 text-center lg:text-left">

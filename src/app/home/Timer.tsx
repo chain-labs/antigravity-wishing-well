@@ -26,7 +26,7 @@ const Timer = ({ handleRegister }: Props) => {
     minutes: number;
     seconds: number;
   } {
-    const targetDate = new Date("2024-04-01T21:00:00+05:30");
+    const targetDate = new Date("2024-04-01T22:30:00+05:30");
     const currentDate = new Date();
     const difference = targetDate.getTime() - currentDate.getTime();
     let timeLeft = {

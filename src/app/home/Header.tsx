@@ -41,19 +41,19 @@ const Header: React.FC = () => {
           }`}
         >
           <a
-            href="#"
+            href="#value"
             className="block mt-4 md:inline-block md:mt-0 font-sans text-lg font-bold tracking-wide bg-gradient-to-b from-agwhite to-gray-500 text-transparent bg-clip-text"
           >
             VALUE
           </a>
           <a
-            href="#"
+            href="#utilities"
             className="block mt-4 md:inline-block md:mt-0 font-sans text-lg font-bold tracking-wide bg-gradient-to-b from-agwhite to-gray-500 text-transparent bg-clip-text"
           >
             UTILITIES
           </a>
           <a
-            href="#"
+            href="#team"
             className="block mt-4 md:inline-block md:mt-0 font-sans text-lg font-bold tracking-wide bg-gradient-to-b from-agwhite to-gray-500 text-transparent bg-clip-text"
           >
             TEAM

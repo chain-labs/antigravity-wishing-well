@@ -32,13 +32,16 @@ const HomeContainer = () => {
         isSuccess={isSuccess}
         handleSuccess={handleSuccess}
       />
+      <div id="value"></div>
       <Value />
       <Timer handleRegister={handleRegister} />
       {/* <SuccessFooter isSuccess={isSuccess} /> */}
+      <div id="utilities"></div>
       <Features />
-      {/* <Team />
+      <div id="team"></div>
+      <Team />
       <StayUpdated />
-      <Footer /> */}
+      {/* <Footer /> */}
     </div>
   );
 };

@@ -19,6 +19,7 @@ const config: Config = {
         value: "url('/value.svg')",
         timer: "url('/grid.svg')",
         feature: "url('/feature-bg.svg')",
+        team: "url('/teams_bg.svg')",
       },
       colors: {
         agblack: "#030404",
