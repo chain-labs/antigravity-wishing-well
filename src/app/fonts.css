@@ -1,4 +1,1 @@
-@font-face {
-    font-family: 'CabinetGrotesk';
-    src: url('/fonts/CabinetGrotesk-Regular.ttf') format('truetype');
-  }
+@import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=general-sans@400,500,600,700&display=swap');
