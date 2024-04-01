@@ -30,7 +30,7 @@ const Team = () => {
               fill
             />
           </div>
-          <p className="font-sans font-extrabold text-2xl mt-4">
+          <p className="font-sans font-extrabold text-2xl mt-4 text-agwhite">
             @HEXrayVision
           </p>
           <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-1 my-4 ml-4">
