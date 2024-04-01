@@ -1,76 +1,96 @@
+import Image from "next/image";
+
 const repItems = [
-    {
-        name: 'Minting',
-        img: 'minting.svg',
-        alt: 'minting'
-    },
-    {
-        name: 'Unwrapping',
-        img: 'unwrapping.svg',
-        alt: 'unwrapping'
-    },
-    {
-        name: 'Scraping',
-        img: 'scraping.svg',
-        alt: 'scraping'
-    }
+  {
+    name: "Minting",
+    img: "minting.svg",
+    alt: "minting",
+  },
+  {
+    name: "Unwrapping",
+    img: "unwrapping.svg",
+    alt: "unwrapping",
+  },
+  {
+    name: "Scraping",
+    img: "scraping.svg",
+    alt: "scraping",
+  },
 ];
 
 const Features = () => {
-    return (
-        <div className="flex flex-col ">
-            <div className='h-screen w-full'>
-                <img
-                    src="features.svg"
-                    alt="values"
-                    className="h-full w-full object-cover"
-                />
-            </div>
-            <div className="absolute p-24 right-0 w-[64%]">
-                <p className="text-6xl font-black font-sans capitalize">
-                    So, what can you do with Antigravity?
-                </p>
-                <div className="flex mt-12 flex-col">
-                    <div className="flex">
-                        <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-1 my-4 ml-4">
-                            <div className="bg-agblack px-4 py-8  h-[254px] w-[400px] flex flex-col items-center">
-                                <div className="w-[150px] h-[150px] mb-4">
-                                    <img className="w-full h-full" src={'minting.svg'} alt={'minting'} />
-                                </div>
-                                <p className="text-2xl font-sans font-extrabold">Mining</p>
-                            </div>
-                        </div>
-                        <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-1 my-4 ml-4">
-                            <div className="bg-agblack px-4 py-8  h-[254px] w-[258px] flex flex-col items-center">
-                                <div className="w-[150px] h-[150px] mb-4">
-                                    <img className="w-full h-full" src={'claiming.svg'} alt={'claiming'} />
-                                </div>
-                                <p className="text-2xl font-sans font-extrabold">Claiming</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="flex">
-                        <div className="flex">
-                            {
-                                repItems.map((item) => {
-                                    return <div key={item.alt} className=" bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-1 my-4 ml-4">
-                                        <div className="bg-agblack px-4 py-8  h-[254px] w-[214px] flex flex-col items-center">
-                                            <div className="w-[150px] h-[150px] mb-4">
-                                                <img className="w-full h-full" src={item.img} alt={item.alt} />
-                                            </div>
-                                            <p className="text-2xl font-sans font-extrabold">{item.name}</p>
-                                        </div>
-                                    </div>
-                                })
-                            }
-                        </div>
-                    </div>
+  return (
+    <div className="relative overflow-hidden">
+      <div className="relative flex flex-col  bg-feature bg-no-repeat bg-center bg-cover before:bg-black bg-blend-hard-light">
+        <div className="py-24 px-12 w-[64%] self-end first-letter flex flex-col items-end">
+          <p className="text-6xl font-black font-sans capitaliz text-agwhite md:max-w-[700px]">
+            So, what can you do with Antigravity?
+          </p>
+          <div className="flex mt-12 flex-col gap-4">
+            <div className="flex gap-4">
+              <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-1">
+                <div className="bg-agblack px-4 py-8  h-[254px] w-[400px] flex flex-col items-center">
+                  <div className="relative w-[150px] h-[150px] mb-4">
+                    <Image
+                      className="w-full h-full"
+                      src={"mining.svg"}
+                      alt={"mining"}
+                      fill
+                    />
+                  </div>
+                  <p className="text-2xl font-sans font-extrabold">Mining</p>
                 </div>
-            </div >
-
-
-        </div >
-    );
+              </div>
+              <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-1">
+                <div className="bg-agblack px-4 py-8  h-[254px] w-[258px] flex flex-col items-center">
+                  <div className="relative w-[150px] h-[150px] mb-4">
+                    <Image
+                      className="w-full h-full"
+                      src={"claiming.svg"}
+                      alt={"claiming"}
+                      fill
+                    />
+                  </div>
+                  <p className="text-2xl font-sans font-extrabold">Claiming</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex">
+              <div className="flex gap-4">
+                {repItems.map((item) => {
+                  return (
+                    <div
+                      key={item.alt}
+                      className=" bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-1"
+                    >
+                      <div className="bg-agblack px-4 py-8  h-[254px] w-[214px] flex flex-col items-center">
+                        <div className="relative w-[150px] h-[150px] mb-4">
+                          <Image
+                            className="w-full h-full"
+                            src={item.img}
+                            alt={item.alt}
+                            fill
+                          />
+                        </div>
+                        <p className="text-2xl font-sans font-extrabold">
+                          {item.name}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+          <div className="absolute left-0 top-0 w-1/2">
+            <div className="relative h-[1000px] w-full">
+              <Image src="/astro.svg" alt="astroman" fill />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Features;
