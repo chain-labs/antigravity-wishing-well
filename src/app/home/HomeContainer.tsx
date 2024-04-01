@@ -6,14 +6,18 @@ import Team from "./Team";
 import StayUpdated from "./StayUpdated";
 import Footer from "./Footer";
 import Register from "./RegisterContainer";
-import SuccessFooter from "./SuccessFooter";
+import dynamic from "next/dynamic";
+
+const Timer = dynamic(() => import("./Timer"));
 
 const HomeContainer = () => {
   const [isRegistered, setIsRegistered] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   const handleRegister = () => {
-    setIsRegistered(!isRegistered);
+    console.log("registering");
+
+    // setIsRegistered(!isRegistered);
   };
 
   const handleSuccess = () => {
@@ -29,11 +33,12 @@ const HomeContainer = () => {
         handleSuccess={handleSuccess}
       />
       <Value />
+      <Timer handleRegister={handleRegister} />
       {/* <SuccessFooter isSuccess={isSuccess} /> */}
-      {/* <Features />
-            <Team />
-            <StayUpdated />
-            <Footer /> */}
+      <Features />
+      {/* <Team />
+      <StayUpdated />
+      <Footer /> */}
     </div>
   );
 };
