@@ -28,8 +28,8 @@ const HomeContainer = () => {
         isSuccess={isSuccess}
         handleSuccess={handleSuccess}
       />
+      <Value />
       {/* <SuccessFooter isSuccess={isSuccess} /> */}
-      {/* <Value /> */}
       {/* <Features />
             <Team />
             <StayUpdated />

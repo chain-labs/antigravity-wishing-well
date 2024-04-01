@@ -28,8 +28,8 @@ const Register = ({
   };
 
   return (
-    <div className="flex">
-      <div className="relative h-screen w-full">
+    <div className="flex relative min-h-screen">
+      <div className="relative min-h-screen w-full">
         <Image
           src={isRegistered ? "reg_bg.svg" : "bg_hero_reg.svg"}
           alt="bg_hero_reg"
