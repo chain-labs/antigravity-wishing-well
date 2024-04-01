@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Header from "./Header";
 import Image from "next/image";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { useAccount } from "wagmi";
 
 interface RegisterProps {
   isRegistered: boolean;
@@ -15,6 +17,16 @@ const Register = ({
   isSuccess,
   handleSuccess,
 }: RegisterProps) => {
+  const { openConnectModal } = useConnectModal();
+  const account = useAccount();
+
+  const handleLogin = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (openConnectModal) {
+      openConnectModal();
+    }
+  };
+
   return (
     <div className="flex">
       <div className="relative h-screen w-full">
@@ -43,18 +55,18 @@ const Register = ({
             </p>
             <div className="flex flex-col lg:flex-row mt-3 lg:mt-5">
               <button
-                onClick={handleRegister}
+                onClick={account.isConnected ? handleRegister : handleLogin}
                 className="flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite rounded-lg bg-blue px-5 py-2 lg:px-6 lg:py-4 mb-2 lg:mb-0 lg:mr-4 shadow-button"
               >
                 <div className="relative h-6 w-6">
                   <Image
-                    src="wallet.svg"
+                    src={account.isConnected ? "pen.svg" : "wallet.svg"}
                     className="w-6 h-6 lg:w-8 lg:h-8 mr-2"
                     alt="wallet_icon"
                     fill
                   />
                 </div>
-                CONNECT WALLET
+                {account.isConnected ? "REGISTER NOW" : "CONNECT WALLET"}
               </button>
               <button className="flex items-center gap-x-2 justify-center font-sans text-agwhite font-bold rounded-lg bg-agblack bg-opacity-65 px-5 py-2 lg:px-6 lg:py-4 shadow-button">
                 <div className="relative h-6 w-6">
@@ -68,9 +80,11 @@ const Register = ({
                 LEARN MORE
               </button>
             </div>
-            {/* <p className="font-sane font-normal text-sm lg:text-xl mt-2 lg:mt-4 text-center lg:text-left">
-                        Connected: 0x1234...6789
-                    </p> */}
+            {account.isConnected && (
+              <p className="font-sane font-normal text-sm text-agwhite lg:text-xl mt-2 lg:mt-4 text-center lg:text-left">
+                {`Connected: ${account.address}`}
+              </p>
+            )}
           </div>
         </div>
       ) : isSuccess ? (
