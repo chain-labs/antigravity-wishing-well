@@ -35,6 +35,16 @@ const config: Config = {
       boxShadow: {
         button: "0 6px 0 0 #030404",
       },
+      keyframes: {
+        marquee: {
+          "0%": {
+            transform: "translateX-100%)",
+          },
+          "100%": {
+            transform: "translateX(100%)",
+          },
+        },
+      },
     },
   },
   plugins: [],

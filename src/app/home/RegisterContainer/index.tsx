@@ -143,6 +143,50 @@ const Register = ({
       ) : (
         <Registered handleSuccess={handleSuccess} />
       )}
+      {isRegistered && !isSuccess && (
+        <div className="flex absolute bottom-20 left-1/2 w-[120vw] bg-agyellow -translate-x-1/2 ">
+          <div className="flex gap-x-6">
+            <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
+              GET 10X POINTS NOW!
+            </p>
+            <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
+              GET 10X POINTS NOW!
+            </p>
+            <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
+              GET 10X POINTS NOW!
+            </p>
+            <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
+              GET 10X POINTS NOW!
+            </p>
+            <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
+              GET 10X POINTS NOW!
+            </p>
+            <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
+              GET 10X POINTS NOW!
+            </p>
+            <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
+              GET 10X POINTS NOW!
+            </p>
+            <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
+              GET 10X POINTS NOW!
+            </p>
+          </div>
+          {/* <div className="flex gap-x-10 absolute">
+            <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_linear_20s_6s_both_infinite]">
+              GET 10X POINTS NOW!
+            </p>
+            <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_linear_20s_6s_both_infinite]">
+              GET 10X POINTS NOW!
+            </p>
+            <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_linear_20s_6s_both_infinite]">
+              GET 10X POINTS NOW!
+            </p>
+            <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_linear_20s_6s_both_infinite]">
+              GET 10X POINTS NOW!
+            </p>
+          </div> */}
+        </div>
+      )}
     </div>
   );
 };

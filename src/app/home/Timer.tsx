@@ -6,9 +6,10 @@ import Image from "next/image";
 
 interface Props {
   handleRegister: () => void;
+  targetTime: string
 }
 
-const Timer = ({ handleRegister }: Props) => {
+const Timer = ({ handleRegister, targetTime }: Props) => {
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
   const { openConnectModal } = useConnectModal();
   const account = useAccount();
@@ -26,7 +27,7 @@ const Timer = ({ handleRegister }: Props) => {
     minutes: number;
     seconds: number;
   } {
-    const targetDate = new Date("2024-04-01T22:30:00+05:30");
+    const targetDate = new Date(targetTime);
     const currentDate = new Date();
     const difference = targetDate.getTime() - currentDate.getTime();
     let timeLeft = {
