@@ -36,7 +36,7 @@ const Registered = ({ handleSuccess }: Props) => {
               className="absolute left-0 z-1"
             />
             <p className="uppercase z-10">wishwell.eth</p>
-            <Image src="share.svg" alt="share" width={16} height={16} />
+            <Image src="/share.svg" alt="share" width={16} height={16} />
           </Button>
         )}
         {(account.chainId === pulsechain.id ||
@@ -50,7 +50,7 @@ const Registered = ({ handleSuccess }: Props) => {
               className="absolute left-0 z-1"
             />
             <p className="uppercase z-20">wishwell.PLS</p>
-            <Image src="share.svg" alt="share" width={16} height={16} />
+            <Image src="/share.svg" alt="share" width={16} height={16} />
           </Button>
         )}
       </div>

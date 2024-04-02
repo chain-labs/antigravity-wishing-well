@@ -7,6 +7,7 @@ import Header from "../Header";
 import Registered from "./Registered";
 import { mainnet, pulsechain, pulsechainV4, sepolia } from "viem/chains";
 import Button from "@/components/Button";
+import IMAGEKIT from "../images";
 
 interface RegisterProps {
   isRegistered: boolean;
@@ -39,7 +40,7 @@ const Register = ({
     <div className="flex flex-col relative min-h-screen ">
       <div className="relative min-h-screen w-full">
         <Image
-          src={isRegistered ? "reg_bg.svg" : "bg_hero_reg.svg"}
+          src={!isRegistered ? IMAGEKIT.HERO_LANDING : IMAGEKIT.REGISTERED}
           alt="bg_hero_reg"
           className="h-full w-full object-cover object-center"
           fill
@@ -67,7 +68,7 @@ const Register = ({
               >
                 <div className="relative h-6 w-6">
                   <Image
-                    src={account.isConnected ? "pen.svg" : "wallet.svg"}
+                    src={account.isConnected ? "/pen.svg" : "/wallet.svg"}
                     className="w-6 h-6 lg:w-8 lg:h-8 mr-2"
                     alt="wallet_icon"
                     fill
@@ -79,7 +80,7 @@ const Register = ({
                 <Button secondary>
                   <div className="relative h-6 w-6">
                     <Image
-                      src="info.svg"
+                      src="/info.svg"
                       className="lg:w-8 lg:h-8 mr-2"
                       alt="info_icon"
                       fill
@@ -166,7 +167,7 @@ const Register = ({
           <div className="absolute bottom-0 z-1 mix-blend-hard-light">
             <div className="relative w-screen h-[600px]">
               <Image
-                src="feature-bg.svg"
+                src="/feature-bg.svg"
                 alt="feature-bg"
                 fill
                 className="object-cover"
@@ -189,7 +190,7 @@ const Register = ({
                     className="absolute left-0 z-1"
                   />
                   <p className="uppercase z-10">wishwell.eth</p>
-                  <Image src="share.svg" alt="share" width={16} height={16} />
+                  <Image src="/share.svg" alt="share" width={16} height={16} />
                 </Button>
               )}
               {(account.chainId === pulsechain.id ||
@@ -203,7 +204,7 @@ const Register = ({
                     className="absolute left-0 z-1"
                   />
                   <p className="uppercase z-20">wishwell.PLS</p>
-                  <Image src="share.svg" alt="share" width={16} height={16} />
+                  <Image src="/share.svg" alt="share" width={16} height={16} />
                 </Button>
               )}
             </div>

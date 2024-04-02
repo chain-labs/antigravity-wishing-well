@@ -1,19 +1,20 @@
 import Image from "next/image";
+import IMAGEKIT from "./images";
 
 const repItems = [
   {
     name: "Minting",
-    img: "minting.svg",
+    img: "/minting.svg",
     alt: "minting",
   },
   {
     name: "Unwrapping",
-    img: "unwrapping.svg",
+    img: "/unwrapping.svg",
     alt: "unwrapping",
   },
   {
     name: "Scraping",
-    img: "scraping.svg",
+    img: "/scraping.svg",
     alt: "scraping",
   },
 ];
@@ -24,7 +25,7 @@ const Features = () => {
       <div className="absolute bottom-0 z-1 mix-blend-hard-light">
         <div className="relative w-screen h-[900px]">
           <Image
-            src="feature-bg.svg"
+            src={IMAGEKIT.STARS_BG}
             alt="feature-bg"
             fill
             className="object-cover"
@@ -43,7 +44,7 @@ const Features = () => {
                   <div className="relative w-[150px] h-[150px] mb-4">
                     <Image
                       className="w-full h-full"
-                      src={"mining.svg"}
+                      src={"/mining.svg"}
                       alt={"mining"}
                       fill
                     />
@@ -56,7 +57,7 @@ const Features = () => {
                   <div className="relative w-[150px] h-[150px] mb-4">
                     <Image
                       className="w-full h-full"
-                      src={"claiming.svg"}
+                      src={"/claiming.svg"}
                       alt={"claiming"}
                       fill
                     />
@@ -94,7 +95,7 @@ const Features = () => {
           </div>
           <div className="absolute left-0 top-0 w-1/2">
             <div className="relative h-[1000px] w-full">
-              <Image src="/astro.svg" alt="astroman" fill />
+              <Image src={IMAGEKIT.ASTRO} alt="astroman" fill />
             </div>
           </div>
         </div>

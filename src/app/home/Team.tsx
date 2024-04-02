@@ -1,4 +1,5 @@
 import Image from "next/image";
+import IMAGEKIT from "./images";
 
 const socials = [
   {
@@ -16,7 +17,10 @@ const socials = [
 ];
 const Team = () => {
   return (
-    <div className="flex flex-col bg-team bg-cover bg-bottom">
+    <div
+      className="flex flex-col bg-cover bg-bottom"
+      style={{ backgroundImage: `url('${IMAGEKIT.TEAM_BG}')` }}
+    >
       <div className="p-32 w-full">
         <div className="flex  items-center justify-around flex-col">
           <p className="text-[64px] font-black text-agwhite font-sans capitalize">
@@ -24,7 +28,7 @@ const Team = () => {
           </p>
           <div className="relative h-[145px] w-[145px] mt-10">
             <Image
-              src="team_admin.svg"
+              src="/team_admin.svg"
               alt="team"
               className="h-full w-full object-cover"
               fill

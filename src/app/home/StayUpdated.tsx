@@ -1,6 +1,7 @@
 import Button from "@/components/Button";
 import Image from "next/image";
 import { useState } from "react";
+import IMAGEKIT from "./images";
 
 const StayUpdated = () => {
   const [name, setName] = useState("");
@@ -16,7 +17,10 @@ const StayUpdated = () => {
   };
 
   return (
-    <div className="flex flex-col bg-timer bg-contain bg-center relative overflow-hidden">
+    <div
+      className="flex flex-col bg-contain bg-center relative overflow-hidden"
+      style={{ backgroundImage: `url('${IMAGEKIT.GRID}')` }}
+    >
       <div className={`w-full ${!submit ? "px-32 py-16" : "px-32 py-32"}`}>
         <div className="flex justify-center">
           <div className="flex flex-col mr-20">
@@ -48,7 +52,7 @@ const StayUpdated = () => {
                 onClick={handleSubmit}
               >
                 <Image
-                  src="submit.svg"
+                  src="/submit.svg"
                   className="w-6 h-6"
                   alt="submit_icon"
                   width={24}
@@ -62,12 +66,12 @@ const StayUpdated = () => {
       </div>
       <div className="absolute -top-10 -left-20">
         <div className="relative ">
-          <Image src="/rock1.svg" alt="rock1" width={320} height={320} />
+          <Image src={IMAGEKIT.ROCK1} alt="rock1" width={320} height={320} />
         </div>
       </div>
       <div className="absolute -bottom-20 -right-20">
         <div className="relative ">
-          <Image src="/rock2.svg" alt="rock1" width={320} height={320} />
+          <Image src={IMAGEKIT.ROCK2} alt="rock1" width={320} height={320} />
         </div>
       </div>
     </div>

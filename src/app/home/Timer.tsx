@@ -4,6 +4,7 @@ import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 import Image from "next/image";
 import Button from "@/components/Button";
+import IMAGEKIT from "./images";
 
 interface Props {
   handleRegister: () => void;
@@ -60,7 +61,10 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
   });
 
   return (
-    <div className="flex flex-col px-28 py-16 bg-timer bg-cover relative">
+    <div
+      className={`flex flex-col px-28 py-16 bg-cover relative`}
+      style={{ background: `url(${IMAGEKIT.GRID})` }}
+    >
       <p className="text-5xl text-agwhite font-black  font-sans capitalize">
         Phase 1 for contributing ends in...
       </p>
@@ -76,8 +80,9 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
           className="self-start mt-8"
         >
           <div className="relative h-6 w-6">
+            a
             <Image
-              src={account.isConnected ? "pen.svg" : "wallet.svg"}
+              src={account.isConnected ? "/pen.svg" : "/wallet.svg"}
               className="w-6 h-6 lg:w-8 lg:h-8 mr-2"
               alt="wallet_icon"
               fill
@@ -92,7 +97,7 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
       )}
       <div className="absolute right-20 top-0">
         <div className="relative h-[460px] w-[460px]">
-          <Image src="/timer-ship.svg" alt="timer-ship" fill />
+          <Image src={IMAGEKIT.SHIP} alt="timer-ship" fill />
         </div>
       </div>
     </div>

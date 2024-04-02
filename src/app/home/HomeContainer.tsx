@@ -13,7 +13,7 @@ import {
   useTransactionReceipt,
   useWriteContract,
 } from "wagmi";
-import AntiGravity from "../../abi/Antigravity";
+import AntiGravity from "../../abi/Sepolia";
 import toast from "react-hot-toast";
 
 const Timer = dynamic(() => import("./Timer"));
