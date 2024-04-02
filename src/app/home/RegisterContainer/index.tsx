@@ -42,9 +42,9 @@ const Register = ({
         <Image
           src={!isRegistered ? IMAGEKIT.HERO_LANDING : IMAGEKIT.REGISTERED}
           alt="bg_hero_reg"
-          className="h-full w-full object-cover object-center"
+          className="object-cover object-center"
           fill
-          quality={10}
+          priority
         />
       </div>
       <div className="absolute w-full flex items-center justify-center lg:justify-around py-16">

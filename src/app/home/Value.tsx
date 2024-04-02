@@ -4,16 +4,23 @@ import IMAGEKIT from "./images";
 
 const Value = () => {
   return (
-    <div className="flex flex-col bg-cover">
-      <div
-        className="p-24 bg-cover bg-blend-screen"
-        style={{ backgroundImage: `url('${IMAGEKIT.VALUE_BG}')` }}
-      >
+    <div className="flex flex-col bg-cover relative">
+      <div className="absolute top-0 left-0 w-screen h-[1000px] mix-blend-luminosity">
+        <div className="relative h-full w-full -z-1">
+          <Image
+            src={IMAGEKIT.VALUE_BG}
+            alt="value section background"
+            className=""
+            fill
+          />
+        </div>
+      </div>
+      <div className="p-24 z-10">
         <p className="font-sans text-[64px] font-black text-agwhite">
           The Value Of The Project
         </p>
-        <div className="flex mt-12 flex-col">
-          <div className="flex">
+        <div className="flex mt-12 flex-col gap-6">
+          <div className="flex gap-6">
             <ValueItem
               imgSrc="/limited_supply.svg"
               imgText="limited_supply"
@@ -25,7 +32,7 @@ const Value = () => {
               itemTitle="limited minting phases"
             />
           </div>
-          <div className="flex">
+          <div className="flex gap-6">
             <ValueItem
               imgSrc="/yields_rewards.svg"
               imgText="yields_rewards"
@@ -37,7 +44,7 @@ const Value = () => {
               itemTitle="giveaways in liquid tokens"
             />
           </div>
-          <div className="flex">
+          <div className="flex gap-6">
             <ValueItem
               imgSrc="/transfarrable_nft.svg"
               imgText="transfarrable_nft"
@@ -56,6 +63,14 @@ const Value = () => {
           </div>
         </div>
       </div>
+      <Image
+        src={IMAGEKIT.ROCK_BIG}
+        alt="big rock"
+        width={700}
+        height={700}
+        quality={20}
+        className="absolute top-1/2 -translate-y-1/2 right-0"
+      />
     </div>
   );
 };

@@ -8,7 +8,7 @@ interface ValueItemProps {
 
 const ValueItem = ({ itemTitle, imgSrc, imgText }: ValueItemProps) => {
   return (
-    <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-1 my-4 ml-4">
+    <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-1">
       <div className="bg-agblack p-6  h-[180px] w-[272px] flex flex-col items-center justify-center">
         <div className="relative w-[56px] h-[56px] mb-4">
           <Image className="w-full h-full" src={imgSrc} alt={imgSrc} fill />
