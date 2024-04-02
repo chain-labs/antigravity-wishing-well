@@ -13,7 +13,7 @@ import {
   useTransactionReceipt,
   useWriteContract,
 } from "wagmi";
-import AntiGravity from "../../abi/Sepolia";
+import SepoliaAG from "../../abi/Sepolia";
 import toast from "react-hot-toast";
 
 const Timer = dynamic(() => import("./Timer"));
@@ -21,12 +21,13 @@ const Timer = dynamic(() => import("./Timer"));
 const HomeContainer = () => {
   const [isRegistered, setIsRegistered] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
+  const [payableAmount, setPayableAmount] = useState(0);
   const account = useAccount();
 
   useEffect(() => {}, [account.address]);
 
   const balance = useReadContract({
-    ...AntiGravity,
+    ...SepoliaAG,
     functionName: "balanceOf",
     args: [account.address],
     query: {
@@ -59,17 +60,23 @@ const HomeContainer = () => {
   });
 
   const handleRegister = async () => {
-    toast.loading("Getting you regisetered!");
+    toast.loading("Getting you registered!", {
+      duration: 5000,
+    });
+
     await register({
-      ...AntiGravity,
+      ...SepoliaAG,
       functionName: "register",
+      // args: [`${payableAmount}`],
     });
   };
 
   useEffect(() => {
     if (registerError) {
       console.log({ registerError });
-      toast.error("Something Went Wrong");
+      toast.error("Something Went Wrong", {
+        duration: 3000,
+      });
       setIsRegistered(false);
     }
   }, [registerError]);
@@ -77,7 +84,9 @@ const HomeContainer = () => {
   useEffect(() => {
     if (registerFetched) {
       console.log({ registerReceipt });
-      toast.success("Registered successful");
+      toast.success("Registered successful", {
+        duration: 3000,
+      });
       setIsRegistered(true);
     }
   }, [registerFetched]);
