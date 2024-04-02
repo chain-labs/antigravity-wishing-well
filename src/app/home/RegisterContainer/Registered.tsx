@@ -26,33 +26,29 @@ const Registered = ({ handleSuccess }: Props) => {
         below.
       </p>
       <div className="flex lg:flex-row mt-3 lg:mt-5">
-        {(account.chainId === mainnet.id || account.chainId === sepolia.id) && (
-          <Button>
-            <Image
-              src="/eth-btn.svg"
-              alt="eth-btn"
-              width={52}
-              height={52}
-              className="absolute left-0 z-1"
-            />
-            <p className="uppercase z-10">wishwell.eth</p>
-            <Image src="/share.svg" alt="share" width={16} height={16} />
-          </Button>
-        )}
-        {(account.chainId === pulsechain.id ||
-          account.chainId === pulsechainV4.id) && (
-          <Button onClick={() => handleCopy("wishwell.pls")}>
-            <Image
-              src="/pls.svg"
-              alt="pls-btn"
-              width={52}
-              height={52}
-              className="absolute left-0 z-1"
-            />
-            <p className="uppercase z-20">wishwell.PLS</p>
-            <Image src="/share.svg" alt="share" width={16} height={16} />
-          </Button>
-        )}
+        <Button>
+          <Image
+            src="/eth-btn.svg"
+            alt="eth-btn"
+            width={52}
+            height={52}
+            className="absolute left-0 z-1"
+          />
+          <p className="uppercase z-10">wishwell.eth</p>
+          <Image src="/share.svg" alt="share" width={16} height={16} />
+        </Button>
+
+        <Button onClick={() => handleCopy("wishwell.pls")}>
+          <Image
+            src="/pls.svg"
+            alt="pls-btn"
+            width={52}
+            height={52}
+            className="absolute left-0 z-1 opacity-25"
+          />
+          <p className="uppercase z-20">wishwell.PLS</p>
+          <Image src="/share.svg" alt="share" width={16} height={16} />
+        </Button>
       </div>
       <p className="font-sans text-xl font- mt-12 text-agwhite">
         Here are some tokens that we encourage for contribution:

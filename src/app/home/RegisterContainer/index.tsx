@@ -179,34 +179,28 @@ const Register = ({
               Get 10x Points Now
             </h1>
             <div>
-              {(account.chainId === mainnet.id ||
-                account.chainId === sepolia.id) && (
-                <Button onClick={() => handleCopy("wishwell.eth")}>
-                  <Image
-                    src="/eth-btn.svg"
-                    alt="eth-btn"
-                    width={52}
-                    height={52}
-                    className="absolute left-0 z-1"
-                  />
-                  <p className="uppercase z-10">wishwell.eth</p>
-                  <Image src="/share.svg" alt="share" width={16} height={16} />
-                </Button>
-              )}
-              {(account.chainId === pulsechain.id ||
-                account.chainId === pulsechainV4.id) && (
-                <Button onClick={() => handleCopy("wishwell.pls")}>
-                  <Image
-                    src="/pls.svg"
-                    alt="pls-btn"
-                    width={52}
-                    height={52}
-                    className="absolute left-0 z-1"
-                  />
-                  <p className="uppercase z-20">wishwell.PLS</p>
-                  <Image src="/share.svg" alt="share" width={16} height={16} />
-                </Button>
-              )}
+              <Button onClick={() => handleCopy("wishwell.eth")}>
+                <Image
+                  src="/eth-btn.svg"
+                  alt="eth-btn"
+                  width={52}
+                  height={52}
+                  className="absolute left-0 z-1"
+                />
+                <p className="uppercase z-10">wishwell.eth</p>
+                <Image src="/share.svg" alt="share" width={16} height={16} />
+              </Button>
+              <Button onClick={() => handleCopy("wishwell.pls")}>
+                <Image
+                  src="/pls.svg"
+                  alt="pls-btn"
+                  width={52}
+                  height={52}
+                  className="absolute left-0 z-1 opacity-15"
+                />
+                <p className="uppercase z-20">wishwell.PLS</p>
+                <Image src="/share.svg" alt="share" width={16} height={16} />
+              </Button>
             </div>
             I
           </div>
