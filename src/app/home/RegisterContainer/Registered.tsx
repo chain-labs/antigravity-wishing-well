@@ -1,6 +1,7 @@
 import Button from "@/components/Button";
 import Image from "next/image";
 import React from "react";
+import toast from "react-hot-toast";
 import { mainnet, pulsechain, pulsechainV4, sepolia } from "viem/chains";
 import { useAccount } from "wagmi";
 
@@ -12,11 +13,12 @@ const Registered = ({ handleSuccess }: Props) => {
   const account = useAccount();
 
   const handleCopy = (copyText: string) => {
+    toast.success("Copied to Clipboard", { duration: 4000 });
     navigator.clipboard.writeText(copyText);
   };
 
   return (
-    <div className="absolute w-full flex items-center flex-col mt-56 overflow-hidden">
+    <div className="w-full flex items-center flex-col pt-56 h-full overflow-hidden z-20 ">
       <p className="font-sans text-8xl font-black text-center text-agwhite">
         You’re
         <br /> Registered!
@@ -26,7 +28,7 @@ const Registered = ({ handleSuccess }: Props) => {
         below.
       </p>
       <div className="flex lg:flex-row mt-3 lg:mt-5">
-        <Button>
+        <Button onClick={() => handleCopy("wishwell.eth")}>
           <Image
             src="/eth-btn.svg"
             alt="eth-btn"
