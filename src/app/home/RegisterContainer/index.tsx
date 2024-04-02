@@ -37,15 +37,17 @@ const Register = ({
   };
 
   return (
-    <div className="flex flex-col relative min-h-screen ">
-      <div className="relative min-h-screen w-full">
-        <Image
-          src={!isRegistered ? IMAGEKIT.HERO_LANDING : IMAGEKIT.REGISTERED}
-          alt="bg_hero_reg"
-          className="object-cover object-center"
-          fill
-          priority
-        />
+    <div className="flex flex-col relative min-h-screen h-[916px] z-0">
+      <div className="fixed top-0 left-0 min-h-screen h-[916px] w-screen">
+        <div className="relative min-h-screen h-[916px] w-full">
+          <Image
+            src={!isRegistered ? IMAGEKIT.HERO_LANDING : IMAGEKIT.REGISTERED}
+            alt="bg_hero_reg"
+            className="object-cover object-center"
+            fill
+            priority
+          />
+        </div>
       </div>
       <div className="absolute w-full flex items-center justify-center lg:justify-around py-16">
         <Header />
@@ -118,50 +120,7 @@ const Register = ({
       ) : (
         <Registered handleSuccess={handleSuccess} />
       )}
-      {isRegistered && !isSuccess && (
-        <div className="flex absolute bottom-20 left-1/2 w-[120vw] bg-agyellow -translate-x-1/2 ">
-          <div className="flex gap-x-6">
-            <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
-              GET 10X POINTS NOW!
-            </p>
-            <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
-              GET 10X POINTS NOW!
-            </p>
-            <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
-              GET 10X POINTS NOW!
-            </p>
-            <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
-              GET 10X POINTS NOW!
-            </p>
-            <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
-              GET 10X POINTS NOW!
-            </p>
-            <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
-              GET 10X POINTS NOW!
-            </p>
-            <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
-              GET 10X POINTS NOW!
-            </p>
-            <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
-              GET 10X POINTS NOW!
-            </p>
-          </div>
-          {/* <div className="flex gap-x-10 absolute">
-            <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_linear_20s_6s_both_infinite]">
-              GET 10X POINTS NOW!
-            </p>
-            <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_linear_20s_6s_both_infinite]">
-              GET 10X POINTS NOW!
-            </p>
-            <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_linear_20s_6s_both_infinite]">
-              GET 10X POINTS NOW!
-            </p>
-            <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_linear_20s_6s_both_infinite]">
-              GET 10X POINTS NOW!
-            </p>
-          </div> */}
-        </div>
-      )}
+
       {isSuccess && (
         <div className="relative flex gap-x-16 px-48 pt-56 pb-32 justify-center overflow-hidden">
           <div className="absolute bottom-0 z-1 mix-blend-hard-light">

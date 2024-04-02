@@ -21,7 +21,7 @@ const repItems = [
 
 const Features = () => {
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden bg-agblack">
       <div className="absolute bottom-0 z-1 mix-blend-hard-light">
         <div className="relative w-screen h-[900px]">
           <Image

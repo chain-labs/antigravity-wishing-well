@@ -16,7 +16,7 @@ const Registered = ({ handleSuccess }: Props) => {
   };
 
   return (
-    <div className="absolute w-full flex items-center flex-col mt-72">
+    <div className="absolute w-full flex items-center flex-col mt-56 overflow-hidden">
       <p className="font-sans text-8xl font-black text-center text-agwhite">
         You’re
         <br /> Registered!
@@ -60,6 +60,35 @@ const Registered = ({ handleSuccess }: Props) => {
         height={32}
         className="mt-4"
       />
+
+      <div className="flex w-[120vw] bg-agyellow  mt-12">
+        <div className="flex gap-x-6">
+          <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
+            GET 10X POINTS NOW!
+          </p>
+          <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
+            GET 10X POINTS NOW!
+          </p>
+          <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
+            GET 10X POINTS NOW!
+          </p>
+          <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
+            GET 10X POINTS NOW!
+          </p>
+          <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
+            GET 10X POINTS NOW!
+          </p>
+          <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
+            GET 10X POINTS NOW!
+          </p>
+          <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
+            GET 10X POINTS NOW!
+          </p>
+          <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
+            GET 10X POINTS NOW!
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
