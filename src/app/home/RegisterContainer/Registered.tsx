@@ -44,7 +44,7 @@ const Registered = ({ handleSuccess }: Props) => {
             alt="pls-btn"
             width={52}
             height={52}
-            className="absolute left-0 z-1 opacity-25"
+            className="absolute left-0 z-1 opacity-5"
           />
           <p className="uppercase z-20">wishwell.PLS</p>
           <Image src="/share.svg" alt="share" width={16} height={16} />
