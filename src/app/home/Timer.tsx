@@ -3,13 +3,15 @@ import TimerBox from "./TimerBox";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 import Image from "next/image";
+import Button from "@/components/Button";
 
 interface Props {
   handleRegister: () => void;
-  targetTime: string
+  targetTime: string;
+  isRegistered: boolean;
 }
 
-const Timer = ({ handleRegister, targetTime }: Props) => {
+const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
   const { openConnectModal } = useConnectModal();
   const account = useAccount();
@@ -68,21 +70,27 @@ const Timer = ({ handleRegister, targetTime }: Props) => {
         <TimerBox value={timeLeft?.minutes} text="minutes" />
         <TimerBox value={timeLeft?.seconds} text="seconds" />
       </div>
-      <button
-        onClick={account.isConnected ? handleRegister : handleLogin}
-        className="mt-8 flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite rounded-lg bg-blue px-5 py-2 lg:px-6 lg:py-4 mb-2 lg:mb-0 lg:mr-4 shadow-button self-start"
-      >
-        <div className="relative h-6 w-6">
-          <Image
-            src={account.isConnected ? "pen.svg" : "wallet.svg"}
-            className="w-6 h-6 lg:w-8 lg:h-8 mr-2"
-            alt="wallet_icon"
-            fill
-          />
-        </div>
-        {account.isConnected ? "REGISTER NOW" : "CONNECT WALLET"}
-      </button>
-      <div className="absolute right-40 top-0">
+      {!isRegistered && (
+        <Button
+          onClick={account.isConnected ? handleRegister : handleLogin}
+          className="self-start mt-8"
+        >
+          <div className="relative h-6 w-6">
+            <Image
+              src={account.isConnected ? "pen.svg" : "wallet.svg"}
+              className="w-6 h-6 lg:w-8 lg:h-8 mr-2"
+              alt="wallet_icon"
+              fill
+            />
+          </div>
+          {account.isConnected
+            ? !isRegistered
+              ? "REGISTER NOW"
+              : ""
+            : "CONNECT WALLET"}
+        </Button>
+      )}
+      <div className="absolute right-20 top-0">
         <div className="relative h-[460px] w-[460px]">
           <Image src="/timer-ship.svg" alt="timer-ship" fill />
         </div>

@@ -1,3 +1,4 @@
+import Button from "@/components/Button";
 import Image from "next/image";
 import React from "react";
 import { mainnet, pulsechain, pulsechainV4, sepolia } from "viem/chains";
@@ -26,10 +27,7 @@ const Registered = ({ handleSuccess }: Props) => {
       </p>
       <div className="flex lg:flex-row mt-3 lg:mt-5">
         {(account.chainId === mainnet.id || account.chainId === sepolia.id) && (
-          <button
-            onClick={() => handleCopy("wishwell.eth")}
-            className="relative flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite rounded-lg bg-blue px-5 py-2 lg:px-6 lg:py-4 mb-2 lg:mb-0 lg:mr-4 shadow-button"
-          >
+          <Button>
             <Image
               src="/eth-btn.svg"
               alt="eth-btn"
@@ -39,14 +37,11 @@ const Registered = ({ handleSuccess }: Props) => {
             />
             <p className="uppercase z-10">wishwell.eth</p>
             <Image src="share.svg" alt="share" width={16} height={16} />
-          </button>
+          </Button>
         )}
         {(account.chainId === pulsechain.id ||
           account.chainId === pulsechainV4.id) && (
-          <button
-            onClick={() => handleCopy("wishwell.pls")}
-            className="flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite rounded-lg bg-blue px-5 py-2 lg:px-6 lg:py-4 mb-2 lg:mb-0 lg:mr-4 shadow-button"
-          >
+          <Button onClick={() => handleCopy("wishwell.pls")}>
             <Image
               src="/pls.svg"
               alt="pls-btn"
@@ -56,7 +51,7 @@ const Registered = ({ handleSuccess }: Props) => {
             />
             <p className="uppercase z-20">wishwell.PLS</p>
             <Image src="share.svg" alt="share" width={16} height={16} />
-          </button>
+          </Button>
         )}
       </div>
       <p className="font-sans text-xl font- mt-12 text-agwhite">

@@ -6,6 +6,7 @@ import { mainnet, pulsechain, pulsechainV4, sepolia } from "viem/chains";
 
 import "@rainbow-me/rainbowkit/styles.css";
 import RainbowKitContext from "@/components/RainbowKit";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <Toaster />
         <RainbowKitContext>{children}</RainbowKitContext>
       </body>
     </html>

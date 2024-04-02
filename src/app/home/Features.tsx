@@ -21,7 +21,17 @@ const repItems = [
 const Features = () => {
   return (
     <div className="relative overflow-hidden">
-      <div className="relative flex flex-col  bg-feature bg-no-repeat bg-center bg-cover before:bg-black bg-blend-hard-light">
+      <div className="absolute bottom-0 z-1 mix-blend-hard-light">
+        <div className="relative w-screen h-[900px]">
+          <Image
+            src="feature-bg.svg"
+            alt="feature-bg"
+            fill
+            className="object-cover"
+          />
+        </div>
+      </div>
+      <div className="relative flex flex-col">
         <div className="py-24 px-12 w-[64%] self-end first-letter flex flex-col items-end">
           <p className="text-6xl font-black font-sans capitaliz text-agwhite md:max-w-[700px]">
             So, what can you do with Antigravity?

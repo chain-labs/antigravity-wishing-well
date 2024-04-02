@@ -1,3 +1,4 @@
+import Button from "@/components/Button";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -29,21 +30,21 @@ const StayUpdated = () => {
             </p>
           </div>
           {!submit && (
-            <div className="flex flex-col float-start">
+            <div className="flex flex-col float-start gap-y-4">
               <input
-                className="p-4 rounded-lg font-sans font-semibold text-xl mb-4 w-[375px]"
+                className="p-4 rounded-lg font-sans font-semibold text-xl w-[375px]"
                 placeholder="Your Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
               <input
-                className="p-4 rounded-lg font-sans font-semibold text-xl mb-2 w-[375px]"
+                className="p-4 rounded-lg font-sans font-semibold text-xl w-[375px]"
                 placeholder="Your@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <button
-                className="flex gap-x-2 items-center justify-center font-sans font-extrabold rounded-lg bg-blue w-1/2 px-6 py-4 mt-6 lg:mb-0 lg:mr-4 text-agwhite uppercease tracking-wider"
+              <Button
+                className="tracking-wider uppercase self-start"
                 onClick={handleSubmit}
               >
                 <Image
@@ -54,7 +55,7 @@ const StayUpdated = () => {
                   height={24}
                 />
                 <p>Submit</p>
-              </button>
+              </Button>
             </div>
           )}
         </div>

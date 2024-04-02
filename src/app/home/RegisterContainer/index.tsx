@@ -5,6 +5,8 @@ import { useAccount } from "wagmi";
 import Link from "next/link";
 import Header from "../Header";
 import Registered from "./Registered";
+import { mainnet, pulsechain, pulsechainV4, sepolia } from "viem/chains";
+import Button from "@/components/Button";
 
 interface RegisterProps {
   isRegistered: boolean;
@@ -29,8 +31,12 @@ const Register = ({
     }
   };
 
+  const handleCopy = (copyText: string) => {
+    navigator.clipboard.writeText(copyText);
+  };
+
   return (
-    <div className="flex relative min-h-screen">
+    <div className="flex flex-col relative min-h-screen ">
       <div className="relative min-h-screen w-full">
         <Image
           src={isRegistered ? "reg_bg.svg" : "bg_hero_reg.svg"}
@@ -40,7 +46,7 @@ const Register = ({
           quality={10}
         />
       </div>
-      <div className="absolute w-full flex items-center justify-center lg:justify-around py-24">
+      <div className="absolute w-full flex items-center justify-center lg:justify-around py-16">
         <Header />
       </div>
       {!isRegistered && !isSuccess ? (
@@ -56,9 +62,8 @@ const Register = ({
               crypto.
             </p> */}
             <div className="flex flex-col lg:flex-row mt-3 lg:mt-5">
-              <button
+              <Button
                 onClick={account.isConnected ? handleRegister : handleLogin}
-                className="flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite rounded-lg bg-blue px-5 py-2 lg:px-6 lg:py-4 mb-2 lg:mb-0 lg:mr-4 shadow-button"
               >
                 <div className="relative h-6 w-6">
                   <Image
@@ -69,9 +74,9 @@ const Register = ({
                   />
                 </div>
                 {account.isConnected ? "REGISTER NOW" : "CONNECT WALLET"}
-              </button>
+              </Button>
               <Link href="/#value">
-                <button className="flex items-center gap-x-2 justify-center font-sans text-agwhite font-bold rounded-lg bg-agblack bg-opacity-65 px-5 py-2 lg:px-6 lg:py-4 shadow-button">
+                <Button secondary>
                   <div className="relative h-6 w-6">
                     <Image
                       src="info.svg"
@@ -81,7 +86,7 @@ const Register = ({
                     />
                   </div>
                   LEARN MORE
-                </button>
+                </Button>
               </Link>
             </div>
             {account.isConnected && (
@@ -92,52 +97,21 @@ const Register = ({
           </div>
         </div>
       ) : isSuccess ? (
-        <div className="absolute w-full flex items-center flex-col mt-72">
-          <p className="font-sans text-8xl font-black text-center">Success!</p>
-          <p className="font-sans text-xl font- mt-4">Here’s your NFT:</p>
-          <div className="bg-gray-800 text-white bg-gradient-to-r from-brblue via-brred p-1 my-4 ml-4">
-            <div className="bg-agblack w-[272px] flex flex-col items-center p-4">
-              <div className="h-[52px] w-[172px]">
-                <img src="title.svg" alt="title" className="h-full w-full" />
-              </div>
-              <div className="border-b-4 bg-gradient-to-r p-1 w-full from-brblue via-brred" />
-              <div className="p-4 mb-2 flex flex-col items-start bg-bgblue w-full m-4">
-                <p className="text-base font-sans font-bold text-agwhite uppercase">
-                  Ethereum
-                </p>
-                <p className="text-3xl font-sans font-blank">0.4151 ETH</p>
-                <p className="text-base font-sans font-bold">0.4151 ETH</p>
-              </div>
-              <div className="p-4 mb-2 flex flex-col items-start bg-bgblue w-full">
-                <p className="text-base font-sans font-bold text-agwhite uppercase">
-                  BITCOIN
-                </p>
-                <p className="text-3xl font-sans font-blank">0.1423 BTC</p>
-                <p className="text-base font-sans font-bold">$2,545.65</p>
-              </div>
-              <div className="p-4 mb-2 flex flex-col items-start bg-bgblue w-full">
-                <p className="text-base font-sans font-bold text-agwhite uppercase">
-                  TOTAL Value
-                </p>
-                <p className="text-3xl font-sans font-blank">$4,141.56</p>
-                <p className="text-base font-sans font-bold text-agwhite uppercase">
-                  TOTAL Points
-                </p>
-                <p className="text-3xl font-sans font-blank">41,415.65</p>
-              </div>
-              <div className="p-4 flex flex-col items-start w-full">
-                <p className="text-base font-sans font-bold text-agwhite uppercase">
-                  Transaction Details
-                </p>
-                <div className="text-base font-sans font-blank text-agwhite">
-                  <p>10 Points / $1</p>
-                  <p>Transaction ID:</p>
-                  <p className="whitespace-normal break-words font-sans text-base w-[200px]">
-                    0x22d1219b09fc08e46273f0f354ba208c93eb07f897aeeeedff7ab6ebddab7e5A
-                  </p>
-                </div>
-              </div>
-            </div>
+        <div className="absolute w-full flex items-center flex-col mt-72 z-10">
+          <p className="font-sans text-8xl font-black text-center text-agwhite">
+            Success!
+          </p>
+          <p className="font-sans text-xl font- mt-4 text-agwhite">
+            Here’s your NFT:
+          </p>
+          <div className="bg-gray-80 p-1 my-4 ml-4">
+            <Image
+              src="nft.svg"
+              alt="nft"
+              width={350}
+              height={600}
+              className="z-10"
+            />
           </div>
         </div>
       ) : (
@@ -185,6 +159,67 @@ const Register = ({
               GET 10X POINTS NOW!
             </p>
           </div> */}
+        </div>
+      )}
+      {isSuccess && (
+        <div className="relative flex gap-x-16 px-48 pt-56 pb-32 justify-center overflow-hidden">
+          <div className="absolute bottom-0 z-1 mix-blend-hard-light">
+            <div className="relative w-screen h-[600px]">
+              <Image
+                src="feature-bg.svg"
+                alt="feature-bg"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
+          <div className="flex flex-col gap-y-4 flex-1 z-10">
+            <h1 className="font-sans text-agyellow text-5xl font-black">
+              Get 10x Points Now
+            </h1>
+            <div>
+              {(account.chainId === mainnet.id ||
+                account.chainId === sepolia.id) && (
+                <Button onClick={() => handleCopy("wishwell.eth")}>
+                  <Image
+                    src="/eth-btn.svg"
+                    alt="eth-btn"
+                    width={52}
+                    height={52}
+                    className="absolute left-0 z-1"
+                  />
+                  <p className="uppercase z-10">wishwell.eth</p>
+                  <Image src="share.svg" alt="share" width={16} height={16} />
+                </Button>
+              )}
+              {(account.chainId === pulsechain.id ||
+                account.chainId === pulsechainV4.id) && (
+                <Button onClick={() => handleCopy("wishwell.pls")}>
+                  <Image
+                    src="/pls.svg"
+                    alt="pls-btn"
+                    width={52}
+                    height={52}
+                    className="absolute left-0 z-1"
+                  />
+                  <p className="uppercase z-20">wishwell.PLS</p>
+                  <Image src="share.svg" alt="share" width={16} height={16} />
+                </Button>
+              )}
+            </div>
+            I
+          </div>
+          <div className="flex flex-col gap-y-8 z-10">
+            <Image src="networks.svg" alt="networks" height="48" width="240" />
+            <p className="font-general-sans text-agwhite text-xl">
+              As you contribute more, your{" "}
+              <span className="underline ">
+                <a>ERC-721 NFT</a>
+              </span>{" "}
+              above
+              <br /> will uniquely update with future contributions.
+            </p>
+          </div>
         </div>
       )}
     </div>

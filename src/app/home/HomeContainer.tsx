@@ -14,6 +14,7 @@ import {
   useWriteContract,
 } from "wagmi";
 import AntiGravity from "../../abi/Antigravity";
+import toast from "react-hot-toast";
 
 const Timer = dynamic(() => import("./Timer"));
 
@@ -58,16 +59,17 @@ const HomeContainer = () => {
   });
 
   const handleRegister = async () => {
+    toast.loading("Getting you regisetered!");
     await register({
       ...AntiGravity,
       functionName: "register",
     });
-    // setIsRegistered(!isRegistered);
   };
 
   useEffect(() => {
     if (registerError) {
       console.log({ registerError });
+      toast.error("Something Went Wrong");
       setIsRegistered(false);
     }
   }, [registerError]);
@@ -75,6 +77,7 @@ const HomeContainer = () => {
   useEffect(() => {
     if (registerFetched) {
       console.log({ registerReceipt });
+      toast.success("Registered successful");
       setIsRegistered(true);
     }
   }, [registerFetched]);
@@ -95,6 +98,7 @@ const HomeContainer = () => {
         <Timer
           handleRegister={handleRegister}
           targetTime="2024-04-02T21:00:00Z"
+          isRegistered={isRegistered}
         />
       )}
       <div id="value"></div>
@@ -103,6 +107,7 @@ const HomeContainer = () => {
         <Timer
           handleRegister={handleRegister}
           targetTime="2024-04-02T21:00:00Z"
+          isRegistered={isRegistered}
         />
       )}
       {/* <SuccessFooter isSuccess={isSuccess} /> */}

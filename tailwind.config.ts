@@ -35,13 +35,16 @@ const config: Config = {
       boxShadow: {
         button: "0 6px 0 0 #030404",
       },
+      dropShadow: {
+        pressed: "0 0 0 4px linear-gradient(#e66465, #9198e5);",
+      },
       keyframes: {
         marquee: {
           "0%": {
             transform: "translateX-100%)",
           },
           "100%": {
-            transform: "translateX(100%)",
+            transform: "translateX(150%)",
           },
         },
       },
