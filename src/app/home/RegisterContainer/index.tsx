@@ -17,6 +17,8 @@ interface RegisterProps {
   handleRegister: () => void;
   isSuccess: boolean;
   handleSuccess: () => void;
+  tokenId: BigInt;
+  loading: boolean;
 }
 
 const Register = ({
@@ -24,6 +26,8 @@ const Register = ({
   handleRegister,
   isSuccess,
   handleSuccess,
+  tokenId,
+  loading,
 }: RegisterProps) => {
   const { openConnectModal } = useConnectModal();
   const account = useAccount();
@@ -52,9 +56,14 @@ const Register = ({
         <Header />
       </div>
       {!isRegistered && !isSuccess ? (
-        <Main handleLogin={handleLogin} handleRegister={handleRegister} />
+        <Main
+          handleLogin={handleLogin}
+          handleRegister={handleRegister}
+          loading={loading}
+          isRegistered={isRegistered}
+        />
       ) : isSuccess ? (
-        <Success />
+        <Success tokenId={tokenId} />
       ) : (
         <Registered handleSuccess={handleSuccess} />
       )}

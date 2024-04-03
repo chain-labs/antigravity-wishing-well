@@ -13,8 +13,14 @@ import {
   useTransactionReceipt,
   useWriteContract,
 } from "wagmi";
-import SepoliaAG from "../../abi/Sepolia";
 import toast from "react-hot-toast";
+import useContract from "@/abi";
+import { parseAbiItem } from "viem";
+import { createPublicClient, http } from "viem";
+import { mainnet, sepolia, pulsechain, pulsechainV4 } from "viem/chains";
+import axios from "axios";
+import { API_ENDPOINT, PROXY_API_ENDPOINT, TIMER } from "@/constants";
+import { getApiNetwork } from "@/utils";
 
 const Timer = dynamic(() => import("./Timer"));
 
@@ -22,14 +28,56 @@ const HomeContainer = () => {
   const [isRegistered, setIsRegistered] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [payableAmount, setPayableAmount] = useState(0);
+  const [tokenId, setTokenId] = useState<BigInt>(BigInt(0));
+  const [loading, setLoading] = useState<boolean>(true);
   const account = useAccount();
+  const AntiGravity = useContract();
 
-  useEffect(() => {}, [account.address]);
+  useEffect(() => {
+    const getTokenIds = async () => {
+      const publicClient = createPublicClient({
+        chain: account.chain,
+        transport: http(),
+      });
+
+      const filter = await publicClient.createEventFilter({
+        address: AntiGravity?.address,
+        event: parseAbiItem(
+          "event Transfer(address indexed from, address indexed to, uint256 indexed id)"
+        ),
+        args: {
+          to: account.address,
+        },
+        fromBlock: BigInt(5610902),
+        toBlock: "latest",
+      });
+
+      const logs = await publicClient.getFilterLogs({ filter });
+      const tokenId = logs[0]?.args.id;
+      setTokenId(tokenId ?? BigInt(0));
+      if (tokenId) {
+        const contributionData = await axios.get(
+          `${PROXY_API_ENDPOINT}contribution/${tokenId}?blockchain=${getApiNetwork(
+            Number(account?.chainId)
+          )}`
+        );
+        const contribution = parseFloat(contributionData.data.data.value);
+        setLoading(false);
+        if (contribution > 0) {
+          setIsSuccess(true);
+        }
+      }
+    };
+
+    if (account.address) {
+      getTokenIds();
+    }
+  }, [account.address]);
 
   const balance = useReadContract({
-    ...SepoliaAG,
+    ...AntiGravity,
     functionName: "balanceOf",
-    args: [account.address],
+    args: [account.address as `0x${string}`],
     query: {
       enabled: account.isConnected,
     },
@@ -38,12 +86,14 @@ const HomeContainer = () => {
   useEffect(() => {
     if (balance.isFetched) {
       if ((balance.data as number) > 0) {
-        setIsRegistered(true);
-        return;
+        if (!loading) {
+          setIsRegistered(true);
+          return;
+        }
       }
     }
     setIsRegistered(false);
-  }, [balance.isFetched, balance.data]);
+  }, [balance.isFetched, balance.data, loading]);
 
   const {
     data: registerHash,
@@ -65,7 +115,9 @@ const HomeContainer = () => {
     });
 
     await register({
-      ...SepoliaAG,
+      // @ts-ignore
+      address: AntiGravity?.address,
+      abi: AntiGravity?.abi,
       functionName: "register",
       // args: [`${payableAmount}`],
     });
@@ -102,11 +154,13 @@ const HomeContainer = () => {
         handleRegister={handleRegister}
         isSuccess={isSuccess}
         handleSuccess={handleSuccess}
+        tokenId={tokenId}
+        loading={loading}
       />
       {isRegistered && (
         <Timer
           handleRegister={handleRegister}
-          targetTime="2024-04-02T21:00:00Z"
+          targetTime={`${TIMER}`}
           isRegistered={isRegistered}
         />
       )}
@@ -115,7 +169,7 @@ const HomeContainer = () => {
       {!isRegistered && (
         <Timer
           handleRegister={handleRegister}
-          targetTime="2024-04-02T21:00:00Z"
+          targetTime={`${TIMER}`}
           isRegistered={isRegistered}
         />
       )}

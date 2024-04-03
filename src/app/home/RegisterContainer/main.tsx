@@ -2,14 +2,22 @@ import Button from "@/components/Button";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { FiLoader } from "react-icons/fi";
 import { useAccount } from "wagmi";
 
 type Props = {
   handleRegister: (args0: React.MouseEvent) => void;
   handleLogin: (args0: React.MouseEvent) => void;
+  loading: boolean;
+  isRegistered: boolean;
 };
 
-const Main = ({ handleLogin, handleRegister }: Props) => {
+const Main = ({
+  handleLogin,
+  handleRegister,
+  loading,
+  isRegistered,
+}: Props) => {
   const account = useAccount();
   return (
     <div className="min-h-screen w-full lg:w-1/2 pb-24 z-20 px-32 flex items-end">
@@ -24,16 +32,38 @@ const Main = ({ handleLogin, handleRegister }: Props) => {
               crypto.
             </p> */}
         <div className="flex flex-col lg:flex-row mt-3 lg:mt-5">
-          <Button onClick={account.isConnected ? handleRegister : handleLogin}>
-            <div className="relative h-6 w-6">
-              <Image
-                src={account.isConnected ? "/pen.svg" : "/wallet.svg"}
-                className="w-6 h-6 lg:w-8 lg:h-8 mr-2"
-                alt="wallet_icon"
-                fill
-              />
-            </div>
-            {account.isConnected ? "REGISTER NOW" : "CONNECT WALLET"}
+          <Button
+            onClick={
+              !loading
+                ? account.isConnected
+                  ? handleRegister
+                  : handleLogin
+                : !account.isConnected
+                ? handleLogin
+                : () => {}
+            }
+          >
+            {account.address && loading ? (
+              <div className="animate-[spin_2s_ease-out_infinite]">
+                <FiLoader />
+              </div>
+            ) : (
+              <div className="relative h-6 w-6">
+                <Image
+                  src={account.isConnected ? "/pen.svg" : "/wallet.svg"}
+                  className="w-6 h-6 lg:w-8 lg:h-8 mr-2"
+                  alt="wallet_icon"
+                  fill
+                />
+              </div>
+            )}
+            {account.isConnected
+              ? loading
+                ? "Checking your Registration"
+                : !isRegistered
+                ? "REGISTER NOW"
+                : ""
+              : "CONNECT WALLET"}
           </Button>
           <Link href="/#value">
             <Button secondary>
