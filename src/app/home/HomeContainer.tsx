@@ -24,8 +24,8 @@ import { getApiNetwork } from "@/utils";
 const Timer = dynamic(() => import("./Timer"));
 
 const HomeContainer = () => {
-  const [isRegistered, setIsRegistered] = useState<boolean>(true);
-  const [isSuccess, setIsSuccess] = useState<boolean>(true);
+  const [isRegistered, setIsRegistered] = useState<boolean>(false);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [payableAmount, setPayableAmount] = useState(0);
   const [tokenId, setTokenId] = useState<BigInt>(BigInt(0));
   const [loading, setLoading] = useState<boolean>(true);
