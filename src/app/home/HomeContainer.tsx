@@ -68,6 +68,7 @@ const HomeContainer = () => {
           }
         } catch (err) {
           toast.error("Something went wrong. Try Again!", { duration: 3000 });
+          
           console.error({ err });
         }
       }
@@ -148,7 +149,7 @@ const HomeContainer = () => {
   }, [registerFetched]);
 
   return (
-    <div className="flex flex-col min-h-screen ">
+    <div className="flex flex-col min-h-screen max-w-screen overflow-y-hidden border border-white">
       <Register
         isRegistered={isRegistered}
         handleRegister={handleRegister}
