@@ -17,16 +17,15 @@ import toast from "react-hot-toast";
 import useContract from "@/abi";
 import { parseAbiItem } from "viem";
 import { createPublicClient, http } from "viem";
-import { mainnet, sepolia, pulsechain, pulsechainV4 } from "viem/chains";
 import axios from "axios";
-import { API_ENDPOINT, PROXY_API_ENDPOINT, TIMER } from "@/constants";
+import { PROXY_API_ENDPOINT, TIMER } from "@/constants";
 import { getApiNetwork } from "@/utils";
 
 const Timer = dynamic(() => import("./Timer"));
 
 const HomeContainer = () => {
-  const [isRegistered, setIsRegistered] = useState<boolean>(false);
-  const [isSuccess, setIsSuccess] = useState<boolean>(false);
+  const [isRegistered, setIsRegistered] = useState<boolean>(true);
+  const [isSuccess, setIsSuccess] = useState<boolean>(true);
   const [payableAmount, setPayableAmount] = useState(0);
   const [tokenId, setTokenId] = useState<BigInt>(BigInt(0));
   const [loading, setLoading] = useState<boolean>(true);
@@ -56,15 +55,20 @@ const HomeContainer = () => {
       const tokenId = logs[0]?.args.id;
       setTokenId(tokenId ?? BigInt(0));
       if (tokenId) {
-        const contributionData = await axios.get(
-          `${PROXY_API_ENDPOINT}contribution/${tokenId}?blockchain=${getApiNetwork(
-            Number(account?.chainId)
-          )}`
-        );
-        const contribution = parseFloat(contributionData.data.data.value);
-        setLoading(false);
-        if (contribution > 0) {
-          setIsSuccess(true);
+        try {
+          const contributionData = await axios.get(
+            `${PROXY_API_ENDPOINT}contribution/${tokenId}?blockchain=${getApiNetwork(
+              Number(account?.chainId)
+            )}`
+          );
+          const contribution = parseFloat(contributionData.data.data.value);
+          setLoading(false);
+          if (contribution > 0) {
+            setIsSuccess(true);
+          }
+        } catch (err) {
+          toast.error("Something went wrong. Try Again!", { duration: 3000 });
+          console.error({ err });
         }
       }
     };
@@ -143,17 +147,12 @@ const HomeContainer = () => {
     }
   }, [registerFetched]);
 
-  const handleSuccess = () => {
-    // setIsSuccess(!isSuccess);
-  };
-
   return (
     <div className="flex flex-col min-h-screen ">
       <Register
         isRegistered={isRegistered}
         handleRegister={handleRegister}
         isSuccess={isSuccess}
-        handleSuccess={handleSuccess}
         tokenId={tokenId}
         loading={loading}
       />

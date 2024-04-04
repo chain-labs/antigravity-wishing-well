@@ -97,7 +97,7 @@ const Success = ({ tokenId }: Props) => {
                   alt="pls-btn"
                   width={52}
                   height={52}
-                  className="absolute left-0 z-1 opacity-15"
+                  className="absolute left-0 z-1 opacity-55"
                 />
                 <p className="uppercase z-20">wishwell.PLS</p>
                 <Image src="/share.svg" alt="share" width={16} height={16} />
@@ -110,7 +110,12 @@ const Success = ({ tokenId }: Props) => {
             <p className="font-general-sans text-agwhite text-xl">
               As you contribute more, your{" "}
               <span className="underline ">
-                <a>ERC-721 NFT</a>
+                <a
+                  href="https://ethereum.org/en/developers/docs/standards/tokens/erc-721/"
+                  target="_blank"
+                >
+                  ERC-721 NFT
+                </a>
               </span>{" "}
               above
               <br /> will uniquely update with future contributions.

@@ -16,7 +16,6 @@ interface RegisterProps {
   isRegistered: boolean;
   handleRegister: () => void;
   isSuccess: boolean;
-  handleSuccess: () => void;
   tokenId: BigInt;
   loading: boolean;
 }
@@ -25,7 +24,6 @@ const Register = ({
   isRegistered,
   handleRegister,
   isSuccess,
-  handleSuccess,
   tokenId,
   loading,
 }: RegisterProps) => {
@@ -65,7 +63,7 @@ const Register = ({
       ) : isSuccess ? (
         <Success tokenId={tokenId} />
       ) : (
-        <Registered handleSuccess={handleSuccess} />
+        <Registered />
       )}
     </div>
   );

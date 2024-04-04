@@ -5,11 +5,7 @@ import toast from "react-hot-toast";
 import { mainnet, pulsechain, pulsechainV4, sepolia } from "viem/chains";
 import { useAccount } from "wagmi";
 
-interface Props {
-  handleSuccess: () => void;
-}
-
-const Registered = ({ handleSuccess }: Props) => {
+const Registered = () => {
   const account = useAccount();
 
   const handleCopy = (copyText: string) => {
@@ -46,7 +42,7 @@ const Registered = ({ handleSuccess }: Props) => {
             alt="pls-btn"
             width={52}
             height={52}
-            className="absolute left-0 z-1 opacity-5"
+            className="absolute left-0 z-1 opacity-55"
           />
           <p className="uppercase z-20">wishwell.PLS</p>
           <Image src="/share.svg" alt="share" width={16} height={16} />
