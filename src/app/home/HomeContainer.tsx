@@ -34,6 +34,9 @@ const HomeContainer = () => {
 
   useEffect(() => {
     const getTokenIds = async () => {
+      setLoading(true);
+      setIsRegistered(false);
+      setIsSuccess(false);
       const publicClient = createPublicClient({
         chain: account.chain,
         transport: http(),
@@ -62,15 +65,23 @@ const HomeContainer = () => {
             )}`
           );
           const contribution = parseFloat(contributionData.data.data.value);
+          console.log({ contribution });
+
           setLoading(false);
           if (contribution > 0) {
             setIsSuccess(true);
+          } else {
+            setIsRegistered(true);
           }
         } catch (err) {
           toast.error("Something went wrong. Try Again!", { duration: 3000 });
-          
+
           console.error({ err });
         }
+      } else {
+        setLoading(false);
+        setIsSuccess(false);
+        setIsRegistered(false);
       }
     };
 
