@@ -9,7 +9,7 @@ import { WagmiProvider } from "wagmi";
 const config = getDefaultConfig({
   appName: "AntiGravity",
   projectId: "da0885f4ccb13b9f676544fd97528d14",
-  chains: TEST_NETWORK ? [sepolia, pulsechainV4] : [mainnet, pulsechain],
+  chains: TEST_NETWORK ? [sepolia, pulsechain] : [mainnet, pulsechain],
   ssr: true,
 });
 

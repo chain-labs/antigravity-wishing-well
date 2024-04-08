@@ -3,7 +3,6 @@ import { useMemo } from "react";
 import { mainnet, pulsechain, pulsechainV4, sepolia } from "viem/chains";
 import { useAccount } from "wagmi";
 import SepoliaAG from "./Sepolia";
-import Pulsechainv4AG from "./Pulsechainv4";
 import MainnetAG from "./Mainnet";
 import PulsechainAG from "./Pulsechain";
 
@@ -19,7 +18,7 @@ const useContract = (): IContract | null => {
       if (account.chain?.id === sepolia.id) {
         return { address: SepoliaAG.address, abi: SepoliaAG.abi };
       } else if (account.chain?.id === pulsechainV4.id)
-        return { address: Pulsechainv4AG.address, abi: Pulsechainv4AG.abi };
+        return { address: PulsechainAG.address, abi: PulsechainAG.abi };
     } else {
       if (account.chain?.id === mainnet.id)
         return { address: MainnetAG.address, abi: MainnetAG.abi };
