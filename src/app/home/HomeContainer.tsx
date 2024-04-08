@@ -19,7 +19,7 @@ import { parseAbiItem } from "viem";
 import { createPublicClient, http } from "viem";
 import axios from "axios";
 import { PROXY_API_ENDPOINT, TIMER } from "@/constants";
-import { getApiNetwork } from "@/utils";
+import { checkCorrectNetwork, getApiNetwork } from "@/utils";
 
 const Timer = dynamic(() => import("./Timer"));
 
@@ -85,7 +85,7 @@ const HomeContainer = () => {
       }
     };
 
-    if (account.address) {
+    if (account.address && checkCorrectNetwork(account.chain?.id)) {
       getTokenIds();
     }
   }, [account.address]);
@@ -115,6 +115,8 @@ const HomeContainer = () => {
     data: registerHash,
     error: registerError,
     writeContract: register,
+    isIdle: registerIdle,
+    isPending: registerPending,
   } = useWriteContract();
 
   const {
@@ -167,6 +169,7 @@ const HomeContainer = () => {
         isSuccess={isSuccess}
         tokenId={tokenId}
         loading={loading}
+        registerIdle={registerIdle || !registerPending}
       />
       {isRegistered && (
         <Timer

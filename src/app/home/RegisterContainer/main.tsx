@@ -1,15 +1,19 @@
 import Button from "@/components/Button";
+import { TEST_NETWORK } from "@/constants";
+import { checkCorrectNetwork } from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FiLoader } from "react-icons/fi";
-import { useAccount } from "wagmi";
+import { mainnet, sepolia } from "viem/chains";
+import { useAccount, useSwitchChain } from "wagmi";
 
 type Props = {
   handleRegister: (args0: React.MouseEvent) => void;
   handleLogin: (args0: React.MouseEvent) => void;
   loading: boolean;
   isRegistered: boolean;
+  registerIdle: boolean;
 };
 
 const Main = ({
@@ -17,8 +21,12 @@ const Main = ({
   handleRegister,
   loading,
   isRegistered,
+  registerIdle,
 }: Props) => {
   const account = useAccount();
+
+  const switchChain = useSwitchChain();
+
   return (
     <div className="min-h-screen w-full lg:w-1/2 pb-24 z-20 px-32 flex items-end">
       <div className="flex flex-col items-center lg:items-start lg:max-w-[700px]">
@@ -36,14 +44,19 @@ const Main = ({
             onClick={
               !loading
                 ? account.isConnected
-                  ? handleRegister
+                  ? checkCorrectNetwork(Number(account.chainId))
+                    ? handleRegister
+                    : () =>
+                        switchChain.switchChain({
+                          chainId: TEST_NETWORK ? sepolia.id : mainnet.id,
+                        })
                   : handleLogin
                 : !account.isConnected
                 ? handleLogin
                 : () => {}
             }
           >
-            {account.address && loading ? (
+            {(account.address && loading) || !registerIdle ? (
               <div className="animate-[spin_2s_ease-out_infinite]">
                 <FiLoader />
               </div>
@@ -58,11 +71,15 @@ const Main = ({
               </div>
             )}
             {account.isConnected
-              ? loading
-                ? "Checking your Registration"
-                : !isRegistered
-                ? "REGISTER NOW"
-                : ""
+              ? checkCorrectNetwork(Number(account.chainId))
+                ? loading
+                  ? "Checking your Registration"
+                  : !isRegistered
+                  ? registerIdle
+                    ? "REGISTER NOW"
+                    : "Registering..."
+                  : ""
+                : "Change Network"
               : "CONNECT WALLET"}
           </Button>
           <Link href="/#value">
