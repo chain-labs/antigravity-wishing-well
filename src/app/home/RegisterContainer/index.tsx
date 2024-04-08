@@ -5,7 +5,6 @@ import { useAccount } from "wagmi";
 import Link from "next/link";
 import Header from "../Header";
 import Registered from "./Registered";
-import { mainnet, pulsechain, pulsechainV4, sepolia } from "viem/chains";
 import Button from "@/components/Button";
 import IMAGEKIT from "../images";
 import toast from "react-hot-toast";

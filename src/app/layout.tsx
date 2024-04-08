@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { getDefaultConfig } from "@rainbow-me/rainbowkit";
-import { mainnet, pulsechain, pulsechainV4, sepolia } from "viem/chains";
 
 import "@rainbow-me/rainbowkit/styles.css";
 import RainbowKitContext from "@/components/RainbowKit";

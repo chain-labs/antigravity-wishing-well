@@ -3,7 +3,7 @@
 import { TEST_NETWORK } from "@/constants";
 import { RainbowKitProvider, getDefaultConfig } from "@rainbow-me/rainbowkit";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { mainnet, pulsechain, pulsechainV4, sepolia } from "viem/chains";
+import { mainnet, pulsechain, sepolia } from "viem/chains";
 import { WagmiProvider } from "wagmi";
 
 const config = getDefaultConfig({

@@ -1,6 +1,6 @@
 import { TEST_NETWORK } from "@/constants";
 import { useMemo } from "react";
-import { mainnet, pulsechain, pulsechainV4, sepolia } from "viem/chains";
+import { mainnet, pulsechain, sepolia } from "viem/chains";
 import { useAccount } from "wagmi";
 import SepoliaAG from "./Sepolia";
 import MainnetAG from "./Mainnet";
@@ -17,7 +17,7 @@ const useContract = (): IContract | null => {
     if (TEST_NETWORK) {
       if (account.chain?.id === sepolia.id) {
         return { address: SepoliaAG.address, abi: SepoliaAG.abi };
-      } else if (account.chain?.id === pulsechainV4.id)
+      } else if (account.chain?.id === pulsechain.id)
         return { address: PulsechainAG.address, abi: PulsechainAG.abi };
     } else {
       if (account.chain?.id === mainnet.id)

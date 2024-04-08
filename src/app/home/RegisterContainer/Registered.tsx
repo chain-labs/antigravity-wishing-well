@@ -2,7 +2,6 @@ import Button from "@/components/Button";
 import Image from "next/image";
 import React from "react";
 import toast from "react-hot-toast";
-import { mainnet, pulsechain, pulsechainV4, sepolia } from "viem/chains";
 import { useAccount } from "wagmi";
 
 const Registered = () => {

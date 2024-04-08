@@ -5,7 +5,7 @@ import HomeContainer from "./home/HomeContainer";
 import "@rainbow-me/rainbowkit/styles.css";
 import { useEffect } from "react";
 import { TEST_NETWORK } from "@/constants";
-import { mainnet, pulsechain, pulsechainV4, sepolia } from "viem/chains";
+import { mainnet, pulsechain, sepolia } from "viem/chains";
 
 export default function Home() {
   const account = useAccount();
@@ -16,7 +16,7 @@ export default function Home() {
       const chainId = account.chainId;
 
       if (TEST_NETWORK) {
-        if (chainId !== sepolia.id && chainId !== pulsechainV4.id) {
+        if (chainId !== sepolia.id && chainId !== pulsechain.id) {
           switchChain.switchChain({ chainId: sepolia.id });
         }
       } else {
