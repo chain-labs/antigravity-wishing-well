@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FiLoader } from "react-icons/fi";
-import { mainnet, sepolia } from "viem/chains";
+import { pulsechain, baseSepolia } from "viem/chains";
 import { useAccount, useSwitchChain } from "wagmi";
 
 type Props = {
@@ -52,7 +52,7 @@ const Main = ({
                     ? handleRegister
                     : () =>
                         switchChain.switchChain({
-                          chainId: TEST_NETWORK ? sepolia.id : mainnet.id,
+                          chainId: TEST_NETWORK ? baseSepolia.id : pulsechain.id,
                         })
                   : handleLogin
                 : !account.isConnected
