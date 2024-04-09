@@ -31,3 +31,11 @@ export const checkCorrectNetwork = (chainId: number | undefined) => {
     }
   }
 };
+
+export const condenseAddress = (address: string) => {
+  const condensed = `${address.slice(0, 6)}...${address.slice(
+    address.length - 2
+  )}`;
+
+  return condensed;
+};

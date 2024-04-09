@@ -23,11 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="hidden md:block">
+        <div className="hidden sm:block">
           <Toaster />
           <RainbowKitContext>{children}</RainbowKitContext>
         </div>
-        <div className="md:hidden block">
+        <div className="sm:hidden block">
           <MobileView />
         </div>
       </body>

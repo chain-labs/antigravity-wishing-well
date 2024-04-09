@@ -1,18 +1,22 @@
 import Image from "next/image";
 import IMAGEKIT from "./images";
+import { TELEGRAM, TWITTER, YOUTUBE } from "@/constants";
 
 const socials = [
   {
     icon: "telegram.svg",
     alt: "telegram",
+    url: TELEGRAM,
   },
   {
     icon: "twitter.svg",
     alt: "twitter",
+    url: TWITTER,
   },
   {
     icon: "youtube.svg",
     alt: "youtube",
+    url: YOUTUBE,
   },
 ];
 const Team = () => {
@@ -36,23 +40,24 @@ const Team = () => {
               />
             </div>
             <p className="font-sans font-extrabold text-2xl mt-4 text-agwhite">
-              @HEXrayVision
+              @PulserayVision
             </p>
             <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-1 my-4 ml-4">
               <div className="bg-agblack flex items-center px-6 py-4">
-                {}
                 {socials.map((item, i) => {
                   return (
-                    <div
-                      key={item.alt}
-                      className={`h-[32px] w-[32px] ${i !== 2 && "mr-10"}`}
-                    >
-                      <img
-                        src={item.icon}
-                        alt={item.alt}
-                        className="h-full w-full "
-                      />
-                    </div>
+                    <a href={item.url} target="_blank" rel="noreferrer">
+                      <div
+                        key={item.alt}
+                        className={`h-[32px] w-[32px] ${i !== 2 && "mr-10"}`}
+                      >
+                        <img
+                          src={item.icon}
+                          alt={item.alt}
+                          className="h-full w-full "
+                        />
+                      </div>
+                    </a>
                   );
                 })}
               </div>

@@ -18,6 +18,8 @@ interface RegisterProps {
   tokenId: BigInt;
   loading: boolean;
   registerIdle: boolean;
+  error: boolean;
+  setError: (args0: boolean) => void;
 }
 
 const Register = ({
@@ -27,6 +29,8 @@ const Register = ({
   tokenId,
   loading,
   registerIdle,
+  error,
+  setError,
 }: RegisterProps) => {
   const { openConnectModal } = useConnectModal();
   const account = useAccount();
@@ -61,6 +65,8 @@ const Register = ({
           loading={loading}
           isRegistered={isRegistered}
           registerIdle={registerIdle}
+          error={error}
+          setError={setError}
         />
       ) : isSuccess ? (
         <Success tokenId={tokenId} />
