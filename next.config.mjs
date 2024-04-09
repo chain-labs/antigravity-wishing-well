@@ -21,7 +21,7 @@ const nextConfig = {
 				destination: `${TEST_API_ENDPOINT}/api/:path*`,
             },
             {
-				source: '/test/api/:path*',
+				source: '/api/:path*',
 				destination: `${API_ENDPOINT}/api/:path*`,
 			},
 		]

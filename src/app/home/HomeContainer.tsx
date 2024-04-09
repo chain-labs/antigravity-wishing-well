@@ -9,6 +9,7 @@ import Register from "./RegisterContainer";
 import dynamic from "next/dynamic";
 import {
   useAccount,
+  usePublicClient,
   useReadContract,
   useTransactionReceipt,
   useWriteContract,
@@ -31,16 +32,23 @@ const HomeContainer = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const account = useAccount();
   const AntiGravity = useContract();
+  const publicClient = usePublicClient();
 
   useEffect(() => {
     const getTokenIds = async () => {
+      if(publicClient === undefined) return;
       setLoading(true);
       setIsRegistered(false);
       setIsSuccess(false);
-      const publicClient = createPublicClient({
-        chain: account.chain,
-        transport: http(),
-      });
+      // note: using the public client which is already set to ensure another conditional logic is not needed to set the http transport.
+      // const publicClient =  createPublicClient({
+      //   chain: account.chain,
+      //   transport: http("https://base-sepolia.g.alchemy.com/v2/Ck1jBlebtn6A92-eXG1tnievZs0kfS9F"),
+      // });
+
+      const fromBlockNumber = account.chainId ? process.env.NEXT_PUBLIC_BASE_FROM_BLOCK_NUMBER : process.env.NEXT_PUBLIC_PLS_FROM_BLOCK_NUMBER;
+
+      if(fromBlockNumber === undefined) throw Error("Please set the enviornment variable for Block Number");
 
       const filter = await publicClient.createEventFilter({
         address: AntiGravity?.address,
@@ -50,7 +58,7 @@ const HomeContainer = () => {
         args: {
           to: account.address,
         },
-        fromBlock: BigInt(5610902),
+        fromBlock: BigInt(fromBlockNumber),
         toBlock: "latest",
       });
 
