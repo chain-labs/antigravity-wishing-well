@@ -20,6 +20,7 @@ interface RegisterProps {
   registerIdle: boolean;
   error: boolean;
   setError: (args0: boolean) => void;
+  setPoll: (args0: boolean) => void;
 }
 
 const Register = ({
@@ -31,6 +32,7 @@ const Register = ({
   registerIdle,
   error,
   setError,
+  setPoll,
 }: RegisterProps) => {
   const { openConnectModal } = useConnectModal();
   const account = useAccount();
@@ -71,7 +73,7 @@ const Register = ({
       ) : isSuccess ? (
         <Success tokenId={tokenId} />
       ) : (
-        <Registered />
+        <Registered setPoll={setPoll} />
       )}
     </div>
   );

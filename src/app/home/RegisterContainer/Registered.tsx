@@ -4,10 +4,15 @@ import React from "react";
 import toast from "react-hot-toast";
 import { useAccount } from "wagmi";
 
-const Registered = () => {
+interface Props {
+  setPoll: (args0: boolean) => void;
+}
+
+const Registered = ({ setPoll }: Props) => {
   const account = useAccount();
 
   const handleCopy = (copyText: string) => {
+    setPoll(true);
     toast.success("Copied to Clipboard", { duration: 4000 });
     navigator.clipboard.writeText(copyText);
   };
@@ -19,8 +24,7 @@ const Registered = () => {
         <br /> Registered!
       </p>
       <p className="font-general-sans text-xl font- mt-4 text-agwhite">
-        Contribute now on Ethereum or Pulse chain to either of our addresses
-        below.
+        Contribute now on Base or Pulse chain to either of our addresses below.
       </p>
       <div className="flex lg:flex-row mt-3 lg:mt-5">
         <Button onClick={() => handleCopy("wishwell.eth")}>
@@ -47,6 +51,10 @@ const Registered = () => {
           <Image src="/share.svg" alt="share" width={16} height={16} />
         </Button>
       </div>
+      <p className="font-sans text-sm font- mt-4 text-agwhite">
+        After contributing, please wait for few minutes before we can display
+        the NFT
+      </p>
       <p className="font-sans text-xl font- mt-12 text-agwhite">
         Here are some tokens that we encourage for contribution:
       </p>

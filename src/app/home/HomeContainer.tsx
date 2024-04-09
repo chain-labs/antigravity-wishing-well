@@ -31,73 +31,99 @@ const HomeContainer = () => {
   const [tokenId, setTokenId] = useState<BigInt>(BigInt(0));
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
+  const [poll, setPoll] = useState<boolean>(false);
   const account = useAccount();
   const AntiGravity = useContract();
   const publicClient = usePublicClient();
 
-  useEffect(() => {
-    const getTokenIds = async () => {
-      if(publicClient === undefined) return;
+  const getTokenIds = async () => {
+    console.log({ publicClient });
+
+    if (publicClient === undefined) return;
+    if (!poll) {
       setLoading(true);
       setIsRegistered(false);
       setIsSuccess(false);
-      // note: using the public client which is already set to ensure another conditional logic is not needed to set the http transport.
-      // const publicClient =  createPublicClient({
-      //   chain: account.chain,
-      //   transport: http("https://base-sepolia.g.alchemy.com/v2/Ck1jBlebtn6A92-eXG1tnievZs0kfS9F"),
-      // });
+    }
+    // note: using the public client which is already set to ensure another conditional logic is not needed to set the http transport.
+    // const publicClient =  createPublicClient({
+    //   chain: account.chain,
+    //   transport: http("https://base-sepolia.g.alchemy.com/v2/Ck1jBlebtn6A92-eXG1tnievZs0kfS9F"),
+    // });
 
-      const fromBlockNumber = account.chainId ? process.env.NEXT_PUBLIC_BASE_FROM_BLOCK_NUMBER : process.env.NEXT_PUBLIC_PLS_FROM_BLOCK_NUMBER;
+    const fromBlockNumber = account.chainId
+      ? process.env.NEXT_PUBLIC_BASE_FROM_BLOCK_NUMBER
+      : process.env.NEXT_PUBLIC_PLS_FROM_BLOCK_NUMBER;
 
-      if(fromBlockNumber === undefined) throw Error("Please set the enviornment variable for Block Number");
+    if (fromBlockNumber === undefined)
+      throw Error("Please set the enviornment variable for Block Number");
 
-      const filter = await publicClient.createEventFilter({
-        address: AntiGravity?.address,
-        event: parseAbiItem(
-          "event Transfer(address indexed from, address indexed to, uint256 indexed id)"
-        ),
-        args: {
-          to: account.address,
-        },
-        fromBlock: BigInt(fromBlockNumber),
-        toBlock: "latest",
-      });
+    const filter = await publicClient.createEventFilter({
+      address: AntiGravity?.address,
+      event: parseAbiItem(
+        "event Transfer(address indexed from, address indexed to, uint256 indexed id)"
+      ),
+      args: {
+        to: account.address,
+      },
+      fromBlock: BigInt(fromBlockNumber),
+      toBlock: "latest",
+    });
 
-      const logs = await publicClient.getFilterLogs({ filter });
-      const tokenId = logs[0]?.args.id;
-      setTokenId(tokenId ?? BigInt(0));
-      if (tokenId) {
-        try {
-          const contributionData = await axios.get(
-            `${PROXY_API_ENDPOINT}contribution/${tokenId}?blockchain=${getApiNetwork(
-              Number(account?.chainId)
-            )}`
-          );
-          const contribution = parseFloat(contributionData.data.data.value);
-          console.log({ contribution });
+    const logs = await publicClient.getFilterLogs({ filter });
+    const tokenId = logs[0]?.args.id;
+    setTokenId(tokenId ?? BigInt(0));
+    if (tokenId) {
+      try {
+        const contributionData = await axios.get(
+          `${PROXY_API_ENDPOINT}contribution/${tokenId}?blockchain=${getApiNetwork(
+            Number(account?.chainId)
+          )}`
+        );
+        const contribution = parseFloat(contributionData.data.data.value);
+        console.log({ contribution });
 
-          setLoading(false);
-          if (contribution > 0) {
-            setIsSuccess(true);
-          } else {
-            setIsRegistered(true);
-          }
-        } catch (err) {
-          toast.error("Something went wrong. Try Again!", { duration: 3000 });
-          setError(true);
-          console.error({ err });
-        }
-      } else {
         setLoading(false);
-        setIsSuccess(false);
-        setIsRegistered(false);
+        if (contribution > 0) {
+          setIsSuccess(true);
+        } else {
+          setIsRegistered(true);
+        }
+      } catch (err) {
+        toast.error("Something went wrong. Try Again!", { duration: 3000 });
+        setError(true);
+        console.error({ err });
       }
-    };
+    } else {
+      setLoading(false);
+      setIsSuccess(false);
+      setIsRegistered(false);
+    }
+  };
 
+  useEffect(() => {
     if (account.address && checkCorrectNetwork(account.chain?.id) && !error) {
       getTokenIds();
     }
   }, [account.address, error]);
+
+  useEffect(() => {
+    let timer: any;
+    if (poll) {
+      getTokenIds();
+
+      timer = setInterval(() => {
+        getTokenIds();
+        console.log("calling function in interval");
+      }, 30000);
+    }
+
+    return () => {
+      if (timer) {
+        clearInterval(timer);
+      }
+    };
+  }, [poll]);
 
   const balance = useReadContract({
     ...AntiGravity,
@@ -181,6 +207,7 @@ const HomeContainer = () => {
         registerIdle={registerIdle || !registerPending}
         error={error}
         setError={setError}
+        setPoll={setPoll}
       />
       {isRegistered && (
         <Timer
