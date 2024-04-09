@@ -1,4 +1,8 @@
+import BaseAG from "@/abi/Base";
+import BaseSepoliaAG from "@/abi/BaseSepolia";
+import PulsechainAG from "@/abi/Pulsechain";
 import Button from "@/components/Button";
+import { TEST_NETWORK } from "@/constants";
 import Image from "next/image";
 import React from "react";
 import toast from "react-hot-toast";
@@ -27,7 +31,11 @@ const Registered = ({ setPoll }: Props) => {
         Contribute now on Base or Pulse chain to either of our addresses below.
       </p>
       <div className="flex lg:flex-row mt-3 lg:mt-5">
-        <Button onClick={() => handleCopy("wishwell.eth")}>
+        <Button
+          onClick={() =>
+            handleCopy(TEST_NETWORK ? BaseSepoliaAG.address : BaseAG.address)
+          }
+        >
           <Image
             src="/eth-btn.svg"
             alt="eth-btn"
@@ -39,7 +47,7 @@ const Registered = ({ setPoll }: Props) => {
           <Image src="/share.svg" alt="share" width={16} height={16} />
         </Button>
 
-        <Button onClick={() => handleCopy("wishwell.pls")}>
+        <Button onClick={() => handleCopy(PulsechainAG.address)}>
           <Image
             src="/pls.svg"
             alt="pls-btn"
