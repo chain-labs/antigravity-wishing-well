@@ -5,6 +5,7 @@ import "./globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import RainbowKitContext from "@/components/RainbowKit";
 import { Toaster } from "react-hot-toast";
+import MobileView from "./home/MobileView";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,8 +23,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Toaster />
-        <RainbowKitContext>{children}</RainbowKitContext>
+        <div className="hidden md:block">
+          <Toaster />
+          <RainbowKitContext>{children}</RainbowKitContext>
+        </div>
+        <div className="md:hidden block">
+          <MobileView />
+        </div>
       </body>
     </html>
   );
