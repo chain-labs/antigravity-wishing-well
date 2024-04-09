@@ -81,7 +81,6 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
             className="self-start mt-8"
           >
             <div className="relative h-6 w-6">
-              a
               <Image
                 src={account.isConnected ? "/pen.svg" : "/wallet.svg"}
                 className="w-6 h-6 lg:w-8 lg:h-8 mr-2"
