@@ -10,3 +10,12 @@ export const API_ENDPOINT = TEST_NETWORK
   : process.env.NEXT_PUBLIC_BACKEND;
 
 export const TIMER = process.env.NEXT_PUBLIC_TIMER;
+
+export const TELEGRAM = "https://t.me/antigravitysaga";
+
+export const TWITTER = "https://twitter.com/HexrayVision";
+
+export const YOUTUBE =
+  "https://www.youtube.com/channel/UCfySj3nKqjM44iD58oB8Hyw";
+
+  export const HOW_TO = process.env.NEXT_PUBLIC_HOW_TO_URL

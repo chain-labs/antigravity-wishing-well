@@ -30,6 +30,7 @@ const HomeContainer = () => {
   const [payableAmount, setPayableAmount] = useState(0);
   const [tokenId, setTokenId] = useState<BigInt>(BigInt(0));
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
   const account = useAccount();
   const AntiGravity = useContract();
   const publicClient = usePublicClient();
@@ -83,7 +84,7 @@ const HomeContainer = () => {
           }
         } catch (err) {
           toast.error("Something went wrong. Try Again!", { duration: 3000 });
-
+          setError(true);
           console.error({ err });
         }
       } else {
@@ -93,10 +94,10 @@ const HomeContainer = () => {
       }
     };
 
-    if (account.address && checkCorrectNetwork(account.chain?.id)) {
+    if (account.address && checkCorrectNetwork(account.chain?.id) && !error) {
       getTokenIds();
     }
-  }, [account.address]);
+  }, [account.address, error]);
 
   const balance = useReadContract({
     ...AntiGravity,
@@ -137,7 +138,7 @@ const HomeContainer = () => {
 
   const handleRegister = async () => {
     toast.loading("Getting you registered!", {
-      duration: 5000,
+      duration: 10000,
     });
 
     await register({
@@ -170,7 +171,7 @@ const HomeContainer = () => {
   }, [registerFetched]);
 
   return (
-    <div className="flex flex-col min-h-screen max-w-screen overflow-y-hidden border border-white">
+    <div className="flex flex-col min-h-screen max-w-screen overflow-hidden">
       <Register
         isRegistered={isRegistered}
         handleRegister={handleRegister}
@@ -178,6 +179,8 @@ const HomeContainer = () => {
         tokenId={tokenId}
         loading={loading}
         registerIdle={registerIdle || !registerPending}
+        error={error}
+        setError={setError}
       />
       {isRegistered && (
         <Timer

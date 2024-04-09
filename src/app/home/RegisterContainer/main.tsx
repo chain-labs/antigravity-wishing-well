@@ -1,5 +1,5 @@
 import Button from "@/components/Button";
-import { TEST_NETWORK } from "@/constants";
+import { HOW_TO, TEST_NETWORK } from "@/constants";
 import { checkCorrectNetwork } from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,6 +14,8 @@ type Props = {
   loading: boolean;
   isRegistered: boolean;
   registerIdle: boolean;
+  error: boolean;
+  setError: (args0: boolean) => void;
 };
 
 const Main = ({
@@ -22,6 +24,8 @@ const Main = ({
   loading,
   isRegistered,
   registerIdle,
+  error,
+  setError,
 }: Props) => {
   const account = useAccount();
 
@@ -53,10 +57,14 @@ const Main = ({
                   : handleLogin
                 : !account.isConnected
                 ? handleLogin
+                : error
+                ? () => {
+                    setError(false);
+                  }
                 : () => {}
             }
           >
-            {(account.address && loading) || !registerIdle ? (
+            {(account.address && loading && !error) || !registerIdle ? (
               <div className="animate-[spin_2s_ease-out_infinite]">
                 <FiLoader />
               </div>
@@ -73,7 +81,9 @@ const Main = ({
             {account.isConnected
               ? checkCorrectNetwork(Number(account.chainId))
                 ? loading
-                  ? "Checking your Registration"
+                  ? !error
+                    ? "Checking your Registration"
+                    : "Recheck"
                   : !isRegistered
                   ? registerIdle
                     ? "REGISTER NOW"
@@ -82,8 +92,8 @@ const Main = ({
                 : "Change Network"
               : "CONNECT WALLET"}
           </Button>
-          <Link href="/#value">
-            <Button secondary>
+          <a href={HOW_TO} target="_blank">
+            <Button secondary className="uppercase">
               <div className="relative h-6 w-6">
                 <Image
                   src="/info.svg"
@@ -92,18 +102,10 @@ const Main = ({
                   fill
                 />
               </div>
-              LEARN MORE
+              How to contribute
             </Button>
-          </Link>
+          </a>
         </div>
-
-        <p
-          className={`font-sane font-normal text-sm text-agwhite lg:text-xl mt-2 lg:mt-4 text-center lg:text-left ${
-            account.isConnected ? "visible" : "invisible"
-          }`}
-        >
-          {`Connected: ${account.address}`}
-        </p>
       </div>
     </div>
   );
