@@ -18,4 +18,6 @@ export const TWITTER = "https://twitter.com/HexrayVision";
 export const YOUTUBE =
   "https://www.youtube.com/channel/UCfySj3nKqjM44iD58oB8Hyw";
 
-  export const HOW_TO = process.env.NEXT_PUBLIC_HOW_TO_URL
+export const HOW_TO = process.env.NEXT_PUBLIC_HOW_TO_URL;
+
+export const POLL_TIME = parseInt(`${process.env.NEXT_PUBLIC_POLL_TIME}`);

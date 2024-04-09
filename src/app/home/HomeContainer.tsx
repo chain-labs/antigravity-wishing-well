@@ -19,7 +19,7 @@ import useContract from "@/abi";
 import { parseAbiItem } from "viem";
 import { createPublicClient, http } from "viem";
 import axios from "axios";
-import { PROXY_API_ENDPOINT, TIMER } from "@/constants";
+import { POLL_TIME, PROXY_API_ENDPOINT, TIMER } from "@/constants";
 import { checkCorrectNetwork, getApiNetwork } from "@/utils";
 
 const Timer = dynamic(() => import("./Timer"));
@@ -36,7 +36,7 @@ const HomeContainer = () => {
   const AntiGravity = useContract();
   const publicClient = usePublicClient();
 
-  const getTokenIds = async () => {
+  const getTokenIds = async (poll?: boolean) => {
     console.log({ publicClient });
 
     if (publicClient === undefined) return;
@@ -103,19 +103,18 @@ const HomeContainer = () => {
 
   useEffect(() => {
     if (account.address && checkCorrectNetwork(account.chain?.id) && !error) {
-      getTokenIds();
+      getTokenIds(false);
     }
   }, [account.address, error]);
 
   useEffect(() => {
     let timer: any;
     if (poll) {
-      getTokenIds();
+      getTokenIds(true);
 
       timer = setInterval(() => {
-        getTokenIds();
-        console.log("calling function in interval");
-      }, 30000);
+        getTokenIds(true);
+      }, POLL_TIME ?? 30000);
     }
 
     return () => {
