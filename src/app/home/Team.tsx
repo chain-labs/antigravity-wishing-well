@@ -5,14 +5,17 @@ const socials = [
   {
     icon: "telegram.svg",
     alt: "telegram",
+    link: "https://t.me/antigravitysaga"
   },
   {
     icon: "twitter.svg",
     alt: "twitter",
+    link: "https://x.com/HexrayVision"
   },
   {
     icon: "youtube.svg",
     alt: "youtube",
+    link: "https://www.youtube.com/channel/UCfySj3nKqjM44iD58oB8Hyw"
   },
 ];
 const Team = () => {
@@ -36,7 +39,7 @@ const Team = () => {
               />
             </div>
             <p className="font-sans font-extrabold text-2xl mt-4 text-agwhite">
-              @HEXrayVision
+              @PulseRayVision
             </p>
             <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-1 my-4 ml-4">
               <div className="bg-agblack flex items-center px-6 py-4">
@@ -47,11 +50,18 @@ const Team = () => {
                       key={item.alt}
                       className={`h-[32px] w-[32px] ${i !== 2 && "mr-10"}`}
                     >
-                      <img
-                        src={item.icon}
-                        alt={item.alt}
-                        className="h-full w-full "
-                      />
+                      <a
+                        href={item.link} // Assuming `item.link` contains the URL to the social media page
+                        target="_blank" // Opens the link in a new tab
+                        rel="noopener noreferrer" // Security and privacy attribute
+                        className="h-full w-full block" // Ensures the anchor tag occupies the full height and width of its parent
+                      >
+                        <img
+                          src={item.icon}
+                          alt={item.alt}
+                          className="h-full w-full "
+                        />
+                      </a>
                     </div>
                   );
                 })}
