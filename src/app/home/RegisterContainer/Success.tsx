@@ -55,20 +55,7 @@ const Success = ({ tokenId }: Props) => {
             </div>
           )}
         </div>
-      </div>
-      <div className="bg-agblack z-10 flex-1 overflow-hidden">
-        <div className="relative w-screen flex gap-x-16 px-48 pt-56 pb-32 justify-center">
-          <div className="absolute bottom-0 z-1 mix-blend-hard-light">
-            <div className="relative w-screen h-[600px]">
-              <Image
-                src={IMAGEKIT.STARS_BG}
-                alt="feature-bg"
-                fill
-                className="object-cover"
-              />
-            </div>
-            d
-          </div>
+        <div className="flex flex-row ">
           <div className="flex flex-col gap-y-4 flex-1 z-10">
             <h1 className="font-sans text-agyellow text-5xl font-black">
               Get 10x Points Now
@@ -103,9 +90,9 @@ const Success = ({ tokenId }: Props) => {
                 <Image src="/share.svg" alt="share" width={16} height={16} />
               </Button>
             </div>
-            I
+
           </div>
-          <div className="flex flex-col gap-y-8 z-10">
+          <div className="flex flex-col gap-y-8 z-10 ml-16">
             <Image src="/networks.svg" alt="networks" height="48" width="240" />
             <p className="font-general-sans text-agwhite text-xl">
               As you contribute more, your{" "}
@@ -123,6 +110,7 @@ const Success = ({ tokenId }: Props) => {
           </div>
         </div>
       </div>
+
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import IMAGEKIT from "./images";
+import { CSSProperties } from "react";
 import { TELEGRAM, TWITTER, YOUTUBE } from "@/constants";
 
 const socials = [
@@ -42,7 +43,22 @@ const Team = () => {
             <p className="font-sans font-extrabold text-2xl mt-4 text-agwhite">
               @PulseRayVision
             </p>
-            <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-1 my-4 ml-4">
+            <div
+              style={
+                {
+                  "--background": "0 0 0", // Black background
+                  "--highlight": "255 255 255", // White text color
+                  "--bg-color":
+                    "linear-gradient(rgb(var(--background)), rgb(var(--background)))",
+                  "--border-color": `linear-gradient(145deg,
+    #3C00DC 0%,
+    #FF5001 100%
+  )
+  `,
+                } as CSSProperties
+              }
+              className="rounded-xl border border-transparent p-1 text-center text-white [background:padding-box_var(--bg-color),border-box_var(--border-color)]"
+            >
               <div className="bg-agblack flex items-center px-6 py-4">
                 {socials.map((item, i) => {
                   return (
