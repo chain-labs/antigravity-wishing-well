@@ -80,7 +80,7 @@ const Success = ({ tokenId }: Props) => {
         <div className="relative w-full flex px-12 py-12 justify-between">
           <div className="flex flex-col gap-y-4 flex-1 z-10">
             <h1 className="font-sans text-agyellow text-5xl font-black">
-              Get 10x Points Now
+              Get {process.env.NEXT_PUBLIC_MULTIPLIER}x Points Now
             </h1>
             <div className="flex flex-col gap-y-6">
               <Button
