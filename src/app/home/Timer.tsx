@@ -63,41 +63,43 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
   return (
     <div className="bg-agblack z-10">
       <div
-        className={`flex flex-col px-28 py-16 bg-cover relative`}
+        className={`flex flex-col px-10 py-16 bg-cover relative items-center`}
         style={{ background: `url(${IMAGEKIT.GRID})` }}
       >
-        <p className="text-5xl text-agwhite font-black  font-sans capitalize">
-          Phase 1 for contributing ends in...
-        </p>
-        <div className="flex mt-8 gap-x-4">
-          <TimerBox value={timeLeft?.days} text="days" />
-          <TimerBox value={timeLeft?.hours} text="hours" />
-          <TimerBox value={timeLeft?.minutes} text="minutes" />
-          <TimerBox value={timeLeft?.seconds} text="seconds" />
-        </div>
-        {!isRegistered && (
-          <Button
-            onClick={account.isConnected ? handleRegister : handleLogin}
-            className="self-start mt-8"
-          >
-            <div className="relative h-6 w-6">
-              <Image
-                src={account.isConnected ? "/pen.svg" : "/wallet.svg"}
-                className="w-6 h-6 lg:w-8 lg:h-8 mr-2"
-                alt="wallet_icon"
-                fill
-              />
+        <div className="max-w-[1280px] w-3/4">
+          <p className="text-5xl text-agwhite font-black font-sans capitalize">
+           Don't miss out on getting points multiplier...
+          </p>
+          <div className="flex mt-8 gap-x-4">
+            <TimerBox value={timeLeft?.days} text="days" />
+            <TimerBox value={timeLeft?.hours} text="hours" />
+            <TimerBox value={timeLeft?.minutes} text="minutes" />
+            <TimerBox value={timeLeft?.seconds} text="seconds" />
+          </div>
+          {!isRegistered && (
+            <Button
+              onClick={account.isConnected ? handleRegister : handleLogin}
+              className="self-start mt-8"
+            >
+              <div className="relative h-6 w-6">
+                <Image
+                  src={account.isConnected ? "/pen.svg" : "/wallet.svg"}
+                  className="w-6 h-6 lg:w-8 lg:h-8 mr-2"
+                  alt="wallet_icon"
+                  fill
+                />
+              </div>
+              {account.isConnected
+                ? !isRegistered
+                  ? "REGISTER NOW"
+                  : ""
+                : "CONNECT WALLET"}
+            </Button>
+          )}
+          <div className="absolute right-5 top-0">
+            <div className="relative h-[460px] w-[460px]">
+              <Image src={IMAGEKIT.SHIP} alt="timer-ship" fill />
             </div>
-            {account.isConnected
-              ? !isRegistered
-                ? "REGISTER NOW"
-                : ""
-              : "CONNECT WALLET"}
-          </Button>
-        )}
-        <div className="absolute right-20 top-0">
-          <div className="relative h-[460px] w-[460px]">
-            <Image src={IMAGEKIT.SHIP} alt="timer-ship" fill />
           </div>
         </div>
       </div>

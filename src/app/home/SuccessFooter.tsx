@@ -41,7 +41,7 @@ const SuccessFooter = ({ isSuccess }: SuccessFooterProps) => {
           <div className="flex justify-between">
             <div className="flex flex-col">
               <p className="font-black font-sans text-5xl text-agyellow mb-2 text-nowrap">
-                Get 10x Points Now!
+                Get {process.env.NEXT_PUBLIC_MULTIPLIER}x Points Now!
               </p>
               <button className="flex items-center justify-center font-sans font-extrabold rounded-lg bg-blue px-5 py-2 lg:px-6 lg:py-4 mb-2 lg:mr-4">
                 <p className="uppercase">wishwell.eth</p>{" "}
