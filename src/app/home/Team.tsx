@@ -1,20 +1,32 @@
 import Image from "next/image";
 import IMAGEKIT from "./images";
+import { TELEGRAM, TWITTER, TWITTER_HEXIEST, YOUTUBE } from "@/constants";
 
 const socials = [
   {
     icon: "telegram.svg",
     alt: "telegram",
+    url: TELEGRAM,
   },
   {
     icon: "twitter.svg",
     alt: "twitter",
+    url: TWITTER,
   },
   {
     icon: "youtube.svg",
     alt: "youtube",
+    url: YOUTUBE,
   },
 ];
+
+const TEAM_2_SOCIALS = [
+  {
+    icon: "twitter.svg",
+    alt: "twitter",
+    url: TWITTER_HEXIEST,
+  }
+]
 const Team = () => {
   return (
     <div className="bg-agblack z-10">
@@ -27,35 +39,73 @@ const Team = () => {
             <p className="text-[64px] font-black text-agwhite font-sans capitalize">
               Who’s behind it all?
             </p>
+            <div className="flex items-center justify-around flex-row">
+              <div className="flex items-center justify-around flex-col mr-10">
+              <div className="relative h-[145px] w-[145px] mt-10">
+                <Image
+                  src="/team_admin.svg"
+                  alt="team"
+                  className="h-full w-full object-cover"
+                  fill
+                />
+              </div>
+              <p className="font-sans font-extrabold text-2xl mt-4 text-agwhite">
+                @PulseRayVision
+              </p>
+              <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-0.5 my-4 ml-4 overflow-hidden">
+                <div className="bg-agblack flex items-center px-6 py-4 rounded-lg">
+                  {socials.map((item, i) => {
+                    return (
+                      <a href={item.url} target="_blank" rel="noreferrer">
+                        <div
+                          key={item.alt}
+                          className={`h-[32px] w-[32px] ${i !== 2 && "mr-10"}`}
+                        >
+                          <img
+                            src={item.icon}
+                            alt={item.alt}
+                            className="h-full w-full "
+                          />
+                        </div>
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center justify-around flex-col ml-10">
             <div className="relative h-[145px] w-[145px] mt-10">
               <Image
-                src="/team_admin.svg"
+                src="/team_hexistman.svg"
                 alt="team"
                 className="h-full w-full object-cover"
                 fill
               />
             </div>
             <p className="font-sans font-extrabold text-2xl mt-4 text-agwhite">
-              @HEXrayVision
+              @TheHEXiestMan
             </p>
-            <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-1 my-4 ml-4">
-              <div className="bg-agblack flex items-center px-6 py-4">
-                {}
-                {socials.map((item, i) => {
+            <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-0.5 my-4 ml-4 overflow-hidden">
+              <div className="bg-agblack flex items-center px-6 py-4 rounded-lg">
+                {TEAM_2_SOCIALS.map((item, i) => {
                   return (
-                    <div
-                      key={item.alt}
-                      className={`h-[32px] w-[32px] ${i !== 2 && "mr-10"}`}
-                    >
-                      <img
-                        src={item.icon}
-                        alt={item.alt}
-                        className="h-full w-full "
-                      />
-                    </div>
+                    <a href={item.url} target="_blank" rel="noreferrer">
+                      <div
+                        key={item.alt}
+                        className={`h-[32px] w-[32px] ${i !== 2}`}
+                      >
+                        <img
+                          src={item.icon}
+                          alt={item.alt}
+                          className="h-full w-full "
+                        />
+                      </div>
+                    </a>
                   );
                 })}
               </div>
+            </div>
+            </div>
             </div>
           </div>
         </div>

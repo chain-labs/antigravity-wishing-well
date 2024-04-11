@@ -9,6 +9,7 @@ import Register from "./RegisterContainer";
 import dynamic from "next/dynamic";
 import {
   useAccount,
+  usePublicClient,
   useReadContract,
   useTransactionReceipt,
   useWriteContract,
@@ -18,7 +19,7 @@ import useContract from "@/abi";
 import { parseAbiItem } from "viem";
 import { createPublicClient, http } from "viem";
 import axios from "axios";
-import { PROXY_API_ENDPOINT, TIMER } from "@/constants";
+import { POLL_TIME, PROXY_API_ENDPOINT, TIMER } from "@/constants";
 import { checkCorrectNetwork, getApiNetwork } from "@/utils";
 
 const Timer = dynamic(() => import("./Timer"));
@@ -29,66 +30,99 @@ const HomeContainer = () => {
   const [payableAmount, setPayableAmount] = useState(0);
   const [tokenId, setTokenId] = useState<BigInt>(BigInt(0));
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
+  const [poll, setPoll] = useState<boolean>(false);
   const account = useAccount();
   const AntiGravity = useContract();
+  const publicClient = usePublicClient();
 
-  useEffect(() => {
-    const getTokenIds = async () => {
+  const getTokenIds = async (poll?: boolean) => {
+    console.log({ publicClient });
+
+    if (publicClient === undefined) return;
+    if (!poll) {
       setLoading(true);
       setIsRegistered(false);
       setIsSuccess(false);
-      const publicClient = createPublicClient({
-        chain: account.chain,
-        transport: http(),
-      });
+    }
+    // note: using the public client which is already set to ensure another conditional logic is not needed to set the http transport.
+    // const publicClient =  createPublicClient({
+    //   chain: account.chain,
+    //   transport: http("https://base-sepolia.g.alchemy.com/v2/Ck1jBlebtn6A92-eXG1tnievZs0kfS9F"),
+    // });
 
-      const filter = await publicClient.createEventFilter({
-        address: AntiGravity?.address,
-        event: parseAbiItem(
-          "event Transfer(address indexed from, address indexed to, uint256 indexed id)"
-        ),
-        args: {
-          to: account.address,
-        },
-        fromBlock: BigInt(5610902),
-        toBlock: "latest",
-      });
+    const fromBlockNumber = account.chainId
+      ? process.env.NEXT_PUBLIC_BASE_FROM_BLOCK_NUMBER
+      : process.env.NEXT_PUBLIC_PLS_FROM_BLOCK_NUMBER;
 
-      const logs = await publicClient.getFilterLogs({ filter });
-      const tokenId = logs[0]?.args.id;
-      setTokenId(tokenId ?? BigInt(0));
-      if (tokenId) {
-        try {
-          const contributionData = await axios.get(
-            `${PROXY_API_ENDPOINT}contribution/${tokenId}?blockchain=${getApiNetwork(
-              Number(account?.chainId)
-            )}`
-          );
-          const contribution = parseFloat(contributionData.data.data.value);
-          console.log({ contribution });
+    if (fromBlockNumber === undefined)
+      throw Error("Please set the enviornment variable for Block Number");
 
-          setLoading(false);
-          if (contribution > 0) {
-            setIsSuccess(true);
-          } else {
-            setIsRegistered(true);
-          }
-        } catch (err) {
-          toast.error("Something went wrong. Try Again!", { duration: 3000 });
+    const filter = await publicClient.createEventFilter({
+      address: AntiGravity?.address,
+      event: parseAbiItem(
+        "event Transfer(address indexed from, address indexed to, uint256 indexed id)"
+      ),
+      args: {
+        to: account.address,
+      },
+      fromBlock: BigInt(fromBlockNumber),
+      toBlock: "latest",
+    });
 
-          console.error({ err });
-        }
-      } else {
+    const logs = await publicClient.getFilterLogs({ filter });
+    const tokenId = logs[0]?.args.id;
+    setTokenId(tokenId ?? BigInt(0));
+    if (tokenId) {
+      try {
+        const contributionData = await axios.get(
+          `${PROXY_API_ENDPOINT}contribution/${tokenId}?blockchain=${getApiNetwork(
+            Number(account?.chainId)
+          )}`
+        );
+        const contribution = parseFloat(contributionData.data.data.value);
+        console.log({ contribution });
+
         setLoading(false);
-        setIsSuccess(false);
-        setIsRegistered(false);
+        if (contribution > 0) {
+          setIsSuccess(true);
+        } else {
+          setIsRegistered(true);
+        }
+      } catch (err) {
+        toast.error("Something went wrong. Try Again!", { duration: 3000 });
+        setError(true);
+        console.error({ err });
+      }
+    } else {
+      setLoading(false);
+      setIsSuccess(false);
+      setIsRegistered(false);
+    }
+  };
+
+  useEffect(() => {
+    if (account.address && checkCorrectNetwork(account.chain?.id) && !error) {
+      getTokenIds(false);
+    }
+  }, [account.address, error]);
+
+  useEffect(() => {
+    let timer: any;
+    if (poll) {
+      getTokenIds(true);
+
+      timer = setInterval(() => {
+        getTokenIds(true);
+      }, POLL_TIME ?? 30000);
+    }
+
+    return () => {
+      if (timer) {
+        clearInterval(timer);
       }
     };
-
-    if (account.address && checkCorrectNetwork(account.chain?.id)) {
-      getTokenIds();
-    }
-  }, [account.address]);
+  }, [poll]);
 
   const balance = useReadContract({
     ...AntiGravity,
@@ -122,6 +156,7 @@ const HomeContainer = () => {
   const {
     data: registerReceipt,
     isFetching: registerFetching,
+    isLoading: registerLoading,
     isFetched: registerFetched,
   } = useTransactionReceipt({
     hash: registerHash,
@@ -129,7 +164,7 @@ const HomeContainer = () => {
 
   const handleRegister = async () => {
     toast.loading("Getting you registered!", {
-      duration: 5000,
+      duration: 10000,
     });
 
     await register({
@@ -162,36 +197,35 @@ const HomeContainer = () => {
   }, [registerFetched]);
 
   return (
-    <div className="flex flex-col min-h-screen max-w-screen overflow-y-hidden border border-white">
+    <div className="flex flex-col min-h-screen max-w-screen overflow-hidden">
       <Register
         isRegistered={isRegistered}
         handleRegister={handleRegister}
         isSuccess={isSuccess}
         tokenId={tokenId}
         loading={loading}
-        registerIdle={registerIdle || !registerPending}
+        registerIdle={!registerPending && !registerLoading}
+        error={error}
+        setError={setError}
+        setPoll={setPoll}
       />
-      {isRegistered && (
-        <Timer
-          handleRegister={handleRegister}
-          targetTime={`${TIMER}`}
-          isRegistered={isRegistered}
-        />
-      )}
+      <Timer
+        handleRegister={handleRegister}
+        targetTime={`${TIMER}`}
+        isRegistered={isRegistered}
+      />
       <div id="value"></div>
       <Value />
-      {!isRegistered && (
-        <Timer
-          handleRegister={handleRegister}
-          targetTime={`${TIMER}`}
-          isRegistered={isRegistered}
-        />
-      )}
       {/* <SuccessFooter isSuccess={isSuccess} /> */}
       <div id="utilities"></div>
       <Features />
       <div id="team"></div>
       <Team />
+      <Timer
+        handleRegister={handleRegister}
+        targetTime={`${TIMER}`}
+        isRegistered={isRegistered}
+      />
       <StayUpdated />
       <Footer />
     </div>

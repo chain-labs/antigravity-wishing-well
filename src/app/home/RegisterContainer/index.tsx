@@ -18,6 +18,9 @@ interface RegisterProps {
   tokenId: BigInt;
   loading: boolean;
   registerIdle: boolean;
+  error: boolean;
+  setError: (args0: boolean) => void;
+  setPoll: (args0: boolean) => void;
 }
 
 const Register = ({
@@ -27,6 +30,9 @@ const Register = ({
   tokenId,
   loading,
   registerIdle,
+  error,
+  setError,
+  setPoll,
 }: RegisterProps) => {
   const { openConnectModal } = useConnectModal();
   const account = useAccount();
@@ -39,7 +45,7 @@ const Register = ({
   };
 
   return (
-    <div className="flex flex-col relative z-0 min-h-screen">
+    <div className="flex flex-col relative z-0 min-h-screen items-center">
       <div className="fixed top-0 left-0 min-h-screen h-[916px] w-screen">
         <div className="relative min-h-screen h-[916px] w-full">
           <Image
@@ -54,6 +60,7 @@ const Register = ({
       <div className="absolute w-full flex items-center justify-center lg:justify-around py-16">
         <Header />
       </div>
+
       {!isRegistered && !isSuccess ? (
         <Main
           handleLogin={handleLogin}
@@ -61,11 +68,13 @@ const Register = ({
           loading={loading}
           isRegistered={isRegistered}
           registerIdle={registerIdle}
+          error={error}
+          setError={setError}
         />
       ) : isSuccess ? (
         <Success tokenId={tokenId} />
       ) : (
-        <Registered />
+        <Registered setPoll={setPoll} />
       )}
     </div>
   );

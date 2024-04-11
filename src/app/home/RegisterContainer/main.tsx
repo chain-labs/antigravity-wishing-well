@@ -1,11 +1,11 @@
 import Button from "@/components/Button";
-import { TEST_NETWORK } from "@/constants";
+import { HOW_TO, TEST_NETWORK } from "@/constants";
 import { checkCorrectNetwork } from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FiLoader } from "react-icons/fi";
-import { mainnet, sepolia } from "viem/chains";
+import { pulsechain, baseSepolia } from "viem/chains";
 import { useAccount, useSwitchChain } from "wagmi";
 
 type Props = {
@@ -14,6 +14,8 @@ type Props = {
   loading: boolean;
   isRegistered: boolean;
   registerIdle: boolean;
+  error: boolean;
+  setError: (args0: boolean) => void;
 };
 
 const Main = ({
@@ -22,13 +24,15 @@ const Main = ({
   loading,
   isRegistered,
   registerIdle,
+  error,
+  setError,
 }: Props) => {
   const account = useAccount();
 
   const switchChain = useSwitchChain();
 
   return (
-    <div className="min-h-screen w-full lg:w-1/2 pb-24 z-20 px-32 flex items-end">
+    <div className="min-h-screen w-3/4 pb-24 z-20 px-10 flex items-end max-w-[1280px]">
       <div className="flex flex-col items-center lg:items-start lg:max-w-[700px]">
         <p className="font-black font-sans text-6xl lg:text-8xl text-white text-center lg:text-left">
           Join The Revolution!
@@ -48,15 +52,21 @@ const Main = ({
                     ? handleRegister
                     : () =>
                         switchChain.switchChain({
-                          chainId: TEST_NETWORK ? sepolia.id : mainnet.id,
+                          chainId: TEST_NETWORK
+                            ? baseSepolia.id
+                            : pulsechain.id,
                         })
                   : handleLogin
                 : !account.isConnected
                 ? handleLogin
+                : error
+                ? () => {
+                    setError(false);
+                  }
                 : () => {}
             }
           >
-            {(account.address && loading) || !registerIdle ? (
+            {(account.address && loading && !error) || !registerIdle ? (
               <div className="animate-[spin_2s_ease-out_infinite]">
                 <FiLoader />
               </div>
@@ -73,7 +83,9 @@ const Main = ({
             {account.isConnected
               ? checkCorrectNetwork(Number(account.chainId))
                 ? loading
-                  ? "Checking your Registration"
+                  ? !error
+                    ? "Checking your Registration"
+                    : "Recheck"
                   : !isRegistered
                   ? registerIdle
                     ? "REGISTER NOW"
@@ -82,8 +94,8 @@ const Main = ({
                 : "Change Network"
               : "CONNECT WALLET"}
           </Button>
-          <Link href="/#value">
-            <Button secondary>
+          <a href={HOW_TO} target="_blank">
+            <Button secondary className="uppercase">
               <div className="relative h-6 w-6">
                 <Image
                   src="/info.svg"
@@ -92,18 +104,10 @@ const Main = ({
                   fill
                 />
               </div>
-              LEARN MORE
+              How to contribute
             </Button>
-          </Link>
+          </a>
         </div>
-
-        <p
-          className={`font-sane font-normal text-sm text-agwhite lg:text-xl mt-2 lg:mt-4 text-center lg:text-left ${
-            account.isConnected ? "visible" : "invisible"
-          }`}
-        >
-          {`Connected: ${account.address}`}
-        </p>
       </div>
     </div>
   );

@@ -13,15 +13,15 @@ const repItems = [
     alt: "unwrapping",
   },
   {
-    name: "Scraping",
+    name: "Pruning",
     img: "/scraping.svg",
-    alt: "scraping",
+    alt: "pruning",
   },
 ];
 
 const Features = () => {
   return (
-    <div className="relative overflow-hidden bg-agblack">
+    <div className="flex relative overflow-hidden bg-agblack items-center justify-center">
       <div className="absolute bottom-0 z-1 mix-blend-hard-light">
         <div className="relative w-screen h-[900px]">
           <Image
@@ -32,15 +32,15 @@ const Features = () => {
           />
         </div>
       </div>
-      <div className="relative flex flex-col">
+      <div className="relative flex flex-col w-3/4 max-w-[1480px]">
         <div className="py-24 px-12 w-[64%] self-end first-letter flex flex-col items-end">
           <p className="text-6xl font-black font-sans capitaliz text-agwhite md:max-w-[700px]">
             So, what can you do with Antigravity?
           </p>
           <div className="flex mt-12 flex-col gap-4">
             <div className="flex gap-4">
-              <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-1">
-                <div className="bg-agblack px-4 py-8  h-[254px] w-[400px] flex flex-col items-center">
+              <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-0.5 overflow-hidden">
+                <div className="bg-agblack px-4 py-8  h-[254px] w-[400px] flex flex-col items-center rounded-lg">
                   <div className="relative w-[150px] h-[150px] mb-4">
                     <Image
                       className="w-full h-full"
@@ -52,8 +52,8 @@ const Features = () => {
                   <p className="text-2xl font-sans font-extrabold">Mining</p>
                 </div>
               </div>
-              <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-1">
-                <div className="bg-agblack px-4 py-8  h-[254px] w-[258px] flex flex-col items-center">
+              <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-0.5 overflow-hidden">
+                <div className="bg-agblack px-4 py-8  h-[254px] w-[258px] flex flex-col items-center rounded-lg">
                   <div className="relative w-[150px] h-[150px] mb-4">
                     <Image
                       className="w-full h-full"
@@ -72,9 +72,9 @@ const Features = () => {
                   return (
                     <div
                       key={item.alt}
-                      className=" bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-1"
+                      className=" bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-0.5 overflow-hidden"
                     >
-                      <div className="bg-agblack px-4 py-8  h-[254px] w-[214px] flex flex-col items-center">
+                      <div className="bg-agblack px-4 py-8  h-[254px] w-[214px] flex flex-col items-center rounded-lg">
                         <div className="relative w-[150px] h-[150px] mb-4">
                           <Image
                             className="w-full h-full"
@@ -93,11 +93,11 @@ const Features = () => {
               </div>
             </div>
           </div>
-          <div className="absolute left-0 top-0 w-1/2">
-            <div className="relative h-[1000px] w-full">
-              <Image src={IMAGEKIT.ASTRO} alt="astroman" fill />
-            </div>
-          </div>
+        </div>
+      </div>
+      <div className="absolute left-0 top-0 w-1/2 h-full">
+        <div className="h-1/2">
+          <Image src={IMAGEKIT.ASTRO} alt="astroman" fill />
         </div>
       </div>
     </div>

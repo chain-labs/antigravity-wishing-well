@@ -40,10 +40,18 @@ const config: Config = {
       keyframes: {
         marquee: {
           "0%": {
-            transform: "translateX-100%)",
+            transform: "translateX(0%)",
           },
           "100%": {
-            transform: "translateX(150%)",
+            transform: "translateX(-100%)",
+          },
+        },
+        marqueeRev: {
+          "0%": {
+            transform: "translateX(100%)",
+          },
+          "100%": {
+            transform: "translateX(0%)",
           },
         },
       },

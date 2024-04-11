@@ -3,10 +3,14 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import IMAGEKIT from "../images";
 import { handleCopy } from "../utils";
-import { API_ENDPOINT, PROXY_API_ENDPOINT } from "@/constants";
+import { API_ENDPOINT, PROXY_API_ENDPOINT, TEST_NETWORK } from "@/constants";
 import { getApiNetwork } from "@/utils";
 import { useAccount } from "wagmi";
 import { FiLoader } from "react-icons/fi";
+import axios from "axios";
+import BaseSepoliaAG from "@/abi/BaseSepolia";
+import BaseAG from "@/abi/Base";
+import PulsechainAG from "@/abi/Pulsechain";
 
 interface Props {
   tokenId: BigInt;
@@ -14,6 +18,8 @@ interface Props {
 
 const Success = ({ tokenId }: Props) => {
   const [imageLoading, setImageLoading] = useState(true);
+
+  const [uri, seturi] = useState("");
   const account = useAccount();
 
   useEffect(() => {
@@ -22,30 +28,49 @@ const Success = ({ tokenId }: Props) => {
         Number(account.chainId)
       )}`,
     });
-  }, [tokenId]);
+    fetchImage();
+  }, [tokenId, uri]);
+
+  const fetchImage = async () => {
+    setImageLoading(true);
+    seturi(
+      `${PROXY_API_ENDPOINT}svg/${tokenId}?blockchain=${getApiNetwork(
+        Number(account.chainId)
+      )}`
+    );
+  };
 
   const handleLoad = () => {
     setImageLoading(false);
   };
 
   return (
-    <div className="w-full flex items-center flex-col min-h-screen z-20">
-      <div className="flex items-center flex-col min-h-screen pt-56">
+    <div className="w-full flex items-center flex-col min-h-screen z-20 max-w-[1280px]">
+      <div className="flex items-center flex-col min-h-screen pt-48 w-full">
         <p className="font-sans text-8xl font-black text-center text-agwhite">
           Success!
         </p>
-        <p className="font-sans text-xl font- mt-4 text-agwhite">
-          Here’s your NFT:
-        </p>
+        <div className="flex justify-between w-80 items-center">
+          <p className="font-sans text-xl font- mt-4 text-agwhite">
+            Here’s your NFT:
+          </p>
+          <p
+            className="font-sans text-md font- mt-4 text-agwhite/40 underline cursor-pointer"
+            onClick={() => {
+              seturi("");
+            }}
+          >
+            Refresh
+          </p>
+        </div>
         <div className="bg-gray-80 p-1 my-4 ml-4 z-20">
           <img
-            src={`${PROXY_API_ENDPOINT}/svg/${tokenId}?blockchain=${getApiNetwork(
-              Number(account.chainId)
-            )}`}
+            src={uri}
             alt="nft"
-            className={`z-10 ${imageLoading ? "invisible" : "visible"}`}
+            // className={`z-10 ${imageLoading ? "invisible" : "visible"}`}
             onLoad={handleLoad}
           />
+
           {imageLoading && (
             <div className="bg-gray-600 bg-opacity-75 rounded-lg p-12 flex flex-col items-center justify-center text-2xl text-agwhite gap-2">
               <div className="animate-[spin_2s_ease-out_infinite]">
@@ -55,27 +80,14 @@ const Success = ({ tokenId }: Props) => {
             </div>
           )}
         </div>
-      </div>
-      <div className="bg-agblack z-10 flex-1 overflow-hidden">
-        <div className="relative w-screen flex gap-x-16 px-48 pt-56 pb-32 justify-center">
-          <div className="absolute bottom-0 z-1 mix-blend-hard-light">
-            <div className="relative w-screen h-[600px]">
-              <Image
-                src={IMAGEKIT.STARS_BG}
-                alt="feature-bg"
-                fill
-                className="object-cover"
-              />
-            </div>
-            d
-          </div>
+        <div className="relative w-full flex px-12 py-12 justify-between">
           <div className="flex flex-col gap-y-4 flex-1 z-10">
             <h1 className="font-sans text-agyellow text-5xl font-black">
-              Get 10x Points Now
+              Get {process.env.NEXT_PUBLIC_MULTIPLIER}x Points Now
             </h1>
             <div className="flex flex-col gap-y-6">
               <Button
-                onClick={() => handleCopy("wishwell.eth")}
+                onClick={() => handleCopy(TEST_NETWORK ? BaseSepoliaAG.address : BaseAG.address)}
                 className="self-start"
               >
                 <Image
@@ -85,11 +97,11 @@ const Success = ({ tokenId }: Props) => {
                   height={52}
                   className="absolute left-0 z-1"
                 />
-                <p className="uppercase z-10">wishwell.eth</p>
+                <p className="uppercase z-10">wishwell.base</p>
                 <Image src="/share.svg" alt="share" width={16} height={16} />
               </Button>
               <Button
-                onClick={() => handleCopy("wishwell.pls")}
+                onClick={() => handleCopy(PulsechainAG.address)}
                 className="self-start"
               >
                 <Image
@@ -103,7 +115,6 @@ const Success = ({ tokenId }: Props) => {
                 <Image src="/share.svg" alt="share" width={16} height={16} />
               </Button>
             </div>
-            I
           </div>
           <div className="flex flex-col gap-y-8 z-10">
             <Image src="/networks.svg" alt="networks" height="48" width="240" />
