@@ -7,6 +7,7 @@ import { API_ENDPOINT, PROXY_API_ENDPOINT } from "@/constants";
 import { getApiNetwork } from "@/utils";
 import { useAccount } from "wagmi";
 import { FiLoader } from "react-icons/fi";
+import axios from "axios";
 
 interface Props {
   tokenId: BigInt;
@@ -14,6 +15,8 @@ interface Props {
 
 const Success = ({ tokenId }: Props) => {
   const [imageLoading, setImageLoading] = useState(true);
+
+  const [uri, seturi] = useState("");
   const account = useAccount();
 
   useEffect(() => {
@@ -22,7 +25,17 @@ const Success = ({ tokenId }: Props) => {
         Number(account.chainId)
       )}`,
     });
-  }, [tokenId]);
+    fetchImage();
+  }, [tokenId, uri]);
+
+  const fetchImage = async () => {
+    setImageLoading(true);
+    seturi(
+      `${PROXY_API_ENDPOINT}svg/${tokenId}?blockchain=${getApiNetwork(
+        Number(account.chainId)
+      )}`
+    );
+  };
 
   const handleLoad = () => {
     setImageLoading(false);
@@ -34,18 +47,27 @@ const Success = ({ tokenId }: Props) => {
         <p className="font-sans text-8xl font-black text-center text-agwhite">
           Success!
         </p>
-        <p className="font-sans text-xl font- mt-4 text-agwhite">
-          Here’s your NFT:
-        </p>
+        <div className="flex justify-between w-80 items-center">
+          <p className="font-sans text-xl font- mt-4 text-agwhite">
+            Here’s your NFT:
+          </p>
+          <p
+            className="font-sans text-md font- mt-4 text-agwhite/40 underline cursor-pointer"
+            onClick={() => {
+              seturi("");
+            }}
+          >
+            Refresh
+          </p>
+        </div>
         <div className="bg-gray-80 p-1 my-4 ml-4 z-20">
           <img
-            src={`${PROXY_API_ENDPOINT}/svg/${tokenId}?blockchain=${getApiNetwork(
-              Number(account.chainId)
-            )}`}
+            src={uri}
             alt="nft"
-            className={`z-10 ${imageLoading ? "invisible" : "visible"}`}
+            // className={`z-10 ${imageLoading ? "invisible" : "visible"}`}
             onLoad={handleLoad}
           />
+
           {imageLoading && (
             <div className="bg-gray-600 bg-opacity-75 rounded-lg p-12 flex flex-col items-center justify-center text-2xl text-agwhite gap-2">
               <div className="animate-[spin_2s_ease-out_infinite]">

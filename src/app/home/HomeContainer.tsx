@@ -196,8 +196,6 @@ const HomeContainer = () => {
     }
   }, [registerFetched]);
 
-  console.log(registerIdle, registerPending);
-
   return (
     <div className="flex flex-col min-h-screen max-w-screen overflow-hidden">
       <Register
