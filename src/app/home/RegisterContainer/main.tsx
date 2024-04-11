@@ -32,7 +32,7 @@ const Main = ({
   const switchChain = useSwitchChain();
 
   return (
-    <div className="min-h-screen w-full lg:w-1/2 pb-24 z-20 px-32 flex items-end">
+    <div className="min-h-screen w-3/4 pb-24 z-20 px-10 flex items-end max-w-[1280px]">
       <div className="flex flex-col items-center lg:items-start lg:max-w-[700px]">
         <p className="font-black font-sans text-6xl lg:text-8xl text-white text-center lg:text-left">
           Join The Revolution!
@@ -52,7 +52,9 @@ const Main = ({
                     ? handleRegister
                     : () =>
                         switchChain.switchChain({
-                          chainId: TEST_NETWORK ? baseSepolia.id : pulsechain.id,
+                          chainId: TEST_NETWORK
+                            ? baseSepolia.id
+                            : pulsechain.id,
                         })
                   : handleLogin
                 : !account.isConnected

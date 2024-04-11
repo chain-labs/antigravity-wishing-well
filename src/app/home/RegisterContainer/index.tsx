@@ -45,7 +45,7 @@ const Register = ({
   };
 
   return (
-    <div className="flex flex-col relative z-0 min-h-screen">
+    <div className="flex flex-col relative z-0 min-h-screen items-center">
       <div className="fixed top-0 left-0 min-h-screen h-[916px] w-screen">
         <div className="relative min-h-screen h-[916px] w-full">
           <Image
@@ -60,6 +60,7 @@ const Register = ({
       <div className="absolute w-full flex items-center justify-center lg:justify-around py-16">
         <Header />
       </div>
+
       {!isRegistered && !isSuccess ? (
         <Main
           handleLogin={handleLogin}

@@ -29,8 +29,8 @@ const Success = ({ tokenId }: Props) => {
   };
 
   return (
-    <div className="w-full flex items-center flex-col min-h-screen z-20">
-      <div className="flex items-center flex-col min-h-screen pt-56">
+    <div className="w-full flex items-center flex-col min-h-screen z-20 max-w-[1280px]">
+      <div className="flex items-center flex-col min-h-screen pt-48 w-full">
         <p className="font-sans text-8xl font-black text-center text-agwhite">
           Success!
         </p>
@@ -55,7 +55,7 @@ const Success = ({ tokenId }: Props) => {
             </div>
           )}
         </div>
-        <div className="relative w-screen flex gap-x-16 px-48 py-12 justify-center">
+        <div className="relative w-full flex px-12 py-12 justify-between">
           <div className="flex flex-col gap-y-4 flex-1 z-10">
             <h1 className="font-sans text-agyellow text-5xl font-black">
               Get 10x Points Now
