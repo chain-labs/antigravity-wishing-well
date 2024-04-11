@@ -208,7 +208,7 @@ const HomeContainer = () => {
         setError={setError}
         setPoll={setPoll}
       />
-      {isRegistered && (
+      {!isRegistered && (
         <Timer
           handleRegister={handleRegister}
           targetTime={`${TIMER}`}
@@ -217,6 +217,12 @@ const HomeContainer = () => {
       )}
       <div id="value"></div>
       <Value />
+
+      {/* <SuccessFooter isSuccess={isSuccess} /> */}
+      <div id="utilities"></div>
+      <Features />
+      <div id="team"></div>
+      <Team />
       {!isRegistered && (
         <Timer
           handleRegister={handleRegister}
@@ -224,11 +230,6 @@ const HomeContainer = () => {
           isRegistered={isRegistered}
         />
       )}
-      {/* <SuccessFooter isSuccess={isSuccess} /> */}
-      <div id="utilities"></div>
-      <Features />
-      <div id="team"></div>
-      <Team />
       <StayUpdated />
       <Footer />
     </div>
