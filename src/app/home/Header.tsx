@@ -24,7 +24,7 @@ const Header: React.FC = () => {
                 ANTIGRAVITY
               </p>
             </div>
-            <div className="block md:hidden">
+            {/* <div className="block md:hidden">
               <button
                 onClick={toggleMenu}
                 className="text-white focus:outline-none"
@@ -39,9 +39,9 @@ const Header: React.FC = () => {
                   ></path>
                 </svg>
               </button>
-            </div>
+            </div> */}
           </div>
-          <nav
+          {/* <nav
             className={`md:flex md:flex-grow md:items-center md:justify-end md:gap-x-6 ${
               isOpen ? "block" : "hidden"
             }`}
@@ -64,7 +64,7 @@ const Header: React.FC = () => {
             >
               TEAM
             </a>
-          </nav>
+          </nav> */}
           {account.isConnected && (
             <div className="ml-6">
               <p className="uppercase bg-gradient-to-b from-[#B4EBF8] to-[#789DFA] text-transparent bg-clip-text font-bold">
