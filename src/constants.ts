@@ -15,6 +15,8 @@ export const TELEGRAM = "https://t.me/antigravitysaga";
 
 export const TWITTER = "https://twitter.com/HexrayVision";
 
+export const TWITTER_HEXIEST = "https://twitter.com/TheHEXiestMan";
+
 export const YOUTUBE =
   "https://www.youtube.com/channel/UCfySj3nKqjM44iD58oB8Hyw";
 
