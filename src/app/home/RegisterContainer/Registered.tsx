@@ -21,6 +21,36 @@ const Registered = ({ setPoll }: Props) => {
     navigator.clipboard.writeText(copyText);
   };
 
+  const jsonData = [
+    {
+      paragraphs: [
+        { text: "GET 10X POINTS NOW!" },
+        { text: "GET 10X POINTS NOW!" },
+        { text: "GET 10X POINTS NOW!" },
+        { text: "GET 10X POINTS NOW!" },
+        { text: "GET 10X POINTS NOW!" },
+        { text: "GET 10X POINTS NOW!" },
+        { text: "GET 10X POINTS NOW!" },
+        { text: "GET 10X POINTS NOW!" },
+        { text: "GET 10X POINTS NOW!" },
+      ],
+    },
+    {
+      paragraphs: [
+        { text: "GET 10X POINTS NOW!" },
+        { text: "GET 10X POINTS NOW!" },
+        { text: "GET 10X POINTS NOW!" },
+        { text: "GET 10X POINTS NOW!" },
+        { text: "GET 10X POINTS NOW!" },
+        { text: "GET 10X POINTS NOW!" },
+        { text: "GET 10X POINTS NOW!" },
+        { text: "GET 10X POINTS NOW!" },
+        { text: "GET 10X POINTS NOW!" },
+      ],
+    },
+
+  ];
+
   return (
     <div className="w-full flex items-center flex-col pt-56 h-full overflow-hidden z-20 ">
       <p className="font-sans text-8xl font-black text-center text-agwhite">
@@ -74,33 +104,16 @@ const Registered = ({ setPoll }: Props) => {
         className="mt-4"
       />
 
-      <div className="flex w-[120vw] bg-agyellow  mt-12">
-        <div className="flex gap-x-6">
-          <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
-            GET 10X POINTS NOW!
-          </p>
-          <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
-            GET 10X POINTS NOW!
-          </p>
-          <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
-            GET 10X POINTS NOW!
-          </p>
-          <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
-            GET 10X POINTS NOW!
-          </p>
-          <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
-            GET 10X POINTS NOW!
-          </p>
-          <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
-            GET 10X POINTS NOW!
-          </p>
-          <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
-            GET 10X POINTS NOW!
-          </p>
-          <p className="font-sans font-extrabold text-lg text-agblack animate-[marquee_15s_infinite_linear]">
-            GET 10X POINTS NOW!
-          </p>
-        </div>
+      <div className="flex w-[120vw] bg-agyellow  mt-12 overflow-hidden">
+        {jsonData.map((divData, index) => (
+          <div className="flex gap-x-6 animate-[marquee_10s_linear_infinite] px-2" key={index}>
+            {divData.paragraphs.map((paragraph, i) => (
+              <p className="font-sans font-extrabold text-lg text-agblack whitespace-nowrap" key={i}>
+                {paragraph.text}
+              </p>
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   );
