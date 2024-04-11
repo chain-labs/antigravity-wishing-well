@@ -13,9 +13,9 @@ const repItems = [
     alt: "unwrapping",
   },
   {
-    name: "Scraping",
+    name: "Tooling",
     img: "/scraping.svg",
-    alt: "scraping",
+    alt: "tooling",
   },
 ];
 
@@ -39,8 +39,8 @@ const Features = () => {
           </p>
           <div className="flex mt-12 flex-col gap-4">
             <div className="flex gap-4">
-              <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-1">
-                <div className="bg-agblack px-4 py-8  h-[254px] w-[400px] flex flex-col items-center">
+              <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-0.5 overflow-hidden">
+                <div className="bg-agblack px-4 py-8  h-[254px] w-[400px] flex flex-col items-center rounded-lg">
                   <div className="relative w-[150px] h-[150px] mb-4">
                     <Image
                       className="w-full h-full"
@@ -52,8 +52,8 @@ const Features = () => {
                   <p className="text-2xl font-sans font-extrabold">Mining</p>
                 </div>
               </div>
-              <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-1">
-                <div className="bg-agblack px-4 py-8  h-[254px] w-[258px] flex flex-col items-center">
+              <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-0.5 overflow-hidden">
+                <div className="bg-agblack px-4 py-8  h-[254px] w-[258px] flex flex-col items-center rounded-lg">
                   <div className="relative w-[150px] h-[150px] mb-4">
                     <Image
                       className="w-full h-full"
@@ -72,9 +72,9 @@ const Features = () => {
                   return (
                     <div
                       key={item.alt}
-                      className=" bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-1"
+                      className=" bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-0.5 overflow-hidden"
                     >
-                      <div className="bg-agblack px-4 py-8  h-[254px] w-[214px] flex flex-col items-center">
+                      <div className="bg-agblack px-4 py-8  h-[254px] w-[214px] flex flex-col items-center rounded-lg">
                         <div className="relative w-[150px] h-[150px] mb-4">
                           <Image
                             className="w-full h-full"

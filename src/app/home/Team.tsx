@@ -42,8 +42,8 @@ const Team = () => {
             <p className="font-sans font-extrabold text-2xl mt-4 text-agwhite">
               @PulseRayVision
             </p>
-            <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-1 my-4 ml-4">
-              <div className="bg-agblack flex items-center px-6 py-4">
+            <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-0.5 my-4 ml-4 overflow-hidden">
+              <div className="bg-agblack flex items-center px-6 py-4 rounded-lg">
                 {socials.map((item, i) => {
                   return (
                     <a href={item.url} target="_blank" rel="noreferrer">
