@@ -208,22 +208,13 @@ const HomeContainer = () => {
         setError={setError}
         setPoll={setPoll}
       />
-      {isRegistered && (
-        <Timer
-          handleRegister={handleRegister}
-          targetTime={`${TIMER}`}
-          isRegistered={isRegistered}
-        />
-      )}
+      <Timer
+        handleRegister={handleRegister}
+        targetTime={`${TIMER}`}
+        isRegistered={isRegistered}
+      />
       <div id="value"></div>
       <Value />
-      {!isRegistered && (
-        <Timer
-          handleRegister={handleRegister}
-          targetTime={`${TIMER}`}
-          isRegistered={isRegistered}
-        />
-      )}
       {/* <SuccessFooter isSuccess={isSuccess} /> */}
       <div id="utilities"></div>
       <Features />
