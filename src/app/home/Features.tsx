@@ -13,9 +13,9 @@ const repItems = [
     alt: "unwrapping",
   },
   {
-    name: "Tooling",
+    name: "Pruning",
     img: "/scraping.svg",
-    alt: "tooling",
+    alt: "pruning",
   },
 ];
 

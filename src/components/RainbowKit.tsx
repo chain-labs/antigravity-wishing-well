@@ -39,7 +39,7 @@ interface Props {
 
 const RainbowKitContext = ({ children }: Props) => {
   return (
-    <WagmiProvider config={config} reconnectOnMount={false}>
+    <WagmiProvider config={config}>
       <QueryClientProvider client={client}>
         <RainbowKitProvider>{children}</RainbowKitProvider>
       </QueryClientProvider>
