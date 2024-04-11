@@ -156,6 +156,7 @@ const HomeContainer = () => {
   const {
     data: registerReceipt,
     isFetching: registerFetching,
+    isLoading: registerLoading,
     isFetched: registerFetched,
   } = useTransactionReceipt({
     hash: registerHash,
@@ -195,6 +196,8 @@ const HomeContainer = () => {
     }
   }, [registerFetched]);
 
+  console.log(registerIdle, registerPending);
+
   return (
     <div className="flex flex-col min-h-screen max-w-screen overflow-hidden">
       <Register
@@ -203,7 +206,7 @@ const HomeContainer = () => {
         isSuccess={isSuccess}
         tokenId={tokenId}
         loading={loading}
-        registerIdle={registerIdle || !registerPending}
+        registerIdle={!registerPending && !registerLoading}
         error={error}
         setError={setError}
         setPoll={setPoll}
