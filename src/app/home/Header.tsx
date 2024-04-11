@@ -6,6 +6,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [currentChain, setCurrentChain] = useState("");
 
   const account = useAccount();
 
@@ -95,6 +96,8 @@ const Header: React.FC = () => {
                   </button>
                 );
               } else if (chain) {
+                if(currentChain !== "" && currentChain != chain.name) location.reload();
+                setCurrentChain(chain.name as string);
                 return (
                   <button
                     onClick={openChainModal}
