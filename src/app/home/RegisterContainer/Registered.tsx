@@ -45,7 +45,7 @@ const Registered = ({ setPoll }: Props) => {
               height={52}
               className="absolute left-0 z-1"
             />
-            <p className="uppercase z-10">wishwell.eth</p>
+            <p className="uppercase z-10">wishwell.base</p>
             <Image src="/share.svg" alt="share" width={16} height={16} />
           </Button>
 

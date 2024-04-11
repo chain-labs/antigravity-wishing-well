@@ -3,11 +3,14 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import IMAGEKIT from "../images";
 import { handleCopy } from "../utils";
-import { API_ENDPOINT, PROXY_API_ENDPOINT } from "@/constants";
+import { API_ENDPOINT, PROXY_API_ENDPOINT, TEST_NETWORK } from "@/constants";
 import { getApiNetwork } from "@/utils";
 import { useAccount } from "wagmi";
 import { FiLoader } from "react-icons/fi";
 import axios from "axios";
+import BaseSepoliaAG from "@/abi/BaseSepolia";
+import BaseAG from "@/abi/Base";
+import PulsechainAG from "@/abi/Pulsechain";
 
 interface Props {
   tokenId: BigInt;
@@ -84,7 +87,7 @@ const Success = ({ tokenId }: Props) => {
             </h1>
             <div className="flex flex-col gap-y-6">
               <Button
-                onClick={() => handleCopy("wishwell.eth")}
+                onClick={() => handleCopy(TEST_NETWORK ? BaseSepoliaAG.address : BaseAG.address)}
                 className="self-start"
               >
                 <Image
@@ -94,11 +97,11 @@ const Success = ({ tokenId }: Props) => {
                   height={52}
                   className="absolute left-0 z-1"
                 />
-                <p className="uppercase z-10">wishwell.eth</p>
+                <p className="uppercase z-10">wishwell.base</p>
                 <Image src="/share.svg" alt="share" width={16} height={16} />
               </Button>
               <Button
-                onClick={() => handleCopy("wishwell.pls")}
+                onClick={() => handleCopy(PulsechainAG.address)}
                 className="self-start"
               >
                 <Image
