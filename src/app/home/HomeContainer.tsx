@@ -220,6 +220,11 @@ const HomeContainer = () => {
       <Features />
       <div id="team"></div>
       <Team />
+      <Timer
+        handleRegister={handleRegister}
+        targetTime={`${TIMER}`}
+        isRegistered={isRegistered}
+      />
       <StayUpdated />
       <Footer />
     </div>
