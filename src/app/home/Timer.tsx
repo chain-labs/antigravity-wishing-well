@@ -68,7 +68,7 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
       >
         <div className="max-w-[1280px] w-3/4">
           <p className="text-5xl text-agwhite font-black font-sans capitalize">
-            Phase 1 for contributing ends in...
+           Don't miss out on getting points multiplier...
           </p>
           <div className="flex mt-8 gap-x-4">
             <TimerBox value={timeLeft?.days} text="days" />
@@ -96,7 +96,7 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
                 : "CONNECT WALLET"}
             </Button>
           )}
-          <div className="absolute right-20 top-0">
+          <div className="absolute right-5 top-0">
             <div className="relative h-[460px] w-[460px]">
               <Image src={IMAGEKIT.SHIP} alt="timer-ship" fill />
             </div>
