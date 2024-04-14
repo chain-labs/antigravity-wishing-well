@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Antigravity | Join The Revolution!",
   description: "Join the Revolution.",
-  icons: { icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/icon.png?updatedAt=1713111248425" },
+  icons: { icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/icon.png" },
 };
 
 export default function RootLayout({

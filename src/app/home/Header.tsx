@@ -20,7 +20,7 @@ const Header: React.FC = () => {
         <div className="container w-full h-full bg-agblack mx-auto py-4 px-4 md:flex md:items-center md:justify-between rounded-lg">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <Image src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/icon.svg?updatedAt=1713111255517" alt="icon" width="45" height="45" />
+              <Image src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/icon.svg" alt="icon" width="45" height="45" />
               <p className=" from-white to-gray-500 pl-2 font-sans font-extrabold text-2xl bg-gradient-to-b text-transparent bg-clip-text">
                 ANTIGRAVITY
               </p>

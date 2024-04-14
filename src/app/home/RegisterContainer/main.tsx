@@ -73,7 +73,7 @@ const Main = ({
             ) : (
               <div className="relative h-6 w-6">
                 <Image
-                  src={account.isConnected ? "https://ik.imagekit.io/xlvg9oc4k/Antigravity/pen.svg?updatedAt=1713111268459" : "https://ik.imagekit.io/xlvg9oc4k/Antigravity/wallet.svg?updatedAt=1713111649442"}
+                  src={account.isConnected ? "https://ik.imagekit.io/xlvg9oc4k/Antigravity/pen.svg" : "https://ik.imagekit.io/xlvg9oc4k/Antigravity/wallet.svg"}
                   className="w-6 h-6 lg:w-8 lg:h-8 mr-2"
                   alt="wallet_icon"
                   fill
@@ -98,7 +98,7 @@ const Main = ({
             <Button secondary className="uppercase">
               <div className="relative h-6 w-6">
                 <Image
-                  src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/info.svg?updatedAt=1713111250704"
+                  src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/info.svg"
                   className="lg:w-8 lg:h-8 mr-2"
                   alt="info_icon"
                   fill
