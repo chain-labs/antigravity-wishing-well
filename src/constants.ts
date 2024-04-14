@@ -17,6 +17,12 @@ export const TWITTER = "https://twitter.com/HexrayVision";
 
 export const TWITTER_HEXIEST = "https://twitter.com/TheHEXiestMan";
 
+export const EMAIL_CODY = "codyasmith@live.com";
+
+export const TIKTOK_CODY = "https://tiktok.com/@c.asmith";
+
+export const INSTAGRAM_CODY = "https://www.instagram.com/c.asmith87/";
+
 export const YOUTUBE =
   "https://www.youtube.com/channel/UCfySj3nKqjM44iD58oB8Hyw";
 

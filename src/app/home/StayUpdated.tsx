@@ -53,7 +53,7 @@ const StayUpdated = () => {
                   onClick={handleSubmit}
                 >
                   <Image
-                    src="/submit.svg"
+                    src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/submit.svg?updatedAt=1713111414449"
                     className="w-6 h-6"
                     alt="submit_icon"
                     width={24}

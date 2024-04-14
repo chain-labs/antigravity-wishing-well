@@ -16,11 +16,11 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        value: "url('/value.svg')",
-        timer: "url('/grid.svg')",
-        team: "url('/teams_bg.svg')",
-        home: "url('/reg_bg.svg')",
-        registered: "url('/bg_hero_reg.svg')",
+        value: "url('https://ik.imagekit.io/xlvg9oc4k/Antigravity/value.svg?updatedAt=1713114097599')",
+        timer: "url('https://ik.imagekit.io/xlvg9oc4k/Antigravity/grid.svg?updatedAt=1713111242912')",
+        team: "url('https://ik.imagekit.io/xlvg9oc4k/Antigravity/teams_bg.svg?updatedAt=1713114096677')",
+        home: "url('https://ik.imagekit.io/xlvg9oc4k/Antigravity/reg_bg.svg?updatedAt=1713114634378')",
+        registered: "url('https://ik.imagekit.io/xlvg9oc4k/Antigravity/bg_hero_reg.svg?updatedAt=1713114088618')",
       },
       colors: {
         agblack: "#030404",

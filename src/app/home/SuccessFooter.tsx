@@ -6,19 +6,19 @@ import TimerBox from "./TimerBox";
 const coinsList = [
   {
     name: "PLS",
-    icon: "pls.svg",
+    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/pls.svg?updatedAt=1713111272613",
   },
   {
     name: "ETH",
-    icon: "eth.svg",
+    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/eth.svg?updatedAt=1713111241339",
   },
   {
     name: "Tether",
-    icon: "tether.svg",
+    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/tether.svg?updatedAt=1713111638123",
   },
   {
     name: "USDC",
-    icon: "usdc.svg",
+    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/usdc.svg?updatedAt=1713111648269",
   },
 ];
 
@@ -31,7 +31,7 @@ const SuccessFooter = ({ isSuccess }: SuccessFooterProps) => {
     <div className="flex w-full">
       <div className="h-auto w-full">
         <img
-          src={"reg_footer.svg"}
+          src={"https://ik.imagekit.io/xlvg9oc4k/Antigravity/reg_footer.svg?updatedAt=1713116000414"}
           alt="reg_footer"
           className="h-full w-full object-cover"
         />
@@ -45,11 +45,11 @@ const SuccessFooter = ({ isSuccess }: SuccessFooterProps) => {
               </p>
               <button className="flex items-center justify-center font-sans font-extrabold rounded-lg bg-blue px-5 py-2 lg:px-6 lg:py-4 mb-2 lg:mr-4">
                 <p className="uppercase">wishwell.base</p>{" "}
-                <img src="/share.svg" className="w-4 h-4 ml-2" alt="share" />
+                <img src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg?updatedAt=1713111393185" className="w-4 h-4 ml-2" alt="share" />
               </button>
               <button className="flex items-center justify-center font-sans font-extrabold rounded-lg bg-blue px-5 py-2 lg:px-6 lg:py-4 mb-2 lg:mr-4">
                 <p className="uppercase">wishwell.PLS</p>{" "}
-                <img src="/share.svg" className="w-4 h-4 ml-2" alt="share" />
+                <img src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg?updatedAt=1713111393185" className="w-4 h-4 ml-2" alt="share" />
               </button>
             </div>
             <div className="flex flex-col mt-3">
