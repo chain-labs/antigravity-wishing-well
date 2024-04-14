@@ -21,6 +21,7 @@ import { createPublicClient, http } from "viem";
 import axios from "axios";
 import { POLL_TIME, PROXY_API_ENDPOINT, TIMER } from "@/constants";
 import { checkCorrectNetwork, getApiNetwork } from "@/utils";
+import { base } from "viem/chains";
 
 const Timer = dynamic(() => import("./Timer"));
 
@@ -51,7 +52,7 @@ const HomeContainer = () => {
     //   transport: http("https://base-sepolia.g.alchemy.com/v2/Ck1jBlebtn6A92-eXG1tnievZs0kfS9F"),
     // });
 
-    const fromBlockNumber = account.chainId
+    const fromBlockNumber = account.chainId == base.id
       ? process.env.NEXT_PUBLIC_BASE_FROM_BLOCK_NUMBER
       : process.env.NEXT_PUBLIC_PLS_FROM_BLOCK_NUMBER;
 
