@@ -29,7 +29,7 @@ const Registered = ({ setPoll }: Props) => {
           <br /> Registered!
         </p>
         <p className="font-general-sans text-xl font- mt-4 text-agwhite">
-          Contribute now on Base or Pulse chain to either of our addresses
+          Contribute now on Base or PulseChain to either of our addresses
           below.
         </p>
         <div className="flex lg:flex-row mt-3 lg:mt-5">
@@ -62,7 +62,7 @@ const Registered = ({ setPoll }: Props) => {
           </Button>
         </div>
         <p className="font-sans text-sm font- mt-4 text-agwhite">
-          After contributing, please wait for few minutes before we can display
+          After contributing, please wait a few minutes before we can display
           the NFT
         </p>
         <p className="font-sans text-xl font- mt-12 text-agwhite">
