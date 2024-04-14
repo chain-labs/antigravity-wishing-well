@@ -22,41 +22,41 @@ const Value = () => {
         <div className="flex mt-12 flex-col gap-6">
           <div className="flex gap-6">
             <ValueItem
-              imgSrc="/limited_supply.svg"
+              imgSrc="https://ik.imagekit.io/xlvg9oc4k/Antigravity/limited_supply.svg?updatedAt=1713111255341"
               imgText="limited_supply"
               itemTitle="limited supply / no inflation"
             />
             <ValueItem
-              imgSrc="/limited_minting.svg"
+              imgSrc="https://ik.imagekit.io/xlvg9oc4k/Antigravity/limited_minting.svg?updatedAt=1713111253373"
               imgText="limited_minting"
               itemTitle="limited minting phases"
             />
           </div>
           <div className="flex gap-6">
             <ValueItem
-              imgSrc="/yields_rewards.svg"
+              imgSrc="https://ik.imagekit.io/xlvg9oc4k/Antigravity/yields_rewards.svg?updatedAt=1713111650289"
               imgText="yields_rewards"
               itemTitle="yield that rewards holders"
             />
             <ValueItem
-              imgSrc="/giveaway_tokens.svg"
+              imgSrc="https://ik.imagekit.io/xlvg9oc4k/Antigravity/giveaway_tokens.svg?updatedAt=1713111240453"
               imgText="giveaway_tokens"
               itemTitle="giveaways in liquid tokens"
             />
           </div>
           <div className="flex gap-6">
             <ValueItem
-              imgSrc="/transfarrable_nft.svg"
+              imgSrc="https://ik.imagekit.io/xlvg9oc4k/Antigravity/transfarrable_nft.svg?updatedAt=1713111642735.svg"
               imgText="transfarrable_nft"
               itemTitle="Transferable nfts That have actual cash value"
             />
             <ValueItem
-              imgSrc="/token_crisis.svg"
+              imgSrc="https://ik.imagekit.io/xlvg9oc4k/Antigravity/token_crisis.svg?updatedAt=1713111641951"
               imgText="token_crisis"
               itemTitle="Programmed Scarcity like you’ve never seen before"
             />
             <ValueItem
-              imgSrc="/heart_nft.svg"
+              imgSrc="https://ik.imagekit.io/xlvg9oc4k/Antigravity/heart_nft.svg?updatedAt=1713111248515"
               imgText="heart_nft"
               itemTitle="nfts with a story and heart behind them"
             />
