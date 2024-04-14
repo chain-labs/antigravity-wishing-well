@@ -26,7 +26,7 @@ const config = getDefaultConfig({
         [base.id]: http(
           `https://base-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`
         ),
-        [pulsechain.id]: http(),
+        [pulsechain.id]: http("https://pulsechain-rpc.publicnode.com"),
       },
   ssr: true,
 });

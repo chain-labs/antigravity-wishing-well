@@ -4,17 +4,17 @@ import IMAGEKIT from "./images";
 const repItems = [
   {
     name: "Minting",
-    img: "/minting.svg",
+    img: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/minting.svg?updatedAt=1713111375485",
     alt: "minting",
   },
   {
     name: "Unwrapping",
-    img: "/unwrapping.svg",
+    img: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/unwrapping.svg?updatedAt=1713111675444",
     alt: "unwrapping",
   },
   {
     name: "Pruning",
-    img: "/scraping.svg",
+    img: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/scraping.svg?updatedAt=1713111565965",
     alt: "pruning",
   },
 ];
@@ -44,7 +44,7 @@ const Features = () => {
                   <div className="relative w-[150px] h-[150px] mb-4">
                     <Image
                       className="w-full h-full"
-                      src={"/mining.svg"}
+                      src={"https://ik.imagekit.io/xlvg9oc4k/Antigravity/mining.svg?updatedAt=1713111338395"}
                       alt={"mining"}
                       fill
                     />
@@ -57,7 +57,7 @@ const Features = () => {
                   <div className="relative w-[150px] h-[150px] mb-4">
                     <Image
                       className="w-full h-full"
-                      src={"/claiming.svg"}
+                      src={"https://ik.imagekit.io/xlvg9oc4k/Antigravity/claiming.svg?updatedAt=1713111271261"}
                       alt={"claiming"}
                       fill
                     />

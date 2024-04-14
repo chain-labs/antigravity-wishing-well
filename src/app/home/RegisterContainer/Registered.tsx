@@ -29,7 +29,7 @@ const Registered = ({ setPoll }: Props) => {
           <br /> Registered!
         </p>
         <p className="font-general-sans text-xl font- mt-4 text-agwhite">
-          Contribute now on Base or Pulse chain to either of our addresses
+          Contribute now on Base or PulseChain to either of our addresses
           below.
         </p>
         <div className="flex lg:flex-row mt-3 lg:mt-5">
@@ -39,37 +39,37 @@ const Registered = ({ setPoll }: Props) => {
             }
           >
             <Image
-              src="/eth-btn.svg"
+              src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/eth-btn.svg?updatedAt=1713111240604"
               alt="eth-btn"
               width={52}
               height={52}
               className="absolute left-0 z-1"
             />
             <p className="uppercase z-10">wishwell.base</p>
-            <Image src="/share.svg" alt="share" width={16} height={16} />
+            <Image src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg?updatedAt=1713111393185" alt="share" width={16} height={16} />
           </Button>
 
           <Button onClick={() => handleCopy(PulsechainAG.address)}>
             <Image
-              src="/pls.svg"
+              src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/pls.svg?updatedAt=1713111272613"
               alt="pls-btn"
               width={52}
               height={52}
               className="absolute left-0 z-1 opacity-55"
             />
             <p className="uppercase z-20">wishwell.PLS</p>
-            <Image src="/share.svg" alt="share" width={16} height={16} />
+            <Image src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg?updatedAt=1713111393185" alt="share" width={16} height={16} />
           </Button>
         </div>
         <p className="font-sans text-sm font- mt-4 text-agwhite">
-          After contributing, please wait for few minutes before we can display
+          After contributing, please wait a few minutes before we can display
           the NFT
         </p>
         <p className="font-sans text-xl font- mt-12 text-agwhite">
           Here are some tokens that we encourage for contribution:
         </p>
         <Image
-          src="/networks.svg"
+          src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/networks.svg?updatedAt=1713111260062"
           alt="networks"
           width={176}
           height={32}
