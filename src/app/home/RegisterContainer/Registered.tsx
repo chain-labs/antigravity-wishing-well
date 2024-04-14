@@ -39,26 +39,26 @@ const Registered = ({ setPoll }: Props) => {
             }
           >
             <Image
-              src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/eth-btn.svg?updatedAt=1713111240604"
+              src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/eth-btn.svg"
               alt="eth-btn"
               width={52}
               height={52}
               className="absolute left-0 z-1"
             />
             <p className="uppercase z-10">wishwell.base</p>
-            <Image src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg?updatedAt=1713111393185" alt="share" width={16} height={16} />
+            <Image src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg" alt="share" width={16} height={16} />
           </Button>
 
           <Button onClick={() => handleCopy(PulsechainAG.address)}>
             <Image
-              src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/pls.svg?updatedAt=1713111272613"
+              src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/pls.svg"
               alt="pls-btn"
               width={52}
               height={52}
               className="absolute left-0 z-1 opacity-55"
             />
             <p className="uppercase z-20">wishwell.PLS</p>
-            <Image src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg?updatedAt=1713111393185" alt="share" width={16} height={16} />
+            <Image src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg" alt="share" width={16} height={16} />
           </Button>
         </div>
         <p className="font-sans text-sm font- mt-4 text-agwhite">
@@ -69,7 +69,7 @@ const Registered = ({ setPoll }: Props) => {
           Here are some tokens that we encourage for contribution:
         </p>
         <Image
-          src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/networks.svg?updatedAt=1713111260062"
+          src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/networks.svg"
           alt="networks"
           width={176}
           height={32}

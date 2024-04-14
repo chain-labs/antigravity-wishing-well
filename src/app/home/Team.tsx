@@ -4,17 +4,17 @@ import { EMAIL_CODY, INSTAGRAM_CODY, TELEGRAM, TIKTOK_CODY, TWITTER, TWITTER_HEX
 
 const socials = [
   {
-    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/telegram.svg?updatedAt=1713111638038",
+    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/telegram.svg",
     alt: "telegram",
     url: TELEGRAM,
   },
   {
-    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/twitter.svg?updatedAt=1713111643352",
+    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/twitter.svg",
     alt: "twitter",
     url: TWITTER,
   },
   {
-    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/youtube.svg?updatedAt=1713111650154",
+    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/youtube.svg",
     alt: "youtube",
     url: YOUTUBE,
   },
@@ -22,7 +22,7 @@ const socials = [
 
 const TEAM_2_SOCIALS = [
   {
-    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/twitter.svg?updatedAt=1713111643352",
+    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/twitter.svg",
     alt: "twitter",
     url: TWITTER_HEXIEST,
   }
@@ -30,12 +30,12 @@ const TEAM_2_SOCIALS = [
 
 const TEAM_3_SOCIALS = [
   {
-    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/instagram.svg?updatedAt=1713111253290",
+    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/instagram.svg",
     alt: "instagram",
     url: INSTAGRAM_CODY,
   },
   {
-    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/tiktok.svg?updatedAt=1713111638160",
+    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/tiktok.svg",
     alt: "tiktok",
     url: TIKTOK_CODY,
   },
@@ -57,7 +57,7 @@ const Team = () => {
               <div className="basis-full flex items-center justify-around flex-col">
               <div className="relative h-[145px] w-[145px] mt-10">
                 <Image
-                  src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/team_admin.svg?updatedAt=1713111547144"
+                  src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/team_admin.svg"
                   alt="team"
                   className="h-full w-full object-cover"
                   fill
@@ -90,7 +90,7 @@ const Team = () => {
             <div className="basis-1/2 flex items-center justify-around flex-col mr-10 ml-10">
             <div className="relative h-[145px] w-[145px] mt-10">
               <Image
-                src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/team_hexistman.svg?updatedAt=1713111612703"
+                src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/team_hexistman.svg"
                 alt="team"
                 className="h-full w-full object-cover"
                 fill
@@ -123,7 +123,7 @@ const Team = () => {
               <div className="basis-1/2 flex items-center justify-around flex-col ml-10">
                 <div className="relative h-[145px] w-[145px] mt-10">
                   <Image
-                    src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/team_cody.svg?updatedAt=1713111642956"
+                    src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/team_cody.svg"
                     alt="team"
                     className="h-full w-full object-cover"
                     fill
