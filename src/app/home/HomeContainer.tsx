@@ -16,7 +16,7 @@ import {
 } from "wagmi";
 import toast from "react-hot-toast";
 import useContract from "@/abi";
-import { parseAbiItem } from "viem";
+import { PublicClient, parseAbiItem } from "viem";
 import { createPublicClient, http } from "viem";
 import axios from "axios";
 import { POLL_TIME, PROXY_API_ENDPOINT, TIMER } from "@/constants";
@@ -24,6 +24,12 @@ import { checkCorrectNetwork, getApiNetwork } from "@/utils";
 import { base } from "viem/chains";
 
 const Timer = dynamic(() => import("./Timer"));
+
+// Use a function to get the latest block number
+async function getLatestBlockNumber(publicClient: PublicClient) {
+  const block = await publicClient.getBlockNumber();
+  return block;
+}
 
 const HomeContainer = () => {
   const [isRegistered, setIsRegistered] = useState<boolean>(false);
@@ -59,20 +65,45 @@ const HomeContainer = () => {
     if (fromBlockNumber === undefined)
       throw Error("Please set the enviornment variable for Block Number");
 
-    const filter = await publicClient.createEventFilter({
-      address: AntiGravity?.address,
-      event: parseAbiItem(
-        "event Transfer(address indexed from, address indexed to, uint256 indexed id)"
-      ),
-      args: {
-        to: account.address,
-      },
-      fromBlock: BigInt(fromBlockNumber),
-      toBlock: "latest",
-    });
+    const chunkSize = 50000; // Define the chunk size as per the RPC limit
+    let currentBlock = BigInt(fromBlockNumber); // Start from this block number
+    let latestBlock; // Variable to store the latest block number
+    let tokenId; // Variable to store tokenId when found
 
-    const logs = await publicClient.getFilterLogs({ filter });
-    const tokenId = logs[0]?.args.id;
+    latestBlock = await getLatestBlockNumber(publicClient); // Initialize the latest block
+    while (currentBlock <= latestBlock) {
+      // Calculate the end block for the current chunk
+      const endBlock = Math.min(parseInt(currentBlock.toString()) + parseInt(chunkSize.toString()), parseInt(latestBlock.toString()));
+  
+      // Create the event filter for the current block range
+      const filter = await publicClient.createEventFilter({
+          address: AntiGravity?.address,
+          event: parseAbiItem(
+              "event Transfer(address indexed from, address indexed to, uint256 indexed id)"
+          ),
+          args: {
+              to: account.address,
+          },
+          fromBlock: BigInt(currentBlock),
+          toBlock: BigInt(endBlock),
+      });
+  
+      // Fetch logs using the filter
+      const logs = await publicClient.getFilterLogs({ filter });
+  
+      if (logs.length > 0) {
+          tokenId = logs[0]?.args.id;
+          if (tokenId) {
+              break; // Exit the loop if tokenId is found
+          }
+      }
+  
+      // Update currentBlock for the next iteration
+      currentBlock = BigInt((endBlock + 1).toString());
+  
+      // Refresh latest block number to ensure it includes recent blocks
+      latestBlock = await getLatestBlockNumber(publicClient);
+    }
     setTokenId(tokenId ?? BigInt(0));
     if (tokenId) {
       try {
