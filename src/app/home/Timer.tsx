@@ -63,12 +63,12 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
   return (
     <div className="bg-agblack z-10">
       <div
-        className={`flex flex-col px-10 py-16 bg-cover relative items-center`}
+        className={`flex flex-col px-10 py-16 bg-cover relative items-center w-full`}
         style={{ background: `url(${IMAGEKIT.GRID})` }}
       >
         <div className="max-w-[1280px] w-3/4">
           <p className="text-5xl text-agwhite font-black font-sans capitalize">
-           Don't miss out on getting points multiplier...
+            Don't miss out on getting points multiplier...
           </p>
           <div className="flex mt-8 gap-x-4">
             <TimerBox value={timeLeft?.days} text="days" />
@@ -83,8 +83,12 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
             >
               <div className="relative h-6 w-6">
                 <Image
-                  src={account.isConnected ? "https://ik.imagekit.io/xlvg9oc4k/Antigravity/pen.svg" : "https://ik.imagekit.io/xlvg9oc4k/Antigravity/wallet.svg"}
-                  className="w-6 h-6 lg:w-8 lg:h-8 mr-2"
+                  src={
+                    account.isConnected
+                      ? "https://ik.imagekit.io/xlvg9oc4k/Antigravity/pen.svg"
+                      : "https://ik.imagekit.io/xlvg9oc4k/Antigravity/wallet.svg"
+                  }
+                  className="w-3 h-3 lg:w-8 lg:h-8 mr-2"
                   alt="wallet_icon"
                   fill
                 />
@@ -96,9 +100,14 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
                 : "CONNECT WALLET"}
             </Button>
           )}
-          <div className="absolute right-5 top-0">
-            <div className="relative h-[460px] w-[460px]">
-              <Image src={IMAGEKIT.SHIP} alt="timer-ship" fill />
+          <div className="absolute right-5 top-0 pt-12">
+            <div className="relative w-48 h-48 md:w-64 md:h-64 lg:h-72 lg:w-72">
+              <Image
+                src={IMAGEKIT.SHIP}
+                alt="timer-ship"
+                className="w-2 h-2 sm:h-4 sm:w-4 lg:h-6 lg:w-6 border"
+                fill
+              />
             </div>
           </div>
         </div>
