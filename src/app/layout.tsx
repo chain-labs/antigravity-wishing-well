@@ -6,6 +6,7 @@ import "@rainbow-me/rainbowkit/styles.css";
 import RainbowKitContext from "@/components/RainbowKit";
 import { Toaster } from "react-hot-toast";
 import MobileView from "./home/MobileView";
+import GoogleAnalytics from "./analytics";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <GoogleAnalytics />
       <body className={inter.className}>
         <div className="hidden sm:block">
           <Toaster />
