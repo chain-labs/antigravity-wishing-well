@@ -105,7 +105,7 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
               <Image
                 src={IMAGEKIT.SHIP}
                 alt="timer-ship"
-                className="w-2 h-2 sm:h-4 sm:w-4 lg:h-6 lg:w-6 border"
+                className="w-2 h-2 sm:h-4 sm:w-4 lg:h-6 lg:w-6"
                 fill
               />
             </div>
