@@ -61,16 +61,16 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
   });
 
   return (
-    <div className="bg-agblack z-10">
+    <div className="bg-agblack z-10 w-full">
       <div
-        className={`flex flex-col px-10 py-16 bg-cover relative items-center w-full`}
+        className={`flex flex-col px-5 py-16 bg-cover relative items-center w-full pb-48 sm:pb-0`}
         style={{ background: `url(${IMAGEKIT.GRID})` }}
       >
-        <div className="max-w-[1280px] w-3/4">
-          <p className="text-5xl text-agwhite font-black font-sans capitalize">
+        <div className="flex flex-col gap-8 max-w-[1280px] md:w-3/4">
+          <p className="text-4xl lg:text-5xl text-agwhite font-black font-sans capitalize">
             Don't miss out on getting points multiplier...
           </p>
-          <div className="flex mt-8 gap-x-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full">
             <TimerBox value={timeLeft?.days} text="days" />
             <TimerBox value={timeLeft?.hours} text="hours" />
             <TimerBox value={timeLeft?.minutes} text="minutes" />
@@ -79,7 +79,7 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
           {!isRegistered && (
             <Button
               onClick={account.isConnected ? handleRegister : handleLogin}
-              className="self-start mt-8"
+              className="self-start w-full sm:w-fit z-10"
             >
               <div className="relative h-6 w-6">
                 <Image
@@ -100,15 +100,8 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
                 : "CONNECT WALLET"}
             </Button>
           )}
-          <div className="absolute right-5 top-0 pt-12">
-            <div className="relative w-48 h-48 md:w-64 md:h-64 lg:h-72 lg:w-72">
-              <Image
-                src={IMAGEKIT.SHIP}
-                alt="timer-ship"
-                className="w-2 h-2 sm:h-4 sm:w-4 lg:h-6 lg:w-6"
-                fill
-              />
-            </div>
+          <div className="absolute w-64 h-64 md:w-64 md:h-64 lg:h-72 lg:w-72 sm:right-5 sm:top-0 transform z-0 translate-x-10 bottom-0">
+            <Image src={IMAGEKIT.SHIP} alt="timer-ship" fill />
           </div>
         </div>
       </div>
