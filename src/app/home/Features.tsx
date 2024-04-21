@@ -37,7 +37,7 @@ const Features = () => {
           <p className="text-5xl sm:text-6xl font-black font-sans capitalize text-agwhite md:max-w-[700px]">
             So, what can you do with Antigravity?
           </p>
-          <div className="flex flex-col gap-4 w-full">
+          <div className="flex flex-col gap-4 w-full md:max-w-[700px]">
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 w-full">
               <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-0.5 overflow-hidden sm:col-span-2">
                 <div className="bg-agblack px-4 py-8 flex flex-col items-center rounded-lg">
@@ -97,7 +97,7 @@ const Features = () => {
           </div>
         </div>
       </div>
-      <div className="flex absolute -right-16 -bottom-52 sm:left-0 z-0 w-2/3 h-2/3 sm:h-full items-end">
+      <div className="flex absolute -right-16 -bottom-52 sm:-left-40 z-0 w-2/3 h-2/3 sm:h-full items-end">
         <Image src={IMAGEKIT.ASTRO} alt="astroman" fill />
       </div>
     </div>
