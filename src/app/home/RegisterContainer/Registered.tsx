@@ -31,7 +31,7 @@ const Registered = ({ setPoll }: Props) => {
         <p className="font-general-sans text-center text-xl mt-4 text-agwhite">
           Contribute now on Base or PulseChain to either of our addresses below.
         </p>
-        <div className="flex flex-col w-full gap-2 sm:flex-row mt-3 lg:mt-5 p-5">
+        <div className="flex flex-col w-full gap-2 sm:flex-row mt-3 lg:mt-5 p-5 justify-center">
           <Button
             onClick={() =>
               handleCopy(TEST_NETWORK ? BaseSepoliaAG.address : BaseAG.address)
@@ -136,7 +136,7 @@ const Registered = ({ setPoll }: Props) => {
         </div>
       </div>
 
-      <div className="hidden lg:flex relative w-screen bg-agyellow mt-12 overflow-x-hidden">
+      <div className="hidden lg:flex xl:hidden relative w-screen bg-agyellow mt-12 overflow-x-hidden">
         <div className="flex justify-evenly w-full animate-[marquee_15s_infinite_linear] whitespace-nowrap">
           {Array.from({ length: 5 }).map((_, index) => (
             <p

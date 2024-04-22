@@ -245,13 +245,11 @@ const HomeContainer = () => {
         setError={setError}
         setPoll={setPoll}
       />
-      <div className="hidden sm:flex">
-        <Timer
-          handleRegister={handleRegister}
-          targetTime={`${TIMER}`}
-          isRegistered={isRegistered}
-        />
-      </div>
+      <Timer
+        handleRegister={handleRegister}
+        targetTime={`${TIMER}`}
+        isRegistered={isRegistered}
+      />
       <div id="value"></div>
       <Value />
       {/* <SuccessFooter isSuccess={isSuccess} /> */}
