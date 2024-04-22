@@ -70,7 +70,7 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
           <p className="text-4xl lg:text-5xl text-agwhite font-black font-sans capitalize">
             Don't miss out on getting points multiplier...
           </p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full z-10">
             <TimerBox value={timeLeft?.days} text="days" />
             <TimerBox value={timeLeft?.hours} text="hours" />
             <TimerBox value={timeLeft?.minutes} text="minutes" />
@@ -100,7 +100,7 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
                 : "CONNECT WALLET"}
             </Button>
           )}
-          <div className="absolute w-64 h-64 md:w-64 md:h-64 lg:h-72 lg:w-72 sm:right-5 sm:top-0 transform z-0 translate-x-10 bottom-0">
+          <div className="absolute w-64 h-64 md:w-64 md:h-64 lg:h-72 lg:w-72 sm:right-5 sm:top-0 transform z-0 translate-x-10 -bottom-10">
             <Image src={IMAGEKIT.SHIP} alt="timer-ship" fill />
           </div>
         </div>
