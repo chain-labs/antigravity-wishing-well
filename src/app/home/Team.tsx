@@ -62,7 +62,7 @@ const Team = () => {
               Who’s behind it all?
             </p>
             <div className="flex items-center justify-evenly sm:flex-row flex-col gap-10 max-w-[1280px] w-3/4">
-              <div className="flex items-center justify-around flex-col w-1/3">
+              <div className="flex items-center justify-around flex-col w-1/3 gap-2">
                 <div className="relative h-[145px] w-[145px]">
                   <Image
                     src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/team_admin.svg"
@@ -97,7 +97,7 @@ const Team = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center justify-around flex-col w-1/3">
+              <div className="flex items-center justify-around flex-col w-1/3 gap-2">
                 <div className="relative h-[145px] w-[145px]">
                   <Image
                     src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/team_hexistman.svg"
@@ -130,7 +130,7 @@ const Team = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center justify-around flex-col w-1/3">
+              <div className="flex items-center justify-around flex-col w-1/3 gap-2">
                 <div className="relative h-[145px] w-[145px]">
                   <Image
                     src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/team_cody.svg"
