@@ -81,7 +81,7 @@ const Success = ({ tokenId }: Props) => {
           )}
         </div>
         <div className="relative w-full flex flex-col sm:flex-row gap-10 px-12 py-12 justify-between">
-          <div className="flex flex-col gap-y-4 flex-1 z-10">
+          <div className="flex flex-col gap-y-4 flex-1 z-10 sm:w-1/2">
             <h1 className="font-sans text-agyellow text-4xl sm:text-5xl font-black">
               Get {process.env.NEXT_PUBLIC_MULTIPLIER}x Points Now
             </h1>
@@ -130,7 +130,7 @@ const Success = ({ tokenId }: Props) => {
               </Button>
             </div>
           </div>
-          <div className="flex flex-col gap-y-8 z-10">
+          <div className="flex flex-col gap-y-8 z-10 sm:w-1/2">
             <Image
               src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/networks.svg"
               alt="networks"

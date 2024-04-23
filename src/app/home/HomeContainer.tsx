@@ -44,8 +44,6 @@ const HomeContainer = () => {
   const publicClient = usePublicClient();
 
   const getTokenIds = async (poll?: boolean) => {
-    console.log({ publicClient });
-
     if (publicClient === undefined) return;
     if (!poll) {
       setLoading(true);
@@ -117,7 +115,6 @@ const HomeContainer = () => {
           )}`
         );
         const contribution = parseFloat(contributionData.data.data.value);
-        console.log({ contribution });
 
         setLoading(false);
         if (contribution > 0) {
