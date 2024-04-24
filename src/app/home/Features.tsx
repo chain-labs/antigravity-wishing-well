@@ -97,7 +97,7 @@ const Features = () => {
           </div>
         </div>
       </div>
-      <div className="flex absolute -right-16 -bottom-52 sm:-left-40 z-0 w-2/3 h-2/3 sm:h-full items-end">
+      <div className="absolute -right-24 -bottom-52 h-2/3 sm:left-0 sm:top-0 z-0 w-2/3 sm:w-1/2 sm:h-[1000px] items-end">
         <Image src={IMAGEKIT.ASTRO} alt="astroman" fill />
       </div>
     </div>
