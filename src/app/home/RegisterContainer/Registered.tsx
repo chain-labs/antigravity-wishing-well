@@ -23,7 +23,7 @@ const Registered = ({ setPoll }: Props) => {
 
   return (
     <div className="w-full flex items-center flex-col sm:gap-12 pt-56 h-full overflow-hidden z-20">
-      <div className="w-full flex items-center flex-col h-full overflow-hidden z-20 max-w-[1280px]">
+      <div className="w-full flex items-center flex-col h-full overflow-hidden z-20 max-w-[1280px] px-5">
         <p className="font-sans text-6xl sm:text-8xl font-black text-center text-agwhite">
           You’re
           <br /> Registered!
@@ -31,7 +31,7 @@ const Registered = ({ setPoll }: Props) => {
         <p className="font-general-sans text-center text-xl mt-4 text-agwhite">
           Contribute now on Base or PulseChain to either of our addresses below.
         </p>
-        <div className="flex flex-col w-full gap-2 sm:flex-row mt-3 lg:mt-5 p-5 justify-center">
+        <div className="flex flex-col w-full gap-2 md:gap-0 sm:flex-row pt-5 justify-center">
           <Button
             onClick={() =>
               handleCopy(TEST_NETWORK ? BaseSepoliaAG.address : BaseAG.address)
@@ -78,7 +78,7 @@ const Registered = ({ setPoll }: Props) => {
           After contributing, please wait a few minutes before we can display
           the NFT
         </p>
-        <p className="font-sans text-xl sm:mt-12 text-agwhite p-4 text-center">
+        <p className="font-sans text-xl text-agwhite p-4 mt-4 text-center">
           Here are some tokens that we encourage for contribution:
         </p>
         <Image
@@ -86,7 +86,6 @@ const Registered = ({ setPoll }: Props) => {
           alt="networks"
           width={176}
           height={32}
-          className="mt-4"
         />
       </div>
 
