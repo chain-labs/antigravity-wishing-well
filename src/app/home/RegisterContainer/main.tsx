@@ -3,10 +3,11 @@ import { HOW_TO, TEST_NETWORK } from "@/constants";
 import { checkCorrectNetwork } from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { FiLoader } from "react-icons/fi";
 import { pulsechain, baseSepolia } from "viem/chains";
 import { useAccount, useSwitchChain } from "wagmi";
+import YouTubeModal from "./YoutubeModal";
 
 type Props = {
   handleRegister: (args0: React.MouseEvent) => void;
@@ -28,8 +29,10 @@ const Main = ({
   setError,
 }: Props) => {
   const account = useAccount();
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const switchChain = useSwitchChain();
+  const howToId = process.env.NEXT_PUBLIC_HOW_TO_ID;
 
   return (
     <div className="min-h-screen w-full pb-24 z-20 px-4 sm:px-10 flex items-end sm:max-w-[1280px] justify-center lg:justify-normal">
@@ -98,19 +101,28 @@ const Main = ({
                 : "Change Network"
               : "CONNECT WALLET"}
           </Button>
-          <a href={HOW_TO} target="_blank">
-            <Button secondary className="uppercase w-full">
-              <div className="relative h-6 w-6">
-                <Image
-                  src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/info.svg"
-                  className="lg:w-8 lg:h-8 mr-2"
-                  alt="info_icon"
-                  fill
-                />
-              </div>
-              How to contribute
-            </Button>
-          </a>
+          {/* <a href={HOW_TO} target="_blank"> */}
+          <Button
+            secondary
+            className="uppercase w-full"
+            onClick={() => setModalOpen(true)}
+          >
+            <div className="relative h-6 w-6">
+              <Image
+                src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/info.svg"
+                className="lg:w-8 lg:h-8 mr-2"
+                alt="info_icon"
+                fill
+              />
+            </div>
+            How to contribute
+          </Button>
+          {/* </a> */}
+          <YouTubeModal
+            isOpen={isModalOpen}
+            onClose={() => setModalOpen(false)}
+            videoId={howToId ? howToId : ""}
+          />
         </div>
       </div>
     </div>

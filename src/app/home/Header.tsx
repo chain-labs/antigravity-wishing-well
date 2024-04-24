@@ -96,7 +96,11 @@ const Header: React.FC = () => {
             {({ chain, openChainModal, mounted }) => {
               if (chain && chain.unsupported) {
                 return (
-                  <button onClick={openChainModal} type="button">
+                  <button
+                    onClick={openChainModal}
+                    type="button"
+                    className="flex container w-full h-full bg-agblack gap-1 sm:gap-4 items-center px-2 sm:px-4 text-xs sm:text-base rounded-lg cursor-pointer focus:outline-none"
+                  >
                     Wrong network
                   </button>
                 );
