@@ -22,21 +22,21 @@ const Registered = ({ setPoll }: Props) => {
   };
 
   return (
-    <div className="w-full flex items-center flex-col gap-12 pt-56 h-full overflow-hidden z-20">
+    <div className="w-full flex items-center flex-col sm:gap-12 pt-56 h-full overflow-hidden z-20">
       <div className="w-full flex items-center flex-col h-full overflow-hidden z-20 max-w-[1280px]">
-        <p className="font-sans text-8xl font-black text-center text-agwhite">
+        <p className="font-sans text-6xl sm:text-8xl font-black text-center text-agwhite">
           You’re
           <br /> Registered!
         </p>
-        <p className="font-general-sans text-xl font- mt-4 text-agwhite">
-          Contribute now on Base or PulseChain to either of our addresses
-          below.
+        <p className="font-general-sans text-center text-xl mt-4 text-agwhite">
+          Contribute now on Base or PulseChain to either of our addresses below.
         </p>
-        <div className="flex lg:flex-row mt-3 lg:mt-5">
+        <div className="flex flex-col w-full gap-2 sm:flex-row mt-3 lg:mt-5 p-5 justify-center">
           <Button
             onClick={() =>
               handleCopy(TEST_NETWORK ? BaseSepoliaAG.address : BaseAG.address)
             }
+            className="overflow-hidden"
           >
             <Image
               src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/eth-btn.svg"
@@ -46,10 +46,18 @@ const Registered = ({ setPoll }: Props) => {
               className="absolute left-0 z-1"
             />
             <p className="uppercase z-10">wishwell.base</p>
-            <Image src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg" alt="share" width={16} height={16} />
+            <Image
+              src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg"
+              alt="share"
+              width={16}
+              height={16}
+            />
           </Button>
 
-          <Button onClick={() => handleCopy(PulsechainAG.address)}>
+          <Button
+            onClick={() => handleCopy(PulsechainAG.address)}
+            className="overflow-hidden"
+          >
             <Image
               src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/pls.svg"
               alt="pls-btn"
@@ -58,14 +66,19 @@ const Registered = ({ setPoll }: Props) => {
               className="absolute left-0 z-1 opacity-55"
             />
             <p className="uppercase z-20">wishwell.PLS</p>
-            <Image src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg" alt="share" width={16} height={16} />
+            <Image
+              src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg"
+              alt="share"
+              width={16}
+              height={16}
+            />
           </Button>
         </div>
-        <p className="font-sans text-sm font- mt-4 text-agwhite">
+        <p className="font-sans text-sm text-agwhite text-center p-4">
           After contributing, please wait a few minutes before we can display
           the NFT
         </p>
-        <p className="font-sans text-xl font- mt-12 text-agwhite">
+        <p className="font-sans text-xl sm:mt-12 text-agwhite p-4 text-center">
           Here are some tokens that we encourage for contribution:
         </p>
         <Image
@@ -76,7 +89,6 @@ const Registered = ({ setPoll }: Props) => {
           className="mt-4"
         />
       </div>
-
 
       <div className="hidden 2xl:flex relative w-screen bg-agyellow mt-12 overflow-x-hidden">
         <div className="flex justify-evenly w-full animate-[marquee_15s_infinite_linear] whitespace-nowrap">
@@ -147,7 +159,7 @@ const Registered = ({ setPoll }: Props) => {
         </div>
       </div>
 
-      <div className="lg:hidden relative flex w-screen bg-agyellow mt-12 overflow-x-hidden">
+      <div className="hidden md:flex lg:hidden relative w-screen bg-agyellow mt-12 overflow-x-hidden">
         <div className="flex justify-evenly w-full animate-[marquee_15s_infinite_linear] whitespace-nowrap">
           {Array.from({ length: 4 }).map((_, index) => (
             <p
@@ -160,6 +172,29 @@ const Registered = ({ setPoll }: Props) => {
         </div>
         <div className="absolute top-0 flex w-full animate-[marqueeRev_15s_infinite_linear] whitespace-nowrap justify-evenly">
           {Array.from({ length: 4 }).map((_, index) => (
+            <p
+              key={index}
+              className="font-sans font-extrabold text-lg text-agblack "
+            >
+              GET {process.env.NEXT_PUBLIC_MULTIPLIER}X POINTS NOW!
+            </p>
+          ))}
+        </div>
+      </div>
+
+      <div className="md:hidden relative flex w-screen bg-agyellow mt-12 overflow-x-hidden">
+        <div className="flex justify-evenly w-full animate-[marquee_15s_infinite_linear] whitespace-nowrap">
+          {Array.from({ length: 2 }).map((_, index) => (
+            <p
+              key={index}
+              className="font-sans font-extrabold text-lg text-agblack "
+            >
+              GET {process.env.NEXT_PUBLIC_MULTIPLIER}X POINTS NOW!
+            </p>
+          ))}
+        </div>
+        <div className="absolute top-0 flex w-full animate-[marqueeRev_15s_infinite_linear] whitespace-nowrap justify-evenly">
+          {Array.from({ length: 2 }).map((_, index) => (
             <p
               key={index}
               className="font-sans font-extrabold text-lg text-agblack "

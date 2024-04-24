@@ -45,11 +45,19 @@ const SuccessFooter = ({ isSuccess }: SuccessFooterProps) => {
               </p>
               <button className="flex items-center justify-center font-sans font-extrabold rounded-lg bg-blue px-5 py-2 lg:px-6 lg:py-4 mb-2 lg:mr-4">
                 <p className="uppercase">wishwell.base</p>{" "}
-                <img src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg" className="w-4 h-4 ml-2" alt="share" />
+                <img
+                  src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg"
+                  className="w-4 h-4 ml-2"
+                  alt="share"
+                />
               </button>
               <button className="flex items-center justify-center font-sans font-extrabold rounded-lg bg-blue px-5 py-2 lg:px-6 lg:py-4 mb-2 lg:mr-4">
                 <p className="uppercase">wishwell.PLS</p>{" "}
-                <img src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg" className="w-4 h-4 ml-2" alt="share" />
+                <img
+                  src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg"
+                  className="w-4 h-4 ml-2"
+                  alt="share"
+                />
               </button>
             </div>
             <div className="flex flex-col mt-3">

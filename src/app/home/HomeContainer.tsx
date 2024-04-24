@@ -44,8 +44,6 @@ const HomeContainer = () => {
   const publicClient = usePublicClient();
 
   const getTokenIds = async (poll?: boolean) => {
-    console.log({ publicClient });
-
     if (publicClient === undefined) return;
     if (!poll) {
       setLoading(true);
@@ -58,9 +56,10 @@ const HomeContainer = () => {
     //   transport: http("https://base-sepolia.g.alchemy.com/v2/Ck1jBlebtn6A92-eXG1tnievZs0kfS9F"),
     // });
 
-    const fromBlockNumber = account.chainId == base.id
-      ? process.env.NEXT_PUBLIC_BASE_FROM_BLOCK_NUMBER
-      : process.env.NEXT_PUBLIC_PLS_FROM_BLOCK_NUMBER;
+    const fromBlockNumber =
+      account.chainId == base.id
+        ? process.env.NEXT_PUBLIC_BASE_FROM_BLOCK_NUMBER
+        : process.env.NEXT_PUBLIC_PLS_FROM_BLOCK_NUMBER;
 
     if (fromBlockNumber === undefined)
       throw Error("Please set the enviornment variable for Block Number");
@@ -73,34 +72,37 @@ const HomeContainer = () => {
     latestBlock = await getLatestBlockNumber(publicClient); // Initialize the latest block
     while (currentBlock <= latestBlock) {
       // Calculate the end block for the current chunk
-      const endBlock = Math.min(parseInt(currentBlock.toString()) + parseInt(chunkSize.toString()), parseInt(latestBlock.toString()));
-  
+      const endBlock = Math.min(
+        parseInt(currentBlock.toString()) + parseInt(chunkSize.toString()),
+        parseInt(latestBlock.toString())
+      );
+
       // Create the event filter for the current block range
       const filter = await publicClient.createEventFilter({
-          address: AntiGravity?.address,
-          event: parseAbiItem(
-              "event Transfer(address indexed from, address indexed to, uint256 indexed id)"
-          ),
-          args: {
-              to: account.address,
-          },
-          fromBlock: BigInt(currentBlock),
-          toBlock: BigInt(endBlock),
+        address: AntiGravity?.address,
+        event: parseAbiItem(
+          "event Transfer(address indexed from, address indexed to, uint256 indexed id)"
+        ),
+        args: {
+          to: account.address,
+        },
+        fromBlock: BigInt(currentBlock),
+        toBlock: BigInt(endBlock),
       });
-  
+
       // Fetch logs using the filter
       const logs = await publicClient.getFilterLogs({ filter });
-  
+
       if (logs.length > 0) {
-          tokenId = logs[0]?.args.id;
-          if (tokenId) {
-              break; // Exit the loop if tokenId is found
-          }
+        tokenId = logs[0]?.args.id;
+        if (tokenId) {
+          break; // Exit the loop if tokenId is found
+        }
       }
-  
+
       // Update currentBlock for the next iteration
       currentBlock = BigInt((endBlock + 1).toString());
-  
+
       // Refresh latest block number to ensure it includes recent blocks
       latestBlock = await getLatestBlockNumber(publicClient);
     }
@@ -113,7 +115,6 @@ const HomeContainer = () => {
           )}`
         );
         const contribution = parseFloat(contributionData.data.data.value);
-        console.log({ contribution });
 
         setLoading(false);
         if (contribution > 0) {

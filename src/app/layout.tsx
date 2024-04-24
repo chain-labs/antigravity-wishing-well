@@ -25,13 +25,13 @@ export default function RootLayout({
     <html lang="en">
       <GoogleAnalytics />
       <body className={inter.className}>
-        <div className="hidden sm:block">
+        <div>
           <Toaster />
           <RainbowKitContext>{children}</RainbowKitContext>
         </div>
-        <div className="sm:hidden block">
+        {/* <div className="sm:hidden block">
           <MobileView />
-        </div>
+        </div> */}
       </body>
     </html>
   );
