@@ -47,7 +47,7 @@ const Success = ({ tokenId }: Props) => {
   return (
     <div className="w-full flex items-center flex-col min-h-screen z-20 max-w-[1280px]">
       <div className="flex items-center flex-col min-h-screen pt-48 w-full">
-        <p className="font-sans text-8xl font-black text-center text-agwhite">
+        <p className="font-sans text-6xl sm:text-8xl font-black text-center text-agwhite">
           Success!
         </p>
         <div className="flex justify-between w-80 items-center">
@@ -63,7 +63,7 @@ const Success = ({ tokenId }: Props) => {
             Refresh
           </p>
         </div>
-        <div className="bg-gray-80 p-1 my-4 ml-4 z-20">
+        <div className="bg-gray-80 p-1 my-4 z-20">
           <img
             src={uri}
             alt="nft"
@@ -80,15 +80,19 @@ const Success = ({ tokenId }: Props) => {
             </div>
           )}
         </div>
-        <div className="relative w-full flex px-12 py-12 justify-between">
-          <div className="flex flex-col gap-y-4 flex-1 z-10">
-            <h1 className="font-sans text-agyellow text-5xl font-black">
+        <div className="relative w-full flex flex-col sm:flex-row px-4 gap-10 py-12 justify-between">
+          <div className="flex flex-col gap-y-4 flex-1 z-10 sm:w-1/2">
+            <h1 className="font-sans text-agyellow text-4xl sm:text-5xl font-black">
               Get {process.env.NEXT_PUBLIC_MULTIPLIER}x Points Now
             </h1>
-            <div className="flex flex-col gap-y-6">
+            <div className="flex flex-col gap-2 sm:gap-y-6">
               <Button
-                onClick={() => handleCopy(TEST_NETWORK ? BaseSepoliaAG.address : BaseAG.address)}
-                className="self-start"
+                onClick={() =>
+                  handleCopy(
+                    TEST_NETWORK ? BaseSepoliaAG.address : BaseAG.address
+                  )
+                }
+                className="self-start overflow-hidden"
               >
                 <Image
                   src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/eth-btn.svg"
@@ -98,11 +102,16 @@ const Success = ({ tokenId }: Props) => {
                   className="absolute left-0 z-1"
                 />
                 <p className="uppercase z-10">wishwell.base</p>
-                <Image src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg" alt="share" width={16} height={16} />
+                <Image
+                  src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg"
+                  alt="share"
+                  width={16}
+                  height={16}
+                />
               </Button>
               <Button
                 onClick={() => handleCopy(PulsechainAG.address)}
-                className="self-start"
+                className="self-start overflow-hidden"
               >
                 <Image
                   src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/pls.svg"
@@ -112,13 +121,23 @@ const Success = ({ tokenId }: Props) => {
                   className="absolute left-0 z-1 opacity-55"
                 />
                 <p className="uppercase z-20">wishwell.PLS</p>
-                <Image src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg" alt="share" width={16} height={16} />
+                <Image
+                  src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg"
+                  alt="share"
+                  width={16}
+                  height={16}
+                />
               </Button>
             </div>
           </div>
-          <div className="flex flex-col gap-y-8 z-10">
-            <Image src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/networks.svg" alt="networks" height="48" width="240" />
-            <p className="font-general-sans text-agwhite text-xl">
+          <div className="flex flex-col gap-y-8 z-10 sm:w-5/12 sm:pl-16">
+            <Image
+              src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/networks.svg"
+              alt="networks"
+              height="48"
+              width="240"
+            />
+            <p className="font-general-sans text-agwhite sm:text-xl">
               As you contribute more, your{" "}
               <span className="underline ">
                 <a
@@ -128,8 +147,7 @@ const Success = ({ tokenId }: Props) => {
                   ERC-721 NFT
                 </a>
               </span>{" "}
-              above
-              <br /> will uniquely update with future contributions.
+              above will uniquely update with future contributions.
             </p>
           </div>
         </div>

@@ -61,30 +61,36 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
   });
 
   return (
-    <div className="bg-agblack z-10">
+    <div className="bg-agblack z-10 w-full">
       <div
-        className={`flex flex-col px-10 py-16 bg-cover relative items-center`}
+        className={`flex flex-col px-5 pt-16 bg-cover relative items-center w-full pb-48 sm:pb-16`}
         style={{ background: `url(${IMAGEKIT.GRID})` }}
       >
-        <div className="max-w-[1280px] w-3/4">
-          <p className="text-5xl text-agwhite font-black font-sans capitalize">
-           Don't miss out on getting points multiplier...
-          </p>
-          <div className="flex mt-8 gap-x-4">
-            <TimerBox value={timeLeft?.days} text="days" />
-            <TimerBox value={timeLeft?.hours} text="hours" />
-            <TimerBox value={timeLeft?.minutes} text="minutes" />
-            <TimerBox value={timeLeft?.seconds} text="seconds" />
+        <div className="flex flex-col gap-8 max-w-[1280px] md:w-3/4">
+          <div className="w-fit flex flex-col gap-8">
+            <p className="text-4xl lg:text-5xl text-agwhite font-black font-sans capitalize">
+              Don't miss out on getting points multiplier...
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full z-10">
+              <TimerBox value={timeLeft?.days} text="days" />
+              <TimerBox value={timeLeft?.hours} text="hours" />
+              <TimerBox value={timeLeft?.minutes} text="minutes" />
+              <TimerBox value={timeLeft?.seconds} text="seconds" />
+            </div>
           </div>
           {!isRegistered && (
             <Button
               onClick={account.isConnected ? handleRegister : handleLogin}
-              className="self-start mt-8"
+              className="self-start w-full sm:w-fit z-10"
             >
               <div className="relative h-6 w-6">
                 <Image
-                  src={account.isConnected ? "https://ik.imagekit.io/xlvg9oc4k/Antigravity/pen.svg" : "https://ik.imagekit.io/xlvg9oc4k/Antigravity/wallet.svg"}
-                  className="w-6 h-6 lg:w-8 lg:h-8 mr-2"
+                  src={
+                    account.isConnected
+                      ? "https://ik.imagekit.io/xlvg9oc4k/Antigravity/pen.svg"
+                      : "https://ik.imagekit.io/xlvg9oc4k/Antigravity/wallet.svg"
+                  }
+                  className="w-3 h-3 lg:w-8 lg:h-8 mr-2"
                   alt="wallet_icon"
                   fill
                 />
@@ -96,10 +102,8 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
                 : "CONNECT WALLET"}
             </Button>
           )}
-          <div className="absolute right-5 top-0">
-            <div className="relative h-[460px] w-[460px]">
-              <Image src={IMAGEKIT.SHIP} alt="timer-ship" fill />
-            </div>
+          <div className="absolute w-64 h-64 md:w-64 md:h-64 lg:h-[460px] lg:w-[460px] sm:right-16 sm:top-0 transform z-0 translate-x-10 -bottom-10">
+            <Image src={IMAGEKIT.SHIP} alt="timer-ship" fill />
           </div>
         </div>
       </div>
