@@ -48,6 +48,7 @@ const Main = ({
             </p> */}
         <div className="flex flex-col lg:flex-row mt-3 lg:mt-5">
           <Button
+            className="w-full lg:w-fit"
             onClick={
               !loading
                 ? account.isConnected
@@ -104,7 +105,7 @@ const Main = ({
           {/* <a href={HOW_TO} target="_blank"> */}
           <Button
             secondary
-            className="uppercase w-full"
+            className="uppercase w-full lg:w-fit"
             onClick={() => setModalOpen(true)}
           >
             <div className="relative h-6 w-6">

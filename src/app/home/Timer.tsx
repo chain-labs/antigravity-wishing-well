@@ -63,18 +63,20 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
   return (
     <div className="bg-agblack z-10 w-full">
       <div
-        className={`flex flex-col px-5 py-16 bg-cover relative items-center w-full pb-48 sm:pb-0`}
+        className={`flex flex-col px-5 pt-16 bg-cover relative items-center w-full pb-48 sm:pb-16`}
         style={{ background: `url(${IMAGEKIT.GRID})` }}
       >
         <div className="flex flex-col gap-8 max-w-[1280px] md:w-3/4">
-          <p className="text-4xl lg:text-5xl text-agwhite font-black font-sans capitalize">
-            Don't miss out on getting points multiplier...
-          </p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full z-10">
-            <TimerBox value={timeLeft?.days} text="days" />
-            <TimerBox value={timeLeft?.hours} text="hours" />
-            <TimerBox value={timeLeft?.minutes} text="minutes" />
-            <TimerBox value={timeLeft?.seconds} text="seconds" />
+          <div className="w-fit flex flex-col gap-8">
+            <p className="text-4xl lg:text-5xl text-agwhite font-black font-sans capitalize">
+              Don't miss out on getting points multiplier...
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full z-10">
+              <TimerBox value={timeLeft?.days} text="days" />
+              <TimerBox value={timeLeft?.hours} text="hours" />
+              <TimerBox value={timeLeft?.minutes} text="minutes" />
+              <TimerBox value={timeLeft?.seconds} text="seconds" />
+            </div>
           </div>
           {!isRegistered && (
             <Button
@@ -100,7 +102,7 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
                 : "CONNECT WALLET"}
             </Button>
           )}
-          <div className="absolute w-64 h-64 md:w-64 md:h-64 lg:h-72 lg:w-72 sm:right-5 sm:top-0 transform z-0 translate-x-10 -bottom-10">
+          <div className="absolute w-64 h-64 md:w-64 md:h-64 lg:h-[460px] lg:w-[460px] sm:right-16 sm:top-0 transform z-0 translate-x-10 -bottom-10">
             <Image src={IMAGEKIT.SHIP} alt="timer-ship" fill />
           </div>
         </div>

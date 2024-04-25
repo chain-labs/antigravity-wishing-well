@@ -56,12 +56,12 @@ const Team = () => {
         className="flex flex-col bg-cover bg-bottom"
         style={{ backgroundImage: `url('${IMAGEKIT.TEAM_BG}')` }}
       >
-        <div className="py-24 px-5 w-full">
-          <div className="flex items-center justify-around flex-col gap-5">
+        <div className="flex py-24 px-5 w-full items-center justify-center">
+          <div className="flex items-center justify-around flex-col gap-12 max-w-[1280px] w-3/4">
             <p className="text-6xl text-center font-black text-agwhite font-sans capitalize">
               Who’s behind it all?
             </p>
-            <div className="flex items-center justify-evenly sm:flex-row flex-col gap-10 max-w-[1280px] w-3/4">
+            <div className="flex items-center justify-evenly w-3/4 sm:flex-row flex-col gap-16">
               <div className="flex items-center justify-around flex-col w-1/3 gap-2">
                 <div className="relative h-[145px] w-[145px]">
                   <Image
