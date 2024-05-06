@@ -12,6 +12,9 @@ const config: Config = {
       "general-sans": ["General Sans", "sans-serif"],
     },
     extend: {
+      backgroundPosition: {
+        "team-bg": "center top",
+      },
       objectPosition: {
         "value-bg": "center top",
       },
