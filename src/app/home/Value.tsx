@@ -16,7 +16,7 @@ const Value = () => {
         </div>
       </div>
       <div className="px-10 py-16 z-10 w-full gap-12 flex flex-col sm:w-3/4 sm:max-w-[1280px]">
-        <p className="font-sans text-5xl sm:text-[64px] font-black text-agwhite">
+        <p className="font-sans text-5xl sm:text-[56px] font-black text-agwhite">
           The Value Of The Project
         </p>
         <div className="flex flex-col gap-6">
