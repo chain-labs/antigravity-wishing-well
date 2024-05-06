@@ -53,10 +53,13 @@ const Team = () => {
   return (
     <div className="bg-agblack z-10">
       <div
-        className="flex flex-col bg-cover bg-bottom"
-        style={{ backgroundImage: `url('${IMAGEKIT.TEAM_BG}')` }}
+        className="flex flex-col bg-cover bg-team-bg"
+        style={{
+          backgroundImage: `url('${IMAGEKIT.TEAM_BG}')`,
+        }}
       >
-        <div className="flex py-24 px-5 w-full items-center justify-center">
+        <div className="absolute w-full h-full bg-black/30" />
+        <div className="flex py-16 px-5 w-full items-center justify-center">
           <div className="flex items-center justify-around flex-col gap-12 max-w-[1280px] w-3/4">
             <p className="text-6xl text-center font-black text-agwhite font-sans capitalize">
               Who’s behind it all?
