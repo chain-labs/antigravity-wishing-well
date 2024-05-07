@@ -63,10 +63,10 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
   return (
     <div className="bg-agblack z-10 w-full">
       <div
-        className={`flex flex-col pt-16 bg-cover relative items-center w-full pb-48 px-10 sm:pb-16`}
+        className={`flex flex-col pt-12 bg-cover pb-48 sm:pb-12 relative items-center w-full px-10`}
         style={{ background: `url(${IMAGEKIT.GRID})` }}
       >
-        <div className="flex flex-col gap-8 max-w-[1280px] md:w-3/4 items-center">
+        <div className="flex flex-col gap-8 max-w-[1000px] md:w-3/4 items-center">
           <div className="w-full flex flex-col gap-8 z-10">
             <p className="text-5xl lg:text-6xl text-agwhite font-black font-sans text-center">
               Get {process.env.NEXT_PUBLIC_MULTIPLIER}x Points Now!
