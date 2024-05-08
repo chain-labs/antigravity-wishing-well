@@ -31,8 +31,8 @@ const config: Config = {
       },
       colors: {
         agblack: "#030404",
-        brred: "#3C00DC",
-        brblue: "#FF5001",
+        brblue: "#3C00DC",
+        brred: "#FF5001",
         blue: "#3C00DC",
         agyellow: "#F5EB00",
         agwhite: "#FEFFFF",

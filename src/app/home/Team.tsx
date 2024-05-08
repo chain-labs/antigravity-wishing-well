@@ -77,7 +77,7 @@ const Team = () => {
                 <p className="font-sans font-extrabold text-2xl text-agwhite">
                   @PulseRayVision
                 </p>
-                <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-0.5 overflow-hidden">
+                <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-tr from-brred to-brblue p-0.5 overflow-hidden">
                   <div className="bg-agblack flex items-center px-6 py-4 rounded-lg">
                     {socials.map((item, i) => {
                       return (
@@ -112,7 +112,7 @@ const Team = () => {
                 <p className="font-sans font-extrabold text-2xl text-agwhite">
                   @TheHEXiestMan
                 </p>
-                <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-0.5 overflow-hidden">
+                <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-tr from-brred to-brblue p-0.5 overflow-hidden">
                   <div className="bg-agblack flex items-center px-6 py-4 rounded-lg">
                     {TEAM_2_SOCIALS.map((item, i) => {
                       return (
@@ -145,7 +145,7 @@ const Team = () => {
                 <p className="font-sans font-extrabold text-2xl text-agwhite">
                   Cody Smith
                 </p>
-                <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-0.5 overflow-hidden">
+                <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-tr from-brred to-brblue p-0.5 overflow-hidden">
                   <div className="bg-agblack flex items-center px-6 py-4 rounded-lg">
                     {TEAM_3_SOCIALS.map((item, i) => {
                       return (
