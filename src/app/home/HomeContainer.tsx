@@ -17,7 +17,6 @@ import {
 import toast from "react-hot-toast";
 import useContract from "@/abi";
 import { PublicClient, parseAbiItem } from "viem";
-import { createPublicClient, http } from "viem";
 import axios from "axios";
 import { POLL_TIME, PROXY_API_ENDPOINT, TIMER } from "@/constants";
 import { checkCorrectNetwork, getApiNetwork } from "@/utils";
@@ -34,7 +33,7 @@ async function getLatestBlockNumber(publicClient: PublicClient) {
 const HomeContainer = () => {
   const [isRegistered, setIsRegistered] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
-  const [payableAmount, setPayableAmount] = useState(0);
+  // const [payableAmount, setPayableAmount] = useState(0);
   const [tokenId, setTokenId] = useState<BigInt>(BigInt(0));
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);

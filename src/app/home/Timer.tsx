@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+"use client"
+
+import { useEffect, useState } from "react";
 import TimerBox from "./TimerBox";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
@@ -13,7 +15,12 @@ interface Props {
 }
 
 const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
   const { openConnectModal } = useConnectModal();
   const account = useAccount();
 
@@ -58,7 +65,7 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
     }, 1000);
 
     return () => clearTimeout(timer);
-  });
+  }, [timeLeft]);
 
   return (
     <div className="bg-agblack z-10 w-full">
@@ -71,12 +78,14 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
             <p className="text-5xl lg:text-6xl text-agwhite font-black font-sans text-center">
               Get {process.env.NEXT_PUBLIC_MULTIPLIER}x Points Now!
             </p>
+            {timeLeft && 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full z-10">
               <TimerBox value={timeLeft?.days} text="days" />
               <TimerBox value={timeLeft?.hours} text="hours" />
               <TimerBox value={timeLeft?.minutes} text="minutes" />
               <TimerBox value={timeLeft?.seconds} text="seconds" />
             </div>
+            }
             {!isRegistered && (
               <Button
                 onClick={account.isConnected ? handleRegister : handleLogin}
