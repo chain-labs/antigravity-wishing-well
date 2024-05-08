@@ -16,7 +16,7 @@ const Header: React.FC = () => {
 
   return (
     <header className="flex h-full w-full items-center justify-center gap-3 sm:gap-6 z-50">
-      <div className="flex bg-gray-800 text-white w-full sm:w-1/2 h-14 lg:h-16 rounded-lg bg-gradient-to-tr from-[#ff5001] via-brred to-arblue p-[2px]">
+      <div className="flex bg-gray-800 text-white w-full sm:w-1/2 h-14 lg:h-16 rounded-lg bg-gradient-to-tr from-[#ff5001] to-blue p-[2px]">
         <div className="container w-full h-full bg-agblack mx-auto py-4 px-4 flex items-center justify-between rounded-lg gap-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
