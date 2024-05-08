@@ -20,8 +20,8 @@ const Header: React.FC = () => {
 
   return (
     <header className="flex h-full w-full items-center justify-center gap-3 sm:gap-6 z-50">
-      <div className="flex bg-gray-800 text-white w-full sm:w-1/2 h-14 lg:h-16 rounded-lg bg-gradient-to-tr from-[#ff5001] to-blue p-[2px]">
-        <div className="container w-full h-full bg-agblack mx-auto py-4 px-4 flex items-center justify-between rounded-lg gap-6">
+      <div className="flex text-white w-full sm:w-3/4 h-14 lg:h-16 rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px]">
+        <div className="w-full h-full bg-agblack px-8 flex items-center justify-between rounded-lg gap-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <Image
@@ -32,7 +32,7 @@ const Header: React.FC = () => {
                 onClick={scrollToTop}
                 className="cursor-pointer"
               />
-              <p className=" from-white to-gray-500 pl-2 font-sans font-extrabold sm:text-2xl bg-gradient-to-b text-transparent bg-clip-text">
+              <p className="from-white to-[#999999] pl-2 font-sans font-extrabold sm:text-2xl bg-gradient-to-b text-transparent bg-clip-text">
                 ANTIGRAVITY
               </p>
             </div>
@@ -53,37 +53,43 @@ const Header: React.FC = () => {
               </button>
             </div> */}
           </div>
-          {/* <nav
-            className={`md:flex md:flex-grow md:items-center md:justify-end md:gap-x-6 ${
-              isOpen ? "block" : "hidden"
-            }`}
+          <div
+            className={`hidden md:flex md:flex-grow md:items-center md:justify-end md:gap-x-6 font-extrabold text-lg font-sans`}
           >
             <a
+            target="_blank"
+              href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}
+              className="bg-gradient-to-b from-white to-[#999999] text-transparent bg-clip-text"
+            >
+              WHITEPAPER
+            </a>
+            <a
               href="#value"
-              className="block mt-4 md:inline-block md:mt-0 font-sans text-lg font-bold tracking-wide bg-gradient-to-b from-agwhite to-gray-500 text-transparent bg-clip-text"
+              className="bg-gradient-to-b from-white to-[#999999] text-transparent bg-clip-text"
             >
               VALUE
             </a>
             <a
               href="#utilities"
-              className="block mt-4 md:inline-block md:mt-0 font-sans text-lg font-bold tracking-wide bg-gradient-to-b from-agwhite to-gray-500 text-transparent bg-clip-text"
+              className="bg-gradient-to-b from-white to-[#999999] text-transparent bg-clip-text"
             >
               UTILITIES
             </a>
             <a
               href="#team"
-              className="block mt-4 md:inline-block md:mt-0 font-sans text-lg font-bold tracking-wide bg-gradient-to-b from-agwhite to-gray-500 text-transparent bg-clip-text"
+              className="bg-gradient-to-b from-white to-[#999999] text-transparent bg-clip-text"
             >
               TEAM
             </a>
-          </nav> */}
+          
           {account.isConnected && (
             // <div>
-            <p className="uppercase bg-gradient-to-b from-[#B4EBF8] to-[#789DFA] text-transparent text-xs sm:text-lg bg-clip-text font-bold">
+            <p className="uppercase bg-gradient-to-b from-[#B4EBF8] to-[#789DFA] text-transparent bg-clip-text ">
               {`Connected: ${condenseAddress(`${account.address}`)}`}
             </p>
             // </div>
           )}
+          </div>
         </div>
       </div>
       {account.isConnected && (

@@ -30,8 +30,8 @@ export const checkCorrectNetwork = (chainId: number | undefined) => {
 };
 
 export const condenseAddress = (address: string) => {
-  const condensed = `${address.slice(0, 6)}...${address.slice(
-    address.length - 2
+  const condensed = `${address.slice(0, 4)}...${address.slice(
+    address.length - 4
   )}`;
 
   return condensed;
