@@ -8,6 +8,10 @@ const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentChain, setCurrentChain] = useState("");
 
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   const account = useAccount();
 
   const toggleMenu = () => {
@@ -25,6 +29,8 @@ const Header: React.FC = () => {
                 alt="icon"
                 width="45"
                 height="45"
+                onClick={scrollToTop}
+                className="cursor-pointer"
               />
               <p className=" from-white to-gray-500 pl-2 font-sans font-extrabold sm:text-2xl bg-gradient-to-b text-transparent bg-clip-text">
                 ANTIGRAVITY
