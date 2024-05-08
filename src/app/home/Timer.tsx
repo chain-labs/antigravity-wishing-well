@@ -70,16 +70,16 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
   return (
     <div className="bg-agblack z-10 w-full">
       <div
-        className={`flex flex-col pt-12 bg-cover pb-48 sm:pb-12 relative items-center w-full px-10`}
+        className={`flex flex-col pt-12 sm:pt-8 bg-cover pb-48 sm:pb-8 relative items-center w-full px-10 overflow-hidden`}
         style={{ background: `url(${IMAGEKIT.GRID})` }}
       >
-        <div className="flex flex-col gap-8 max-w-[1000px] md:w-3/4 items-center">
-          <div className="w-full flex flex-col gap-8 z-10">
-            <p className="text-5xl lg:text-6xl text-agwhite font-black font-sans text-center">
+        <div className="flex flex-col gap-8 max-w-[1000px] items-center">
+          <div className="w-full flex flex-col gap-4 z-10 items-center">
+            <p className="text-5xl text-agwhite font-black font-sans text-center">
               Get {process.env.NEXT_PUBLIC_MULTIPLIER}x Points Now!
             </p>
             {timeLeft && 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full z-10">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-fit z-10">
               <TimerBox value={timeLeft?.days} text="days" />
               <TimerBox value={timeLeft?.hours} text="hours" />
               <TimerBox value={timeLeft?.minutes} text="minutes" />
@@ -114,7 +114,7 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
             )}
           </div>
 
-          <div className="absolute -rotate-[15deg] sm:-rotate-[45deg] w-64 h-64 md:w-64 md:h-64 lg:h-[460px] lg:w-[460px] sm:right-0 sm:top-1/2 transform sm:-translate-y-1/2 z-0 -bottom-10">
+          <div className="absolute -rotate-[15deg] sm:-rotate-[45deg] w-64 h-64 md:w-64 md:h-64 lg:h-[320px] lg:w-[320px] sm:right-0 sm:top-1/2 transform sm:-translate-y-1/2 z-0 -bottom-10">
             <Image src={IMAGEKIT.SHIP} alt="timer-ship" fill />
           </div>
         </div>

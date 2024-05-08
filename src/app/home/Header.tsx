@@ -81,7 +81,7 @@ const Header: React.FC = () => {
         </div>
       </div>
       {account.isConnected && (
-        <div className="bg-gray-800 text-white w-fit h-14 lg:h-16 rounded-lg bg-gradient-to-tr from-[#ff5001] via-brred to-arblue p-[2px]">
+        <div className="bg-gray-800 text-white w-fit h-14 lg:h-16 rounded-lg bg-gradient-to-tr from-brred to-brblue p-[2px]">
           {/* <button
             className="container w-full h-full bg-agblack mx-auto py-4 px-4 md:flex md:items-center md:justify-between rounded-lg cursor-pointer"
             onClick={() => {

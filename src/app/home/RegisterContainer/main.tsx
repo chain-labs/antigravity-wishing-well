@@ -1,8 +1,7 @@
 import Button from "@/components/Button";
-import { HOW_TO, TEST_NETWORK } from "@/constants";
+import { TEST_NETWORK } from "@/constants";
 import { checkCorrectNetwork } from "@/utils";
 import Image from "next/image";
-import Link from "next/link";
 import React, { useState } from "react";
 import { FiLoader } from "react-icons/fi";
 import { pulsechain, baseSepolia } from "viem/chains";
@@ -35,18 +34,18 @@ const Main = ({
   const howToId = process.env.NEXT_PUBLIC_HOW_TO_ID;
 
   return (
-    <div className="min-h-screen w-full pb-24 z-20 px-4 sm:px-10 flex items-end sm:max-w-[1280px] justify-center lg:justify-normal">
-      <div className="flex flex-col sm:items-center lg:items-start lg:max-w-[700px]">
-        <p className="font-black font-sans text-6xl lg:text-8xl text-white sm:text-center lg:text-left">
+    <div className="h-full w-full z-20 px-4 sm:px-20 flex items-end sm:max-w-[1280px] 2xl:px-32 justify-center absolute pb-8 lg:justify-normal">
+      <div className="flex flex-col sm:items-center lg:items-start">
+        <p className="font-black font-sans text-6xl lg:text-7xl max-w-[380px] 2xl:text-8xl text-white sm:text-center lg:text-left leading-none">
           Join The Revolution!
         </p>
-        {/* <p className="font-normal font-general-sans text-lg lg:text-xl text-white text-center lg:text-left mt-2 lg:mt-4">
+        <p className="font-general-sans text-white mt-1 max-w-[580px] text-base 2xl:text-lg">
               Do you wish there was a project that could help the people take
               back economic power of crypto from banks and governments? <br />
               Contribute now and freely mine, claim, mint, unwrap, and scrape
               crypto.
-            </p> */}
-        <div className="flex flex-col lg:flex-row mt-3 lg:mt-5">
+            </p>
+        <div className="flex flex-col lg:flex-row mt-3">
           <Button
             className="w-full lg:w-fit"
             onClick={

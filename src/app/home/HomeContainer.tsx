@@ -41,7 +41,6 @@ const HomeContainer = () => {
   const account = useAccount();
   const AntiGravity = useContract();
   const publicClient = usePublicClient();
-
   const getTokenIds = async (poll?: boolean) => {
     if (publicClient === undefined) return;
     if (!poll) {
@@ -98,7 +97,6 @@ const HomeContainer = () => {
           break; // Exit the loop if tokenId is found
         }
       }
-
       // Update currentBlock for the next iteration
       currentBlock = BigInt((endBlock + 1).toString());
 
@@ -220,7 +218,6 @@ const HomeContainer = () => {
 
   useEffect(() => {
     if (registerFetched) {
-      console.log({ registerReceipt });
       toast.success("Registered successful", {
         duration: 3000,
       });
@@ -230,6 +227,7 @@ const HomeContainer = () => {
 
   return (
     <div className="flex flex-col min-h-screen max-w-screen overflow-hidden">
+      <div className="flex flex-col min-h-screen sm:max-h-screen">
       <Register
         isRegistered={isRegistered}
         handleRegister={handleRegister}
@@ -241,11 +239,19 @@ const HomeContainer = () => {
         setError={setError}
         setPoll={setPoll}
       />
-      <Timer
+      {!isRegistered && <Timer
+        handleRegister={handleRegister}
+        targetTime={`${TIMER}`}
+        isRegistered={isRegistered}
+      />}
+      </div>
+      {isRegistered && <Timer
         handleRegister={handleRegister}
         targetTime={`${TIMER}`}
         isRegistered={isRegistered}
       />
+       }
+
       <div id="value"></div>
       <Value />
       {/* <SuccessFooter isSuccess={isSuccess} /> */}

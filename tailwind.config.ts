@@ -17,6 +17,7 @@ const config: Config = {
       },
       objectPosition: {
         "value-bg": "center top",
+        "landing-bg": "70% top",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

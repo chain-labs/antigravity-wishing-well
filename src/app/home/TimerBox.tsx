@@ -5,8 +5,8 @@ interface TimerBoxProps {
 const TimerBox = ({ value, text }: TimerBoxProps) => {
   const formattedValue = value.toString().padStart(2, "0");
   return (
-    <div className="flex flex-col items-center text-agblack bg-agyellow p-4 w-full rounded-lg uppercase">
-      <p className="font-sans text-6xl lg:text-9xl font-black">
+    <div className="flex flex-col items-center text-agblack bg-agyellow py-4 px-8 w-fit rounded-lg uppercase justify-center">
+      <p className="font-sans text-6xl lg:text-7xl font-black md:min-w-[110px] min-w-[90px] text-center">
         {formattedValue}
       </p>
       <p className="font-sans text-lg font-extrabold">{text}</p>
