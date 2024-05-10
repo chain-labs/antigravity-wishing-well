@@ -113,7 +113,7 @@ const Header: React.FC = () => {
         <div className="flex md:hidden w-full justify-center">
           <div className="flex text-white w-full lg:h-16 rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px] overflow-hidden">
             <div className="w-full h-full bg-agblack px-8 flex flex-col items-center justify-center rounded-lg gap-6 py-4">
-              <UserConnected />
+              {account.isConnected && <UserConnected />}
               <a
                 target="_blank"
                 href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}
