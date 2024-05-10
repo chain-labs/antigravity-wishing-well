@@ -228,29 +228,32 @@ const HomeContainer = () => {
   return (
     <div className="flex flex-col min-h-screen max-w-screen overflow-hidden">
       <div className="flex flex-col min-h-screen sm:max-h-screen">
-      <Register
-        isRegistered={isRegistered}
-        handleRegister={handleRegister}
-        isSuccess={isSuccess}
-        tokenId={tokenId}
-        loading={loading}
-        registerIdle={!registerPending && !registerLoading}
-        error={error}
-        setError={setError}
-        setPoll={setPoll}
-      />
-      {!isRegistered && <Timer
-        handleRegister={handleRegister}
-        targetTime={`${TIMER}`}
-        isRegistered={isRegistered}
-      />}
+        <Register
+          isRegistered={isRegistered}
+          handleRegister={handleRegister}
+          isSuccess={isSuccess}
+          tokenId={tokenId}
+          loading={loading}
+          registerIdle={!registerPending && !registerLoading}
+          error={error}
+          setError={setError}
+          setPoll={setPoll}
+        />
+        {!isRegistered && (
+          <Timer
+            handleRegister={handleRegister}
+            targetTime={`${TIMER}`}
+            isRegistered={isRegistered}
+          />
+        )}
       </div>
-      {isRegistered && <Timer
-        handleRegister={handleRegister}
-        targetTime={`${TIMER}`}
-        isRegistered={isRegistered}
-      />
-       }
+      {isRegistered && (
+        <Timer
+          handleRegister={handleRegister}
+          targetTime={`${TIMER}`}
+          isRegistered={isRegistered}
+        />
+      )}
 
       <div id="value"></div>
       <Value />

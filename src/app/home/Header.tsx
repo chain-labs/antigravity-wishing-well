@@ -1,8 +1,6 @@
-import { condenseAddress } from "@/utils";
 import Image from "next/image";
 import { useState } from "react";
 import { useAccount } from "wagmi";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { IoMenu, IoCloseCircleOutline } from "react-icons/io5";
 import { UserConnected } from "./UserConnected";
 
@@ -22,7 +20,7 @@ const Header: React.FC = () => {
 
   return (
     <header className="flex flex-col h-full w-full items-center justify-center gap-3 z-50 font-extrabold">
-      <div className="flex text-white w-full h-14 lg:h-16 rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px] overflow-hidden">
+      <div className="flex text-white w-full md:w-3/4 h-14 lg:h-16 rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px] overflow-hidden">
         <div className="w-full h-full bg-agblack px-8 flex items-center justify-between rounded-lg gap-6 py-4">
           <div className="flex items-center">
             <div className="w-[37px] h-[37px] md:w-[45px] md:h-[45px] relative">
