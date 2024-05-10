@@ -40,17 +40,16 @@ const Register = ({
 
   return (
     <div className="flex flex-col relative min-h-screen sm:min-h-full sm:items-center flex-1">
-          <Image
-            src={!isRegistered ? IMAGEKIT.HERO_LANDING : IMAGEKIT.REGISTERED}
-            alt="bg_hero_reg"
-            className="object-cover object-landing-bg"
-            fill
-            priority
-          />
-      <div className="fixed top-0 w-full z-50 items-center lg:justify-around pt-12 px-2">
+      <Image
+        src={!isRegistered ? IMAGEKIT.HERO_LANDING : IMAGEKIT.REGISTERED}
+        alt="bg_hero_reg"
+        className="object-cover object-landing-bg"
+        fill
+        priority
+      />
+      <div className="fixed top-0 w-full z-50 items-center pt-12 px-4">
         <Header />
       </div>
-
 
       {!isRegistered && !isSuccess ? (
         <Main

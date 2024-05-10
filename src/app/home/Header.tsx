@@ -3,39 +3,40 @@ import Image from "next/image";
 import { useState } from "react";
 import { useAccount } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { IoMenu, IoCloseCircleOutline } from "react-icons/io5";
+import { UserConnected } from "./UserConnected";
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [currentChain, setCurrentChain] = useState("");
-
-  function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+  // const [currentChain, setCurrentChain] = useState("");
 
   const account = useAccount();
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <header className="flex h-full w-full items-center justify-center gap-3 sm:gap-6 z-50">
-      <div className="flex text-white w-full sm:w-3/4 h-14 lg:h-16 rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px]">
-        <div className="w-full h-full bg-agblack px-8 flex items-center justify-between rounded-lg gap-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
+    <header className="flex flex-col h-full w-full items-center justify-center gap-3 z-50 font-extrabold">
+      <div className="flex text-white w-full h-14 lg:h-16 rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px] overflow-hidden">
+        <div className="w-full h-full bg-agblack px-8 flex items-center justify-between rounded-lg gap-6 py-4">
+          <div className="flex items-center">
+            <div className="w-[37px] h-[37px] md:w-[45px] md:h-[45px] relative">
               <Image
                 src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/icon.svg"
                 alt="icon"
-                width="45"
-                height="45"
                 onClick={scrollToTop}
                 className="cursor-pointer"
+                fill
               />
-              <p className="from-white to-[#999999] pl-2 font-sans font-extrabold sm:text-2xl bg-gradient-to-b text-transparent bg-clip-text">
-                ANTIGRAVITY
-              </p>
             </div>
+            <p className="from-white to-[#999999] pl-2 font-sans font-extrabold sm:text-2xl bg-gradient-to-b text-transparent bg-clip-text">
+              ANTIGRAVITY
+            </p>
             {/* <div className="block md:hidden">
               <button
                 onClick={toggleMenu}
@@ -53,94 +54,97 @@ const Header: React.FC = () => {
               </button>
             </div> */}
           </div>
-          <div
-            className={`hidden md:flex md:flex-grow md:items-center md:justify-end md:gap-x-6 font-extrabold text-lg font-sans`}
-          >
-            <a
-            target="_blank"
-              href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}
-              className="bg-gradient-to-b from-white to-[#999999] text-transparent bg-clip-text"
-            >
-              WHITEPAPER
-            </a>
-            <a
-              href="#value"
-              className="bg-gradient-to-b from-white to-[#999999] text-transparent bg-clip-text"
-            >
-              VALUE
-            </a>
-            <a
-              href="#utilities"
-              className="bg-gradient-to-b from-white to-[#999999] text-transparent bg-clip-text"
-            >
-              UTILITIES
-            </a>
-            <a
-              href="#team"
-              className="bg-gradient-to-b from-white to-[#999999] text-transparent bg-clip-text"
-            >
-              TEAM
-            </a>
-          
-          {account.isConnected && (
-            // <div>
-            <p className="uppercase bg-gradient-to-b from-[#B4EBF8] to-[#789DFA] text-transparent bg-clip-text ">
-              {`Connected: ${condenseAddress(`${account.address}`)}`}
-            </p>
-            // </div>
-          )}
+
+          {/* Desktop View */}
+          <div className="hidden md:flex md:flex-grow md:items-center h-full md:justify-end md:gap-x-6">
+            <div className={`flex font-extrabold text-lg font-sans gap-6`}>
+              <a
+                target="_blank"
+                href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}
+                className="bg-gradient-to-b from-white to-[#999999] text-transparent bg-clip-text"
+              >
+                WHITEPAPER
+              </a>
+              <a
+                href="#value"
+                className="bg-gradient-to-b from-white to-[#999999] text-transparent bg-clip-text"
+              >
+                VALUE
+              </a>
+              <a
+                href="#utilities"
+                className="bg-gradient-to-b from-white to-[#999999] text-transparent bg-clip-text"
+              >
+                UTILITIES
+              </a>
+              <a
+                href="#team"
+                className="bg-gradient-to-b from-white to-[#999999] text-transparent bg-clip-text"
+              >
+                TEAM
+              </a>
+            </div>
+            {account.isConnected && (
+              <>
+                <div className="w-[1px] h-full bg-gradient-to-b from-white to-[#999999]" />
+                <UserConnected />
+              </>
+            )}
+          </div>
+          {/* Mobile View */}
+          <div className="flex md:hidden">
+            {isOpen ? (
+              <IoCloseCircleOutline
+                className="cursor-pointer"
+                width={24}
+                height={24}
+                onClick={toggleMenu}
+              />
+            ) : (
+              <IoMenu
+                className="cursor-pointer"
+                width={24}
+                height={24}
+                onClick={toggleMenu}
+              />
+            )}
           </div>
         </div>
       </div>
-      {account.isConnected && (
-        <div className="bg-gray-800 text-white w-fit h-14 lg:h-16 rounded-lg bg-gradient-to-tr from-brred to-brblue p-[2px]">
-          {/* <button
-            className="container w-full h-full bg-agblack mx-auto py-4 px-4 md:flex md:items-center md:justify-between rounded-lg cursor-pointer"
-            onClick={() => {
-              if (openChainModal) {
-                openChainModal();
-              }
-            }}
-          >
-            {chain}
-          </button> */}
-          <ConnectButton.Custom>
-            {({ chain, openChainModal, mounted }) => {
-              if (chain && chain.unsupported) {
-                return (
-                  <button
-                    onClick={openChainModal}
-                    type="button"
-                    className="flex container w-full h-full bg-agblack gap-1 sm:gap-4 items-center px-2 sm:px-4 text-xs sm:text-base rounded-lg cursor-pointer focus:outline-none"
-                  >
-                    Wrong network
-                  </button>
-                );
-              } else if (chain) {
-                if (currentChain !== "" && currentChain != chain.name)
-                  location.reload();
-                setCurrentChain(chain.name as string);
-                return (
-                  <button
-                    onClick={openChainModal}
-                    type="button"
-                    className="flex container w-full h-full bg-agblack gap-1 sm:gap-4 items-center px-2 sm:px-4 text-xs sm:text-base rounded-lg cursor-pointer focus:outline-none"
-                  >
-                    {chain.hasIcon ? (
-                      <img
-                        src={chain.iconUrl}
-                        alt={chain.name}
-                        className="w-4 h-4 sm:w-6 sm:h-6 rounded-full"
-                      />
-                    ) : null}
-                    {chain.name}
-                  </button>
-                );
-              }
-            }}
-          </ConnectButton.Custom>
+      {isOpen ? (
+        <div className="flex md:hidden w-full justify-center">
+          <div className="flex text-white w-full lg:h-16 rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px]">
+            <div className="w-full h-full bg-agblack px-8 flex flex-col items-center justify-center rounded-lg gap-6 py-4">
+              <UserConnected />
+              <a
+                target="_blank"
+                href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}
+                className="bg-gradient-to-b from-white to-[#999999] text-transparent bg-clip-text"
+              >
+                WHITEPAPER
+              </a>
+              <a
+                href="#value"
+                className="bg-gradient-to-b from-white to-[#999999] text-transparent bg-clip-text"
+              >
+                VALUE
+              </a>
+              <a
+                href="#utilities"
+                className="bg-gradient-to-b from-white to-[#999999] text-transparent bg-clip-text"
+              >
+                UTILITIES
+              </a>
+              <a
+                href="#team"
+                className="bg-gradient-to-b from-white to-[#999999] text-transparent bg-clip-text"
+              >
+                TEAM
+              </a>
+            </div>
+          </div>
         </div>
-      )}
+      ) : null}
     </header>
   );
 };
