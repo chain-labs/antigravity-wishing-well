@@ -13,7 +13,7 @@ export const UserConnected: React.FC = () => {
             return (
               <div
                 onClick={openChainModal}
-                className="flex text-red-400 w-full h-full bg-agblack gap-1 sm:gap-4 items-center px-2 sm:px-4 rounded-lg cursor-pointer focus:outline-none"
+                className="flex text-red-400 w-full h-full bg-agblack border gap-2 items-center rounded-lg cursor-pointer focus:outline-none"
               >
                 <PiWarningCircle className="text-brred w-8 h-8" />
                 <p className="uppercase bg-gradient-to-b font-extrabold text-brred text-transparent bg-clip-text text-lg">
