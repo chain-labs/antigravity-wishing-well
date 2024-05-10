@@ -1,6 +1,7 @@
 import { condenseAddress } from "@/utils";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
+import { PiWarningCircle } from "react-icons/pi";
 
 export const UserConnected: React.FC = () => {
   const account = useAccount();
@@ -14,8 +15,8 @@ export const UserConnected: React.FC = () => {
                 onClick={openChainModal}
                 className="flex text-red-400 w-full h-full bg-agblack gap-1 sm:gap-4 items-center px-2 sm:px-4 rounded-lg cursor-pointer focus:outline-none"
               >
-                Wrong network
-                <p className="uppercase bg-gradient-to-b font-extrabold from-[#B4EBF8] to-[#789DFA] text-transparent bg-clip-text text-lg">
+                <PiWarningCircle className="text-brred w-8 h-8" />
+                <p className="uppercase bg-gradient-to-b font-extrabold text-brred text-transparent bg-clip-text text-lg">
                   {condenseAddress(`${account.address}`)}
                 </p>
               </div>
