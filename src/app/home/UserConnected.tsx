@@ -11,14 +11,19 @@ export const UserConnected: React.FC = () => {
         {({ chain, openChainModal, mounted }) => {
           if (chain && chain.unsupported) {
             return (
-              <div
-                onClick={openChainModal}
-                className="flex text-red-400 w-full h-full bg-agblack border gap-2 items-center rounded-lg cursor-pointer focus:outline-none"
-              >
-                <PiWarningCircle className="text-brred w-8 h-8" />
-                <p className="uppercase bg-gradient-to-b font-extrabold text-brred text-transparent bg-clip-text text-lg">
-                  {condenseAddress(`${account.address}`)}
-                </p>
+              <div>
+                <div
+                  onClick={openChainModal}
+                  className="flex text-red-400 w-full h-full bg-agblack gap-2 items-center rounded-lg peer cursor-pointer focus:outline-none peer"
+                >
+                  <PiWarningCircle className="text-brred w-8 h-8" />
+                  <p className="uppercase bg-gradient-to-b font-extrabold text-brred text-transparent bg-clip-text text-lg">
+                    {condenseAddress(`${account.address}`)}
+                  </p>
+                </div>
+                <div className="peer-hover:flex hidden absolute bg-brred -bottom-8 rounded font-normal text-base px-8">
+                  Wrong network
+                </div>
               </div>
             );
           } else if (chain) {
