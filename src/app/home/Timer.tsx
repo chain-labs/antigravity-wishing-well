@@ -1,35 +1,45 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from "react";
 import TimerBox from "./TimerBox";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
-import { useAccount } from "wagmi";
 import Image from "next/image";
-import Button from "@/components/Button";
 import IMAGEKIT from "./images";
+import { RegisterButton } from "./RegisterButton";
 
 interface Props {
-  handleRegister: () => void;
   targetTime: string;
+  handleRegister: (args0: React.MouseEvent) => void;
+  handleLogin: (args0: React.MouseEvent) => void;
+  loading: boolean;
   isRegistered: boolean;
+  registerIdle: boolean;
+  error: boolean;
+  setError: (args0: boolean) => void;
 }
 
-const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
+const Timer = ({
+  targetTime,
+  handleLogin,
+  handleRegister,
+  loading,
+  isRegistered,
+  registerIdle,
+  error,
+  setError,
+}: Props) => {
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
     minutes: 0,
     seconds: 0,
   });
-  const { openConnectModal } = useConnectModal();
-  const account = useAccount();
 
-  const handleLogin = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (openConnectModal) {
-      openConnectModal();
-    }
-  };
+  // const handleLogin = (e: React.MouseEvent) => {
+  //   e.preventDefault();
+  //   if (openConnectModal) {
+  //     openConnectModal();
+  //   }
+  // };
 
   function calculateTimeLeft(): {
     days: number;
@@ -74,19 +84,19 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
         style={{ background: `url(${IMAGEKIT.GRID})` }}
       >
         <div className="flex flex-col gap-8 max-w-[1000px] items-center">
-          <div className="w-full flex flex-col gap-4 z-10 items-center">
+          <div className="w-full flex flex-col gap-4 z-10">
             <p className="text-5xl text-agwhite font-black font-sans text-center">
               Get {process.env.NEXT_PUBLIC_MULTIPLIER}x Points Now!
             </p>
-            {timeLeft && 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-fit z-10">
-              <TimerBox value={timeLeft?.days} text="days" />
-              <TimerBox value={timeLeft?.hours} text="hours" />
-              <TimerBox value={timeLeft?.minutes} text="minutes" />
-              <TimerBox value={timeLeft?.seconds} text="seconds" />
-            </div>
-            }
-            {!isRegistered && (
+            {timeLeft && (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-fit z-10">
+                <TimerBox value={timeLeft?.days} text="days" />
+                <TimerBox value={timeLeft?.hours} text="hours" />
+                <TimerBox value={timeLeft?.minutes} text="minutes" />
+                <TimerBox value={timeLeft?.seconds} text="seconds" />
+              </div>
+            )}
+            {/* {!isRegistered && (
               <Button
                 onClick={account.isConnected ? handleRegister : handleLogin}
                 className="self-start w-full sm:w-fit z-10"
@@ -110,8 +120,17 @@ const Timer = ({ handleRegister, targetTime, isRegistered }: Props) => {
                       : ""
                     : "CONNECT WALLET"}
                 </span>
-              </Button>
-            )}
+              </Button> */}
+            <RegisterButton
+              loading={loading}
+              error={error}
+              registerIdle={registerIdle}
+              handleLogin={handleLogin}
+              setError={setError}
+              handleRegister={handleRegister}
+              isRegistered={isRegistered}
+            />
+            {/* )} */}
           </div>
 
           <div className="absolute -rotate-[15deg] sm:-rotate-[45deg] w-64 h-64 md:w-64 md:h-64 lg:h-[320px] lg:w-[320px] sm:right-0 sm:top-1/2 transform sm:-translate-y-1/2 z-0 -bottom-10">

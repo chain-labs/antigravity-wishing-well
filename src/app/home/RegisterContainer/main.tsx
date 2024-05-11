@@ -1,12 +1,8 @@
 import Button from "@/components/Button";
-import { TEST_NETWORK } from "@/constants";
-import { checkCorrectNetwork } from "@/utils";
 import Image from "next/image";
 import React, { useState } from "react";
-import { FiLoader } from "react-icons/fi";
-import { pulsechain, baseSepolia } from "viem/chains";
-import { useAccount, useSwitchChain } from "wagmi";
 import YouTubeModal from "./YoutubeModal";
+import { RegisterButton } from "../RegisterButton";
 
 type Props = {
   handleRegister: (args0: React.MouseEvent) => void;
@@ -27,10 +23,7 @@ const Main = ({
   error,
   setError,
 }: Props) => {
-  const account = useAccount();
   const [isModalOpen, setModalOpen] = useState(false);
-
-  const switchChain = useSwitchChain();
   const howToId = process.env.NEXT_PUBLIC_HOW_TO_ID;
 
   return (
@@ -40,13 +33,22 @@ const Main = ({
           Join The Revolution!
         </p>
         <p className="font-general-sans text-white mt-1 max-w-[580px] text-base 2xl:text-lg">
-              Do you wish there was a project that could help the people take
-              back economic power of crypto from banks and governments? <br />
-              Contribute now and freely mine, claim, mint, unwrap, and scrape
-              crypto.
-            </p>
+          Do you wish there was a project that could help the people take back
+          economic power of crypto from banks and governments? <br />
+          Contribute now and freely mine, claim, mint, unwrap, and scrape
+          crypto.
+        </p>
         <div className="flex flex-col lg:flex-row mt-3">
-          <Button
+          <RegisterButton
+            loading={loading}
+            error={error}
+            registerIdle={registerIdle}
+            handleLogin={handleLogin}
+            setError={setError}
+            handleRegister={handleRegister}
+            isRegistered={isRegistered}
+          />
+          {/* <Button
             className="w-full lg:w-fit"
             onClick={
               !loading
@@ -100,7 +102,7 @@ const Main = ({
                   : ""
                 : "Change Network"
               : "CONNECT WALLET"}
-          </Button>
+          </Button> */}
           {/* <a href={HOW_TO} target="_blank"> */}
           <Button
             secondary

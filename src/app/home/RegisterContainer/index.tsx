@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
 import Header from "../Header";
 import Registered from "./Registered";
 import IMAGEKIT from "../images";
@@ -7,8 +6,9 @@ import Success from "./Success";
 import Main from "./main";
 
 interface RegisterProps {
+  handleLogin: (args0: React.MouseEvent) => void;
   isRegistered: boolean;
-  handleRegister: () => void;
+  handleRegister: (args0: React.MouseEvent) => void;
   isSuccess: boolean;
   tokenId: BigInt;
   loading: boolean;
@@ -19,6 +19,7 @@ interface RegisterProps {
 }
 
 const Register = ({
+  handleLogin,
   isRegistered,
   handleRegister,
   isSuccess,
@@ -29,15 +30,6 @@ const Register = ({
   setError,
   setPoll,
 }: RegisterProps) => {
-  const { openConnectModal } = useConnectModal();
-
-  const handleLogin = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (openConnectModal) {
-      openConnectModal();
-    }
-  };
-
   return (
     <div className="flex flex-col relative min-h-screen sm:min-h-full sm:items-center flex-1">
       <Image
