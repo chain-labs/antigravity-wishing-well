@@ -17,11 +17,11 @@ import {
 import toast from "react-hot-toast";
 import useContract from "@/abi";
 import { PublicClient, parseAbiItem } from "viem";
-import { createPublicClient, http } from "viem";
 import axios from "axios";
 import { POLL_TIME, PROXY_API_ENDPOINT, TIMER } from "@/constants";
 import { checkCorrectNetwork, getApiNetwork } from "@/utils";
 import { base } from "viem/chains";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 const Timer = dynamic(() => import("./Timer"));
 
@@ -34,18 +34,26 @@ async function getLatestBlockNumber(publicClient: PublicClient) {
 const HomeContainer = () => {
   const [isRegistered, setIsRegistered] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
-  const [payableAmount, setPayableAmount] = useState(0);
+  // const [payableAmount, setPayableAmount] = useState(0);
   const [tokenId, setTokenId] = useState<BigInt>(BigInt(0));
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [poll, setPoll] = useState<boolean>(false);
   const account = useAccount();
   const AntiGravity = useContract();
   const publicClient = usePublicClient();
+  const { openConnectModal } = useConnectModal();
+
+  const handleLogin = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (openConnectModal) {
+      openConnectModal();
+    }
+  };
 
   const getTokenIds = async (poll?: boolean) => {
     if (publicClient === undefined) return;
-    if (!poll) {
+    if (!poll && checkCorrectNetwork(Number(account.chainId))) {
       setLoading(true);
       setIsRegistered(false);
       setIsSuccess(false);
@@ -99,7 +107,6 @@ const HomeContainer = () => {
           break; // Exit the loop if tokenId is found
         }
       }
-
       // Update currentBlock for the next iteration
       currentBlock = BigInt((endBlock + 1).toString());
 
@@ -138,7 +145,7 @@ const HomeContainer = () => {
     if (account.address && checkCorrectNetwork(account.chain?.id) && !error) {
       getTokenIds(false);
     }
-  }, [account.address, error]);
+  }, [account.address, account.chainId, error]);
 
   useEffect(() => {
     let timer: any;
@@ -221,7 +228,6 @@ const HomeContainer = () => {
 
   useEffect(() => {
     if (registerFetched) {
-      console.log({ registerReceipt });
       toast.success("Registered successful", {
         duration: 3000,
       });
@@ -231,22 +237,45 @@ const HomeContainer = () => {
 
   return (
     <div className="flex flex-col min-h-screen max-w-screen overflow-hidden">
-      <Register
-        isRegistered={isRegistered}
-        handleRegister={handleRegister}
-        isSuccess={isSuccess}
-        tokenId={tokenId}
-        loading={loading}
-        registerIdle={!registerPending && !registerLoading}
-        error={error}
-        setError={setError}
-        setPoll={setPoll}
-      />
-      <Timer
-        handleRegister={handleRegister}
-        targetTime={`${TIMER}`}
-        isRegistered={isRegistered}
-      />
+      <div className="flex flex-col min-h-screen sm:max-h-screen">
+        <Register
+          handleLogin={handleLogin}
+          isRegistered={isRegistered}
+          handleRegister={handleRegister}
+          isSuccess={isSuccess}
+          tokenId={tokenId}
+          loading={loading}
+          registerIdle={registerIdle}
+          error={error}
+          setError={setError}
+          setPoll={setPoll}
+        />
+        {!isRegistered && (
+          <Timer
+            handleLogin={handleLogin}
+            loading={loading}
+            error={error}
+            registerIdle={registerIdle}
+            setError={setError}
+            handleRegister={handleRegister}
+            targetTime={`${TIMER}`}
+            isRegistered={isRegistered}
+          />
+        )}
+      </div>
+      {isRegistered && (
+        <Timer
+          handleLogin={handleLogin}
+          loading={loading}
+          error={error}
+          registerIdle={registerIdle}
+          setError={setError}
+          handleRegister={handleRegister}
+          targetTime={`${TIMER}`}
+          isRegistered={isRegistered}
+        />
+      )}
+
       <div id="value"></div>
       <Value />
       {/* <SuccessFooter isSuccess={isSuccess} /> */}
@@ -255,6 +284,11 @@ const HomeContainer = () => {
       <div id="team"></div>
       <Team />
       <Timer
+        handleLogin={handleLogin}
+        loading={loading}
+        error={error}
+        registerIdle={registerIdle}
+        setError={setError}
         handleRegister={handleRegister}
         targetTime={`${TIMER}`}
         isRegistered={isRegistered}

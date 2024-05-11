@@ -19,7 +19,7 @@ const websiteUrl = new URL("https://agproject.io");
 export const metadata: Metadata = {
   title: title,
   description: description,
-  manifest: "./site.webmanifest",
+  // manifest: "./site.webmanifest",
   metadataBase: websiteUrl,
   applicationName: "Antigravity",
   openGraph: {

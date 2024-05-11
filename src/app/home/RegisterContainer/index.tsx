@@ -1,19 +1,14 @@
-import { useState } from "react";
 import Image from "next/image";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
-import { useAccount } from "wagmi";
-import Link from "next/link";
 import Header from "../Header";
 import Registered from "./Registered";
-import Button from "@/components/Button";
 import IMAGEKIT from "../images";
-import toast from "react-hot-toast";
 import Success from "./Success";
 import Main from "./main";
 
 interface RegisterProps {
+  handleLogin: (args0: React.MouseEvent) => void;
   isRegistered: boolean;
-  handleRegister: () => void;
+  handleRegister: (args0: React.MouseEvent) => void;
   isSuccess: boolean;
   tokenId: BigInt;
   loading: boolean;
@@ -24,6 +19,7 @@ interface RegisterProps {
 }
 
 const Register = ({
+  handleLogin,
   isRegistered,
   handleRegister,
   isSuccess,
@@ -34,30 +30,16 @@ const Register = ({
   setError,
   setPoll,
 }: RegisterProps) => {
-  const { openConnectModal } = useConnectModal();
-  const account = useAccount();
-
-  const handleLogin = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (openConnectModal) {
-      openConnectModal();
-    }
-  };
-
   return (
-    <div className="flex flex-col relative min-h-screen sm:items-center">
-      <div className="fixed top-0 left-0 min-h-screen h-[916px] w-screen">
-        <div className="relative min-h-screen h-[916px] w-full">
-          <Image
-            src={!isRegistered ? IMAGEKIT.HERO_LANDING : IMAGEKIT.REGISTERED}
-            alt="bg_hero_reg"
-            className="object-cover object-center"
-            fill
-            priority
-          />
-        </div>
-      </div>
-      <div className="absolute w-full flex items-center lg:justify-around py-16 px-2">
+    <div className="flex flex-col relative min-h-screen sm:min-h-full sm:items-center flex-1">
+      <Image
+        src={!isRegistered ? IMAGEKIT.HERO_LANDING : IMAGEKIT.REGISTERED}
+        alt="bg_hero_reg"
+        className="object-cover object-landing-bg"
+        fill
+        priority
+      />
+      <div className="fixed top-0 w-full z-50 items-center pt-12 px-4">
         <Header />
       </div>
 

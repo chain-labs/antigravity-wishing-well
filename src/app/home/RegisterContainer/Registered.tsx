@@ -6,14 +6,12 @@ import { TEST_NETWORK } from "@/constants";
 import Image from "next/image";
 import React from "react";
 import toast from "react-hot-toast";
-import { useAccount } from "wagmi";
 
 interface Props {
   setPoll: (args0: boolean) => void;
 }
 
 const Registered = ({ setPoll }: Props) => {
-  const account = useAccount();
 
   const handleCopy = (copyText: string) => {
     setPoll(true);
@@ -22,8 +20,8 @@ const Registered = ({ setPoll }: Props) => {
   };
 
   return (
-    <div className="w-full flex items-center flex-col sm:gap-12 pt-56 h-full overflow-hidden z-20">
-      <div className="w-full flex items-center flex-col h-full overflow-hidden z-20 max-w-[1280px] px-5">
+    <div className="w-full flex items-center absolute flex-col sm:gap-12 h-full overflow-hidden z-20">
+      <div className="w-full flex items-center flex-col h-full overflow-hidden z-20 max-w-[1280px] px-5 justify-center">
         <p className="font-sans text-6xl sm:text-8xl font-black text-center text-agwhite">
           You’re
           <br /> Registered!
@@ -89,7 +87,7 @@ const Registered = ({ setPoll }: Props) => {
         />
       </div>
 
-      <div className="hidden 2xl:flex relative w-screen bg-agyellow mt-12 overflow-x-hidden">
+      <div className="hidden 2xl:flex 2xl:absolute top-0 relative w-screen bg-agyellow overflow-x-hidden">
         <div className="flex justify-evenly w-full animate-[marquee_15s_infinite_linear] whitespace-nowrap">
           {Array.from({ length: 7 }).map((_, index) => (
             <p
@@ -112,7 +110,8 @@ const Registered = ({ setPoll }: Props) => {
         </div>
       </div>
 
-      <div className="hidden xl:flex 2xl:hidden relative w-screen bg-agyellow mt-12 overflow-x-hidden">
+
+      <div className="hidden xl:flex 2xl:hidden xl:absolute top-0 relative w-screen bg-agyellow overflow-x-hidden">
         <div className="flex justify-evenly w-full animate-[marquee_15s_infinite_linear] whitespace-nowrap">
           {Array.from({ length: 6 }).map((_, index) => (
             <p
@@ -135,7 +134,7 @@ const Registered = ({ setPoll }: Props) => {
         </div>
       </div>
 
-      <div className="hidden lg:flex xl:hidden relative w-screen bg-agyellow mt-12 overflow-x-hidden">
+      <div className="hidden lg:flex lg:absolute top-0 xl:hidden relative w-screen bg-agyellow overflow-x-hidden">
         <div className="flex justify-evenly w-full animate-[marquee_15s_infinite_linear] whitespace-nowrap">
           {Array.from({ length: 5 }).map((_, index) => (
             <p
@@ -157,8 +156,8 @@ const Registered = ({ setPoll }: Props) => {
           ))}
         </div>
       </div>
-
-      <div className="hidden md:flex lg:hidden relative w-screen bg-agyellow mt-12 overflow-x-hidden">
+      
+      <div className="hidden md:flex md:absolute top-0 lg:hidden relative w-screen bg-agyellow overflow-x-hidden">
         <div className="flex justify-evenly w-full animate-[marquee_15s_infinite_linear] whitespace-nowrap">
           {Array.from({ length: 4 }).map((_, index) => (
             <p
@@ -181,7 +180,7 @@ const Registered = ({ setPoll }: Props) => {
         </div>
       </div>
 
-      <div className="md:hidden relative flex w-screen bg-agyellow mt-12 overflow-x-hidden">
+      <div className="md:hidden absolute top-0 flex w-screen bg-agyellow overflow-x-hidden">
         <div className="flex justify-evenly w-full animate-[marquee_15s_infinite_linear] whitespace-nowrap">
           {Array.from({ length: 2 }).map((_, index) => (
             <p

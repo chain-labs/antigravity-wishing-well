@@ -81,9 +81,8 @@ const Team = () => {
                   <div className="bg-agblack flex items-center px-6 py-4 rounded-lg">
                     {socials.map((item, i) => {
                       return (
-                        <a href={item.url} target="_blank" rel="noreferrer">
+                        <a href={item.url} target="_blank" rel="noreferrer" key={item.alt}>
                           <div
-                            key={item.alt}
                             className={`h-[32px] w-[32px] ${
                               i !== 2 && "mr-10"
                             }`}
@@ -116,9 +115,8 @@ const Team = () => {
                   <div className="bg-agblack flex items-center px-6 py-4 rounded-lg">
                     {TEAM_2_SOCIALS.map((item, i) => {
                       return (
-                        <a href={item.url} target="_blank" rel="noreferrer">
+                        <a href={item.url} target="_blank" rel="noreferrer" key={item.alt}>
                           <div
-                            key={item.alt}
                             className={`h-[32px] w-[32px] ${i !== 2}`}
                           >
                             <img
@@ -149,9 +147,8 @@ const Team = () => {
                   <div className="bg-agblack flex items-center px-6 py-4 rounded-lg">
                     {TEAM_3_SOCIALS.map((item, i) => {
                       return (
-                        <a href={item.url} target="_blank" rel="noreferrer">
+                        <a href={item.url} target="_blank" rel="noreferrer" key={item.alt}>
                           <div
-                            key={item.alt}
                             className={`h-[32px] w-[32px] ${
                               i !== 1 && "mr-10"
                             }`}
@@ -159,7 +156,7 @@ const Team = () => {
                             <img
                               src={item.icon}
                               alt={item.alt}
-                              className="h-full w-full "
+                              className="h-full w-full"
                             />
                           </div>
                         </a>
