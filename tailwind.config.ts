@@ -12,6 +12,13 @@ const config: Config = {
       "general-sans": ["General Sans", "sans-serif"],
     },
     extend: {
+      backgroundPosition: {
+        "team-bg": "center top",
+      },
+      objectPosition: {
+        "value-bg": "center top",
+        "landing-bg": "70% top",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -20,12 +27,13 @@ const config: Config = {
         timer: "url('https://ik.imagekit.io/xlvg9oc4k/Antigravity/grid.svg')",
         team: "url('https://ik.imagekit.io/xlvg9oc4k/Antigravity/teams_bg.svg')",
         home: "url('https://ik.imagekit.io/xlvg9oc4k/Antigravity/reg_bg.svg')",
-        registered: "url('https://ik.imagekit.io/xlvg9oc4k/Antigravity/bg_hero_reg.svg')",
+        registered:
+          "url('https://ik.imagekit.io/xlvg9oc4k/Antigravity/bg_hero_reg.svg')",
       },
       colors: {
         agblack: "#030404",
-        brred: "#3C00DC",
-        brblue: "#FF5001",
+        brblue: "#3C00DC",
+        brred: "#FF5001",
         blue: "#3C00DC",
         agyellow: "#F5EB00",
         agwhite: "#FEFFFF",

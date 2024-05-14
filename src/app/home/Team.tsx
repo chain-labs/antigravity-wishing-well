@@ -53,10 +53,13 @@ const Team = () => {
   return (
     <div className="bg-agblack z-10">
       <div
-        className="flex flex-col bg-cover bg-bottom"
-        style={{ backgroundImage: `url('${IMAGEKIT.TEAM_BG}')` }}
+        className="flex flex-col bg-cover bg-team-bg"
+        style={{
+          backgroundImage: `url('${IMAGEKIT.TEAM_BG}')`,
+        }}
       >
-        <div className="flex py-24 px-5 w-full items-center justify-center">
+        <div className="absolute w-full h-full bg-black/30 z-0" />
+        <div className="flex py-16 px-5 w-full items-center justify-center z-10">
           <div className="flex items-center justify-around flex-col gap-12 max-w-[1280px] w-3/4">
             <p className="text-6xl text-center font-black text-agwhite font-sans capitalize">
               Who’s behind it all?
@@ -74,13 +77,12 @@ const Team = () => {
                 <p className="font-sans font-extrabold text-2xl text-agwhite">
                   @PulseRayVision
                 </p>
-                <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-0.5 overflow-hidden">
+                <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-tr from-brred to-brblue p-0.5 overflow-hidden">
                   <div className="bg-agblack flex items-center px-6 py-4 rounded-lg">
                     {socials.map((item, i) => {
                       return (
-                        <a href={item.url} target="_blank" rel="noreferrer">
+                        <a href={item.url} target="_blank" rel="noreferrer" key={item.alt}>
                           <div
-                            key={item.alt}
                             className={`h-[32px] w-[32px] ${
                               i !== 2 && "mr-10"
                             }`}
@@ -109,13 +111,12 @@ const Team = () => {
                 <p className="font-sans font-extrabold text-2xl text-agwhite">
                   @TheHEXiestMan
                 </p>
-                <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-0.5 overflow-hidden">
+                <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-tr from-brred to-brblue p-0.5 overflow-hidden">
                   <div className="bg-agblack flex items-center px-6 py-4 rounded-lg">
                     {TEAM_2_SOCIALS.map((item, i) => {
                       return (
-                        <a href={item.url} target="_blank" rel="noreferrer">
+                        <a href={item.url} target="_blank" rel="noreferrer" key={item.alt}>
                           <div
-                            key={item.alt}
                             className={`h-[32px] w-[32px] ${i !== 2}`}
                           >
                             <img
@@ -140,15 +141,14 @@ const Team = () => {
                   />
                 </div>
                 <p className="font-sans font-extrabold text-2xl text-agwhite">
-                  @Cody
+                  Cody Smith
                 </p>
-                <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-r from-brblue via-brred p-0.5 overflow-hidden">
+                <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-tr from-brred to-brblue p-0.5 overflow-hidden">
                   <div className="bg-agblack flex items-center px-6 py-4 rounded-lg">
                     {TEAM_3_SOCIALS.map((item, i) => {
                       return (
-                        <a href={item.url} target="_blank" rel="noreferrer">
+                        <a href={item.url} target="_blank" rel="noreferrer" key={item.alt}>
                           <div
-                            key={item.alt}
                             className={`h-[32px] w-[32px] ${
                               i !== 1 && "mr-10"
                             }`}
@@ -156,7 +156,7 @@ const Team = () => {
                             <img
                               src={item.icon}
                               alt={item.alt}
-                              className="h-full w-full "
+                              className="h-full w-full"
                             />
                           </div>
                         </a>
