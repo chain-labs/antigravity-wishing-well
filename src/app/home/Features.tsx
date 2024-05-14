@@ -33,7 +33,7 @@ const Features = () => {
         </div>
       </div>
       <div className="relative flex flex-col w-full md:w-4/5 md:max-w-[1280px] z-10 items-end">
-        <div className="md:py-24 py-10 px-4 md:px-0 flex flex-col gap-6 md:gap-12 w-full md:max-w-[550px] 2xl:max-w-[700px]">
+        <div className="md:py-12 py-10 px-4 md:px-0 flex flex-col gap-8 md:gap-12 w-full md:max-w-[550px] 2xl:max-w-[700px] ">
           <p className="text-5xl md:text-[56px] font-black font-sans capitalize text-agwhite w-full">
             So, what can you do with Antigravity?
           </p>
@@ -97,7 +97,7 @@ const Features = () => {
           </div>
         </div>
       </div>
-      <div className="absolute -right-16 -bottom-40 h-2/3 md:left-0 md:bottom-0 z-0 w-2/3 md:w-[630px] md:h-[630px] 2xl:w-[800px] 2xl:h-[800px] items-end">
+      <div className="absolute -right-16 -bottom-40 h-2/3 md:left-0 md:bottom-0 z-0 w-2/3 md:w-[630px] md:h-[630px] items-end">
         <Image
           src={IMAGEKIT.ASTRO}
           alt="astroman"
