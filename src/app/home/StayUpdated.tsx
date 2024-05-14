@@ -42,13 +42,13 @@ const StayUpdated = () => {
             {!submit && (
               <div className="flex flex-col float-start gap-y-4">
                 <input
-                  className="p-4 rounded-lg font-sans font-semibold text-xl w-full sm:w-[375px]"
+                  className="p-3 rounded-lg font-sans font-semibold text-xl w-full sm:w-[375px]"
                   placeholder="Your Name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
                 <input
-                  className="p-4 rounded-lg font-sans font-semibold text-xl w-full sm:w-[375px]"
+                  className="p-3 rounded-lg font-sans font-semibold text-xl w-full sm:w-[375px]"
                   placeholder="Your@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
