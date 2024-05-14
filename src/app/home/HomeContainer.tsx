@@ -150,6 +150,9 @@ const HomeContainer = () => {
   useEffect(() => {
     if (account.address && checkCorrectNetwork(account.chain?.id) && !error) {
       getTokenIds(false);
+    } else {
+      setIsRegistered(false);
+      setIsSuccess(false);
     }
   }, [account.address, account.chainId, error]);
 
