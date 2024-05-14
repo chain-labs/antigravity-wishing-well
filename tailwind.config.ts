@@ -16,7 +16,7 @@ const config: Config = {
         "team-bg": "center top",
       },
       objectPosition: {
-        "value-bg": "center top",
+        "value-bg": "center 20%",
         "landing-bg": "70% top",
       },
       backgroundImage: {

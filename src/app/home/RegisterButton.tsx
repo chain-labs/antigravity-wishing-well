@@ -59,7 +59,7 @@ export const RegisterButton: React.FC<RegisterButtonProps> = ({
             src={
               account.isConnected
                 ? "https://ik.imagekit.io/xlvg9oc4k/Antigravity/pen.svg"
-                : "https://ik.imagekit.io/xlvg9oc4k/Antigravity/wallet.svg"
+                : "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/Icon-Wallet_7TdwWN4HJq.svg?updatedAt=1715260698528"
             }
             className="w-6 h-6 lg:w-8 lg:h-8 mr-2"
             alt="wallet_icon"

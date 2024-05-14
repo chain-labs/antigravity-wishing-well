@@ -19,11 +19,12 @@ const StayUpdated = () => {
   return (
     <div className="bg-agblack z-10">
       <div
-        className="flex flex-col bg-contain bg-center relative overflow-hidden"
-        style={{ backgroundImage: `url('${IMAGEKIT.GRID}')` }}
+        className="flex flex-col bg-cover bg-center relative overflow-hidden"
+        style={{ backgroundImage: `url('${IMAGEKIT.STAY_UPDATED_BG}')` }}
       >
+        <div className="absolute w-full h-full bg-black opacity-50 z-0" />
         <div
-          className={`flex px-4 justify-center w-full ${
+          className={`flex px-4 justify-center w-full z-10 ${
             !submit ? "py-16" : "py-32"
           }`}
         >
@@ -69,12 +70,12 @@ const StayUpdated = () => {
             )}
           </div>
         </div>
-        <div className="absolute -top-10 -left-20">
-          <div className="relative ">
+        <div className="absolute -top-10 -left-20 z-10">
+          <div className="relative">
             <Image src={IMAGEKIT.ROCK1} alt="rock1" width={320} height={320} />
           </div>
         </div>
-        <div className="absolute -bottom-20 -right-20 hidden sm:flex">
+        <div className="absolute -bottom-20 -right-20 hidden sm:flex z-10">
           <div className="relative ">
             <Image src={IMAGEKIT.ROCK2} alt="rock1" width={320} height={320} />
           </div>

@@ -12,7 +12,6 @@ interface Props {
 }
 
 const Registered = ({ setPoll }: Props) => {
-
   const handleCopy = (copyText: string) => {
     setPoll(true);
     toast.success("Copied to Clipboard", { duration: 4000 });
@@ -110,7 +109,6 @@ const Registered = ({ setPoll }: Props) => {
         </div>
       </div>
 
-
       <div className="hidden xl:flex 2xl:hidden xl:absolute top-0 relative w-screen bg-agyellow overflow-x-hidden">
         <div className="flex justify-evenly w-full animate-[marquee_15s_infinite_linear] whitespace-nowrap">
           {Array.from({ length: 6 }).map((_, index) => (
@@ -156,7 +154,7 @@ const Registered = ({ setPoll }: Props) => {
           ))}
         </div>
       </div>
-      
+
       <div className="hidden md:flex md:absolute top-0 lg:hidden relative w-screen bg-agyellow overflow-x-hidden">
         <div className="flex justify-evenly w-full animate-[marquee_15s_infinite_linear] whitespace-nowrap">
           {Array.from({ length: 4 }).map((_, index) => (
