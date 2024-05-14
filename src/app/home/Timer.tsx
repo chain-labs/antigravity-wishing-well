@@ -84,7 +84,7 @@ const Timer = ({
         style={{ background: `url(${IMAGEKIT.GRID})` }}
       >
         <div className="flex flex-col gap-8 max-w-[1000px] items-center">
-          <div className="w-full flex flex-col gap-4 z-10 items-center">
+          <div className="w-full flex flex-col gap-4 z-10 items-center border">
             <p className="text-5xl text-agwhite font-black font-sans text-center">
               Get {process.env.NEXT_PUBLIC_MULTIPLIER}x Points Now!
             </p>
@@ -97,15 +97,17 @@ const Timer = ({
               </div>
             )}
             {!isRegistered && (
-              <RegisterButton
-                loading={loading}
-                error={error}
-                registerIdle={registerIdle}
-                handleLogin={handleLogin}
-                setError={setError}
-                handleRegister={handleRegister}
-                isRegistered={isRegistered}
-              />
+              <div className="flex w-full">
+                <RegisterButton
+                  loading={loading}
+                  error={error}
+                  registerIdle={registerIdle}
+                  handleLogin={handleLogin}
+                  setError={setError}
+                  handleRegister={handleRegister}
+                  isRegistered={isRegistered}
+                />
+              </div>
             )}
           </div>
 
