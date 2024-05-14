@@ -4,7 +4,7 @@ import IMAGEKIT from "./images";
 
 const Value = () => {
   return (
-    <div className="flex flex-col sm:max-h-screen bg-agblack relative items-center overflow-hidden px-4">
+    <div className="flex flex-col sm:max-h-screen bg-agblack relative items-center overflow-hidden px-4 border">
       <div className="absolute top-0 left-0 w-screen h-full mix-blend-luminosity">
         <div className="relative h-full w-full -z-1">
           <Image
@@ -15,7 +15,7 @@ const Value = () => {
           />
         </div>
       </div>
-      <div className="py-16 z-10 w-full gap-12 flex flex-col sm:max-w-[1280px]">
+      <div className="py-12 z-10 w-full gap-8 flex flex-col sm:max-w-[1280px]">
         <p className="font-sans text-5xl sm:text-[56px] font-black text-agwhite">
           The Value Of The Project
         </p>
