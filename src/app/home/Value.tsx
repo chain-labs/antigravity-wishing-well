@@ -4,7 +4,7 @@ import IMAGEKIT from "./images";
 
 const Value = () => {
   return (
-    <div className="flex flex-col sm:max-h-screen bg-agblack relative items-center overflow-hidden px-24">
+    <div className="flex flex-col sm:max-h-screen bg-agblack relative items-center overflow-hidden px-4">
       <div className="absolute top-0 left-0 w-screen h-full mix-blend-luminosity">
         <div className="relative h-full w-full -z-1">
           <Image

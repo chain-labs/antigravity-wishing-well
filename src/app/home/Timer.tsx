@@ -80,11 +80,11 @@ const Timer = ({
   return (
     <div className="bg-agblack z-10 w-full">
       <div
-        className={`flex flex-col pt-12 sm:pt-8 bg-cover bg-center pb-48 sm:pb-8 relative items-center w-full px-10 overflow-hidden`}
+        className={`flex flex-col pt-12 sm:pt-8 bg-cover bg-center pb-48 sm:pb-8 relative items-center w-full px-2 overflow-hidden`}
         style={{ background: `url(${IMAGEKIT.GRID})` }}
       >
         <div className="flex flex-col gap-8 max-w-[1000px] items-center">
-          <div className="w-full flex flex-col gap-4 z-10">
+          <div className="w-full flex flex-col gap-4 z-10 items-center">
             <p className="text-5xl text-agwhite font-black font-sans text-center">
               Get {process.env.NEXT_PUBLIC_MULTIPLIER}x Points Now!
             </p>
