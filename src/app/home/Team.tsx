@@ -58,13 +58,13 @@ const Team = () => {
           backgroundImage: `url('${IMAGEKIT.TEAM_BG}')`,
         }}
       >
-        <div className="absolute w-full h-full bg-black/30 z-0" />
         <div className="flex py-12 px-5 w-full items-center justify-center z-10">
+          <div className="absolute w-full h-full bg-black/30 z-0" />
           <div className="flex items-center justify-around flex-col gap-8 max-w-[1280px] w-3/4">
-            <p className="text-6xl text-center font-black text-agwhite font-sans capitalize">
+            <p className="text-6xl text-center font-black text-agwhite font-sans capitalize z-10">
               Who’s behind it all?
             </p>
-            <div className="flex items-center justify-evenly w-3/4 sm:flex-row flex-col gap-16">
+            <div className="flex items-center justify-evenly w-3/4 sm:flex-row flex-col gap-16 z-10">
               <div className="flex items-center justify-around flex-col w-1/3 gap-2">
                 <div className="relative h-[145px] w-[145px]">
                   <Image

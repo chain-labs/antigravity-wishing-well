@@ -25,7 +25,7 @@ const StayUpdated = () => {
         <div className="absolute w-full h-full bg-black opacity-50 z-0" />
         <div
           className={`flex px-4 justify-center w-full z-10 ${
-            !submit ? "py-16" : "py-32"
+            !submit ? "py-8" : "py-8"
           }`}
         >
           <div className="flex mt-52 sm:mt-0 flex-col gap-8 sm:flex-row justify-center max-w-[1280px] w-full sm:w-3/4">
