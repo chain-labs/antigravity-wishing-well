@@ -4,7 +4,7 @@ import IMAGEKIT from "./images";
 
 const Value = () => {
   return (
-    <div className="flex flex-col sm:max-h-screen bg-agblack relative items-center overflow-hidden">
+    <div className="flex flex-col sm:max-h-screen bg-agblack relative items-center overflow-hidden px-4">
       <div className="absolute top-0 left-0 w-screen h-full mix-blend-luminosity">
         <div className="relative h-full w-full -z-1">
           <Image
@@ -15,7 +15,7 @@ const Value = () => {
           />
         </div>
       </div>
-      <div className="px-10 py-16 z-10 w-full gap-12 flex flex-col sm:w-3/4 sm:max-w-[1280px]">
+      <div className="py-12 z-10 w-full gap-8 flex flex-col sm:max-w-[1280px]">
         <p className="font-sans text-5xl sm:text-[56px] font-black text-agwhite">
           The Value Of The Project
         </p>
@@ -23,28 +23,28 @@ const Value = () => {
           <div className="grid sm:grid-cols-2 w-full sm:w-fit gap-6">
             <div>
               <ValueItem
-                imgSrc="https://ik.imagekit.io/xlvg9oc4k/Antigravity/limited_supply.svg"
+                imgSrc="https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/ValueCardIcon-LimitedSupply_CIWa4jXA8T.svg?updatedAt=1715260698706"
                 imgText="limited_supply"
                 itemTitle="limited supply / no inflation"
               />
             </div>
             <div>
               <ValueItem
-                imgSrc="https://ik.imagekit.io/xlvg9oc4k/Antigravity/limited_minting.svg"
+                imgSrc="https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/ValueCardIcon-LimitedMinting_sCoxxnAn16.svg?updatedAt=1715260698545"
                 imgText="limited_minting"
                 itemTitle="limited minting phases"
               />
             </div>
             <div>
               <ValueItem
-                imgSrc="https://ik.imagekit.io/xlvg9oc4k/Antigravity/yields_rewards.svg"
+                imgSrc="https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/ValueCardIcon-Yields-Rewards_cQynI-Ols.svg?updatedAt=1715260699057"
                 imgText="yields_rewards"
                 itemTitle="yield that rewards holders"
               />
             </div>
             <div>
               <ValueItem
-                imgSrc="https://ik.imagekit.io/xlvg9oc4k/Antigravity/giveaway_tokens.svg"
+                imgSrc="https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/ValueCardIcon-Giveaways-Tokens_QEpW-r3h6s.svg?updatedAt=1715260698577"
                 imgText="giveaway_tokens"
                 itemTitle="giveaways in liquid tokens"
               />
@@ -53,21 +53,21 @@ const Value = () => {
           <div className="grid gap-6 sm:grid-cols-3 w-full sm:w-fit ">
             <div>
               <ValueItem
-                imgSrc="https://ik.imagekit.io/xlvg9oc4k/Antigravity/transfarrable_nft.svg"
+                imgSrc="https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/ValueCardIcon-Transferrable-NFT_KgqKBptDL.svg?updatedAt=1715260699109"
                 imgText="transfarrable_nft"
                 itemTitle="Transferable nfts That have actual cash value"
               />
             </div>
             <div>
               <ValueItem
-                imgSrc="https://ik.imagekit.io/xlvg9oc4k/Antigravity/token_crisis.svg"
+                imgSrc="https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/ValueCardIcon-Token-Crisis_u-9Uov7ik.svg?updatedAt=1715260699224"
                 imgText="token_crisis"
                 itemTitle="Programmed Scarcity like you’ve never seen before"
               />
             </div>
             <div>
               <ValueItem
-                imgSrc="https://ik.imagekit.io/xlvg9oc4k/Antigravity/heart_nft.svg"
+                imgSrc="https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/ValueCardIcon-Heart-NFT_xycOE09HI8.svg?updatedAt=1715260698626"
                 imgText="heart_nft"
                 itemTitle="nfts with a story and heart behind them"
               />
@@ -75,8 +75,13 @@ const Value = () => {
           </div>
         </div>
       </div>
-      <div className="h-[800px] w-[800px] sm:h-[700px] sm:w-[700px] absolute bottom-0 sm:-bottom-28 sm:-right-28">
-        <Image src={IMAGEKIT.ROCK_BIG} alt="big rock" fill quality={20} />
+      <div className="h-[800px] w-[800px] sm:h-[700px] sm:w-[700px] absolute bottom-0 sm:-bottom-40 sm:-right-40">
+        <Image
+          src={IMAGEKIT.ROCK_BIG}
+          alt="big rock"
+          fill
+          className="object-cover"
+        />
       </div>
     </div>
   );

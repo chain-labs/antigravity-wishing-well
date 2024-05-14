@@ -12,17 +12,17 @@ import {
 
 const socials = [
   {
-    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/telegram.svg",
+    icon: "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/icon-telegram_kd_x5JC_AZ.svg?updatedAt=1715608184973",
     alt: "telegram",
     url: TELEGRAM,
   },
   {
-    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/twitter.svg",
+    icon: "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/icon-twitter_IYX0ILwRIj.svg?updatedAt=1715260906741",
     alt: "twitter",
     url: TWITTER,
   },
   {
-    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/youtube.svg",
+    icon: "https://ik.imagekit.io/chainlabs/AntiGravity/youtube_2o5Vl_RQ-.svg?updatedAt=1712053303577",
     alt: "youtube",
     url: YOUTUBE,
   },
@@ -30,7 +30,7 @@ const socials = [
 
 const TEAM_2_SOCIALS = [
   {
-    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/twitter.svg",
+    icon: "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/icon-twitter_IYX0ILwRIj.svg?updatedAt=1715260906741",
     alt: "twitter",
     url: TWITTER_HEXIEST,
   },
@@ -38,12 +38,12 @@ const TEAM_2_SOCIALS = [
 
 const TEAM_3_SOCIALS = [
   {
-    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/instagram.svg",
+    icon: "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/icon-instagram_pSUYDBP74.svg?updatedAt=1715260906431",
     alt: "instagram",
     url: INSTAGRAM_CODY,
   },
   {
-    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/tiktok.svg",
+    icon: "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/icon-tiktok_VSFxcpSnG.svg?updatedAt=1715260906607",
     alt: "tiktok",
     url: TIKTOK_CODY,
   },
@@ -53,22 +53,22 @@ const Team = () => {
   return (
     <div className="bg-agblack z-10">
       <div
-        className="flex flex-col bg-cover bg-team-bg"
+        className="relative flex flex-col bg-cover bg-team-bg"
         style={{
           backgroundImage: `url('${IMAGEKIT.TEAM_BG}')`,
         }}
       >
         <div className="absolute w-full h-full bg-black/30 z-0" />
-        <div className="flex py-16 px-5 w-full items-center justify-center z-10">
-          <div className="flex items-center justify-around flex-col gap-12 max-w-[1280px] w-3/4">
-            <p className="text-6xl text-center font-black text-agwhite font-sans capitalize">
+        <div className="flex py-12 px-5 w-full items-center justify-center z-10">
+          <div className="flex items-center justify-around flex-col gap-8 max-w-[1280px] w-3/4">
+            <p className="text-6xl text-center font-black text-agwhite font-sans capitalize z-10">
               Who’s behind it all?
             </p>
-            <div className="flex items-center justify-evenly w-3/4 sm:flex-row flex-col gap-16">
+            <div className="flex items-center justify-evenly w-3/4 sm:flex-row flex-col gap-16 z-10">
               <div className="flex items-center justify-around flex-col w-1/3 gap-2">
                 <div className="relative h-[145px] w-[145px]">
                   <Image
-                    src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/team_admin.svg"
+                    src={IMAGEKIT.PULSERAYVISION}
                     alt="team"
                     className="h-full w-full object-cover"
                     fill
@@ -78,12 +78,17 @@ const Team = () => {
                   @PulseRayVision
                 </p>
                 <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-tr from-brred to-brblue p-0.5 overflow-hidden">
-                  <div className="bg-agblack flex items-center px-6 py-4 rounded-lg">
+                  <div className="bg-agblack flex items-center px-4 py-2 rounded-lg">
                     {socials.map((item, i) => {
                       return (
-                        <a href={item.url} target="_blank" rel="noreferrer" key={item.alt}>
+                        <a
+                          href={item.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          key={item.alt}
+                        >
                           <div
-                            className={`h-[32px] w-[32px] ${
+                            className={`h-[24px] w-[24px] ${
                               i !== 2 && "mr-10"
                             }`}
                           >
@@ -102,7 +107,7 @@ const Team = () => {
               <div className="flex items-center justify-around flex-col w-1/3 gap-2">
                 <div className="relative h-[145px] w-[145px]">
                   <Image
-                    src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/team_hexistman.svg"
+                    src={IMAGEKIT.HEXIEST}
                     alt="team"
                     className="h-full w-full object-cover"
                     fill
@@ -112,13 +117,16 @@ const Team = () => {
                   @TheHEXiestMan
                 </p>
                 <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-tr from-brred to-brblue p-0.5 overflow-hidden">
-                  <div className="bg-agblack flex items-center px-6 py-4 rounded-lg">
+                  <div className="bg-agblack flex items-center px-4 py-2 rounded-lg">
                     {TEAM_2_SOCIALS.map((item, i) => {
                       return (
-                        <a href={item.url} target="_blank" rel="noreferrer" key={item.alt}>
-                          <div
-                            className={`h-[32px] w-[32px] ${i !== 2}`}
-                          >
+                        <a
+                          href={item.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          key={item.alt}
+                        >
+                          <div className={`h-[24px] w-[24px] ${i !== 2}`}>
                             <img
                               src={item.icon}
                               alt={item.alt}
@@ -134,7 +142,7 @@ const Team = () => {
               <div className="flex items-center justify-around flex-col w-1/3 gap-2">
                 <div className="relative h-[145px] w-[145px]">
                   <Image
-                    src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/team_cody.svg"
+                    src={IMAGEKIT.CODY}
                     alt="team"
                     className="h-full w-full object-cover"
                     fill
@@ -144,12 +152,17 @@ const Team = () => {
                   Cody Smith
                 </p>
                 <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-tr from-brred to-brblue p-0.5 overflow-hidden">
-                  <div className="bg-agblack flex items-center px-6 py-4 rounded-lg">
+                  <div className="bg-agblack flex items-center px-4 py-2 rounded-lg">
                     {TEAM_3_SOCIALS.map((item, i) => {
                       return (
-                        <a href={item.url} target="_blank" rel="noreferrer" key={item.alt}>
+                        <a
+                          href={item.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          key={item.alt}
+                        >
                           <div
-                            className={`h-[32px] w-[32px] ${
+                            className={`h-[24px] w-[24px] ${
                               i !== 1 && "mr-10"
                             }`}
                           >

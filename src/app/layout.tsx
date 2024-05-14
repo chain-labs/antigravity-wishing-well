@@ -7,13 +7,17 @@ import RainbowKitContext from "@/components/RainbowKit";
 import { Toaster } from "react-hot-toast";
 import MobileView from "./home/MobileView";
 import GoogleAnalytics from "./analytics";
-import { Icon, IconDescriptor } from "next/dist/lib/metadata/types/metadata-types";
+import {
+  Icon,
+  IconDescriptor,
+} from "next/dist/lib/metadata/types/metadata-types";
 
 const inter = Inter({ subsets: ["latin"] });
 
 const title = "Antigravity | Join The Revolution!";
 const description = "Join the Revolution.";
-const previewImage = "https://ik.imagekit.io/chainlabs/AntiGravity/antigravity-rich-link-preview_enafjw_JE.png";
+const previewImage =
+  "https://ik.imagekit.io/chainlabs/AntiGravity/antigravity-rich-link-preview_enafjw_JE.png";
 const websiteUrl = new URL("https://agproject.io");
 
 export const metadata: Metadata = {
@@ -28,9 +32,11 @@ export const metadata: Metadata = {
     title: title,
     description: description,
     siteName: "Antigravity",
-    images: [{
-      url: previewImage,
-    }],
+    images: [
+      {
+        url: previewImage,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -40,16 +46,16 @@ export const metadata: Metadata = {
     description: description,
     images: {
       url: previewImage,
-      alt: "Antigravity Preview image"
-    }
+      alt: "Antigravity Preview image",
+    },
   },
   viewport: {
     width: "device-width",
-    initialScale: 1
+    initialScale: 1,
   },
   other: {
-    "twitter:url": "https://agproject.io"
-  }
+    "twitter:url": "https://agproject.io",
+  },
 };
 
 export default function RootLayout({
