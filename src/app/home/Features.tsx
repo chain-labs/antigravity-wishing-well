@@ -21,7 +21,7 @@ const repItems = [
 
 const Features = () => {
   return (
-    <div className="flex relative overflow-hidden w-full min-h-screen md:min-h-full bg-agblack md:items-center md:justify-center pb-60 md:pb-0">
+    <div className="flex relative overflow-hidden w-full min-h-screen md:min-h-full bg-agblack md:items-center md:justify-center">
       <div className="absolute bottom-0 z-1 mix-blend-hard-light">
         <div className="relative w-screen h-[900px]">
           <Image
@@ -32,8 +32,16 @@ const Features = () => {
           />
         </div>
       </div>
-      <div className="relative flex flex-col w-full md:w-4/5 md:max-w-[1280px] z-10 items-end">
-        <div className="md:py-12 py-10 px-4 md:px-0 flex flex-col gap-8 md:gap-12 w-full md:max-w-[550px] 2xl:max-w-[700px] ">
+      <div className="relative flex flex-col h-full w-full md:w-4/5 md:max-w-[1280px] z-10 items-end pb-60 md:pb-0">
+        <div className="absolute -right-10 bottom-0 h-[400px] w-[400px] md:-left-24 md:bottom-0 z-0 md:w-[670px] md:h-[600px]">
+          <Image
+            src={IMAGEKIT.ASTRO}
+            alt="astroman"
+            fill
+            className="object-cover object-center"
+          />
+        </div>
+        <div className="md:py-12 py-10 px-4 md:px-0 flex flex-col gap-8 md:gap-12 w-full md:max-w-[550px] 2xl:max-w-[700px] z-10">
           <p className="text-5xl md:text-[56px] font-black font-sans capitalize text-agwhite w-full">
             So, what can you do with Antigravity?
           </p>
@@ -96,14 +104,6 @@ const Features = () => {
             </div>
           </div>
         </div>
-      </div>
-      <div className="absolute -right-16 -bottom-40 h-2/3 md:left-0 md:bottom-0 z-0 w-2/3 md:w-[630px] md:h-[630px] items-end">
-        <Image
-          src={IMAGEKIT.ASTRO}
-          alt="astroman"
-          fill
-          className="object-cover object-bottom"
-        />
       </div>
     </div>
   );

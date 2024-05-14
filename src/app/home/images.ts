@@ -11,7 +11,7 @@ const IMAGEKIT = {
   STARS_BG:
     "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/features-background_J3VY0SJMgT.png?updatedAt=1715261086177",
   ASTRO:
-    "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/features-astronaut_dGEo95wy5.png?updatedAt=1715261086087",
+    "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/features-astronaut_p0a2114fC.png?updatedAt=1715701285210",
   TEAM_BG:
     "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/team-background_VYq7o-WA_I.png?updatedAt=1715261404116",
   ROCK1:
