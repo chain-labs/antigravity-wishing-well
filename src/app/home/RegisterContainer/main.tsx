@@ -38,7 +38,7 @@ const Main = ({
           Contribute now and freely mine, claim, mint, unwrap, and scrape
           crypto.
         </p>
-        <div className="flex flex-col lg:flex-row mt-3">
+        <div className="flex flex-col gap-4 lg:flex-row mt-3">
           <RegisterButton
             loading={loading}
             error={error}

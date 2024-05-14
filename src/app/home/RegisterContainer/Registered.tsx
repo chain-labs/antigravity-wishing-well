@@ -28,7 +28,7 @@ const Registered = ({ setPoll }: Props) => {
         <p className="font-general-sans text-center text-xl mt-4 text-agwhite">
           Contribute now on Base or PulseChain to either of our addresses below.
         </p>
-        <div className="flex flex-col w-full gap-2 md:gap-0 sm:flex-row pt-5 justify-center">
+        <div className="flex flex-col w-full gap-4 sm:flex-row pt-5 justify-center">
           <Button
             onClick={() =>
               handleCopy(TEST_NETWORK ? BaseSepoliaAG.address : BaseAG.address)

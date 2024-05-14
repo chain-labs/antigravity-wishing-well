@@ -85,14 +85,14 @@ const Success = ({ tokenId }: Props) => {
             <h1 className="font-sans text-agyellow text-4xl sm:text-5xl font-black">
               Get {process.env.NEXT_PUBLIC_MULTIPLIER}x Points Now
             </h1>
-            <div className="flex flex-col gap-2 sm:gap-y-6">
+            <div className="flex flex-col gap-4 w-fit">
               <Button
                 onClick={() =>
                   handleCopy(
                     TEST_NETWORK ? BaseSepoliaAG.address : BaseAG.address
                   )
                 }
-                className="self-start overflow-hidden"
+                className="self-start overflow-hidden w-full"
               >
                 <Image
                   src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/eth-btn.svg"
@@ -111,7 +111,7 @@ const Success = ({ tokenId }: Props) => {
               </Button>
               <Button
                 onClick={() => handleCopy(PulsechainAG.address)}
-                className="self-start overflow-hidden"
+                className="self-start overflow-hidden w-full"
               >
                 <Image
                   src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/pls.svg"
