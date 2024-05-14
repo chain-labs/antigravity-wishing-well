@@ -22,7 +22,7 @@ const socials = [
     url: TWITTER,
   },
   {
-    icon: "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/icon-youtube_kAeoobyE99.svg?updatedAt=1715260906634",
+    icon: "https://ik.imagekit.io/chainlabs/AntiGravity/youtube_2o5Vl_RQ-.svg?updatedAt=1712053303577",
     alt: "youtube",
     url: YOUTUBE,
   },
@@ -78,7 +78,7 @@ const Team = () => {
                   @PulseRayVision
                 </p>
                 <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-tr from-brred to-brblue p-0.5 overflow-hidden">
-                  <div className="bg-agblack flex items-center px-6 py-4 rounded-lg">
+                  <div className="bg-agblack flex items-center px-4 py-2 rounded-lg">
                     {socials.map((item, i) => {
                       return (
                         <a
@@ -88,7 +88,7 @@ const Team = () => {
                           key={item.alt}
                         >
                           <div
-                            className={`h-[32px] w-[32px] ${
+                            className={`h-[24px] w-[24px] ${
                               i !== 2 && "mr-10"
                             }`}
                           >
@@ -117,7 +117,7 @@ const Team = () => {
                   @TheHEXiestMan
                 </p>
                 <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-tr from-brred to-brblue p-0.5 overflow-hidden">
-                  <div className="bg-agblack flex items-center px-6 py-4 rounded-lg">
+                  <div className="bg-agblack flex items-center px-4 py-2 rounded-lg">
                     {TEAM_2_SOCIALS.map((item, i) => {
                       return (
                         <a
@@ -126,7 +126,7 @@ const Team = () => {
                           rel="noreferrer"
                           key={item.alt}
                         >
-                          <div className={`h-[32px] w-[32px] ${i !== 2}`}>
+                          <div className={`h-[24px] w-[24px] ${i !== 2}`}>
                             <img
                               src={item.icon}
                               alt={item.alt}
@@ -152,7 +152,7 @@ const Team = () => {
                   Cody Smith
                 </p>
                 <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-tr from-brred to-brblue p-0.5 overflow-hidden">
-                  <div className="bg-agblack flex items-center px-6 py-4 rounded-lg">
+                  <div className="bg-agblack flex items-center px-4 py-2 rounded-lg">
                     {TEAM_3_SOCIALS.map((item, i) => {
                       return (
                         <a
@@ -162,7 +162,7 @@ const Team = () => {
                           key={item.alt}
                         >
                           <div
-                            className={`h-[32px] w-[32px] ${
+                            className={`h-[24px] w-[24px] ${
                               i !== 1 && "mr-10"
                             }`}
                           >
