@@ -28,12 +28,12 @@ const StayUpdated = () => {
             !submit ? "py-16" : "py-32"
           }`}
         >
-          <div className="flex mt-52 sm:mt-0 flex-col sm:flex-row justify-center max-w-[1280px] w-full sm:w-3/4">
-            <div className="flex flex-col mr-20">
+          <div className="flex mt-52 sm:mt-0 flex-col gap-8 sm:flex-row justify-center max-w-[1280px] w-full sm:w-3/4">
+            <div className="flex flex-col mr-20 gap-4">
               <p className="font-sans text-5xl font-black text-agwhite">
                 {!submit ? "Stay Updated!" : "Success!"}
               </p>
-              <p className="font-sans font-normal text-agwhite text-xl mt-4">
+              <p className="font-sans font-normal text-agwhite">
                 {!submit
                   ? "Get all Antigravity updates in your inbox."
                   : `You’ll get all Antigravity updates in your inbox. Stay tuned.`}
