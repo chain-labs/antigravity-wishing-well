@@ -77,8 +77,8 @@ const Team = () => {
                 <p className="font-sans font-extrabold text-2xl text-agwhite">
                   @PulseRayVision
                 </p>
-                <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-tr from-brred to-brblue p-0.5 overflow-hidden">
-                  <div className="bg-agblack flex items-center px-4 py-2 rounded-lg">
+                <div className="bg-gray-800 text-white rounded-lg w-fit bg-gradient-to-tr from-brred to-brblue p-0.5 overflow-hidden">
+                  <div className="bg-agblack flex items-center px-4 py-2 gap-4 w-fit rounded-lg">
                     {socials.map((item, i) => {
                       return (
                         <a
@@ -87,11 +87,7 @@ const Team = () => {
                           rel="noreferrer"
                           key={item.alt}
                         >
-                          <div
-                            className={`h-[24px] w-[24px] ${
-                              i !== 2 && "mr-10"
-                            }`}
-                          >
+                          <div className={`h-[24px] w-[24px]`}>
                             <img
                               src={item.icon}
                               alt={item.alt}
@@ -117,7 +113,7 @@ const Team = () => {
                   @TheHEXiestMan
                 </p>
                 <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-tr from-brred to-brblue p-0.5 overflow-hidden">
-                  <div className="bg-agblack flex items-center px-4 py-2 rounded-lg">
+                  <div className="bg-agblack flex items-center gap-4 px-4 py-2 rounded-lg">
                     {TEAM_2_SOCIALS.map((item, i) => {
                       return (
                         <a
@@ -126,11 +122,11 @@ const Team = () => {
                           rel="noreferrer"
                           key={item.alt}
                         >
-                          <div className={`h-[24px] w-[24px] ${i !== 2}`}>
+                          <div className={`h-[24px] w-[24px]`}>
                             <img
                               src={item.icon}
                               alt={item.alt}
-                              className="h-full w-full "
+                              className="h-full w-full"
                             />
                           </div>
                         </a>
@@ -152,7 +148,7 @@ const Team = () => {
                   Cody Smith
                 </p>
                 <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-tr from-brred to-brblue p-0.5 overflow-hidden">
-                  <div className="bg-agblack flex items-center px-4 py-2 rounded-lg">
+                  <div className="bg-agblack flex items-center gap-4 px-4 py-2 rounded-lg">
                     {TEAM_3_SOCIALS.map((item, i) => {
                       return (
                         <a
@@ -161,11 +157,7 @@ const Team = () => {
                           rel="noreferrer"
                           key={item.alt}
                         >
-                          <div
-                            className={`h-[24px] w-[24px] ${
-                              i !== 1 && "mr-10"
-                            }`}
-                          >
+                          <div className={`h-[24px] w-[24px]`}>
                             <img
                               src={item.icon}
                               alt={item.alt}
