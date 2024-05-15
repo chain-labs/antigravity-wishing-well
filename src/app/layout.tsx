@@ -49,10 +49,6 @@ export const metadata: Metadata = {
       alt: "Antigravity Preview image",
     },
   },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-  },
   other: {
     "twitter:url": "https://agproject.io",
   },
