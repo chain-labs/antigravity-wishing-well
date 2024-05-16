@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useAccount } from "wagmi";
 import { IoMenu, IoCloseCircleOutline } from "react-icons/io5";
 import { UserConnected } from "./UserConnected";
+import IMAGEKIT from "./images";
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,11 +28,7 @@ const Header: React.FC = () => {
             onClick={scrollToTop}
           >
             <div className="w-[37px] h-[37px] md:w-[45px] md:h-[45px] relative">
-              <Image
-                src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/icon.svg"
-                alt="icon"
-                fill
-              />
+              <Image src={IMAGEKIT.HELMET} alt="icon" fill />
             </div>
             <p className="from-white to-[#999999] pl-2 font-sans font-extrabold sm:text-2xl bg-gradient-to-b text-transparent bg-clip-text">
               ANTIGRAVITY

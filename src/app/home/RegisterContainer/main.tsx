@@ -56,7 +56,7 @@ const Main = ({
           >
             <div className="relative h-6 w-6">
               <Image
-                src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/info.svg"
+                src="https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/Icon-Info_IKmfecayR.svg?updatedAt=1715260695704"
                 className="lg:w-8 lg:h-8 mr-2"
                 alt="info_icon"
                 fill

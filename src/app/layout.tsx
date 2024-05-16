@@ -5,12 +5,7 @@ import "./globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import RainbowKitContext from "@/components/RainbowKit";
 import { Toaster } from "react-hot-toast";
-import MobileView from "./home/MobileView";
 import GoogleAnalytics from "./analytics";
-import {
-  Icon,
-  IconDescriptor,
-} from "next/dist/lib/metadata/types/metadata-types";
 
 const inter = Inter({ subsets: ["latin"] });
 

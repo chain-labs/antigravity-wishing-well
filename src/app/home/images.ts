@@ -26,6 +26,13 @@ const IMAGEKIT = {
     "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/team-pulserayvision_LZF3YKaXi.png?updatedAt=1715261403908",
   HEXIEST:
     "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/team-don_RUo1lkNSR.png?updatedAt=1715261403832",
+  HELMET:
+    "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/astro_helmet_NUH-N2Pd6-.svg?updatedAt=1715866172363",
+  PEN: "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/Icon-Pen_UV4-85sZAA.svg?updatedAt=1715260695643",
+  WALLET:
+    "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/Icon-Wallet_7TdwWN4HJq.svg?updatedAt=1715260698528",
+  SUBMIT:
+    "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/Icon-Send_j1_hOmfOs.svg?updatedAt=1715260695575",
 };
 
 export default IMAGEKIT;

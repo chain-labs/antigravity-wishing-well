@@ -287,7 +287,6 @@ const HomeContainer = () => {
 
       <div id="value"></div>
       <Value />
-      {/* <SuccessFooter isSuccess={isSuccess} /> */}
       <div id="utilities"></div>
       <Features />
       <div id="team"></div>
