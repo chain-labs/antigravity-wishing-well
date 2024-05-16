@@ -17,7 +17,7 @@ export const UserConnected: React.FC = () => {
                   onClick={openChainModal}
                 >
                   <PiWarningCircle className="text-brred w-8 h-8" />
-                  <p className="uppercase font-extrabold text-brred text-transparent bg-clip-text z-[100]">
+                  <p className="uppercase font-extrabold text-brred bg-clip-text z-[100]">
                     {condenseAddress(`${account.address}`)}
                   </p>
                 </div>

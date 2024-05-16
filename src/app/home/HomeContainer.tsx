@@ -18,7 +18,12 @@ import toast from "react-hot-toast";
 import useContract from "@/abi";
 import { PublicClient, parseAbiItem } from "viem";
 import axios from "axios";
-import { POLL_TIME, PROXY_API_ENDPOINT, TIMER } from "@/constants";
+import {
+  POLL_TIME,
+  PROXY_API_ENDPOINT,
+  TEST_NETWORK,
+  TIMER,
+} from "@/constants";
 import { checkCorrectNetwork, getApiNetwork } from "@/utils";
 import { base } from "viem/chains";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
@@ -64,10 +69,11 @@ const HomeContainer = () => {
     //   transport: http("https://base-sepolia.g.alchemy.com/v2/Ck1jBlebtn6A92-eXG1tnievZs0kfS9F"),
     // });
 
-    const fromBlockNumber =
-      account.chainId == base.id
-        ? process.env.NEXT_PUBLIC_BASE_FROM_BLOCK_NUMBER
-        : process.env.NEXT_PUBLIC_PLS_FROM_BLOCK_NUMBER;
+    const fromBlockNumber = TEST_NETWORK
+      ? process.env.NEXT_PUBLIC_BASE_SEPOLIA_FROM_BLOCK_NUMBER
+      : account.chainId == base.id
+      ? process.env.NEXT_PUBLIC_BASE_FROM_BLOCK_NUMBER
+      : process.env.NEXT_PUBLIC_PLS_FROM_BLOCK_NUMBER;
 
     if (fromBlockNumber === undefined)
       throw Error("Please set the enviornment variable for Block Number");
@@ -144,6 +150,9 @@ const HomeContainer = () => {
   useEffect(() => {
     if (account.address && checkCorrectNetwork(account.chain?.id) && !error) {
       getTokenIds(false);
+    } else {
+      setIsRegistered(false);
+      setIsSuccess(false);
     }
   }, [account.address, account.chainId, error]);
 
