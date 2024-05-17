@@ -23,28 +23,28 @@ const Value = () => {
           <div className="grid sm:grid-cols-2 w-full sm:w-fit gap-6">
             <div>
               <ValueItem
-                imgSrc="https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/ValueCardIcon-LimitedSupply_CIWa4jXA8T.svg?updatedAt=1715260698706"
+                imgSrc="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/ValueCardIcon-LimitedSupply.svg"
                 imgText="limited_supply"
                 itemTitle="limited supply / no inflation"
               />
             </div>
             <div>
               <ValueItem
-                imgSrc="https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/ValueCardIcon-LimitedMinting_sCoxxnAn16.svg?updatedAt=1715260698545"
+                imgSrc="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/ValueCardIcon-LimitedMinting.svg"
                 imgText="limited_minting"
                 itemTitle="limited minting phases"
               />
             </div>
             <div>
               <ValueItem
-                imgSrc="https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/ValueCardIcon-Yields-Rewards_cQynI-Ols.svg?updatedAt=1715260699057"
+                imgSrc="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/ValueCardIcon-Yields-Rewards.svg"
                 imgText="yields_rewards"
                 itemTitle="yield that rewards holders"
               />
             </div>
             <div>
               <ValueItem
-                imgSrc="https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/ValueCardIcon-Giveaways-Tokens_QEpW-r3h6s.svg?updatedAt=1715260698577"
+                imgSrc="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/ValueCardIcon-Giveaways-Tokens.svg"
                 imgText="giveaway_tokens"
                 itemTitle="giveaways in liquid tokens"
               />
@@ -53,21 +53,21 @@ const Value = () => {
           <div className="grid gap-6 sm:grid-cols-3 w-full sm:w-fit ">
             <div>
               <ValueItem
-                imgSrc="https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/ValueCardIcon-Transferrable-NFT_KgqKBptDL.svg?updatedAt=1715260699109"
+                imgSrc="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/ValueCardIcon-Transferrable-NFT.svg"
                 imgText="transfarrable_nft"
                 itemTitle="Transferable nfts That have actual cash value"
               />
             </div>
             <div>
               <ValueItem
-                imgSrc="https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/ValueCardIcon-Token-Crisis_u-9Uov7ik.svg?updatedAt=1715260699224"
+                imgSrc="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/ValueCardIcon-Token-Crisis.svg"
                 imgText="token_crisis"
                 itemTitle="Programmed Scarcity like you’ve never seen before"
               />
             </div>
             <div>
               <ValueItem
-                imgSrc="https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/ValueCardIcon-Heart-NFT_xycOE09HI8.svg?updatedAt=1715260698626"
+                imgSrc="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/ValueCardIcon-Heart-NFT.svg"
                 imgText="heart_nft"
                 itemTitle="nfts with a story and heart behind them"
               />

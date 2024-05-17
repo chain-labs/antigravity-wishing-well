@@ -1,19 +1,19 @@
 const coinsList = [
   {
     name: "PLS",
-    icon: "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/Icon-PLS_CEl42i3W_l.svg?updatedAt=1715260695705",
+    icon: "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/Icon-PLS.svg",
   },
   {
     name: "ETH",
-    icon: "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/Icon-ETH_VCErsaeU-.svg?updatedAt=1715260695756",
+    icon: "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/Icon-ETH.svg",
   },
   {
     name: "Tether",
-    icon: "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/Icon-USDT_Ysey8wxZq.svg?updatedAt=1715260695874",
+    icon: "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/Icon-USDT.svg",
   },
   {
     name: "USDC",
-    icon: "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/Icon-USDC_-I87G5gii.svg?updatedAt=1715260695785",
+    icon: "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/Icon-USDC.svg",
   },
 ];
 
@@ -37,7 +37,7 @@ const SuccessFooter = ({ isSuccess }: SuccessFooterProps) => {
               <button className="flex items-center justify-center font-sans font-extrabold rounded-lg bg-blue px-5 py-2 lg:px-6 lg:py-4 mb-2 lg:mr-4">
                 <p className="uppercase">wishwell.base</p>{" "}
                 <img
-                  src="https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/Icon-ETH_VCErsaeU-.svg?updatedAt=1715260695756"
+                  src="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/Icon-ETH.svg"
                   className="w-4 h-4 ml-2"
                   alt="share"
                 />
@@ -45,7 +45,7 @@ const SuccessFooter = ({ isSuccess }: SuccessFooterProps) => {
               <button className="flex items-center justify-center font-sans font-extrabold rounded-lg bg-blue px-5 py-2 lg:px-6 lg:py-4 mb-2 lg:mr-4">
                 <p className="uppercase">wishwell.PLS</p>{" "}
                 <img
-                  src="https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/Icon-PLS_CEl42i3W_l.svg?updatedAt=1715260695705"
+                  src="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/Icon-PLS.svg"
                   className="w-4 h-4 ml-2"
                   alt="share"
                 />

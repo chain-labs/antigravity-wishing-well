@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ["latin"] });
 const title = "Antigravity | Join The Revolution!";
 const description = "Join the Revolution.";
 const previewImage =
-  "https://ik.imagekit.io/chainlabs/AntiGravity/antigravity-rich-link-preview_enafjw_JE.png";
+  "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/antigravity-rich-link-preview_enafjw_JE.png";
 const websiteUrl = new URL("https://agproject.io");
 
 export const metadata: Metadata = {

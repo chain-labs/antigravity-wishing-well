@@ -12,17 +12,17 @@ import {
 
 const socials = [
   {
-    icon: "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/icon-telegram_kd_x5JC_AZ.svg?updatedAt=1715608184973",
+    icon: "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/icon-telegram.svg",
     alt: "telegram",
     url: TELEGRAM,
   },
   {
-    icon: "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/icon-twitter_IYX0ILwRIj.svg?updatedAt=1715260906741",
+    icon: "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/icon-twitter.svg",
     alt: "twitter",
     url: TWITTER,
   },
   {
-    icon: "https://ik.imagekit.io/chainlabs/AntiGravity/youtube_2o5Vl_RQ-.svg?updatedAt=1712053303577",
+    icon: "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/icon-youtube.svg",
     alt: "youtube",
     url: YOUTUBE,
   },
@@ -30,7 +30,7 @@ const socials = [
 
 const TEAM_2_SOCIALS = [
   {
-    icon: "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/icon-twitter_IYX0ILwRIj.svg?updatedAt=1715260906741",
+    icon: "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/icon-twitter.svg",
     alt: "twitter",
     url: TWITTER_HEXIEST,
   },
@@ -38,12 +38,12 @@ const TEAM_2_SOCIALS = [
 
 const TEAM_3_SOCIALS = [
   {
-    icon: "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/icon-instagram_pSUYDBP74.svg?updatedAt=1715260906431",
+    icon: "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/icon-instagram.svg",
     alt: "instagram",
     url: INSTAGRAM_CODY,
   },
   {
-    icon: "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/icon-tiktok_VSFxcpSnG.svg?updatedAt=1715260906607",
+    icon: "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/icon-tiktok.svg",
     alt: "tiktok",
     url: TIKTOK_CODY,
   },
