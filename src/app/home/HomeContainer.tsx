@@ -259,7 +259,7 @@ const HomeContainer = () => {
           setError={setError}
           setPoll={setPoll}
         />
-        {!isRegistered && (
+        {!isSuccess && (
           <Timer
             handleLogin={handleLogin}
             loading={loading}
@@ -272,7 +272,7 @@ const HomeContainer = () => {
           />
         )}
       </div>
-      {isRegistered && (
+      {isSuccess && (
         <Timer
           handleLogin={handleLogin}
           loading={loading}
