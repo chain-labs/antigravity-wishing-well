@@ -7,6 +7,7 @@ import Image from "next/image";
 import React from "react";
 import toast from "react-hot-toast";
 import { MarqueeBanner } from "./MarqueeBanner";
+import IMAGEKIT from "../images";
 
 interface Props {
   setPoll: (args0: boolean) => void;
@@ -37,15 +38,15 @@ const Registered = ({ setPoll }: Props) => {
             className="overflow-hidden"
           >
             <Image
-              src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/eth-btn.svg"
+              src={IMAGEKIT.ICON_ETH}
               alt="eth-btn"
               width={52}
               height={52}
-              className="absolute left-0 z-1"
+              className="absolute left-0 z-1 opacity-35"
             />
             <p className="uppercase z-10">wishwell.base</p>
             <Image
-              src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg"
+              src={IMAGEKIT.ICON_COPY}
               alt="share"
               width={16}
               height={16}
@@ -57,15 +58,15 @@ const Registered = ({ setPoll }: Props) => {
             className="overflow-hidden"
           >
             <Image
-              src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/pls.svg"
+              src={IMAGEKIT.ICON_PLS}
               alt="pls-btn"
               width={52}
               height={52}
-              className="absolute left-0 z-1 opacity-55"
+              className="absolute left-0 z-1 opacity-35"
             />
             <p className="uppercase z-20">wishwell.PLS</p>
             <Image
-              src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg"
+              src={IMAGEKIT.ICON_COPY}
               alt="share"
               width={16}
               height={16}
@@ -79,12 +80,32 @@ const Registered = ({ setPoll }: Props) => {
         <p className="font-sans text-xl text-agwhite p-4 mt-4 text-center">
           Here are some tokens that we encourage for contribution:
         </p>
-        <Image
-          src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/networks.svg"
-          alt="networks"
-          width={176}
-          height={32}
-        />
+        <div className="flex gap-4">
+          <Image
+            src={IMAGEKIT.ICON_PLS}
+            alt="pls"
+            width={32}
+            height={32}
+          />
+          <Image
+            src={IMAGEKIT.ICON_ETH}
+            alt="eth"
+            width={32}
+            height={32}
+          />
+          <Image
+            src={IMAGEKIT.ICON_USDT}
+            alt="usdt"
+            width={32}
+            height={32}
+          />
+          <Image
+            src={IMAGEKIT.ICON_USDC}
+            alt="usdc"
+            width={32}
+            height={32}
+          />
+        </div>
       </div>
       <MarqueeBanner />
     </div>

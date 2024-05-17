@@ -23,12 +23,6 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        value: "url('https://ik.imagekit.io/xlvg9oc4k/Antigravity/value.svg')",
-        timer: "url('https://ik.imagekit.io/xlvg9oc4k/Antigravity/grid.svg')",
-        team: "url('https://ik.imagekit.io/xlvg9oc4k/Antigravity/teams_bg.svg')",
-        home: "url('https://ik.imagekit.io/xlvg9oc4k/Antigravity/reg_bg.svg')",
-        registered:
-          "url('https://ik.imagekit.io/xlvg9oc4k/Antigravity/bg_hero_reg.svg')",
       },
       colors: {
         agblack: "#030404",

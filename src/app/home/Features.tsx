@@ -4,17 +4,17 @@ import IMAGEKIT from "./images";
 const repItems = [
   {
     name: "Minting",
-    img: "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/feature-image-2_JCaEnke7l0.png?updatedAt=1715260692033",
+    img: IMAGEKIT.FEATURE_MINTING,
     alt: "minting",
   },
   {
     name: "Unwrapping",
-    img: "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/feature-image-3_uAZhTemc8.png?updatedAt=1715260692036",
+    img: IMAGEKIT.FEATURE_UNWRAPPING,
     alt: "unwrapping",
   },
   {
     name: "Pruning",
-    img: "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/feature-image-1_b86C9z3s7P.png?updatedAt=1715260692026",
+    img: IMAGEKIT.FEATURE_PRUNING,
     alt: "pruning",
   },
 ];
@@ -53,7 +53,7 @@ const Features = () => {
                     <Image
                       className="w-full h-full"
                       src={
-                        "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/feature-image-5_JEaH7eEZg.png?updatedAt=1715260692067"
+                        IMAGEKIT.FEATURE_MINING
                       }
                       alt={"mining"}
                       fill
@@ -68,7 +68,7 @@ const Features = () => {
                     <Image
                       className="w-full h-full"
                       src={
-                        "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/feature-image-4_uyyK3UoJvL.png?updatedAt=1715260692044"
+                        IMAGEKIT.FEATURE_CLAIMING
                       }
                       alt={"claiming"}
                       fill

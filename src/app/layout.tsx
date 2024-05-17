@@ -5,19 +5,15 @@ import "./globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import RainbowKitContext from "@/components/RainbowKit";
 import { Toaster } from "react-hot-toast";
-import MobileView from "./home/MobileView";
 import GoogleAnalytics from "./analytics";
-import {
-  Icon,
-  IconDescriptor,
-} from "next/dist/lib/metadata/types/metadata-types";
+import IMAGEKIT from "./home/images";
 
 const inter = Inter({ subsets: ["latin"] });
 
 const title = "Antigravity | Join The Revolution!";
 const description = "Join the Revolution.";
 const previewImage =
-  "https://ik.imagekit.io/chainlabs/AntiGravity/antigravity-rich-link-preview_enafjw_JE.png";
+  IMAGEKIT.PREVIEW_IMAGE;
 const websiteUrl = new URL("https://agproject.io");
 
 export const metadata: Metadata = {

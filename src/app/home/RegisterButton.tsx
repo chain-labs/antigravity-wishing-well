@@ -5,6 +5,7 @@ import Image from "next/image";
 import { FiLoader } from "react-icons/fi";
 import { baseSepolia, pulsechain } from "viem/chains";
 import { useAccount, useSwitchChain } from "wagmi";
+import IMAGEKIT from "./images";
 
 interface RegisterButtonProps {
   loading: boolean;
@@ -56,11 +57,7 @@ export const RegisterButton: React.FC<RegisterButtonProps> = ({
       ) : (
         <div className="relative h-6 w-6">
           <Image
-            src={
-              account.isConnected
-                ? "https://ik.imagekit.io/xlvg9oc4k/Antigravity/pen.svg"
-                : "https://ik.imagekit.io/chainlabs/Antigravity%20-%20Updated/Icon-Wallet_7TdwWN4HJq.svg?updatedAt=1715260698528"
-            }
+            src={account.isConnected ? IMAGEKIT.PEN : IMAGEKIT.WALLET}
             className="w-6 h-6 lg:w-8 lg:h-8 mr-2"
             alt="wallet_icon"
             fill
