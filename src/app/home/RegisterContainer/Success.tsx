@@ -46,9 +46,9 @@ const Success = ({ tokenId }: Props) => {
   };
 
   return (
-    <div className="w-full flex items-center absolute flex-col sm:gap-12 h-full overflow-hidden z-20">
-      <div className="w-full flex items-center flex-col min-h-screen z-20 max-w-[1280px]">
-        <div className="flex items-center flex-col min-h-screen pt-48 w-full">
+    <div className="w-full flex items-center flex-col sm:gap-12 min-h-screen h-fit z-20 py-10 sm:py-0">
+      <div className="w-full flex items-center flex-col h=full z-20 max-w-[1280px]">
+        <div className="flex items-center flex-col h-full pt-32 md:pt-36 w-full">
           <p className="font-sans text-6xl sm:text-8xl font-black text-center text-agwhite">
             Success!
           </p>
@@ -82,7 +82,7 @@ const Success = ({ tokenId }: Props) => {
               </div>
             )}
           </div>
-          <div className="relative w-full flex flex-col sm:flex-row px-4 gap-10 py-12 justify-between">
+          <div className="relative w-full flex flex-col sm:flex-row px-4 gap-10 md:py-12 justify-between">
             <div className="flex flex-col gap-y-4 flex-1 z-10 sm:w-1/2">
               <h1 className="font-sans text-agyellow text-4xl sm:text-5xl font-black">
                 Get {process.env.NEXT_PUBLIC_MULTIPLIER}x Points Now
@@ -97,18 +97,18 @@ const Success = ({ tokenId }: Props) => {
                   className="self-start overflow-hidden w-full"
                 >
                   <Image
-                    src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/eth-btn.svg"
+                    src={IMAGEKIT.ICON_ETH}
                     alt="eth-btn"
                     width={52}
                     height={52}
-                    className="absolute left-0 z-1"
+                    className="absolute left-0 z-1 opacity-35"
                   />
                   <p className="uppercase z-10">wishwell.base</p>
                   <Image
-                    src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg"
+                    src={IMAGEKIT.ICON_COPY}
                     alt="share"
-                    width={16}
-                    height={16}
+                    width={20}
+                    height={20}
                   />
                 </Button>
                 <Button
@@ -116,29 +116,49 @@ const Success = ({ tokenId }: Props) => {
                   className="self-start overflow-hidden w-full"
                 >
                   <Image
-                    src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/pls.svg"
+                    src={IMAGEKIT.ICON_PLS}
                     alt="pls-btn"
                     width={52}
                     height={52}
-                    className="absolute left-0 z-1 opacity-55"
+                    className="absolute left-0 z-1 opacity-35"
                   />
                   <p className="uppercase z-20">wishwell.PLS</p>
                   <Image
-                    src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg"
+                    src={IMAGEKIT.ICON_COPY}
                     alt="share"
-                    width={16}
-                    height={16}
+                    width={20}
+                    height={20}
                   />
                 </Button>
               </div>
             </div>
             <div className="flex flex-col gap-y-8 z-10 sm:w-5/12 sm:pl-16">
-              <Image
-                src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/networks.svg"
-                alt="networks"
-                height="48"
-                width="240"
-              />
+              <div className="flex gap-4">
+                <Image
+                  src={IMAGEKIT.ICON_PLS}
+                  alt="pls"
+                  width={48}
+                  height={48}
+                />
+                <Image
+                  src={IMAGEKIT.ICON_ETH}
+                  alt="eth"
+                  width={48}
+                  height={48}
+                />
+                <Image
+                  src={IMAGEKIT.ICON_USDT}
+                  alt="usdt"
+                  width={48}
+                  height={48}
+                />
+                <Image
+                  src={IMAGEKIT.ICON_USDC}
+                  alt="usdc"
+                  width={48}
+                  height={48}
+                />
+              </div>
               <p className="font-general-sans text-agwhite sm:text-xl">
                 As you contribute more, your{" "}
                 <span className="underline ">

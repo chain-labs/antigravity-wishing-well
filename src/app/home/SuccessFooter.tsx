@@ -1,24 +1,21 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import TimerBox from "./TimerBox";
+import IMAGEKIT from "./images";
 
 const coinsList = [
   {
     name: "PLS",
-    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/pls.svg",
+    icon: IMAGEKIT.ICON_PLS,
   },
   {
     name: "ETH",
-    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/eth.svg",
+    icon: IMAGEKIT.ICON_ETH,
   },
   {
     name: "Tether",
-    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/tether.svg",
+    icon: IMAGEKIT.ICON_USDT,
   },
   {
     name: "USDC",
-    icon: "https://ik.imagekit.io/xlvg9oc4k/Antigravity/usdc.svg",
+    icon: IMAGEKIT.ICON_USDC,
   },
 ];
 
@@ -30,11 +27,7 @@ const SuccessFooter = ({ isSuccess }: SuccessFooterProps) => {
   return (
     <div className="flex w-full">
       <div className="h-auto w-full">
-        <img
-          src={"https://ik.imagekit.io/xlvg9oc4k/Antigravity/reg_footer.svg"}
-          alt="reg_footer"
-          className="h-full w-full object-cover"
-        />
+        <img src={""} alt="reg_footer" className="h-full w-full object-cover" />
       </div>
       <div className="absolute flex p-44 w-full justify-between flex-col">
         {isSuccess && (
@@ -46,7 +39,7 @@ const SuccessFooter = ({ isSuccess }: SuccessFooterProps) => {
               <button className="flex items-center justify-center font-sans font-extrabold rounded-lg bg-blue px-5 py-2 lg:px-6 lg:py-4 mb-2 lg:mr-4">
                 <p className="uppercase">wishwell.base</p>{" "}
                 <img
-                  src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg"
+                  src={IMAGEKIT.ICON_ETH}
                   className="w-4 h-4 ml-2"
                   alt="share"
                 />
@@ -54,7 +47,7 @@ const SuccessFooter = ({ isSuccess }: SuccessFooterProps) => {
               <button className="flex items-center justify-center font-sans font-extrabold rounded-lg bg-blue px-5 py-2 lg:px-6 lg:py-4 mb-2 lg:mr-4">
                 <p className="uppercase">wishwell.PLS</p>{" "}
                 <img
-                  src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/share.svg"
+                  src={IMAGEKIT.ICON_PLS}
                   className="w-4 h-4 ml-2"
                   alt="share"
                 />

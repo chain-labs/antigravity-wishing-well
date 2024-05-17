@@ -14,7 +14,7 @@ const MobileView = (props: Props) => {
     >
       <div className="mx-4">
         <div className="flex items-center">
-          <Image src="https://ik.imagekit.io/xlvg9oc4k/Antigravity/icon.svg" alt="icon" width="45" height="45" />
+          <Image src={IMAGEKIT.HELMET} alt="icon" width="45" height="45" />
           <p className=" from-white to-gray-500 pl-2 font-sans font-extrabold text-2xl bg-gradient-to-b text-transparent bg-clip-text">
             ANTIGRAVITY
           </p>
