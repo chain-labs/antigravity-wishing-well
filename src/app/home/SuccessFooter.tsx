@@ -1,19 +1,21 @@
+import IMAGEKIT from "./images";
+
 const coinsList = [
   {
     name: "PLS",
-    icon: "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/Icon-PLS.svg",
+    icon: IMAGEKIT.ICON_PLS,
   },
   {
     name: "ETH",
-    icon: "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/Icon-ETH.svg",
+    icon: IMAGEKIT.ICON_ETH,
   },
   {
     name: "Tether",
-    icon: "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/Icon-USDT.svg",
+    icon: IMAGEKIT.ICON_USDT,
   },
   {
     name: "USDC",
-    icon: "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/Icon-USDC.svg",
+    icon: IMAGEKIT.ICON_USDC,
   },
 ];
 
@@ -37,7 +39,7 @@ const SuccessFooter = ({ isSuccess }: SuccessFooterProps) => {
               <button className="flex items-center justify-center font-sans font-extrabold rounded-lg bg-blue px-5 py-2 lg:px-6 lg:py-4 mb-2 lg:mr-4">
                 <p className="uppercase">wishwell.base</p>{" "}
                 <img
-                  src="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/Icon-ETH.svg"
+                  src={IMAGEKIT.ICON_ETH}
                   className="w-4 h-4 ml-2"
                   alt="share"
                 />
@@ -45,7 +47,7 @@ const SuccessFooter = ({ isSuccess }: SuccessFooterProps) => {
               <button className="flex items-center justify-center font-sans font-extrabold rounded-lg bg-blue px-5 py-2 lg:px-6 lg:py-4 mb-2 lg:mr-4">
                 <p className="uppercase">wishwell.PLS</p>{" "}
                 <img
-                  src="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/Icon-PLS.svg"
+                  src={IMAGEKIT.ICON_PLS}
                   className="w-4 h-4 ml-2"
                   alt="share"
                 />

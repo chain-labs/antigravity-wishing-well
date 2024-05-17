@@ -12,17 +12,17 @@ import {
 
 const socials = [
   {
-    icon: "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/icon-telegram.svg",
+    icon: IMAGEKIT.ICON_TELEGRAM,
     alt: "telegram",
     url: TELEGRAM,
   },
   {
-    icon: "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/icon-twitter.svg",
+    icon: IMAGEKIT.ICON_TWITTER,
     alt: "twitter",
     url: TWITTER,
   },
   {
-    icon: "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/icon-youtube.svg",
+    icon: IMAGEKIT.ICON_YOUTUBE,
     alt: "youtube",
     url: YOUTUBE,
   },
@@ -30,7 +30,7 @@ const socials = [
 
 const TEAM_2_SOCIALS = [
   {
-    icon: "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/icon-twitter.svg",
+    icon: IMAGEKIT.ICON_TWITTER,
     alt: "twitter",
     url: TWITTER_HEXIEST,
   },
@@ -38,12 +38,12 @@ const TEAM_2_SOCIALS = [
 
 const TEAM_3_SOCIALS = [
   {
-    icon: "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/icon-instagram.svg",
+    icon: IMAGEKIT.ICON_INSTAGRAM,
     alt: "instagram",
     url: INSTAGRAM_CODY,
   },
   {
-    icon: "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/icon-tiktok.svg",
+    icon: IMAGEKIT.ICON_TIKTOK,
     alt: "tiktok",
     url: TIKTOK_CODY,
   },

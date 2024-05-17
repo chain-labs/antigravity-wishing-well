@@ -4,17 +4,17 @@ import IMAGEKIT from "./images";
 const repItems = [
   {
     name: "Minting",
-    img: "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/feature-image-2.png",
+    img: IMAGEKIT.FEATURE_MINTING,
     alt: "minting",
   },
   {
     name: "Unwrapping",
-    img: "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/feature-image-3.png",
+    img: IMAGEKIT.FEATURE_UNWRAPPING,
     alt: "unwrapping",
   },
   {
     name: "Pruning",
-    img: "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/feature-image-1.png",
+    img: IMAGEKIT.FEATURE_PRUNING,
     alt: "pruning",
   },
 ];
@@ -53,7 +53,7 @@ const Features = () => {
                     <Image
                       className="w-full h-full"
                       src={
-                        "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/feature-image-5.png"
+                        IMAGEKIT.FEATURE_MINING
                       }
                       alt={"mining"}
                       fill
@@ -68,7 +68,7 @@ const Features = () => {
                     <Image
                       className="w-full h-full"
                       src={
-                        "https://ik.imagekit.io/AGAdmin/AntigravityWishWell/feature-image-4.png"
+                        IMAGEKIT.FEATURE_CLAIMING
                       }
                       alt={"claiming"}
                       fill

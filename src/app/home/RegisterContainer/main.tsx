@@ -3,6 +3,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import YouTubeModal from "./YoutubeModal";
 import { RegisterButton } from "../RegisterButton";
+import IMAGEKIT from "../images";
 
 type Props = {
   handleRegister: (args0: React.MouseEvent) => void;
@@ -56,7 +57,7 @@ const Main = ({
           >
             <div className="relative h-6 w-6">
               <Image
-                src="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/Icon-Info.svg"
+                src={IMAGEKIT.ICON_INFO}
                 className="lg:w-8 lg:h-8 mr-2"
                 alt="info_icon"
                 fill

@@ -7,6 +7,7 @@ import Image from "next/image";
 import React from "react";
 import toast from "react-hot-toast";
 import { MarqueeBanner } from "./MarqueeBanner";
+import IMAGEKIT from "../images";
 
 interface Props {
   setPoll: (args0: boolean) => void;
@@ -37,7 +38,7 @@ const Registered = ({ setPoll }: Props) => {
             className="overflow-hidden"
           >
             <Image
-              src="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/Icon-ETH.svg"
+              src={IMAGEKIT.ICON_ETH}
               alt="eth-btn"
               width={52}
               height={52}
@@ -45,7 +46,7 @@ const Registered = ({ setPoll }: Props) => {
             />
             <p className="uppercase z-10">wishwell.base</p>
             <Image
-              src="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/Icon-Copy.svg"
+              src={IMAGEKIT.ICON_COPY}
               alt="share"
               width={16}
               height={16}
@@ -57,7 +58,7 @@ const Registered = ({ setPoll }: Props) => {
             className="overflow-hidden"
           >
             <Image
-              src="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/Icon-PLS.svg"
+              src={IMAGEKIT.ICON_PLS}
               alt="pls-btn"
               width={52}
               height={52}
@@ -65,7 +66,7 @@ const Registered = ({ setPoll }: Props) => {
             />
             <p className="uppercase z-20">wishwell.PLS</p>
             <Image
-              src="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/Icon-Copy.svg"
+              src={IMAGEKIT.ICON_COPY}
               alt="share"
               width={16}
               height={16}
@@ -81,25 +82,25 @@ const Registered = ({ setPoll }: Props) => {
         </p>
         <div className="flex gap-4">
           <Image
-            src="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/Icon-PLS.svg"
+            src={IMAGEKIT.ICON_PLS}
             alt="pls"
             width={32}
             height={32}
           />
           <Image
-            src="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/Icon-ETH.svg"
+            src={IMAGEKIT.ICON_ETH}
             alt="eth"
             width={32}
             height={32}
           />
           <Image
-            src="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/Icon-USDT.svg"
+            src={IMAGEKIT.ICON_USDT}
             alt="usdt"
             width={32}
             height={32}
           />
           <Image
-            src="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/Icon-USDC.svg"
+            src={IMAGEKIT.ICON_USDC}
             alt="usdc"
             width={32}
             height={32}

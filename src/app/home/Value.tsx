@@ -23,28 +23,28 @@ const Value = () => {
           <div className="grid sm:grid-cols-2 w-full sm:w-fit gap-6">
             <div>
               <ValueItem
-                imgSrc="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/ValueCardIcon-LimitedSupply.svg"
+                imgSrc={IMAGEKIT.VALUE_LIMITED_SUPPLY}
                 imgText="limited_supply"
                 itemTitle="limited supply / no inflation"
               />
             </div>
             <div>
               <ValueItem
-                imgSrc="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/ValueCardIcon-LimitedMinting.svg"
+                imgSrc={IMAGEKIT.VALUE_LIMITED_MINTING}
                 imgText="limited_minting"
                 itemTitle="limited minting phases"
               />
             </div>
             <div>
               <ValueItem
-                imgSrc="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/ValueCardIcon-Yields-Rewards.svg"
+                imgSrc={IMAGEKIT.VALUE_YIELD}
                 imgText="yields_rewards"
                 itemTitle="yield that rewards holders"
               />
             </div>
             <div>
               <ValueItem
-                imgSrc="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/ValueCardIcon-Giveaways-Tokens.svg"
+                imgSrc={IMAGEKIT.VALUE_GIVEAWAYS}
                 imgText="giveaway_tokens"
                 itemTitle="giveaways in liquid tokens"
               />
@@ -53,21 +53,21 @@ const Value = () => {
           <div className="grid gap-6 sm:grid-cols-3 w-full sm:w-fit ">
             <div>
               <ValueItem
-                imgSrc="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/ValueCardIcon-Transferrable-NFT.svg"
+                imgSrc={IMAGEKIT.VALUE_TRANSFERABLE}
                 imgText="transfarrable_nft"
                 itemTitle="Transferable nfts That have actual cash value"
               />
             </div>
             <div>
               <ValueItem
-                imgSrc="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/ValueCardIcon-Token-Crisis.svg"
+                imgSrc={IMAGEKIT.VALUE_TOKEN_CRISIS}
                 imgText="token_crisis"
                 itemTitle="Programmed Scarcity like you’ve never seen before"
               />
             </div>
             <div>
               <ValueItem
-                imgSrc="https://ik.imagekit.io/AGAdmin/AntigravityWishWell/ValueCardIcon-Heart-NFT.svg"
+                imgSrc={IMAGEKIT.VALUE_NFT_STORY}
                 imgText="heart_nft"
                 itemTitle="nfts with a story and heart behind them"
               />
