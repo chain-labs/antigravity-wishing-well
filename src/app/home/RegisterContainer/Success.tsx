@@ -46,7 +46,7 @@ const Success = ({ tokenId }: Props) => {
   };
 
   return (
-    <div className="w-full flex items-center absolute flex-col sm:gap-12 h-full overflow-hidden z-20">
+    <div className="w-full flex items-center flex-col sm:gap-12 min-h-screen h-fit z-20 py-10 sm:py-0">
       <div className="w-full flex items-center flex-col h=full z-20 max-w-[1280px]">
         <div className="flex items-center flex-col h-full pt-32 md:pt-36 w-full">
           <p className="font-sans text-6xl sm:text-8xl font-black text-center text-agwhite">

@@ -31,7 +31,7 @@ const Register = ({
   setPoll,
 }: RegisterProps) => {
   return (
-    <div className="flex flex-col relative min-h-screen sm:min-h-full sm:items-center flex-1">
+    <div className="flex flex-col relative min-h-screen sm:items-center flex-1">
       <Image
         src={!isRegistered ? IMAGEKIT.HERO_LANDING : IMAGEKIT.REGISTERED}
         alt="bg_hero_reg"
