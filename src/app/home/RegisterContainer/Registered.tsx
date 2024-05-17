@@ -21,16 +21,16 @@ const Registered = ({ setPoll }: Props) => {
   };
 
   return (
-    <div className="w-full flex items-center absolute flex-col sm:gap-12 h-full overflow-hidden z-20">
-      <div className="w-full flex items-center flex-col h-full overflow-hidden z-20 max-w-[1280px] px-5 justify-center">
-        <p className="font-sans text-6xl sm:text-8xl font-black text-center text-agwhite">
+    <div className="w-full flex items-center absolute flex-col h-full overflow-hidden z-20">
+      <div className="w-full flex items-center flex-col h-full overflow-hidden z-20 max-w-[1280px] gap-4 pt-20 px-5 justify-center">
+        <p className="font-sans text-6xl sm:text-7xl font-black text-center text-agwhite">
           You’re
           <br /> Registered!
         </p>
-        <p className="font-general-sans text-center text-xl mt-4 text-agwhite">
+        <p className="font-general-sans text-center text-agwhite">
           Contribute now on Base or PulseChain to either of our addresses below.
         </p>
-        <div className="flex flex-col w-full gap-4 sm:flex-row pt-5 justify-center">
+        <div className="flex flex-col w-full gap-4 sm:flex-row justify-center">
           <Button
             onClick={() =>
               handleCopy(TEST_NETWORK ? BaseSepoliaAG.address : BaseAG.address)
@@ -73,38 +73,18 @@ const Registered = ({ setPoll }: Props) => {
             />
           </Button>
         </div>
-        <p className="font-sans text-sm text-agwhite text-center p-4">
+        {/* <p className="font-sans text-sm text-agwhite text-center p-4">
           After contributing, please wait a few minutes before we can display
           the NFT
-        </p>
-        <p className="font-sans text-xl text-agwhite p-4 mt-4 text-center">
+        </p> */}
+        <p className="font-sans text-xl text-agwhite p-2 text-center">
           Here are some tokens that we encourage for contribution:
         </p>
         <div className="flex gap-4">
-          <Image
-            src={IMAGEKIT.ICON_PLS}
-            alt="pls"
-            width={32}
-            height={32}
-          />
-          <Image
-            src={IMAGEKIT.ICON_ETH}
-            alt="eth"
-            width={32}
-            height={32}
-          />
-          <Image
-            src={IMAGEKIT.ICON_USDT}
-            alt="usdt"
-            width={32}
-            height={32}
-          />
-          <Image
-            src={IMAGEKIT.ICON_USDC}
-            alt="usdc"
-            width={32}
-            height={32}
-          />
+          <Image src={IMAGEKIT.ICON_PLS} alt="pls" width={32} height={32} />
+          <Image src={IMAGEKIT.ICON_ETH} alt="eth" width={32} height={32} />
+          <Image src={IMAGEKIT.ICON_USDT} alt="usdt" width={32} height={32} />
+          <Image src={IMAGEKIT.ICON_USDC} alt="usdc" width={32} height={32} />
         </div>
       </div>
       <MarqueeBanner />

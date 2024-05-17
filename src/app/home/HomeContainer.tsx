@@ -245,8 +245,8 @@ const HomeContainer = () => {
   }, [registerFetched]);
 
   return (
-    <div className="flex flex-col min-h-screen max-w-screen overflow-hidden">
-      <div className="flex flex-col min-h-screen sm:max-h-screen">
+    <div className="flex flex-col min-h-screen min-w-screen overflow-hidden">
+      <div className="flex flex-col min-h-screen">
         <Register
           handleLogin={handleLogin}
           isRegistered={isRegistered}
@@ -259,7 +259,7 @@ const HomeContainer = () => {
           setError={setError}
           setPoll={setPoll}
         />
-        {!isRegistered && (
+        {!isSuccess && (
           <Timer
             handleLogin={handleLogin}
             loading={loading}
@@ -272,7 +272,7 @@ const HomeContainer = () => {
           />
         )}
       </div>
-      {isRegistered && (
+      {isSuccess && (
         <Timer
           handleLogin={handleLogin}
           loading={loading}
