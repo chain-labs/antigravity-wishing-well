@@ -2,3 +2,7 @@ node_modules
 .next
 
 .env
+bun.lockb
+*storybook.log
+yarn.lock
+.yarn
