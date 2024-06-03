@@ -9,39 +9,99 @@ Source: https://sketchfab.com/3d-models/saturn-17b34b975dc3449da83f2ee7802004f3
 Title: Saturn
 */
 
-import * as THREE from 'three'
-import React, { useRef } from 'react'
-import { useGLTF } from '@react-three/drei'
-import { GLTF } from 'three-stdlib'
+import * as THREE from "three";
+import React, { use, useRef, useState } from "react";
+import { useGLTF, useScroll } from "@react-three/drei";
+import { GLTF } from "three-stdlib";
+import { motion } from "framer-motion-3d";
+import { useFrame } from "@react-three/fiber";
+import { scroll } from "framer-motion";
+import { useControls } from "leva";
 
 type GLTFResult = GLTF & {
-  nodes: {
-    Object_4: THREE.Mesh
-    Object_5: THREE.Mesh
-  }
-  materials: {
-    Saturn: THREE.MeshStandardMaterial
-    rings: THREE.MeshStandardMaterial
-  }
-  animations: any[]
+	nodes: {
+		Object_4: THREE.Mesh;
+		Object_5: THREE.Mesh;
+	};
+	materials: {
+		Saturn: THREE.MeshStandardMaterial;
+		rings: THREE.MeshStandardMaterial;
+	};
+	animations: any[];
+};
+
+type ContextType = Record<
+	string,
+	React.ForwardRefExoticComponent<JSX.IntrinsicElements["mesh"]>
+>;
+
+export function Saturn(props: JSX.IntrinsicElements["group"]) {
+	const { nodes, materials } = useGLTF("./models/scene.gltf") as GLTFResult;
+	const [progress, setProgress] = useState<any>(null);
+	scroll((progress) => {
+		setProgress(progress);
+	});
+
+	// const { x, y, z } = useControls({
+	// 	x: { value: 0.54, min: 0, max: 1, step: 0.001 },
+	// 	y: { value: 1, min: 1, max: 1, step: 0.001 },
+	// 	z: { value: 0.5, min: 0, max: 1, step: 0.001 },
+	// });
+	// 0.54, 1, 0.5
+	// 0.42, 1, 0.5
+	// 0.01, 0.9, 0.5
+	return (
+		// ignore next line ts
+		// @ts-ignore
+		<motion.group
+			{...props}
+			dispose={null}
+			animate={{
+				rotateX: Math.PI / 0.51,
+				rotateY: Math.PI,
+				rotateZ: Math.PI / 0.52,
+				x: 0.01,
+				y: 0.9,
+				z: 0.5,
+			}}
+			initial={{
+				rotateX: Math.PI / 0.42,
+				rotateY: Math.PI,
+				rotateZ: Math.PI / 0.5,
+				x: 0,
+				y: 0,
+				z: 0,
+			}}
+			transition={{
+				duration: 2,
+				ease: "easeInOut",
+				x: { duration: 2, delay: 2 },
+				y: { duration: 2, delay: 2 },
+				z: { duration: 2, delay: 2 },
+			}}
+		>
+			<group rotation={[-Math.PI / 2, 0, 0]} scale={1.758}>
+				<group rotation={[Math.PI / 2, 0, 0]}>
+					<group rotation={[-0.419, Math.PI / 2, 0]}>
+						<mesh
+							castShadow
+							receiveShadow
+							geometry={nodes.Object_4.geometry}
+							material={materials.Saturn}
+							material-envMapIntensity={4}
+						/>
+						<motion.mesh
+							castShadow
+							receiveShadow
+							geometry={nodes.Object_5.geometry}
+							material={materials.rings}
+							material-envMapIntensity={4}
+						/>
+					</group>
+				</group>
+			</group>
+		</motion.group>
+	);
 }
 
-type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>>
-
-export function Saturn(props: JSX.IntrinsicElements['group']) {
-  const { nodes, materials } = useGLTF('./models/scene.gltf') as GLTFResult
-  return (
-    <group {...props} dispose={null}>
-      <group rotation={[-Math.PI / 2, 0, 0]} scale={1.758}>
-        <group rotation={[Math.PI / 2, 0, 0]}>
-          <group rotation={[-0.419, Math.PI / 2, 0]}>
-            <mesh castShadow receiveShadow geometry={nodes.Object_4.geometry} material={materials.Saturn} material-envMapIntensity={4} />
-            <mesh castShadow receiveShadow geometry={nodes.Object_5.geometry} material={materials.rings} material-envMapIntensity={4} />
-          </group>
-        </group>
-      </group>
-    </group>
-  )
-}
-
-useGLTF.preload('./models/scene.gltf')
+useGLTF.preload("./models/scene.gltf");
