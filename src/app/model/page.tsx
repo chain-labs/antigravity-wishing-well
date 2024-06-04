@@ -13,6 +13,10 @@ const Header = dynamic(() => import("../home/Header"), {
 	ssr: false,
 });
 
+const StarFieldCanvas = dynamic(() => import("./Starfeild"), {
+	ssr: false,
+});
+
 export default function Model() {
 	return (
 		// <ReactLenis
@@ -25,7 +29,7 @@ export default function Model() {
 					<div className="fixed top-0 w-full z-50 items-center pt-12 px-4">
 						<Header />
 					</div>
-					
+
 					{/* <Spinner /> */}
 					<div className="z-100">
 						<div className="flex justify-center items-center gap-1 w-full h-[150vh] pt-[60vh]">
@@ -79,6 +83,7 @@ export default function Model() {
 
 					<div className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[1]">
 						<CanvasRendering />
+						<StarFieldCanvas />
 					</div>
 				</div>
 			</div>
