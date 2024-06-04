@@ -1,10 +1,12 @@
 "use client";
 
 import React from "react";
-import { Canvas } from "@react-three/fiber";
-import { ScrollControls } from "@react-three/drei";
 import Header from "../home/Header";
-import Experience from "./Experience";
+import dynamic from "next/dynamic";
+
+const CanvasRendering = dynamic(() => import("./CanvasRendering"), {
+	ssr: false,
+});
 
 export default function Model() {
 	return (
@@ -15,11 +17,7 @@ export default function Model() {
 						<Header />
 					</div>
 					<div className="w-full h-[100vh] -z-10">
-						<Canvas>
-							<ScrollControls pages={4} damping={0.3}>
-								<Experience />
-							</ScrollControls>
-						</Canvas>
+						<CanvasRendering />
 					</div>
 				</div>
 			</div>
