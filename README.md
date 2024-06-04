@@ -54,7 +54,7 @@ npx storybook@latest upgrade
 
 ## Clearing the existing Storybook setup
 
-Remove the following all files and folders from directory `/src/app/stories`:
+Remove all files and folders from directory `/src/app/stories`:
 
 
 ## Adding Tailwind CSS
@@ -109,3 +109,7 @@ bun storybook
 ```
 
 Open [http://localhost:6006](http://localhost:6006) with your browser to see your stories.
+
+## More information
+
+Visit the [Storybook documentation](https://storybook.js.org/docs/react/get-started/introduction) to learn more.
