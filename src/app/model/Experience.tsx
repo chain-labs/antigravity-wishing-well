@@ -97,9 +97,9 @@ export default function Experience() {
 					// far={100}
 				/>
 				<Environment
-					preset="night"
-					backgroundIntensity={0.2}
-					environmentIntensity={1.5}
+					preset={"night"}
+					backgroundIntensity={0}
+					environmentIntensity={0}
 				/>
 
 				{/* <Line points={linePoints} color="white" /> */}
@@ -122,9 +122,9 @@ export default function Experience() {
 				</group>
 
 				<pointLight
-					position={[3.74, 0.78, -6.06]}
+					position={[3.74,6.56,-10]}
 					args={[undefined, 208.18, 0]}
-					color={"#ffffff"}
+					color={"#ffdfc2"}
 					receiveShadow={false}
 					castShadow={true}
 					visible={true}
@@ -132,30 +132,30 @@ export default function Experience() {
 				/>
 				<pointLight
 					position={[-7.64, -1.38, -8.5]}
-					args={[undefined, 52.2]}
+					args={[undefined,23.6]}
 					castShadow={true}
 					visible={true}
-					color={"#ffd4b8"}
+					color={"#ffdac2"}
 				/>
 
 				<hemisphereLight
 					position={[-1.8, -0.72, 8.54]}
-					args={[undefined, undefined, 0.52]}
+					args={[undefined,undefined,0]}
 					castShadow={true}
 					receiveShadow={false}
 					visible={true}
-					color={"#fec686"}
+					color={"#fec686"} intensity={0}
 				/>
 				<EffectComposer>
 					<Bloom
 						luminanceThreshold={0}
-						luminanceSmoothing={1.14}
-						height={138.4}
+						luminanceSmoothing={0.28}
+						height={400}
 						mipmapBlur={false}
-						radius={-0.18}
-						opacity={0.46}
-						intensity={1.26}
-						levels={4.22}
+						radius={1.2}
+						opacity={1}
+						intensity={2.22}
+						levels={7.02}
 						resolutionScale={6.28}
 					/>
 				</EffectComposer>
