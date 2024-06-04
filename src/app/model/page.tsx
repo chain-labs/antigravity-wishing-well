@@ -3,6 +3,7 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import ReactLenis from "@studio-freight/react-lenis";
+import Spinner from "./components/Spinner";
 
 const CanvasRendering = dynamic(() => import("./CanvasRendering"), {
 	ssr: false,
@@ -25,9 +26,11 @@ export default function Model() {
 							<Header />
 						</div>
 						<div className="w-full h-[100vh] 10 fixed top-0 left-0">
-							<CanvasRendering />
+							{/* <CanvasRendering /> */}
 						</div>
-						<div className="w-full h-[300vh] bg-gradient-to-b from-[#0b0b0b] to-black"></div>
+							<Spinner />
+						{/* <div className="w-full h-[300vh] bg-gradient-to-b from-[#0b0b0b] to-black">
+						</div> */}
 					</div>
 				</div>
 			</div>
