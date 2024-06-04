@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { PerspectiveCamera, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { BufferGeometry } from "three";
 
@@ -62,11 +60,13 @@ const getStarFieldProps = ({
 	xRange,
 	yRange,
 	zRange,
+	speed,
 }: {
 	count: number;
 	xRange: number;
 	yRange: number;
 	zRange: number;
+	speed: number;
 }) => {
 	const props = [];
 	for (let i = 0; i < count; i++) {
@@ -77,8 +77,8 @@ const getStarFieldProps = ({
 				end: initPos,
 			},
 			color: "#fff",
-			scale: 0.01,
-			speed: 1,
+			scale: 0.1,
+			speed: speed,
 			depth: zRange,
 		});
 	}
@@ -90,14 +90,16 @@ const StarField = ({
 	xRange,
 	yRange,
 	zRange,
+	speed,
 }: {
 	count: number;
 	xRange: number;
 	yRange: number;
 	zRange: number;
+	speed: number;
 }) => {
 	const [starProps, setStarProps] = useState(
-		getStarFieldProps({ count, xRange, yRange, zRange })
+		getStarFieldProps({ count, xRange, yRange, zRange, speed })
 	);
 
 	useFrame((state, delta) => {
@@ -136,7 +138,19 @@ const StarField = ({
 	));
 };
 
-export default function StarFieldCanvas(){
+export default function StarFieldCanvas({
+	count,
+	xRange,
+	yRange,
+	zRange,
+	speed,
+}: {
+	count: number;
+	xRange: number;
+	yRange: number;
+	zRange: number;
+	speed: number;
+}){
 	return (
 		<div
 			id="canvas-container"
@@ -144,9 +158,7 @@ export default function StarFieldCanvas(){
             className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[1]"
 		>
 			<Canvas>
-				<PerspectiveCamera />
-				<OrbitControls position={[0, 100, -100]} />
-				<StarField count={100} xRange={100} yRange={100} zRange={500} />
+				<StarField count={count} xRange={xRange} yRange={yRange} zRange={zRange} speed={speed} />
 			</Canvas>
 		</div>
 	);
