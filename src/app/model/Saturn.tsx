@@ -10,12 +10,12 @@ Title: Saturn
 */
 
 import * as THREE from "three";
-import React, { use, useRef, useState } from "react";
-import { useGLTF, useScroll } from "@react-three/drei";
+import React, { MutableRefObject, RefObject, use, useRef, useState } from "react";
+import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 import { motion } from "framer-motion-3d";
 import { useFrame } from "@react-three/fiber";
-import { scroll } from "framer-motion";
+import { scroll, MotionValue, useMotionValueEvent, useScroll } from "framer-motion";
 import { useControls } from "leva";
 
 type GLTFResult = GLTF & {
@@ -35,12 +35,13 @@ type ContextType = Record<
 	React.ForwardRefExoticComponent<JSX.IntrinsicElements["mesh"]>
 >;
 
-export function Saturn(props: JSX.IntrinsicElements["group"]) {
+export function Saturn(
+	props: JSX.IntrinsicElements["group"] & {
+		sectionRefs: RefObject<HTMLDivElement>[];
+	}
+) {
 	const { nodes, materials } = useGLTF("./models/scene.gltf") as GLTFResult;
 	const [progress, setProgress] = useState<any>(null);
-	scroll((progress) => {
-		setProgress(progress);
-	});
 
 	// const { x, y, z } = useControls({
 	// 	x: { value: 0.54, min: 0, max: 1, step: 0.001 },
@@ -50,6 +51,20 @@ export function Saturn(props: JSX.IntrinsicElements["group"]) {
 	// 0.54, 1, 0.5
 	// 0.42, 1, 0.5
 	// 0.01, 0.9, 0.5
+
+//   const section1Scroll = useScroll({
+// 		target: props.sectionRefs[0],
+// 		offset: ["end end", "start start"],
+// 	});
+// 	const section2Scroll = useScroll({
+// 		target: props.sectionRefs[1],
+// 		offset: ["end end", "start start"],
+// 	});
+// 	const section3Scroll = useScroll({
+// 		target: props.sectionRefs[2],
+// 		offset: ["end end", "start start"],
+// 	});
+
 	return (
 		// ignore next line ts
 		// @ts-ignore
@@ -60,8 +75,8 @@ export function Saturn(props: JSX.IntrinsicElements["group"]) {
 				rotateX: Math.PI / 0.51,
 				rotateY: Math.PI,
 				rotateZ: Math.PI / 0.52,
-				x: 0.01,
-				y: 0.9,
+				x: 0.1,
+				y: 1,
 				z: 0.5,
 			}}
 			initial={{
