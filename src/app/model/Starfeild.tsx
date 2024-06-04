@@ -35,7 +35,7 @@ const Star = ({
 	}, [points]);
 
 	return (
-        // @ts-ignore
+		// @ts-ignore
 		<line geometry={lineGeometry}>
 			<lineBasicMaterial
 				color={color}
@@ -150,16 +150,22 @@ export default function StarFieldCanvas({
 	yRange: number;
 	zRange: number;
 	speed: number;
-}){
+}) {
 	return (
 		<div
 			id="canvas-container"
 			style={{ width: "100%", height: "100vh", backgroundColor: "#000" }}
-            className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[1]"
+			className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[1]"
 		>
-			<Canvas>
-				<StarField count={count} xRange={xRange} yRange={yRange} zRange={zRange} speed={speed} />
+			<Canvas camera={{ position: [0, 0, 0], fov: 75 }}>
+				<StarField
+					count={count}
+					xRange={xRange}
+					yRange={yRange}
+					zRange={zRange}
+					speed={speed}
+				/>
 			</Canvas>
 		</div>
 	);
-};
+}
