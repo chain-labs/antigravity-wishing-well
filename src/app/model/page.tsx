@@ -1,11 +1,14 @@
 "use client";
 
 import React from "react";
-import Header from "../home/Header";
 import dynamic from "next/dynamic";
 import ReactLenis from "@studio-freight/react-lenis";
 
 const CanvasRendering = dynamic(() => import("./CanvasRendering"), {
+	ssr: false,
+});
+
+const Header = dynamic(() => import("../home/Header"), {
 	ssr: false,
 });
 
