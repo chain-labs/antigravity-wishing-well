@@ -3,6 +3,7 @@
 import React from "react";
 import Header from "../home/Header";
 import dynamic from "next/dynamic";
+import ReactLenis from "@studio-freight/react-lenis";
 
 const CanvasRendering = dynamic(() => import("./CanvasRendering"), {
 	ssr: false,
@@ -10,17 +11,23 @@ const CanvasRendering = dynamic(() => import("./CanvasRendering"), {
 
 export default function Model() {
 	return (
-		<div className="bg-black min-h-[100vh]">
-			<div className="flex flex-col min-h-screen min-w-screen overflow-hidden">
-				<div className="relative z-0 flex flex-col min-h-screen">
-					<div className="fixed top-0 w-full z-50 items-center pt-12 px-4">
-						<Header />
-					</div>
-					<div className="w-full h-[100vh] -z-10">
-						<CanvasRendering />
+		// <ReactLenis
+		// 	root
+		// 	options={{ lerp: 0.1, duration: 0.5,  }}
+		// >
+			<div className="bg-black min-h-[100vh]">
+				<div className="flex flex-col min-h-screen min-w-screen overflow-hidden">
+					<div className="relative z-0 flex flex-col min-h-screen">
+						<div className="fixed top-0 w-full z-50 items-center pt-12 px-4">
+							<Header />
+						</div>
+						<div className="w-full h-[100vh] 10 fixed top-0 left-0">
+							<CanvasRendering />
+						</div>
+						<div className="w-full h-[300vh] bg-gradient-to-b from-[#0b0b0b] to-black"></div>
 					</div>
 				</div>
 			</div>
-		</div>
+		// </ReactLenis>
 	);
 }

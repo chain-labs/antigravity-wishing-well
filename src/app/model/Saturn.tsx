@@ -10,13 +10,11 @@ Title: Saturn
 */
 
 import * as THREE from "three";
-import React, { MutableRefObject, RefObject, use, useRef, useState } from "react";
+import React, { RefObject, useState } from "react";
 import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 import { motion } from "framer-motion-3d";
-import { useFrame } from "@react-three/fiber";
-import { scroll, MotionValue, useMotionValueEvent, useScroll } from "framer-motion";
-import { useControls } from "leva";
+import { scroll } from "framer-motion";
 
 type GLTFResult = GLTF & {
 	nodes: {
@@ -43,6 +41,8 @@ export function Saturn(
 	const { nodes, materials } = useGLTF("./models/scene.gltf") as GLTFResult;
 	const [progress, setProgress] = useState<any>(null);
 
+	scroll((progress) => setProgress(progress));
+
 	// const { x, y, z } = useControls({
 	// 	x: { value: 0.54, min: 0, max: 1, step: 0.001 },
 	// 	y: { value: 1, min: 1, max: 1, step: 0.001 },
@@ -52,18 +52,18 @@ export function Saturn(
 	// 0.42, 1, 0.5
 	// 0.01, 0.9, 0.5
 
-//   const section1Scroll = useScroll({
-// 		target: props.sectionRefs[0],
-// 		offset: ["end end", "start start"],
-// 	});
-// 	const section2Scroll = useScroll({
-// 		target: props.sectionRefs[1],
-// 		offset: ["end end", "start start"],
-// 	});
-// 	const section3Scroll = useScroll({
-// 		target: props.sectionRefs[2],
-// 		offset: ["end end", "start start"],
-// 	});
+	//   const section1Scroll = useScroll({
+	// 		target: props.sectionRefs[0],
+	// 		offset: ["end end", "start start"],
+	// 	});
+	// 	const section2Scroll = useScroll({
+	// 		target: props.sectionRefs[1],
+	// 		offset: ["end end", "start start"],
+	// 	});
+	// 	const section3Scroll = useScroll({
+	// 		target: props.sectionRefs[2],
+	// 		offset: ["end end", "start start"],
+	// 	});
 
 	return (
 		// ignore next line ts
@@ -72,49 +72,52 @@ export function Saturn(
 			{...props}
 			dispose={null}
 			animate={{
-				rotateX: Math.PI / 0.51,
-				rotateY: Math.PI,
-				rotateZ: Math.PI / 0.52,
-				x: 0.1,
-				y: 1,
-				z: 0.5,
+				rotateX: 0,
+				y: 3.5,
 			}}
 			initial={{
-				rotateX: Math.PI / 0.42,
-				rotateY: Math.PI,
-				rotateZ: Math.PI / 0.5,
-				x: 0,
-				y: 0,
-				z: 0,
+				rotateX: 0.5,
+				y: 5,
 			}}
 			transition={{
 				duration: 2,
 				ease: "easeInOut",
-				x: { duration: 2, delay: 2 },
-				y: { duration: 2, delay: 2 },
-				z: { duration: 2, delay: 2 },
 			}}
 		>
-			<group rotation={[-Math.PI / 2, 0, 0]} scale={1.758}>
-				<group rotation={[Math.PI / 2, 0, 0]}>
-					<group rotation={[-0.419, Math.PI / 2, 0]}>
-						<mesh
-							castShadow
-							receiveShadow
-							geometry={nodes.Object_4.geometry}
-							material={materials.Saturn}
-							material-envMapIntensity={4}
-						/>
-						<motion.mesh
-							castShadow
-							receiveShadow
-							geometry={nodes.Object_5.geometry}
-							material={materials.rings}
-							material-envMapIntensity={4}
-						/>
+			<motion.group
+				animate={{
+					y: -progress * 5.4,
+					// rotateY: (Math.PI / 2) * progress * 5,
+					// rotateX: -(Math.PI / 2) * progress * 5,
+					rotateZ: (Math.PI / 2) * progress * 5,
+				}}
+				transition={{
+					ease: "linear",
+				}}
+				// position={[0, -1, 0]}
+				// rotation={[Math.PI / 2, Math.PI * 1.7, 0]}
+			>
+				<group rotation={[-Math.PI / 2, 0, 0]} scale={1.758}>
+					<group rotation={[Math.PI / 2, 0, 0]}>
+						<group rotation={[-0.419, Math.PI / 2, 0]}>
+							<mesh
+								castShadow
+								receiveShadow
+								geometry={nodes.Object_4.geometry}
+								material={materials.Saturn}
+								material-envMapIntensity={4}
+							/>
+							<mesh
+								castShadow
+								receiveShadow
+								geometry={nodes.Object_5.geometry}
+								material={materials.rings}
+								material-envMapIntensity={4}
+							/>
+						</group>
 					</group>
 				</group>
-			</group>
+			</motion.group>
 		</motion.group>
 	);
 }
