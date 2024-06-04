@@ -15,6 +15,7 @@ import { Saturn } from "./Saturn";
 import { scroll } from "framer-motion";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
 import { Gradient, LayerMaterial } from "lamina";
+import { useFrame } from "@react-three/fiber";
 
 const Loader = () => {
 	const { progress } = useProgress();
@@ -35,10 +36,11 @@ export default function Experience() {
 	const curve = useMemo(() => {
 		const curve = new THREE.CatmullRomCurve3([
 			new THREE.Vector3(0, 0, 0),
-			new THREE.Vector3(0, 2, 0),
-			new THREE.Vector3(-5, 0, 0),
-			new THREE.Vector3(5, -0.5, 0),
-			new THREE.Vector3(-3, -2, 0),
+			new THREE.Vector3(0, -5, 0),
+			new THREE.Vector3(-5, -2, -2),
+			new THREE.Vector3(0, -5, -5),
+			new THREE.Vector3(-10, -3, 2),
+			new THREE.Vector3(-5, -4, 0),
 		]);
 		curve.curveType = "catmullrom";
 		curve.closed = false;
@@ -54,35 +56,35 @@ export default function Experience() {
 
 	scroll((progress) => setProgress(progress));
 
-	// useFrame((_state, delta) => {
-	// 	const scrollOffset = Number(progress.toFixed(2));
-	// 	const curIndex = Math.min(
-	// 		Math.round(scrollOffset * linePoints.length),
-	// 		linePoints.length - 1
-	// 	);
-	// 	const curPoint = linePoints[curIndex];
-	// 	const pointAhead =
-	// 		linePoints[Math.min(curIndex + 1, linePoints.length - 1)];
-	// 	const xDisplacement = (pointAhead.x - curPoint.x) * 80;
-	// 	// MATH.PI / 2 -> left
-	// 	// -MATH.PI / 2 -> right
+	useFrame((_state, delta) => {
+		const scrollOffset = Number(progress.toFixed(2));
+		const curIndex = Math.min(
+			Math.round(scrollOffset * linePoints.length),
+			linePoints.length - 1
+		);
+		const curPoint = linePoints[curIndex];
+		const pointAhead =
+			linePoints[Math.min(curIndex + 1, linePoints.length - 1)];
+		const xDisplacement = (pointAhead.x - curPoint.x) * 80;
+		// MATH.PI / 2 -> left
+		// -MATH.PI / 2 -> right
 
-	// 	const angleRotation =
-	// 		(xDisplacement < 0 ? -1 : 1) *
-	// 		Math.min(Math.abs(xDisplacement), Math.PI / 6);
+		const angleRotation =
+			(xDisplacement < 0 ? -1 : 1) *
+			Math.min(Math.abs(xDisplacement), Math.PI / 6);
 
-	// 	const targetQuaternion = new THREE.Quaternion().setFromEuler(
-	// 		new THREE.Euler(
-	// 			saturn.current.rotation.x,
-	// 			saturn.current.rotation.y,
-	// 			angleRotation
-	// 		)
-	// 	);
+		const targetQuaternion = new THREE.Quaternion().setFromEuler(
+			new THREE.Euler(
+				saturn.current.rotation.x,
+				saturn.current.rotation.y,
+				angleRotation
+			)
+		);
 
-	// 	saturn.current.rotation.setFromQuaternion(targetQuaternion, delta * 0.5);
-	// 	cameraGroup.current.rotation.setFromQuaternion(targetQuaternion, delta * 0.5);
-	// 	cameraGroup.current.position.lerp(curPoint, delta);
-	// });
+		// saturn.current.rotation.setFromQuaternion(targetQuaternion);
+		// cameraGroup.current.rotation.setFromQuaternion(targetQuaternion, delta * 0.5);
+		saturn.current.position.lerp(curPoint, delta);
+	});
 	return (
 		<>
 			<OrbitControls enableZoom={false} enabled={false} />

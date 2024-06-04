@@ -78,7 +78,9 @@ export function Saturn(
 				y: 3.5,
 			}}
 			initial={{
-				rotateX: 0.5,
+				rotateX: progress === 0 ? 0.5 : 0,
+				rotateY: 0.3546509040052478,
+				rotateZ: 0.20769418098732523,
 				y: 5,
 			}}
 			transition={{
@@ -91,11 +93,11 @@ export function Saturn(
 		>
 			<motion.group
 				animate={{
-					y: -progress * 5.4,
+					// y: -progress * 5.4,
 					// rotateY: (Math.PI / 2) * progress * 5,
 					// rotateX: -(Math.PI / 2) * progress * 5,
 					// rotateZ: (Math.PI / 2) * progress * 5,
-					scale: progress * 2 + 1,
+					// scale: progress * 2 + 1,
 				}}
 				transition={{
 					ease: "linear",
@@ -107,7 +109,7 @@ export function Saturn(
 					<group rotation={[Math.PI / 2, 0, 0]}>
 						<motion.group
 							animate={{
-								rotateY: -0.419 + progress * 10,
+								// rotateY: -0.419 + progress * 10,
 							}}
 							transition={{
 								ease: "linear",
