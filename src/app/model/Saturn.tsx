@@ -109,7 +109,7 @@ export function Saturn(
 					<group rotation={[Math.PI / 2, 0, 0]}>
 						<motion.group
 							animate={{
-								// rotateY: -0.419 + progress * 10,
+								rotateY: -0.419 + progress * 10,
 							}}
 							transition={{
 								ease: "linear",
