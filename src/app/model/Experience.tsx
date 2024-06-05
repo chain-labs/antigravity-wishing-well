@@ -125,7 +125,7 @@ export default function Experience() {
 
 				<pointLight
 					position={[3.74,6.56,-10]}
-					args={[undefined, 208.18, 0]}
+					args={[undefined,319.72,0]}
 					color={"#ffdfc2"}
 					receiveShadow={false}
 					castShadow={true}
@@ -134,7 +134,7 @@ export default function Experience() {
 				/>
 				<pointLight
 					position={[-7.64, -1.38, -8.5]}
-					args={[undefined,23.6]}
+					args={[undefined,170.64]}
 					castShadow={true}
 					visible={true}
 					color={"#ffdac2"}
@@ -146,7 +146,7 @@ export default function Experience() {
 					castShadow={true}
 					receiveShadow={false}
 					visible={true}
-					color={"#fec686"} intensity={0}
+					color={"#fec686"} intensity={1.12} groundColor={"#ffffff"}
 				/>
 				<EffectComposer>
 					<Bloom
