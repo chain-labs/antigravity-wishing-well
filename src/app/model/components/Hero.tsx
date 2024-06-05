@@ -13,7 +13,21 @@ export default function Hero() {
 	return (
 		<div className="relative grid grid-cols-3 w-full h-[60vh] mt-[40vh] z-0">
 			<Spinner />
-			<div
+			<motion.div
+				animate={{
+					x: 0,
+					y: 0,
+					rotate: 0
+				}}
+				initial={{
+					x: "-100%",
+					y: "100%",
+					rotate: 45
+				}}
+				transition={{
+					duration: 1,
+					delay: 0.5
+				}}
 				className="relative w-full h-full bg-slate-500 z-[0] flex justify-end items-start px-4 py-8 flex-col gap-4"
 				onMouseLeave={() => setHover(null)}
 				onMouseOver={() => setHover("wishwell")}
@@ -42,8 +56,18 @@ export default function Hero() {
 					Here is a one or two line short description about this. Here
 					is a one or two line short description about this.
 				</motion.p>
-			</div>
-			<div
+			</motion.div>
+			<motion.div
+				animate={{
+					y: 0,
+				}}
+				initial={{
+					y: "100%",
+				}}
+				transition={{
+					duration: 1,
+					delay: 0.5
+				}}
 				className="relative w-full h-full bg-slate-500 z-[0] flex justify-end items-start px-4 py-8 flex-col gap-4"
 				onMouseOver={() => setHover("mining")}
 				onMouseDown={() => setHover("mining")}
@@ -72,8 +96,22 @@ export default function Hero() {
 					Here is a one or two line short description about this. Here
 					is a one or two line short description about this.
 				</motion.p>
-			</div>
-			<div
+			</motion.div>
+			<motion.div
+				animate={{
+					x: 0,
+					y: 0,
+					rotate: 0
+				}}
+				initial={{
+					x: "100%",
+					y: "100%",
+					rotate: -45
+				}}
+				transition={{
+					duration: 1,
+					delay: 0.5
+				}}
 				className="relative w-full h-full bg-slate-500 z-[0] flex justify-end items-start px-4 py-8 flex-col gap-4"
 				onMouseOver={() => setHover("minting")}
 				onMouseDown={() => setHover("minting")}
@@ -102,7 +140,7 @@ export default function Hero() {
 					Here is a one or two line short description about this. Here
 					is a one or two line short description about this.
 				</motion.p>
-			</div>
+			</motion.div>
 		</div>
 	);
 }
