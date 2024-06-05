@@ -4,6 +4,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import ReactLenis from "@studio-freight/react-lenis";
 import Spinner from "./components/Spinner";
+import Hero from "./components/Hero";
 
 const CanvasRendering = dynamic(() => import("./CanvasRendering"), {
 	ssr: false,
@@ -31,13 +32,7 @@ export default function Model() {
 					</div>
 
 					<div className="z-100">
-						<div className="relative flex justify-center items-center gap-1 w-full h-[120vh] pt-[60vh]">
-							<Spinner />
-							<div className="w-full h-full bg-slate-500"></div>
-							<div className="w-full h-full bg-slate-500"></div>
-							<div className="w-full h-full bg-slate-500"></div>
-						</div>
-
+						<Hero />
 						<div className="flex flex-col justify-center items-center gap-8 w-full max-h-[100vh] py-[20vh]">
 							<h1 className="text-5xl text-white">Leaderboard</h1>
 							<div className="grid grid-cols-3 gap-2 h-[60vh] w-[80%]">
