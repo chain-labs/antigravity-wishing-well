@@ -67,7 +67,9 @@ function Count({ num, mv }: { num: string; mv: MotionValue }) {
 			key={num}
 			className={twMerge(
 				"absolute inset-0 w-12 h-12 text-center leading-[3rem]",
-				String(num).includes("1") || String(num).includes("7") ? "mx-auto" : ""
+				String(num).includes("1") || String(num).includes("7")
+					? "mx-auto"
+					: ""
 			)}
 		>
 			{num}
@@ -136,8 +138,8 @@ const styles = {
 			"uppercase text-center from-white to-[#999999] bg-gradient-to-b text-transparent bg-clip-text font-sans font-black text-3xl",
 	},
 	"border-styles": {
-		era: "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom w-[3px] h-[490px] bg-black z-10",
-		stage: "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[300px] w-[3px] bg-black",
+		era: "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom w-[3px] h-[490px] bg-black",
+		stage: "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[300px] w-[3px] bg-black z-10",
 	},
 	"stage-styles": {
 		parent: "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[180px] w-[2em] z-10",
@@ -236,6 +238,25 @@ function H1({
 	);
 }
 
+function Border({
+	eraBorder,
+	className,
+}: {
+	eraBorder: boolean;
+	className: string;
+}) {
+	return (
+		<div
+			className={twMerge(
+				eraBorder
+					? styles["border-styles"].era
+					: styles["border-styles"].stage,
+				className
+			)}
+		></div>
+	);
+}
+
 export default function Spinner() {
 	const [activeState, setActiveState] = useState<SpinnerProps>({
 		era: "mining",
@@ -325,7 +346,7 @@ export default function Spinner() {
 	}
 
 	return (
-		<div className="absolute top-0 left-[50%] translate-x-[-50%] translate-y-[50%] w-[500px] h-[500px] bg-black rounded-full flex justify-center items-center">
+		<div className="absolute top-0 left-[50%] translate-x-[-50%] translate-y-[50%] w-[500px] h-[500px] bg-black rounded-full flex justify-center items-center scale-[0.8] sm:scale-[1]">
 			<div className="relative w-[470px] h-[470px] bg-[radial-gradient(circle_at_center,#B7A4EA,#1C0068_65%)] rounded-full flex justify-center items-center overflow-hidden">
 				<motion.div
 					animate={{
@@ -410,12 +431,7 @@ export default function Spinner() {
 						isEraLetter={"l"}
 					/>
 				</div>
-				<div
-					className={twMerge(
-						styles["border-styles"].era,
-						"rotate-[-37.5deg]"
-					)}
-				></div>
+				<Border eraBorder className="rotate-[-37.5deg]" />
 				<div id="mining">
 					<H1
 						era="mining"
@@ -460,12 +476,7 @@ export default function Spinner() {
 						isEraLetter={"g"}
 					/>
 				</div>
-				<div
-					className={twMerge(
-						styles["border-styles"].era,
-						"rotate-[37.5deg]"
-					)}
-				></div>
+				<Border eraBorder className="rotate-[37.5deg]" />
 				<div id="minting">
 					<H1
 						era="minting"
@@ -539,54 +550,38 @@ export default function Spinner() {
 						<div className="absolute bottom-0 left-[50%] translate-x-[calc(100%_-_20px)] origin-bottom rotate-[-12.5deg] h-[300px] w-[20px] bg-agyellow z-20"></div>
 					</motion.div>
 					<div>
-						<div
-							className={twMerge(
-								styles["border-styles"].stage,
-								"rotate-[-87.5deg]"
-							)}
-						></div>
-						<div
-							className={twMerge(
-								styles["border-styles"].stage,
-								"rotate-[-62.5deg]"
-							)}
-						></div>
-						<div
-							className={twMerge(
-								styles["border-styles"].stage,
-								"rotate-[-37.5deg]"
-							)}
-						></div>
-						<div
-							className={twMerge(
-								styles["border-styles"].stage,
-								"rotate-[-12.5deg]"
-							)}
-						></div>
-						<div
-							className={twMerge(
-								styles["border-styles"].stage,
-								"rotate-[12.5deg]"
-							)}
-						></div>
-						<div
-							className={twMerge(
-								styles["border-styles"].stage,
-								"rotate-[37.5deg]"
-							)}
-						></div>
-						<div
-							className={twMerge(
-								styles["border-styles"].stage,
-								"rotate-[62.5deg]"
-							)}
-						></div>
-						<div
-							className={twMerge(
-								styles["border-styles"].stage,
-								"rotate-[87.5deg]"
-							)}
-						></div>
+						<Border
+							eraBorder={false}
+							className="rotate-[-87.5deg]"
+						/>
+						<Border
+							eraBorder={false}
+							className="rotate-[-62.5deg]"
+						/>
+						<Border
+							eraBorder={false}
+							className="rotate-[-37.5deg]"
+						/>
+						<Border
+							eraBorder={false}
+							className="rotate-[-12.5deg]"
+						/>
+						<Border
+							eraBorder={false}
+							className="rotate-[12.5deg]"
+						/>
+						<Border
+							eraBorder={false}
+							className="rotate-[37.5deg]"
+						/>
+						<Border
+							eraBorder={false}
+							className="rotate-[62.5deg]"
+						/>
+						<Border
+							eraBorder={false}
+							className="rotate-[87.5deg]"
+						/>
 					</div>
 					<div className="relative w-[180px] h-[180px] bg-[#1C0068] rounded-full border-[10px] border-agblack flex justify-center items-center z-10">
 						<div>
@@ -686,17 +681,6 @@ export default function Spinner() {
 						</div>
 					</div>
 				</div>
-				{/* <div className="absolute flex justify-center items-center h-[200px] w-[400px] bg-[radial-gradient(circle_at_top_right,#5537A5,#BF6841)] rounded-bl-full rounded-br-full translate-y-[50%]"></div> */}
-				{/* after:content-[''] after:absolute after:top-0 after:left-0 after:-z-[1] after:p-[20px] after:h-[190px] after:w-[380px] after:rounded-[inherit] after:bg-[radial-gradient(circle_at_bottom,#15004C,#3C00DC)] after:origin-top */}
-
-				{/* <div
-					className="
-				absolute flex flex-col justify-start items-center gap-6
-				h-[225px] w-[450px] bg-[radial-gradient(circle_at_top_right,#5537A5,#BF6841)] rounded-bl-full rounded-br-full bg-clip-padding border-transparent border-[10px] z-0 origin-center translate-y-[100%]
-				before:content-[''] before:absolute before:inset-0 before:-z-[1] before:-m-2 before:rounded-[inherit] before:bg-[radial-gradient(circle_at_bottom,#15004C,#3C00DC)] before:origin-top before:scale-[0.9]
-				after:content-[''] after:absolute after:top-0 after:left-0 after:-z-[4] after:p-[20px] after:h-[220px] after:w-[440px] after:rounded-[inherit] after:bg-[radial-gradient(circle_at_top_right,#5537A5,#BF6841)] after:origin-top after:scale-[1] after:-translate-y-[10%] after:-translate-x-[1.5%]
-				"
-				> */}
 				<div className="absolute flex flex-col justify-center items-center gap-2 z-[100] w-[400px] h-[200px] translate-y-[60%]">
 					<Image
 						src={require("./counter-background.svg")}
