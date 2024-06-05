@@ -23,8 +23,13 @@ type CounterProps = {
 function Counter(props: CounterProps) {
 	const { count, setCount, modulo } = props;
 	const arrayOfNumbers = Array.from(
-		{ length: 11 },
-		(_, i) => (count - 5 + i + 1) % modulo
+		{ length: 3 },
+		(_, i) => {
+			if (count + i <= 0) {
+				return modulo - 1;
+			}
+			return count + i - 1
+		}
 	);
 	const animatedValue = useSpring(count);
 
@@ -52,6 +57,7 @@ function Counter(props: CounterProps) {
 						num={String(num).padStart(2, "0")}
 						mv={animatedValue}
 						key={num}
+						modulo={modulo}
 					/>
 				))}
 			</div>
@@ -59,8 +65,30 @@ function Counter(props: CounterProps) {
 	);
 }
 
-function Count({ num, mv }: { num: string; mv: MotionValue }) {
-	let y = useTransform(mv, (latestValue) => 48 * (Number(num) - latestValue));
+function Count({
+	num,
+	mv,
+	modulo,
+}: {
+	num: string;
+	mv: MotionValue;
+	modulo: number;
+}) {
+	// let y = useTransform(mv, (latestValue) =>{
+	// 	const height = 48;
+	// 	let placeValue = latestValue % modulo;
+	// 	const offset = (modulo + Number(num) - placeValue) % modulo;
+	// 	let memo = offset * height;
+
+	// 	if (offset > Math.floor(modulo / 2)) {
+	// 		memo -= modulo * height;
+	// 	}
+
+	// 	return memo;
+	// });
+	let y = useTransform(mv, (latestValue) => {
+		return 48 * (Number(num) - latestValue)
+	});
 	return (
 		<motion.span
 			style={{ y }}
@@ -265,7 +293,7 @@ export default function Spinner() {
 		days: 4,
 		hours: 14,
 		mins: 48,
-		secs: 6,
+		secs: 2,
 	});
 
 	useEffect(() => {
