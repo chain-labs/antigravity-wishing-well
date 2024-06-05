@@ -30,9 +30,9 @@ export default function Model() {
 						<Header />
 					</div>
 
-					{/* <Spinner /> */}
 					<div className="z-100">
-						<div className="flex justify-center items-center gap-1 w-full h-[120vh] pt-[60vh]">
+						<div className="relative flex justify-center items-center gap-1 w-full h-[120vh] pt-[60vh]">
+							<Spinner />
 							<div className="w-full h-full bg-slate-500"></div>
 							<div className="w-full h-full bg-slate-500"></div>
 							<div className="w-full h-full bg-slate-500"></div>
