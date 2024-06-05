@@ -1,16 +1,17 @@
 "use client";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
-import { motion } from "framer-motion";
 import {
+	motion,
+	useSpring,
+	MotionValue,
+	useTransform,
 	KeyframeOptions,
 	animate,
 	useInView,
 	useIsomorphicLayoutEffect,
 } from "framer-motion";
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
-
-import { useSpring, MotionValue, useTransform } from "framer-motion";
 
 type CounterProps = {
 	count: number;
@@ -66,7 +67,7 @@ function Count({ num, mv }: { num: string; mv: MotionValue }) {
 			key={num}
 			className={twMerge(
 				"absolute inset-0 w-12 h-12 text-center leading-[3rem]",
-				String(num).includes("1") ? "mx-auto" : ""
+				String(num).includes("1") || String(num).includes("7") ? "mx-auto" : ""
 			)}
 		>
 			{num}
@@ -117,10 +118,128 @@ function NumberCounter(props: NumberCounterProps) {
 	return <span className={twMerge(props.classNames)} ref={ref} />;
 }
 
+type SpinnerProps = {
+	era: "wishwell" | "mining" | "minting";
+	stage: 1 | 2 | 3;
+	bonus: number;
+	days: number;
+	hours: number;
+	mins: number;
+	secs: number;
+};
+
+const styles = {
+	"era-styles": {
+		parent: "absolute flex justify-center items-center top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[470px] w-[2em] z-10 pt-24",
+		active: "uppercase text-center text-black font-sans font-black text-3xl",
+		passive:
+			"uppercase text-center from-white to-[#999999] bg-gradient-to-b text-transparent bg-clip-text font-sans font-black text-3xl",
+	},
+	"border-styles": {
+		era: "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom w-[3px] h-[490px] bg-black z-10",
+		stage: "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[300px] w-[3px] bg-black",
+	},
+	"stage-styles": {
+		parent: "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[180px] w-[2em] z-10",
+		active: "uppercase text-center bg-clip-text font-sans font-black text-4xl",
+		passive:
+			"uppercase text-center from-white to-[#999999] bg-gradient-to-b text-transparent bg-clip-text font-sans font-black text-4xl",
+	},
+	"timer-styles": {
+		parent: "flex-col justify-center items-center gap-0",
+		number: "font-sans text-agyellow text-5xl font-extrabold text-center",
+		label: "uppercase text-sm text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text",
+	},
+};
+
+function H1({
+	className,
+	era,
+	stage,
+	parentClassName,
+	currentState,
+	isEraLetter,
+}: {
+	className?: string;
+	era: SpinnerProps["era"];
+	stage: SpinnerProps["stage"];
+	parentClassName: string;
+	currentState: SpinnerProps;
+	isEraLetter?: string;
+}) {
+	const active = currentState.era === era && currentState.stage === stage;
+
+	return (
+		<>
+			{isEraLetter !== undefined ? (
+				<div
+					className={twMerge(
+						styles["era-styles"].parent,
+						parentClassName
+					)}
+				>
+					{currentState.era === era ? (
+						<motion.h1
+							animate={{
+								color: "black",
+							}}
+							initial={{
+								color: "white",
+							}}
+							transition={{ duration: 0.5, delay: 1 }}
+							className={twMerge(styles["era-styles"].active)}
+						>
+							{isEraLetter}
+						</motion.h1>
+					) : (
+						<h1 className={twMerge(styles["era-styles"].passive)}>
+							{isEraLetter}
+						</h1>
+					)}
+				</div>
+			) : (
+				<div
+					className={twMerge(
+						parentClassName,
+						styles["stage-styles"].parent
+					)}
+				>
+					{active ? (
+						<motion.h1
+							animate={{
+								color: "black",
+							}}
+							initial={{
+								color: "white",
+							}}
+							transition={{ duration: 0.5, delay: 1 }}
+							className={twMerge(
+								styles["stage-styles"].active,
+								className
+							)}
+						>
+							{stage}
+						</motion.h1>
+					) : (
+						<h1
+							className={twMerge(
+								styles["stage-styles"].passive,
+								className
+							)}
+						>
+							{stage}
+						</h1>
+					)}
+				</div>
+			)}
+		</>
+	);
+}
+
 export default function Spinner() {
-	const [activeState, setActiveState] = useState({
+	const [activeState, setActiveState] = useState<SpinnerProps>({
 		era: "mining",
-		stage: 3,
+		stage: 1,
 		bonus: 22,
 		days: 4,
 		hours: 14,
@@ -172,30 +291,6 @@ export default function Spinner() {
 
 		return () => clearInterval(timer);
 	}, []);
-
-	const styles = {
-		"era-styles": {
-			parent: "absolute flex justify-center items-center top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[470px] w-[2em] z-10 shadow-sm pt-24",
-			active: "uppercase text-center text-black font-sans font-black text-3xl",
-			passive:
-				"uppercase text-center from-white to-[#999999] bg-gradient-to-b text-transparent bg-clip-text font-sans font-black text-3xl",
-		},
-		"border-styles": {
-			era: "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom w-[2px] h-[490px] bg-black",
-			stage: "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[300px] w-[2px] shadow-sm bg-black",
-		},
-		"stage-styles": {
-			parent: "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[180px] w-[2em] z-10 shadow-sm",
-			active: "uppercase text-center text-black bg-clip-text font-sans font-black text-4xl",
-			passive:
-				"uppercase text-center from-white to-[#999999] bg-gradient-to-b text-transparent bg-clip-text font-sans font-black text-4xl",
-		},
-		"timer-styles": {
-			parent: "flex-col justify-center items-center gap-0",
-			number: "font-sans text-agyellow text-5xl font-extrabold text-center",
-			label: "uppercase text-sm text-center from-white to-[#999999] pl-2 font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text",
-		},
-	};
 
 	function decideActiveStageLocation() {
 		switch (activeState.era) {
@@ -250,142 +345,70 @@ export default function Spinner() {
 					}}
 					transition={{ duration: 1 }}
 					className={twMerge(
-						"absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[490px] w-[190px] shadow-sm bg-agyellow z-10",
+						"absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[490px] w-[190px] bg-agyellow z-10",
 						`rotate-[${activeState.era === "wishwell" ? -75 : activeState.era === "minting" ? 75 : 0}deg]`
 					)}
 				>
-					<div className="absolute bottom-0 left-[50%] translate-x-[calc(-100%_-_10px)] origin-bottom rotate-[37.5deg] h-[490px] w-[90px] shadow-sm bg-agyellow z-20"></div>
-					<div className="absolute bottom-0 left-[50%] translate-x-[calc(11px)] origin-bottom rotate-[-37.5deg] h-[490px] w-[90px] shadow-sm bg-agyellow z-20"></div>
+					<div className="absolute bottom-0 left-[50%] translate-x-[calc(-100%_-_10px)] origin-bottom rotate-[37.5deg] h-[490px] w-[90px] bg-agyellow z-20"></div>
+					<div className="absolute bottom-0 left-[50%] translate-x-[calc(11px)] origin-bottom rotate-[-37.5deg] h-[490px] w-[90px] bg-agyellow z-20"></div>
 				</motion.div>
 				<div id="wishwell">
-					<div
-						className={twMerge(
-							styles["era-styles"].parent,
-							"rotate-[-96deg]"
-						)}
-					>
-						<h1
-							className={twMerge(
-								activeState.era === "wishwell"
-									? styles["era-styles"].active
-									: styles["era-styles"].passive
-							)}
-						>
-							W
-						</h1>
-					</div>
-					<div
-						className={twMerge(
-							styles["era-styles"].parent,
-							"rotate-[-90deg]"
-						)}
-					>
-						<h1
-							className={twMerge(
-								activeState.era === "wishwell"
-									? styles["era-styles"].active
-									: styles["era-styles"].passive
-							)}
-						>
-							i
-						</h1>
-					</div>
-					<div
-						className={twMerge(
-							styles["era-styles"].parent,
-							"rotate-[-85deg]"
-						)}
-					>
-						<h1
-							className={twMerge(
-								activeState.era === "wishwell"
-									? styles["era-styles"].active
-									: styles["era-styles"].passive
-							)}
-						>
-							s
-						</h1>
-					</div>
-					<div
-						className={twMerge(
-							styles["era-styles"].parent,
-							"rotate-[-78deg]"
-						)}
-					>
-						<h1
-							className={twMerge(
-								activeState.era === "wishwell"
-									? styles["era-styles"].active
-									: styles["era-styles"].passive
-							)}
-						>
-							h
-						</h1>
-					</div>
-					<div
-						className={twMerge(
-							styles["era-styles"].parent,
-							"rotate-[-70deg]"
-						)}
-					>
-						<h1
-							className={twMerge(
-								activeState.era === "wishwell"
-									? styles["era-styles"].active
-									: styles["era-styles"].passive
-							)}
-						>
-							W
-						</h1>
-					</div>
-					<div
-						className={twMerge(
-							styles["era-styles"].parent,
-							"rotate-[-62deg]"
-						)}
-					>
-						<h1
-							className={twMerge(
-								activeState.era === "wishwell"
-									? styles["era-styles"].active
-									: styles["era-styles"].passive
-							)}
-						>
-							e
-						</h1>
-					</div>
-					<div
-						className={twMerge(
-							styles["era-styles"].parent,
-							"rotate-[-56deg]"
-						)}
-					>
-						<h1
-							className={twMerge(
-								activeState.era === "wishwell"
-									? styles["era-styles"].active
-									: styles["era-styles"].passive
-							)}
-						>
-							l
-						</h1>
-					</div>
-					<div
-						className={twMerge(
-							styles["era-styles"].parent,
-							"rotate-[-50deg]"
-						)}
-					>
-						<h1
-							className={twMerge(
-								activeState.era === "wishwell"
-									? styles["era-styles"].active
-									: styles["era-styles"].passive
-							)}
-						>
-							l
-						</h1>
-					</div>
+					<H1
+						era="wishwell"
+						stage={activeState.stage}
+						parentClassName="rotate-[-96deg]"
+						currentState={activeState}
+						isEraLetter={"W"}
+					/>
+					<H1
+						era="wishwell"
+						stage={activeState.stage}
+						parentClassName="rotate-[-90deg]"
+						currentState={activeState}
+						isEraLetter={"i"}
+					/>
+					<H1
+						era="wishwell"
+						stage={activeState.stage}
+						parentClassName="rotate-[-85deg]"
+						currentState={activeState}
+						isEraLetter={"s"}
+					/>
+					<H1
+						era="wishwell"
+						stage={activeState.stage}
+						parentClassName="rotate-[-78deg]"
+						currentState={activeState}
+						isEraLetter={"h"}
+					/>
+					<H1
+						era="wishwell"
+						stage={activeState.stage}
+						parentClassName="rotate-[-70deg]"
+						currentState={activeState}
+						isEraLetter={"w"}
+					/>
+					<H1
+						era="wishwell"
+						stage={activeState.stage}
+						parentClassName="rotate-[-62deg]"
+						currentState={activeState}
+						isEraLetter={"e"}
+					/>
+					<H1
+						era="wishwell"
+						stage={activeState.stage}
+						parentClassName="rotate-[-56deg]"
+						currentState={activeState}
+						isEraLetter={"l"}
+					/>
+					<H1
+						era="wishwell"
+						stage={activeState.stage}
+						parentClassName="rotate-[-50deg]"
+						currentState={activeState}
+						isEraLetter={"l"}
+					/>
 				</div>
 				<div
 					className={twMerge(
@@ -394,102 +417,48 @@ export default function Spinner() {
 					)}
 				></div>
 				<div id="mining">
-					<div
-						className={twMerge(
-							styles["era-styles"].parent,
-							"rotate-[-12deg]"
-						)}
-					>
-						<h1
-							className={twMerge(
-								activeState.era === "mining"
-									? styles["era-styles"].active
-									: styles["era-styles"].passive
-							)}
-						>
-							M
-						</h1>
-					</div>
-					<div
-						className={twMerge(
-							styles["era-styles"].parent,
-							"rotate-[-6deg]"
-						)}
-					>
-						<h1
-							className={twMerge(
-								activeState.era === "mining"
-									? styles["era-styles"].active
-									: styles["era-styles"].passive
-							)}
-						>
-							i
-						</h1>
-					</div>
-					<div
-						className={twMerge(
-							styles["era-styles"].parent,
-							"rotate-[-1deg]"
-						)}
-					>
-						<h1
-							className={twMerge(
-								activeState.era === "mining"
-									? styles["era-styles"].active
-									: styles["era-styles"].passive
-							)}
-						>
-							n
-						</h1>
-					</div>
-					<div
-						className={twMerge(
-							styles["era-styles"].parent,
-							"rotate-[4deg]"
-						)}
-					>
-						<h1
-							className={twMerge(
-								activeState.era === "mining"
-									? styles["era-styles"].active
-									: styles["era-styles"].passive
-							)}
-						>
-							i
-						</h1>
-					</div>
-					<div
-						className={twMerge(
-							styles["era-styles"].parent,
-							"rotate-[9deg]"
-						)}
-					>
-						<h1
-							className={twMerge(
-								activeState.era === "mining"
-									? styles["era-styles"].active
-									: styles["era-styles"].passive
-							)}
-						>
-							n
-						</h1>
-					</div>
-					<div
-						className={twMerge(
-							styles["era-styles"].parent,
-							"rotate-[16deg]"
-						)}
-					>
-						<h1
-							className={twMerge(
-								activeState.era === "mining"
-									? styles["era-styles"].active
-									: styles["era-styles"].passive
-							)}
-						>
-							g
-						</h1>
-					</div>
+					<H1
+						era="mining"
+						stage={activeState.stage}
+						parentClassName="rotate-[-12deg]"
+						currentState={activeState}
+						isEraLetter={"M"}
+					/>
+					<H1
+						era="mining"
+						stage={activeState.stage}
+						parentClassName="rotate-[-6deg]"
+						currentState={activeState}
+						isEraLetter={"i"}
+					/>
+					<H1
+						era="mining"
+						stage={activeState.stage}
+						parentClassName="rotate-[-1deg]"
+						currentState={activeState}
+						isEraLetter={"n"}
+					/>
+					<H1
+						era="mining"
+						stage={activeState.stage}
+						parentClassName="rotate-[4deg]"
+						currentState={activeState}
+						isEraLetter={"i"}
+					/>
+					<H1
+						era="mining"
+						stage={activeState.stage}
+						parentClassName="rotate-[9deg]"
+						currentState={activeState}
+						isEraLetter={"n"}
+					/>
+					<H1
+						era="mining"
+						stage={activeState.stage}
+						parentClassName="rotate-[16deg]"
+						currentState={activeState}
+						isEraLetter={"g"}
+					/>
 				</div>
 				<div
 					className={twMerge(
@@ -498,83 +467,55 @@ export default function Spinner() {
 					)}
 				></div>
 				<div id="minting">
-					<div className="absolute flex justify-center items-center top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom rotate-[96deg] h-[470px] w-[2em] z-10 shadow-sm pt-24">
-						<h1
-							className={twMerge(
-								activeState.era === "minting"
-									? styles["era-styles"].active
-									: styles["era-styles"].passive
-							)}
-						>
-							g
-						</h1>
-					</div>
-					<div className="absolute flex justify-center items-center top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom rotate-[89deg] h-[470px] w-[2em] z-10 shadow-sm pt-24">
-						<h1
-							className={twMerge(
-								activeState.era === "minting"
-									? styles["era-styles"].active
-									: styles["era-styles"].passive
-							)}
-						>
-							n
-						</h1>
-					</div>
-					<div className="absolute flex justify-center items-center top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom rotate-[84deg] h-[470px] w-[2em] z-10 shadow-sm pt-24">
-						<h1
-							className={twMerge(
-								activeState.era === "minting"
-									? styles["era-styles"].active
-									: styles["era-styles"].passive
-							)}
-						>
-							i
-						</h1>
-					</div>
-					<div className="absolute flex justify-center items-center top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom rotate-[79deg] h-[470px] w-[2em] z-10 shadow-sm pt-24">
-						<h1
-							className={twMerge(
-								activeState.era === "minting"
-									? styles["era-styles"].active
-									: styles["era-styles"].passive
-							)}
-						>
-							t
-						</h1>
-					</div>
-					<div className="absolute flex justify-center items-center top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom rotate-[73deg] h-[470px] w-[2em] z-10 shadow-sm pt-24">
-						<h1
-							className={twMerge(
-								activeState.era === "minting"
-									? styles["era-styles"].active
-									: styles["era-styles"].passive
-							)}
-						>
-							n
-						</h1>
-					</div>
-					<div className="absolute flex justify-center items-center top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom rotate-[67.5deg] h-[470px] w-[2em] z-10 shadow-sm pt-24">
-						<h1
-							className={twMerge(
-								activeState.era === "minting"
-									? styles["era-styles"].active
-									: styles["era-styles"].passive
-							)}
-						>
-							i
-						</h1>
-					</div>
-					<div className="absolute flex justify-center items-center top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom rotate-[61deg] h-[470px] w-[2em] z-10 shadow-sm pt-24">
-						<h1
-							className={twMerge(
-								activeState.era === "minting"
-									? styles["era-styles"].active
-									: styles["era-styles"].passive
-							)}
-						>
-							m
-						</h1>
-					</div>
+					<H1
+						era="minting"
+						stage={activeState.stage}
+						parentClassName="rotate-[61deg]"
+						currentState={activeState}
+						isEraLetter={"M"}
+					/>
+					<H1
+						era="minting"
+						stage={activeState.stage}
+						parentClassName="rotate-[67deg]"
+						currentState={activeState}
+						isEraLetter={"i"}
+					/>
+					<H1
+						era="minting"
+						stage={activeState.stage}
+						parentClassName="rotate-[73deg]"
+						currentState={activeState}
+						isEraLetter={"n"}
+					/>
+					<H1
+						era="minting"
+						stage={activeState.stage}
+						parentClassName="rotate-[79deg]"
+						currentState={activeState}
+						isEraLetter={"t"}
+					/>
+					<H1
+						era="minting"
+						stage={activeState.stage}
+						parentClassName="rotate-[84deg]"
+						currentState={activeState}
+						isEraLetter={"i"}
+					/>
+					<H1
+						era="minting"
+						stage={activeState.stage}
+						parentClassName="rotate-[89deg]"
+						currentState={activeState}
+						isEraLetter={"n"}
+					/>
+					<H1
+						era="minting"
+						stage={activeState.stage}
+						parentClassName="rotate-[96deg]"
+						currentState={activeState}
+						isEraLetter={"g"}
+					/>
 				</div>
 				<div className="relative w-[300px] h-[300px] bg-[radial-gradient(circle_at_center,#B7A4EA,#1C0068_65%)] rounded-full border-[10px] border-agblack flex justify-center items-center overflow-hidden z-10">
 					<motion.div
@@ -586,16 +527,16 @@ export default function Spinner() {
 						initial={{
 							x: "-50%",
 							y: "-50%",
-							rotate: 180,
+							rotate: -180,
 						}}
 						transition={{ duration: 1 }}
 						className={twMerge(
-							"absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[300px] w-[40px] shadow-sm bg-agyellow z-10",
+							"absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[300px] w-[40px] bg-agyellow z-10",
 							`rotate-[${decideActiveStageLocation()}deg]`
 						)}
 					>
-						<div className="absolute bottom-0 left-[50%] translate-x-[calc(-100%)] origin-bottom rotate-[12.5deg] h-[300px] w-[20px] shadow-sm bg-agyellow z-20"></div>
-						<div className="absolute bottom-0 left-[50%] translate-x-[calc(100%_-_20px)] origin-bottom rotate-[-12.5deg] h-[300px] w-[20px] shadow-sm bg-agyellow z-20"></div>
+						<div className="absolute bottom-0 left-[50%] translate-x-[calc(-100%)] origin-bottom rotate-[12.5deg] h-[300px] w-[20px] bg-agyellow z-20"></div>
+						<div className="absolute bottom-0 left-[50%] translate-x-[calc(100%_-_20px)] origin-bottom rotate-[-12.5deg] h-[300px] w-[20px] bg-agyellow z-20"></div>
 					</motion.div>
 					<div>
 						<div
@@ -649,159 +590,60 @@ export default function Spinner() {
 					</div>
 					<div className="relative w-[180px] h-[180px] bg-[#1C0068] rounded-full border-[10px] border-agblack flex justify-center items-center z-10">
 						<div>
-							<div
-								className={twMerge(
-									"rotate-[-100deg] pt-12",
-									styles["stage-styles"].parent
-								)}
-							>
-								<h1
-									className={twMerge(
-										activeState.era === "wishwell" &&
-											activeState.stage === 1
-											? styles["stage-styles"].active
-											: styles["stage-styles"].passive
-									)}
-								>
-									1
-								</h1>
-							</div>
-							<div
-								className={twMerge(
-									"rotate-[-75deg] pt-11",
-									styles["stage-styles"].parent
-								)}
-							>
-								<h1
-									className={twMerge(
-										activeState.era === "wishwell" &&
-											activeState.stage === 2
-											? styles["stage-styles"].active
-											: styles["stage-styles"].passive
-									)}
-								>
-									2
-								</h1>
-							</div>
-							<div
-								className={twMerge(
-									"rotate-[-50deg] pt-10",
-									styles["stage-styles"].parent
-								)}
-							>
-								<h1
-									className={twMerge(
-										activeState.era === "wishwell" &&
-											activeState.stage === 3
-											? styles["stage-styles"].active
-											: styles["stage-styles"].passive
-									)}
-								>
-									3
-								</h1>
-							</div>
-							<div
-								className={twMerge(
-									"rotate-[-25deg] pt-9",
-									styles["stage-styles"].parent
-								)}
-							>
-								<h1
-									className={twMerge(
-										activeState.era === "mining" &&
-											activeState.stage === 1
-											? styles["stage-styles"].active
-											: styles["stage-styles"].passive
-									)}
-								>
-									1
-								</h1>
-							</div>
-							<div
-								className={twMerge(
-									"rotate-[0deg] pt-8",
-									styles["stage-styles"].parent
-								)}
-							>
-								<h1
-									className={twMerge(
-										activeState.era === "mining" &&
-											activeState.stage === 2
-											? styles["stage-styles"].active
-											: styles["stage-styles"].passive
-									)}
-								>
-									2
-								</h1>
-							</div>
-							<div
-								className={twMerge(
-									"rotate-[25deg] pt-9",
-									styles["stage-styles"].parent
-								)}
-							>
-								<h1
-									className={twMerge(
-										activeState.era === "mining" &&
-											activeState.stage === 3
-											? styles["stage-styles"].active
-											: styles["stage-styles"].passive
-									)}
-								>
-									3
-								</h1>
-							</div>
-							<div
-								className={twMerge(
-									"rotate-[50deg] pt-10",
-									styles["stage-styles"].parent
-								)}
-							>
-								<h1
-									className={twMerge(
-										activeState.era === "minting" &&
-											activeState.stage === 1
-											? styles["stage-styles"].active
-											: styles["stage-styles"].passive
-									)}
-								>
-									1
-								</h1>
-							</div>
-							<div
-								className={twMerge(
-									"rotate-[75deg] pt-11",
-									styles["stage-styles"].parent
-								)}
-							>
-								<h1
-									className={twMerge(
-										activeState.era === "minting" &&
-											activeState.stage === 2
-											? styles["stage-styles"].active
-											: styles["stage-styles"].passive
-									)}
-								>
-									2
-								</h1>
-							</div>
-							<div
-								className={twMerge(
-									"rotate-[100deg] pt-12",
-									styles["stage-styles"].parent
-								)}
-							>
-								<h1
-									className={twMerge(
-										activeState.era === "minting" &&
-											activeState.stage === 3
-											? styles["stage-styles"].active
-											: styles["stage-styles"].passive
-									)}
-								>
-									3
-								</h1>
-							</div>
+							<H1
+								currentState={activeState}
+								era="wishwell"
+								stage={1}
+								parentClassName="rotate-[-100deg] pt-12"
+							/>
+							<H1
+								currentState={activeState}
+								era="wishwell"
+								stage={2}
+								parentClassName="rotate-[-75deg] pt-11"
+							/>
+							<H1
+								currentState={activeState}
+								era="wishwell"
+								stage={3}
+								parentClassName="rotate-[-50deg] pt-10"
+							/>
+							<H1
+								currentState={activeState}
+								era="mining"
+								stage={1}
+								parentClassName="rotate-[-25deg] pt-9"
+							/>
+							<H1
+								currentState={activeState}
+								era="mining"
+								stage={2}
+								parentClassName="rotate-[0deg] pt-9"
+							/>
+							<H1
+								currentState={activeState}
+								era="mining"
+								stage={3}
+								parentClassName="rotate-[25deg] pt-9"
+							/>
+							<H1
+								currentState={activeState}
+								era="minting"
+								stage={1}
+								parentClassName="rotate-[50deg] pt-10"
+							/>
+							<H1
+								currentState={activeState}
+								era="minting"
+								stage={2}
+								parentClassName="rotate-[75deg] pt-11"
+							/>
+							<H1
+								currentState={activeState}
+								era="minting"
+								stage={3}
+								parentClassName="rotate-[100deg] pt-12"
+							/>
 						</div>
 						<div className="relative w-[100px] h-[100px] bg-agyellow rounded-full flex justify-center items-center">
 							<div className="flex flex-col justify-center items-center">
@@ -818,7 +660,7 @@ export default function Spinner() {
 									}}
 									transition={{ duration: 1 }}
 									className={twMerge(
-										"absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[100px] w-[30px] z-10 shadow-sm pt-6",
+										"absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[100px] w-[30px] z-10 pt-6",
 										`rotate-[${decideActiveStageLocation()}deg]`
 									)}
 								>
@@ -837,7 +679,7 @@ export default function Spinner() {
 									/>
 									x
 								</h1>
-								<div className="uppercase text-sm font-bold">
+								<div className="uppercase text-sm font-sans font-bold">
 									Bonus
 								</div>
 							</div>
@@ -867,7 +709,11 @@ export default function Spinner() {
 					<div className="flex gap-4">
 						<div className={styles["timer-styles"].parent}>
 							<div className={styles["timer-styles"].number}>
-								<NumberCounter from={0} to={activeState.days} />
+								<Counter
+									count={activeState.days}
+									setCount={() => {}}
+									modulo={100000000}
+								/>
 							</div>
 							<div className={styles["timer-styles"].label}>
 								Days
