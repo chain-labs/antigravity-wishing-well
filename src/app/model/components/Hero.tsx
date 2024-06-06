@@ -4,6 +4,7 @@ import Image from "next/image";
 import Spinner from "./Spinner";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { twMerge } from "tailwind-merge";
 
 export default function Hero() {
 	const [hover, setHover] = useState<
@@ -11,22 +12,22 @@ export default function Hero() {
 	>(null);
 
 	return (
-		<div className="relative grid grid-rows-3 sm:grid-cols-3 md:grid-rows-1 w-full h-[120vh] md:h-[60vh] mt-[50vh] md:mt-[40vh] z-0">
+		<div className="relative grid grid-rows-3 sm:grid-cols-3 md:grid-rows-1 w-full h-[180vh] md:h-[60vh] mt-[50vh] md:mt-[40vh] z-0">
 			<Spinner />
 			<motion.div
 				animate={{
 					x: 0,
 					y: 0,
-					rotate: 0
+					rotate: 0,
 				}}
 				initial={{
 					x: "-100%",
 					y: "100%",
-					rotate: 45
+					rotate: 45,
 				}}
 				transition={{
 					duration: 1,
-					delay: 0.5
+					delay: 0.5,
 				}}
 				className="relative w-full h-full bg-agblack z-[0] flex justify-end items-start px-4 py-8 flex-col gap-4"
 				onMouseLeave={() => setHover(null)}
@@ -41,7 +42,12 @@ export default function Hero() {
 					quality={100}
 					height={1136}
 					width={1024}
-					className="absolute top-0 left-0 object-cover h-full w-full -z-10 opacity-[35%]"
+					className={twMerge(
+						"absolute top-0 left-0 object-cover h-full w-full -z-10 transition-opacity duration-500",
+						hover === "wishwell"
+							? "opacity-[0.35]"
+							: "opacity-[0.5]"
+					)}
 				/>
 				<h1 className="text-5xl from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
 					WishWell
@@ -65,7 +71,7 @@ export default function Hero() {
 				}}
 				transition={{
 					duration: 1,
-					delay: 0.5
+					delay: 0.5,
 				}}
 				className="relative w-full h-full bg-agblack z-[0] flex justify-end items-start px-4 py-8 flex-col gap-4"
 				onMouseOver={() => setHover("mining")}
@@ -80,7 +86,12 @@ export default function Hero() {
 					quality={100}
 					height={1136}
 					width={1024}
-					className="absolute top-0 left-0 object-cover h-full w-full -z-10 opacity-[35%]"
+					className={twMerge(
+						"absolute top-0 left-0 object-cover h-full w-full -z-10 transition-opacity duration-500",
+						hover === "mining"
+							? "opacity-[0.35]"
+							: "opacity-[0.5]"
+					)}
 				/>
 				<h1 className="text-5xl from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
 					Mining
@@ -99,16 +110,16 @@ export default function Hero() {
 				animate={{
 					x: 0,
 					y: 0,
-					rotate: 0
+					rotate: 0,
 				}}
 				initial={{
 					x: "100%",
 					y: "100%",
-					rotate: -45
+					rotate: -45,
 				}}
 				transition={{
 					duration: 1,
-					delay: 0.5
+					delay: 0.5,
 				}}
 				className="relative w-full h-full bg-agblack z-[0] flex justify-end items-start px-4 py-8 flex-col gap-4"
 				onMouseOver={() => setHover("minting")}
@@ -123,7 +134,12 @@ export default function Hero() {
 					quality={100}
 					height={1136}
 					width={1024}
-					className="absolute top-0 left-0 object-cover h-full w-full -z-10 opacity-[35%]"
+					className={twMerge(
+						"absolute top-0 left-0 object-cover h-full w-full -z-10 transition-opacity duration-500",
+						hover === "minting"
+							? "opacity-[0.35]"
+							: "opacity-[0.5]"
+					)}
 				/>
 				<h1 className="text-5xl from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
 					Minting
