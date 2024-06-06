@@ -11,7 +11,7 @@ export default function Hero() {
 	>(null);
 
 	return (
-		<div className="relative grid grid-cols-3 w-full h-[60vh] mt-[40vh] z-0">
+		<div className="relative grid grid-rows-3 sm:grid-cols-3 md:grid-rows-1 w-full h-[120vh] md:h-[60vh] mt-[50vh] md:mt-[40vh] z-0">
 			<Spinner />
 			<motion.div
 				animate={{
