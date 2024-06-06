@@ -24,6 +24,7 @@ const Header: React.FC = () => {
     <motion.header
       animate={{ y: 0 }}
       initial={{ y: -100 }}
+      viewport={{ once: true }}
       transition={{ duration: 0.5 }}
       className="flex flex-col h-full w-full items-center justify-center gap-3 z-50 font-extrabold">
       <div className="flex text-white w-full md:w-3/4 h-14 lg:h-16 rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px] overflow-hidden">

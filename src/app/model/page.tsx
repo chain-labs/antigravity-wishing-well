@@ -85,7 +85,7 @@ export default function Model() {
 						<div className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[1]">
 							<CanvasRendering />
 							<StarFieldCanvas
-								count={500}
+								count={100}
 								xRange={100}
 								yRange={100}
 								zRange={100}

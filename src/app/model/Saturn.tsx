@@ -15,6 +15,7 @@ import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
 import { motion } from "framer-motion-3d";
 import { scroll } from "framer-motion";
+import FakeGlowMaterial from "./FakeGlow";
 
 type GLTFResult = GLTF & {
 	nodes: {
@@ -92,13 +93,15 @@ export function Saturn(
 			]}
 		>
 			<motion.group
-				animate={{
-					// y: -progress * 5.4,
-					// rotateY: (Math.PI / 2) * progress * 5,
-					// rotateX: -(Math.PI / 2) * progress * 5,
-					// rotateZ: (Math.PI / 2) * progress * 5,
-					// scale: progress * 2 + 1,
-				}}
+				animate={
+					{
+						// y: -progress * 5.4,
+						// rotateY: (Math.PI / 2) * progress * 5,
+						// rotateX: -(Math.PI / 2) * progress * 5,
+						// rotateZ: (Math.PI / 2) * progress * 5,
+						// scale: progress * 2 + 1,
+					}
+				}
 				transition={{
 					ease: "linear",
 				}}
@@ -117,19 +120,31 @@ export function Saturn(
 							rotation={[-0.419, Math.PI / 2, 0]}
 						>
 							<mesh
-								castShadow
-								receiveShadow
-								geometry={nodes.Object_4.geometry}
-								material={materials.Saturn}
-								material-envMapIntensity={4}
-							/>
-							<mesh
-								castShadow
-								receiveShadow
 								geometry={nodes.Object_5.geometry}
 								material={materials.rings}
-								material-envMapIntensity={4}
+								material-envMapIntensity={1}
 							/>
+							<mesh>
+								<sphereGeometry
+									args={[0.35, 24, 24]}
+									attach="geometry"
+								/>
+								<FakeGlowMaterial
+									falloff={0.2}
+									glowInternalRadius={0.9}
+									glowColor={"#a9732b"}
+									glowSharpness={0}
+									side={"THREE.FrontSide"}
+									opacity={0.5}
+									depthTest={false}
+								/>
+							</mesh>
+							<mesh
+								geometry={nodes.Object_4.geometry}
+								material={materials.Saturn}
+								material-envMapIntensity={1}
+							/>
+							
 						</motion.group>
 					</group>
 				</group>

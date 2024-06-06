@@ -94,14 +94,9 @@ export default function Experience() {
 					makeDefault
 					position={[-11, -1.22, -4.58]}
 					fov={30}
-					// zoom={1.5}
+					// zoom={3}
 					// near={1.3}
 					// far={100}
-				/>
-				<Environment
-					preset={"night"}
-					backgroundIntensity={0}
-					environmentIntensity={0}
 				/>
 
 				{/* <Line points={linePoints} color="white" /> */}
@@ -124,43 +119,37 @@ export default function Experience() {
 				</group>
 
 				<pointLight
-					position={[3.74,6.56,-10]}
-					args={[undefined,319.72,0]}
+					position={[3.74, 6.56, -10]}
+					args={[undefined, 119.72, 0]}
 					color={"#ffdfc2"}
-					receiveShadow={false}
-					castShadow={true}
 					visible={true}
 					distance={-0.04}
 				/>
 				<pointLight
 					position={[-7.64, -1.38, -8.5]}
-					args={[undefined,170.64]}
-					castShadow={true}
+					args={[undefined,96.82]}
 					visible={true}
 					color={"#ffdac2"}
 				/>
 
 				<hemisphereLight
 					position={[-1.8, -0.72, 8.54]}
-					args={[undefined,undefined,0]}
-					castShadow={true}
-					receiveShadow={false}
+					args={[undefined, undefined, 0]}
 					visible={true}
-					color={"#fec686"} intensity={1.12} groundColor={"#ffffff"}
+					color={"#3d2f1f"}
+					intensity={1.4}
 				/>
-				<EffectComposer>
+				{/* <EffectComposer>
 					<Bloom
-						luminanceThreshold={0}
+						luminanceThreshold={0.5}
 						luminanceSmoothing={0.28}
 						height={400}
 						mipmapBlur={false}
 						radius={1.2}
 						opacity={1}
-						intensity={2.22}
-						levels={7.02}
-						resolutionScale={6.28}
+						levels={1.02}
 					/>
-				</EffectComposer>
+				</EffectComposer> */}
 			</group>
 		</>
 	);

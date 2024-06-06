@@ -30,18 +30,6 @@ function Counter(props: CounterProps) {
 	});
 	const animatedValue = useSpring(count);
 
-	// function handleIncrement() {
-	// 	animatedValue.set(count + 1);
-	// 	setCount(count + 1);
-	// }
-
-	// function handleDecrement() {
-	// 	if (count === 0 && !props.minValue) return;
-	// 	if (props.minValue && count <= props.minValue) return;
-	// 	setCount(count - 1);
-	// 	animatedValue.set(count - 1);
-	// }
-
 	useEffect(() => {
 		animatedValue.set(count);
 	}, [count, animatedValue]);
@@ -71,24 +59,13 @@ function Count({
 	mv: MotionValue;
 	modulo: number;
 }) {
-	// let y = useTransform(mv, (latestValue) =>{
-	// 	const height = 48;
-	// 	let placeValue = latestValue % modulo;
-	// 	const offset = (modulo + Number(num) - placeValue) % modulo;
-	// 	let memo = offset * height;
-
-	// 	if (offset > Math.floor(modulo / 2)) {
-	// 		memo -= modulo * height;
-	// 	}
-
-	// 	return memo;
-	// });
 	let y = useTransform(mv, (latestValue) => {
 		return 48 * (Number(num) - latestValue);
 	});
 	return (
 		<motion.span
 			style={{ y }}
+			viewport={{ once: true }}
 			key={num}
 			className={twMerge(
 				"absolute inset-0 w-12 h-12 text-center leading-[3rem]",
@@ -213,6 +190,7 @@ function H1({
 							initial={{
 								color: "white",
 							}}
+							viewport={{ once: true }}
 							transition={{ duration: 0.5, delay: 1 }}
 							className={twMerge(styles["era-styles"].active)}
 						>
@@ -239,6 +217,7 @@ function H1({
 							initial={{
 								color: "white",
 							}}
+							viewport={{ once: true }}
 							transition={{ duration: 0.5, delay: 1 }}
 							className={twMerge(
 								styles["stage-styles"].active,
@@ -373,10 +352,10 @@ export default function Spinner() {
 	return (
 		<motion.div
 			animate={{
-				filter: "saturate(1)"
+				filter: "saturate(1)",
 			}}
 			initial={{
-				filter: "saturate(0)"
+				filter: "saturate(0)",
 			}}
 			transition={{ duration: 1 }}
 			className="absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-40%] w-[500px] h-[500px] bg-black rounded-full flex justify-center items-center scale-[0.8] sm:scale-[1] overflow-hidden z-[100]"
