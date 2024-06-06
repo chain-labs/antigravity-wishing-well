@@ -28,7 +28,7 @@ export default function Hero() {
 					duration: 1,
 					delay: 0.5
 				}}
-				className="relative w-full h-full bg-slate-500 z-[0] flex justify-end items-start px-4 py-8 flex-col gap-4"
+				className="relative w-full h-full bg-agblack z-[0] flex justify-end items-start px-4 py-8 flex-col gap-4"
 				onMouseLeave={() => setHover(null)}
 				onMouseOver={() => setHover("wishwell")}
 				onMouseDown={() => setHover("wishwell")}
@@ -41,9 +41,8 @@ export default function Hero() {
 					quality={100}
 					height={1136}
 					width={1024}
-					className="absolute top-0 left-0 object-cover h-full w-full -z-10"
+					className="absolute top-0 left-0 object-cover h-full w-full -z-10 opacity-[35%]"
 				/>
-                <div className="absolute top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.5)] z-[-8]"></div>
 				<h1 className="text-5xl from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
 					WishWell
 				</h1>
@@ -68,7 +67,7 @@ export default function Hero() {
 					duration: 1,
 					delay: 0.5
 				}}
-				className="relative w-full h-full bg-slate-500 z-[0] flex justify-end items-start px-4 py-8 flex-col gap-4"
+				className="relative w-full h-full bg-agblack z-[0] flex justify-end items-start px-4 py-8 flex-col gap-4"
 				onMouseOver={() => setHover("mining")}
 				onMouseDown={() => setHover("mining")}
 				onMouseMove={() => setHover("mining")}
@@ -81,9 +80,8 @@ export default function Hero() {
 					quality={100}
 					height={1136}
 					width={1024}
-					className="absolute top-0 left-0 object-cover h-full w-full -z-10"
+					className="absolute top-0 left-0 object-cover h-full w-full -z-10 opacity-[35%]"
 				/>
-                <div className="absolute top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.5)] z-[-8]"></div>
 				<h1 className="text-5xl from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
 					Mining
 				</h1>
@@ -112,7 +110,7 @@ export default function Hero() {
 					duration: 1,
 					delay: 0.5
 				}}
-				className="relative w-full h-full bg-slate-500 z-[0] flex justify-end items-start px-4 py-8 flex-col gap-4"
+				className="relative w-full h-full bg-agblack z-[0] flex justify-end items-start px-4 py-8 flex-col gap-4"
 				onMouseOver={() => setHover("minting")}
 				onMouseDown={() => setHover("minting")}
 				onMouseMove={() => setHover("minting")}
@@ -125,9 +123,8 @@ export default function Hero() {
 					quality={100}
 					height={1136}
 					width={1024}
-					className="absolute top-0 left-0 object-cover h-full w-full -z-10"
+					className="absolute top-0 left-0 object-cover h-full w-full -z-10 opacity-[35%]"
 				/>
-                <div className="absolute top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.5)] z-[-8]"></div>
 				<h1 className="text-5xl from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
 					Minting
 				</h1>

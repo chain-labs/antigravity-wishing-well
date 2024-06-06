@@ -154,8 +154,8 @@ export default function StarFieldCanvas({
 	return (
 		<div
 			id="canvas-container"
-			style={{ width: "100%", height: "100vh", backgroundColor: "#000" }}
-			className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[1]"
+			style={{ width: "100%", height: "100vh" }}
+			className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[1] bg-agblack"
 		>
 			<Canvas camera={{ position: [0, 0, 0], fov: 75 }}>
 				<StarField
