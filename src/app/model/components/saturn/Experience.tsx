@@ -127,7 +127,7 @@ export default function Experience() {
 				/>
 				<pointLight
 					position={[-7.64, -1.38, -8.5]}
-					args={[undefined,96.82]}
+					args={[undefined, 96.82]}
 					visible={true}
 					color={"#ffdac2"}
 				/>
