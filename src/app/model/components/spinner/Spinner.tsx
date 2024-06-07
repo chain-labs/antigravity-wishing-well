@@ -492,14 +492,14 @@ function Pointer({ activeState }: { activeState: SpinnerProps }) {
 			viewport={{ once: true }}
 			transition={{ duration: 1, delay: globalDelay}}
 			className={twMerge(
-				"absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[100px] w-[30px] z-10 pt-6",
+				"absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[100px] w-[50px] z-10 pt-0",
 				`rotate-[${decideActiveStageLocation(activeState)}deg]`
 			)}
 		>
 			<Image
 				src={require("@/app/model/assets/counter-pointer.svg")}
-				width={25}
-				height={25}
+				width={50}
+				height={50}
 				layout="fixed"
 				alt="Counter Pointer"
 			/>
