@@ -7,6 +7,7 @@ import Hero from "./sections/Hero";
 import Header from "../home/Header";
 import CanvasRendering from "./components/saturn/CanvasRendering";
 import StarFieldCanvas from "./components/background/Starfeild";
+import Countdown from "./sections/Countdown";
 
 // const Hero = dynamic(() => import("./sections/Hero"), {
 // 	ssr: false,
@@ -19,7 +20,7 @@ export default function HomePage() {
 		// 	root
 		// 	options={{ lerp: 0.1, duration: 0.5,  }}
 		// >
-		<div className="bg-black min-h-[100vh]">
+		<div className="bg-agblack min-h-[100vh]">
 			<div className="flex flex-col min-h-screen min-w-screen overflow-hidden">
 				<div className="relative z-0 flex flex-col min-h-screen">
 					<div className="fixed top-0 w-full z-50 items-center pt-12 px-4">
@@ -55,6 +56,8 @@ export default function HomePage() {
 						</div>
 
 						<div className="flex flex-col justify-center items-center gap-8 w-full h-[100vh]"></div>
+
+						<Countdown />
 
 						<div className="flex flex-col justify-center items-center gap-8 w-full max-h-[100vh]  my-[40vh]">
 							<h1 className="text-5xl text-white">
