@@ -59,7 +59,7 @@ function HeroItemCard({
 				width={1024}
 				className={twMerge(
 					"absolute top-0 left-0 object-cover h-full w-full -z-10 transition-opacity duration-500",
-					hover ? "opacity-[0.35]" : "opacity-[0.5]"
+					hover ? "opacity-[0.25]" : "opacity-[0.65]"
 				)}
 			/>
 			<h1 className="text-5xl from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
