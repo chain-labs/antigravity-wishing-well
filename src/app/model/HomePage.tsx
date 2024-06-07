@@ -8,6 +8,8 @@ import Header from "../home/Header";
 import CanvasRendering from "./components/saturn/CanvasRendering";
 import StarFieldCanvas from "./components/background/Starfeild";
 import Countdown from "./sections/Countdown";
+import Newsletter from "./sections/Newsletter";
+import Footer from "./sections/Footer";
 
 // const Hero = dynamic(() => import("./sections/Hero"), {
 // 	ssr: false,
@@ -72,6 +74,9 @@ export default function HomePage() {
 								<div className="w-full h-full bg-slate-500"></div>
 							</div>
 						</div>
+
+						<Newsletter />
+						<Footer />
 					</div>
 
 					<div className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[1]">
