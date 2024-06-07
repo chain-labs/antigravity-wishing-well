@@ -46,14 +46,21 @@ function TD({
 	children,
 	truncate = false,
 	special = false,
+	className,
 }: {
 	children: React.ReactNode;
 	truncate?: boolean;
 	special?: boolean;
+	className?: string;
 }) {
 	if (truncate && children && typeof children === "string") {
 		return (
-			<td className="elative border-r-2 border-[#8275A5] bg-clip-padding hidden lg:flex flex-col lg:flex-row justify-between z-0 px-3 py-[10px] w-full truncate">
+			<td
+				className={twMerge(
+					"elative border-r-2 border-[#8275A5] bg-clip-padding hidden lg:flex flex-col lg:flex-row justify-between z-0 px-3 py-[10px] w-full truncate",
+					className
+				)}
+			>
 				{truncatinator(children)}
 			</td>
 		);
@@ -62,7 +69,8 @@ function TD({
 		<td
 			className={twMerge(
 				"relative border-r-2 border-[#8275A5] bg-clip-padding flex justify-center lg:justify-start lg:items-center gap-1 lg:gap-4 flex-col lg:flex-row z-0 px-3 py-[10px]",
-				special && "border-none"
+				special && "border-none",
+				className
 			)}
 		>
 			{children}
@@ -86,15 +94,19 @@ function TR({
 	return (
 		<tr
 			className={twMerge(
-				"grid grid-cols-[2fr_1fr] lg:grid-cols-[2fr_1fr_1fr] w-full border-l-2 border-b-2 border-[#8275A5]",
+				"relative grid grid-cols-[2fr_1fr] lg:grid-cols-[2fr_1fr_1fr] w-full border-l-2 border-b-2 border-[#8275A5] z-0",
 				special &&
-					"bg-agyellow text-black font-extrabold w-[calc(100%_+_24px)] translate-x-[-12px] border-none rounded-lg",
+					" text-black font-extrabold  border-none",
 				empty &&
 					"bg-gradient-to-b from-[#142266] via-[#0A1133] to-[#142266] border-r-2",
 				th && "border-none",
 				className
 			)}
 		>
+			{
+				special && (
+					<div className="absolute top-0 left-0 w-[calc(100%_+_24px)] h-full translate-x-[-12px] z-[-1] bg-agyellow rounded-lg"></div>)
+			}
 			{children}
 		</tr>
 	);
@@ -120,7 +132,15 @@ function Badge({
 	);
 }
 
-function Rank({ rank, wallet, special = false }: { rank: number; wallet: string, special?: boolean}) {
+function Rank({
+	rank,
+	wallet,
+	special = false,
+}: {
+	rank: number;
+	wallet: string;
+	special?: boolean;
+}) {
 	return (
 		<TD>
 			#{rank} <Badge special={special}>Specialist Technician</Badge>
@@ -130,7 +150,10 @@ function Rank({ rank, wallet, special = false }: { rank: number; wallet: string,
 					alt="hammer icon"
 					width={25}
 					height={25}
-					className={twMerge("object-cover", special && "filter-invert")}
+					className={twMerge(
+						"object-cover",
+						special && "filter-invert"
+					)}
 				/>
 				{truncatinator(wallet)}
 			</div>
@@ -186,35 +209,50 @@ export default function Leaderboard() {
 						</thead>
 						<tbody className="text-lg font-medium font-general-sans text-white">
 							<TR>
-								<Rank rank={1} wallet="0x1234567890abcdef1234567890abcdef12345678" />
+								<Rank
+									rank={1}
+									wallet="0x1234567890abcdef1234567890abcdef12345678"
+								/>
 								<TD truncate>
 									0x1234567890abcdef1234567890abcdef12345678
 								</TD>
 								<TD>90,000</TD>
 							</TR>
 							<TR>
-								<Rank rank={2} wallet="0x1234567890abcdef1234567890abcdef12345678" />
+								<Rank
+									rank={2}
+									wallet="0x1234567890abcdef1234567890abcdef12345678"
+								/>
 								<TD truncate>
 									0x1234567890abcdef1234567890abcdef12345678
 								</TD>
 								<TD>90,000</TD>
 							</TR>
 							<TR>
-								<Rank rank={3} wallet="0x1234567890abcdef1234567890abcdef12345678" />
+								<Rank
+									rank={3}
+									wallet="0x1234567890abcdef1234567890abcdef12345678"
+								/>
 								<TD truncate>
 									0x1234567890abcdef1234567890abcdef12345678
 								</TD>
 								<TD>90,000</TD>
 							</TR>
 							<TR>
-								<Rank rank={4} wallet="0x1234567890abcdef1234567890abcdef12345678" />
+								<Rank
+									rank={4}
+									wallet="0x1234567890abcdef1234567890abcdef12345678"
+								/>
 								<TD truncate>
 									0x1234567890abcdef1234567890abcdef12345678
 								</TD>
 								<TD>90,000</TD>
 							</TR>
 							<TR>
-								<Rank rank={5} wallet="0x1234567890abcdef1234567890abcdef12345678" />
+								<Rank
+									rank={5}
+									wallet="0x1234567890abcdef1234567890abcdef12345678"
+								/>
 								<TD truncate>
 									0x1234567890abcdef1234567890abcdef12345678
 								</TD>
@@ -225,21 +263,31 @@ export default function Leaderboard() {
 								<></>
 							</TR>
 							<TR>
-								<Rank rank={1234566} wallet="0x1234567890abcdef1234567890abcdef12345678" />
+								<Rank
+									rank={1234566}
+									wallet="0x1234567890abcdef1234567890abcdef12345678"
+								/>
 								<TD truncate>
 									0x1234567890abcdef1234567890abcdef12345678
 								</TD>
 								<TD>90,000</TD>
 							</TR>
 							<TR special>
-								<Rank rank={1234567} wallet="0x1234567890abcdef1234567890abcdef12345678" special />
-								<TD truncate>
+								<Rank
+									rank={1234567}
+									wallet="0x1234567890abcdef1234567890abcdef12345678"
+									special
+								/>
+								<TD truncate special>
 									0x1234567890abcdef1234567890abcdef12345678
 								</TD>
 								<TD special>90,000</TD>
 							</TR>
 							<TR>
-								<Rank rank={1234568} wallet="0x1234567890abcdef1234567890abcdef12345678" />
+								<Rank
+									rank={1234568}
+									wallet="0x1234567890abcdef1234567890abcdef12345678"
+								/>
 								<TD truncate>
 									0x1234567890abcdef1234567890abcdef12345678
 								</TD>
