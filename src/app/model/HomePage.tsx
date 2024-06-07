@@ -12,6 +12,7 @@ import Newsletter from "./sections/Newsletter";
 import Footer from "./sections/Footer";
 import Testimonials from "./sections/Testimonials";
 import Eras from "./sections/Eras";
+import Leaderboard from "./sections/Leaderboard";
 
 // const Hero = dynamic(() => import("./sections/Hero"), {
 // 	ssr: false,
@@ -31,7 +32,9 @@ export default function HomePage() {
 						{/* <Header /> */}
 					</div>
 
-					<div className="z-100">
+					<Leaderboard />
+
+					{/* <div className="z-100">
 						<Hero />
 
 						<div className="flex flex-col justify-center items-center gap-8 w-full max-h-[100vh] py-[20vh]">
@@ -69,7 +72,7 @@ export default function HomePage() {
 
 						<Newsletter />
 						<Footer />
-					</div>
+					</div> */}
 
 					{/* <div className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[1]">
 						<CanvasRendering />
