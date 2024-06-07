@@ -6,31 +6,31 @@ import { useState } from "react";
 export default function Newsletter() {
 	const [success, setSuccess] = useState(false);
 	return (
-		<div className="flex items-start justify-center md:w-4/5 mx-4 md:mx-auto gap-16 my-64">
+		<div className="flex flex-col md:flex-row items-start justify-center md:w-4/5 mx-4 md:mx-auto gap-4 md:gap-16 my-32 md:my-64">
 			{success === false ? (
 				<>
 					<div className="flex flex-col gap-2">
-						<h1 className="text-6xl text-left text-white font-sans font-black ">
+						<h1 className="text-6xl text-left text-white font-sans font-black md:text-nowrap">
 							Ignite Your <br /> Boosters.
 						</h1>
-						<p className="text-xl text-center from-white to-[#999999] font-sans font-medium bg-gradient-to-b text-transparent bg-clip-text">
+						<p className="text-xl md:text-nowrap md:text-center from-white to-[#999999] font-sans font-medium bg-gradient-to-b text-transparent bg-clip-text">
 							Get all Antigravity updates in your inbox.
 						</p>
 					</div>
-					<form action="" className="flex flex-col gap-4">
+					<form action="" className="flex flex-col gap-4 w-full md:w-fit">
 						<input
 							type="text"
 							name="name"
 							id="name"
 							placeholder="Your Name"
-							className="text-agblack p-3 rounded-xl w-[30em] font-sans font-semibold text-lg"
+							className="text-agblack p-3 rounded-xl w-full md:w-[30em] font-sans font-semibold text-lg"
 						/>
 						<input
 							type="email"
 							name="email"
 							id="email"
 							placeholder="your@email.com"
-							className="text-agblack p-3 rounded-xl w-[30em] font-sans font-semibold text-lg"
+							className="text-agblack p-3 rounded-xl w-full md:w-[30em] font-sans font-semibold text-lg"
 						/>
 						<button
 							type="submit"
