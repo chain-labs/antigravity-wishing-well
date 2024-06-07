@@ -13,6 +13,7 @@ import Footer from "./sections/Footer";
 import Testimonials from "./sections/Testimonials";
 import Eras from "./sections/Eras";
 import Leaderboard from "./sections/Leaderboard";
+import NFTReceipt from "./sections/NFTReceipt";
 
 // const Hero = dynamic(() => import("./sections/Hero"), {
 // 	ssr: false,
@@ -34,30 +35,11 @@ export default function HomePage() {
 
 					<div className="z-100">
 						<Hero />
-
 						<Leaderboard />
-
 						<Testimonials />
-
-						<div className="flex flex-col justify-center items-center gap-8 w-full max-h-[100vh] py-[20vh]">
-							<h1 className="text-5xl text-white">
-								Not everyone makes smart decisions. <br />{" "}
-								Except you. You badass. Here&apos;s your NFT.
-							</h1>
-							<div className="grid grid-cols-3 gap-2 h-[60vh] w-[80%]">
-								<div className="w-full h-full bg-slate-500"></div>
-								<div className="w-full h-full bg-slate-500"></div>
-								<div className="w-full h-full bg-slate-500"></div>
-								<div className="w-full h-full bg-slate-500"></div>
-								<div className="w-full h-full bg-slate-500"></div>
-								<div className="w-full h-full bg-slate-500"></div>
-							</div>
-						</div>
-
+						<NFTReceipt />
 						<Eras />
-
 						<Countdown />
-
 						<Newsletter />
 						<Footer />
 					</div>
