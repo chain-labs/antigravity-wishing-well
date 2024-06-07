@@ -11,6 +11,7 @@ import Countdown from "./sections/Countdown";
 import Newsletter from "./sections/Newsletter";
 import Footer from "./sections/Footer";
 import Testimonials from "./sections/Testimonials";
+import Eras from "./sections/Eras";
 
 // const Hero = dynamic(() => import("./sections/Hero"), {
 // 	ssr: false,
@@ -48,24 +49,9 @@ export default function HomePage() {
 						<Testimonials />
 
 						<div className="flex flex-col justify-center items-center gap-8 w-full max-h-[100vh] py-[20vh]">
-							<h1 className="text-5xl text-white">Not everyone makes smart decisions. <br/> Except you. You badass. Here&apos;s your NFT.</h1>
-							<div className="grid grid-cols-3 gap-2 h-[60vh] w-[80%]">
-								<div className="w-full h-full bg-slate-500"></div>
-								<div className="w-full h-full bg-slate-500"></div>
-								<div className="w-full h-full bg-slate-500"></div>
-								<div className="w-full h-full bg-slate-500"></div>
-								<div className="w-full h-full bg-slate-500"></div>
-								<div className="w-full h-full bg-slate-500"></div>
-							</div>
-						</div>
-
-						<div className="flex flex-col justify-center items-center gap-8 w-full h-[100vh]"></div>
-
-						<Countdown />
-
-						<div className="flex flex-col justify-center items-center gap-8 w-full max-h-[100vh]  my-[40vh]">
 							<h1 className="text-5xl text-white">
-								Next Section
+								Not everyone makes smart decisions. <br />{" "}
+								Except you. You badass. Here&apos;s your NFT.
 							</h1>
 							<div className="grid grid-cols-3 gap-2 h-[60vh] w-[80%]">
 								<div className="w-full h-full bg-slate-500"></div>
@@ -76,6 +62,10 @@ export default function HomePage() {
 								<div className="w-full h-full bg-slate-500"></div>
 							</div>
 						</div>
+
+						<Eras />
+
+						<Countdown />
 
 						<Newsletter />
 						<Footer />
