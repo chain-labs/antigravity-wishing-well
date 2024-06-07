@@ -1,0 +1,116 @@
+"use client";
+
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import Image from "next/image";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+
+function TesimonialCard({
+	name,
+	imageUrl,
+	shortDescription,
+	fullDescription,
+	externalLink,
+}: {
+	name: string;
+	imageUrl?: string | StaticImport;
+	shortDescription: string;
+	fullDescription: string;
+	externalLink: string;
+}) {
+	return (
+		<a
+			href={externalLink}
+			className=" cursor-pointer hover:scale-[1.1] hover:z-20 transition-all duration-300 relative w-fit h-fit bg-[#0A0025] rounded-xl border-4 border-transparent bg-clip-padding flex flex-col justify-start gap-4 z-0 p-4 my-2 mx-2
+            before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-b before:from-[#B4EBF8] before:to-[#789DFA] before:rounded-[inherit] before:overflow-hidden before:m-[-2px]
+            after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-gradient-to-b after:from-[#0A1133] after:to-[#142266] after:rounded-[inherit] after:overflow-hidden"
+		>
+			<div className="flex gap-2 justify-start items-center w-fit">
+				{imageUrl ? (
+					<Image
+						src={imageUrl}
+						alt={name}
+						width={50}
+						height={50}
+						className="rounded-full w-[50px] h-[50px] object-cover"
+					/>
+				) : (
+					<Image
+						src={require("@/app/model/assets/community-logo.svg")}
+						alt={name}
+						width={50}
+						height={50}
+						className="rounded-full object-cover"
+					/>
+				)}
+				<div className="flex flex-col">
+					<h1 className="relative flex gap-3 text-agyellow font-sans text-xl font-extrabold">
+						@{name}
+					</h1>
+					<p className="text-lg from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
+						{shortDescription}
+					</p>
+				</div>
+			</div>
+			<div className="w-full h-[1px] bg-[#FEFFFF]"></div>
+			<div className="text-white font-sans text-lg font-medium">
+				&quot; {fullDescription} &quot;
+			</div>
+		</a>
+	);
+}
+
+export default function Testimonials() {
+	return (
+		<div className="mx-4 flex flex-col gap-8 items-center justify-center">
+			<div className="text-6xl text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
+				The Galactic Tea...
+			</div>
+			<ResponsiveMasonry
+				columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
+                className="w-full max-w-[1200px] mx-auto"
+			>
+				<Masonry>
+					<TesimonialCard
+						externalLink="/"
+						name="JohnDoeTheGreat"
+						shortDescription="loves our community!"
+						fullDescription="This is the best community I've been a part of. Max literally welcomes everyone on Telegram."
+						imageUrl={require("@/app/model/assets/dummy-testimonial-image.jpg")}
+					/>
+					<TesimonialCard
+						externalLink="/"
+						name="Jane"
+						shortDescription="fell in love with the story!"
+						fullDescription="What a fantastic story! Cole is a great protagonist. I can't wait to see how this unfolds. There is so much more to the story than you think. And all it all culminates in the Era finale across the trilogy."
+					/>
+					<TesimonialCard
+						externalLink="/"
+						name="JohnDoeTheGreat"
+						shortDescription="loves our community!"
+						fullDescription="This is the best community I've been a part of. Max literally welcomes everyone on Telegram."
+						imageUrl={require("@/app/model/assets/dummy-testimonial-image.jpg")}
+					/>
+					<TesimonialCard
+						externalLink="/"
+						name="Jane"
+						shortDescription="fell in love with the story!"
+						fullDescription="What a fantastic story! Cole is a great protagonist. I can't wait to see how this unfolds. There is so much more to the story than you think. And all it all culminates in the Era finale across the trilogy."
+					/>
+					<TesimonialCard
+						externalLink="/"
+						name="JohnDoeTheGreat"
+						shortDescription="loves our community!"
+						fullDescription="This is the best community I've been a part of. Max literally welcomes everyone on Telegram."
+						imageUrl={require("@/app/model/assets/dummy-testimonial-image.jpg")}
+					/>
+					<TesimonialCard
+						externalLink="/"
+						name="Jane"
+						shortDescription="fell in love with the story!"
+						fullDescription="What a fantastic story! Cole is a great protagonist. I can't wait to see how this unfolds. There is so much more to the story than you think. And all it all culminates in the Era finale across the trilogy."
+					/>
+				</Masonry>
+			</ResponsiveMasonry>
+		</div>
+	);
+}

@@ -26,7 +26,7 @@ export default function Home() {
 	return (
 		<div className="z-[0]">
 			<div className="z-[100]">
-				<LoadingPage contentLoaded={!loading} />
+				{/* <LoadingPage contentLoaded={!loading} /> */}
 			</div>
 			<Homepage />
 		</div>
