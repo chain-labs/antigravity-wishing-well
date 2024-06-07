@@ -46,7 +46,7 @@ export default function LoadingPage({
 			}, 1);
 			return () => clearInterval(interval);
 		}
-	}, [progress]);
+	}, [progress, contentLoaded]);
 
 	return (
 		<div
