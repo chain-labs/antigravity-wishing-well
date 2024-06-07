@@ -69,7 +69,7 @@ function H1({
 				>
 					{currentState.era === era ? (
 						<motion.h1
-							animate={{
+							whileInView={{
 								color: "black",
 							}}
 							initial={{
@@ -96,7 +96,7 @@ function H1({
 				>
 					{active ? (
 						<motion.h1
-							animate={{
+							whileInView={{
 								color: "black",
 							}}
 							initial={{
@@ -181,7 +181,7 @@ function decideActiveStageLocation(activeState: SpinnerProps) {
 function StageHighlighter({ activeState }: { activeState: SpinnerProps }) {
 	return (
 		<motion.div
-			animate={{
+			whileInView={{
 				x: "-50%",
 				y: "-50%",
 				rotate: decideActiveStageLocation(activeState),
@@ -191,6 +191,7 @@ function StageHighlighter({ activeState }: { activeState: SpinnerProps }) {
 				y: "-50%",
 				rotate: -180,
 			}}
+			viewport={{ once: true }}
 			transition={{ duration: 1 }}
 			className={twMerge(
 				"absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[300px] w-[40px] bg-agyellow z-10",
@@ -206,7 +207,7 @@ function StageHighlighter({ activeState }: { activeState: SpinnerProps }) {
 function EraHighlighter({ activeState }: { activeState: SpinnerProps }) {
 	return (
 		<motion.div
-			animate={{
+			whileInView={{
 				x: "-50%",
 				y: "-50%",
 				rotate:
@@ -221,6 +222,7 @@ function EraHighlighter({ activeState }: { activeState: SpinnerProps }) {
 				y: "-50%",
 				rotate: 180,
 			}}
+			viewport={{ once: true }}
 			transition={{ duration: 1 }}
 			className={twMerge(
 				"absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[490px] w-[190px] bg-agyellow z-10",
@@ -475,7 +477,7 @@ function StageInBetweenBorders() {
 function Pointer({ activeState }: { activeState: SpinnerProps }) {
 	return (
 		<motion.div
-			animate={{
+			whileInView={{
 				x: "-50%",
 				y: "-50%",
 				rotate: decideActiveStageLocation(activeState),
@@ -485,6 +487,7 @@ function Pointer({ activeState }: { activeState: SpinnerProps }) {
 				y: "-50%",
 				rotate: 180,
 			}}
+			viewport={{ once: true }}
 			transition={{ duration: 1 }}
 			className={twMerge(
 				"absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[100px] w-[30px] z-10 pt-6",
@@ -640,34 +643,34 @@ export default function Spinner() {
 
 	return (
 		<motion.div
-			animate={{
+			whileInView={{
 				filter: "saturate(1)",
 			}}
 			initial={{
 				filter: "saturate(0)",
 			}}
+			viewport={{ once: true }}
 			transition={{ duration: 1 }}
 			className="absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-60%] md:translate-y-[-37%] w-[500px] h-[500px] bg-black rounded-full flex justify-center items-center scale-[0.7] sm:scale-[1] overflow-hidden z-[100]"
 		>
 			<div className="relative w-[470px] h-[470px] bg-[radial-gradient(circle_at_center,#B7A4EA,#1C0068_65%)] rounded-full flex justify-center items-center overflow-hidden">
 				<Era activeState={activeState} />
-				
+
 				<div className="relative w-[300px] h-[300px] bg-[radial-gradient(circle_at_center,#B7A4EA,#1C0068_65%)] rounded-full border-[10px] border-agblack flex justify-center items-center overflow-hidden z-10">
 					<StageHighlighter activeState={activeState} />
 					<StageInBetweenBorders />
 					<div className="relative w-[180px] h-[180px] bg-[#1C0068] rounded-full border-[10px] border-agblack flex justify-center items-center z-10">
 						<StageNumber activeState={activeState} />
-						
+
 						<div className="relative w-[100px] h-[100px] bg-agyellow rounded-full flex justify-center items-center">
 							<div className="flex flex-col justify-center items-center">
 								<Pointer activeState={activeState} />
 								<Bonus activeState={activeState} />
 							</div>
 						</div>
-
 					</div>
 				</div>
-				
+
 				<Timer activeState={activeState} />
 			</div>
 		</motion.div>
