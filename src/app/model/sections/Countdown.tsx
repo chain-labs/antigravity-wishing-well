@@ -141,8 +141,9 @@ export default function Countdown() {
 
 	return (
 		<div
-			className="relative mx-auto bg-[#0A0025] rounded-xl p-8 border-4 border-transparent bg-clip-padding flex flex-col lg:flex-row justify-between gap-10
-            before:content-[''] before:absolute before:inset-0 before:z-[-1] before:bg-gradient-to-bl before:from-[#5537A5] before:to-[#BF6841] before:rounded-[inherit] before:overflow-hidden before:m-[-4px]
+			className="relative md:w-4/5 mx-4 md:mx-auto bg-[#0A0025] rounded-xl p-8 border-4 border-transparent bg-clip-padding flex flex-col lg:flex-row justify-between gap-10 z-0
+            before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-bl before:from-[#5537A5] before:to-[#BF6841] before:rounded-[inherit] before:overflow-hidden before:m-[-4px]
+			after:content-[''] after:absolute after:inset-0 after:z-[-1] after:bg-[#0A0025] after:rounded-[inherit] after:overflow-hidden
         "
 		>
 			<div className="flex justify-start items-start flex-col gap-4">
