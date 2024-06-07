@@ -143,9 +143,16 @@ export default function Countdown() {
 		<div
 			className="relative md:w-4/5 mx-4 md:mx-auto bg-[#0A0025] rounded-xl p-8 border-4 border-transparent bg-clip-padding flex flex-col lg:flex-row justify-between gap-10 z-0
             before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-bl before:from-[#5537A5] before:to-[#BF6841] before:rounded-[inherit] before:overflow-hidden before:m-[-4px]
-			after:content-[''] after:absolute after:inset-0 after:z-[-1] after:bg-[#0A0025] after:rounded-[inherit] after:overflow-hidden
+			after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-[#0A0025] after:rounded-[inherit] after:overflow-hidden
         "
 		>
+			<Image
+				src={require("@/app/model/assets/countdown-bg-grid.svg")}
+				alt="countdown bg grid"
+				width={800}
+				height={800}
+				className="absolute inset-0 z-[-1] w-full h-full object-cover user-select-none pointer-events-none opacity-[33%]"
+			/>
 			<div className="flex justify-start items-start flex-col gap-4">
 				<div className="tracking-widest uppercase text-3xl text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
 					ETA for phase 2
