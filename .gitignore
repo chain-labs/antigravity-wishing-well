@@ -2,3 +2,8 @@ node_modules
 .next
 
 .env
+
+.DS_Store
+
+package-lock.json
+*storybook.log

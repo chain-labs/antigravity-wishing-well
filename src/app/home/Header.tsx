@@ -4,6 +4,7 @@ import { useAccount } from "wagmi";
 import { IoMenu, IoCloseCircleOutline } from "react-icons/io5";
 import { UserConnected } from "./UserConnected";
 import IMAGEKIT from "./images";
+import { motion } from "framer-motion";
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +21,12 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="flex flex-col h-full w-full items-center justify-center gap-3 z-50 font-extrabold">
+    <motion.header
+      animate={{ y: 0 }}
+      initial={{ y: -100 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      className="flex flex-col h-full w-full items-center justify-center gap-3 z-50 font-extrabold">
       <div className="flex text-white w-full md:w-3/4 h-14 lg:h-16 rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px] overflow-hidden">
         <div className="w-full h-full bg-agblack px-8 flex items-center justify-between rounded-lg gap-6 py-4">
           <div
@@ -141,7 +147,7 @@ const Header: React.FC = () => {
           </div>
         </div>
       ) : null}
-    </header>
+    </motion.header>
   );
 };
 
