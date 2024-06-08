@@ -55,14 +55,15 @@ export default function LoadingPage({
 			}}
 			className={`fixed left-0 h-screen w-screen overflow-hidden bg-gradient-to-b from-[#030404] to-[#131A1A] z-[10000]`}
 		>
-			<div className="absolute top-[50%] left-0 translate-y-[-50%] flex gap-4 justify-center items-center mx-32">
+			<div className="absolute top-0 left-[50%] md:top-[50%] md:left-0 translate-x-[-50%] md:translate-y-[-50%] flex gap-4 justify-center items-center mx-auto my-16 md:mx-32">
 				<Image
 					src={require("@/app/model/assets/logo.svg")}
 					alt="logo"
 					width={100}
 					height={100}
+					className="w-[80px] h-[80px] md:w-[100px] md:h-[100px]"
 				/>
-				<div className="uppercase text-6xl text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
+				<div className="uppercase text-4xl md:text-6xl text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
 					Antigravity
 				</div>
 			</div>
@@ -71,7 +72,7 @@ export default function LoadingPage({
 				style={{
 					height: `calc(${progress}%)`,
 				}}
-				className="absolute bottom-0 left-0 w-screen bg-gradient-to-b from-[#142266] to-[#0A1133] z-[-1]"
+				className="absolute bottom-0 left-0 w-screen bg-gradient-to-b from-[#142266] to-[#0A1133] md:z-[-1]"
 			></div>
 
 			<div
