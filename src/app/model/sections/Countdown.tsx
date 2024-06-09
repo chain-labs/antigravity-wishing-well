@@ -200,7 +200,7 @@ export default function Countdown() {
 
 	return (
 		<div
-			className="relative w-[110%] translate-x-[-4.5%] lg:w-4/5 md:mx-auto bg-[#0A0025] rounded-xl p-8 border-4 border-transparent bg-clip-padding flex flex-col lg:flex-row justify-between gap-10 z-0
+			className="relative w-[110%] translate-x-[-4.5%] lg:translate-x-0 lg:w-4/5 md:mx-auto bg-[#0A0025] rounded-xl p-8 border-4 border-transparent bg-clip-padding flex flex-col lg:flex-row justify-between gap-10 z-0
             before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-bl before:from-[#5537A5] before:to-[#BF6841] before:rounded-[inherit] before:overflow-hidden before:m-[-4px]
 			after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-[#0A0025] after:rounded-[inherit] after:overflow-hidden
         "
@@ -216,7 +216,7 @@ export default function Countdown() {
 				<div className="tracking-widest uppercase text-3xl text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
 					ETA for phase 2
 				</div>
-				<div className="relative flex gap-3 text-agyellow font-sans">
+				<div className="relative flex gap-2 md:gap-3 text-agyellow font-sans">
 					<div className="flex items-center justify-center flex-col">
 						<h1 className="text-6xl font-extrabold">
 							<DynamicNumberCounter
@@ -226,11 +226,11 @@ export default function Countdown() {
 								boxPixelSize={60}
 							/>
 						</h1>
-						<p className="text-xl uppercase font-extrabold tracking-widest">
+						<p className="text-lg md:text-xl uppercase font-extrabold tracking-widest">
 							Days
 						</p>
 					</div>
-					<div className="bg-agyellow h-full w-[1px]"></div>
+					<div className="bg-agyellow h-[clac(60px_1.5rem)] lg:full w-[1px]"></div>
 					<div className="flex items-center justify-center flex-col">
 						<h1 className="text-6xl font-extrabold">
 							<DynamicNumberCounter
@@ -244,7 +244,7 @@ export default function Countdown() {
 							Hours
 						</p>
 					</div>
-					<div className="bg-agyellow h-full w-[1px]"></div>
+					<div className="bg-agyellow h-[clac(60px_1.5rem)] lg:full w-[1px]"></div>
 					<div className="flex items-center justify-center flex-col">
 						<h1 className="text-6xl font-extrabold">
 							<DynamicNumberCounter
@@ -254,11 +254,11 @@ export default function Countdown() {
 								boxPixelSize={60}
 							/>
 						</h1>
-						<p className="text-xl uppercase font-extrabold tracking-widest">
+						<p className="text-lg md:text-xl uppercase font-extrabold tracking-widest">
 							Mins
 						</p>
 					</div>
-					<div className="bg-agyellow h-full w-[1px]"></div>
+					<div className="bg-agyellow h-[clac(60px_1.5rem)] lg:full w-[1px]"></div>
 					<div className="flex items-center justify-center flex-col">
 						<h1 className="text-6xl font-extrabold">
 							<DynamicNumberCounter
@@ -268,7 +268,7 @@ export default function Countdown() {
 								boxPixelSize={60}
 							/>
 						</h1>
-						<p className="text-xl uppercase font-extrabold tracking-widest">
+						<p className="text-lg md:text-xl uppercase font-extrabold tracking-widest">
 							Secs
 						</p>
 					</div>
