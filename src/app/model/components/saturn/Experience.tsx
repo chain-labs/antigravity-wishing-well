@@ -36,10 +36,11 @@ export default function Experience() {
 	const curve = useMemo(() => {
 		const curve = new THREE.CatmullRomCurve3([
 			new THREE.Vector3(0, 0, 0),
-			new THREE.Vector3(0, -5, 0),
-			new THREE.Vector3(-5, -2, -2),
-			new THREE.Vector3(0, -5, -5),
-			new THREE.Vector3(-10, -3, 2),
+			new THREE.Vector3(-4, -4, -2),
+			new THREE.Vector3(-4, -3, -5),
+			new THREE.Vector3(-4, -3, -5),
+			new THREE.Vector3(-5, -3, 0),
+			new THREE.Vector3(-5, -4, 0),
 			new THREE.Vector3(-5, -4, 0),
 		]);
 		curve.curveType = "catmullrom";
