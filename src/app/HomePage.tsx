@@ -292,14 +292,14 @@ export default function HomePage() {
 						<Footer />
 					</div>
 					<div className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[1]">
-						{/* <CanvasRendering />
+						<CanvasRendering />
 						<StarFieldCanvas
 							count={100}
 							xRange={100}
 							yRange={100}
 							zRange={100}
 							speed={0.1}
-						/> */}
+						/>
 					</div>
 				</div>
 			</div>
