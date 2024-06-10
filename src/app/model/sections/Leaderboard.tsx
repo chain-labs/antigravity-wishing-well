@@ -95,18 +95,16 @@ function TR({
 		<tr
 			className={twMerge(
 				"relative grid grid-cols-[2fr_1fr] lg:grid-cols-[2fr_1fr_1fr] w-full border-l-2 border-b-2 border-[#8275A5] z-0",
-				special &&
-					" text-black font-extrabold  border-none",
+				special && " text-black font-extrabold  border-none",
 				empty &&
 					"bg-gradient-to-b from-[#142266] via-[#0A1133] to-[#142266] border-r-2",
 				th && "border-none",
 				className
 			)}
 		>
-			{
-				special && (
-					<div className="absolute top-0 left-0 w-[calc(100%_+_24px)] h-full translate-x-[-12px] z-[-1] bg-agyellow rounded-lg"></div>)
-			}
+			{special && (
+				<div className="absolute top-0 left-0 w-[calc(100%_+_24px)] h-full translate-x-[-12px] z-[-1] bg-agyellow rounded-lg"></div>
+			)}
 			{children}
 		</tr>
 	);
@@ -146,7 +144,9 @@ function Rank({
 			#{rank} <Badge special={special}>Specialist Technician</Badge>
 			<div className="flex gap-2 justify-start items-center lg:hidden">
 				<Image
-					src={require("@/app/model/assets/icons/wallet.svg")}
+					src={require(
+						`@/app/model/assets/icons/${special ? "wallet-black.svg" : "wallet.svg"}`
+					)}
 					alt="hammer icon"
 					width={25}
 					height={25}
