@@ -1,7 +1,10 @@
 "use client";
 
+import Button from "@/stories/Button";
+import { useScroll, useTransform, motion } from "framer-motion";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
+import { useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
 function TH({
@@ -162,201 +165,219 @@ function Rank({
 }
 
 export default function Leaderboard() {
+	const targetRef = useRef<HTMLDivElement>(null);
+	const { scrollYProgress } = useScroll({
+		target: targetRef,
+		offset: ["start end", "end start"],
+	});
+
+	const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+
 	return (
-		<div
-			className="relative w-[110%] translate-x-[-7.5%] md:translate-x-0 md:w-4/5 mx-4 my-32 md:mx-auto bg-[#0A0025] rounded-xl p-8 border-4 border-transparent bg-clip-padding flex flex-col lg:flex-row justify-between gap-10 z-0
+		<div ref={targetRef}>
+			<motion.div
+				style={{ opacity }}
+				className="relative w-[110%] translate-x-[-7.5%] md:translate-x-0 md:w-4/5 mx-4 my-32 md:mx-auto bg-[#0A0025] rounded-xl p-8 border-4 border-transparent bg-clip-padding flex flex-col lg:flex-row justify-between gap-10 z-0
             before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-bl before:from-[#5537A5] before:to-[#BF6841] before:rounded-[inherit] before:overflow-hidden before:m-[-2px]
 			after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-agblack after:rounded-[inherit] after:overflow-hidden
         "
-		>
-			<div className="flex flex-col">
-				<div className="flex flex-wrap justify-start items-center gap-6">
-					<h1 className="text-6xl from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
-						Leaderboard
-					</h1>
-					<button
-						className={`relative flex items-center gap-x-2 justify-center font-sans uppercase font-extrabold tracking-widest text-agwhite cursor-pointer rounded-lg px-4 py-3 shadow-button shadow-[#414343] border-[#414343] border-2 hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-[rgba(255,255,255,0.25)]`}
-					>
-						<Image
-							src={require("@/app/assets/icons/refresh.svg")}
-							alt="leaderboard icon"
-							width={25}
-							height={25}
-							className="object-cover"
-						/>
-						Refresh
-					</button>
-				</div>
-
-				<div className="grid grid-cols-1 lg:grid-cols-3 w-full max-w-[100%] pt-6">
-					<table className="col-span-2 w-full bg-gradient-to-b from-[#0A1133] to-[#142266] h-fit">
-						<thead className="w-full">
-							<TR th>
-								<TH
-									icon={require("@/app/assets/icons/leaderboard.svg")}
-									heading="Rank"
-								/>
-								<TH
-									icon={require("@/app/assets/icons/wallet.svg")}
-									heading="Wallet"
-									className="hidden lg:flex"
-								/>
-								<TH
-									icon={require("@/app/assets/icons/points.svg")}
-									heading="Points"
-								/>
-							</TR>
-						</thead>
-						<tbody className="text-lg font-medium font-general-sans text-white">
-							<TR>
-								<Rank
-									rank={1}
-									wallet="0x1234567890abcdef1234567890abcdef12345678"
-								/>
-								<TD truncate>
-									0x1234567890abcdef1234567890abcdef12345678
-								</TD>
-								<TD>90,000</TD>
-							</TR>
-							<TR>
-								<Rank
-									rank={2}
-									wallet="0x1234567890abcdef1234567890abcdef12345678"
-								/>
-								<TD truncate>
-									0x1234567890abcdef1234567890abcdef12345678
-								</TD>
-								<TD>90,000</TD>
-							</TR>
-							<TR>
-								<Rank
-									rank={3}
-									wallet="0x1234567890abcdef1234567890abcdef12345678"
-								/>
-								<TD truncate>
-									0x1234567890abcdef1234567890abcdef12345678
-								</TD>
-								<TD>90,000</TD>
-							</TR>
-							<TR>
-								<Rank
-									rank={4}
-									wallet="0x1234567890abcdef1234567890abcdef12345678"
-								/>
-								<TD truncate>
-									0x1234567890abcdef1234567890abcdef12345678
-								</TD>
-								<TD>90,000</TD>
-							</TR>
-							<TR>
-								<Rank
-									rank={5}
-									wallet="0x1234567890abcdef1234567890abcdef12345678"
-								/>
-								<TD truncate>
-									0x1234567890abcdef1234567890abcdef12345678
-								</TD>
-								<TD>90,000</TD>
-							</TR>
-
-							<TR className="h-[3rem]" empty>
-								<></>
-							</TR>
-							<TR>
-								<Rank
-									rank={1234566}
-									wallet="0x1234567890abcdef1234567890abcdef12345678"
-								/>
-								<TD truncate>
-									0x1234567890abcdef1234567890abcdef12345678
-								</TD>
-								<TD>90,000</TD>
-							</TR>
-							<TR special>
-								<Rank
-									rank={1234567}
-									wallet="0x1234567890abcdef1234567890abcdef12345678"
-									special
-								/>
-								<TD truncate special>
-									0x1234567890abcdef1234567890abcdef12345678
-								</TD>
-								<TD special>90,000</TD>
-							</TR>
-							<TR>
-								<Rank
-									rank={1234568}
-									wallet="0x1234567890abcdef1234567890abcdef12345678"
-								/>
-								<TD truncate>
-									0x1234567890abcdef1234567890abcdef12345678
-								</TD>
-								<TD>90,000</TD>
-							</TR>
-						</tbody>
-					</table>
-
-					<div className="relative flex flex-col w-full gap-4 lg:pl-6 place-self-end">
-						<Image
-							src={require("@/app/assets/collective-color-logo.svg")}
-							alt="leaderboard background"
-							width={100}
-							height={100}
-							className="object-cover absolute bottom-0 right-0 lg:left-[10%] lg:top-0 lg:translate-y-[-100%] z-[100] opacity-[50%]"
-						/>
-						<div className="flex flex-col gap-4 p-4">
-							<h2 className="font-general-sans text-xl text-white font-medium">
-								Wallet Connected:
-							</h2>
-							<h1
-								style={{
-									wordWrap: "break-word",
-								}}
-								className="text-4xl w-full from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text break-words"
-							>
-								0x1234567890abcdef1234567890abcdef12345678
-							</h1>
-						</div>
-
-						<div className="relative flex flex-col gap-4 p-4 rounded-xl overflow-hidden w-full z-0">
-							<div className="bg-[#3C00DC] absolute inset-0 -z-10 opacity-[25%]"></div>
+			>
+				<div className="flex flex-col">
+					<div className="flex flex-wrap justify-start items-center gap-6">
+						<h1 className="text-6xl from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
+							Leaderboard
+						</h1>
+						{/* <button
+							className={`relative flex items-center gap-x-2 justify-center font-sans uppercase font-extrabold tracking-widest text-agwhite cursor-pointer rounded-lg px-4 py-3 shadow-button shadow-[#414343] border-[#414343] border-2 hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-[rgba(255,255,255,0.25)]`}
+						>
 							<Image
-								src={require("@/app/assets/icons/info.svg")}
-								alt="info icon"
+								src={require("@/app/assets/icons/refresh.svg")}
+								alt="leaderboard icon"
 								width={25}
 								height={25}
 								className="object-cover"
 							/>
+							Refresh
+						</button> */}
+						<Button
+							innerText="Refresh"
+							iconSrc={require("@/app/assets/icons/refresh.svg")}
+							iconAlt="refresh icon"
+							size="small"
+							secondary
+						/>
+					</div>
 
-							<p className="font-general-sans text-lg text-white font-medium">
-								You&apos;re only 1,500 points away from leveling
-								up. Mine now to rank up!
-							</p>
+					<div className="grid grid-cols-1 lg:grid-cols-3 w-full max-w-[100%] pt-6">
+						<table className="col-span-2 w-full bg-gradient-to-b from-[#0A1133] to-[#142266] h-fit">
+							<thead className="w-full">
+								<TR th>
+									<TH
+										icon={require("@/app/assets/icons/leaderboard.svg")}
+										heading="Rank"
+									/>
+									<TH
+										icon={require("@/app/assets/icons/wallet.svg")}
+										heading="Wallet"
+										className="hidden lg:flex"
+									/>
+									<TH
+										icon={require("@/app/assets/icons/points.svg")}
+										heading="Points"
+									/>
+								</TR>
+							</thead>
+							<tbody className="text-lg font-medium font-general-sans text-white">
+								<TR>
+									<Rank
+										rank={1}
+										wallet="0x1234567890abcdef1234567890abcdef12345678"
+									/>
+									<TD truncate>
+										0x1234567890abcdef1234567890abcdef12345678
+									</TD>
+									<TD>90,000</TD>
+								</TR>
+								<TR>
+									<Rank
+										rank={2}
+										wallet="0x1234567890abcdef1234567890abcdef12345678"
+									/>
+									<TD truncate>
+										0x1234567890abcdef1234567890abcdef12345678
+									</TD>
+									<TD>90,000</TD>
+								</TR>
+								<TR>
+									<Rank
+										rank={3}
+										wallet="0x1234567890abcdef1234567890abcdef12345678"
+									/>
+									<TD truncate>
+										0x1234567890abcdef1234567890abcdef12345678
+									</TD>
+									<TD>90,000</TD>
+								</TR>
+								<TR>
+									<Rank
+										rank={4}
+										wallet="0x1234567890abcdef1234567890abcdef12345678"
+									/>
+									<TD truncate>
+										0x1234567890abcdef1234567890abcdef12345678
+									</TD>
+									<TD>90,000</TD>
+								</TR>
+								<TR>
+									<Rank
+										rank={5}
+										wallet="0x1234567890abcdef1234567890abcdef12345678"
+									/>
+									<TD truncate>
+										0x1234567890abcdef1234567890abcdef12345678
+									</TD>
+									<TD>90,000</TD>
+								</TR>
 
-							<button
-								className={`uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite cursor-pointer
-                                rounded-lg px-4 py-3 shadow-button hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-agblack bg-blue`}
-							>
+								<TR className="h-[3rem]" empty>
+									<></>
+								</TR>
+								<TR>
+									<Rank
+										rank={1234566}
+										wallet="0x1234567890abcdef1234567890abcdef12345678"
+									/>
+									<TD truncate>
+										0x1234567890abcdef1234567890abcdef12345678
+									</TD>
+									<TD>90,000</TD>
+								</TR>
+								<TR special>
+									<Rank
+										rank={1234567}
+										wallet="0x1234567890abcdef1234567890abcdef12345678"
+										special
+									/>
+									<TD truncate special>
+										0x1234567890abcdef1234567890abcdef12345678
+									</TD>
+									<TD special>90,000</TD>
+								</TR>
+								<TR>
+									<Rank
+										rank={1234568}
+										wallet="0x1234567890abcdef1234567890abcdef12345678"
+									/>
+									<TD truncate>
+										0x1234567890abcdef1234567890abcdef12345678
+									</TD>
+									<TD>90,000</TD>
+								</TR>
+							</tbody>
+						</table>
+
+						<div className="relative flex flex-col w-full gap-4 lg:pl-6 place-self-end">
+							<Image
+								src={require("@/app/assets/collective-color-logo.svg")}
+								alt="leaderboard background"
+								width={100}
+								height={100}
+								className="object-cover absolute bottom-0 right-0 lg:left-[10%] lg:top-0 lg:translate-y-[-100%] z-[100] opacity-[50%]"
+							/>
+							<div className="flex flex-col gap-4 p-4">
+								<h2 className="font-general-sans text-xl text-white font-medium">
+									Wallet Connected:
+								</h2>
+								<h1
+									style={{
+										wordWrap: "break-word",
+									}}
+									className="text-4xl w-full from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text break-words"
+								>
+									0x1234567890abcdef1234567890abcdef12345678
+								</h1>
+							</div>
+
+							<div className="relative flex flex-col gap-4 p-4 rounded-xl overflow-hidden w-full z-0">
+								<div className="bg-[#3C00DC] absolute inset-0 -z-10 opacity-[25%]"></div>
 								<Image
-									src={require("@/app/assets/icons/hammer.svg")}
-									alt="hammer icon"
+									src={require("@/app/assets/icons/info.svg")}
+									alt="info icon"
 									width={25}
 									height={25}
 									className="object-cover"
 								/>
-								Start mining
-							</button>
 
-							<a
-								href="/"
-								className="font-general-sans text-lg underline text-white"
-							>
-								Best ways to rank up →
-							</a>
+								<p className="font-general-sans text-lg text-white font-medium">
+									You&apos;re only 1,500 points away from
+									leveling up. Mine now to rank up!
+								</p>
+
+								<button
+									className={`uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite cursor-pointer
+                                rounded-lg px-4 py-3 shadow-button hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-agblack bg-blue`}
+								>
+									<Image
+										src={require("@/app/assets/icons/hammer.svg")}
+										alt="hammer icon"
+										width={25}
+										height={25}
+										className="object-cover"
+									/>
+									Start mining
+								</button>
+
+								<a
+									href="/"
+									className="font-general-sans text-lg underline text-white"
+								>
+									Best ways to rank up →
+								</a>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			</motion.div>
 		</div>
 	);
 }

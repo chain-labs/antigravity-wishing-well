@@ -1,7 +1,9 @@
 "use client";
 
+import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
+import { useRef } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 function TesimonialCard({
@@ -10,17 +12,27 @@ function TesimonialCard({
 	shortDescription,
 	fullDescription,
 	externalLink,
+	scrollYProgress,
 }: {
 	name: string;
 	imageUrl?: string | StaticImport;
 	shortDescription: string;
 	fullDescription: string;
 	externalLink: string;
+	scrollYProgress: MotionValue<number>;
 }) {
+	const gapX = useTransform(scrollYProgress, [0, 0.25], ["2rem", "0.5rem"]);
+	const gapY = useTransform(scrollYProgress, [0, 0.25], ["2rem", "0.5rem"]);
 	return (
-		<a
+		<motion.a
+			style={{
+				marginLeft: gapX,
+				marginRight: gapX,
+				marginTop: gapY,
+				marginBottom: gapY,
+			}}
 			href={externalLink}
-			className=" cursor-pointer hover:scale-[1.1] hover:z-20 transition-all duration-300 relative w-fit h-fit bg-[#0A0025] rounded-xl border-4 border-transparent bg-clip-padding flex flex-col justify-start gap-4 z-0 p-4 my-2 mx-2
+			className=" cursor-pointer hover:scale-[1.05] hover:z-20 transition-all duration-300 relative w-fit h-fit bg-[#0A0025] rounded-xl border-4 border-transparent bg-clip-padding flex flex-col justify-start gap-4 z-0 p-4
             before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-b before:from-[#B4EBF8] before:to-[#789DFA] before:rounded-[inherit] before:overflow-hidden before:m-[-2px]
             after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-gradient-to-b after:from-[#0A1133] after:to-[#142266] after:rounded-[inherit] after:overflow-hidden"
 		>
@@ -55,22 +67,37 @@ function TesimonialCard({
 			<div className="text-white font-sans text-lg font-medium">
 				&quot; {fullDescription} &quot;
 			</div>
-		</a>
+		</motion.a>
 	);
 }
 
 export default function Testimonials() {
+	const targetRef = useRef<HTMLDivElement>(null);
+	const { scrollYProgress } = useScroll({
+		target: targetRef,
+		offset: ["start end", "end start"],
+	});
+
+	// const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+	const y = useTransform(scrollYProgress, [0, 0.25], [100, 0]);
 	return (
-		<div className="mx-4 flex flex-col gap-8 items-center justify-center">
-			<div className="text-6xl text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
+		<div
+			ref={targetRef}
+			className="mx-4 flex flex-col gap-8 items-center justify-center"
+		>
+			<motion.div
+				style={{ y }}
+				className="text-6xl text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text"
+			>
 				The Galactic Tea...
-			</div>
+			</motion.div>
 			<ResponsiveMasonry
 				columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
-                className="w-full max-w-[1200px] mx-auto"
+				className="w-full max-w-[1200px] mx-auto"
 			>
 				<Masonry>
 					<TesimonialCard
+						scrollYProgress={scrollYProgress}
 						externalLink="/"
 						name="JohnDoeTheGreat"
 						shortDescription="loves our community!"
@@ -78,12 +105,14 @@ export default function Testimonials() {
 						imageUrl={require("@/app/assets/dummy-testimonial-image.jpg")}
 					/>
 					<TesimonialCard
+						scrollYProgress={scrollYProgress}
 						externalLink="/"
 						name="Jane"
 						shortDescription="fell in love with the story!"
 						fullDescription="What a fantastic story! Cole is a great protagonist. I can't wait to see how this unfolds. There is so much more to the story than you think. And all it all culminates in the Era finale across the trilogy."
 					/>
 					<TesimonialCard
+						scrollYProgress={scrollYProgress}
 						externalLink="/"
 						name="JohnDoeTheGreat"
 						shortDescription="loves our community!"
@@ -91,12 +120,14 @@ export default function Testimonials() {
 						imageUrl={require("@/app/assets/dummy-testimonial-image.jpg")}
 					/>
 					<TesimonialCard
+						scrollYProgress={scrollYProgress}
 						externalLink="/"
 						name="Jane"
 						shortDescription="fell in love with the story!"
 						fullDescription="What a fantastic story! Cole is a great protagonist. I can't wait to see how this unfolds. There is so much more to the story than you think. And all it all culminates in the Era finale across the trilogy."
 					/>
 					<TesimonialCard
+						scrollYProgress={scrollYProgress}
 						externalLink="/"
 						name="JohnDoeTheGreat"
 						shortDescription="loves our community!"
@@ -104,6 +135,7 @@ export default function Testimonials() {
 						imageUrl={require("@/app/assets/dummy-testimonial-image.jpg")}
 					/>
 					<TesimonialCard
+						scrollYProgress={scrollYProgress}
 						externalLink="/"
 						name="Jane"
 						shortDescription="fell in love with the story!"

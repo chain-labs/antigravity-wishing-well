@@ -21,7 +21,12 @@ interface ButtonProps {
 	 * Icon to display on the button
 	 * @default null
 	 **/
-	iconLink?: string | StaticImport | null;
+	iconSrc?: string | StaticImport | null;
+	/**
+	 * Alt text for the icon
+	 * @default "icon"
+	 **/
+	iconAlt?: string;
 	/**
 	 * Position of the icon
 	 * @default "start"
@@ -47,6 +52,10 @@ interface ButtonProps {
 	 * @default false
 	 **/
 	disableSparkels?: boolean;
+	/**
+	 * Additional classes to apply to the button
+	 **/
+	className?: string;
 }
 
 /**
@@ -62,12 +71,14 @@ type AnimationSequence = Parameters<typeof animate>[0];
 export default function Button({
 	secondary = false,
 	innerText = "Click me",
-	iconLink = null,
+	iconSrc = null,
+	iconAlt = "icon",
 	iconPosition = "start",
 	starsColor = "yellow",
 	starsCount = 20,
 	size = "medium",
 	disableSparkels = false,
+	className = ""
 }: ButtonProps) {
 	const [scope, animate] = useAnimate();
 	const [isAnimating, setIsAnimating] = React.useState(false);
@@ -185,13 +196,14 @@ export default function Button({
 					"relative flex items-center gap-x-2 justify-center cursor-pointer rounded-md px-4 py-3 shadow-button hover:shadow-none z-0",
 					secondary
 						? "bg-agblack border-2 border-[#414343] shadow-[#414343] active:bg-[rgba(255,255,255,0.25)"
-						: "bg-blue active:bg-agblack"
+						: "bg-blue active:bg-agblack",
+					className
 				)}
 			>
-				{iconLink !== null && (
+				{iconSrc !== null && (
 					<Image
-						src={iconLink}
-						alt={`${innerText} icon`}
+						src={iconSrc}
+						alt={iconAlt}
 						width={iconSize[size]}
 						height={iconSize[size]}
 						className="object-cover"
