@@ -93,10 +93,10 @@ const Header: React.FC<HeaderProps> = ({
 						</div>
 
 						{account.isConnected ? (
-							<>
+							<div>
 								<div className="w-[1px] h-full bg-gradient-to-b from-white to-[#999999]" />
 								<UserConnected />
-							</>
+							</div>
 						) : (
 							<RegisterButton
 								loading={loading}
