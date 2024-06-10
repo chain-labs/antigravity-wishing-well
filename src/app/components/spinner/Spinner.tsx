@@ -497,7 +497,7 @@ function Pointer({ activeState }: { activeState: SpinnerProps }) {
 			)}
 		>
 			<Image
-				src={require("@/app/model/assets/counter-pointer.svg")}
+				src={require("@/app/assets/counter-pointer.svg")}
 				width={50}
 				height={50}
 				layout="fixed"
@@ -511,7 +511,7 @@ function Timer({ activeState }: { activeState: SpinnerProps }) {
 	return (
 		<div className="absolute flex flex-col justify-center items-center gap-2 z-[100] w-[400px] h-[200px] translate-y-[60%]">
 			<Image
-				src={require("@/app/model/assets/counter-background.svg")}
+				src={require("@/app/assets/counter-background.svg")}
 				width={450}
 				height={225}
 				layout="fixed"

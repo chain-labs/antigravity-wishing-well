@@ -37,7 +37,7 @@ export default function Newsletter() {
 							className="uppercase tracking-widest rounded-md bg-brblue px-4 py-3 text-white font-sans font-extrabold flex justify-center items-center text-xl gap-2 w-fit"
 						>
 							<Image
-								src={require("@/app/model/assets/icons/send.svg")}
+								src={require("@/app/assets/icons/send.svg")}
 								alt="send"
 								width={40}
 								height={40}

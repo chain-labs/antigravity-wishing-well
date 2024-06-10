@@ -16,7 +16,7 @@ const meta = {
         backgroundImage: { control: "object" },
     },
 	args: {
-        backgroundImage: require("@/app/model/assets/mining.png"),
+        backgroundImage: require("@/app/assets/mining.png"),
     },
 } satisfies Meta<typeof HeroItemCard>;
 
@@ -27,7 +27,7 @@ export const Default: Story = {
 	args: {
 		title: "Hero Item Card",
 		description: "This is a hero item card.",
-		backgroundImage: require("@/app/model/assets/mining.png"),
+		backgroundImage: require("@/app/assets/mining.png"),
 		animateFrom: "none",
 	},
 };
@@ -36,7 +36,7 @@ export const AnimateLeft: Story = {
     args: {
         title: "Hero Item Card",
         description: "This is a hero item card.",
-        backgroundImage: require("@/app/model/assets/mining.png"),
+        backgroundImage: require("@/app/assets/mining.png"),
         animateFrom: "left",
     },
 };
@@ -45,7 +45,7 @@ export const AnimateRight: Story = {
     args: {
         title: "Hero Item Card",
         description: "This is a hero item card.",
-        backgroundImage: require("@/app/model/assets/mining.png"),
+        backgroundImage: require("@/app/assets/mining.png"),
         animateFrom: "right",
     },
 };
@@ -54,7 +54,7 @@ export const AnimateBottom: Story = {
     args: {
         title: "Hero Item Card",
         description: "This is a hero item card.",
-        backgroundImage: require("@/app/model/assets/mining.png"),
+        backgroundImage: require("@/app/assets/mining.png"),
         animateFrom: "bottom",
     },
 };

@@ -36,7 +36,7 @@ export const Secondary: Story = {
 export const ButtonWithIcon: Story = {
 	args: {
 		innerText: "Refresh",
-		iconLink: require("@/app/model/assets/icons/refresh.svg"),
+		iconLink: require("@/app/assets/icons/refresh.svg"),
 		size: "medium",
 	},
 };

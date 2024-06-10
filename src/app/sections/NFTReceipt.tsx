@@ -10,7 +10,7 @@ export default function NFTReceipt() {
 				<br /> Except you. You badass. Here&apos;s your NFT.
 			</div>
 			<Image
-				src={require("@/app/model/assets/nft-receipt.svg")}
+				src={require("@/app/assets/nft-receipt.svg")}
 				alt="NFT Receipt"
 				width={300}
 				height={600}
@@ -21,7 +21,7 @@ export default function NFTReceipt() {
                                 rounded-lg px-4 py-3 shadow-button hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-agblack bg-blue`}
 			>
 				<Image
-					src={require("@/app/model/assets/icons/claim.svg")}
+					src={require("@/app/assets/icons/claim.svg")}
 					alt="hammer icon"
 					width={25}
 					height={25}

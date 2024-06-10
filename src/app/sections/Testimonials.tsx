@@ -35,7 +35,7 @@ function TesimonialCard({
 					/>
 				) : (
 					<Image
-						src={require("@/app/model/assets/community-logo.svg")}
+						src={require("@/app/assets/community-logo.svg")}
 						alt={name}
 						width={50}
 						height={50}
@@ -75,7 +75,7 @@ export default function Testimonials() {
 						name="JohnDoeTheGreat"
 						shortDescription="loves our community!"
 						fullDescription="This is the best community I've been a part of. Max literally welcomes everyone on Telegram."
-						imageUrl={require("@/app/model/assets/dummy-testimonial-image.jpg")}
+						imageUrl={require("@/app/assets/dummy-testimonial-image.jpg")}
 					/>
 					<TesimonialCard
 						externalLink="/"
@@ -88,7 +88,7 @@ export default function Testimonials() {
 						name="JohnDoeTheGreat"
 						shortDescription="loves our community!"
 						fullDescription="This is the best community I've been a part of. Max literally welcomes everyone on Telegram."
-						imageUrl={require("@/app/model/assets/dummy-testimonial-image.jpg")}
+						imageUrl={require("@/app/assets/dummy-testimonial-image.jpg")}
 					/>
 					<TesimonialCard
 						externalLink="/"
@@ -101,7 +101,7 @@ export default function Testimonials() {
 						name="JohnDoeTheGreat"
 						shortDescription="loves our community!"
 						fullDescription="This is the best community I've been a part of. Max literally welcomes everyone on Telegram."
-						imageUrl={require("@/app/model/assets/dummy-testimonial-image.jpg")}
+						imageUrl={require("@/app/assets/dummy-testimonial-image.jpg")}
 					/>
 					<TesimonialCard
 						externalLink="/"

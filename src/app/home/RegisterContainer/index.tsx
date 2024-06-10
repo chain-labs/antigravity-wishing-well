@@ -40,7 +40,7 @@ const Register = ({
         priority
       />
       <div className="fixed top-0 w-full z-50 items-center pt-12 px-4">
-        <Header />
+        {/* <Header /> */}
       </div>
 
       {!isRegistered && !isSuccess ? (

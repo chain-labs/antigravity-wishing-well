@@ -112,7 +112,7 @@ function MobilePhase({
 					className="absolute w-full h-full bottom-0 left-0 translate-y-[35%] translate-x-[2%] flex justify-center items-center "
 				>
 					<Image
-						src={require("@/app/model/assets/timer-pointer.svg")}
+						src={require("@/app/assets/timer-pointer.svg")}
 						alt="timer-pointer"
 						width={20}
 						height={20}
@@ -206,7 +206,7 @@ export default function Countdown() {
         "
 		>
 			<Image
-				src={require("@/app/model/assets/countdown-bg-grid.svg")}
+				src={require("@/app/assets/countdown-bg-grid.svg")}
 				alt="countdown bg grid"
 				width={800}
 				height={800}
@@ -442,7 +442,7 @@ export default function Countdown() {
 							className="w-full h-full flex justify-end items-end px-[16px]"
 						>
 							<Image
-								src={require("@/app/model/assets/timer-pointer.svg")}
+								src={require("@/app/assets/timer-pointer.svg")}
 								alt="timer-pointer"
 								width={24}
 								height={24}

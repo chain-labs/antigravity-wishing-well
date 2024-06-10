@@ -145,7 +145,7 @@ function Rank({
 			<div className="flex gap-2 justify-start items-center lg:hidden">
 				<Image
 					src={require(
-						`@/app/model/assets/icons/${special ? "wallet-black.svg" : "wallet.svg"}`
+						`@/app/assets/icons/${special ? "wallet-black.svg" : "wallet.svg"}`
 					)}
 					alt="hammer icon"
 					width={25}
@@ -178,7 +178,7 @@ export default function Leaderboard() {
 						className={`relative flex items-center gap-x-2 justify-center font-sans uppercase font-extrabold tracking-widest text-agwhite cursor-pointer rounded-lg px-4 py-3 shadow-button shadow-[#414343] border-[#414343] border-2 hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-[rgba(255,255,255,0.25)]`}
 					>
 						<Image
-							src={require("@/app/model/assets/icons/refresh.svg")}
+							src={require("@/app/assets/icons/refresh.svg")}
 							alt="leaderboard icon"
 							width={25}
 							height={25}
@@ -193,16 +193,16 @@ export default function Leaderboard() {
 						<thead className="w-full">
 							<TR th>
 								<TH
-									icon={require("@/app/model/assets/icons/leaderboard.svg")}
+									icon={require("@/app/assets/icons/leaderboard.svg")}
 									heading="Rank"
 								/>
 								<TH
-									icon={require("@/app/model/assets/icons/wallet.svg")}
+									icon={require("@/app/assets/icons/wallet.svg")}
 									heading="Wallet"
 									className="hidden lg:flex"
 								/>
 								<TH
-									icon={require("@/app/model/assets/icons/points.svg")}
+									icon={require("@/app/assets/icons/points.svg")}
 									heading="Points"
 								/>
 							</TR>
@@ -298,7 +298,7 @@ export default function Leaderboard() {
 
 					<div className="relative flex flex-col w-full gap-4 lg:pl-6 place-self-end">
 						<Image
-							src={require("@/app/model/assets/collective-color-logo.svg")}
+							src={require("@/app/assets/collective-color-logo.svg")}
 							alt="leaderboard background"
 							width={100}
 							height={100}
@@ -321,7 +321,7 @@ export default function Leaderboard() {
 						<div className="relative flex flex-col gap-4 p-4 rounded-xl overflow-hidden w-full z-0">
 							<div className="bg-[#3C00DC] absolute inset-0 -z-10 opacity-[25%]"></div>
 							<Image
-								src={require("@/app/model/assets/icons/info.svg")}
+								src={require("@/app/assets/icons/info.svg")}
 								alt="info icon"
 								width={25}
 								height={25}
@@ -338,7 +338,7 @@ export default function Leaderboard() {
                                 rounded-lg px-4 py-3 shadow-button hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-agblack bg-blue`}
 							>
 								<Image
-									src={require("@/app/model/assets/icons/hammer.svg")}
+									src={require("@/app/assets/icons/hammer.svg")}
 									alt="hammer icon"
 									width={25}
 									height={25}
