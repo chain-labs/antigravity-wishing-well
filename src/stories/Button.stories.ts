@@ -24,3 +24,27 @@ export const Primary: Story = {
 		size: "medium",
 	},
 };
+
+export const Secondary: Story = {
+	args: {
+		secondary: true,
+		innerText: "Secondary",
+		size: "medium",
+	},
+};
+
+export const ButtonWithIcon: Story = {
+	args: {
+		innerText: "Refresh",
+		iconLink: require("@/app/model/assets/icons/refresh.svg"),
+		size: "medium",
+	},
+};
+
+export const ButtonWithNoSparkles: Story = {
+	args: {
+		innerText: "No sparkles",
+		disableSparkels: true,
+		size: "medium",
+	},
+};

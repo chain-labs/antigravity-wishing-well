@@ -42,6 +42,11 @@ interface ButtonProps {
 	 * @default "medium"
 	 **/
 	size?: "small" | "medium" | "large";
+	/**
+	 * Whether to disable the sparkles animation
+	 * @default false
+	 **/
+	disableSparkels?: boolean;
 }
 
 /**
@@ -62,6 +67,7 @@ export default function Button({
 	starsColor = "yellow",
 	starsCount = 20,
 	size = "medium",
+	disableSparkels = false,
 }: ButtonProps) {
 	const [scope, animate] = useAnimate();
 	const [isAnimating, setIsAnimating] = React.useState(false);
@@ -125,24 +131,42 @@ export default function Button({
 			},
 		]);
 
-		animate([
-			...sparklesReset,
-			[
-				".letter",
-				{ y: -letterSize[size] },
-				{
-					duration: 0.2,
-					delay: stagger(0.2 / innerTextStringArray.length),
-				},
-			],
-			["button", { scale: 0.8 }, { duration: 0.1, at: "<" }],
-			["button", { scale: 1 }, { duration: 0.1 }],
-			...sparklesAnimation,
-			[".letter", { y: 0 }, { duration: 0.000001 }],
-			...sparklesFadeOut,
-		]).then(() => {
-			setIsAnimating(false);
-		});
+		if (disableSparkels) {
+			animate([
+				[
+					".letter",
+					{ y: -letterSize[size] },
+					{
+						duration: 0.2,
+						delay: stagger(0.2 / innerTextStringArray.length),
+					},
+				],
+				["button", { scale: 0.8 }, { duration: 0.1, at: "<" }],
+				["button", { scale: 1 }, { duration: 0.1 }],
+				[".letter", { y: 0 }, { duration: 0.000001, at: 0.5 }],
+			]).then(() => {
+				setIsAnimating(false);
+			});
+		} else {
+			animate([
+				...sparklesReset,
+				[
+					".letter",
+					{ y: -letterSize[size] },
+					{
+						duration: 0.2,
+						delay: stagger(0.2 / innerTextStringArray.length),
+					},
+				],
+				["button", { scale: 0.8 }, { duration: 0.1, at: "<" }],
+				["button", { scale: 1 }, { duration: 0.1 }],
+				...sparklesAnimation,
+				[".letter", { y: 0 }, { duration: 0.000001 }],
+				...sparklesFadeOut,
+			]).then(() => {
+				setIsAnimating(false);
+			});
+		}
 	};
 
 	return (
@@ -153,7 +177,7 @@ export default function Button({
 					{
 						flexDirection:
 							iconPosition === "start" ? "row" : "row-reverse",
-						boxShadow: secondary && "0 6px 0 0 #414343"
+						boxShadow: secondary && "0 6px 0 0 #414343",
 					} as any
 				}
 				className={twMerge(
