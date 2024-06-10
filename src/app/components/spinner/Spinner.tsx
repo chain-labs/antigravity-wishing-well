@@ -7,6 +7,8 @@ import { motion } from "framer-motion";
 import DynamicNumberCounter from "./DynamicNumberCounter";
 import AutomaticIncreamentalNumberCounter from "./AutomaticIncreamentalNumberCounter";
 
+const globalDelay = 1.5;
+
 type SpinnerProps = {
 	era: "wishwell" | "mining" | "minting";
 	stage: 1 | 2 | 3;
@@ -69,14 +71,14 @@ function H1({
 				>
 					{currentState.era === era ? (
 						<motion.h1
-							animate={{
+							whileInView={{
 								color: "black",
 							}}
 							initial={{
 								color: "white",
 							}}
 							viewport={{ once: true }}
-							transition={{ duration: 0.5, delay: 1 }}
+							transition={{ duration: 0.5, delay: globalDelay + 1 }}
 							className={twMerge(styles["era-styles"].active)}
 						>
 							{isEraLetter}
@@ -96,14 +98,14 @@ function H1({
 				>
 					{active ? (
 						<motion.h1
-							animate={{
+							whileInView={{
 								color: "black",
 							}}
 							initial={{
 								color: "white",
 							}}
 							viewport={{ once: true }}
-							transition={{ duration: 0.5, delay: 1 }}
+							transition={{ duration: 0.5, delay: globalDelay + 1 }}
 							className={twMerge(
 								styles["stage-styles"].active,
 								className
@@ -181,7 +183,7 @@ function decideActiveStageLocation(activeState: SpinnerProps) {
 function StageHighlighter({ activeState }: { activeState: SpinnerProps }) {
 	return (
 		<motion.div
-			animate={{
+			whileInView={{
 				x: "-50%",
 				y: "-50%",
 				rotate: decideActiveStageLocation(activeState),
@@ -191,7 +193,8 @@ function StageHighlighter({ activeState }: { activeState: SpinnerProps }) {
 				y: "-50%",
 				rotate: -180,
 			}}
-			transition={{ duration: 1 }}
+			viewport={{ once: true }}
+			transition={{ duration: 1, delay: globalDelay}}
 			className={twMerge(
 				"absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[300px] w-[40px] bg-agyellow z-10",
 				`rotate-[${decideActiveStageLocation(activeState)}deg]`
@@ -206,7 +209,7 @@ function StageHighlighter({ activeState }: { activeState: SpinnerProps }) {
 function EraHighlighter({ activeState }: { activeState: SpinnerProps }) {
 	return (
 		<motion.div
-			animate={{
+			whileInView={{
 				x: "-50%",
 				y: "-50%",
 				rotate:
@@ -221,7 +224,8 @@ function EraHighlighter({ activeState }: { activeState: SpinnerProps }) {
 				y: "-50%",
 				rotate: 180,
 			}}
-			transition={{ duration: 1 }}
+			viewport={{ once: true }}
+			transition={{ duration: 1, delay: globalDelay}}
 			className={twMerge(
 				"absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[490px] w-[190px] bg-agyellow z-10",
 				`rotate-[${activeState.era === "wishwell" ? -75 : activeState.era === "minting" ? 75 : 0}deg]`
@@ -475,7 +479,7 @@ function StageInBetweenBorders() {
 function Pointer({ activeState }: { activeState: SpinnerProps }) {
 	return (
 		<motion.div
-			animate={{
+			whileInView={{
 				x: "-50%",
 				y: "-50%",
 				rotate: decideActiveStageLocation(activeState),
@@ -485,16 +489,17 @@ function Pointer({ activeState }: { activeState: SpinnerProps }) {
 				y: "-50%",
 				rotate: 180,
 			}}
-			transition={{ duration: 1 }}
+			viewport={{ once: true }}
+			transition={{ duration: 1, delay: globalDelay}}
 			className={twMerge(
-				"absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[100px] w-[30px] z-10 pt-6",
+				"absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[100px] w-[50px] z-10 pt-0",
 				`rotate-[${decideActiveStageLocation(activeState)}deg]`
 			)}
 		>
 			<Image
-				src={require("@/app/model/assets/counter-pointer.svg")}
-				width={25}
-				height={25}
+				src={require("@/app/assets/counter-pointer.svg")}
+				width={50}
+				height={50}
 				layout="fixed"
 				alt="Counter Pointer"
 			/>
@@ -506,7 +511,7 @@ function Timer({ activeState }: { activeState: SpinnerProps }) {
 	return (
 		<div className="absolute flex flex-col justify-center items-center gap-2 z-[100] w-[400px] h-[200px] translate-y-[60%]">
 			<Image
-				src={require("@/app/model/assets/counter-background.svg")}
+				src={require("@/app/assets/counter-background.svg")}
 				width={450}
 				height={225}
 				layout="fixed"
@@ -640,34 +645,34 @@ export default function Spinner() {
 
 	return (
 		<motion.div
-			animate={{
+			whileInView={{
 				filter: "saturate(1)",
 			}}
 			initial={{
 				filter: "saturate(0)",
 			}}
-			transition={{ duration: 1 }}
+			viewport={{ once: true }}
+			transition={{ duration: 1, delay: globalDelay }}
 			className="absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-60%] md:translate-y-[-37%] w-[500px] h-[500px] bg-black rounded-full flex justify-center items-center scale-[0.7] sm:scale-[1] overflow-hidden z-[100]"
 		>
 			<div className="relative w-[470px] h-[470px] bg-[radial-gradient(circle_at_center,#B7A4EA,#1C0068_65%)] rounded-full flex justify-center items-center overflow-hidden">
 				<Era activeState={activeState} />
-				
+
 				<div className="relative w-[300px] h-[300px] bg-[radial-gradient(circle_at_center,#B7A4EA,#1C0068_65%)] rounded-full border-[10px] border-agblack flex justify-center items-center overflow-hidden z-10">
 					<StageHighlighter activeState={activeState} />
 					<StageInBetweenBorders />
 					<div className="relative w-[180px] h-[180px] bg-[#1C0068] rounded-full border-[10px] border-agblack flex justify-center items-center z-10">
 						<StageNumber activeState={activeState} />
-						
+
 						<div className="relative w-[100px] h-[100px] bg-agyellow rounded-full flex justify-center items-center">
 							<div className="flex flex-col justify-center items-center">
 								<Pointer activeState={activeState} />
 								<Bonus activeState={activeState} />
 							</div>
 						</div>
-
 					</div>
 				</div>
-				
+
 				<Timer activeState={activeState} />
 			</div>
 		</motion.div>

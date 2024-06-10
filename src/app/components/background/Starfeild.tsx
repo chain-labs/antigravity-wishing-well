@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { BufferGeometry } from "three";
@@ -157,15 +157,17 @@ export default function StarFieldCanvas({
 			style={{ width: "100%", height: "100vh" }}
 			className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[1] bg-agblack"
 		>
-			<Canvas camera={{ position: [0, 0, 0], fov: 75 }}>
-				<StarField
-					count={count}
-					xRange={xRange}
-					yRange={yRange}
-					zRange={zRange}
-					speed={speed}
-				/>
-			</Canvas>
+			<Suspense fallback={null}>
+				<Canvas camera={{ position: [0, 0, 0], fov: 75 }}>
+					<StarField
+						count={count}
+						xRange={xRange}
+						yRange={yRange}
+						zRange={zRange}
+						speed={speed}
+					/>
+				</Canvas>
+			</Suspense>
 		</div>
 	);
 }

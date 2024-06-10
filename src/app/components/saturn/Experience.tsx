@@ -9,7 +9,7 @@ import {
 	Sphere,
 	useProgress,
 } from "@react-three/drei";
-import { Suspense, useMemo, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { Saturn } from "./Saturn";
 import { scroll } from "framer-motion";
@@ -36,10 +36,11 @@ export default function Experience() {
 	const curve = useMemo(() => {
 		const curve = new THREE.CatmullRomCurve3([
 			new THREE.Vector3(0, 0, 0),
-			new THREE.Vector3(0, -5, 0),
-			new THREE.Vector3(-5, -2, -2),
-			new THREE.Vector3(0, -5, -5),
-			new THREE.Vector3(-10, -3, 2),
+			new THREE.Vector3(-4, -4, -2),
+			new THREE.Vector3(-4, -3, -5),
+			new THREE.Vector3(-4, -3, -5),
+			new THREE.Vector3(-5, -3, 0),
+			new THREE.Vector3(-5, -4, 0),
 			new THREE.Vector3(-5, -4, 0),
 		]);
 		curve.curveType = "catmullrom";
@@ -53,10 +54,36 @@ export default function Experience() {
 	const saturn = useRef<any>();
 
 	const [progress, setProgress] = useState(0);
+	const [smallerViewPort, setSmallerViewPort] = useState(false);
 
-	scroll((progress) => setProgress(progress));
+	scroll((progress) => setProgress(smallerViewPort ? 0 : progress));
+
+	useEffect(() => {
+
+		if (window === undefined) return;
+
+		window.addEventListener("resize", () => {
+			if (window.innerWidth < 1200) {
+				console.log("smaller view port detected");
+				setSmallerViewPort(true);
+				setProgress(0);
+			} else {
+				console.log("larger view port detected");
+				setSmallerViewPort(false);
+			}
+		});
+
+		window.innerWidth < 1200 && setSmallerViewPort(true);
+
+		return () => {
+			window.removeEventListener("resize", () => {});
+		};
+
+	}, []);
 
 	useFrame((_state, delta) => {
+		if (smallerViewPort) return;
+
 		const scrollOffset = Number(progress.toFixed(2));
 		const curIndex = Math.min(
 			Math.round(scrollOffset * linePoints.length),

@@ -139,12 +139,17 @@ export function Saturn(
 									depthTest={false}
 								/>
 							</mesh>
-							<mesh
+							{/* <mesh
 								geometry={nodes.Object_4.geometry}
 								material={materials.Saturn}
 								material-envMapIntensity={1}
-							/>
-							
+							/> */}
+							<mesh
+								material={materials.Saturn}
+								material-envMapIntensity={1}
+							>
+								<sphereGeometry args={[0.30, 24, 24]} />
+							</mesh>
 						</motion.group>
 					</group>
 				</group>

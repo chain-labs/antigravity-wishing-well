@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Spinner from "../components/spinner/Spinner";
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useRef, useState } from "react";
+import { MotionStyle, motion, useScroll, useTransform } from "framer-motion";
 import { twMerge } from "tailwind-merge";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
@@ -12,10 +12,12 @@ function HeroItemCard({
 	description,
 	backgroundImage,
 	animateFrom,
+	style,
 }: {
 	title: string;
 	description: string;
 	backgroundImage: StaticImport;
+	style?: React.CSSProperties | MotionStyle;
 	animateFrom: "left" | "right" | "bottom";
 }) {
 	const [hover, setHover] = useState(false);
@@ -33,6 +35,7 @@ function HeroItemCard({
 
 	return (
 		<motion.div
+			style={style}
 			animate={{
 				x: 0,
 				y: 0,
@@ -59,7 +62,7 @@ function HeroItemCard({
 				width={1024}
 				className={twMerge(
 					"absolute top-0 left-0 object-cover h-full w-full -z-10 transition-opacity duration-500",
-					hover ? "opacity-[0.35]" : "opacity-[0.5]"
+					hover ? "opacity-[0.25]" : "opacity-[0.65]"
 				)}
 			/>
 			<h1 className="text-5xl from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
@@ -78,30 +81,54 @@ function HeroItemCard({
 }
 
 export default function Hero() {
+	const targetRef = useRef<HTMLDivElement>(null);
+	const { scrollYProgress } = useScroll({
+		target: targetRef,
+		offset: ["start end", "start end"],
+	});
+
+	const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+
 	return (
-		<div className="relative grid grid-rows-3 sm:grid-cols-3 md:grid-rows-1 w-full h-[180vh] md:h-[60vh] mt-[50vh] md:mt-[40vh] z-0">
-			<Spinner />
-			<HeroItemCard
-				title="WishWell"
-				description="Here is a one or two line short description about this.
+		<div ref={targetRef}>
+			<motion.div
+				style={{
+					opacity,
+				}}
+				className="relative grid grid-rows-3 sm:grid-cols-3 md:grid-rows-1 w-full h-[180vh] md:h-[60vh] mt-[50vh] md:mt-[40vh] z-0"
+			>
+				<Spinner />
+				<HeroItemCard
+					title="WishWell"
+					description="Here is a one or two line short description about this.
 				Here is a one or two line short description about this."
-				backgroundImage={require("../assets/wishwell.png")}
-				animateFrom="left"
-			/>
-			<HeroItemCard
-				title="Mining"
-				description="Here is a one or two line short description about this.
+					backgroundImage={require("../assets/wishwell.png")}
+					animateFrom="left"
+					style={{
+						opacity,
+					}}
+				/>
+				<HeroItemCard
+					title="Mining"
+					description="Here is a one or two line short description about this.
 				Here is a one or two line short description about this."
-				backgroundImage={require("../assets/mining.png")}
-				animateFrom="bottom"
-			/>
-			<HeroItemCard
-				title="Minting"
-				description="Here is a one or two line short description about this.
+					backgroundImage={require("../assets/mining.png")}
+					animateFrom="bottom"
+					style={{
+						opacity,
+					}}
+				/>
+				<HeroItemCard
+					title="Minting"
+					description="Here is a one or two line short description about this.
 				Here is a one or two line short description about this."
-				backgroundImage={require("../assets/minting.png")}
-				animateFrom="right"
-			/>
+					backgroundImage={require("../assets/minting.png")}
+					animateFrom="right"
+					style={{
+						opacity,
+					}}
+				/>
+			</motion.div>
 		</div>
 	);
 }
