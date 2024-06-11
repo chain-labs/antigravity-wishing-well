@@ -267,7 +267,7 @@ export default function HomePage() {
 			<div className="flex flex-col min-h-screen min-w-screen overflow-hidden">
 				<div className="relative z-0 flex flex-col min-h-screen">
 					<div className="fixed top-0 w-full z-50 items-center pt-12 px-4">
-						<Header
+						{/* <Header
 							loading={loading}
 							error={error}
 							registerIdle={registerIdle}
@@ -275,7 +275,7 @@ export default function HomePage() {
 							handleRegister={handleRegister}
 							isRegistered={isRegistered}
 							setError={setError}
-						/>
+						/> */}
 					</div>
 						<div className="z-100">
 							<Hero />
@@ -288,14 +288,14 @@ export default function HomePage() {
 							<Footer />
 						</div>
 					<div className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[1]">
-						<CanvasRendering />
-						<StarFieldCanvas
+						{/* <CanvasRendering /> */}
+						{/* <StarFieldCanvas
 							count={100}
 							xRange={100}
 							yRange={100}
 							zRange={100}
 							speed={0.1}
-						/>
+						/> */}
 					</div>
 				</div>
 			</div>

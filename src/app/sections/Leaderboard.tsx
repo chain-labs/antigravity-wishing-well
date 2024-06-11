@@ -28,8 +28,8 @@ function TH({
 	return (
 		<th
 			className={twMerge(
-				`relative bg-[#0A0025] border-1 border-transparent bg-clip-padding flex flex-col lg:flex-row justify-between z-0 px-3 py-[10px] w-full
-            before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-bl before:from-[#3C00DC] before:to-[#FF5001] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
+				`relative bg-[#0A0025] border-[2px] lg:border-[2px] border-transparent bg-clip-padding flex flex-col lg:flex-row justify-between z-0 px-3 py-[10px] w-full
+            before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-bl before:from-[#3C00DC] before:to-[#FF5001] before:rounded-[inherit] before:overflow-hidden before:mb-[-1px] before:ml-[-1px] lg:before:m-[-1px]
 			after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-agblack after:rounded-[inherit] after:overflow-hidden`,
 				className
 			)}
@@ -59,11 +59,13 @@ function TD({
 	truncate = false,
 	special = false,
 	className,
+	border = false,
 }: {
 	children: React.ReactNode;
 	truncate?: boolean;
 	special?: boolean;
 	className?: string;
+	border?: boolean;
 }) {
 	const [truncateHover, setTruncateHover] = useState(false);
 	function truncateHoverTrue() {
@@ -81,7 +83,7 @@ function TD({
 					onMouseEnter={truncateHoverTrue}
 					onMouseLeave={truncateHoverFalse}
 					className={twMerge(
-						"text-[14px] relative border-r-2 border-[#8275A5] bg-clip-padding hidden lg:flex flex-col lg:flex-row justify-between z-10 px-[12px] py-[6px] w-full truncate hover:overflow-visible",
+						"text-[14px] relative border-r-2 border-[#414343] lg:border-[#8275A5] bg-clip-padding hidden lg:flex flex-col lg:flex-row justify-start items-center z-10 px-[12px] py-[6px] w-full truncate hover:overflow-visible",
 						className,
 						special && "text-[18px]"
 					)}
@@ -116,8 +118,10 @@ function TD({
 	return (
 		<td
 			className={twMerge(
-				"text-[14px] relative border-r-2 border-[#8275A5] bg-clip-padding flex justify-center lg:justify-start lg:items-center gap-1 lg:gap-4 flex-col lg:flex-row z-0 px-[12px] py-[6px]",
-				special && "border-none text-[18px] py-[10px]",
+				"text-[14px] relative border-r-2 border-[#414343] lg:border-[#8275A5] bg-clip-padding flex flex-col justify-center lg:justify-start lg:items-center gap-[4px] lg:gap-4 lg:flex-row z-0 p-[8px] lg:px-[12px] lg:py-[6px]",
+				special && !border && "border-none text-[18px] py-[10px]",
+				border && special && "border-r-2 text-[18px] py-[10px]",
+
 				className
 			)}
 		>
@@ -142,7 +146,7 @@ function TR({
 	return (
 		<tr
 			className={twMerge(
-				"relative grid grid-cols-[2fr_1fr] lg:grid-cols-[2fr_1fr_1fr] w-full border-l-2 border-b-2 border-[#8275A5] z-0",
+				"relative grid grid-cols-[2fr_1fr] lg:grid-cols-[2fr_1fr_1fr] w-full lg:border-l-2 border-b-2 border-[#414343] lg:border-[#8275A5] z-0",
 				special && " text-black font-extrabold  border-none",
 				empty &&
 					"bg-gradient-to-b from-[#142266] via-[#0A1133] to-[#142266] border-r-2",
@@ -188,9 +192,9 @@ function Rank({
 	special?: boolean;
 }) {
 	return (
-		<TD special={special}>
+		<TD special={special} border>
 			#{rank} <Badge special={special}>Specialist Technician</Badge>
-			<div className="flex gap-2 justify-start items-center lg:hidden">
+			<div className="flex gap-[4px] justify-start items-center lg:hidden text-[18px] lg:text-[14px]">
 				<Image
 					src={require(
 						`@/app/assets/icons/${special ? "wallet-black.svg" : "wallet.svg"}`
@@ -207,6 +211,10 @@ function Rank({
 			</div>
 		</TD>
 	);
+}
+
+function pointsConverterToUSCommaseparated(points: number) {
+	return points.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 type tableDataType = {
@@ -283,7 +291,7 @@ export default function Leaderboard() {
 		<div ref={targetRef}>
 			<motion.div
 				style={{ opacity }}
-				className="relative w-[110%] translate-x-[-7.5%] md:translate-x-0 md:w-4/5 mx-4 my-32 md:mx-auto bg-[#0A0025] rounded-xl p-8 border-4 border-transparent bg-clip-padding flex flex-col lg:flex-row justify-between gap-10 z-0
+				className="relative max-w-[1200px] p-[16px] lg:p-8 border-t-4 border-b-4 lg:border-4 my-32 lg:mx-auto md:translate-x-0 md:w-4/5 md:mx-auto bg-[#0A0025] rounded-none lg:rounded-xl border-transparent bg-clip-padding flex flex-col lg:flex-row justify-between gap-[16px] lg:gap-32 z-0
             before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-bl before:from-[#5537A5] before:to-[#BF6841] before:rounded-[inherit] before:overflow-hidden before:m-[-2px]
 			after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-agblack after:rounded-[inherit] after:overflow-hidden
         "
@@ -315,58 +323,71 @@ export default function Leaderboard() {
 					</div>
 
 					<div className="grid grid-cols-1 lg:grid-cols-3 w-full max-w-[100%] pt-6">
-						<table className="col-span-2 w-full bg-gradient-to-b from-[#0A1133] to-[#142266] h-fit">
-							<thead className="w-full">
-								<TR th>
-									<TH
-										icon={require("@/app/assets/icons/leaderboard.svg")}
-										heading="Rank"
-									/>
-									<TH
-										icon={require("@/app/assets/icons/wallet.svg")}
-										heading="Wallet"
-										className="hidden lg:flex"
-									/>
-									<TH
-										icon={require("@/app/assets/icons/points.svg")}
-										heading="Points"
-									/>
-								</TR>
-							</thead>
-							<tbody className="text-lg font-medium font-general-sans text-white">
-								{tableData.map((data, idx) =>
-									data !== null ? (
-										<TR
-											key={idx}
-											special={data.special ?? false}
-										>
-											<Rank
-												rank={data.rank}
-												wallet={data.wallet}
-												special={data.special ?? false}
-											/>
-											<TD
-												truncate
+						<div className="col-span-2 w-full rounded-[4px] border-[2px] border-[#414343] lg:border-none">
+							<table className="w-full bg-gradient-to-b from-[#0A1133] to-[#142266] h-fit">
+								<thead className="w-full">
+									<TR th>
+										<TH
+											icon={require("@/app/assets/icons/leaderboard.svg")}
+											heading="Rank"
+										/>
+										<TH
+											icon={require("@/app/assets/icons/wallet.svg")}
+											heading="Wallet"
+											className="hidden lg:flex"
+										/>
+										<TH
+											icon={require("@/app/assets/icons/points.svg")}
+											heading="Points"
+										/>
+									</TR>
+								</thead>
+								<tbody className="text-lg font-medium font-general-sans text-white">
+									{tableData.map((data, idx) =>
+										data !== null ? (
+											<TR
+												key={idx}
 												special={data.special ?? false}
 											>
-												{data.wallet}
-											</TD>
-											<TD special={data.special ?? false}>
-												{data.points}
-											</TD>
-										</TR>
-									) : (
-										<TR
-											key={idx}
-											className="h-[2.5rem]"
-											empty
-										>
-											<></>
-										</TR>
-									)
-								)}
-							</tbody>
-						</table>
+												<Rank
+													rank={data.rank}
+													wallet={data.wallet}
+													special={
+														data.special ?? false
+													}
+												/>
+												<TD
+													truncate
+													special={
+														data.special ?? false
+													}
+												>
+													{data.wallet}
+												</TD>
+												<TD
+													special={
+														data.special ?? false
+													}
+													className="text-[18px] lg:text-[14px]"
+												>
+													{pointsConverterToUSCommaseparated(
+														data.points
+													)}
+												</TD>
+											</TR>
+										) : (
+											<TR
+												key={idx}
+												className="h-[2.5rem]"
+												empty
+											>
+												<></>
+											</TR>
+										)
+									)}
+								</tbody>
+							</table>
+						</div>
 
 						<div className="relative flex flex-col w-full gap-4 lg:pl-6 place-self-end">
 							<Image
@@ -376,7 +397,7 @@ export default function Leaderboard() {
 								height={100}
 								className="object-cover absolute bottom-0 right-0 lg:left-[10%] lg:top-0 lg:translate-y-[-100%] z-[100] opacity-[50%]"
 							/>
-							<div className="flex flex-col gap-[8px] p-[16px]">
+							<div className="flex flex-col gap-[8px] py-[16px] lg:p-[16px]">
 								<h2 className="font-general-sans text-[16px] text-white font-medium">
 									Wallet Connected:
 								</h2>

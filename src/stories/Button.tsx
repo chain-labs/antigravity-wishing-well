@@ -209,7 +209,7 @@ export default function Button({
 						"uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite cursor-pointer rounded-lg px-4 py-3 shadow-button hover:translate-y-1 transition-[all_150ms] hover:shadow-none",
 						secondary
 							? `uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite cursor-pointer
-                                rounded-lg px-[8px] py-[10px] border-2 drop-shadow-[0_4px_0_0_#414343] border-[#414343] hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-agblack bg-agblack`
+                                rounded-lg px-[8px] py-[10px] border-r-2 border-t-3 border-b-4 border-l-2 drop-shadow-[0_4px_0_0_rgb(65,67,67)] border-[#414343] hover:translate-y-1 transition-[all_150ms] hover:border-2 active:bg-agblack bg-agblack`
 							: "bg-blue active:bg-agblack",
 						className
 					)}

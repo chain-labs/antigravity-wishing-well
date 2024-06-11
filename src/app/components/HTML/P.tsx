@@ -8,7 +8,7 @@ export default function P({
 	return (
 		<p
 			className={
-				"text-[16px] font-general-sans text-white font-medium" +
+				"text-[16px] font-general-sans text-white font-medium" + " " +
 				className ?? ""
 			}
 		>

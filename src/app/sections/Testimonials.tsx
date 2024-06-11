@@ -27,18 +27,17 @@ function TesimonialCard({
 	const gapY = useTransform(scrollYProgress, [0, 0.25], ["2rem", "0.5rem"]);
 	return (
 		<motion.a
-			style={{
-				marginLeft: gapX,
-				marginRight: gapX,
-				marginTop: gapY,
-				marginBottom: gapY,
-			}}
+			style={
+				{
+					"--gap": gapX,
+				} as any
+			}
 			href={externalLink}
-			className=" cursor-pointer hover:scale-[1.05] hover:z-20 transition-all duration-300 relative w-fit h-fit bg-[#0A0025] rounded-xl border-4 border-transparent bg-clip-padding flex flex-col justify-start gap-4 z-0 p-4
+			className=" cursor-pointer hover:scale-[1.05] my-[calc(var(--gap))] mx-[calc(var(--gap)*8)] md:m-[--gap] hover:z-20 transition-all duration-300 relative w-fit h-fit bg-[#0A0025] rounded-xl border-4 border-transparent bg-clip-padding flex flex-col justify-start gap-[16px] z-0 py-[24px] px-[16px]
             before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-b before:from-[#B4EBF8] before:to-[#789DFA] before:rounded-[inherit] before:overflow-hidden before:m-[-2px]
             after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-gradient-to-b after:from-[#0A1133] after:to-[#142266] after:rounded-[inherit] after:overflow-hidden"
 		>
-			<div className="flex gap-2 justify-start items-center w-fit">
+			<div className="flex gap-2 justify-start items-center w-fit overflow-hidden">
 				{imageUrl ? (
 					<Image
 						src={imageUrl}
@@ -83,10 +82,10 @@ export default function Testimonials() {
 	return (
 		<div
 			ref={targetRef}
-			className="mx-4 flex flex-col gap-8 items-center justify-center"
+			className="flex flex-col gap-8 items-center justify-center"
 		>
 			<motion.div style={{ y }}>
-				<H1>The Galactic Tea...</H1>
+				<H1 center>The Galactic Tea...</H1>
 			</motion.div>
 			<ResponsiveMasonry
 				columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}

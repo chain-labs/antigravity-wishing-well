@@ -27,7 +27,7 @@ export default function NFTReceipt() {
 					y: textY,
 				}}
 			>
-				<H1>
+				<H1 center>
 					Not everyone makes smart decisions.
 					<br /> Except you. You badass. Here&apos;s your NFT.
 				</H1>
