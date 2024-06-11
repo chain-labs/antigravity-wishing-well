@@ -1,10 +1,15 @@
 "use client";
 
 import Button from "@/stories/Button";
-import { useScroll, useTransform, motion } from "framer-motion";
+import {
+	useScroll,
+	useTransform,
+	motion,
+	AnimatePresence,
+} from "framer-motion";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 function TH({
@@ -56,16 +61,50 @@ function TD({
 	special?: boolean;
 	className?: string;
 }) {
+	const [truncateHover, setTruncateHover] = useState(false);
+	function truncateHoverTrue() {
+		setTruncateHover(true);
+	}
+
+	function truncateHoverFalse() {
+		setTruncateHover(false);
+	}
+
 	if (truncate && children && typeof children === "string") {
 		return (
-			<td
-				className={twMerge(
-					"elative border-r-2 border-[#8275A5] bg-clip-padding hidden lg:flex flex-col lg:flex-row justify-between z-0 px-3 py-[10px] w-full truncate",
-					className
-				)}
-			>
-				{truncatinator(children)}
-			</td>
+			<AnimatePresence>
+				<td
+					onMouseEnter={truncateHoverTrue}
+					onMouseLeave={truncateHoverFalse}
+					className={twMerge(
+						"relative border-r-2 border-[#8275A5] bg-clip-padding hidden lg:flex flex-col lg:flex-row justify-between z-10 px-3 py-[10px] w-full truncate hover:overflow-visible",
+						className
+					)}
+				>
+					{truncateHover ? (
+						<>
+							<motion.div
+								animate={{
+									opacity: 1,
+								}}
+								initial={{
+									opacity: 0,
+								}}
+								transition={{ duration: 0.2, delay: 0.5 }}
+								className={twMerge(
+									"absolute top-[50%] left-[50%] p-2 -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white text-center text-agblack z-10",
+									special && "text-agyellow bg-gradient-to-b from-[#0A1133] to-[#142266]"
+								)}
+							>
+								{children}
+							</motion.div>
+							{truncatinator(children)}
+						</>
+					) : (
+						truncatinator(children)
+					)}
+				</td>
+			</AnimatePresence>
 		);
 	}
 	return (
@@ -164,11 +203,72 @@ function Rank({
 	);
 }
 
+type tableDataType = {
+	rank: number;
+	badge: string;
+	wallet: string;
+	points: number;
+	special?: boolean;
+} | null;
+
+const tableData: tableDataType[] = [
+	{
+		rank: 1,
+		badge: "Specialist Technician",
+		wallet: "0x1234567890abcdef1234567890abcdef12345678",
+		points: 90000,
+	},
+	{
+		rank: 2,
+		badge: "Specialist Technician",
+		wallet: "0x1234567890abcdef1234567890abcdef12345678",
+		points: 90000,
+	},
+	{
+		rank: 3,
+		badge: "Specialist Technician",
+		wallet: "0x1234567890abcdef1234567890abcdef12345678",
+		points: 90000,
+	},
+	{
+		rank: 4,
+		badge: "Specialist Technician",
+		wallet: "0x1234567890abcdef1234567890abcdef12345678",
+		points: 90000,
+	},
+	{
+		rank: 5,
+		badge: "Specialist Technician",
+		wallet: "0x1234567890abcdef1234567890abcdef12345678",
+		points: 90000,
+	},
+	null,
+	{
+		rank: 1234566,
+		badge: "Specialist Technician",
+		wallet: "0x1234567890abcdef1234567890abcdef12345678",
+		points: 90000,
+	},
+	{
+		rank: 1234567,
+		badge: "Specialist Technician",
+		wallet: "0x1234567890abcdef1234567890abcdef12345678",
+		points: 90000,
+		special: true,
+	},
+	{
+		rank: 1234568,
+		badge: "Specialist Technician",
+		wallet: "0x1234567890abcdef1234567890abcdef12345678",
+		points: 90000,
+	},
+];
+
 export default function Leaderboard() {
 	const targetRef = useRef<HTMLDivElement>(null);
 	const { scrollYProgress } = useScroll({
 		target: targetRef,
-		offset: ["start end", "end start"],
+		offset: ["start end", "start start"],
 	});
 
 	const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
@@ -205,6 +305,7 @@ export default function Leaderboard() {
 							iconAlt="refresh icon"
 							size="small"
 							secondary
+							disableSparkels
 						/>
 					</div>
 
@@ -228,91 +329,37 @@ export default function Leaderboard() {
 								</TR>
 							</thead>
 							<tbody className="text-lg font-medium font-general-sans text-white">
-								<TR>
-									<Rank
-										rank={1}
-										wallet="0x1234567890abcdef1234567890abcdef12345678"
-									/>
-									<TD truncate>
-										0x1234567890abcdef1234567890abcdef12345678
-									</TD>
-									<TD>90,000</TD>
-								</TR>
-								<TR>
-									<Rank
-										rank={2}
-										wallet="0x1234567890abcdef1234567890abcdef12345678"
-									/>
-									<TD truncate>
-										0x1234567890abcdef1234567890abcdef12345678
-									</TD>
-									<TD>90,000</TD>
-								</TR>
-								<TR>
-									<Rank
-										rank={3}
-										wallet="0x1234567890abcdef1234567890abcdef12345678"
-									/>
-									<TD truncate>
-										0x1234567890abcdef1234567890abcdef12345678
-									</TD>
-									<TD>90,000</TD>
-								</TR>
-								<TR>
-									<Rank
-										rank={4}
-										wallet="0x1234567890abcdef1234567890abcdef12345678"
-									/>
-									<TD truncate>
-										0x1234567890abcdef1234567890abcdef12345678
-									</TD>
-									<TD>90,000</TD>
-								</TR>
-								<TR>
-									<Rank
-										rank={5}
-										wallet="0x1234567890abcdef1234567890abcdef12345678"
-									/>
-									<TD truncate>
-										0x1234567890abcdef1234567890abcdef12345678
-									</TD>
-									<TD>90,000</TD>
-								</TR>
-
-								<TR className="h-[3rem]" empty>
-									<></>
-								</TR>
-								<TR>
-									<Rank
-										rank={1234566}
-										wallet="0x1234567890abcdef1234567890abcdef12345678"
-									/>
-									<TD truncate>
-										0x1234567890abcdef1234567890abcdef12345678
-									</TD>
-									<TD>90,000</TD>
-								</TR>
-								<TR special>
-									<Rank
-										rank={1234567}
-										wallet="0x1234567890abcdef1234567890abcdef12345678"
-										special
-									/>
-									<TD truncate special>
-										0x1234567890abcdef1234567890abcdef12345678
-									</TD>
-									<TD special>90,000</TD>
-								</TR>
-								<TR>
-									<Rank
-										rank={1234568}
-										wallet="0x1234567890abcdef1234567890abcdef12345678"
-									/>
-									<TD truncate>
-										0x1234567890abcdef1234567890abcdef12345678
-									</TD>
-									<TD>90,000</TD>
-								</TR>
+								{tableData.map((data, idx) =>
+									data !== null ? (
+										<TR
+											key={idx}
+											special={data.special ?? false}
+										>
+											<Rank
+												rank={data.rank}
+												wallet={data.wallet}
+												special={data.special ?? false}
+											/>
+											<TD
+												truncate
+												special={data.special ?? false}
+											>
+												{data.wallet}
+											</TD>
+											<TD special={data.special ?? false}>
+												{data.points}
+											</TD>
+										</TR>
+									) : (
+										<TR
+											key={idx}
+											className="h-[3rem]"
+											empty
+										>
+											<></>
+										</TR>
+									)
+								)}
 							</tbody>
 						</table>
 
