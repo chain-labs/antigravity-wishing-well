@@ -11,6 +11,10 @@ import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
+import H1 from "../components/HTML/H1";
+import H3 from "../components/HTML/H3";
+import H2 from "../components/HTML/H2";
+import P from "../components/HTML/P";
 
 function TH({
 	icon,
@@ -30,7 +34,7 @@ function TH({
 				className
 			)}
 		>
-			<div className="flex items-center gap-2 uppercase tracking-widest text-lg md:text-xl from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
+			<H3>
 				<Image
 					src={icon}
 					alt={`${heading} icon`}
@@ -39,7 +43,7 @@ function TH({
 					className="object-cover"
 				/>
 				{heading}
-			</div>
+			</H3>
 		</th>
 	);
 }
@@ -77,8 +81,9 @@ function TD({
 					onMouseEnter={truncateHoverTrue}
 					onMouseLeave={truncateHoverFalse}
 					className={twMerge(
-						"relative border-r-2 border-[#8275A5] bg-clip-padding hidden lg:flex flex-col lg:flex-row justify-between z-10 px-3 py-[10px] w-full truncate hover:overflow-visible",
-						className
+						"text-[14px] relative border-r-2 border-[#8275A5] bg-clip-padding hidden lg:flex flex-col lg:flex-row justify-between z-10 px-[12px] py-[6px] w-full truncate hover:overflow-visible",
+						className,
+						special && "text-[18px]"
 					)}
 				>
 					{truncateHover ? (
@@ -93,7 +98,8 @@ function TD({
 								transition={{ duration: 0.2, delay: 0.5 }}
 								className={twMerge(
 									"absolute top-[50%] left-[50%] p-2 -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white text-center text-agblack z-10",
-									special && "text-agyellow bg-gradient-to-b from-[#0A1133] to-[#142266]"
+									special &&
+										" text-[18px] text-agyellow bg-gradient-to-b from-[#0A1133] to-[#142266]"
 								)}
 							>
 								{children}
@@ -110,8 +116,8 @@ function TD({
 	return (
 		<td
 			className={twMerge(
-				"relative border-r-2 border-[#8275A5] bg-clip-padding flex justify-center lg:justify-start lg:items-center gap-1 lg:gap-4 flex-col lg:flex-row z-0 px-3 py-[10px]",
-				special && "border-none",
+				"text-[14px] relative border-r-2 border-[#8275A5] bg-clip-padding flex justify-center lg:justify-start lg:items-center gap-1 lg:gap-4 flex-col lg:flex-row z-0 px-[12px] py-[6px]",
+				special && "border-none text-[18px] py-[10px]",
 				className
 			)}
 		>
@@ -162,7 +168,7 @@ function Badge({
 	return (
 		<div
 			className={twMerge(
-				"relative flex items-center gap-2 justify-center font-sans font-extrabold text-white cursor-pointer rounded-full p-1 px-2 border-2 text-xs lg:text-sm uppercase tracking-widest w-fit",
+				"text-[12px] leading-[12px] relative flex items-center gap-[8px] justify-center font-sans font-extrabold text-white cursor-pointer rounded-full py-[4px] px-[8px] border-2 uppercase tracking-widest w-fit",
 				special &&
 					"text-agyellow font-extrabold bg-gradient-to-b from-[#0A1133] to-[#142266] border-none"
 			)}
@@ -182,7 +188,7 @@ function Rank({
 	special?: boolean;
 }) {
 	return (
-		<TD>
+		<TD special={special}>
 			#{rank} <Badge special={special}>Specialist Technician</Badge>
 			<div className="flex gap-2 justify-start items-center lg:hidden">
 				<Image
@@ -282,11 +288,9 @@ export default function Leaderboard() {
 			after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-agblack after:rounded-[inherit] after:overflow-hidden
         "
 			>
-				<div className="flex flex-col">
-					<div className="flex flex-wrap justify-start items-center gap-6">
-						<h1 className="text-6xl from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
-							Leaderboard
-						</h1>
+				<div className="flex flex-col gap-[16px]">
+					<div className="flex flex-wrap justify-start items-center gap-[16px]">
+						<H1>Leaderboard</H1>
 						{/* <button
 							className={`relative flex items-center gap-x-2 justify-center font-sans uppercase font-extrabold tracking-widest text-agwhite cursor-pointer rounded-lg px-4 py-3 shadow-button shadow-[#414343] border-[#414343] border-2 hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-[rgba(255,255,255,0.25)]`}
 						>
@@ -306,6 +310,7 @@ export default function Leaderboard() {
 							size="small"
 							secondary
 							disableSparkels
+							animateButton
 						/>
 					</div>
 
@@ -353,7 +358,7 @@ export default function Leaderboard() {
 									) : (
 										<TR
 											key={idx}
-											className="h-[3rem]"
+											className="h-[2.5rem]"
 											empty
 										>
 											<></>
@@ -371,36 +376,35 @@ export default function Leaderboard() {
 								height={100}
 								className="object-cover absolute bottom-0 right-0 lg:left-[10%] lg:top-0 lg:translate-y-[-100%] z-[100] opacity-[50%]"
 							/>
-							<div className="flex flex-col gap-4 p-4">
-								<h2 className="font-general-sans text-xl text-white font-medium">
+							<div className="flex flex-col gap-[8px] p-[16px]">
+								<h2 className="font-general-sans text-[16px] text-white font-medium">
 									Wallet Connected:
 								</h2>
-								<h1
+								<H2
 									style={{
 										wordWrap: "break-word",
 									}}
-									className="text-4xl w-full from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text break-words"
 								>
 									0x1234567890abcdef1234567890abcdef12345678
-								</h1>
+								</H2>
 							</div>
 
-							<div className="relative flex flex-col gap-4 p-4 rounded-xl overflow-hidden w-full z-0">
+							<div className="relative flex flex-col gap-[8px] p-4 rounded-xl overflow-hidden w-full z-0">
 								<div className="bg-[#3C00DC] absolute inset-0 -z-10 opacity-[25%]"></div>
 								<Image
 									src={require("@/app/assets/icons/info.svg")}
 									alt="info icon"
-									width={25}
-									height={25}
+									width={24}
+									height={24}
 									className="object-cover"
 								/>
 
-								<p className="font-general-sans text-lg text-white font-medium">
+								<P className="font-medium">
 									You&apos;re only 1,500 points away from
 									leveling up. Mine now to rank up!
-								</p>
+								</P>
 
-								<button
+								{/* <button
 									className={`uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite cursor-pointer
                                 rounded-lg px-4 py-3 shadow-button hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-agblack bg-blue`}
 								>
@@ -412,13 +416,14 @@ export default function Leaderboard() {
 										className="object-cover"
 									/>
 									Start mining
-								</button>
-
-								<a
-									href="/"
-									className="font-general-sans text-lg underline text-white"
-								>
-									Best ways to rank up →
+								</button> */}
+								<Button
+									innerText="Start mining"
+									iconSrc={require("@/app/assets/icons/hammer.svg")}
+									iconAlt="hammer icon"
+								/>
+								<a href="/" className="text-white underline">
+									<P>Best ways to rank up →</P>
 								</a>
 							</div>
 						</div>

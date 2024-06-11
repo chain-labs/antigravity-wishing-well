@@ -5,6 +5,8 @@ import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import { useRef } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import H1 from "../components/HTML/H1";
+import P from "../components/HTML/P";
 
 function TesimonialCard({
 	name,
@@ -54,19 +56,17 @@ function TesimonialCard({
 						className="rounded-full object-cover"
 					/>
 				)}
-				<div className="flex flex-col">
-					<h1 className="relative flex gap-3 text-agyellow font-sans text-xl font-extrabold">
+				<div className="flex flex-col gap-[4px]">
+					<h1 className="relative flex gap-3 text-agyellow font-sans text-[20px] leading-[20px] font-extrabold">
 						@{name}
 					</h1>
-					<p className="text-lg from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
+					<p className="text-[14px] from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
 						{shortDescription}
 					</p>
 				</div>
 			</div>
 			<div className="w-full h-[1px] bg-[#FEFFFF]"></div>
-			<div className="text-white font-sans text-lg font-medium">
-				&quot; {fullDescription} &quot;
-			</div>
+			<P>&quot; {fullDescription} &quot;</P>
 		</motion.a>
 	);
 }
@@ -85,11 +85,8 @@ export default function Testimonials() {
 			ref={targetRef}
 			className="mx-4 flex flex-col gap-8 items-center justify-center"
 		>
-			<motion.div
-				style={{ y }}
-				className="text-6xl text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text"
-			>
-				The Galactic Tea...
+			<motion.div style={{ y }}>
+				<H1>The Galactic Tea...</H1>
 			</motion.div>
 			<ResponsiveMasonry
 				columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}

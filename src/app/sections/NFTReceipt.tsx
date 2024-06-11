@@ -4,6 +4,7 @@ import Button from "@/stories/Button";
 import { useScroll, useTransform, motion } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
+import H1 from "../components/HTML/H1";
 
 export default function NFTReceipt() {
 	const targetRef = useRef<HTMLDivElement>(null);
@@ -25,10 +26,11 @@ export default function NFTReceipt() {
 				style={{
 					y: textY,
 				}}
-				className="text-6xl text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text"
 			>
-				Not everyone makes smart decisions.
-				<br /> Except you. You badass. Here&apos;s your NFT.
+				<H1>
+					Not everyone makes smart decisions.
+					<br /> Except you. You badass. Here&apos;s your NFT.
+				</H1>
 			</motion.div>
 			<motion.div
 				style={{

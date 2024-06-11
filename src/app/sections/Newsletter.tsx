@@ -2,28 +2,37 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import H1 from "../components/HTML/H1";
+import P from "../components/HTML/P";
+import Button from "@/stories/Button";
 
 export default function Newsletter() {
 	const [success, setSuccess] = useState(false);
 	return (
-		<div className="flex flex-col md:flex-row items-start justify-center md:w-4/5 mx-4 md:mx-auto gap-4 md:gap-16 my-32 md:my-64">
+		<div
+			className="relative flex flex-col lg:flex-row items-start justify-center md:w-fit mx-4 p-[32px] rounded-[12px] md:mx-auto gap-4 md:gap-16 my-32 md:my-64 z-0
+		before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-bl before:from-[#5537A5] before:to-[#BF6841] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
+			after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-agblack after:rounded-[inherit] after:overflow-hidden"
+		>
 			{success === false ? (
 				<>
 					<div className="flex flex-col gap-2">
-						<h1 className="text-6xl text-left text-white font-sans font-black md:text-nowrap">
+						<H1>
 							Ignite Your <br /> Boosters.
-						</h1>
-						<p className="text-xl md:text-nowrap md:text-center from-white to-[#999999] font-sans font-medium bg-gradient-to-b text-transparent bg-clip-text">
-							Get all Antigravity updates in your inbox.
-						</p>
+						</H1>
+						<P>Get all Antigravity updates in your inbox.</P>
 					</div>
-					<form action="" className="flex flex-col gap-4 w-full md:w-fit">
+					<form
+						action=""
+						className="flex flex-col gap-4 w-full md:w-fit"
+					>
 						<input
 							type="text"
 							name="name"
 							id="name"
 							placeholder="Your Name"
 							className="text-agblack p-3 rounded-xl w-full md:w-[30em] font-sans font-semibold text-lg"
+							required
 						/>
 						<input
 							type="email"
@@ -31,10 +40,12 @@ export default function Newsletter() {
 							id="email"
 							placeholder="your@email.com"
 							className="text-agblack p-3 rounded-xl w-full md:w-[30em] font-sans font-semibold text-lg"
+							required
 						/>
-						<button
+						{/* <button
 							type="submit"
-							className="uppercase tracking-widest rounded-md bg-brblue px-4 py-3 text-white font-sans font-extrabold flex justify-center items-center text-xl gap-2 w-fit"
+							className="uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite cursor-pointer
+                                rounded-lg px-4 py-3 shadow-button hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-agblack bg-blue"
 						>
 							<Image
 								src={require("@/app/assets/icons/send.svg")}
@@ -43,7 +54,14 @@ export default function Newsletter() {
 								height={40}
 							/>
 							Submit
-						</button>
+						</button> */}
+						<Button
+							secondary
+							innerText="Submit"
+							iconSrc={require("@/app/assets/icons/send.svg")}
+							iconAlt="send"
+							type="submit"
+						/>
 					</form>
 				</>
 			) : (

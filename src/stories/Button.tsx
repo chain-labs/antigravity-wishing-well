@@ -56,6 +56,16 @@ interface ButtonProps {
 	 * Additional classes to apply to the button
 	 **/
 	className?: string;
+	/**
+	 * Whether to animate the button normally
+	 * @default false
+	 **/
+	animateButton?: boolean;
+	/**
+	 * Type of the button
+	 * @default "button"
+	 **/
+	type?: "submit" | "reset" | "button";
 }
 
 /**
@@ -78,7 +88,9 @@ export default function Button({
 	starsCount = 20,
 	size = "medium",
 	disableSparkels = false,
-	className = ""
+	className = "",
+	animateButton = false,
+	type = "button",
 }: ButtonProps) {
 	const [scope, animate] = useAnimate();
 	const [isAnimating, setIsAnimating] = React.useState(false);
@@ -169,8 +181,6 @@ export default function Button({
 						delay: stagger(0.2 / innerTextStringArray.length),
 					},
 				],
-				["button", { scale: 0.8 }, { duration: 0.1, at: "<" }],
-				["button", { scale: 1 }, { duration: 0.1 }],
 				...sparklesAnimation,
 				[".letter", { y: 0 }, { duration: 0.000001 }],
 				...sparklesFadeOut,
@@ -180,64 +190,93 @@ export default function Button({
 		}
 	};
 
-	return (
-		<div ref={scope}>
-			<button
-				onClick={onButtonClick}
-				style={
-					{
-						flexDirection:
-							iconPosition === "start" ? "row" : "row-reverse",
-						boxShadow: secondary && "0 6px 0 0 #414343",
-					} as any
-				}
-				className={twMerge(
-					"tracking-widest uppercase font-extrabold text-agwhite",
-					"relative flex items-center gap-x-2 justify-center cursor-pointer rounded-md px-4 py-3 shadow-button hover:shadow-none z-0",
-					secondary
-						? "bg-agblack border-2 border-[#414343] shadow-[#414343] active:bg-[rgba(255,255,255,0.25)"
-						: "bg-blue active:bg-agblack",
-					className
-				)}
-			>
-				{iconSrc !== null && (
-					<Image
-						src={iconSrc}
-						alt={iconAlt}
-						width={iconSize[size]}
-						height={iconSize[size]}
-						className="object-cover"
-					/>
-				)}
-				<span
-					className="sr-only"
-					style={{
-						position: "absolute",
-						width: "1px",
-						height: "1px",
-						padding: "0",
-						margin: "-1px",
-						overflow: "hidden",
-						clip: "rect(0, 0, 0, 0)",
-						whiteSpace: "nowrap",
-						borderWidth: "0",
-					}}
-				>
-					{innerText}
-				</span>
-				<span
-					style={{
-						height: `${letterSize[size]}px`,
-						lineHeight: `${letterSize[size]}px`,
-						fontSize: `${letterSize[size]}px`,
-					}}
+	if (animateButton) {
+		return (
+			<div ref={scope}>
+				<button
+					type={type}
+					onClick={onButtonClick}
+					style={
+						{
+							flexDirection:
+								iconPosition === "start"
+									? "row"
+									: "row-reverse",
+						} as any
+					}
 					className={twMerge(
-						`flex justify-start items-start overflow-hidden z-10`
+						"tracking-widest uppercase font-extrabold text-agwhite",
+						"uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite cursor-pointer rounded-lg px-4 py-3 shadow-button hover:translate-y-1 transition-[all_150ms] hover:shadow-none",
+						secondary
+							? `uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite cursor-pointer
+                                rounded-lg px-[8px] py-[10px] border-2 drop-shadow-[0_4px_0_0_#414343] border-[#414343] hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-agblack bg-agblack`
+							: "bg-blue active:bg-agblack",
+						className
 					)}
-					aria-hidden
 				>
-					{innerTextStringArray.map((letter, index) => {
-						if (letter === " ") {
+					{iconSrc !== null && (
+						<Image
+							src={iconSrc}
+							alt={iconAlt}
+							width={iconSize[size]}
+							height={iconSize[size]}
+							className="object-cover"
+						/>
+					)}
+					<span
+						className="sr-only"
+						style={{
+							position: "absolute",
+							width: "1px",
+							height: "1px",
+							padding: "0",
+							margin: "-1px",
+							overflow: "hidden",
+							clip: "rect(0, 0, 0, 0)",
+							whiteSpace: "nowrap",
+							borderWidth: "0",
+						}}
+					>
+						{innerText}
+					</span>
+					<span
+						style={{
+							height: `${letterSize[size]}px`,
+							lineHeight: `${letterSize[size]}px`,
+							fontSize: `${letterSize[size]}px`,
+						}}
+						className={twMerge(
+							`flex justify-start items-start overflow-hidden z-10`
+						)}
+						aria-hidden
+					>
+						{innerTextStringArray.map((letter, index) => {
+							if (letter === " ") {
+								return (
+									<span
+										data-letter={letter}
+										className={`letter relative flex flex-col justify-start items-center z-10`}
+										key={`${letter}-${index}`}
+									>
+										<div
+											style={{
+												width: "0.5ch",
+												height: `${letterSize[size]}px`,
+											}}
+										>
+											{letter}
+										</div>
+										<div
+											style={{
+												width: "0.5ch",
+												height: `${letterSize[size]}px`,
+											}}
+										>
+											{letter}
+										</div>
+									</span>
+								);
+							}
 							return (
 								<span
 									data-letter={letter}
@@ -246,7 +285,6 @@ export default function Button({
 								>
 									<div
 										style={{
-											width: "0.5ch",
 											height: `${letterSize[size]}px`,
 										}}
 									>
@@ -254,7 +292,6 @@ export default function Button({
 									</div>
 									<div
 										style={{
-											width: "0.5ch",
 											height: `${letterSize[size]}px`,
 										}}
 									>
@@ -262,55 +299,51 @@ export default function Button({
 									</div>
 								</span>
 							);
-						}
-						return (
-							<span
-								data-letter={letter}
-								className={`letter relative flex flex-col justify-start items-center z-10`}
-								key={`${letter}-${index}`}
+						})}
+					</span>
+					<span
+						aria-hidden
+						className="pointer-events-none absolute inset-0 flex justify-center items-center z-[-1]"
+					>
+						{Array.from({ length: starsCount }).map((_, index) => (
+							<svg
+								className={`absolute left-1/2 top-1/2 opacity-0 sparkle-${index}`}
+								key={index}
+								viewBox="0 0 122 117"
+								width="10"
+								height="10"
+								style={{
+									opacity: 0,
+								}}
 							>
-								<div
-									style={{
-										height: `${letterSize[size]}px`,
-									}}
-								>
-									{letter}
-								</div>
-								<div
-									style={{
-										height: `${letterSize[size]}px`,
-									}}
-								>
-									{letter}
-								</div>
-							</span>
-						);
-					})}
-				</span>
-				<span
-					aria-hidden
-					className="pointer-events-none absolute inset-0 flex justify-center items-center z-[-1]"
-				>
-					{Array.from({ length: starsCount }).map((_, index) => (
-						<svg
-							className={`absolute left-1/2 top-1/2 opacity-0 sparkle-${index}`}
-							key={index}
-							viewBox="0 0 122 117"
-							width="10"
-							height="10"
-							style={{
-								opacity: 0,
-							}}
-						>
-							<path
-								className="fill-blue-600"
-								fill={starsColor}
-								d="M64.39,2,80.11,38.76,120,42.33a3.2,3.2,0,0,1,1.83,5.59h0L91.64,74.25l8.92,39a3.2,3.2,0,0,1-4.87,3.4L61.44,96.19,27.09,116.73a3.2,3.2,0,0,1-4.76-3.46h0l8.92-39L1.09,47.92A3.2,3.2,0,0,1,3,42.32l39.74-3.56L58.49,2a3.2,3.2,0,0,1,5.9,0Z"
-							/>
-						</svg>
-					))}
-				</span>
+								<path
+									className="fill-blue-600"
+									fill={starsColor}
+									d="M64.39,2,80.11,38.76,120,42.33a3.2,3.2,0,0,1,1.83,5.59h0L91.64,74.25l8.92,39a3.2,3.2,0,0,1-4.87,3.4L61.44,96.19,27.09,116.73a3.2,3.2,0,0,1-4.76-3.46h0l8.92-39L1.09,47.92A3.2,3.2,0,0,1,3,42.32l39.74-3.56L58.49,2a3.2,3.2,0,0,1,5.9,0Z"
+								/>
+							</svg>
+						))}
+					</span>
+				</button>
+			</div>
+		);
+	} else {
+		return (
+			<button
+				className={`uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite cursor-pointer
+                                rounded-lg px-4 py-3 shadow-button hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-agblack bg-blue`}
+			>
+				{iconSrc && (
+					<Image
+						src={iconSrc}
+						alt={iconAlt}
+						width={24}
+						height={24}
+						className="object-cover"
+					/>
+				)}
+				{innerText}
 			</button>
-		</div>
-	);
+		);
+	}
 }

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
-import { motion } from "framer-motion";
+import { MotionValue, motion, useTransform } from "framer-motion";
 import DynamicNumberCounter from "./DynamicNumberCounter";
 import AutomaticIncreamentalNumberCounter from "./AutomaticIncreamentalNumberCounter";
 
@@ -78,7 +78,10 @@ function H1({
 								color: "white",
 							}}
 							viewport={{ once: true }}
-							transition={{ duration: 0.5, delay: globalDelay + 1 }}
+							transition={{
+								duration: 0.5,
+								delay: globalDelay + 1,
+							}}
 							className={twMerge(styles["era-styles"].active)}
 						>
 							{isEraLetter}
@@ -105,7 +108,10 @@ function H1({
 								color: "white",
 							}}
 							viewport={{ once: true }}
-							transition={{ duration: 0.5, delay: globalDelay + 1 }}
+							transition={{
+								duration: 0.5,
+								delay: globalDelay + 1,
+							}}
 							className={twMerge(
 								styles["stage-styles"].active,
 								className
@@ -191,10 +197,13 @@ function StageHighlighter({ activeState }: { activeState: SpinnerProps }) {
 			initial={{
 				x: "-50%",
 				y: "-50%",
-				rotate: -180,
+				rotate: decideActiveStageLocation({
+					...activeState,
+					...{ stage: 3, era: "wishwell" },
+				}),
 			}}
 			viewport={{ once: true }}
-			transition={{ duration: 1, delay: globalDelay}}
+			transition={{ duration: 1, delay: globalDelay }}
 			className={twMerge(
 				"absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[300px] w-[40px] bg-agyellow z-10",
 				`rotate-[${decideActiveStageLocation(activeState)}deg]`
@@ -222,10 +231,10 @@ function EraHighlighter({ activeState }: { activeState: SpinnerProps }) {
 			initial={{
 				x: "-50%",
 				y: "-50%",
-				rotate: 180,
+				rotate: -75,
 			}}
 			viewport={{ once: true }}
-			transition={{ duration: 1, delay: globalDelay}}
+			transition={{ duration: 1, delay: globalDelay }}
 			className={twMerge(
 				"absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[490px] w-[190px] bg-agyellow z-10",
 				`rotate-[${activeState.era === "wishwell" ? -75 : activeState.era === "minting" ? 75 : 0}deg]`
@@ -487,10 +496,13 @@ function Pointer({ activeState }: { activeState: SpinnerProps }) {
 			initial={{
 				x: "-50%",
 				y: "-50%",
-				rotate: 180,
+				rotate: decideActiveStageLocation({
+					...activeState,
+					...{ era: "wishwell", stage: 3 },
+				}),
 			}}
 			viewport={{ once: true }}
-			transition={{ duration: 1, delay: globalDelay}}
+			transition={{ duration: 1, delay: globalDelay }}
 			className={twMerge(
 				"absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[100px] w-[50px] z-10 pt-0",
 				`rotate-[${decideActiveStageLocation(activeState)}deg]`
@@ -587,7 +599,11 @@ function Bonus({ activeState }: { activeState: SpinnerProps }) {
 	);
 }
 
-export default function Spinner() {
+export default function Spinner({
+	scrollYProgress,
+}: {
+	scrollYProgress: MotionValue<number>;
+}) {
 	const [activeState, setActiveState] = useState<SpinnerProps>({
 		era: "mining",
 		stage: 1,
@@ -643,8 +659,11 @@ export default function Spinner() {
 		return () => clearInterval(timer);
 	}, []);
 
+	const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+
 	return (
 		<motion.div
+			style={{ opacity }}
 			whileInView={{
 				filter: "saturate(1)",
 			}}

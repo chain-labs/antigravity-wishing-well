@@ -2,7 +2,7 @@
 
 import React, { Suspense, useEffect, useLayoutEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import ReactLenis from "@studio-freight/react-lenis";
+import { ReactLenis, useLenis } from 'lenis/react'
 import Hero from "./sections/Hero";
 import Header from "./home/Header";
 import CanvasRendering from "./components/saturn/CanvasRendering";
@@ -263,10 +263,6 @@ export default function HomePage() {
 		}
 	}, [registerFetched]);
 	return (
-		// <ReactLenis
-		// 	root
-		// 	options={{ lerp: 0.1, duration: 0.5,  }}
-		// >
 		<div className="bg-agblack min-h-[100vh]">
 			<div className="flex flex-col min-h-screen min-w-screen overflow-hidden">
 				<div className="relative z-0 flex flex-col min-h-screen">
@@ -281,16 +277,16 @@ export default function HomePage() {
 							setError={setError}
 						/>
 					</div>
-					<div className="z-100">
-						<Hero />
-						<Leaderboard />
-						<Testimonials />
-						<NFTReceipt />
-						<Eras />
-						<Countdown />
-						<Newsletter />
-						<Footer />
-					</div>
+						<div className="z-100">
+							<Hero />
+							<Leaderboard />
+							<Testimonials />
+							<NFTReceipt />
+							<Eras />
+							<Countdown />
+							<Newsletter />
+							<Footer />
+						</div>
 					<div className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[1]">
 						<CanvasRendering />
 						<StarFieldCanvas
@@ -304,6 +300,5 @@ export default function HomePage() {
 				</div>
 			</div>
 		</div>
-		// </ReactLenis>
 	);
 }
