@@ -365,7 +365,6 @@ export default function Leaderboard({
 							innerText="Refresh"
 							iconSrc={require("@/app/assets/icons/refresh.svg")}
 							iconAlt="refresh icon"
-							size="small"
 							secondary
 							disableSparkels
 							animateButton

@@ -63,8 +63,6 @@ export default function NFTReceipt() {
 				innerText="Claim collective rewards"
 				iconSrc={require("@/app/assets/icons/claim.svg")}
 				iconAlt="hammer icon"
-				size="small"
-				className="font-bold"
 			/>
 		</div>
 	);

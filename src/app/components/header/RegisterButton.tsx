@@ -31,8 +31,7 @@ export const RegisterButton: React.FC<RegisterButtonProps> = ({
 	return (
 		<>
 			<Button
-				className="w-full lg:w-fit text-[16px] rounded-[4px] font-bold"
-				size="small"
+				className="w-full lg:w-fit"
 				onClick={
 					!loading
 						? account.isConnected
