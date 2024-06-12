@@ -31,7 +31,8 @@ export const RegisterButton: React.FC<RegisterButtonProps> = ({
 	return (
 		<>
 			<Button
-				className="w-full lg:w-fit"
+				className="w-full lg:w-fit text-[16px] rounded-[4px] font-bold"
+				size="small"
 				onClick={
 					!loading
 						? account.isConnected
@@ -69,6 +70,7 @@ export const RegisterButton: React.FC<RegisterButtonProps> = ({
 				}
 				iconSrc={require("@/app/assets/icons/wallet.svg")}
 				iconPosition="start"
+				
 			/>
 			{/* {(account.address && loading && !error) || !registerIdle ? (
 				<div className="animate-[spin_2s_ease-out_infinite]">
