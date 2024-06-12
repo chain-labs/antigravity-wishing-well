@@ -486,26 +486,34 @@ export default function Countdown() {
 				<motion.div
 					whileInView={{
 						width: "calc(33.33%)",
+						boxShadow: "5px 0px 0px 0px rgba(0,0,0,1)",
 					}}
-					initial={{ width: "0%" }}
+					initial={{
+						width: "0%",
+						boxShadow: "0px 0px 0px 0px rgba(0,0,0,1)",
+					}}
 					style={{
 						height: "calc(100%)",
 					}}
 					transition={{ duration: 1 }}
 					viewport={{ once: true }}
-					className="absolute top-0 left-0 bg-gradient-to-b from-[#030404] to-[#131A1A] rounded-br-xl rounded-tr-xl  z-1000 opacity-[30%]"
+					className="absolute top-0 left-0 bg-gradient-to-b from-[#03040430] to-[#131a1a30] rounded-br-xl rounded-tr-xl z-1000"
 				></motion.div>
 				<motion.div
 					whileInView={{
 						width: "calc(33.33%)",
+						boxShadow: "-5px 0px 0px 0px rgba(0,0,0,1)",
 					}}
-					initial={{ width: "0%" }}
+					initial={{
+						width: "0%",
+						boxShadow: "0px 0px 0px 0px rgba(0,0,0,1)",
+					}}
 					style={{
 						height: "calc(100%)",
 					}}
 					transition={{ duration: 1 }}
 					viewport={{ once: true }}
-					className="absolute top-0 right-0 bg-gradient-to-b from-[#030404] to-[#131A1A] rounded-bl-xl rounded-tl-xl  z-1000 opacity-[30%]"
+					className="absolute top-0 right-0 bg-gradient-to-b from-[#03040430] to-[#131a1a30] rounded-bl-xl rounded-tl-xl z-1000"
 				></motion.div>
 			</div>
 		</div>

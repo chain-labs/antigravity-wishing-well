@@ -66,6 +66,14 @@ interface ButtonProps {
 	 * @default "button"
 	 **/
 	type?: "submit" | "reset" | "button";
+	/**
+	 * Function to call when the button is clicked
+	 **/
+	onClick?: (args0: React.MouseEvent) => void;
+	/**
+	 * Children of the button
+	 **/
+	children?: React.ReactNode;
 }
 
 /**
@@ -91,10 +99,13 @@ export default function Button({
 	className = "",
 	animateButton = false,
 	type = "button",
+	onClick,
+	children,
 }: ButtonProps) {
 	const [scope, animate] = useAnimate();
 	const [isAnimating, setIsAnimating] = React.useState(false);
 	const innerTextStringArray = innerText.trim().split("");
+	const [isHovered, setIsHovered] = React.useState(false);
 
 	const letterSize = {
 		small: 18,
@@ -164,8 +175,6 @@ export default function Button({
 						delay: stagger(0.2 / innerTextStringArray.length),
 					},
 				],
-				["button", { scale: 0.8 }, { duration: 0.1, at: "<" }],
-				["button", { scale: 1 }, { duration: 0.1 }],
 				[".letter", { y: 0 }, { duration: 0.000001, at: 0.5 }],
 			]).then(() => {
 				setIsAnimating(false);
@@ -202,15 +211,21 @@ export default function Button({
 								iconPosition === "start"
 									? "row"
 									: "row-reverse",
+							transform: isHovered
+								? "translateY(4px)"
+								: "translateY(0px)",
+							boxShadow: isHovered
+								? `0px 0px 0px 0px ${secondary ? "#414343" : "#000"}`
+								: `0px 4px 0px 0px ${secondary ? "#414343" : "#000"}`,
 						} as any
 					}
+					onMouseEnter={() => setIsHovered(true)}
+					onMouseLeave={() => setIsHovered(false)}
 					className={twMerge(
-						"tracking-widest uppercase font-extrabold text-agwhite",
-						"uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite cursor-pointer rounded-lg px-4 py-3 shadow-button hover:translate-y-1 transition-[all_150ms] hover:shadow-none",
+						`uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite cursor-pointer rounded-lg px-4 py-3 transition-[all_150ms] hover:shadow-none`,
 						secondary
-							? `uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite cursor-pointer
-                                rounded-lg px-[8px] py-[10px] border-r-2 border-t-3 border-b-4 border-l-2 drop-shadow-[0_4px_0_0_rgb(65,67,67)] border-[#414343] hover:translate-y-1 transition-[all_150ms] hover:border-2 active:bg-agblack bg-agblack`
-							: "bg-blue active:bg-agblack",
+							? "border-2 border-[#414343] bg-agblack active:bg-[#414343]"
+							: "bg-blue text-agblack active:bg-agblack",
 						className
 					)}
 				>
@@ -330,6 +345,7 @@ export default function Button({
 	} else {
 		return (
 			<button
+				onClick={onClick}
 				className={`uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite cursor-pointer
                                 rounded-lg px-4 py-3 shadow-button hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-agblack bg-blue`}
 			>

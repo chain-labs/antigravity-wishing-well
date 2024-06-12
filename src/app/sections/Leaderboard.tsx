@@ -278,7 +278,11 @@ const tableData: tableDataType[] = [
 	},
 ];
 
-export default function Leaderboard() {
+export default function Leaderboard({
+	accountIsConnected,
+}: {
+	accountIsConnected: boolean;
+}) {
 	const targetRef = useRef<HTMLDivElement>(null);
 	const { scrollYProgress } = useScroll({
 		target: targetRef,
@@ -286,6 +290,10 @@ export default function Leaderboard() {
 	});
 
 	const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+
+	if (!accountIsConnected) {
+		return <div className="h-screen w-screen"></div>;
+	}
 
 	return (
 		<div ref={targetRef}>
@@ -395,7 +403,7 @@ export default function Leaderboard() {
 								alt="leaderboard background"
 								width={100}
 								height={100}
-								className="object-cover absolute bottom-0 right-0 lg:left-[10%] lg:top-0 lg:translate-y-[-100%] z-[100] opacity-[50%]"
+								className="object-cover absolute bottom-0 right-0 lg:left-[10%] lg:top-0 lg:translate-y-[-100%] z-[100] opacity-25 lg:opacity-100"
 							/>
 							<div className="flex flex-col gap-[8px] py-[16px] lg:p-[16px]">
 								<h2 className="font-general-sans text-[16px] text-white font-medium">

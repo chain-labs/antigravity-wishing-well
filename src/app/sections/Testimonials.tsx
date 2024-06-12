@@ -3,7 +3,7 @@
 import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import H1 from "../components/HTML/H1";
 import P from "../components/HTML/P";
@@ -23,7 +23,33 @@ function TesimonialCard({
 	externalLink: string;
 	scrollYProgress: MotionValue<number>;
 }) {
-	const gapX = useTransform(scrollYProgress, [0, 0.25], ["2rem", "0.5rem"]);
+	const [smallerViewPort, setSmallerViewPort] = useState(false);
+
+	useEffect(() => {
+		if (window === undefined) return;
+
+		window.addEventListener("resize", () => {
+			if (window.innerWidth < 1200) {
+				console.log("smaller view port detected");
+				setSmallerViewPort(true);
+			} else {
+				console.log("larger view port detected");
+				setSmallerViewPort(false);
+			}
+		});
+
+		window.innerWidth < 1200 && setSmallerViewPort(true);
+
+		return () => {
+			window.removeEventListener("resize", () => {});
+		};
+	}, []);
+
+	const gapX = useTransform(
+		scrollYProgress,
+		[0, smallerViewPort ? 0 : 0.25],
+		["2rem", "0.5rem"]
+	);
 	const gapY = useTransform(scrollYProgress, [0, 0.25], ["2rem", "0.5rem"]);
 	return (
 		<motion.a
@@ -33,7 +59,7 @@ function TesimonialCard({
 				} as any
 			}
 			href={externalLink}
-			className=" cursor-pointer hover:scale-[1.05] my-[calc(var(--gap))] mx-[calc(var(--gap)*8)] md:m-[--gap] hover:z-20 transition-all duration-300 relative w-fit h-fit bg-[#0A0025] rounded-xl border-4 border-transparent bg-clip-padding flex flex-col justify-start gap-[16px] z-0 py-[24px] px-[16px]
+			className=" cursor-pointer hover:scale-[1.05] my-[calc(var(--gap))] mx-[calc(var(--gap)*6)] md:m-[--gap] hover:z-20 transition-all duration-300 relative w-fit h-fit bg-[#0A0025] rounded-xl border-4 border-transparent bg-clip-padding flex flex-col justify-start gap-[16px] z-0 py-[24px] px-[16px]
             before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-b before:from-[#B4EBF8] before:to-[#789DFA] before:rounded-[inherit] before:overflow-hidden before:m-[-2px]
             after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-gradient-to-b after:from-[#0A1133] after:to-[#142266] after:rounded-[inherit] after:overflow-hidden"
 		>

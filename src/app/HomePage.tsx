@@ -2,9 +2,9 @@
 
 import React, { Suspense, useEffect, useLayoutEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import { ReactLenis, useLenis } from 'lenis/react'
+import { ReactLenis, useLenis } from "lenis/react";
 import Hero from "./sections/Hero";
-import Header from "./home/Header";
+import Header from "./components/header/Header";
 import CanvasRendering from "./components/saturn/CanvasRendering";
 import StarFieldCanvas from "./components/background/Starfeild";
 import Countdown from "./sections/Countdown";
@@ -277,16 +277,16 @@ export default function HomePage() {
 							setError={setError}
 						/>
 					</div>
-						<div className="z-100">
-							<Hero />
-							<Leaderboard />
-							<Testimonials />
-							<NFTReceipt />
-							<Eras />
-							<Countdown />
-							<Newsletter />
-							<Footer />
-						</div>
+					<div className="z-100">
+						<Hero />
+						<Leaderboard accountIsConnected={account.isConnected} />
+						<Testimonials />
+						<NFTReceipt />
+						<Eras />
+						<Countdown />
+						<Newsletter />
+						<Footer />
+					</div>
 					<div className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[1]">
 						<CanvasRendering />
 						<StarFieldCanvas

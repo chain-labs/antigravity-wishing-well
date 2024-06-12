@@ -659,7 +659,7 @@ export default function Spinner({
 		return () => clearInterval(timer);
 	}, []);
 
-	const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+	const opacity = useTransform(scrollYProgress, [1, 0], [0, 1]);
 
 	return (
 		<motion.div

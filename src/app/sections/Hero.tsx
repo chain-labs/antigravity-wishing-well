@@ -84,10 +84,15 @@ export default function Hero() {
 	const targetRef = useRef<HTMLDivElement>(null);
 	const { scrollYProgress } = useScroll({
 		target: targetRef,
-		offset: ["start end", "start start"],
+		offset: ["start start", "end start"],
 	});
 
-	const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+	const opacity = useTransform(scrollYProgress, [1, 0], [0, 1]);
+	const translateYHeroItems = useTransform(
+		scrollYProgress,
+		[0.5, 0],
+		[-150, 0]
+	);
 
 	useEffect(() => {
 		console.log(scrollYProgress.get());
@@ -108,9 +113,7 @@ export default function Hero() {
 				Here is a one or two line short description about this."
 					backgroundImage={require("../assets/wishwell.png")}
 					animateFrom="left"
-					style={{
-						opacity,
-					}}
+					style={{}}
 				/>
 				<HeroItemCard
 					title="Mining"
@@ -118,9 +121,7 @@ export default function Hero() {
 				Here is a one or two line short description about this."
 					backgroundImage={require("../assets/mining.png")}
 					animateFrom="bottom"
-					style={{
-						opacity,
-					}}
+					style={{}}
 				/>
 				<HeroItemCard
 					title="The Collective"
@@ -128,9 +129,7 @@ export default function Hero() {
 				Here is a one or two line short description about this."
 					backgroundImage={require("../assets/minting.png")}
 					animateFrom="right"
-					style={{
-						opacity,
-					}}
+					style={{}}
 				/>
 			</motion.div>
 		</div>
