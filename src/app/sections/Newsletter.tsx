@@ -56,7 +56,6 @@ export default function Newsletter() {
 							Submit
 						</button> */}
 						<Button
-							secondary
 							innerText="Submit"
 							iconSrc={require("@/app/assets/icons/send.svg")}
 							iconAlt="send"
