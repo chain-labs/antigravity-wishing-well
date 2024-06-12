@@ -101,10 +101,12 @@ export default function Hero() {
 	return (
 		<div ref={targetRef} className="w-full h-full">
 			<motion.div
-				style={{
-					opacity,
-				}}
-				className="relative grid grid-rows-3 md:grid-cols-3 md:grid-rows-1 w-full h-[180vh] md:h-[60vh] mt-[50vh] md:mt-[40vh] z-0"
+				style={
+					{
+						"--opacity": opacity,
+					} as any
+				}
+				className="relative grid grid-rows-3 md:grid-cols-3 md:grid-rows-1 w-full h-[180vh] md:h-[60vh] mt-[50vh] md:mt-[40vh] z-0 lg:opacity-[--opacity]"
 			>
 				<Spinner scrollYProgress={scrollYProgress} />
 				<HeroItemCard
