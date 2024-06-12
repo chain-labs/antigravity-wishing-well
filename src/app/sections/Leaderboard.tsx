@@ -84,8 +84,8 @@ function TD({
 					onMouseLeave={truncateHoverFalse}
 					className={twMerge(
 						"text-[14px] relative border-r-2 border-[#414343] lg:border-[#8275A5] bg-clip-padding hidden lg:flex flex-col lg:flex-row justify-start items-center z-10 px-[12px] py-[6px] w-full truncate hover:overflow-visible",
+						special && "text-[18px]",
 						className,
-						special && "text-[18px]"
 					)}
 				>
 					{truncateHover ? (
@@ -121,7 +121,6 @@ function TD({
 				"text-[14px] relative border-r-2 border-[#414343] lg:border-[#8275A5] bg-clip-padding flex flex-col justify-center lg:justify-start lg:items-center gap-[4px] lg:gap-4 lg:flex-row z-0 p-[8px] lg:px-[12px] lg:py-[6px]",
 				special && !border && "border-none text-[18px] py-[10px]",
 				border && special && "border-r-2 text-[18px] py-[10px]",
-
 				className
 			)}
 		>
@@ -419,7 +418,7 @@ export default function Leaderboard({
 													special={
 														data.special ?? false
 													}
-													className="text-[18px] lg:text-[14px]"
+													// className=`text-[18px] lg:text-[14px]`
 												>
 													{pointsConverterToUSCommaseparated(
 														data.points
