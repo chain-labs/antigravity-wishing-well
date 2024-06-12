@@ -99,9 +99,9 @@ function TD({
 								}}
 								transition={{ duration: 0.2, delay: 0.5 }}
 								className={twMerge(
-									"absolute top-[50%] left-[50%] p-2 -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white text-center text-agblack z-10",
+									"absolute top-[50%] left-[50%] p-2 -translate-x-1/2 -translate-y-1/2 rounded-[4px] bg-blue text-center text-agwhite z-10",
 									special &&
-										" text-[18px] text-agyellow bg-gradient-to-b from-[#0A1133] to-[#142266]"
+										" text-[18px] bg-agyellow text-black "
 								)}
 							>
 								{children}
@@ -210,6 +210,49 @@ function Rank({
 				{truncatinator(wallet)}
 			</div>
 		</TD>
+	);
+}
+
+function CollectiveLogo() {
+	const [hover, setHover] = useState(false);
+	return (
+		<AnimatePresence>
+			<a
+				onMouseLeave={() => setHover(false)}
+				href="/collective"
+				className="flex justify-start items-center gap-2 absolute bottom-0 right-0 lg:left-[10%] lg:top-0 z-[100] lg:translate-y-[-100%] h-fit w-fit"
+			>
+				<Image
+					onMouseEnter={() => setHover(true)}
+					src={require("@/app/assets/collective-color-logo.svg")}
+					alt="leaderboard background"
+					width={100}
+					height={100}
+					className="object-cover opacity-25 lg:opacity-100 w-fit"
+				/>
+
+				<motion.div
+					animate={{
+						width: hover ? "fit-content" : 0,
+						padding: hover
+							? "8px 16px 8px 16px"
+							: "8px 0px 8px 0px",
+					}}
+					initial={{
+						width: "0%",
+						padding: "0px 0px 0px 0px",
+					}}
+					exit={{
+						width: "0%",
+						padding: "0px 0px 0px 0px",
+					}}
+					transition={{ duration: 0.2 }}
+					className="rounded-[6px] px-[16px] py-[8px] bg-agyellow text-black font-general-sans font-extrabold overflow-hidden whitespace-nowrap hidden lg:block"
+				>
+					Go to The Collective →
+				</motion.div>
+			</a>
+		</AnimatePresence>
 	);
 }
 
@@ -398,13 +441,7 @@ export default function Leaderboard({
 						</div>
 
 						<div className="relative flex flex-col w-full gap-4 lg:pl-6 place-self-end">
-							<Image
-								src={require("@/app/assets/collective-color-logo.svg")}
-								alt="leaderboard background"
-								width={100}
-								height={100}
-								className="object-cover absolute bottom-0 right-0 lg:left-[10%] lg:top-0 lg:translate-y-[-100%] z-[100] opacity-25 lg:opacity-100"
-							/>
+							<CollectiveLogo />
 							<div className="flex flex-col gap-[8px] py-[16px] lg:p-[16px]">
 								<h2 className="font-general-sans text-[16px] text-white font-medium">
 									Wallet Connected:
