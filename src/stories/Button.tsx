@@ -226,6 +226,7 @@ export default function Button({
 						secondary
 							? "border-2 border-[#414343] bg-agblack active:bg-[#414343]"
 							: "bg-blue text-agblack active:bg-agblack",
+
 						className
 					)}
 				>
@@ -346,8 +347,26 @@ export default function Button({
 		return (
 			<button
 				onClick={onClick}
-				className={`uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite cursor-pointer
-                                rounded-lg px-4 py-3 shadow-button hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-agblack bg-blue`}
+				style={
+					{
+						flexDirection:
+							iconPosition === "start" ? "row" : "row-reverse",
+						transform: isHovered
+							? "translateY(4px)"
+							: "translateY(0px)",
+						boxShadow: isHovered
+							? `0px 0px 0px 0px ${secondary ? "#414343" : "#000"}`
+							: `0px 4px 0px 0px ${secondary ? "#414343" : "#000"}`,
+					} as any
+				}
+				onMouseEnter={() => setIsHovered(true)}
+				onMouseLeave={() => setIsHovered(false)}
+				className={twMerge(
+					`uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite cursor-pointer
+                                rounded-lg px-4 py-3 shadow-button hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-agblack bg-blue`,
+					secondary && "border-2 border-[#414343] bg-agblack active:bg-[#414343]",
+					className
+				)}
 			>
 				{iconSrc && (
 					<Image
