@@ -34,6 +34,7 @@ import {
 import { checkCorrectNetwork, getApiNetwork } from "@/utils";
 import { base } from "viem/chains";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
+import Image from "next/image";
 
 // Use a function to get the latest block number
 async function getLatestBlockNumber(publicClient: PublicClient) {
@@ -58,6 +59,7 @@ export default function HomePage() {
 	const AntiGravity = useContract();
 	const publicClient = usePublicClient();
 	const { openConnectModal } = useConnectModal();
+	const [smallerViewPort, setSmallerViewPort] = useState<boolean>(false);
 
 	const handleLogin = (e: React.MouseEvent) => {
 		e.preventDefault();
@@ -262,6 +264,26 @@ export default function HomePage() {
 			setIsRegistered(true);
 		}
 	}, [registerFetched]);
+
+	useEffect(() => {
+		if (window === undefined) return;
+
+		window.addEventListener("resize", () => {
+			if (window.innerWidth < 1200) {
+				console.log("smaller view port detected");
+				setSmallerViewPort(true);
+			} else {
+				console.log("larger view port detected");
+				setSmallerViewPort(false);
+			}
+		});
+
+		window.innerWidth < 1200 && setSmallerViewPort(true);
+
+		return () => {
+			window.removeEventListener("resize", () => {});
+		};
+	}, []);
 	return (
 		<div className="bg-agblack min-h-[100vh]">
 			<div className="flex flex-col min-h-screen min-w-screen overflow-hidden">
@@ -288,7 +310,18 @@ export default function HomePage() {
 						<Footer />
 					</div>
 					<div className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[1]">
-						<CanvasRendering />
+						{smallerViewPort ? (
+							<Image
+								src={require("@/app/assets/mobile-saturn.png")}
+								alt="Mobile Saturn"
+								width={1920}
+								height={1080}
+								className="fixed top-0 left-0 md:hidden w-[150vw] h-fit -translate-y-1/2 mix-blend-lighten z-0 scale-[1.25] pointer-events-none select-none"
+							/>
+						) : (
+							<CanvasRendering />
+						)}
+
 						<StarFieldCanvas
 							count={50}
 							xRange={100}
