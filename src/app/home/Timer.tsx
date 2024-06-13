@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import TimerBox from "./TimerBox";
 import Image from "next/image";
 import IMAGEKIT from "./images";
-import { RegisterButton } from "./RegisterButton";
+import { RegisterButton } from "../components/header/RegisterButton";
 
 interface Props {
   targetTime: string;

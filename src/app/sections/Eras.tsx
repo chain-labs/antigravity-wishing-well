@@ -6,6 +6,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { twMerge } from "tailwind-merge";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import H1 from "../components/HTML/H1";
+import P from "../components/HTML/P";
 
 function HeroItemCard({
 	title,
@@ -46,7 +48,7 @@ function HeroItemCard({
 				delay: 0.5,
 			}}
 			viewport={{ once: true }}
-			className="relative w-full h-full bg-agblack z-[0] flex justify-end items-start px-4 py-8 flex-col gap-4"
+			className="relative w-full h-full bg-agblack z-[0] flex justify-end items-start p-[32px] flex-col gap-4"
 			onMouseLeave={() => setHover(false)}
 			onMouseOver={() => setHover(true)}
 			onMouseDown={() => setHover(true)}
@@ -65,16 +67,14 @@ function HeroItemCard({
 					className ?? ""
 				)}
 			/>
-			<h1 className="text-5xl from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
-				{title}
-			</h1>
+			<H1>{title}</H1>
 			<motion.p
 				animate={{ height: hover ? "auto" : 0 }}
 				initial={{ height: 0 }}
 				transition={{ duration: 0.5 }}
 				className="text-white text-lg overflow-hidden"
 			>
-				{description}
+				<P>{description}</P>
 			</motion.p>
 		</motion.div>
 	);
@@ -89,7 +89,7 @@ export default function Eras() {
 				Here is a one or two line short description about this."
 				backgroundImage={require("../assets/wishwell.png")}
 				animateFrom="left"
-                className="object-[50%_55%]"
+				className="object-[50%_55%]"
 			/>
 			<HeroItemCard
 				title="Mining"
@@ -104,7 +104,7 @@ export default function Eras() {
 				Here is a one or two line short description about this."
 				backgroundImage={require("../assets/minting.png")}
 				animateFrom="left"
-                className="object-[0px_25%]"
+				className="object-[0px_25%]"
 			/>
 		</div>
 	);
