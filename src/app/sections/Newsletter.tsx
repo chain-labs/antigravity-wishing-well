@@ -31,7 +31,7 @@ export default function Newsletter() {
 							name="name"
 							id="name"
 							placeholder="Your Name"
-							className="text-agblack p-3 rounded-xl w-full md:w-[30em] font-sans font-semibold text-lg"
+							className="text-agblack p-3 rounded-[8px] w-full md:w-[30em] font-sans font-semibold text-lg"
 							required
 						/>
 						<input
@@ -39,7 +39,7 @@ export default function Newsletter() {
 							name="email"
 							id="email"
 							placeholder="your@email.com"
-							className="text-agblack p-3 rounded-xl w-full md:w-[30em] font-sans font-semibold text-lg"
+							className="text-agblack p-3 rounded-[8px] w-full md:w-[30em] font-sans font-semibold text-lg"
 							required
 						/>
 						{/* <button
