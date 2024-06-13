@@ -41,7 +41,7 @@ export default function LoadingPage({
 					if (prev < 100) {
 						return prev + 1;
 					}
-					return prev;
+					return prev + 100;
 				});
 			}, 1);
 			return () => clearInterval(interval);

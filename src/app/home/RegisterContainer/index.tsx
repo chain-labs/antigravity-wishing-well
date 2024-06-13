@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Header from "../Header";
+import Header from "../../components/header/Header";
 import Registered from "./Registered";
 import IMAGEKIT from "../images";
 import Success from "./Success";

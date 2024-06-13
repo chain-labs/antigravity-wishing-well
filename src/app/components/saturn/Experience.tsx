@@ -35,13 +35,13 @@ const LINE_NB_POINTS = 4000;
 export default function Experience() {
 	const curve = useMemo(() => {
 		const curve = new THREE.CatmullRomCurve3([
-			new THREE.Vector3(0, 0, 0),
-			new THREE.Vector3(-4, -4, -2),
-			new THREE.Vector3(-4, -3, -5),
-			new THREE.Vector3(-4, -3, -5),
-			new THREE.Vector3(-5, -3, 0),
-			new THREE.Vector3(-5, -4, 0),
-			new THREE.Vector3(-5, -4, 0),
+			new THREE.Vector3(0, 0, 0), //homepage
+			new THREE.Vector3(-4, -4, -2), //leaderboard
+			new THREE.Vector3(-4, -3, -5), //testimonials
+			new THREE.Vector3(0, -3, -5), //nft receipt
+			new THREE.Vector3(-5, -3, 0), //eras
+			new THREE.Vector3(-5, -4, 0), //countdown
+			new THREE.Vector3(-5, -4, 0), //newsletter
 		]);
 		curve.curveType = "catmullrom";
 		curve.closed = false;

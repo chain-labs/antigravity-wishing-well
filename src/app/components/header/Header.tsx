@@ -3,9 +3,10 @@ import { useState } from "react";
 import { useAccount } from "wagmi";
 import { IoMenu, IoCloseCircleOutline } from "react-icons/io5";
 import { UserConnected } from "./UserConnected";
-import IMAGEKIT from "./images";
+import IMAGEKIT from "../../home/images";
 import { motion } from "framer-motion";
 import { RegisterButton } from "./RegisterButton";
+import P from "../HTML/P";
 
 type HeaderProps = {
 	loading: boolean;
@@ -47,8 +48,8 @@ const Header: React.FC<HeaderProps> = ({
 			transition={{ duration: 0.5, delay: 1.5 }}
 			className="flex flex-col h-full w-full items-center justify-center gap-3 z-50 font-extrabold"
 		>
-			<div className="flex text-white w-full md:w-3/4 h-14 lg:h-16 rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px] overflow-hidden">
-				<div className="w-full h-full bg-agblack px-8 flex items-center justify-between rounded-lg gap-6 py-4">
+			<div className="flex text-white w-full md:w-3/4 h-14 lg:h-[72px] rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px] overflow-hidden">
+				<div className="w-full h-full bg-agblack px-8 flex items-center justify-between rounded-lg gap-6 px-4">
 					{/* Desktop View */}
 					<div className="hidden md:flex md:flex-grow md:items-center h-full md:justify-between md:gap-x-6">
 						<div
@@ -63,51 +64,48 @@ const Header: React.FC<HeaderProps> = ({
 							</p>
 						</div>
 						<div
-							className={`flex justify-center items-center font-extrabold text-lg font-sans gap-6`}
+							className={`relative flex justify-center items-center font-extrabold text-lg font-sans gap-[16px] oveflow-hidden`}
 						>
+							<a href="/wishwell">
+								<P uppercase gradient extrabold>
+									Wishwell
+								</P>
+							</a>
+							<a href="/mining">
+								<P uppercase gradient extrabold>
+									Mining
+								</P>
+							</a>
+							<a href="/collective">
+								<P uppercase gradient extrabold>
+									Collective
+								</P>
+							</a>
 							<a
 								target="_blank"
 								href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}
-								className="bg-gradient-to-b from-white to-[#999999] text-transparent bg-clip-text"
 							>
-								WHITEPAPER
+								<P uppercase gradient extrabold>
+									WHITEPAPER
+								</P>
 							</a>
-							<a
-								href="#value"
-								className="bg-gradient-to-b from-white to-[#999999] text-transparent bg-clip-text"
-							>
-								VALUE
-							</a>
-							<a
-								href="#utilities"
-								className="bg-gradient-to-b from-white to-[#999999] text-transparent bg-clip-text"
-							>
-								UTILITIES
-							</a>
-							<a
-								href="#team"
-								className="bg-gradient-to-b from-white to-[#999999] text-transparent bg-clip-text"
-							>
-								TEAM
-							</a>
+							{account.isConnected ? (
+								<>
+									<div className="w-[2px] h-[2.5rem] bg-gradient-to-b from-white via-[#999999] to-[#999999] rounded-full" />
+									<UserConnected />
+								</>
+							) : (
+								<RegisterButton
+									loading={loading}
+									error={error}
+									registerIdle={registerIdle}
+									handleLogin={handleLogin}
+									setError={setError}
+									handleRegister={handleRegister}
+									isRegistered={isRegistered}
+								/>
+							)}
 						</div>
-
-						{account.isConnected ? (
-							<div>
-								<div className="w-[1px] h-full bg-gradient-to-b from-white to-[#999999]" />
-								<UserConnected />
-							</div>
-						) : (
-							<RegisterButton
-								loading={loading}
-								error={error}
-								registerIdle={registerIdle}
-								handleLogin={handleLogin}
-								setError={setError}
-								handleRegister={handleRegister}
-								isRegistered={isRegistered}
-							/>
-						)}
 					</div>
 					{/* Mobile View */}
 					<div
@@ -145,30 +143,28 @@ const Header: React.FC<HeaderProps> = ({
 					<div className="flex text-white w-full lg:h-16 rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px] overflow-hidden">
 						<div className="w-full h-full bg-agblack px-8 flex flex-col items-center justify-center rounded-lg gap-6 py-4">
 							{account.isConnected && <UserConnected />}
+							<a href="/wishwell">
+								<P uppercase gradient extrabold>
+									Wishwell
+								</P>
+							</a>
+							<a href="/mining">
+								<P uppercase gradient extrabold>
+									Mining
+								</P>
+							</a>
+							<a href="/collective">
+								<P uppercase gradient extrabold>
+									Collective
+								</P>
+							</a>
 							<a
 								target="_blank"
 								href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}
-								className="bg-gradient-to-b from-white to-[#999999] text-transparent bg-clip-text"
 							>
-								WHITEPAPER
-							</a>
-							<a
-								href="#value"
-								className="bg-gradient-to-b from-white to-[#999999] text-transparent bg-clip-text"
-							>
-								VALUE
-							</a>
-							<a
-								href="#utilities"
-								className="bg-gradient-to-b from-white to-[#999999] text-transparent bg-clip-text"
-							>
-								UTILITIES
-							</a>
-							<a
-								href="#team"
-								className="bg-gradient-to-b from-white to-[#999999] text-transparent bg-clip-text"
-							>
-								TEAM
+								<P uppercase gradient extrabold>
+									WHITEPAPER
+								</P>
 							</a>
 						</div>
 					</div>

@@ -2,9 +2,9 @@
 
 import React, { Suspense, useEffect, useLayoutEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import ReactLenis from "@studio-freight/react-lenis";
+import { ReactLenis, useLenis } from "lenis/react";
 import Hero from "./sections/Hero";
-import Header from "./home/Header";
+import Header from "./components/header/Header";
 import CanvasRendering from "./components/saturn/CanvasRendering";
 import StarFieldCanvas from "./components/background/Starfeild";
 import Countdown from "./sections/Countdown";
@@ -34,6 +34,7 @@ import {
 import { checkCorrectNetwork, getApiNetwork } from "@/utils";
 import { base } from "viem/chains";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
+import Image from "next/image";
 
 // Use a function to get the latest block number
 async function getLatestBlockNumber(publicClient: PublicClient) {
@@ -58,6 +59,7 @@ export default function HomePage() {
 	const AntiGravity = useContract();
 	const publicClient = usePublicClient();
 	const { openConnectModal } = useConnectModal();
+	const [smallerViewPort, setSmallerViewPort] = useState<boolean>(false);
 
 	const handleLogin = (e: React.MouseEvent) => {
 		e.preventDefault();
@@ -262,11 +264,27 @@ export default function HomePage() {
 			setIsRegistered(true);
 		}
 	}, [registerFetched]);
+
+	useEffect(() => {
+		if (window === undefined) return;
+
+		window.addEventListener("resize", () => {
+			if (window.innerWidth < 1200) {
+				console.log("smaller view port detected");
+				setSmallerViewPort(true);
+			} else {
+				console.log("larger view port detected");
+				setSmallerViewPort(false);
+			}
+		});
+
+		window.innerWidth < 1200 && setSmallerViewPort(true);
+
+		return () => {
+			window.removeEventListener("resize", () => {});
+		};
+	}, []);
 	return (
-		// <ReactLenis
-		// 	root
-		// 	options={{ lerp: 0.1, duration: 0.5,  }}
-		// >
 		<div className="bg-agblack min-h-[100vh]">
 			<div className="flex flex-col min-h-screen min-w-screen overflow-hidden">
 				<div className="relative z-0 flex flex-col min-h-screen">
@@ -283,7 +301,7 @@ export default function HomePage() {
 					</div>
 					<div className="z-100">
 						<Hero />
-						<Leaderboard />
+						<Leaderboard accountIsConnected={account.isConnected} />
 						<Testimonials />
 						<NFTReceipt />
 						<Eras />
@@ -292,9 +310,20 @@ export default function HomePage() {
 						<Footer />
 					</div>
 					<div className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[1]">
-						<CanvasRendering />
+						{smallerViewPort ? (
+							<Image
+								src={require("@/app/assets/mobile-saturn.png")}
+								alt="Mobile Saturn"
+								width={1920}
+								height={1080}
+								className="fixed top-0 left-0 md:hidden w-[150vw] h-fit -translate-y-1/2 mix-blend-lighten z-0 scale-[1.25] pointer-events-none select-none"
+							/>
+						) : (
+							<CanvasRendering />
+						)}
+
 						<StarFieldCanvas
-							count={100}
+							count={50}
 							xRange={100}
 							yRange={100}
 							zRange={100}
@@ -304,6 +333,5 @@ export default function HomePage() {
 				</div>
 			</div>
 		</div>
-		// </ReactLenis>
 	);
 }
