@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { twMerge } from "tailwind-merge";
 import DynamicNumberCounter from "../components/spinner/DynamicNumberCounter";
+import useTimer from "../hooks/useTimer";
 
 type stateType = {
 	days: number;
@@ -150,53 +151,7 @@ function calculateActivePhasesSlider(activeState: stateType) {
 }
 
 export default function Countdown() {
-	const [state, setState] = useState<stateType>({
-		days: 4,
-		hours: 14,
-		mins: 48,
-		secs: 56,
-		era: "mining",
-		phase: 1,
-	});
-
-	useEffect(() => {
-		const interval = setInterval(() => {
-			setState((prev) => {
-				if (prev.secs > 0) {
-					return {
-						...prev,
-						secs: prev.secs - 1,
-					};
-				}
-				if (prev.mins > 0) {
-					return {
-						...prev,
-						secs: 59,
-						mins: prev.mins - 1,
-					};
-				}
-				if (prev.hours > 0) {
-					return {
-						...prev,
-						secs: 59,
-						mins: 59,
-						hours: prev.hours - 1,
-					};
-				}
-				if (prev.days > 0) {
-					return {
-						...prev,
-						secs: 59,
-						mins: 59,
-						hours: 23,
-						days: prev.days - 1,
-					};
-				}
-				return prev;
-			});
-		}, 1000);
-		return () => clearInterval(interval);
-	}, []);
+	const state = useTimer();
 
 	return (
 		<div
@@ -214,7 +169,7 @@ export default function Countdown() {
 			/>
 			<div className="flex justify-start items-start flex-col gap-4">
 				<div className="tracking-widest uppercase text-2xl text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
-					ETA for phase 2
+					ETA for phase {(state.phase + 1) % 4 ? state.phase + 1 : 1}
 				</div>
 				<div className="relative flex gap-2 md:gap-3 text-agyellow font-sans">
 					<div className="flex items-center justify-center flex-col">
@@ -322,7 +277,18 @@ export default function Countdown() {
 							viewport={{ once: true }}
 							className="absolute top-0 left-0 bg-gradient-to-b from-[#030404] to-[#131A1A] rounded-xl -z-10 opacity-[30%]"
 						></motion.div>
-						<div className="text-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
+						<div
+							style={{
+								color:
+									state.era === "wishwell"
+										? "#f5eb00"
+										: "transparent",
+							}}
+							className={twMerge(
+								"text-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text",
+								state.era === "wishwell" && "text-agyellow"
+							)}
+						>
 							Wishwell
 						</div>
 						<div className="tracking-widest uppercase text-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
@@ -347,7 +313,18 @@ export default function Countdown() {
 						</div>
 					</div>
 					<div className="flex flex-col gap-2 p-2">
-						<div className="text-[36px] text-center font-sans font-extrabold text-agyellow">
+						<div
+							style={{
+								color:
+									state.era === "mining"
+										? "#f5eb00"
+										: "transparent",
+							}}
+							className={twMerge(
+								"text-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text",
+								state.era === "mining" && "text-agyellow"
+							)}
+						>
 							Mining
 						</div>
 						<div className="tracking-widest uppercase text-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
@@ -384,7 +361,17 @@ export default function Countdown() {
 							viewport={{ once: true }}
 							className="absolute bottom-0 right-0 bg-gradient-to-b from-[#030404] to-[#131A1A] rounded-xl -z-10 opacity-[30%]"
 						></motion.div>
-						<div className="text-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
+						<div
+							style={{
+								color:
+									state.era === "minting"
+										? "#f5eb00"
+										: "transparent",
+							}}
+							className={twMerge(
+								"text-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text"
+							)}
+						>
 							Minting
 						</div>
 						<div className="tracking-widest uppercase text-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
@@ -414,7 +401,15 @@ export default function Countdown() {
 			<div className="hidden relative lg:flex flex-col rounded-[5px] bg-gradient-to-b from-[#5730BF] to-[#15004C] px-[12px] py-[8px] z-0 overflow-hidden">
 				<div className="grid grid-cols-3 gap-14">
 					<div className="h-full flex flex-col gap-2">
-						<div className="text-[36px] leading-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
+						<div
+							style={{
+								color:
+									state.era === "wishwell"
+										? "#f5eb00"
+										: "transparent",
+							}}
+							className="text-[36px] leading-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text"
+						>
 							Wishwell
 						</div>
 						<div className="tracking-widest uppercase text-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
@@ -422,7 +417,15 @@ export default function Countdown() {
 						</div>
 					</div>
 					<div className="flex flex-col gap-2">
-						<div className="text-[36px] leading-[36px] text-center font-sans font-extrabold text-agyellow">
+						<div
+							style={{
+								color:
+									state.era === "mining"
+										? "#f5eb00"
+										: "transparent",
+							}}
+							className="text-[36px] leading-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text"
+						>
 							Mining
 						</div>
 						<div className="tracking-widest uppercase text-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
@@ -430,7 +433,15 @@ export default function Countdown() {
 						</div>
 					</div>
 					<div className="flex flex-col gap-2">
-						<div className="text-[36px] leading-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
+						<div
+							style={{
+								color:
+									state.era === "minting"
+										? "#f5eb00"
+										: "transparent",
+							}}
+							className="text-[36px] leading-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text"
+						>
 							Minting
 						</div>
 						<div className="tracking-widest uppercase text-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
@@ -485,7 +496,7 @@ export default function Countdown() {
 				</div>
 				<motion.div
 					whileInView={{
-						width: "calc(33.33%)",
+						width: state.era === "wishwell" ? "0%" : state.era === "mining" ? "33.33%" : "calc(66.66%)",
 						boxShadow: "5px 0px 0px 0px rgba(0,0,0,1)",
 					}}
 					initial={{
@@ -501,7 +512,7 @@ export default function Countdown() {
 				></motion.div>
 				<motion.div
 					whileInView={{
-						width: "calc(33.33%)",
+						width: state.era === "wishwell" ? "66.66%" : state.era === "mining" ? "33.33%" : "0%",
 						boxShadow: "-5px 0px 0px 0px rgba(0,0,0,1)",
 					}}
 					initial={{
