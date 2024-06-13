@@ -227,9 +227,6 @@ function StageHighlighter() {
 
 function EraHighlighter() {
 	const activeEra = useTimer().era;
-	console.log(
-		activeEra === "wishwell" ? -75 : activeEra === "minting" ? 75 : 0
-	);
 	return (
 		<motion.div
 			whileInView={{
@@ -464,7 +461,6 @@ function Pointer() {
 		activeEra: activeState.era,
 		activePhase: activeState.phase,
 	});
-	console.log("rotation", rotation);
 	return (
 		<motion.div
 			whileInView={{
