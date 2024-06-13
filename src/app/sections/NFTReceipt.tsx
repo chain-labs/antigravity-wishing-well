@@ -27,7 +27,7 @@ export default function NFTReceipt() {
 					y: textY,
 				}}
 			>
-				<H1 center>
+				<H1 center className="text-[32px] leading-[32px]">
 					Not everyone makes smart decisions.
 					<br /> Except you. You badass. Here&apos;s your NFT.
 				</H1>

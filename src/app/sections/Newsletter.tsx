@@ -17,7 +17,7 @@ export default function Newsletter() {
 			{success === false ? (
 				<>
 					<div className="flex flex-col gap-2">
-						<H1>
+						<H1 className="text-[48px] leading-[48px]">
 							Ignite Your <br /> Boosters.
 						</H1>
 						<P>Get all Antigravity updates in your inbox.</P>
@@ -65,9 +65,7 @@ export default function Newsletter() {
 				</>
 			) : (
 				<div className="flex flex-col justify-center items-center gap-4">
-					<h1 className="text-6xl text-left from-white to-[#999999] font-sans font-black bg-gradient-to-b text-transparent bg-clip-text">
-						Success!
-					</h1>
+					<H1 className="text-[48px] leading-[48px]" center>Success!</H1>
 					<p className="text-xl text-center from-white to-[#999999] font-sans font-medium bg-gradient-to-b text-transparent bg-clip-text">
 						You&apos;ll get all Antigravity updates in your inbox.
 						<br /> Stay tune!.

@@ -16,6 +16,10 @@ const nextConfig = {
                 hostname: "ik.imagekit.io",
                 protocol: "https",
             },
+            {
+                hostname: "s3.amazonaws.com",
+                protocol: "https",
+            }
         ],
         dangerouslyAllowSVG: true
     },
