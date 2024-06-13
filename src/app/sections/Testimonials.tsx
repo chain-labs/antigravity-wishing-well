@@ -108,7 +108,7 @@ export default function Testimonials() {
 	return (
 		<div
 			ref={targetRef}
-			className="flex flex-col gap-8 items-center justify-center"
+			className="flex flex-col gap-8 items-center justify-center mt-[5rem] md:mt-0"
 		>
 			<motion.div style={{ y }}>
 				<H1 center>The Galactic Tea...</H1>
