@@ -334,7 +334,7 @@ export default function Leaderboard({
 	const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
 
 	if (!accountIsConnected) {
-		return <div className="h-screen w-screen"></div>;
+		return <div className="h-screen w-screen hidden lg:block"></div>;
 	}
 
 	return (
