@@ -111,24 +111,21 @@ export default function Hero() {
 				<Spinner scrollYProgress={scrollYProgress} />
 				<HeroItemCard
 					title="WishWell"
-					description="Here is a one or two line short description about this.
-				Here is a one or two line short description about this."
+					description="Contribute to our WishWell to get the WishWell NFT + points."
 					backgroundImage={require("../assets/wishwell.png")}
 					animateFrom="left"
 					style={{}}
 				/>
 				<HeroItemCard
 					title="Mining"
-					description="Here is a one or two line short description about this.
-				Here is a one or two line short description about this."
+					description="Start mining with supported tokens to get points + $DARKX tokens + the new Antigravity NFT."
 					backgroundImage={require("../assets/mining.png")}
 					animateFrom="bottom"
 					style={{}}
 				/>
 				<HeroItemCard
 					title="The Collective"
-					description="Here is a one or two line short description about this.
-				Here is a one or two line short description about this."
+					description="Learn how to leverage points, rank up & earn exciting rewards. Join The Collective!"
 					backgroundImage={require("../assets/minting.png")}
 					animateFrom="right"
 					style={{}}
