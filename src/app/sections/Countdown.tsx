@@ -89,6 +89,9 @@ function MobilePhase({
 	if (activeState.era === era && activeState.phase === phase) {
 		return (
 			<motion.div
+				style={{
+					color: "black",
+				}}
 				whileInView={{
 					color: "black",
 				}}
