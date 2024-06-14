@@ -12,7 +12,7 @@ export type TestimonialCardType = {
 	shortDescription: string;
 	fullDescription: string;
 	externalLink: string;
-	scrollYProgress: MotionValue<number>;
+	marginTestimonial: MotionValue<string>;
 };
 
 export default function TesimonialCard({
@@ -21,40 +21,13 @@ export default function TesimonialCard({
 	shortDescription,
 	fullDescription,
 	externalLink,
-	scrollYProgress,
+	marginTestimonial,
 }: TestimonialCardType) {
-	const [smallerViewPort, setSmallerViewPort] = useState(false);
-
-	useEffect(() => {
-		if (window === undefined) return;
-
-		window.addEventListener("resize", () => {
-			if (window.innerWidth < 1200) {
-				console.log("smaller view port detected");
-				setSmallerViewPort(true);
-			} else {
-				console.log("larger view port detected");
-				setSmallerViewPort(false);
-			}
-		});
-
-		window.innerWidth < 1200 && setSmallerViewPort(true);
-
-		return () => {
-			window.removeEventListener("resize", () => {});
-		};
-	}, []);
-
-	const gapX = useTransform(
-		scrollYProgress,
-		[0, smallerViewPort ? 0 : 0.25],
-		["2rem", "0.5rem"]
-	);
 	return (
 		<motion.a
 			style={
 				{
-					"--gap": scrollYProgress ? gapX : 0,
+					"--gap": marginTestimonial,
 				} as any
 			}
 			href={externalLink}

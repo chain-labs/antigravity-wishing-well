@@ -26,6 +26,6 @@ export const Default: Story = {
         shortDescription: "This is a short description.",
         fullDescription: "This is a longer description.",
         externalLink: "https://example.com",
-		scrollYProgress: 0 as unknown as MotionValue<number>,
+		marginTestimonial: "0" as unknown as MotionValue<string>,
 	},
 };

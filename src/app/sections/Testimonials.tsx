@@ -1,7 +1,7 @@
 "use client";
 
 import { useScroll, useTransform, motion } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import H1 from "../components/HTML/H1";
 import TesimonialCard from "@/stories/TestimonialCard";
@@ -72,9 +72,35 @@ export default function Testimonials() {
 		target: targetRef,
 		offset: ["start end", "end start"],
 	});
+	const [smallerViewPort, setSmallerViewPort] = useState(false);
+
+	useEffect(() => {
+		if (window === undefined) return;
+
+		window.addEventListener("resize", () => {
+			if (window.innerWidth < 1200) {
+				console.log("smaller view port detected");
+				setSmallerViewPort(true);
+			} else {
+				console.log("larger view port detected");
+				setSmallerViewPort(false);
+			}
+		});
+
+		window.innerWidth < 1200 && setSmallerViewPort(true);
+
+		return () => {
+			window.removeEventListener("resize", () => {});
+		};
+	}, []);
 
 	// const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
 	const y = useTransform(scrollYProgress, [0, 0.25], [100, 0]);
+	const marginTestimonial = useTransform(
+		scrollYProgress,
+		[0, smallerViewPort ? 0 : 0.25],
+		["2rem", "0.5rem"]
+	);
 	return (
 		<div
 			ref={targetRef}
@@ -91,12 +117,12 @@ export default function Testimonials() {
 					{testimonials.map((testimonial, index) => (
 						<TesimonialCard
 							key={index}
-							scrollYProgress={scrollYProgress}
 							externalLink={testimonial.externalLink}
 							name={testimonial.name}
 							shortDescription={testimonial.shortDescription}
 							fullDescription={testimonial.fullDescription}
 							imageUrl={testimonial.imageUrl}
+							marginTestimonial={marginTestimonial}
 						/>
 					))}
 				</Masonry>
