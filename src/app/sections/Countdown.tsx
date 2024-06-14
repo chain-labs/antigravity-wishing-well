@@ -126,6 +126,9 @@ function MobilePhase({
 
 	return (
 		<motion.div
+			style={{
+				color: "transparent",
+			}}
 			className={twMerge(
 				"text-5xl font-sans font-extrabold text-center",
 				"from-white to-[#999999] bg-gradient-to-b text-transparent bg-clip-text rounded-lg p-4 px-8"
@@ -267,15 +270,24 @@ export default function Countdown() {
 					<div className="relative h-full flex flex-col gap-2 p-2">
 						<motion.div
 							whileInView={{
-								height: "calc(100%)",
+								height:
+									state.era === "minting"
+										? "calc(200%)"
+										: state.era === "mining"
+											? "calc(100%)"
+											: "calc(0%)",
+								boxShadow: "0px 5px 0px 0px rgba(0,0,0,1)",
 							}}
-							initial={{ height: "0%" }}
+							initial={{
+								height: "0%",
+								boxShadow: "0px 0px 0px 0px rgba(0,0,0,1)",
+							}}
 							style={{
 								width: "calc(100%)",
 							}}
 							transition={{ duration: 1 }}
 							viewport={{ once: true }}
-							className="absolute top-0 left-0 bg-gradient-to-b from-[#030404] to-[#131A1A] rounded-xl -z-10 opacity-[30%]"
+							className="absolute top-0 left-0 bg-gradient-to-b from-[#03040430] to-[#131A1A30] rounded-xl -z-10"
 						></motion.div>
 						<div
 							style={{
@@ -351,15 +363,24 @@ export default function Countdown() {
 					<div className="relative flex flex-col gap-2 p-2">
 						<motion.div
 							whileInView={{
-								height: "calc(100%)",
+								height:
+									state.era === "wishwell"
+										? "calc(210%)"
+										: state.era === "mining"
+											? "calc(100%)"
+											: "calc(0%)",
+								boxShadow: "0px -5px 0px 0px rgba(0,0,0,1)",
 							}}
-							initial={{ height: "0%" }}
+							initial={{
+								height: "0%",
+								boxShadow: "0px 0px 0px 0px rgba(0,0,0,1)",
+							}}
 							style={{
 								width: "calc(100%)",
 							}}
 							transition={{ duration: 1 }}
 							viewport={{ once: true }}
-							className="absolute bottom-0 right-0 bg-gradient-to-b from-[#030404] to-[#131A1A] rounded-xl -z-10 opacity-[30%]"
+							className="absolute bottom-0 right-0 bg-gradient-to-b from-[#03040430] to-[#131A1A30] rounded-xl -z-10"
 						></motion.div>
 						<div
 							style={{
@@ -496,7 +517,12 @@ export default function Countdown() {
 				</div>
 				<motion.div
 					whileInView={{
-						width: state.era === "wishwell" ? "0%" : state.era === "mining" ? "33.33%" : "calc(66.66%)",
+						width:
+							state.era === "wishwell"
+								? "0%"
+								: state.era === "mining"
+									? "33.33%"
+									: "calc(66.66%)",
 						boxShadow: "5px 0px 0px 0px rgba(0,0,0,1)",
 					}}
 					initial={{
@@ -512,7 +538,12 @@ export default function Countdown() {
 				></motion.div>
 				<motion.div
 					whileInView={{
-						width: state.era === "wishwell" ? "66.66%" : state.era === "mining" ? "33.33%" : "0%",
+						width:
+							state.era === "wishwell"
+								? "66.66%"
+								: state.era === "mining"
+									? "33.33%"
+									: "0%",
 						boxShadow: "-5px 0px 0px 0px rgba(0,0,0,1)",
 					}}
 					initial={{
