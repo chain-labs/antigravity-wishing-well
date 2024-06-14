@@ -15,7 +15,6 @@ import {
   useWriteContract,
 } from "wagmi";
 import toast from "react-hot-toast";
-import useContract from "@/abi";
 import { PublicClient, parseAbiItem } from "viem";
 import axios from "axios";
 import {
@@ -27,6 +26,7 @@ import {
 import { checkCorrectNetwork, getApiNetwork } from "@/utils";
 import { base } from "viem/chains";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
+import useWishwellContract from "@/abi/wishwell";
 
 const Timer = dynamic(() => import("./Timer"));
 
@@ -45,7 +45,7 @@ const HomeContainer = () => {
   const [error, setError] = useState<boolean>(false);
   const [poll, setPoll] = useState<boolean>(false);
   const account = useAccount();
-  const AntiGravity = useContract();
+  const AntiGravity = useWishwellContract();
   const publicClient = usePublicClient();
   const { openConnectModal } = useConnectModal();
 

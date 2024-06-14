@@ -8,9 +8,9 @@ import { getApiNetwork } from "@/utils";
 import { useAccount } from "wagmi";
 import { FiLoader } from "react-icons/fi";
 import axios from "axios";
-import BaseSepoliaAG from "@/abi/BaseSepolia";
+import BaseSepoliaAG from "@/abi/wishwell/BaseSepolia";
 import BaseAG from "@/abi/Base";
-import PulsechainAG from "@/abi/Pulsechain";
+import PulsechainAG from "@/abi/wishwell/Pulsechain";
 import { MarqueeBanner } from "./MarqueeBanner";
 
 interface Props {

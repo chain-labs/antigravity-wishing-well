@@ -11,7 +11,7 @@ interface IContract {
   abi: any;
 }
 
-const useContract = (): IContract | null => {
+const useWishwellContract = (): IContract | null => {
   const account = useAccount();
   const AntiGravity: IContract | null = useMemo(() => {
     if (TEST_NETWORK) {
@@ -31,4 +31,4 @@ const useContract = (): IContract | null => {
   return AntiGravity;
 };
 
-export default useContract;
+export default useWishwellContract;

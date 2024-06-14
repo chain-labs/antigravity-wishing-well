@@ -1,6 +1,6 @@
 import BaseAG from "@/abi/Base";
-import BaseSepoliaAG from "@/abi/BaseSepolia";
-import PulsechainAG from "@/abi/Pulsechain";
+import BaseSepoliaAG from "@/abi/wishwell/BaseSepolia";
+import PulsechainAG from "@/abi/wishwell/Pulsechain";
 import Button from "@/components/Button";
 import { TEST_NETWORK } from "@/constants";
 import Image from "next/image";
