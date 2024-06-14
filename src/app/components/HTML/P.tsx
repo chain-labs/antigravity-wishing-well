@@ -7,6 +7,7 @@ export default function P({
 	gradient = false,
 	extrabold = false,
 	sans = false,
+	center = false
 }: {
 	children: React.ReactNode;
 	className?: string;
@@ -14,6 +15,7 @@ export default function P({
 	gradient?: boolean;
 	extrabold?: boolean;
 	sans?: boolean;
+	center?: boolean;
 }) {
 	return (
 		<p
@@ -25,6 +27,7 @@ export default function P({
 					: "",
 				extrabold ? "font-extrabold" : "",
 				sans ? "font-sans" : "",
+				center ? "text-center" : "",
 				className ?? ""
 			)}
 		>
