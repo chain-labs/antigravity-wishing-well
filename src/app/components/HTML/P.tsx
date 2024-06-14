@@ -7,7 +7,8 @@ export default function P({
 	gradient = false,
 	extrabold = false,
 	sans = false,
-	center = false
+	center = false,
+	style = {}
 }: {
 	children: React.ReactNode;
 	className?: string;
@@ -16,11 +17,13 @@ export default function P({
 	extrabold?: boolean;
 	sans?: boolean;
 	center?: boolean;
+	style?: React.CSSProperties;
 }) {
 	return (
 		<p
+			style={style}
 			className={twMerge(
-				"text-[16px] font-general-sans text-white font-medium",
+				"text-[16px] font-general-sans text-agwhite font-medium",
 				uppercase ? "uppercase tracking-widest" : "",
 				gradient
 					? "bg-gradient-to-b from-white to-[#999999] text-transparent bg-clip-text"

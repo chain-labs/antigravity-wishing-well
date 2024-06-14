@@ -270,7 +270,7 @@ const Header = () => {
 			transition={{ duration: 0.5, delay: 1.5 }}
 			className="flex flex-col h-full w-full items-center justify-center gap-3 z-50 font-extrabold"
 		>
-			<div className="flex text-white w-full md:w-3/4 h-14 lg:h-[72px] rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px] overflow-hidden">
+			<div className="flex text-agwhite w-full md:w-3/4 h-14 lg:h-[72px] rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px] overflow-hidden">
 				<div className="w-full h-full bg-agblack px-8 flex items-center justify-between rounded-lg gap-6 px-4">
 					{/* Desktop View */}
 					<div className="hidden md:flex md:flex-grow md:items-center h-full md:justify-between md:gap-x-6">
@@ -362,7 +362,7 @@ const Header = () => {
 			</div>
 			{isOpen ? (
 				<div className="flex md:hidden w-full justify-center">
-					<div className="flex text-white w-full lg:h-16 rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px] overflow-hidden">
+					<div className="flex text-agwhite w-full lg:h-16 rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px] overflow-hidden">
 						<div className="w-full h-full bg-agblack px-8 flex flex-col items-center justify-center rounded-lg gap-6 py-4">
 							{account.isConnected && <UserConnected />}
 							<a href="/wishwell">

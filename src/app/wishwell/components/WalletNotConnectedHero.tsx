@@ -26,6 +26,12 @@ import {
 	useWriteContract,
 } from "wagmi";
 
+// Use a function to get the latest block number
+async function getLatestBlockNumber(publicClient: PublicClient) {
+	const block = await publicClient.getBlockNumber();
+	return block;
+}
+
 export default function WalletNotConnectedHero() {
 	const [isRegistered, setIsRegistered] = useState<boolean>(false);
 	const [isSuccess, setIsSuccess] = useState<boolean>(false);

@@ -47,7 +47,7 @@ const Features = () => {
           </p>
           <div className="flex flex-col gap-4 w-full">
             <div className="grid grid-cols-2 gap-4 w-full">
-              <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-tr from-[#BF6841] to-[#5537A5] p-[1px] overflow-hidden w-full">
+              <div className="bg-gray-800 text-agwhite rounded-lg bg-gradient-to-tr from-[#BF6841] to-[#5537A5] p-[1px] overflow-hidden w-full">
                 <div className="bg-agblack px-20 py-4 md:py-8 flex flex-col items-center rounded-lg h-full w-full">
                   <div className="relative w-24 h-24">
                     <Image
@@ -62,7 +62,7 @@ const Features = () => {
                   <p className="text-lg font-sans font-extrabold">Mining</p>
                 </div>
               </div>
-              <div className="bg-gray-800 text-white rounded-lg bg-gradient-to-tr from-[#BF6841] to-[#5537A5] p-[1px] overflow-hidden">
+              <div className="bg-gray-800 text-agwhite rounded-lg bg-gradient-to-tr from-[#BF6841] to-[#5537A5] p-[1px] overflow-hidden">
                 <div className="bg-agblack px-4 py-4 md:py-8 flex flex-col items-center rounded-lg h-full w-full">
                   <div className="relative w-24 h-24">
                     <Image
@@ -83,7 +83,7 @@ const Features = () => {
                 return (
                   <div
                     key={item.alt}
-                    className=" bg-gray-800 text-white rounded-lg bg-gradient-to-tr from-[#BF6841] to-[#5537A5] p-[1px] overflow-hidden"
+                    className=" bg-gray-800 text-agwhite rounded-lg bg-gradient-to-tr from-[#BF6841] to-[#5537A5] p-[1px] overflow-hidden"
                   >
                     <div className="bg-agblack px-4 py-4 md:py-8 flex flex-col items-center rounded-lg h-full w-full">
                       <div className="relative w-24 h-24">

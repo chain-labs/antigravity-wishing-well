@@ -167,7 +167,7 @@ export default function Leaderboard({
 						<div className="relative flex flex-col w-full gap-4 lg:pl-6 place-self-end">
 							<CollectiveLogo />
 							<div className="flex flex-col gap-[8px] py-[16px] lg:p-[16px]">
-								<h2 className="font-general-sans text-[16px] text-white font-medium">
+								<h2 className="font-general-sans text-[16px] text-agwhite font-medium">
 									Wallet Connected:
 								</h2>
 								<H2
@@ -198,7 +198,7 @@ export default function Leaderboard({
 									iconSrc={require("@/app/assets/icons/hammer.svg")}
 									iconAlt="hammer icon"
 								/>
-								<a href="/" className="text-white underline">
+								<a href="/" className="text-agwhite underline">
 									<P>Best ways to rank up →</P>
 								</a>
 							</div>

@@ -119,7 +119,7 @@ export default function HeroItemCard({
 				animate={{ height: hover ? "auto" : 0 }}
 				initial={{ height: 0 }}
 				transition={{ duration: descriptionRevealAnimationDuration }}
-				className="text-white text-lg overflow-hidden"
+				className="text-agwhite text-lg overflow-hidden"
 			>
 				{description}
 			</motion.p>
