@@ -2,17 +2,26 @@ import Button from "@/components/Button";
 import Image from "next/image";
 import { useState } from "react";
 import IMAGEKIT from "./images";
+import { useRestPost } from "@/hooks/useRestClient";
 
 const StayUpdated = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [submit, setSubmit] = useState(false);
 
+  const { data, isPending, error, mutate } = useRestPost(
+    ["contact"],
+    "/contact"
+  );
+
   const handleSubmit = (e: React.MouseEvent) => {
     e.preventDefault();
 
     if (name && email) {
+      console.log({ name, email });
+
       setSubmit(true);
+      mutate({ name, email });
     }
   };
 
