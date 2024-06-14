@@ -104,11 +104,11 @@ export default function HeroItemCard({
 				quality={100}
 				height={1136}
 				width={1024}
+				style={{
+					opacity: hover ? hoverImageOpacity : defaultImageOpacity,
+				}}
 				className={twMerge(
 					"absolute top-0 left-0 object-cover h-full w-full -z-10 transition-opacity duration-500",
-					hover
-						? `opacity-[${hoverImageOpacity}]`
-						: `opacity-[${defaultImageOpacity}]`,
 					className ?? ""
 				)}
 			/>
