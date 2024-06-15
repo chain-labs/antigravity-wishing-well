@@ -1,3 +1,5 @@
+"use client";
+
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 
@@ -11,7 +13,7 @@ export default function Pill({
 	text: string;
 }) {
 	return (
-		<div className="flex justify-center items-center gap-1 py-[4px] px-[8px] rounded-full bg-gradient-to-b from-[#B4EBF8] to-[#789DFA] tex-agblack font-general-sans font-semibold text-[16px] leading-[16px] text-nowrap h-fit">
+		<div className="grid grid-cols-[24px_auto] place-items-center gap-1 py-[4px] px-[8px] rounded-full bg-gradient-to-b from-[#B4EBF8] to-[#789DFA] tex-agblack font-general-sans font-semibold text-[16px] leading-[16px] h-fit w-full text-nowrap">
 			{iconSrc && iconAlt && (
 				<Image
 					src={iconSrc}
