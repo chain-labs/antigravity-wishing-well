@@ -20,5 +20,15 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-	args: {},
+	args: {
+		iconSrc: require("@/app/assets/icons/pill-points.svg"),
+		iconAlt: "Icon",
+		options: [
+			{ label: "Option 1", value: 1 },
+			{ label: "Option 2", value: 2 },
+			{ label: "Option 3", value: 3 },
+		],
+		selected: "Option 1",
+		setSelected: fn(),
+	},
 };
