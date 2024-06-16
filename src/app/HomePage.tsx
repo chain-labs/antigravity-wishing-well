@@ -50,7 +50,7 @@ export default function HomePage() {
 		<div className="bg-agblack min-h-[100vh]">
 			<div className="flex flex-col min-h-screen min-w-screen overflow-hidden">
 				<div className="relative z-0 flex flex-col min-h-screen">
-					<div className="fixed top-0 w-full z-50 items-center pt-12 px-4">
+					<div className="fixed top-0 w-full z-50 items-center pt-[16px] md:pt-12 px-4">
 						<Header />
 					</div>
 					<div className="z-100">
