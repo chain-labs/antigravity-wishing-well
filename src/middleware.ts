@@ -6,6 +6,10 @@ export async function middleware(request: NextRequest) {
 	const forwardedFor = headers().get("x-forwarded-for");
 	const realIp = headers().get("x-real-ip");
 
+	const apiResponse = (
+		await fetch(`https://get.geojs.io/v1/ip/country/${realIp}.json`)
+	).json();
+
 	// if (forwardedFor) {
 	// 	return NextResponse.json({
 	// 		forwardedFor
@@ -13,7 +17,8 @@ export async function middleware(request: NextRequest) {
 	// }
 	return NextResponse.json({
 		realIp,
-		forwardedFor
+		forwardedFor,
+		apiResponse,
 	});
 
 	// return NextResponse.redirect(new URL("/home", request.url));
