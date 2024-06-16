@@ -22,7 +22,7 @@ const Loader = () => {
 	return (
 		<Html center>
 			<div className="fixed top-0 left-0 w-full h-full bg-black flex items-center justify-center">
-				<h1 className="text-white text-4xl">
+				<h1 className="text-agwhite text-4xl">
 					{progress.toFixed(1)}% Loading...
 				</h1>
 			</div>
