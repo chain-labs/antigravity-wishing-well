@@ -1,15 +1,18 @@
 import useMiningContract from "@/abi/MiningRig";
 import { useEffect, useMemo } from "react";
 import { parseUnits, zeroAddress } from "viem";
-import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
+import {
+  useReadContract,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from "wagmi";
 
 /**
  * Description placeholder
  *
  * @param {string} tokenAddress
  * @param {number} amountToInvest
- * @param {string[]} merkleProof
- * @returns {{ mineToken: () => void; receipt: any; receiptError: any; mineError: any; isLoading: any; isPending: any; }}
+ * @returns {{ mineToken: (merkleProof: {}) => void; receipt: any; receiptError: any; mineError: any; isLoading: any; isPending: any; }}
  */
 const useMining = (tokenAddress: string, amountToInvest: number) => {
   const MiningContract = useMiningContract();
@@ -34,6 +37,18 @@ const useMining = (tokenAddress: string, amountToInvest: number) => {
     return BigInt(0);
   }, [amountToInvest]);
 
+  const { data: nativeToken } = useReadContract({
+    address: MiningContract?.address as `0x${string}`,
+    abi: MiningContract?.abi,
+    functionName: "NATIVE_TOKEN",
+  });
+
+  useEffect(() => {
+    if (nativeToken) {
+      console.log({ nativeToken });
+    }
+  }, [nativeToken]);
+
   useEffect(() => {
     if (mineError) {
       console.log({ mineError });
@@ -47,7 +62,7 @@ const useMining = (tokenAddress: string, amountToInvest: number) => {
         abi: MiningContract?.abi,
         functionName: "mine",
         args: [tokenAddress, investAmount, merkleProof],
-        value: tokenAddress === zeroAddress ? investAmount : BigInt(0),
+        value: tokenAddress === nativeToken ? investAmount : BigInt(0),
       });
     }
   };
