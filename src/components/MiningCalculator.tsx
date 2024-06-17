@@ -42,17 +42,55 @@ function Card({
 						type="text"
 						value={value}
 						onChange={(e) => {
-							const value = Number(
-								e.target.value.replace(/,/g, "")
-							);
+							const inputValue = e.target.value.replace(/[^0-9.]/g, "").replace(/(\..*?)\..*/g, '$1');;
+
+							if (inputValue === "" && setCurrentValue) {
+								setCurrentValue("0");
+							}
+
 							if (
-								!isNaN(value) &&
-								value >= 0 &&
+								inputValue.charAt(inputValue.length - 1) ===
+									"." &&
+								setCurrentValue
+							) {
+								let occuredOnce = false;
+								for (let i = 0; i < inputValue.length; i++) {
+									if (inputValue.charAt(i) === ".") {
+										if (occuredOnce) {
+											setCurrentValue(
+												inputValue.slice(0, i)
+											);
+											return;
+										}
+										occuredOnce = true;
+									}
+								}
+								setCurrentValue(inputValue);
+								return;
+							}
+
+							if (
+								isNaN(
+									parseFloat(
+										inputValue.charAt(inputValue.length - 1)
+									)
+								)
+							) {
+								console.log('inputValue.charAt(inputValue.length - 1)', inputValue.charAt(inputValue.length - 1));
+								return;
+							}
+
+							const numberValue = parseFloat(inputValue);
+
+							if (
+								!isNaN(numberValue) &&
+								numberValue >= 0 &&
 								setCurrentValue
 							) {
 								setCurrentValue(
-									pointsConverterToUSCommaseparated(value) ??
-										"0"
+									pointsConverterToUSCommaseparated(
+										numberValue
+									) ?? "0"
 								);
 							}
 						}}
@@ -149,8 +187,16 @@ function Multiplyer({
 	);
 }
 
-function pointsConverterToUSCommaseparated(points: number) {
-	return points.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+function pointsConverterToUSCommaseparated(points: number): string {
+	const [integerPart, decimalPart] = points.toString().split(".");
+	const formattedIntegerPart = integerPart.replace(
+		/\B(?=(\d{3})+(?!\d))/g,
+		","
+	);
+
+	return decimalPart
+		? `${formattedIntegerPart}.${decimalPart}`
+		: formattedIntegerPart;
 }
 
 export default function MiningCalculator({
