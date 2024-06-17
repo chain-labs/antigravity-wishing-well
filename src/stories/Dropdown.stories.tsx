@@ -21,7 +21,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
 	args: {
-		iconSrc: require("@/app/assets/icons/pill-points.svg"),
+		iconSrc: require("@/assets/icons/pill-points.svg"),
 		iconAlt: "Icon",
 		options: [
 			{ label: "Option 1", value: 1 },

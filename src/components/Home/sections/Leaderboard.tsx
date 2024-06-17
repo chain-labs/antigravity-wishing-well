@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/stories/Button";
+import Button from "@/components/Button";
 import {
 	useScroll,
 	useTransform,
@@ -12,7 +12,7 @@ import { useRef, useState } from "react";
 import H1 from "../components/HTML/H1";
 import H2 from "../components/HTML/H2";
 import P from "../components/HTML/P";
-import Table from "@/stories/Table";
+import Table from "@/components/Table";
 import { useAccount } from "wagmi";
 
 function CollectiveLogo() {
@@ -26,7 +26,7 @@ function CollectiveLogo() {
 			>
 				<Image
 					onMouseEnter={() => setHover(true)}
-					src={require("@/app/assets/collective-color-logo.svg")}
+					src={require("@/assets/collective-color-logo.svg")}
 					alt="leaderboard background"
 					width={100}
 					height={100}
@@ -151,7 +151,7 @@ export default function Leaderboard({
 						<H1>Leaderboard</H1>
 						<Button
 							innerText="Refresh"
-							iconSrc={require("@/app/assets/icons/refresh.svg")}
+							iconSrc={require("@/assets/icons/refresh.svg")}
 							iconAlt="refresh icon"
 							secondary
 							disableSparkels
@@ -182,7 +182,7 @@ export default function Leaderboard({
 							<div className="relative flex flex-col gap-[8px] p-4 rounded-xl overflow-hidden w-full z-0">
 								<div className="bg-[#3C00DC] absolute inset-0 -z-10 opacity-[25%]"></div>
 								<Image
-									src={require("@/app/assets/icons/info.svg")}
+									src={require("@/assets/icons/info.svg")}
 									alt="info icon"
 									width={24}
 									height={24}
@@ -195,7 +195,7 @@ export default function Leaderboard({
 								</P>
 								<Button
 									innerText="Start mining"
-									iconSrc={require("@/app/assets/icons/hammer.svg")}
+									iconSrc={require("@/assets/icons/hammer.svg")}
 									iconAlt="hammer icon"
 								/>
 								<a href="/" className="text-agwhite underline">

@@ -1,11 +1,11 @@
 import Image from "next/image";
-import Header from "../components/header/Header";
+import Header from "../../components/Home/components/header/Header";
 import WalletNotConnectedHero from "./components/WalletNotConnectedHero";
 import { useEffect, useState } from "react";
-import CanvasRendering from "../components/saturn/CanvasRendering";
-import StarFieldCanvas from "../components/background/Starfeild";
-import Newsletter from "../sections/Newsletter";
-import Footer from "../sections/Footer";
+import CanvasRendering from "../../components/Home/components/saturn/CanvasRendering";
+import StarFieldCanvas from "../../components/Home/components/background/Starfeild";
+import Newsletter from "../../components/Home/sections/Newsletter";
+import Footer from "../../components/Home/sections/Footer";
 
 export default function WalletNotConnected() {
 	const [smallerViewPort, setSmallerViewPort] = useState<boolean>(false);
@@ -44,7 +44,7 @@ export default function WalletNotConnected() {
 					<div className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[2]">
 						{smallerViewPort ? (
 							<Image
-								src={require("@/app/assets/mobile-saturn.png")}
+								src={require("@/assets/mobile-saturn.png")}
 								alt="Mobile Saturn"
 								width={1920}
 								height={1080}

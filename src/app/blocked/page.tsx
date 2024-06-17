@@ -1,7 +1,7 @@
 import Image from "next/image";
-import H1 from "@/app/components/HTML/H1";
-import P from "@/app/components/HTML/P";
-import Button from "@/stories/Button";
+import H1 from "@/components/Home/components/HTML/H1";
+import P from "@/components/Home/components/HTML/P";
+import Button from "@/components/Button";
 import Link from "next/link";
 
 export default function GeoBlocked() {
@@ -11,7 +11,7 @@ export default function GeoBlocked() {
 		>
 			<div className="absolute top-0 left-0 flex justify-center items-center gap-[16px] px-[16px] py-[32px] md:py-[48px] md:px-[96px] w-full md:w-fit">
 				<Image
-					src={require("@/app/assets/logo.svg")}
+					src={require("@/assets/logo.svg")}
 					alt="logo"
 					width={45.19}
 					height={45.19}
@@ -38,7 +38,7 @@ export default function GeoBlocked() {
 				<Link href="/" className="w-full">
 					<Button
 						innerText="How to use vpn"
-						iconSrc={require("@/app/assets/icons/info.svg")}
+						iconSrc={require("@/assets/icons/info.svg")}
 						iconAlt="info icon"
 						className="w-full md:w-fit"
 					/>
@@ -46,7 +46,7 @@ export default function GeoBlocked() {
 			</div>
 
 			<Image
-				src={require("@/app/assets/geoblocked.png")}
+				src={require("@/assets/geoblocked.png")}
 				alt="404 background"
 				height={1080}
 				width={1920}

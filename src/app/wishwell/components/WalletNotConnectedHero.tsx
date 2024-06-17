@@ -1,8 +1,8 @@
 "use client";
-import H1 from "@/app/components/HTML/H1";
-import P from "@/app/components/HTML/P";
-import { RegisterButton } from "@/app/components/header/RegisterButton";
-import Button from "@/stories/Button";
+import H1 from "@/components/Home/components/HTML/H1";
+import P from "@/components/Home/components/HTML/P";
+import { RegisterButton } from "@/components/Home/components/header/RegisterButton";
+import Button from "@/components/Button";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -285,13 +285,13 @@ export default function WalletNotConnectedHero() {
 						<Button
 							className="bg-agblack"
 							innerText="How to Contribute?"
-							iconSrc={require("@/app/assets/icons/info.svg")}
+							iconSrc={require("@/assets/icons/info.svg")}
 							iconAlt="info icon"
 						/>
 					</div>
 				</div>
 				<Image
-					src={require("@/app/wishwell/assets/bg.png")}
+					src={require("@/assets/wishwell-background.png")}
 					alt="background"
 					height={1080}
 					width={1920}

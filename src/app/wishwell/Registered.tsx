@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Header from "../components/header/Header";
-import Footer from "../sections/Footer";
-import Newsletter from "../sections/Newsletter";
+import Header from "../../components/Home/components/header/Header";
+import Footer from "../../components/Home/sections/Footer";
+import Newsletter from "../../components/Home/sections/Newsletter";
 import RegisteredHero from "./components/RegisteredHero";
 import Image from "next/image";
-import StarFieldCanvas from "../components/background/Starfeild";
-import CanvasRendering from "../components/saturn/CanvasRendering";
-import Leaderboard from "../sections/Leaderboard";
+import StarFieldCanvas from "../../components/Home/components/background/Starfeild";
+import CanvasRendering from "../../components/Home/components/saturn/CanvasRendering";
+import Leaderboard from "../../components/Home/sections/Leaderboard";
 
 export default function Registered() {
 	const [smallerViewPort, setSmallerViewPort] = useState<boolean>(false);
@@ -48,7 +48,7 @@ export default function Registered() {
 					<div className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[2]">
 						{smallerViewPort ? (
 							<Image
-								src={require("@/app/assets/mobile-saturn.png")}
+								src={require("@/assets/mobile-saturn.png")}
 								alt="Mobile Saturn"
 								width={1920}
 								height={1080}

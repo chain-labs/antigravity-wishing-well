@@ -5,10 +5,10 @@ import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
-import H1 from "@/app/components/HTML/H1";
-import H3 from "@/app/components/HTML/H3";
-import H2 from "@/app/components/HTML/H2";
-import P from "@/app/components/HTML/P";
+import H1 from "@/components/Home/components/HTML/H1";
+import H3 from "@/components/Home/components/HTML/H3";
+import H2 from "@/components/Home/components/HTML/H2";
+import P from "@/components/Home/components/HTML/P";
 
 function TH({
 	icon,
@@ -184,14 +184,14 @@ function Rank({
 	wallet: string;
 	special?: boolean;
 }) {
-	const iconLink = `@/app/assets/icons/${special ? "wallet-black.svg" : "wallet.svg"}`;
+	const iconLink = `@/assets/icons/${special ? "wallet-black.svg" : "wallet.svg"}`;
 	return (
 		<TD special={special} border>
 			#{rank} <Badge special={special}>Specialist Technician</Badge>
 			<div className="flex gap-[4px] justify-start items-center lg:hidden text-[18px] lg:text-[14px]">
 				{special ? (
 					<Image
-						src={require("@/app/assets/icons/wallet-black.svg")}
+						src={require("@/assets/icons/wallet-black.svg")}
 						alt="wallet icon"
 						width={25}
 						height={25}
@@ -199,7 +199,7 @@ function Rank({
 					/>
 				) : (
 					<Image
-						src={require("@/app/assets/icons/wallet.svg")}
+						src={require("@/assets/icons/wallet.svg")}
 						alt="hammer icon"
 						width={25}
 						height={25}
@@ -241,16 +241,16 @@ export default function Table({ tableData }: { tableData: tableDataType[] }) {
                         ))
                     } */}
 					<TH
-						icon={require("@/app/assets/icons/leaderboard.svg")}
+						icon={require("@/assets/icons/leaderboard.svg")}
 						heading="Rank"
 					/>
 					<TH
-						icon={require("@/app/assets/icons/wallet.svg")}
+						icon={require("@/assets/icons/wallet.svg")}
 						heading="Wallet"
 						className="hidden lg:flex"
 					/>
 					<TH
-						icon={require("@/app/assets/icons/points.svg")}
+						icon={require("@/assets/icons/points.svg")}
 						heading="Points"
 					/>
 				</TR>

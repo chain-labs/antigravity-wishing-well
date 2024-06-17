@@ -2,7 +2,7 @@ import Button from "@/components/Button";
 import Image from "next/image";
 import React, { useState } from "react";
 import YouTubeModal from "./YoutubeModal";
-import { RegisterButton } from "../../components/header/RegisterButton";
+import { RegisterButton } from "../../../components/Home/components/header/RegisterButton";
 import IMAGEKIT from "../images";
 
 type Props = {

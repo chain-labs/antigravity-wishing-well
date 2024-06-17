@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/stories/Button";
+import Button from "@/components/Button";
 import { useScroll, useTransform, motion } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
@@ -38,7 +38,7 @@ export default function NFTReceipt() {
 				}}
 			>
 				<Image
-					src={require("@/app/assets/nft-receipt.svg")}
+					src={require("@/assets/nft-receipt.svg")}
 					alt="NFT Receipt"
 					width={300}
 					height={600}
@@ -50,7 +50,7 @@ export default function NFTReceipt() {
                                 rounded-lg px-4 py-3 shadow-button hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-agblack bg-blue`}
 			>
 				<Image
-					src={require("@/app/assets/icons/claim.svg")}
+					src={require("@/assets/icons/claim.svg")}
 					alt="hammer icon"
 					width={25}
 					height={25}
@@ -61,7 +61,7 @@ export default function NFTReceipt() {
 
 			<Button
 				innerText="Claim collective rewards"
-				iconSrc={require("@/app/assets/icons/claim.svg")}
+				iconSrc={require("@/assets/icons/claim.svg")}
 				iconAlt="hammer icon"
 			/>
 		</div>

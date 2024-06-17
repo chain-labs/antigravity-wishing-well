@@ -1,6 +1,6 @@
 "use client";
 
-import DynamicNumberCounter from "@/app/components/spinner/DynamicNumberCounter";
+import DynamicNumberCounter from "@/components/Home/components/spinner/DynamicNumberCounter";
 
 export default function CountdownTimer({
 	state,

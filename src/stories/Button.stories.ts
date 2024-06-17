@@ -2,7 +2,7 @@
 
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
-import Button from "./Button";
+import Button from "../components/Button";
 
 const meta = {
 	title: "Example/Button",
@@ -36,7 +36,7 @@ export const Secondary: Story = {
 export const ButtonWithIcon: Story = {
 	args: {
 		innerText: "Refresh",
-		iconSrc: require("@/app/assets/icons/refresh.svg"),
+		iconSrc: require("@/assets/icons/refresh.svg"),
 		size: "medium",
 	},
 };

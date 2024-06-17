@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import H1 from "@/app/components/HTML/H1";
-import P from "@/app/components/HTML/P";
-import Button from "@/stories/Button";
+import H1 from "@/components/Home/components/HTML/H1";
+import P from "@/components/Home/components/HTML/P";
+import Button from "@/components/Button";
 
 export default function Form({
 	defaultSuccess = false,
@@ -84,7 +84,7 @@ export default function Form({
 						/>
 						<Button
 							innerText="Submit"
-							iconSrc={require("@/app/assets/icons/send.svg")}
+							iconSrc={require("@/assets/icons/send.svg")}
 							iconAlt="send"
 							type="submit"
 						/>

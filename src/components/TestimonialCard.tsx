@@ -4,7 +4,7 @@ import { useTransform, motion, MotionValue } from "framer-motion";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import P from "@/app/components/HTML/P";
+import P from "@/components/Home/components/HTML/P";
 
 export type TestimonialCardType = {
 	name: string;
@@ -46,7 +46,7 @@ export default function TesimonialCard({
 					/>
 				) : (
 					<Image
-						src={require("@/app/assets/community-logo.svg")}
+						src={require("@/assets/community-logo.svg")}
 						alt={name}
 						width={50}
 						height={50}

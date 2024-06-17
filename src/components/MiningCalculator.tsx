@@ -1,6 +1,6 @@
 "use client";
 
-import P from "@/app/components/HTML/P";
+import P from "@/components/Home/components/HTML/P";
 import Pill from "./Pill";
 import { twMerge } from "tailwind-merge";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
@@ -193,7 +193,7 @@ export default function MiningCalculator({
 				value={currentValue}
 				conversion={`$${pointsConverterToUSCommaseparated(USDValue)}`}
 				pillIconAlt={inputOptions[selectedOption].label}
-				pillIconSrc={require("@/app/assets/icons/pill-pls.svg")}
+				pillIconSrc={require("@/assets/icons/pill-pls.svg")}
 				pillText={inputOptions[selectedOption].label}
 				setPillText={setSelectedOption}
 				dropdownOptions={inputOptions}
@@ -235,7 +235,7 @@ export default function MiningCalculator({
 				conversion={`$${pointsConverterToUSCommaseparated(USDValue)}`}
 				multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
 				pillIconAlt="points"
-				pillIconSrc={require("@/app/assets/icons/pill-points.svg")}
+				pillIconSrc={require("@/assets/icons/pill-points.svg")}
 				pillText="Points"
 			/>
 			<Card
@@ -245,7 +245,7 @@ export default function MiningCalculator({
 				conversion={`$${pointsConverterToUSCommaseparated(USDValue)}`}
 				multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
 				pillIconAlt="dark x"
-				pillIconSrc={require("@/app/assets/icons/pill-dark-x.png")}
+				pillIconSrc={require("@/assets/icons/pill-dark-x.png")}
 				pillText="DARK X"
 			/>
 		</div>

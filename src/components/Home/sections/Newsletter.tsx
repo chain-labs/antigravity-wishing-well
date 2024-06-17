@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import H1 from "../components/HTML/H1";
 import P from "../components/HTML/P";
-import Button from "@/stories/Button";
+import Button from "@/components/Button";
 import toast from "react-hot-toast";
 
 export default function Newsletter() {
@@ -75,7 +75,7 @@ export default function Newsletter() {
                                 rounded-lg px-4 py-3 shadow-button hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-agblack bg-blue"
 						>
 							<Image
-								src={require("@/app/assets/icons/send.svg")}
+								src={require("@/assets/icons/send.svg")}
 								alt="send"
 								width={40}
 								height={40}
@@ -84,7 +84,7 @@ export default function Newsletter() {
 						</button> */}
             <Button
               innerText="Submit"
-              iconSrc={require("@/app/assets/icons/send.svg")}
+              iconSrc={require("@/assets/icons/send.svg")}
               iconAlt="send"
               type="submit"
             />

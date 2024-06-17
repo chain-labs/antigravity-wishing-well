@@ -6,7 +6,7 @@ import { twMerge } from "tailwind-merge";
 import { MotionValue, motion, useTransform } from "framer-motion";
 import DynamicNumberCounter from "./DynamicNumberCounter";
 import AutomaticIncreamentalNumberCounter from "./AutomaticIncreamentalNumberCounter";
-import useTimer from "@/app/hooks/useTimer";
+import useTimer from "@/hooks/frontend/useTimer";
 
 let globalDelay = 1.5;
 
@@ -484,7 +484,7 @@ function Pointer() {
 			)}
 		>
 			<Image
-				src={require("@/app/assets/counter-pointer.svg")}
+				src={require("@/assets/counter-pointer.svg")}
 				width={50}
 				height={50}
 				layout="fixed"
@@ -499,7 +499,7 @@ function Timer() {
 	return (
 		<div className="absolute flex flex-col justify-center items-center gap-2 z-[100] w-[400px] h-[200px] translate-y-[60%]">
 			<Image
-				src={require("@/app/assets/counter-background.svg")}
+				src={require("@/assets/counter-background.svg")}
 				width={450}
 				height={225}
 				layout="fixed"

@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { IoMenu, IoCloseCircleOutline } from "react-icons/io5";
 import { UserConnected } from "./UserConnected";
-import IMAGEKIT from "../../home/images";
+import IMAGEKIT from "../../../../app/home/images";
 import { motion } from "framer-motion";
 import { RegisterButton } from "./RegisterButton";
 import P from "../HTML/P";

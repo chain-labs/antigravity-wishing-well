@@ -1,11 +1,11 @@
-import Button from "@/stories/Button";
+import Button from "@/components/Button";
 import { TEST_NETWORK } from "@/constants";
 import { checkCorrectNetwork } from "@/utils";
 import Image from "next/image";
 import { FiLoader } from "react-icons/fi";
 import { baseSepolia, pulsechain } from "viem/chains";
 import { useAccount, useSwitchChain } from "wagmi";
-import IMAGEKIT from "../../home/images";
+import IMAGEKIT from "../../../../app/home/images";
 
 interface RegisterButtonProps {
 	loading: boolean;
@@ -67,7 +67,7 @@ export const RegisterButton: React.FC<RegisterButtonProps> = ({
 							: "Change Network"
 						: "CONNECT WALLET"
 				}
-				iconSrc={require("@/app/assets/icons/wallet.svg")}
+				iconSrc={require("@/assets/icons/wallet.svg")}
 				iconPosition="start"
 				
 			/>

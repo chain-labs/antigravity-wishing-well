@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 import { motion } from "framer-motion";
-import DynamicNumberCounter from "@/app/components/spinner/DynamicNumberCounter";
-import AutomaticIncreamentalNumberCounter from "@/app/components/spinner/AutomaticIncreamentalNumberCounter";
+import DynamicNumberCounter from "@/components/Home/components/spinner/DynamicNumberCounter";
+import AutomaticIncreamentalNumberCounter from "@/components/Home/components/spinner/AutomaticIncreamentalNumberCounter";
 
 const globalDelay = 1.5;
 
@@ -528,7 +528,7 @@ function Pointer({ activeState }: { activeState: SpinnerProps }) {
 			)}
 		>
 			<Image
-				src={require("@/app/assets/counter-pointer.svg")}
+				src={require("@/assets/counter-pointer.svg")}
 				width={50}
 				height={50}
 				layout="fixed"
@@ -542,7 +542,7 @@ function Timer({ activeState }: { activeState: SpinnerProps }) {
 	return (
 		<div className="absolute flex flex-col justify-center items-center gap-2 z-[100] w-[400px] h-[200px] translate-y-[60%]">
 			<Image
-				src={require("@/app/assets/counter-background.svg")}
+				src={require("@/assets/counter-background.svg")}
 				width={450}
 				height={225}
 				layout="fixed"
