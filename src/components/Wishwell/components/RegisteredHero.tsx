@@ -1,5 +1,5 @@
-import H1 from "@/components/Home/components/HTML/H1";
-import P from "@/components/Home/components/HTML/P";
+import H1 from "@/components/HTML/H1";
+import P from "@/components/HTML/P";
 import Button from "@/components/Button";
 import Image from "next/image";
 

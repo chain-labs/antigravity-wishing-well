@@ -2,7 +2,7 @@ import { condenseAddress } from "@/utils";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 import { PiWarningCircle } from "react-icons/pi";
-import { Badge } from "../HTML/Badge";
+import { Badge } from "../../../HTML/Badge";
 import Image from "next/image";
 
 export const UserConnected: React.FC = () => {

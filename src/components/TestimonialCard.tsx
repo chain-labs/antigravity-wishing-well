@@ -4,7 +4,7 @@ import { useTransform, motion, MotionValue } from "framer-motion";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import P from "@/components/Home/components/HTML/P";
+import P from "@/components/HTML/P";
 
 export type TestimonialCardType = {
 	name: string;

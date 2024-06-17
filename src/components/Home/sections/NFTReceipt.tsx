@@ -4,7 +4,7 @@ import Button from "@/components/Button";
 import { useScroll, useTransform, motion } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
-import H1 from "../components/HTML/H1";
+import H1 from "@/components/HTML/H1";
 
 export default function NFTReceipt() {
 	const targetRef = useRef<HTMLDivElement>(null);

@@ -3,7 +3,7 @@
 import { useScroll, useTransform, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import H1 from "../components/HTML/H1";
+import H1 from "@/components/HTML/H1";
 import TesimonialCard from "@/components/TestimonialCard";
 
 type TestimonialType = {

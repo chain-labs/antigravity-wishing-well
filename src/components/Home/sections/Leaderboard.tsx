@@ -9,9 +9,9 @@ import {
 } from "framer-motion";
 import Image from "next/image";
 import { useRef, useState } from "react";
-import H1 from "../components/HTML/H1";
-import H2 from "../components/HTML/H2";
-import P from "../components/HTML/P";
+import H1 from "@/components/HTML/H1";
+import H2 from "@/components/HTML/H2";
+import P from "@/components/HTML/P";
 import Table from "@/components/Table";
 import { useAccount } from "wagmi";
 

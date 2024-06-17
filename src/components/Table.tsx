@@ -5,10 +5,10 @@ import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
-import H1 from "@/components/Home/components/HTML/H1";
-import H3 from "@/components/Home/components/HTML/H3";
-import H2 from "@/components/Home/components/HTML/H2";
-import P from "@/components/Home/components/HTML/P";
+import H1 from "@/components/HTML/H1";
+import H3 from "@/components/HTML/H3";
+import H2 from "@/components/HTML/H2";
+import P from "@/components/HTML/P";
 
 function TH({
 	icon,

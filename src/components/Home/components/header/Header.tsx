@@ -5,7 +5,7 @@ import { UserConnected } from "./UserConnected";
 import IMAGEKIT from "../../../../app/home/images";
 import { motion } from "framer-motion";
 import { RegisterButton } from "./RegisterButton";
-import P from "../HTML/P";
+import P from "../../../HTML/P";
 import toast from "react-hot-toast";
 import useContract from "@/abi";
 import { PublicClient, parseAbiItem } from "viem";

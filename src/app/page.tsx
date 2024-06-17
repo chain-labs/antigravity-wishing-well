@@ -1,7 +1,7 @@
 "use client";
 
 import { useAccount, useSwitchChain } from "wagmi";
-import HomeContainer from "./home/HomeContainer";
+// import HomeContainer from "./home/HomeContainer";
 import "@rainbow-me/rainbowkit/styles.css";
 import { useEffect, useState } from "react";
 import { TEST_NETWORK } from "@/constants";

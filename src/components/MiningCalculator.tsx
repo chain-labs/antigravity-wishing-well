@@ -1,6 +1,6 @@
 "use client";
 
-import P from "@/components/Home/components/HTML/P";
+import P from "@/components/HTML/P";
 import Pill from "./Pill";
 import { twMerge } from "tailwind-merge";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";

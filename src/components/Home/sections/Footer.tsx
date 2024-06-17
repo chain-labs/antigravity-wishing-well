@@ -1,5 +1,5 @@
 import Image from "next/image";
-import P from "../components/HTML/P";
+import P from "@/components/HTML/P";
 
 export default function Footer() {
 	return (
