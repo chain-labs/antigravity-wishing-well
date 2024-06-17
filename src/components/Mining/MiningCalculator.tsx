@@ -1,12 +1,13 @@
 "use client";
 
 import P from "@/components/HTML/P";
-import Pill from "./Pill";
+import Pill from "../Pill";
 import { twMerge } from "tailwind-merge";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import Badge from "./Badge";
-import Dropdown from "./Dropdown";
+import Badge from "../Badge";
+import Dropdown from "../Dropdown";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 function Card({
 	isEditable,
@@ -24,7 +25,7 @@ function Card({
 	value: string;
 	conversion: string;
 	multiplyer?: string;
-	pillIconSrc: string;
+	pillIconSrc: string | StaticImport;
 	pillText: string;
 	setPillText?: Dispatch<SetStateAction<number>>;
 	pillIconAlt: string;
@@ -43,7 +44,9 @@ function Card({
 						type="text"
 						value={value}
 						onChange={(e) => {
-							const inputValue = e.target.value.replace(/[^0-9.]/g, "").replace(/(\..*?)\..*/g, '$1');;
+							const inputValue = e.target.value
+								.replace(/[^0-9.]/g, "")
+								.replace(/(\..*?)\..*/g, "$1");
 
 							if (inputValue === "" && setCurrentValue) {
 								setCurrentValue("0");
@@ -77,7 +80,10 @@ function Card({
 									)
 								)
 							) {
-								console.log('inputValue.charAt(inputValue.length - 1)', inputValue.charAt(inputValue.length - 1));
+								console.log(
+									"inputValue.charAt(inputValue.length - 1)",
+									inputValue.charAt(inputValue.length - 1)
+								);
 								return;
 							}
 
@@ -122,7 +128,7 @@ function Card({
 	return (
 		<div className="flex justify-between bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-full border-[1px] border-agyellow">
 			<div className="flex flex-col justify-start items-start gap-[8px] w-full">
-				<div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
+				<div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans max-w-[10ch]">
 					{value}
 				</div>
 				<div className="flex opacity-75 gap-[8px]">
@@ -216,6 +222,7 @@ export default function MiningCalculator({
 	inputOptions: {
 		label: string;
 		value: number;
+		icon: string | StaticImport;
 	}[];
 }) {
 	const [currentValue, setCurrentValue] = useState<string>(
@@ -233,6 +240,10 @@ export default function MiningCalculator({
 		}
 	}, [currentValue, conversionRateToUSD, selectedOption]);
 
+	useEffect(() => {
+		setCurrentValue(pointsConverterToUSCommaseparated(value));
+	}, [value]);
+
 	return (
 		<div className="relative flex flex-col gap-[8px] h-fit w-[400px]">
 			<Card
@@ -240,7 +251,7 @@ export default function MiningCalculator({
 				value={currentValue}
 				conversion={`$${pointsConverterToUSCommaseparated(USDValue)}`}
 				pillIconAlt={inputOptions[selectedOption].label}
-				pillIconSrc={IMAGEKIT_ICONS.PILL_POINTS}
+				pillIconSrc={inputOptions[selectedOption].icon}
 				pillText={inputOptions[selectedOption].label}
 				setPillText={setSelectedOption}
 				dropdownOptions={inputOptions}

@@ -2,7 +2,8 @@
 
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
-import MiningCalculator from "@/components/MiningCalculator";
+import MiningCalculator from "@/components/Mining/MiningCalculator";
+import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -29,9 +30,11 @@ export const Default: Story = {
 		inputOptions: [{
 			label: "PLS",
 			value: 0.245,
+			icon: IMAGEKIT_ICONS.PILL_POINTS
 		}, {
-			label: "AGLP",
+			label: "DARK X",
 			value: 0.3,
+			icon: IMAGEKIT_ICONS.PILL_DARK_X
 		}],
 	},
 };
