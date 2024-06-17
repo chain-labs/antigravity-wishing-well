@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { twMerge } from "tailwind-merge";
 import DynamicNumberCounter from "../components/spinner/DynamicNumberCounter";
 import useTimer from "../hooks/useTimer";
+import CountdownTimer from "@/stories/CountdownTimer";
 
 type stateType = {
 	days: number;
@@ -89,6 +90,9 @@ function MobilePhase({
 	if (activeState.era === era && activeState.phase === phase) {
 		return (
 			<motion.div
+				style={{
+					color: "black",
+				}}
 				whileInView={{
 					color: "black",
 				}}
@@ -126,6 +130,9 @@ function MobilePhase({
 
 	return (
 		<motion.div
+			style={{
+				color: "transparent",
+			}}
 			className={twMerge(
 				"text-5xl font-sans font-extrabold text-center",
 				"from-white to-[#999999] bg-gradient-to-b text-transparent bg-clip-text rounded-lg p-4 px-8"
@@ -168,98 +175,7 @@ export default function Countdown() {
 				className="absolute inset-0 z-[-1] w-full h-full object-cover user-select-none pointer-events-none opacity-[66%]"
 			/>
 			<div className="flex justify-start items-start flex-col gap-4">
-				<div className="tracking-widest uppercase text-2xl text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
-					ETA for phase {(state.phase + 1) % 4 ? state.phase + 1 : 1}
-				</div>
-				<div className="relative flex gap-2 md:gap-3 text-agyellow font-sans">
-					<div className="flex items-center justify-center flex-col">
-						<h1 className="hidden md:flex text-6xl font-extrabold">
-							<DynamicNumberCounter
-								count={state.days}
-								setCount={() => {}}
-								modulo={10000}
-								boxPixelSize={60}
-							/>
-						</h1>
-						<h1 className="md:hidden text-5xl font-extrabold">
-							<DynamicNumberCounter
-								count={state.days}
-								setCount={() => {}}
-								modulo={10000}
-								boxPixelSize={48}
-							/>
-						</h1>
-						<p className="text-lg md:text-xl uppercase font-extrabold tracking-widest">
-							Days
-						</p>
-					</div>
-					<div className="bg-agyellow h-[clac(60px_1.5rem)] lg:full w-[1px]"></div>
-					<div className="flex items-center justify-center flex-col">
-						<h1 className="hidden md:flex text-6xl font-extrabold">
-							<DynamicNumberCounter
-								count={state.hours}
-								setCount={() => {}}
-								modulo={24}
-								boxPixelSize={60}
-							/>
-						</h1>
-						<h1 className="md:hidden text-5xl font-extrabold">
-							<DynamicNumberCounter
-								count={state.hours}
-								setCount={() => {}}
-								modulo={24}
-								boxPixelSize={48}
-							/>
-						</h1>
-						<p className="text-xl uppercase font-extrabold tracking-widest">
-							Hours
-						</p>
-					</div>
-					<div className="bg-agyellow h-[clac(60px_1.5rem)] lg:full w-[1px]"></div>
-					<div className="flex items-center justify-center flex-col">
-						<h1 className="hidden md:flex text-6xl font-extrabold">
-							<DynamicNumberCounter
-								count={state.mins}
-								setCount={() => {}}
-								modulo={60}
-								boxPixelSize={60}
-							/>
-						</h1>
-						<h1 className="md:hidden text-5xl font-extrabold">
-							<DynamicNumberCounter
-								count={state.mins}
-								setCount={() => {}}
-								modulo={60}
-								boxPixelSize={48}
-							/>
-						</h1>
-						<p className="text-lg md:text-xl uppercase font-extrabold tracking-widest">
-							Mins
-						</p>
-					</div>
-					<div className="bg-agyellow h-[clac(60px_1.5rem)] lg:full w-[1px]"></div>
-					<div className="flex items-center justify-center flex-col">
-						<h1 className="hidden md:flex text-6xl font-extrabold">
-							<DynamicNumberCounter
-								count={state.secs}
-								setCount={() => {}}
-								modulo={60}
-								boxPixelSize={60}
-							/>
-						</h1>
-						<h1 className="md:hidden text-5xl font-extrabold">
-							<DynamicNumberCounter
-								count={state.secs}
-								setCount={() => {}}
-								modulo={60}
-								boxPixelSize={48}
-							/>
-						</h1>
-						<p className="text-lg md:text-xl uppercase font-extrabold tracking-widest">
-							Secs
-						</p>
-					</div>
-				</div>
+				<CountdownTimer state={state} />
 			</div>
 
 			<div className="relative flex lg:hidden flex-col rounded bg-gradient-to-b from-[#5730BF] to-[#15004C] p-4 z-0 overflow-hidden">
@@ -267,15 +183,24 @@ export default function Countdown() {
 					<div className="relative h-full flex flex-col gap-2 p-2">
 						<motion.div
 							whileInView={{
-								height: "calc(100%)",
+								height:
+									state.era === "minting"
+										? "calc(200%)"
+										: state.era === "mining"
+											? "calc(100%)"
+											: "calc(0%)",
+								boxShadow: "0px 5px 0px 0px rgba(0,0,0,1)",
 							}}
-							initial={{ height: "0%" }}
+							initial={{
+								height: "0%",
+								boxShadow: "0px 0px 0px 0px rgba(0,0,0,1)",
+							}}
 							style={{
 								width: "calc(100%)",
 							}}
 							transition={{ duration: 1 }}
 							viewport={{ once: true }}
-							className="absolute top-0 left-0 bg-gradient-to-b from-[#030404] to-[#131A1A] rounded-xl -z-10 opacity-[30%]"
+							className="absolute top-0 left-0 bg-gradient-to-b from-[#03040430] to-[#131A1A30] rounded-xl -z-10"
 						></motion.div>
 						<div
 							style={{
@@ -351,15 +276,24 @@ export default function Countdown() {
 					<div className="relative flex flex-col gap-2 p-2">
 						<motion.div
 							whileInView={{
-								height: "calc(100%)",
+								height:
+									state.era === "wishwell"
+										? "calc(210%)"
+										: state.era === "mining"
+											? "calc(100%)"
+											: "calc(0%)",
+								boxShadow: "0px -5px 0px 0px rgba(0,0,0,1)",
 							}}
-							initial={{ height: "0%" }}
+							initial={{
+								height: "0%",
+								boxShadow: "0px 0px 0px 0px rgba(0,0,0,1)",
+							}}
 							style={{
 								width: "calc(100%)",
 							}}
 							transition={{ duration: 1 }}
 							viewport={{ once: true }}
-							className="absolute bottom-0 right-0 bg-gradient-to-b from-[#030404] to-[#131A1A] rounded-xl -z-10 opacity-[30%]"
+							className="absolute bottom-0 right-0 bg-gradient-to-b from-[#03040430] to-[#131A1A30] rounded-xl -z-10"
 						></motion.div>
 						<div
 							style={{
@@ -496,7 +430,12 @@ export default function Countdown() {
 				</div>
 				<motion.div
 					whileInView={{
-						width: state.era === "wishwell" ? "0%" : state.era === "mining" ? "33.33%" : "calc(66.66%)",
+						width:
+							state.era === "wishwell"
+								? "0%"
+								: state.era === "mining"
+									? "33.33%"
+									: "calc(66.66%)",
 						boxShadow: "5px 0px 0px 0px rgba(0,0,0,1)",
 					}}
 					initial={{
@@ -512,7 +451,12 @@ export default function Countdown() {
 				></motion.div>
 				<motion.div
 					whileInView={{
-						width: state.era === "wishwell" ? "66.66%" : state.era === "mining" ? "33.33%" : "0%",
+						width:
+							state.era === "wishwell"
+								? "63.66%"
+								: state.era === "mining"
+									? "33.33%"
+									: "0%",
 						boxShadow: "-5px 0px 0px 0px rgba(0,0,0,1)",
 					}}
 					initial={{

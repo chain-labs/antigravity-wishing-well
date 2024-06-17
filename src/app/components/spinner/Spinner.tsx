@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 import { MotionValue, motion, useTransform } from "framer-motion";
@@ -8,7 +8,7 @@ import DynamicNumberCounter from "./DynamicNumberCounter";
 import AutomaticIncreamentalNumberCounter from "./AutomaticIncreamentalNumberCounter";
 import useTimer from "@/app/hooks/useTimer";
 
-const globalDelay = 1.5;
+let globalDelay = 1.5;
 
 type SpinnerProps = {
 	era: "wishwell" | "mining" | "minting";
@@ -227,9 +227,6 @@ function StageHighlighter() {
 
 function EraHighlighter() {
 	const activeEra = useTimer().era;
-	console.log(
-		activeEra === "wishwell" ? -75 : activeEra === "minting" ? 75 : 0
-	);
 	return (
 		<motion.div
 			whileInView={{
@@ -240,7 +237,7 @@ function EraHighlighter() {
 						? -75
 						: activeEra === "minting"
 							? 75
-							: 0 ,
+							: 0,
 			}}
 			initial={{
 				x: "-50%",
@@ -464,9 +461,11 @@ function Pointer() {
 		activeEra: activeState.era,
 		activePhase: activeState.phase,
 	});
-	console.log("rotation", rotation);
 	return (
 		<motion.div
+			animate={{
+				rotate: `${rotation}deg`,
+			}}
 			whileInView={{
 				x: "-50%",
 				y: "-50%",
@@ -636,6 +635,12 @@ export default function Spinner({
 	}, []);
 
 	const opacity = useTransform(scrollYProgress, [1, 0], [0, 1]);
+
+	useEffect(() => {
+		setTimeout(() => {
+			globalDelay = 0;
+		}, 2000);
+	}, []);
 
 	return (
 		<motion.div
