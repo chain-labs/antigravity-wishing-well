@@ -6,6 +6,7 @@ import { twMerge } from "tailwind-merge";
 import { motion } from "framer-motion";
 import DynamicNumberCounter from "@/components/Home/components/spinner/DynamicNumberCounter";
 import AutomaticIncreamentalNumberCounter from "@/components/Home/components/spinner/AutomaticIncreamentalNumberCounter";
+import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 
 const globalDelay = 1.5;
 
@@ -528,7 +529,7 @@ function Pointer({ activeState }: { activeState: SpinnerProps }) {
 			)}
 		>
 			<Image
-				src={require("@/assets/counter-pointer.svg")}
+				src={IMAGEKIT_IMAGES.TIMER_POINTER}
 				width={50}
 				height={50}
 				layout="fixed"
@@ -542,7 +543,7 @@ function Timer({ activeState }: { activeState: SpinnerProps }) {
 	return (
 		<div className="absolute flex flex-col justify-center items-center gap-2 z-[100] w-[400px] h-[200px] translate-y-[60%]">
 			<Image
-				src={require("@/assets/counter-background.svg")}
+				src={IMAGEKIT_IMAGES.COUNTER_BG}
 				width={450}
 				height={225}
 				layout="fixed"

@@ -14,6 +14,7 @@ import H2 from "@/components/HTML/H2";
 import P from "@/components/HTML/P";
 import Table from "@/components/Table";
 import { useAccount } from "wagmi";
+import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from "@/assets/imageKit";
 
 function CollectiveLogo() {
 	const [hover, setHover] = useState(false);
@@ -26,7 +27,7 @@ function CollectiveLogo() {
 			>
 				<Image
 					onMouseEnter={() => setHover(true)}
-					src={require("@/assets/logos/collective-color-logo.svg")}
+					src={IMAGEKIT_LOGOS.COLLECTIVE_COLOR_LOGO}
 					alt="leaderboard background"
 					width={100}
 					height={100}
@@ -151,7 +152,7 @@ export default function Leaderboard({
 						<H1>Leaderboard</H1>
 						<Button
 							innerText="Refresh"
-							iconSrc={require("@/assets/icons/refresh.svg")}
+							iconSrc={IMAGEKIT_ICONS.REFRESH}
 							iconAlt="refresh icon"
 							secondary
 							disableSparkels
@@ -182,7 +183,7 @@ export default function Leaderboard({
 							<div className="relative flex flex-col gap-[8px] p-4 rounded-xl overflow-hidden w-full z-0">
 								<div className="bg-[#3C00DC] absolute inset-0 -z-10 opacity-[25%]"></div>
 								<Image
-									src={require("@/assets/icons/info.svg")}
+									src={IMAGEKIT_ICONS.INFO}
 									alt="info icon"
 									width={24}
 									height={24}
@@ -195,7 +196,7 @@ export default function Leaderboard({
 								</P>
 								<Button
 									innerText="Start mining"
-									iconSrc={require("@/assets/icons/hammer.svg")}
+									iconSrc={IMAGEKIT_ICONS.HAMMER}
 									iconAlt="hammer icon"
 								/>
 								<a href="/" className="text-agwhite underline">

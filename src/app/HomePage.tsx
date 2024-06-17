@@ -16,6 +16,7 @@ import Leaderboard from "@/components/Home/sections/Leaderboard";
 import NFTReceipt from "@/components/Home/sections/NFTReceipt";
 import { useAccount } from "wagmi";
 import Image from "next/image";
+import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 
 // const Hero = dynamic(() => import("./sections/Hero"), {
 // 	ssr: false,
@@ -65,7 +66,7 @@ export default function HomePage() {
 					<div className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[1]">
 						{smallerViewPort ? (
 							<Image
-								src={require("@/assets/mobile-saturn.png")}
+								src={IMAGEKIT_IMAGES.MOBILE_SATURN}
 								alt="Mobile Saturn"
 								width={1920}
 								height={1080}

@@ -7,6 +7,7 @@ import { twMerge } from "tailwind-merge";
 import DynamicNumberCounter from "@/components/Home/components/spinner/DynamicNumberCounter";
 import useTimer from "../../../hooks/frontend/useTimer";
 import CountdownTimer from "@/components/CountdownTimer";
+import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 
 type stateType = {
 	days: number;
@@ -117,7 +118,7 @@ function MobilePhase({
 					className="absolute w-full h-full bottom-0 left-0 translate-y-[35%] translate-x-[2%] flex justify-center items-center "
 				>
 					<Image
-						src={require("@/assets/timer-pointer.svg")}
+						src={IMAGEKIT_IMAGES.TIMER_POINTER}
 						alt="timer-pointer"
 						width={20}
 						height={20}
@@ -168,7 +169,7 @@ export default function Countdown() {
         "
 		>
 			<Image
-				src={require("@/assets/countdown-bg-grid.svg")}
+				src={IMAGEKIT_IMAGES.COUNTDOWN_BG_GRID}
 				alt="countdown bg grid"
 				width={800}
 				height={800}
@@ -419,7 +420,7 @@ export default function Countdown() {
 							className="w-full h-full flex justify-end items-end px-[16px]"
 						>
 							<Image
-								src={require("@/assets/timer-pointer.svg")}
+								src={IMAGEKIT_IMAGES.TIMER_POINTER}
 								alt="timer-pointer"
 								width={14}
 								height={14}

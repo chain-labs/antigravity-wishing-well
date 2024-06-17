@@ -4,6 +4,7 @@ import Spinner from "../components/spinner/Spinner";
 import { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import HeroItemCard from "@/components/HeroItemCard";
+import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 
 export default function Hero() {
 	const targetRef = useRef<HTMLDivElement>(null);
@@ -37,19 +38,19 @@ export default function Hero() {
 				<HeroItemCard
 					title="WishWell"
 					description="Contribute to our WishWell to get the WishWell NFT + points."
-					backgroundImage={require("@/assets/wishwell.png")}
+					backgroundImage={IMAGEKIT_IMAGES.WISHWELL}
 					animateFrom="left"
 				/>
 				<HeroItemCard
 					title="Mining"
 					description="Start mining with supported tokens to get points + $DARKX tokens + the new Antigravity NFT."
-					backgroundImage={require("@/assets/mining.png")}
+					backgroundImage={IMAGEKIT_IMAGES.MINING}
 					animateFrom="bottom"
 				/>
 				<HeroItemCard
 					title="The Collective"
 					description="Learn how to leverage points, rank up & earn exciting rewards. Join The Collective!"
-					backgroundImage={require("@/assets/minting.png")}
+					backgroundImage={IMAGEKIT_IMAGES.MINTING}
 					animateFrom="right"
 				/>
 			</motion.div>

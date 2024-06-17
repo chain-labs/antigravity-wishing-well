@@ -276,7 +276,12 @@ const Header = () => {
 					<div className="hidden md:flex md:flex-grow md:items-center h-full md:justify-between md:gap-x-6">
 						<div
 							className="flex items-center cursor-pointer"
-							onClick={scrollToTop}
+							onClick={() => {
+								if (window.location.pathname !== "/") {
+									window.location.href = "/";
+								}
+								scrollToTop();
+							}}
 						>
 							<div className="w-[37px] h-[37px] md:w-[45px] md:h-[45px] relative">
 								<Image src={IMAGEKIT.HELMET} alt="icon" fill />

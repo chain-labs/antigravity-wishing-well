@@ -3,6 +3,7 @@ import H1 from "@/components/HTML/H1";
 import P from "@/components/HTML/P";
 import Button from "@/components/Button";
 import Link from "next/link";
+import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES, IMAGEKIT_LOGOS } from "@/assets/imageKit";
 
 export default function NotFound() {
 	return (
@@ -11,7 +12,7 @@ export default function NotFound() {
 		>
 			<div className="absolute top-0 left-0 flex justify-center items-center gap-[16px] px-[16px] py-[32px] md:py-[48px] md:px-[96px] w-full md:w-fit">
 				<Image
-					src={require("@/assets/logos/logo.svg")}
+					src={IMAGEKIT_LOGOS.LOGO}
 					alt="logo"
 					width={45.19}
 					height={45.19}
@@ -35,7 +36,7 @@ export default function NotFound() {
 				<Link href="/" className="w-full">
 					<Button
 						innerText="Go Home"
-						iconSrc={require("@/assets/icons/rocket.svg")}
+						iconSrc={IMAGEKIT_ICONS.ROCKET}
 						iconAlt="rocket icon"
 						className="w-full md:w-fit"
 					/>
@@ -43,7 +44,7 @@ export default function NotFound() {
 			</div>
 
 			<Image
-				src={require("@/assets/404-not-found.png")}
+				src={IMAGEKIT_IMAGES.NOT_FOUND}
 				alt="404 background"
 				height={1080}
 				width={1920}

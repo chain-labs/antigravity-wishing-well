@@ -9,6 +9,7 @@ import H1 from "@/components/HTML/H1";
 import H3 from "@/components/HTML/H3";
 import H2 from "@/components/HTML/H2";
 import P from "@/components/HTML/P";
+import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 
 function TH({
 	icon,
@@ -191,7 +192,7 @@ function Rank({
 			<div className="flex gap-[4px] justify-start items-center lg:hidden text-[18px] lg:text-[14px]">
 				{special ? (
 					<Image
-						src={require("@/assets/icons/wallet-black.svg")}
+						src={IMAGEKIT_ICONS.WALLET_BLACK}
 						alt="wallet icon"
 						width={25}
 						height={25}
@@ -199,7 +200,7 @@ function Rank({
 					/>
 				) : (
 					<Image
-						src={require("@/assets/icons/wallet.svg")}
+						src={IMAGEKIT_ICONS.WALLET_WHITE}
 						alt="hammer icon"
 						width={25}
 						height={25}
@@ -241,16 +242,16 @@ export default function Table({ tableData }: { tableData: tableDataType[] }) {
                         ))
                     } */}
 					<TH
-						icon={require("@/assets/icons/leaderboard.svg")}
+						icon={IMAGEKIT_ICONS.LEADERBOARD}
 						heading="Rank"
 					/>
 					<TH
-						icon={require("@/assets/icons/wallet.svg")}
+						icon={IMAGEKIT_ICONS.WALLET_WHITE}
 						heading="Wallet"
 						className="hidden lg:flex"
 					/>
 					<TH
-						icon={require("@/assets/icons/points.svg")}
+						icon={IMAGEKIT_ICONS.POINTS}
 						heading="Points"
 					/>
 				</TR>

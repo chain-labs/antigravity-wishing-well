@@ -8,6 +8,7 @@ import H1 from "@/components/HTML/H1";
 import P from "@/components/HTML/P";
 import Button from "@/components/Button";
 import toast from "react-hot-toast";
+import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 
 export default function Newsletter() {
   const [success, setSuccess] = useState(false);
@@ -69,22 +70,9 @@ export default function Newsletter() {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            {/* <button
-							type="submit"
-							className="uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite cursor-pointer
-                                rounded-lg px-4 py-3 shadow-button hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-agblack bg-blue"
-						>
-							<Image
-								src={require("@/assets/icons/send.svg")}
-								alt="send"
-								width={40}
-								height={40}
-							/>
-							Submit
-						</button> */}
             <Button
               innerText="Submit"
-              iconSrc={require("@/assets/icons/send.svg")}
+              iconSrc={IMAGEKIT_ICONS.SEND}
               iconAlt="send"
               type="submit"
             />

@@ -4,6 +4,7 @@ import { useState } from "react";
 import H1 from "@/components/HTML/H1";
 import P from "@/components/HTML/P";
 import Button from "@/components/Button";
+import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 
 export default function Form({
 	defaultSuccess = false,
@@ -84,7 +85,7 @@ export default function Form({
 						/>
 						<Button
 							innerText="Submit"
-							iconSrc={require("@/assets/icons/send.svg")}
+							iconSrc={IMAGEKIT_ICONS.SEND}
 							iconAlt="send"
 							type="submit"
 						/>

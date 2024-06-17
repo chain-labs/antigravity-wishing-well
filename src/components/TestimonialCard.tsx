@@ -5,6 +5,7 @@ import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import P from "@/components/HTML/P";
+import { IMAGEKIT_LOGOS } from "@/assets/imageKit";
 
 export type TestimonialCardType = {
 	name: string;
@@ -46,7 +47,7 @@ export default function TesimonialCard({
 					/>
 				) : (
 					<Image
-						src={require("@/assets/logos/community-logo.svg")}
+						src={IMAGEKIT_LOGOS.COMMUNITY_LOGO}
 						alt={name}
 						width={50}
 						height={50}

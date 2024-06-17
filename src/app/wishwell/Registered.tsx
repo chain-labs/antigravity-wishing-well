@@ -9,6 +9,7 @@ import Image from "next/image";
 import StarFieldCanvas from "@/components/Home/components/background/Starfeild";
 import CanvasRendering from "@/components/Home/components/saturn/CanvasRendering";
 import Leaderboard from "@/components/Home/sections/Leaderboard";
+import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 
 export default function Registered() {
 	const [smallerViewPort, setSmallerViewPort] = useState<boolean>(false);
@@ -48,7 +49,7 @@ export default function Registered() {
 					<div className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[2]">
 						{smallerViewPort ? (
 							<Image
-								src={require("@/assets/mobile-saturn.png")}
+								src={IMAGEKIT_IMAGES.MOBILE_SATURN}
 								alt="Mobile Saturn"
 								width={1920}
 								height={1080}

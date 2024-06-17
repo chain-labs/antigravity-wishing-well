@@ -1,4 +1,5 @@
 "use client";
+import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import HeroItemCard from "@/components/HeroItemCard";
 
 export default function Eras() {
@@ -8,7 +9,7 @@ export default function Eras() {
 				title="WishWell"
 				description="Here is a one or two line short description about this.
 				Here is a one or two line short description about this."
-				backgroundImage={require("@/assets/wishwell.png")}
+				backgroundImage={IMAGEKIT_IMAGES.WISHWELL}
 				animateFrom="left"
 				className="object-[50%_55%]"
 			/>
@@ -16,14 +17,14 @@ export default function Eras() {
 				title="Mining"
 				description="Here is a one or two line short description about this.
 				Here is a one or two line short description about this."
-				backgroundImage={require("@/assets/mining.png")}
+				backgroundImage={IMAGEKIT_IMAGES.MINING}
 				animateFrom="right"
 			/>
 			<HeroItemCard
 				title="The Collective"
 				description="Here is a one or two line short description about this.
 				Here is a one or two line short description about this."
-				backgroundImage={require("@/assets/minting.png")}
+				backgroundImage={IMAGEKIT_IMAGES.MINTING}
 				animateFrom="left"
 				className="object-[0px_25%]"
 			/>

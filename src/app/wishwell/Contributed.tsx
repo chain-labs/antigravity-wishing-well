@@ -10,6 +10,7 @@ import StarFieldCanvas from "@/components/Home/components/background/Starfeild";
 import CanvasRendering from "@/components/Home/components/saturn/CanvasRendering";
 import Leaderboard from "@/components/Home/sections/Leaderboard";
 import ContributedHero from "@/components/Wishwell/components/ContributedHero";
+import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 
 export default function Contributed() {
 	const [smallerViewPort, setSmallerViewPort] = useState<boolean>(false);
@@ -49,7 +50,7 @@ export default function Contributed() {
 					<div className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[2]">
 						{smallerViewPort ? (
 							<Image
-								src={require("@/assets/mobile-saturn.png")}
+								src={IMAGEKIT_IMAGES.MOBILE_SATURN}
 								alt="Mobile Saturn"
 								width={1920}
 								height={1080}

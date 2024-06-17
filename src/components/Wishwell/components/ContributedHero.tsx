@@ -3,6 +3,7 @@ import H2 from "@/components/HTML/H2";
 import P from "@/components/HTML/P";
 import Button from "@/components/Button";
 import Image from "next/image";
+import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 
 export default function ContributedHero() {
 	return (
@@ -16,9 +17,10 @@ export default function ContributedHero() {
 						<P>Here&apos;s your NFT:</P>
 					</div>
 					<Image
-						src={require("@/assets/wishwell-contributed-receipt.svg")}
+						src={IMAGEKIT_IMAGES.NFT_RECEIPT}
 						alt="nft"
 						width={349}
+						height={6104}
 						className="max-w-[349px] w-full h-auto md:max-w-[500px] md:w-full md:h-auto"
 					/>
 				</div>
@@ -29,13 +31,13 @@ export default function ContributedHero() {
 						</H2>
 						<Button
 							innerText="Wishwell.eth"
-							iconSrc={require("@/assets/icons/copy.svg")}
+							iconSrc={IMAGEKIT_ICONS.COPY}
 							iconAlt="info icon"
 							iconPosition="end"
 						/>
 						<Button
 							innerText="Wishwell.pls"
-							iconSrc={require("@/assets/icons/copy.svg")}
+							iconSrc={IMAGEKIT_ICONS.COPY}
 							iconAlt="info icon"
 							iconPosition="end"
 						/>
@@ -44,25 +46,25 @@ export default function ContributedHero() {
 					<div className="flex flex-col gap-[32px] md:gap-[8px] max-w-[50ch]">
 						<div className="flex justify-start items-center gap-[16px]">
 							<Image
-								src={require("@/assets/icons/pls.svg")}
+								src={IMAGEKIT_ICONS.PLS}
 								alt="pls"
 								width={48}
 								height={48}
 							/>
 							<Image
-								src={require("@/assets/icons/eth.svg")}
+								src={IMAGEKIT_ICONS.ETH}
 								alt="eth"
 								width={48}
 								height={48}
 							/>
 							<Image
-								src={require("@/assets/icons/usdt.svg")}
+								src={IMAGEKIT_ICONS.USDT}
 								alt="usdt"
 								width={48}
 								height={48}
 							/>
 							<Image
-								src={require("@/assets/icons/usdc.svg")}
+								src={IMAGEKIT_ICONS.USDC}
 								alt="usdc"
 								width={48}
 								height={48}
@@ -75,7 +77,9 @@ export default function ContributedHero() {
 					</div>
 				</div>
 				<Image
-					src={require("@/assets/wishwell-background.png")}
+					src={IMAGEKIT_IMAGES.WISHWELL_BG}
+					height={1080}
+					width={1920}
 					alt="background"
 					layout="cover"
 					objectFit="cover"

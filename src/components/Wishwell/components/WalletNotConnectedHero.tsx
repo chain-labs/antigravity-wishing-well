@@ -25,6 +25,7 @@ import {
 	useTransactionReceipt,
 	useWriteContract,
 } from "wagmi";
+import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 
 // Use a function to get the latest block number
 async function getLatestBlockNumber(publicClient: PublicClient) {
@@ -283,15 +284,15 @@ export default function WalletNotConnectedHero() {
 							isRegistered={isRegistered}
 						/>
 						<Button
-							className="bg-agblack"
+							className="bg-[#030404A8] border-"
 							innerText="How to Contribute?"
-							iconSrc={require("@/assets/icons/info.svg")}
+							iconSrc={IMAGEKIT_ICONS.INFO}
 							iconAlt="info icon"
 						/>
 					</div>
 				</div>
 				<Image
-					src={require("@/assets/wishwell-background.png")}
+					src={IMAGEKIT_IMAGES.WISHWELL_BG}
 					alt="background"
 					height={1080}
 					width={1920}

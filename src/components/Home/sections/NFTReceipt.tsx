@@ -5,6 +5,7 @@ import { useScroll, useTransform, motion } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
 import H1 from "@/components/HTML/H1";
+import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 
 export default function NFTReceipt() {
 	const targetRef = useRef<HTMLDivElement>(null);
@@ -38,30 +39,17 @@ export default function NFTReceipt() {
 				}}
 			>
 				<Image
-					src={require("@/assets/nft-receipt.svg")}
+					src={IMAGEKIT_IMAGES.NFT_RECEIPT}
 					alt="NFT Receipt"
 					width={300}
 					height={600}
 					className="rounded-lg"
 				/>
 			</motion.div>
-			{/* <button
-				className={`uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite cursor-pointer
-                                rounded-lg px-4 py-3 shadow-button hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-agblack bg-blue`}
-			>
-				<Image
-					src={require("@/assets/icons/claim.svg")}
-					alt="hammer icon"
-					width={25}
-					height={25}
-					className="object-cover"
-				/>
-				Claim collective rewards
-			</button> */}
 
 			<Button
 				innerText="Claim collective rewards"
-				iconSrc={require("@/assets/icons/claim.svg")}
+				iconSrc={IMAGEKIT_ICONS.HAMMER}
 				iconAlt="hammer icon"
 			/>
 		</div>

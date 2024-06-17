@@ -7,6 +7,7 @@ import { MotionValue, motion, useTransform } from "framer-motion";
 import DynamicNumberCounter from "./DynamicNumberCounter";
 import AutomaticIncreamentalNumberCounter from "./AutomaticIncreamentalNumberCounter";
 import useTimer from "@/hooks/frontend/useTimer";
+import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 
 let globalDelay = 1.5;
 
@@ -484,7 +485,7 @@ function Pointer() {
 			)}
 		>
 			<Image
-				src={require("@/assets/counter-pointer.svg")}
+				src={IMAGEKIT_IMAGES.COUNTER_POINTER}
 				width={50}
 				height={50}
 				layout="fixed"
@@ -499,7 +500,7 @@ function Timer() {
 	return (
 		<div className="absolute flex flex-col justify-center items-center gap-2 z-[100] w-[400px] h-[200px] translate-y-[60%]">
 			<Image
-				src={require("@/assets/counter-background.svg")}
+				src={IMAGEKIT_IMAGES.COUNTER_BG}
 				width={450}
 				height={225}
 				layout="fixed"

@@ -6,6 +6,7 @@ import { FiLoader } from "react-icons/fi";
 import { baseSepolia, pulsechain } from "viem/chains";
 import { useAccount, useSwitchChain } from "wagmi";
 import IMAGEKIT from "../../../../app/home/images";
+import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 
 interface RegisterButtonProps {
 	loading: boolean;
@@ -67,7 +68,7 @@ export const RegisterButton: React.FC<RegisterButtonProps> = ({
 							: "Change Network"
 						: "CONNECT WALLET"
 				}
-				iconSrc={require("@/assets/icons/wallet.svg")}
+				iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
 				iconPosition="start"
 				
 			/>

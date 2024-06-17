@@ -2,6 +2,7 @@ import H1 from "@/components/HTML/H1";
 import P from "@/components/HTML/P";
 import Button from "@/components/Button";
 import Image from "next/image";
+import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 
 export default function RegisteredHero() {
 	return (
@@ -20,13 +21,13 @@ export default function RegisteredHero() {
 					<div className="flex flex-col md:flex-row justify-start items-start gap-[16px]">
 						<Button
 							innerText="Wishwell.eth"
-							iconSrc={require("@/assets/icons/copy.svg")}
+							iconSrc={IMAGEKIT_ICONS.COPY}
 							iconAlt="info icon"
 							iconPosition="end"
 						/>
 						<Button
 							innerText="Wishwell.pls"
-							iconSrc={require("@/assets/icons/copy.svg")}
+							iconSrc={IMAGEKIT_ICONS.COPY}
 							iconAlt="info icon"
 							iconPosition="end"
 						/>
@@ -39,25 +40,25 @@ export default function RegisteredHero() {
 						</P>
 						<div className="flex justify-start items-center gap-[16px]">
 							<Image
-								src={require("@/assets/icons/pls.svg")}
+								src={IMAGEKIT_ICONS.PLS}
 								alt="pls"
 								width={32}
 								height={32}
 							/>
 							<Image
-								src={require("@/assets/icons/eth.svg")}
+								src={IMAGEKIT_ICONS.ETH}
 								alt="eth"
 								width={32}
 								height={32}
 							/>
 							<Image
-								src={require("@/assets/icons/usdt.svg")}
+								src={IMAGEKIT_ICONS.USDT}
 								alt="usdt"
 								width={32}
 								height={32}
 							/>
 							<Image
-								src={require("@/assets/icons/usdc.svg")}
+								src={IMAGEKIT_ICONS.USDC}
 								alt="usdc"
 								width={32}
 								height={32}
@@ -66,7 +67,9 @@ export default function RegisteredHero() {
 					</div>
 				</div>
 				<Image
-					src={require("@/assets/wishwell-background.png")}
+					src={IMAGEKIT_IMAGES.WISHWELL_BG}
+					height={1080}
+					width={1920}
 					alt="background"
 					layout="cover"
 					objectFit="cover"

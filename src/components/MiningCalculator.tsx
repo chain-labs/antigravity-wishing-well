@@ -6,6 +6,7 @@ import { twMerge } from "tailwind-merge";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Badge from "./Badge";
 import Dropdown from "./Dropdown";
+import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 
 function Card({
 	isEditable,
@@ -239,7 +240,7 @@ export default function MiningCalculator({
 				value={currentValue}
 				conversion={`$${pointsConverterToUSCommaseparated(USDValue)}`}
 				pillIconAlt={inputOptions[selectedOption].label}
-				pillIconSrc={require("@/assets/icons/pill-pls.svg")}
+				pillIconSrc={IMAGEKIT_ICONS.PILL_POINTS}
 				pillText={inputOptions[selectedOption].label}
 				setPillText={setSelectedOption}
 				dropdownOptions={inputOptions}
@@ -281,7 +282,7 @@ export default function MiningCalculator({
 				conversion={`$${pointsConverterToUSCommaseparated(USDValue)}`}
 				multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
 				pillIconAlt="points"
-				pillIconSrc={require("@/assets/icons/pill-points.svg")}
+				pillIconSrc={IMAGEKIT_ICONS.PILL_POINTS}
 				pillText="Points"
 			/>
 			<Card
@@ -291,7 +292,7 @@ export default function MiningCalculator({
 				conversion={`$${pointsConverterToUSCommaseparated(USDValue)}`}
 				multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
 				pillIconAlt="dark x"
-				pillIconSrc={require("@/assets/icons/pill-dark-x.png")}
+				pillIconSrc={IMAGEKIT_ICONS.PILL_DARK_X}
 				pillText="DARK X"
 			/>
 		</div>
