@@ -30,18 +30,18 @@ const LoadingPage = dynamic(() => import("../LoadingPage"), {
 });
 
 export default function Wishwell() {
-  const account = useAccount();
-  const switchChain = useSwitchChain();
-  const [loading, setLoading] = useState(true);
-  const [contributed, setContributed] = useState(true);
-  useEffect(() => {
-    if (window !== undefined) {
-      window.addEventListener("load", () => {
-        console.log("window loaded page");
-        setLoading(false);
-      });
-    }
-  }, []);
+	const account = useAccount();
+	const switchChain = useSwitchChain();
+	const [loading, setLoading] = useState(true);
+	const [contributed, setContributed] = useState(false);
+	useEffect(() => {
+		if (window !== undefined) {
+			window.addEventListener("load", () => {
+				console.log("window loaded page");
+				setLoading(false);
+			});
+		}
+	}, []);
 
   useEffect(() => {
     if (account.chainId) {
