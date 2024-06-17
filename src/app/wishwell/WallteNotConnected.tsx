@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Header from "../../components/Home/components/header/Header";
-import WalletNotConnectedHero from "./components/WalletNotConnectedHero";
+import WalletNotConnectedHero from "../../components/Wishwell/components/WalletNotConnectedHero";
 import { useEffect, useState } from "react";
 import CanvasRendering from "../../components/Home/components/saturn/CanvasRendering";
 import StarFieldCanvas from "../../components/Home/components/background/Starfeild";

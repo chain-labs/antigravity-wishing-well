@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 import Header from "../../components/Home/components/header/Header";
 import Footer from "../../components/Home/sections/Footer";
 import Newsletter from "../../components/Home/sections/Newsletter";
-import RegisteredHero from "./components/RegisteredHero";
+import RegisteredHero from "../../components/Wishwell/components/RegisteredHero";
 import Image from "next/image";
 import StarFieldCanvas from "../../components/Home/components/background/Starfeild";
 import CanvasRendering from "../../components/Home/components/saturn/CanvasRendering";
 import Leaderboard from "../../components/Home/sections/Leaderboard";
-import ContributedHero from "./components/ContributedHero";
+import ContributedHero from "../../components/Wishwell/components/ContributedHero";
 
 export default function Contributed() {
 	const [smallerViewPort, setSmallerViewPort] = useState<boolean>(false);
