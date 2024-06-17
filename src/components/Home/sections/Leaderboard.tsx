@@ -26,7 +26,7 @@ function CollectiveLogo() {
 			>
 				<Image
 					onMouseEnter={() => setHover(true)}
-					src={require("@/assets/collective-color-logo.svg")}
+					src={require("@/assets/logos/collective-color-logo.svg")}
 					alt="leaderboard background"
 					width={100}
 					height={100}

@@ -57,7 +57,7 @@ export default function LoadingPage({
 		>
 			<div className="absolute top-0 left-[50%] md:top-[50%] md:left-0 translate-x-[-50%] md:translate-y-[-50%] md:translate-x-0 flex gap-4 justify-center items-center mx-auto my-16 md:mx-32">
 				<Image
-					src={require("@/assets/logo.svg")}
+					src={require("@/assets/logos/logo.svg")}
 					alt="logo"
 					width={100}
 					height={100}

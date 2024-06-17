@@ -11,7 +11,7 @@ export default function GeoBlocked() {
 		>
 			<div className="absolute top-0 left-0 flex justify-center items-center gap-[16px] px-[16px] py-[32px] md:py-[48px] md:px-[96px] w-full md:w-fit">
 				<Image
-					src={require("@/assets/logo.svg")}
+					src={require("@/assets/logos/logo.svg")}
 					alt="logo"
 					width={45.19}
 					height={45.19}

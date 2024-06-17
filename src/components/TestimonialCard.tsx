@@ -46,7 +46,7 @@ export default function TesimonialCard({
 					/>
 				) : (
 					<Image
-						src={require("@/assets/community-logo.svg")}
+						src={require("@/assets/logos/community-logo.svg")}
 						alt={name}
 						width={50}
 						height={50}
