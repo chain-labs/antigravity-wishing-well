@@ -9,6 +9,11 @@ import dynamic from "next/dynamic";
 import ReactLenis from "lenis/react";
 import Lenis from "lenis";
 
+const Contributed = dynamic(() => import("./Contributed"), {
+	ssr: false,
+	loading: () => <>{console.log("loading homepage")}</>,
+});
+
 const WallteNotConnected = dynamic(() => import("./WallteNotConnected"), {
 	ssr: false,
 	loading: () => <>{console.log("loading homepage")}</>,
@@ -28,6 +33,7 @@ export default function Wishwell() {
 	const account = useAccount();
 	const switchChain = useSwitchChain();
 	const [loading, setLoading] = useState(true);
+	const [contributed, setContributed] = useState(false);
 	useEffect(() => {
 		if (window !== undefined) {
 			window.addEventListener("load", () => {
@@ -60,7 +66,11 @@ export default function Wishwell() {
 					<LoadingPage contentLoaded={!loading} />
 				</div>
 				{account.status === "connected" ? (
-					<Registered />
+					contributed ? (
+						<Contributed />
+					) : (
+						<Registered />
+					)
 				) : (
 					<WallteNotConnected />
 				)}

@@ -2,7 +2,7 @@
 
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
-import Dropdown from "./Dropdown";
+import Dropdown from "@/components/Dropdown";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -21,7 +21,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
 	args: {
-		iconSrc: require("@/app/assets/icons/pill-points.svg"),
+		iconSrc: require("@/assets/icons/pill-points.svg"),
 		iconAlt: "Icon",
 		options: [
 			{ label: "Option 1", value: 1 },

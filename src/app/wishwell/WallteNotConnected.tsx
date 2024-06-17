@@ -1,11 +1,12 @@
 import Image from "next/image";
-import Header from "../components/header/Header";
-import WalletNotConnectedHero from "./components/WalletNotConnectedHero";
+import Header from "@/components/Home/components/header/Header";
+import WalletNotConnectedHero from "@/components/Wishwell/components/WalletNotConnectedHero";
 import { useEffect, useState } from "react";
-import CanvasRendering from "../components/saturn/CanvasRendering";
-import StarFieldCanvas from "../components/background/Starfeild";
-import Newsletter from "../sections/Newsletter";
-import Footer from "../sections/Footer";
+import CanvasRendering from "@/components/Home/components/saturn/CanvasRendering";
+import StarFieldCanvas from "@/components/Home/components/background/Starfeild";
+import Newsletter from "@/components/Home/sections/Newsletter";
+import Footer from "@/components/Home/sections/Footer";
+import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 
 export default function WalletNotConnected() {
 	const [smallerViewPort, setSmallerViewPort] = useState<boolean>(false);
@@ -33,7 +34,7 @@ export default function WalletNotConnected() {
 		<div className="bg-agblack min-h-[100vh]">
 			<div className="flex flex-col min-h-screen min-w-screen overflow-hidden">
 				<div className="relative z-0 flex flex-col min-h-screen">
-					<div className="fixed top-0 w-full z-50 items-center pt-12 px-4">
+					<div className="fixed top-0 w-full z-50 items-center pt-[16px] md:pt-12 px-4">
 						<Header />
 					</div>
 					<div className="z-100">
@@ -44,7 +45,7 @@ export default function WalletNotConnected() {
 					<div className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[2]">
 						{smallerViewPort ? (
 							<Image
-								src={require("@/app/assets/mobile-saturn.png")}
+								src={IMAGEKIT_IMAGES.MOBILE_SATURN}
 								alt="Mobile Saturn"
 								width={1920}
 								height={1080}

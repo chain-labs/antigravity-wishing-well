@@ -2,7 +2,7 @@
 
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
-import Pill from "./Pill";
+import Pill from "@/components/Pill";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -28,7 +28,7 @@ export const Default: Story = {
 export const WithIcon: Story = {
 	args: {
 		text: "Points",
-		iconSrc: require("@/app/assets/icons/pill-points.svg"),
+		iconSrc: require("@/assets/icons/pill-points.svg"),
 		iconAlt: "Icon",
 	},
 };
