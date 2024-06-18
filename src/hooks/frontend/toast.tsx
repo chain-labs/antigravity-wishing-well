@@ -3,7 +3,7 @@ import Image from "next/image";
 import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from "@/assets/imageKit";
 
 const GLOBALS = {
-	duration: 300000,
+	duration: 3000,
 	position: "bottom-right",
 	style: {
 		borderRadius: "6px",
