@@ -7,6 +7,7 @@ export const IMAGEKIT_LOGOS = {
 	LOGO: `${IMAGEKIT_LOGOS_URL}/logo.svg`,
 	COLLECTIVE_COLOR_LOGO: `${IMAGEKIT_LOGOS_URL}/collective-color-logo.svg`,
 	COMMUNITY_LOGO: `${IMAGEKIT_LOGOS_URL}/community-logo.svg`,
+	WISHWELL_LOGO: `${IMAGEKIT_LOGOS_URL}/wishwell-logo.svg`,
 };
 
 export const IMAGEKIT_ICONS = {
@@ -44,4 +45,5 @@ export const IMAGEKIT_IMAGES = {
 	WISHWELL_BG: `${IMAGEKIT}/wishwell-background.png`,
 	WISHWELL_CONTRIBUTED_RECEIPT: `${IMAGEKIT}/wishwell-contributed-receipt.svg`,
 	WISHWELL: `${IMAGEKIT}/wishwell.png`,
+	MINING_BG: `${IMAGEKIT}/mining-background.png`,
 };
