@@ -9,7 +9,7 @@ import Dropdown from "../Dropdown";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
-function Card({
+export function Card({
 	isEditable,
 	value,
 	conversion,
@@ -20,6 +20,7 @@ function Card({
 	pillIconAlt,
 	dropdownOptions,
 	setCurrentValue,
+	onlyValue = false,
 }: {
 	isEditable?: boolean;
 	value: string;
@@ -34,6 +35,7 @@ function Card({
 		value: number;
 	}[];
 	setCurrentValue?: Dispatch<SetStateAction<string | number>>;
+	onlyValue?: boolean;
 }) {
 	if (isEditable) {
 		return (
@@ -131,12 +133,14 @@ function Card({
 				<div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans max-w-[10ch]">
 					{value}
 				</div>
-				<div className="flex opacity-75 gap-[8px]">
-					<P extrabold>{conversion}</P>
-					<P extrabold>x</P>
-					<P extrabold>{multiplyer}</P>
-					<Badge>Multiplied!</Badge>
-				</div>
+				{onlyValue ? null : (
+					<div className="flex opacity-75 gap-[8px]">
+						<P extrabold>{conversion}</P>
+						<P extrabold>x</P>
+						<P extrabold>{multiplyer}</P>
+						<Badge>Multiplied!</Badge>
+					</div>
+				)}
 			</div>
 			<div className="flex flex-col justify-center items-center">
 				<Pill
@@ -194,7 +198,7 @@ function Multiplyer({
 	);
 }
 
-function pointsConverterToUSCommaseparated(points: number): string {
+export function pointsConverterToUSCommaseparated(points: number): string {
 	const [integerPart, decimalPart] = points.toString().split(".");
 	const formattedIntegerPart = integerPart.replace(
 		/\B(?=(\d{3})+(?!\d))/g,
