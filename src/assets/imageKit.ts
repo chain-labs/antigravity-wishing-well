@@ -8,6 +8,9 @@ export const IMAGEKIT_LOGOS = {
 	COLLECTIVE_COLOR_LOGO: `${IMAGEKIT_LOGOS_URL}/collective-color-logo.svg`,
 	COMMUNITY_LOGO: `${IMAGEKIT_LOGOS_URL}/community-logo.svg`,
 	WISHWELL_LOGO: `${IMAGEKIT_LOGOS_URL}/wishwell-logo.svg`,
+	ETH: `${IMAGEKIT_LOGOS_URL}/eth-color.svg`,
+	PLS: `${IMAGEKIT_LOGOS_URL}/pls-color.svg`,
+	MINING_LOGO: `${IMAGEKIT_LOGOS_URL}/mining-logo.svg`,
 };
 
 export const IMAGEKIT_ICONS = {
@@ -29,6 +32,9 @@ export const IMAGEKIT_ICONS = {
 	USDT: `${IMAGEKIT_ICONS_URL}/usdt.svg`,
 	WALLET_BLACK: `${IMAGEKIT_ICONS_URL}/wallet-black.svg`,
 	WALLET_WHITE: `${IMAGEKIT_ICONS_URL}/wallet.svg`,
+	TICK: `${IMAGEKIT_ICONS_URL}/tick.svg`,
+	ERROR: `${IMAGEKIT_ICONS_URL}/error.svg`,
+	INFO_BLACK: `${IMAGEKIT_ICONS_URL}/info-black.svg`,
 };
 
 export const IMAGEKIT_IMAGES = {

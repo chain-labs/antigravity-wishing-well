@@ -1,0 +1,130 @@
+import toast from "react-hot-toast";
+import Image from "next/image";
+import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from "@/assets/imageKit";
+
+const GLOBALS = {
+	duration: 300000,
+	position: "bottom-right",
+	style: {
+		borderRadius: "6px",
+		boxShadow: "0 0 15px 0 #03040480",
+		padding: "16px",
+		gap: "0px",
+		fontWeight: 500,
+		fontSize: "14px",
+		lineHeight: "20.3px",
+		fontFamily: "General Sans, sans-serif",
+        display: "flex",
+        justifyContent: "start",
+        alignItems: "start",
+        "& div": {
+            margin: 0,
+            padding: 0
+        }
+	},
+};
+
+export function successToast(message: string, options?: any) {
+	toast(message, {
+		duration: GLOBALS.duration,
+		position: GLOBALS.position,
+		style: {
+			...GLOBALS.style,
+			background: "#00B031",
+			color: "#FEFFFF",
+		},
+		icon: (
+			<Image
+				src={IMAGEKIT_ICONS.TICK}
+				alt="Tick"
+				height={24}
+				width={24}
+			/>
+		),
+		...options,
+	});
+}
+
+export function errorToast(message: string, options?: any) {
+	toast(message, {
+		duration: GLOBALS.duration,
+		position: GLOBALS.position,
+		style: {
+			...GLOBALS.style,
+			background: "#FF5001",
+			color: "#FEFFFF",
+		},
+		icon: (
+			<Image
+				src={IMAGEKIT_ICONS.ERROR}
+				alt="Error"
+				height={24}
+				width={24}
+			/>
+		),
+		...options,
+	});
+}
+
+export function warningToast(message: string, options?: any) {
+	toast(message, {
+		duration: GLOBALS.duration,
+		position: GLOBALS.position,
+		style: {
+			...GLOBALS.style,
+			background: "#F5EB00",
+			color: "#030404",
+		},
+		icon: (
+			<Image
+				src={IMAGEKIT_ICONS.INFO_BLACK}
+				alt="Warning"
+				height={24}
+				width={24}
+			/>
+		),
+		...options,
+	});
+}
+
+export function generalToast(message: string, options?: any) {
+	toast(message, {
+		duration: GLOBALS.duration,
+		position: GLOBALS.position,
+		style: {
+			...GLOBALS.style,
+			background: "#030404A8",
+			color: "#FEFFFF",
+		},
+		icon: (
+			<Image
+				src={IMAGEKIT_ICONS.INFO}
+				alt="Info"
+				height={24}
+				width={24}
+			/>
+		),
+		...options,
+	});
+}
+
+export function miningNotif(message: string, options?: any) {
+	toast(message, {
+		duration: GLOBALS.duration,
+		position: GLOBALS.position,
+		style: {
+			...GLOBALS.style,
+			background: "#030404A8",
+			color: "#FF5001",
+		},
+		icon: (
+			<Image
+				src={IMAGEKIT_LOGOS.MINING_LOGO}
+				alt="Rocket"
+				height={40}
+				width={40}
+			/>
+		),
+		...options,
+	});
+}
