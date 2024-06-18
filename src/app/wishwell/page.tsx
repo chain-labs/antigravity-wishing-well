@@ -33,7 +33,7 @@ export default function Wishwell() {
 	const account = useAccount();
 	const switchChain = useSwitchChain();
 	const [loading, setLoading] = useState(true);
-	const [contributed, setContributed] = useState(true);
+	const [contributed, setContributed] = useState(false);
 	useEffect(() => {
 		if (window !== undefined) {
 			window.addEventListener("load", () => {
