@@ -33,6 +33,7 @@ const config: Config = {
         agyellow: "#F5EB00",
         agwhite: "#FEFFFF",
         bgblue: "#3C00DC54",
+        agorange: "#FF5001"
       },
       boxShadow: {
         button: "0 6px 0 0 #030404",
