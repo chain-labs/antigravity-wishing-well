@@ -36,9 +36,11 @@ export default function LoadingPage({
 	}, [contentLoaded]);
 
 	useEffect(() => {
+		if (slideUpProgress > 150) return;
 		if (progress === 100) {
 			const interval = setInterval(() => {
 				setSlideUpProgress((prev) => {
+					if (prev > 150) return prev;
 					if (prev < 100) {
 						return prev + 1;
 					}
