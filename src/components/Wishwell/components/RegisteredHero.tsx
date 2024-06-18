@@ -24,12 +24,14 @@ export default function RegisteredHero() {
 							iconSrc={IMAGEKIT_ICONS.COPY}
 							iconAlt="info icon"
 							iconPosition="end"
+							hallmarkIconSrc={IMAGEKIT_ICONS.ETH}
 						/>
 						<Button
 							innerText="Wishwell.pls"
 							iconSrc={IMAGEKIT_ICONS.COPY}
 							iconAlt="info icon"
 							iconPosition="end"
+							hallmarkIconSrc={IMAGEKIT_ICONS.PLS}
 						/>
 					</div>
 

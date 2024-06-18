@@ -74,6 +74,10 @@ interface ButtonProps {
 	 * Children of the button
 	 **/
 	children?: React.ReactNode;
+	/**
+	 * Icon for the hallmark
+	 **/
+	hallmarkIconSrc?: string | StaticImport;
 }
 
 /**
@@ -101,6 +105,7 @@ export default function Button({
 	type = "button",
 	onClick,
 	children,
+	hallmarkIconSrc,
 }: ButtonProps) {
 	const [scope, animate] = useAnimate();
 	const [isAnimating, setIsAnimating] = React.useState(false);
@@ -223,7 +228,7 @@ export default function Button({
 					onMouseEnter={() => setIsHovered(true)}
 					onMouseLeave={() => setIsHovered(false)}
 					className={twMerge(
-						`uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite cursor-pointer rounded-[4px] transition-[all_150ms] hover:shadow-none`,
+						`uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite cursor-pointer rounded-[4px] transition-[all_150ms] hover:shadow-none overflow-hidden`,
 						secondary
 							? "border-2 border-[#414343] bg-agblack active:bg-[#414343]"
 							: "bg-blue text-agblack active:bg-agblack",
@@ -231,6 +236,15 @@ export default function Button({
 						className
 					)}
 				>
+					{hallmarkIconSrc && (
+						<Image
+							src={hallmarkIconSrc}
+							alt="Hallmark"
+							width={54}
+							height={54}
+							className="object-cover absolute top-0 left-0 -z-[1] opacity-50 mix-blend-hue"
+						/>
+					)}
 					{iconSrc !== null && (
 						<Image
 							src={iconSrc}
@@ -364,13 +378,22 @@ export default function Button({
 				onMouseLeave={() => setIsHovered(false)}
 				className={twMerge(
 					`uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-extrabold text-agwhite cursor-pointer
-                                rounded-[4px] px-4 py-3 shadow-button hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-agblack bg-blue`,
+                                rounded-[4px] px-4 py-3 shadow-button hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-agblack bg-blue z-0 overflow-hidden`,
 					secondary &&
 						"border-2 border-[#414343] bg-agblack active:bg-[#414343]",
 					`text-[${letterSize[size]}px]`,
 					className
 				)}
 			>
+				{hallmarkIconSrc && (
+					<Image
+						src={hallmarkIconSrc}
+						alt="Hallmark"
+						width={54}
+						height={54}
+						className="object-cover absolute top-0 left-0 -z-[1] opacity-50 mix-blend-hue"
+					/>
+				)}
 				{iconSrc && (
 					<Image
 						src={iconSrc}
