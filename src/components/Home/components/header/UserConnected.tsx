@@ -49,7 +49,7 @@ export const UserConnected: React.FC = () => {
 											{condenseAddress(
 												`${account.address}`
 											)}
-											<Badge className="text-agwhite border-agwhite">
+											<Badge className="text-agwhite border-agwhite pb-[1px]">
 												Special Navigator
 											</Badge>
 										</p>

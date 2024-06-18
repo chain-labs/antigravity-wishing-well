@@ -3,30 +3,30 @@ import Image from "next/image";
 import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from "@/assets/imageKit";
 
 const GLOBALS = {
-	duration: 3000,
+	duration: 8000,
 	position: "bottom-right",
 	style: {
 		borderRadius: "6px",
 		boxShadow: "0 0 15px 0 #03040480",
 		padding: "16px",
-		gap: "0px",
+		gap: "8px",
 		fontWeight: 500,
 		fontSize: "14px",
 		lineHeight: "20.3px",
 		fontFamily: "General Sans, sans-serif",
-        display: "flex",
-        justifyContent: "start",
-        alignItems: "start",
-        "& div": {
-            margin: 0,
-            padding: 0
-        }
+		display: "flex",
+		justifyContent: "start",
+		alignItems: "start",
+		"& div": {
+			margin: 0,
+			padding: 0,
+		},
 	},
 };
 
 export function successToast(message: string, options?: any) {
 	toast(message, {
-		duration: GLOBALS.duration,
+		duration: 3000,
 		position: GLOBALS.position,
 		style: {
 			...GLOBALS.style,

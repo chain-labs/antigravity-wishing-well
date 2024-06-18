@@ -265,7 +265,7 @@ const Header = () => {
 	return (
 		<motion.header
 			whileInView={{ y: 0 }}
-			initial={{ y: -100 }}
+			initial={{ y: -50 }}
 			viewport={{ once: true }}
 			transition={{ duration: 0.5, delay: 1.5 }}
 			className="flex flex-col h-full w-full items-center justify-center gap-3 z-50 font-extrabold"

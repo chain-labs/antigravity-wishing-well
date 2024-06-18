@@ -4,13 +4,18 @@ import P from "@/components/HTML/P";
 import Button from "@/components/Button";
 import Image from "next/image";
 import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
+import { successToast } from "@/hooks/frontend/toast";
 
 export default function ContributedHero() {
+	const copyToClipboard = (text: string) => {
+		navigator.clipboard.writeText(text);
+		successToast("Copied to clipboard!");
+	};
 	return (
 		<div className="relative w-full min-h-screen overflow-hidden">
-			<div className="bg-gradient-to-b from-[#0000] h-fit to-[#000] overflow-hidden">
+			<div className="relative bg-gradient-to-b from-[#0000] h-fit to-[#000] overflow-hidden">
 				<div className="flex flex-col justify-center items-center gap-[32px] mx-[16px] pt-[108px] md:pt-[164px] h-fit ">
-					<div className="flex flex-col gap-[16px] justify-center items-center">
+					<div className="flex flex-col gap-[8px] justify-center items-center">
 						<H1 className="text-[52px] leading-[53.76px] md:text-[72px] md:leading-[69.12px] text-agwhite">
 							Success!
 						</H1>
@@ -19,9 +24,9 @@ export default function ContributedHero() {
 					<Image
 						src={IMAGEKIT_IMAGES.NFT_RECEIPT}
 						alt="nft"
-						width={349}
-						height={6104}
-						className="max-w-[349px] w-full h-auto md:max-w-[500px] md:w-full md:h-auto"
+						width={294.76}
+						height={500}
+						className="max-w-[349px] max-h-[592px] w-full h-auto md:max-w-[500px] md:w-full md:h-auto"
 					/>
 				</div>
 				<div className="flex flex-col md:flex-row justify-center items-start gap-[64px] px-[16px] py-[32px] md:py-[64px] md:px-[32px] z-0 h-fit">
@@ -29,20 +34,24 @@ export default function ContributedHero() {
 						<H2 className="text-[56px] leading-[53.76px] md:text-[48px] md:leading-[46.08px] font-black text-agyellow">
 							Get 10x Points Now!
 						</H2>
-						<Button
-							innerText="Wishwell.eth"
-							iconSrc={IMAGEKIT_ICONS.COPY}
-							iconAlt="info icon"
-							iconPosition="end"
-							hallmarkIconSrc={IMAGEKIT_ICONS.ETH}
-						/>
-						<Button
-							innerText="Wishwell.pls"
-							iconSrc={IMAGEKIT_ICONS.COPY}
-							iconAlt="info icon"
-							iconPosition="end"
-							hallmarkIconSrc={IMAGEKIT_ICONS.PLS}
-						/>
+						<div className="flex flex-col md:flex-row gap-[16px]">
+							<Button
+								innerText="Wishwell.eth"
+								iconSrc={IMAGEKIT_ICONS.COPY}
+								iconAlt="info icon"
+								iconPosition="end"
+								hallmarkIconSrc={IMAGEKIT_ICONS.ETH}
+								onClick={() => copyToClipboard("Wishwell.eth")}
+							/>
+							<Button
+								innerText="Wishwell.pls"
+								iconSrc={IMAGEKIT_ICONS.COPY}
+								iconAlt="info icon"
+								iconPosition="end"
+								hallmarkIconSrc={IMAGEKIT_ICONS.PLS}
+								onClick={() => copyToClipboard("Wishwell.pls")}
+							/>
+						</div>
 					</div>
 
 					<div className="flex flex-col gap-[32px] md:gap-[8px] max-w-[50ch]">
@@ -85,7 +94,7 @@ export default function ContributedHero() {
 					alt="background"
 					layout="cover"
 					objectFit="cover"
-					className="absolute top-0 left-0 -z-[1] w-full h-[120%] object-[70%_50%] object-none md:w-full md:h-[110%] md:object-cover"
+					className="absolute top-0 left-0 -z-[1] w-full h-[120%] object-[70%_50%] object-cover md:w-full md:h-[110%] md:object-cover"
 				/>
 			</div>
 		</div>
