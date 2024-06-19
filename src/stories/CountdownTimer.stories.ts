@@ -27,6 +27,7 @@ export const Default: Story = {
             mins: 3,
             secs: 4,
             phase: 3,
+			era: "minting",
         }
     },
 };

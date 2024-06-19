@@ -9,7 +9,7 @@ const GLOBALS = {
 		borderRadius: "6px",
 		boxShadow: "0 0 15px 0 #03040480",
 		padding: "16px",
-		gap: "8px",
+		gap: "0px",
 		fontWeight: 500,
 		fontSize: "14px",
 		lineHeight: "20.3px",
