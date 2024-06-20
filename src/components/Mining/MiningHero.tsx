@@ -279,7 +279,7 @@ function NonContributed({
 }
 
 export default function MiningHero() {
-	const [state, setState] = useState<StateType>("Claiming");
+	const [state, setState] = useState<StateType>("NFT Present");
 	const [NFTHover, setNFTHover] = useState(false);
 	const NFTRef = useRef<HTMLDivElement>(null);
 	const NFTContainerRef = useRef<HTMLDivElement>(null);
