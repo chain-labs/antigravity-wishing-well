@@ -23,6 +23,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
 	args: {
 		value: 40000,
+		setValue: () => {}, // Add a dummy setValue function
 		conversionRateToUSD: 0.245,
 		era: 2,
 		phase: 1,
