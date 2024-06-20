@@ -9,17 +9,7 @@ import dynamic from "next/dynamic";
 import ReactLenis from "lenis/react";
 import Lenis from "lenis";
 
-const NoNFT = dynamic(() => import("./NoNFT"), {
-	ssr: false,
-	loading: () => <>{console.log("loading homepage")}</>,
-});
-
-const NFTPresent = dynamic(() => import("./NFTPresent"), {
-	ssr: false,
-	loading: () => <>{console.log("loading homepage")}</>,
-});
-
-const Contributed = dynamic(() => import("./Contributed"), {
+const MiningPage = dynamic(() => import("./MiningPage"), {
 	ssr: false,
 	loading: () => <>{console.log("loading homepage")}</>,
 });
@@ -51,13 +41,7 @@ export default function Mining() {
 				<div className="z-[100]">
 					<LoadingPage contentLoaded={!loading} />
 				</div>
-				{
-					{
-						"No NFT": <NoNFT />,
-						"NFT Present": <NFTPresent />,
-						Claiming: <Contributed />,
-					}[state]
-				}
+				<MiningPage />
 			</div>
 		</main>
 	);

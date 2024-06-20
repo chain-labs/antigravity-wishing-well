@@ -218,6 +218,7 @@ export function pointsConverterToUSCommaseparated(points: number): string {
 
 export default function MiningCalculator({
 	value,
+	setValue,
 	conversionRateToUSD,
 	era,
 	phase,
@@ -225,6 +226,7 @@ export default function MiningCalculator({
 	inputOptions,
 }: {
 	value: number;
+	setValue: Dispatch<SetStateAction<number>>;
 	conversionRateToUSD: number;
 	era: 1 | 2 | 3;
 	phase: 1 | 2 | 3;
@@ -248,8 +250,9 @@ export default function MiningCalculator({
 		if (!isNaN(value) && value >= 0) {
 			const usdValue = value * inputOptions[selectedOption].value;
 			setUSDValue(Number(usdValue.toFixed(2)));
+			setValue(value);
 		}
-	}, [currentValue, conversionRateToUSD, selectedOption]);
+	}, [currentValue, conversionRateToUSD, selectedOption, inputOptions]);
 
 	useEffect(() => {
 		setCurrentValue(pointsConverterToUSCommaseparated(value));

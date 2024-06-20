@@ -4,15 +4,15 @@ import { useEffect, useState } from "react";
 import Header from "@/components/Home/components/header/Header";
 import Footer from "@/components/Home/sections/Footer";
 import Newsletter from "@/components/Home/sections/Newsletter";
-import RegisteredHero from "@/components/Wishwell/components/RegisteredHero";
 import Image from "next/image";
 import StarFieldCanvas from "@/components/Home/components/background/Starfeild";
 import CanvasRendering from "@/components/Home/components/saturn/CanvasRendering";
 import Leaderboard from "@/components/Home/sections/Leaderboard";
 import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
-import NoNFTHero from "@/components/Mining/NoNFTHero";
+import { miningNotif } from "@/hooks/frontend/toast";
+import MiningHero from "@/components/Mining/MiningHero";
 
-export default function NoNFT() {
+export default function MiningPage() {
 	const [smallerViewPort, setSmallerViewPort] = useState<boolean>(false);
 
 	useEffect(() => {
@@ -34,6 +34,15 @@ export default function NoNFT() {
 			window.removeEventListener("resize", () => {});
 		};
 	}, []);
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			miningNotif("0x...5678 just mined 2,000 DarkX tokens!");
+		}, 5000);
+
+		return () => clearInterval(interval);
+	}, []);
+
 	return (
 		<div className="bg-agblack min-h-[100vh]">
 			<div className="flex flex-col min-h-screen min-w-screen overflow-hidden">
@@ -42,7 +51,7 @@ export default function NoNFT() {
 						<Header />
 					</div>
 					<div className="z-100">
-						<NoNFTHero />
+						<MiningHero />
 						<Leaderboard accountIsConnected />
 						<Newsletter />
 						<Footer />
