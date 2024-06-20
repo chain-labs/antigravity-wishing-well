@@ -9,17 +9,118 @@ import Dropdown from "../Dropdown";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
+export function InputCard({
+	inputValue,
+	setCurrentInputValue,
+	conversion,
+	dropdownOptions,
+	dropDownSelected,
+	setDropDownSelected,
+}: {
+	inputValue: string;
+	setCurrentInputValue: Dispatch<SetStateAction<string>>;
+	conversion: string;
+	dropdownOptions: {
+		label: string;
+		value: number;
+		lightIcon: string | StaticImport;
+		darkIcon: string | StaticImport;
+	}[];
+	dropDownSelected: number;
+	setDropDownSelected: Dispatch<SetStateAction<number>>;
+}) {
+	return (
+		<div className="flex justify-between bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-full border-[1px] border-agyellow">
+			<div className="flex flex-col justify-start items-start gap-[8px] w-full">
+				<input
+					className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans bg-transparent w-[10ch]"
+					type="text"
+					value={inputValue}
+					onChange={(e) => {
+						const inputCurrentValue = e.target.value
+							.replace(/[^0-9.]/g, "")
+							.replace(/(\..*?)\..*/g, "$1");
+
+						if (inputCurrentValue === "") {
+							setCurrentInputValue("0");
+						}
+
+						if (
+							inputCurrentValue.charAt(
+								inputCurrentValue.length - 1
+							) === "."
+						) {
+							let occuredOnce = false;
+							for (let i = 0; i < inputCurrentValue.length; i++) {
+								if (inputCurrentValue.charAt(i) === ".") {
+									if (occuredOnce) {
+										setCurrentInputValue(
+											inputCurrentValue.slice(0, i)
+										);
+										return;
+									}
+									occuredOnce = true;
+								}
+							}
+							setCurrentInputValue(inputCurrentValue);
+							return;
+						}
+
+						if (
+							isNaN(
+								parseFloat(
+									inputCurrentValue.charAt(
+										inputCurrentValue.length - 1
+									)
+								)
+							)
+						) {
+							console.log(
+								"inputValue.charAt(inputValue.length - 1)",
+								inputCurrentValue.charAt(
+									inputCurrentValue.length - 1
+								)
+							);
+							return;
+						}
+
+						const numberValue = parseFloat(inputCurrentValue);
+
+						if (!isNaN(numberValue) && numberValue >= 0) {
+							setCurrentInputValue(
+								pointsConverterToUSCommaseparated(
+									numberValue
+								) ?? "0"
+							);
+						}
+					}}
+				/>
+				<P extrabold className="opacity-75">
+					{conversion}
+				</P>
+			</div>
+			<div
+				className={twMerge(
+					"flex flex-col justify-center items-center h-full"
+				)}
+			>
+				<Dropdown
+					options={dropdownOptions ?? []}
+					selected={dropDownSelected}
+					setSelected={setDropDownSelected}
+				/>
+			</div>
+		</div>
+	);
+}
+
 export function Card({
-	isEditable,
 	value,
 	conversion,
 	multiplyer,
 	pillIconSrc,
 	pillText,
-	setPillText,
 	pillIconAlt,
-	dropdownOptions,
-	setCurrentValue,
 	onlyValue = false,
 }: {
 	isEditable?: boolean;
@@ -28,105 +129,10 @@ export function Card({
 	multiplyer?: string;
 	pillIconSrc: string | StaticImport;
 	pillText: string;
-	setPillText?: Dispatch<SetStateAction<number>>;
+	dropDownSelected?: number;
 	pillIconAlt: string;
-	dropdownOptions?: {
-		label: string;
-		value: number;
-	}[];
-	setCurrentValue?: Dispatch<SetStateAction<string | number>>;
 	onlyValue?: boolean;
 }) {
-	if (isEditable) {
-		return (
-			<div className="flex justify-between bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-full border-[1px] border-agyellow">
-				<div className="flex flex-col justify-start items-start gap-[8px] w-full">
-					<input
-						className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans bg-transparent w-[10ch]"
-						type="text"
-						value={value}
-						onChange={(e) => {
-							const inputValue = e.target.value
-								.replace(/[^0-9.]/g, "")
-								.replace(/(\..*?)\..*/g, "$1");
-
-							if (inputValue === "" && setCurrentValue) {
-								setCurrentValue("0");
-							}
-
-							if (
-								inputValue.charAt(inputValue.length - 1) ===
-									"." &&
-								setCurrentValue
-							) {
-								let occuredOnce = false;
-								for (let i = 0; i < inputValue.length; i++) {
-									if (inputValue.charAt(i) === ".") {
-										if (occuredOnce) {
-											setCurrentValue(
-												inputValue.slice(0, i)
-											);
-											return;
-										}
-										occuredOnce = true;
-									}
-								}
-								setCurrentValue(inputValue);
-								return;
-							}
-
-							if (
-								isNaN(
-									parseFloat(
-										inputValue.charAt(inputValue.length - 1)
-									)
-								)
-							) {
-								console.log(
-									"inputValue.charAt(inputValue.length - 1)",
-									inputValue.charAt(inputValue.length - 1)
-								);
-								return;
-							}
-
-							const numberValue = parseFloat(inputValue);
-
-							if (
-								!isNaN(numberValue) &&
-								numberValue >= 0 &&
-								setCurrentValue
-							) {
-								setCurrentValue(
-									pointsConverterToUSCommaseparated(
-										numberValue
-									) ?? "0"
-								);
-							}
-						}}
-					/>
-					<P extrabold className="opacity-75">
-						{conversion}
-					</P>
-				</div>
-				<div
-					className={twMerge(
-						"flex flex-col justify-start items-center",
-						!isEditable && "justify-center items-center h-full"
-					)}
-				>
-					<Dropdown
-						iconSrc={pillIconSrc}
-						iconAlt={pillIconAlt}
-						options={dropdownOptions ?? []}
-						selected={pillText}
-						setSelected={
-							setPillText as Dispatch<SetStateAction<number>>
-						}
-					/>
-				</div>
-			</div>
-		);
-	}
 	return (
 		<div className="flex justify-between bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-full border-[1px] border-agyellow">
 			<div className="flex flex-col justify-start items-start gap-[8px] w-full">
@@ -144,7 +150,7 @@ export function Card({
 			</div>
 			<div className="flex flex-col justify-center items-center">
 				<Pill
-					text={pillText}
+					text={String(pillText)}
 					iconSrc={pillIconSrc}
 					iconAlt={pillIconAlt}
 				/>
@@ -226,7 +232,8 @@ export default function MiningCalculator({
 	inputOptions: {
 		label: string;
 		value: number;
-		icon: string | StaticImport;
+		darkIcon: string | StaticImport;
+		lightIcon: string | StaticImport;
 	}[];
 }) {
 	const [currentValue, setCurrentValue] = useState<string>(
@@ -250,18 +257,13 @@ export default function MiningCalculator({
 
 	return (
 		<div className="relative flex flex-col gap-[8px] h-fit w-[400px]">
-			<Card
-				isEditable
-				value={currentValue}
+			<InputCard
+				inputValue={currentValue}
+				setCurrentInputValue={setCurrentValue}
 				conversion={`$${pointsConverterToUSCommaseparated(USDValue)}`}
-				pillIconAlt={inputOptions[selectedOption].label}
-				pillIconSrc={inputOptions[selectedOption].icon}
-				pillText={inputOptions[selectedOption].label}
-				setPillText={setSelectedOption}
 				dropdownOptions={inputOptions}
-				setCurrentValue={
-					setCurrentValue as Dispatch<SetStateAction<string | number>>
-				}
+				dropDownSelected={selectedOption}
+				setDropDownSelected={setSelectedOption}
 			/>
 			<Multiplyer era={era} phase={phase} multiplyer={multiplyer} />
 			<div
