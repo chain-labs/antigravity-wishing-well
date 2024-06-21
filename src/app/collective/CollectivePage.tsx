@@ -48,7 +48,7 @@ export default function CollectivePage() {
 			<div className="flex flex-col min-h-screen min-w-screen overflow-hidden">
 				<div className="relative z-0 flex flex-col min-h-screen">
 					<div className="fixed top-0 w-full z-50 items-center pt-[16px] md:pt-12 px-4">
-						{/* <Header /> */}
+						<Header />
 					</div>
 					<div className="z-100">
 						<CollectiveHero />
@@ -65,7 +65,7 @@ export default function CollectivePage() {
 						<PromotionAndNewsletter />
 						<Footer />
 					</div>
-					{/* <div className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[2]">
+					<div className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[2]">
 						{smallerViewPort ? (
 							<Image
 								src={IMAGEKIT_IMAGES.MOBILE_SATURN}
@@ -85,7 +85,7 @@ export default function CollectivePage() {
 							zRange={100}
 							speed={0.1}
 						/>
-					</div> */}
+					</div>
 				</div>
 			</div>
 		</div>
