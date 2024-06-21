@@ -58,4 +58,6 @@ export const IMAGEKIT_IMAGES = {
 	WISHWELL_CONTRIBUTED_RECEIPT: `${IMAGEKIT}/wishwell-contributed-receipt.svg`,
 	WISHWELL: `${IMAGEKIT}/wishwell.png`,
 	MINING_BG: `${IMAGEKIT}/mining-background.png`,
+	COLLECTIVE_HERO_BG: `${IMAGEKIT}/collective-hero-bg.png`,
+	COLLECTIVE_EVENT: `${IMAGEKIT}/collective-event.png`,
 };
