@@ -2,6 +2,7 @@ import { IMAGEKIT } from "@/constants";
 
 const IMAGEKIT_ICONS_URL = `${IMAGEKIT}/icons`;
 const IMAGEKIT_LOGOS_URL = `${IMAGEKIT}/logos`;
+const IMAGEKIT_COLLECTIVE_URL = `${IMAGEKIT}/collective`;
 
 export const IMAGEKIT_LOGOS = {
 	LOGO: `${IMAGEKIT_LOGOS_URL}/logo.svg`,
@@ -60,4 +61,57 @@ export const IMAGEKIT_IMAGES = {
 	MINING_BG: `${IMAGEKIT}/mining-background.png`,
 	COLLECTIVE_HERO_BG: `${IMAGEKIT}/collective-hero-bg.png`,
 	COLLECTIVE_EVENT: `${IMAGEKIT}/collective-event.png`,
+};
+
+export const IMAGEKIT_COLLECTIVE = {
+	ANTIGRAVITY_MEETUP_1: {
+		link: `${IMAGEKIT_COLLECTIVE_URL}/1.jpg`,
+		height: 4032,
+		width: 3024,
+	},
+	ANTIGRAVITY_MEETUP_2: {
+		link: `${IMAGEKIT_COLLECTIVE_URL}/2.jpg`,
+		height: 3000,
+		width: 4000,
+	},
+	ANTIGRAVITY_MEETUP_3: {
+		link: `${IMAGEKIT_COLLECTIVE_URL}/3.jpg`,
+		height: 4000,
+		width: 3000,
+	},
+	ANTIGRAVITY_MEETUP_4: {
+		link: `${IMAGEKIT_COLLECTIVE_URL}/4.jpg`,
+		height: 2736,
+		width: 3648,
+	},
+	ANTIGRAVITY_MEETUP_5: {
+		link: `${IMAGEKIT_COLLECTIVE_URL}/5.jpg`,
+		height: 3648,
+		width: 2736,
+	},
+	ANTIGRAVITY_MEETUP_6: {
+		link: `${IMAGEKIT_COLLECTIVE_URL}/6.jpg`,
+		height: 3000,
+		width: 4000,
+	},
+	ANTIGRAVITY_MEETUP_7: {
+		link: `${IMAGEKIT_COLLECTIVE_URL}/7.jpg`,
+		height: 3648,
+		width: 2736,
+	},
+	ANTIGRAVITY_MEETUP_8: {
+		link: `${IMAGEKIT_COLLECTIVE_URL}/8.jpg`,
+		height: 3000,
+		width: 4000,
+	},
+	ANTIGRAVITY_MEETUP_9: {
+		link: `${IMAGEKIT_COLLECTIVE_URL}/9.jpg`,
+		height: 4000,
+		width: 3000,
+	},
+	ANTIGRAVITY_MEETUP_10: {
+		link: `${IMAGEKIT_COLLECTIVE_URL}/10.jpeg`,
+		height: 640,
+		width: 480,
+	},
 };

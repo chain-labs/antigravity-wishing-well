@@ -151,7 +151,7 @@ export default function Leaderboard({
 	return (
 		<div ref={targetRef}>
 			<motion.div
-				className="absolute bottom-0 left-1/2 translate-x-[-50%] translate-y-[50%] max-w-[1200px] p-[16px] lg:p-8 border-t-4 border-b-4 lg:border-4 lg:mx-auto md:w-4/5 md:mx-auto bg-agblack rounded-none lg:rounded-xl border-transparent bg-clip-padding flex flex-col lg:flex-row justify-between gap-[16px] lg:gap-32 z-0
+				className="relative md:absolute md:bottom-0 md:left-1/2 md:translate-x-[-50%] md:translate-y-[50%] w-full max-w-[1200px] border-t-4 border-b-4 md:border-4  mt-[30px] bg-clip-padding border-transparent p-[16px] md:p-[32px] bg-agblack md:rounded-xl z-0
             before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-bl before:from-[#5537A5] before:to-[#BF6841] before:rounded-[inherit] before:overflow-hidden before:m-[-2px]
 			after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-agblack after:rounded-[inherit] after:overflow-hidden
         "
@@ -169,7 +169,7 @@ export default function Leaderboard({
 						/>
 					</div>
 
-					<div className="grid grid-cols-1 lg:grid-cols-3 w-full max-w-[100%] pt-6">
+					<div className="grid lg:grid-cols-3 w-full max-w-[100%] pt-6">
 						<div className="col-span-2 w-full rounded-[4px] border-[2px] border-[#414343] lg:border-none">
 							<Table tableData={tableData} />
 						</div>
