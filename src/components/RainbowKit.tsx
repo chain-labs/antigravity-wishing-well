@@ -14,7 +14,7 @@ const pulseChain = {
 const config = getDefaultConfig({
   appName: "AntiGravity",
   projectId: "da0885f4ccb13b9f676544fd97528d14",
-  chains: TEST_NETWORK ? [pulseChain, baseSepolia] : [pulseChain, base],
+  chains: TEST_NETWORK ? [baseSepolia, pulseChain] : [pulseChain, base],
   transports: TEST_NETWORK
     ? {
         [baseSepolia.id]: http(
@@ -32,14 +32,13 @@ const config = getDefaultConfig({
 });
 
 const client = new QueryClient();
-
 interface Props {
   children: React.ReactNode;
 }
 
 const RainbowKitContext = ({ children }: Props) => {
   return (
-    <WagmiProvider config={config}>
+    <WagmiProvider config={config} reconnectOnMount={false}>
       <QueryClientProvider client={client}>
         <RainbowKitProvider>{children}</RainbowKitProvider>
       </QueryClientProvider>
