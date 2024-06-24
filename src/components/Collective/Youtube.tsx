@@ -57,14 +57,14 @@ export default function Youtube() {
 							iconSrc={IMAGEKIT_ICONS.TELEGRAM}
 							iconAlt="Telegram"
 							secondary
-							className="bg-transparent border-[#FEFFFF40] shadow-[0_4px_#FEFFFF40] px-[10px] py-[6px]"
+							className="bg-transparent border-[#FEFFFF40] shadow-[0_4px_0px_#FEFFFF40] px-[10px] py-[6px]"
 						/>
 						<Button
 							innerText="Discord"
 							iconSrc={IMAGEKIT_ICONS.DISCORD}
 							iconAlt="Discord"
 							secondary
-							className="bg-transparent border-[#FEFFFF40] shadow-[0_4px_#FEFFFF40] px-[10px] py-[6px]"
+							className="bg-transparent border-[#FEFFFF40] shadow-[0_4px_0px_#FEFFFF40] px-[10px] py-[6px]"
 						/>
 					</div>
 				</div>
