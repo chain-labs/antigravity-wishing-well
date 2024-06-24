@@ -70,7 +70,7 @@ export const RegisterButton: React.FC<RegisterButtonProps> = ({
 							: "Change Network"
 						: "CONNECT WALLET"
 				}
-				// TODO: Need to add a loading iconSrc as well when loading is passed to this button from props
+				
 				loading={
 					account.isConnected &&
 					checkCorrectNetwork(Number(account.chainId)) &&
