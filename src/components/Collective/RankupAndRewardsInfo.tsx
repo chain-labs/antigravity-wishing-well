@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function RankupAndRewardsInfo() {
 	return (
-		<div className="relative flex flex-col justify-end items-end p-[64px] pt-[84px] overflow-hidden">
+		<div className="relative h-fit w-full flex flex-col lg:justify-end lg:items-end p-[16px] lg:p-[64px]  pt-[84px] overflow-hidden bg-gradient-to-t from-[#000000BF] to-[#00000000]">
 			<div className="flex flex-col gap-[16px] max-w-[600px]">
 				<H1>
 					What about Ranks,
@@ -26,11 +26,11 @@ export default function RankupAndRewardsInfo() {
 				</P>
 			</div>
 			<Image
-				src={IMAGEKIT_IMAGES.MINING_BG}
+				src={IMAGEKIT_IMAGES.COLLECTIVE_RANKUP_AND_REWARDS_INFO_BG}
 				alt="Mining Background"
 				width={1920}
 				height={1080}
-				className="absolute inset-0 object-cover z-[-1]"
+				className="absolute inset-0 h-full w-full object-cover z-[-1]"
 			/>
 		</div>
 	);

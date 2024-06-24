@@ -11,11 +11,11 @@ export default function PromotionAndNewsletter() {
 
 	return (
 		<div
-			className="flex flex-col justify-center items-center gap-[48px] w-fit p-[32px] m-[16px] mb-[100px] rounded-[12px] relative bg-agblack border-1 border-transparent bg-clip-padding
-                    before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-bl before:from-[#5537A5] before:to-[#BF6841] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
+			className="flex flex-col justify-center items-center gap-[16px] md:gap-[48px] w-full md:w-fit p-[16px] md:p-[32px] m-0 md:m-[16px] mb-[100px] rounded-none md:rounded-[12px] relative bg-agblack border-1 border-transparent bg-clip-padding z-0
+                    before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-bl before:from-[#3C00DC] before:to-[#FF5001] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
                     after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-agblack after:rounded-[inherit] after:overflow-hidden"
 		>
-			<div className="flex justify-between items-center gap-[16px]">
+			<div className="flex flex-col w-full md:flex-row justify-between items-center gap-[16px]">
 				<div className="flex flex-col gap-[16px]">
 					<H1 className="agwhite">Check Out Our Book!</H1>
 					<P>
@@ -30,20 +30,20 @@ export default function PromotionAndNewsletter() {
 					/>
 				</div>
 				<Image
-					src={IMAGEKIT_IMAGES.COLLECTIVE_HERO_BG}
+					src={IMAGEKIT_IMAGES.BOOK_COVER_ART}
 					alt="Book"
 					width={523.81}
 					height={275}
-					className="h-[275px] rounded-[12px]"
+					className="h-[275px] w-full md:w-[524px] rounded-[12px]"
 				/>
 			</div>
-			<div className="flex gap-[32px] w-full rounded-[12px] p-[32px] bg-[#3C00DC80]">
+			<div className="flex flex-col lg:flex-row gap-[16px] md:gap-[32px] w-full rounded-[12px] p-[16px] md:p-[32px] bg-[#3C00DC80]">
 				<div className="flex flex-col text-nowrap">
 					<H1 className="text-agwhite">Ignite Your Boosters.</H1>
 					<P>Get all Antigravity updates in your inbox.</P>
 				</div>
 				<form className="flex flex-col gap-[16px] w-full" action="">
-					<div className="flex gap-[16px]">
+					<div className="flex flex-col lg:flex-row gap-[16px]">
 						<input
 							type="text"
 							name="name"

@@ -5,9 +5,10 @@ import P from "../HTML/P";
 import Button from "../Button";
 
 export default function Event() {
+	const ImageLink = IMAGEKIT_IMAGES.COLLECTIVE_EVENT
 	return (
-		<div className="h-screen w-full flex justify-center items-center">
-			<div className="relative flex w-screen max-w-[992px] h-full max-h-[522.62px]">
+		<div className=" my-[50px] md:my-0 md:h-screen w-full flex justify-center items-center">
+			<div className="relative flex w-screen max-w-[992px] h-[523px] z-0">
 				<div className="flex flex-col md:flex-row justify-end md:justify-between items-end gap-[8px] overflow-hidden h-full w-full md:rounded-[12px] bg-gradient-to-t from-[#000000BF] to-[#00000000] p-[16px]">
 					<div className="flex flex-col gap-[8px]">
 						<H1>Event Title Goes Here.</H1>
@@ -33,7 +34,7 @@ export default function Event() {
 						className="w-full md:w-fit"
 					/>
 					<Image
-						src={IMAGEKIT_IMAGES.COLLECTIVE_EVENT}
+						src={ImageLink}
 						alt="Collective Event"
 						width={992}
 						height={522.62}
@@ -42,7 +43,7 @@ export default function Event() {
 				</div>
 
 				<Image
-					src={IMAGEKIT_IMAGES.COLLECTIVE_EVENT}
+					src={ImageLink}
 					alt="Collective Event"
 					width={992}
 					height={522.62}

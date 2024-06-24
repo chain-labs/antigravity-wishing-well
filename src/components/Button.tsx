@@ -369,15 +369,12 @@ export default function Button({
 						transform: isHovered
 							? "translateY(4px)"
 							: "translateY(0px)",
-						boxShadow: isHovered
-							? `0px 0px 0px 0px ${secondary ? "#414343" : "#000"}`
-							: `0px 4px 0px 0px ${secondary ? "#414343" : "#000"}`,
 					} as any
 				}
 				onMouseEnter={() => setIsHovered(true)}
 				onMouseLeave={() => setIsHovered(false)}
 				className={twMerge(
-					`uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-extrabold text-agwhite cursor-pointer
+					`uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-extrabold text-agwhite cursor-pointer text-nowrap
                                 rounded-[4px] px-4 py-3 shadow-button hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-agblack bg-blue z-0 overflow-hidden`,
 					secondary &&
 						"border-2 border-[#414343] bg-agblack active:bg-[#414343]",
@@ -394,15 +391,17 @@ export default function Button({
 						className="object-cover absolute top-0 left-0 -z-[1] opacity-50 mix-blend-hue"
 					/>
 				)}
-				{iconSrc && (
-					<Image
-						src={iconSrc}
-						alt={iconAlt}
-						width={24}
-						height={24}
-						className="object-cover"
-					/>
-				)}
+				<div className="w-[24px] h-[24px]">
+					{iconSrc && (
+						<Image
+							src={iconSrc}
+							alt={iconAlt}
+							width={24}
+							height={24}
+							className="object-cover"
+						/>
+					)}
+				</div>
 				{innerText}
 			</button>
 		);

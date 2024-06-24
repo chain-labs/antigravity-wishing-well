@@ -1,4 +1,4 @@
-import { IMAGEKIT } from "@/constants";
+import { IMAGEKIT, TELEGRAM, YOUTUBE } from "@/constants";
 
 const IMAGEKIT_ICONS_URL = `${IMAGEKIT}/icons`;
 const IMAGEKIT_LOGOS_URL = `${IMAGEKIT}/logos`;
@@ -42,6 +42,16 @@ export const IMAGEKIT_ICONS = {
 	ERROR: `${IMAGEKIT_ICONS_URL}/error.svg`,
 	INFO_BLACK: `${IMAGEKIT_ICONS_URL}/info-black.svg`,
 	DOWN: `${IMAGEKIT_ICONS_URL}/down.svg`,
+	DISCORD: `${IMAGEKIT_ICONS_URL}/discord.svg`,
+	TWITTER: `${IMAGEKIT_ICONS_URL}/twitter.svg`,
+	TELEGRAM: `${IMAGEKIT_ICONS_URL}/telegram.svg`,
+	CUBE: `${IMAGEKIT_ICONS_URL}/cube.svg`,
+	BOOK: `${IMAGEKIT_ICONS_URL}/book.svg`,
+	DOCUMENT: `${IMAGEKIT_ICONS_URL}/document.svg`,
+	HALF_CIRCLE_FILL: `${IMAGEKIT_ICONS_URL}/half-circle-fill.svg`,
+	YOUTUBE: `${IMAGEKIT_ICONS_URL}/youtube.svg`,
+	TIKTOK: `${IMAGEKIT_ICONS_URL}/tiktok.svg`,
+	INSTAGRAM: `${IMAGEKIT_ICONS_URL}/instagram.svg`,
 };
 
 export const IMAGEKIT_IMAGES = {
@@ -61,6 +71,12 @@ export const IMAGEKIT_IMAGES = {
 	MINING_BG: `${IMAGEKIT}/mining-background.png`,
 	COLLECTIVE_HERO_BG: `${IMAGEKIT}/collective-hero-bg.png`,
 	COLLECTIVE_EVENT: `${IMAGEKIT}/collective-event.png`,
+	CODY: `${IMAGEKIT}/cody.jpeg`,
+	DON: `${IMAGEKIT}/don.jpeg`,
+	MAX: `${IMAGEKIT}/max.png`,
+	BOOK_COVER_ART: `${IMAGEKIT}/book-cover-art.png`,
+	COLLECTIVE_POINTS_AND_MULTIPLIER_INFO_BG: `${IMAGEKIT}/collective-points-and-multiplier-info-bg.png`,
+	COLLECTIVE_RANKUP_AND_REWARDS_INFO_BG: `${IMAGEKIT}/collective-rankup-and-rewards-info-bg.png`,
 };
 
 export const IMAGEKIT_COLLECTIVE = {
