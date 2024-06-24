@@ -2,7 +2,7 @@
 
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
-import CountdownTimer from "./CountdownTimer";
+import CountdownTimer from "@/components/CountdownTimer";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -27,6 +27,7 @@ export const Default: Story = {
             mins: 3,
             secs: 4,
             phase: 3,
+			era: "minting",
         }
     },
 };
