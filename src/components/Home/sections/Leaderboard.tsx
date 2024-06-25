@@ -147,7 +147,7 @@ export default function Leaderboard({
 			after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-agblack after:rounded-[inherit] after:overflow-hidden
         "
 			>
-				<div className="flex flex-col gap-[16px]">
+				<div className="flex flex-col gap-[16px] w-full">
 					<div className="flex flex-wrap justify-start items-center gap-[16px]">
 						<H1>Leaderboard</H1>
 						<Button

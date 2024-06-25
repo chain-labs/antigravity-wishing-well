@@ -23,18 +23,36 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
 	args: {
 		value: 40000,
+		setValue: () => {}, // Add a dummy setValue function
 		conversionRateToUSD: 0.245,
 		era: 2,
 		phase: 1,
 		multiplyer: 33,
-		inputOptions: [{
-			label: "PLS",
-			value: 0.245,
-			icon: IMAGEKIT_ICONS.PILL_POINTS
-		}, {
-			label: "DARK X",
-			value: 0.3,
-			icon: IMAGEKIT_ICONS.PILL_DARK_X
-		}],
+		inputOptions: [
+			{
+				label: "ETH",
+				value: 0.25,
+				darkIcon: IMAGEKIT_ICONS.ETH_BLACK,
+				lightIcon: IMAGEKIT_ICONS.ETH,
+			},
+			{
+				label: "PLS",
+				value: 0.345,
+				darkIcon: IMAGEKIT_ICONS.PLS_BLACK,
+				lightIcon: IMAGEKIT_ICONS.PLS,
+			},
+			{
+				label: "USDT",
+				value: 0.4,
+				darkIcon: IMAGEKIT_ICONS.USDT_BLACK,
+				lightIcon: IMAGEKIT_ICONS.USDT,
+			},
+			{
+				label: "USDC",
+				value: 0.6,
+				darkIcon: IMAGEKIT_ICONS.USDC_BLACK,
+				lightIcon: IMAGEKIT_ICONS.USDC,
+			},
+		],
 	},
 };

@@ -11,7 +11,11 @@ const eraToNumber = {
 
 export default function CountdownTimer({
 	state,
+	fontDesktopSize = 60,
+	fontMobileSize = 48,
 }: {
+	fontDesktopSize?: number;
+	fontMobileSize?: number;
 	state: {
 		days: number;
 		hours: number;
@@ -44,20 +48,26 @@ export default function CountdownTimer({
 			</div>
 			<div className="relative flex gap-2 md:gap-3 text-agyellow font-sans">
 				<div className="flex items-center justify-center flex-col">
-					<h1 className="hidden md:flex text-6xl font-extrabold">
+					<h1
+						style={{ fontSize: fontDesktopSize }}
+						className="hidden md:flex font-extrabold"
+					>
 						<DynamicNumberCounter
 							count={state.days}
 							setCount={() => {}}
 							modulo={10000}
-							boxPixelSize={60}
+							boxPixelSize={fontDesktopSize}
 						/>
 					</h1>
-					<h1 className="md:hidden text-5xl font-extrabold">
+					<h1
+						style={{ fontSize: fontMobileSize }}
+						className="md:hidden font-extrabold"
+					>
 						<DynamicNumberCounter
 							count={state.days}
 							setCount={() => {}}
 							modulo={10000}
-							boxPixelSize={48}
+							boxPixelSize={fontMobileSize}
 						/>
 					</h1>
 					<p className="text-lg md:text-xl uppercase font-extrabold tracking-widest">
@@ -66,20 +76,26 @@ export default function CountdownTimer({
 				</div>
 				<div className="bg-agyellow h-[clac(60px_1.5rem)] lg:full w-[1px]"></div>
 				<div className="flex items-center justify-center flex-col">
-					<h1 className="hidden md:flex text-6xl font-extrabold">
+					<h1
+						style={{ fontSize: fontDesktopSize }}
+						className="hidden md:flex font-extrabold"
+					>
 						<DynamicNumberCounter
 							count={state.hours}
 							setCount={() => {}}
 							modulo={24}
-							boxPixelSize={60}
+							boxPixelSize={fontDesktopSize}
 						/>
 					</h1>
-					<h1 className="md:hidden text-5xl font-extrabold">
+					<h1
+						style={{ fontSize: fontMobileSize }}
+						className="md:hidden font-extrabold"
+					>
 						<DynamicNumberCounter
 							count={state.hours}
 							setCount={() => {}}
 							modulo={24}
-							boxPixelSize={48}
+							boxPixelSize={fontMobileSize}
 						/>
 					</h1>
 					<p className="text-xl uppercase font-extrabold tracking-widest">
@@ -88,20 +104,26 @@ export default function CountdownTimer({
 				</div>
 				<div className="bg-agyellow h-[clac(60px_1.5rem)] lg:full w-[1px]"></div>
 				<div className="flex items-center justify-center flex-col">
-					<h1 className="hidden md:flex text-6xl font-extrabold">
+					<h1
+						style={{ fontSize: fontDesktopSize }}
+						className="hidden md:flex font-extrabold"
+					>
 						<DynamicNumberCounter
 							count={state.mins}
 							setCount={() => {}}
 							modulo={60}
-							boxPixelSize={60}
+							boxPixelSize={fontDesktopSize}
 						/>
 					</h1>
-					<h1 className="md:hidden text-5xl font-extrabold">
+					<h1
+						style={{ fontSize: fontMobileSize }}
+						className="md:hidden font-extrabold"
+					>
 						<DynamicNumberCounter
 							count={state.mins}
 							setCount={() => {}}
 							modulo={60}
-							boxPixelSize={48}
+							boxPixelSize={fontMobileSize}
 						/>
 					</h1>
 					<p className="text-lg md:text-xl uppercase font-extrabold tracking-widest">
@@ -110,20 +132,26 @@ export default function CountdownTimer({
 				</div>
 				<div className="bg-agyellow h-[clac(60px_1.5rem)] lg:full w-[1px]"></div>
 				<div className="flex items-center justify-center flex-col">
-					<h1 className="hidden md:flex text-6xl font-extrabold">
+					<h1
+						style={{ fontSize: fontDesktopSize }}
+						className="hidden md:flex font-extrabold"
+					>
 						<DynamicNumberCounter
 							count={state.secs}
 							setCount={() => {}}
 							modulo={60}
-							boxPixelSize={60}
+							boxPixelSize={fontDesktopSize}
 						/>
 					</h1>
-					<h1 className="md:hidden text-5xl font-extrabold">
+					<h1
+						style={{ fontSize: fontMobileSize }}
+						className="md:hidden font-extrabold"
+					>
 						<DynamicNumberCounter
 							count={state.secs}
 							setCount={() => {}}
 							modulo={60}
-							boxPixelSize={48}
+							boxPixelSize={fontMobileSize}
 						/>
 					</h1>
 					<p className="text-lg md:text-xl uppercase font-extrabold tracking-widest">

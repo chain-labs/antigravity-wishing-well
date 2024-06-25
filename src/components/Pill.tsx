@@ -13,7 +13,7 @@ export default function Pill({
 	text: string;
 }) {
 	return (
-		<div className="grid grid-cols-[24px_auto] place-items-center gap-1 py-[4px] px-[8px] rounded-full bg-gradient-to-b from-[#B4EBF8] to-[#789DFA] tex-agblack font-general-sans font-semibold text-[16px] leading-[16px] h-fit w-full text-nowrap">
+		<div className="grid grid-cols-[24px_auto] place-items-center gap-1 py-[4px] px-[8px] rounded-full bg-gradient-to-b from-[#B4EBF8] to-[#789DFA] text-agblack font-general-sans font-semibold text-[16px] leading-[16px] h-fit w-full text-nowrap">
 			{iconSrc && iconAlt && (
 				<Image
 					src={iconSrc}
