@@ -6,7 +6,7 @@ import Button from "@/components/Button";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import useContract from "@/abi";
+import useContract from "@/abi/wishwell";
 import { PublicClient, parseAbiItem } from "viem";
 import axios from "axios";
 import {
