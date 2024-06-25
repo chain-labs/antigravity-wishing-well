@@ -76,12 +76,12 @@ export const IMAGEKIT_IMAGES = {
 	MAX: `${IMAGEKIT}/max.png`,
 	BOOK_COVER_ART: `${IMAGEKIT}/book-cover-art.png`,
 	COLLECTIVE_POINTS_AND_MULTIPLIER_INFO_BG: `${IMAGEKIT}/collective-points-and-multiplier-info-bg.png`,
-	COLLECTIVE_RANKUP_AND_REWARDS_INFO_BG: `${IMAGEKIT}/collective-rankup-and-rewards-info-bg.png`,
+	COLLECTIVE_RANKUP_AND_REWARDS_INFO_BG: `${IMAGEKIT}/collective-rankup-and-rewards-info-bg.png?updatedAt=1719221781752`,
 };
 
 export const IMAGEKIT_COLLECTIVE = {
 	ANTIGRAVITY_MEETUP_1: {
-		link: `${IMAGEKIT_COLLECTIVE_URL}/1.jpg`,
+		link: `${IMAGEKIT_COLLECTIVE_URL}/1.jpg?updatedAt=1718985312834`,
 		height: 4032,
 		width: 3024,
 	},

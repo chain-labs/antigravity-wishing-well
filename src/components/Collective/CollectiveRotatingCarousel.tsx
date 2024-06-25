@@ -16,36 +16,31 @@ function EventCard({
 	};
 	caption: string;
 }) {
+	const CONSTANT_HEIGHT = 250;
 	return (
 		<div
 			style={{
-				width: (image.width * 213) / image.height,
+				width: (image.width * CONSTANT_HEIGHT) / image.height,
 			}}
-			className={`relative flex flex-col rounded-[8.16px] h-fit border-1 border-transparent bg-clip-padding z-0
+			className={`relative flex flex-col rounded-[8.16px] h-full border-1 border-transparent bg-clip-padding z-0
 							before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-br before:from-[#3C00DC] before:to-[#15004C] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
                     		after:content-[''] after:absolute after:inset-0 after:z-[-2]  after:bg-gradient-to-b after:from-[#0A1133] after:to-[#142266] after:rounded-[inherit] after:overflow-hidden`}
 		>
-			<div
-				style={{
-					width: (image.width * 213) / image.height,
-					height: 213,
-				}}
-				className={`h-fit md:h-[213px] w-full md:w-[${(image.width * 213) / image.height}px] rounded-t-[8.16px] overflow-hidden`}
-			>
+			<div className={`rounded-t-[8.16px]`}>
 				<Image
 					src={image.link}
 					alt={caption}
-					height={213}
-					width={(image.width * 213) / image.height}
+					height={CONSTANT_HEIGHT}
+					width={(image.width * CONSTANT_HEIGHT) / image.height}
 					style={{
 						objectFit: "cover",
-						width: (image.width * 213) / image.height,
-						height: 213,
+						width: (image.width * CONSTANT_HEIGHT) / image.height,
+						height: CONSTANT_HEIGHT,
 					}}
-					className={`h-fit md:h-[213px] w-[${(image.width * 213) / image.height}px] rounded-t-[8.16px]`}
+					className={`rounded-t-[8.16px] object-cover`}
 				/>
 			</div>
-			<div className="p-[10.88px] w-full bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-b-[8.16px]">
+			<div className="p-[10.88px] w-full h-full bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-b-[8.16px]">
 				<P>{caption}</P>
 			</div>
 		</div>
@@ -87,7 +82,7 @@ function MobileEventCard({
 
 function EventCardsContainer() {
 	return (
-		<div className="flex ml-[16px] gap-[16px] animate-[carouselMarquee_15s_linear_infinite]">
+		<div className="flex ml-[16px] gap-[16px] animate-[carouselMarquee_30s_linear_infinite]">
 			<EventCard
 				image={IMAGEKIT_COLLECTIVE.ANTIGRAVITY_MEETUP_1}
 				caption="Don, Max & Cody at the Pulschain Tour Salt Lake 2024"

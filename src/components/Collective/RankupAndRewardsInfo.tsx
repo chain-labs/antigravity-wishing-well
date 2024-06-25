@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function RankupAndRewardsInfo() {
 	return (
-		<div className="relative h-fit w-full flex flex-col lg:justify-end lg:items-end p-[16px] lg:p-[64px] overflow-hidden bg-gradient-to-t from-[#000000BF] to-[#00000000]">
+		<div className="relative h-fit w-full flex flex-col lg:justify-end lg:items-end p-[16px] lg:p-[64px] overflow-hidden z-0">
 			<div className="flex flex-col gap-[16px] max-w-[600px]">
 				<H1>
 					What about Ranks,
@@ -25,12 +25,14 @@ export default function RankupAndRewardsInfo() {
 					rewards.
 				</P>
 			</div>
+			<div className="hidden xl:block absolute right-0 top-0 w-[60%] h-[100%] [clip-path:polygon(25%_0%,100%_0%,100%_100%,0%_100%)] z-[-1] bg-agblack opacity-50"></div>
+			<div className="block xl:hidden absolute h-full w-full inset-0 bg-gradient-to-t from-[#000] via-[#000000a0] to-[#00000000] z-[-1]"></div>
 			<Image
 				src={IMAGEKIT_IMAGES.COLLECTIVE_RANKUP_AND_REWARDS_INFO_BG}
 				alt="Mining Background"
 				width={1920}
 				height={1080}
-				className="absolute inset-0 h-full w-full object-cover z-[-1]"
+				className="absolute inset-0 w-[800px] md:w-full h-[250px] md:h-[800px] z-[-2] origin-top md:origin-center scale-[1.8] md:scale-[1.3] md:translate-y-[10%] object-fill"
 			/>
 		</div>
 	);

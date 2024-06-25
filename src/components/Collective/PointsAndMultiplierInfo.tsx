@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function PointsAndMultiplierInfo() {
 	return (
-		<div className="relative h-fit w-full flex flex-col p-[16px] lg:p-[64px] gap-[16px] overflow-hidden bg-gradient-to-b from-[#000000BF] to-[#00000000]">
+		<div className="relative h-fit w-full flex flex-col p-[16px] lg:p-[64px] gap-[16px] overflow-hidden z-0">
 			<P>(our intern forgot to add this)</P>
 			<H1>How do Points & Multipliers Work?</H1>
 			<P>Earn Points by participating in the 3 launch Eras:</P>
@@ -64,12 +64,14 @@ export default function PointsAndMultiplierInfo() {
 				<br />
 				The multipliers double if you participate in all 3 Eras.
 			</P>
+			<div className="hidden xl:block absolute left-0 top-0 w-[70%] h-[100%] [clip-path:polygon(0%_0%,100%_0%,75%_100%,0%_100%)] z-[-1] bg-agblack opacity-50"></div>
+			<div className="block xl:hidden absolute h-full w-full inset-0 bg-gradient-to-b from-[#000] to-[#00000000] z-[-1]"></div>
 			<Image
 				src={IMAGEKIT_IMAGES.COLLECTIVE_POINTS_AND_MULTIPLIER_INFO_BG}
 				alt="Points and multiplier Background"
 				width={1920}
 				height={1080}
-				className="absolute inset-0 w-full h-full z-[-1] object-none md:object[10%_30%]"
+				className="absolute inset-0 w-full  h-full md:h-[700px] z-[-2] md:translate-y-[-18%] object-none md:object-fill object[10%_30%]"
 			/>
 		</div>
 	);
