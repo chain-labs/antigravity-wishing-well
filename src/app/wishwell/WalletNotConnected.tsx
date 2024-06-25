@@ -1,18 +1,25 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import Header from "@/components/Home/components/header/Header";
-import Footer from "@/components/Home/sections/Footer";
-import Newsletter from "@/components/Home/sections/Newsletter";
-import RegisteredHero from "@/components/Wishwell/components/RegisteredHero";
 import Image from "next/image";
-import StarFieldCanvas from "@/components/Home/components/background/Starfeild";
+import Header from "@/components/Home/components/header/Header";
+import WalletNotConnectedHero from "@/components/Wishwell/components/WalletNotConnectedHero";
+import { Dispatch, useEffect, useState } from "react";
 import CanvasRendering from "@/components/Home/components/saturn/CanvasRendering";
-import Leaderboard from "@/components/Home/sections/Leaderboard";
-import ContributedHero from "@/components/Wishwell/components/ContributedHero";
+import StarFieldCanvas from "@/components/Home/components/background/Starfeild";
+import Newsletter from "@/components/Home/sections/Newsletter";
+import Footer from "@/components/Home/sections/Footer";
 import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 
-export default function Contributed({ tokenId }: { tokenId: string }) {
+export default function WalletNotConnected({
+  registrationKit,
+}: {
+  registrationKit: {
+    loading: boolean;
+    error: boolean;
+    registerIdle: boolean;
+    setError: Dispatch<React.SetStateAction<boolean>>;
+    handleRegister: any;
+    isRegistered: boolean;
+  };
+}) {
   const [smallerViewPort, setSmallerViewPort] = useState<boolean>(false);
 
   useEffect(() => {
@@ -42,8 +49,7 @@ export default function Contributed({ tokenId }: { tokenId: string }) {
             <Header />
           </div>
           <div className="z-100">
-            <ContributedHero tokenId={tokenId} />
-            <Leaderboard accountIsConnected />
+            <WalletNotConnectedHero registrationKit={registrationKit} />
             <Newsletter />
             <Footer />
           </div>
