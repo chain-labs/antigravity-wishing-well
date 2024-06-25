@@ -26,12 +26,11 @@ function CollectiveLogo() {
 				className="flex justify-start items-center gap-2 absolute bottom-0 right-0 lg:left-[10%] lg:top-0 z-[100] lg:translate-y-[-100%] h-fit w-fit"
 			>
 				<Image
-					onMouseEnter={() => setHover(true)}
 					src={IMAGEKIT_LOGOS.COLLECTIVE_COLOR_LOGO}
 					alt="leaderboard background"
-					width={100}
-					height={100}
-					className="object-cover opacity-25 lg:opacity-100 w-fit"
+					width={294}
+					height={382}
+					className="object-fit opacity-25 lg:opacity-50 w-[100px] lg:w-[294px] h-[100px] lg:h-[382px]"
 				/>
 
 				<motion.div
