@@ -5,10 +5,11 @@ import P from "../HTML/P";
 import Button from "../Button";
 
 export default function Event() {
+	const ImageLink = IMAGEKIT_IMAGES.COLLECTIVE_EVENT
 	return (
-		<div className="h-screen w-full flex justify-center items-center">
-			<div className="relative flex w-screen max-w-[992px] h-full max-h-[522.62px]  p-[16px]">
-				<div className="flex justify-between items-end gap-[8px] overflow-hidden h-full w-full rounded-[12px] bg-gradient-to-t from-[#000000BF] to-[#00000000] hidden">
+		<div className=" my-[50px] md:my-0 md:h-screen w-full flex justify-center items-center">
+			<div className="relative flex w-screen max-w-[992px] h-[523px] z-0">
+				<div className="flex flex-col md:flex-row justify-end md:justify-between items-end gap-[8px] overflow-hidden h-full w-full md:rounded-[12px] bg-gradient-to-t from-[#000000BF] to-[#00000000] p-[16px]">
 					<div className="flex flex-col gap-[8px]">
 						<H1>Event Title Goes Here.</H1>
 						<div className="flex justify-center items-center gap-[8px] w-fit">
@@ -30,22 +31,23 @@ export default function Event() {
 						innerText="Register For Event"
 						iconSrc={IMAGEKIT_ICONS.ROCKET}
 						iconAlt="Rocket Icon"
+						className="w-full md:w-fit"
 					/>
 					<Image
-						src={IMAGEKIT_IMAGES.COLLECTIVE_EVENT}
+						src={ImageLink}
 						alt="Collective Event"
 						width={992}
 						height={522.62}
-						className="absolute inset-0 -z-[1] object-cover rounded-[12px]"
+						className="absolute inset-0 -z-[1] h-full object-none md:object-cover md:rounded-[12px]"
 					/>
 				</div>
 
 				<Image
-					src={IMAGEKIT_IMAGES.COLLECTIVE_EVENT}
+					src={ImageLink}
 					alt="Collective Event"
 					width={992}
 					height={522.62}
-					className="absolute inset-0 -z-[2] scale-[2] object-cover blur-lg"
+					className="absolute inset-0 -z-[2] scale-[1.15] object-cover blur-[50px]"
 				/>
 			</div>
 		</div>

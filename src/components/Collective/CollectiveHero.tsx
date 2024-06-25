@@ -263,7 +263,7 @@ export default function CollectiveHero() {
 		}
 	}, [registerFetched]);
 	return (
-		<div className="relative flex flex-col justify-start items-center w-screen h-screen bg-gradient-to-b from-[#000000A8] to-[#00000000] gap-[16px] pt-[200px]">
+		<div className="relative flex flex-col justify-start items-center w-full h-fit lg:h-screen bg-gradient-to-b from-[#000000A8] to-[#00000000] gap-[16px] p-[16px] pt-[100px] lg:pt-[200px]">
 			<H1
 				className="text-agwhite text-[56px] leading-[53.76px] md:text-[64px] md:leading-[64px]"
 				center
@@ -271,7 +271,7 @@ export default function CollectiveHero() {
 				Every Flood Starts
 				<br /> with a Drop.
 			</H1>
-			<P>
+			<P center>
 				There are roughly 7 billion people on earth. It only takes 2
 				billion drops of water to start a flood.
 			</P>
@@ -284,13 +284,15 @@ export default function CollectiveHero() {
 				handleRegister={handleRegister}
 				isRegistered={isRegistered}
 			/>
-			<Leaderboard accountIsConnected />
+			<div className="hidden lg:block">
+				<Leaderboard accountIsConnected />
+			</div>
 			<Image
 				src={IMAGEKIT_IMAGES.COLLECTIVE_HERO_BG}
 				alt="Collective Hero Background"
 				height={1080}
 				width={1920}
-				className="absolute inset-0 -z-[1] "
+				className="absolute inset-0 -z-[1] w-[1920px] h-full lg:h-screen object-[70%_10%] object-none lg:object-cover"
 			/>
 		</div>
 	);
