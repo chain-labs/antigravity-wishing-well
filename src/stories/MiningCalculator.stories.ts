@@ -31,28 +31,33 @@ export const Default: Story = {
 		inputOptions: [
 			{
 				label: "ETH",
-				value: 0.25,
+				USDvalue: 1,
+				tokenContract: "",
 				darkIcon: IMAGEKIT_ICONS.ETH_BLACK,
 				lightIcon: IMAGEKIT_ICONS.ETH,
 			},
 			{
 				label: "PLS",
-				value: 0.345,
+				USDvalue: 2,
+				tokenContract: "",
 				darkIcon: IMAGEKIT_ICONS.PLS_BLACK,
 				lightIcon: IMAGEKIT_ICONS.PLS,
 			},
 			{
 				label: "USDT",
-				value: 0.4,
+				USDvalue: 3,
+				tokenContract: "",
 				darkIcon: IMAGEKIT_ICONS.USDT_BLACK,
 				lightIcon: IMAGEKIT_ICONS.USDT,
 			},
 			{
 				label: "USDC",
-				value: 0.6,
+				USDvalue: 4,
+				tokenContract: "",
 				darkIcon: IMAGEKIT_ICONS.USDC_BLACK,
 				lightIcon: IMAGEKIT_ICONS.USDC,
 			},
 		],
+		setSelectedToken: () => {}, // Add a dummy setSelectedToken function
 	},
 };

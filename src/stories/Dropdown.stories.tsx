@@ -25,25 +25,29 @@ export const Default: Story = {
 		options: [
 			{
 				label: "ETH",
-				value: 1,
+				USDvalue: 1,
+				tokenContract: "",
 				darkIcon: IMAGEKIT_ICONS.ETH_BLACK,
 				lightIcon: IMAGEKIT_ICONS.ETH,
 			},
 			{
 				label: "PLS",
-				value: 2,
+				USDvalue: 2,
+				tokenContract: "",
 				darkIcon: IMAGEKIT_ICONS.PLS_BLACK,
 				lightIcon: IMAGEKIT_ICONS.PLS,
 			},
 			{
 				label: "USDT",
-				value: 3,
+				USDvalue: 3,
+				tokenContract: "",
 				darkIcon: IMAGEKIT_ICONS.USDT_BLACK,
 				lightIcon: IMAGEKIT_ICONS.USDT,
 			},
 			{
 				label: "USDC",
-				value: 4,
+				USDvalue: 4,
+				tokenContract: "",
 				darkIcon: IMAGEKIT_ICONS.USDC_BLACK,
 				lightIcon: IMAGEKIT_ICONS.USDC,
 			},

@@ -70,7 +70,7 @@ interface ButtonProps {
 	/**
 	 * Function to call when the button is clicked
 	 **/
-	onClick?: (args0: React.MouseEvent) => void;
+	onClick?: React.MouseEventHandler<HTMLButtonElement>;
 	/**
 	 * Children of the button
 	 **/

@@ -14,6 +14,7 @@ import useTimer from "@/hooks/frontend/useTimer";
 import Image from "next/image";
 import React, {
   Dispatch,
+  MouseEventHandler,
   SetStateAction,
   useEffect,
   useRef,
