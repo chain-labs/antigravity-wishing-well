@@ -5,6 +5,7 @@ import { twMerge } from "tailwind-merge";
 import { stagger, useAnimate, animate } from "framer-motion";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
+import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 
 interface ButtonProps {
 	/**
@@ -78,6 +79,16 @@ interface ButtonProps {
 	 * Icon for the hallmark
 	 **/
 	hallmarkIconSrc?: string | StaticImport;
+	/**
+	 * loading state of the button
+	 * @default false
+	 * */
+	loading?: boolean;
+	/**
+	 * disabled state of the button
+	 * @default false
+	 * */
+	disabled?: boolean;
 }
 
 /**
@@ -106,6 +117,9 @@ export default function Button({
 	onClick,
 	children,
 	hallmarkIconSrc,
+	loading = false,
+	disabled = false,
+	...props
 }: ButtonProps) {
 	const [scope, animate] = useAnimate();
 	const [isAnimating, setIsAnimating] = React.useState(false);
@@ -208,6 +222,7 @@ export default function Button({
 		return (
 			<div ref={scope}>
 				<button
+					{...props}
 					type={type}
 					onClick={onButtonClick}
 					style={
@@ -332,35 +347,13 @@ export default function Button({
 							);
 						})}
 					</span>
-					<span
-						aria-hidden
-						className="pointer-events-none absolute inset-0 flex justify-center items-center z-[-1]"
-					>
-						{Array.from({ length: starsCount }).map((_, index) => (
-							<svg
-								className={`absolute left-1/2 top-1/2 opacity-0 sparkle-${index}`}
-								key={index}
-								viewBox="0 0 122 117"
-								width="10"
-								height="10"
-								style={{
-									opacity: 0,
-								}}
-							>
-								<path
-									className="fill-blue-600"
-									fill={starsColor}
-									d="M64.39,2,80.11,38.76,120,42.33a3.2,3.2,0,0,1,1.83,5.59h0L91.64,74.25l8.92,39a3.2,3.2,0,0,1-4.87,3.4L61.44,96.19,27.09,116.73a3.2,3.2,0,0,1-4.76-3.46h0l8.92-39L1.09,47.92A3.2,3.2,0,0,1,3,42.32l39.74-3.56L58.49,2a3.2,3.2,0,0,1,5.9,0Z"
-								/>
-							</svg>
-						))}
-					</span>
 				</button>
 			</div>
 		);
 	} else {
 		return (
 			<button
+				{...props}
 				onClick={onClick}
 				style={
 					{
@@ -379,8 +372,10 @@ export default function Button({
 					secondary &&
 						"border-2 border-[#414343] bg-agblack active:bg-[#414343]",
 					`text-[${letterSize[size]}px]`,
-					className
+					className,
+					(loading || disabled) && "cursor-not-allowed bg-[#414343]"
 				)}
+				disabled={loading || disabled}
 			>
 				{hallmarkIconSrc && (
 					<Image
@@ -391,8 +386,16 @@ export default function Button({
 						className="object-cover absolute top-0 left-0 -z-[1] opacity-50 mix-blend-hue"
 					/>
 				)}
-				<div className="w-[24px] h-[24px]">
-					{iconSrc && (
+				{loading ? (
+					<Image
+						src={IMAGEKIT_ICONS.REFRESH}
+						alt={iconAlt}
+						width={24}
+						height={24}
+						className="object-cover animate-spin"
+					/>
+				) : (
+					iconSrc && (
 						<Image
 							src={iconSrc}
 							alt={iconAlt}
@@ -400,8 +403,8 @@ export default function Button({
 							height={24}
 							className="object-cover"
 						/>
-					)}
-				</div>
+					)
+				)}
 				{innerText}
 			</button>
 		);

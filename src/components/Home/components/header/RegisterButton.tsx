@@ -7,6 +7,7 @@ import { baseSepolia, pulsechain } from "viem/chains";
 import { useAccount, useSwitchChain } from "wagmi";
 import IMAGEKIT from "../../../../app/home/images";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
+import { useEffect } from "react";
 
 interface RegisterButtonProps {
 	loading: boolean;
@@ -29,6 +30,7 @@ export const RegisterButton: React.FC<RegisterButtonProps> = ({
 }) => {
 	const account = useAccount();
 	const switchChain = useSwitchChain();
+
 	return (
 		<>
 			<Button
@@ -68,9 +70,14 @@ export const RegisterButton: React.FC<RegisterButtonProps> = ({
 							: "Change Network"
 						: "CONNECT WALLET"
 				}
+				
+				loading={
+					account.isConnected &&
+					checkCorrectNetwork(Number(account.chainId)) &&
+					loading
+				}
 				iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
 				iconPosition="start"
-				
 			/>
 			{/* {(account.address && loading && !error) || !registerIdle ? (
 				<div className="animate-[spin_2s_ease-out_infinite]">
