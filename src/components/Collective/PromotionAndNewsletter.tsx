@@ -11,7 +11,7 @@ export default function PromotionAndNewsletter() {
 
 	return (
 		<div
-			className="flex flex-col justify-center items-center gap-[16px] md:gap-[48px] w-full md:w-fit p-[16px] md:p-[32px] m-0 md:m-[16px] mb-[100px] rounded-none md:rounded-[12px] relative bg-agblack border-1 border-transparent bg-clip-padding z-0
+			className="flex flex-col justify-center items-center gap-[16px] md:gap-[48px] w-full md:w-fit p-[32px_16px] md:p-[32px] m-0 md:m-[16px] mb-[50px] md:mb-[100px] rounded-none md:rounded-[12px] relative bg-agblack border-1 border-transparent bg-clip-padding z-0
                     before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-bl before:from-[#3C00DC] before:to-[#FF5001] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
                     after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-agblack after:rounded-[inherit] after:overflow-hidden"
 		>
@@ -25,7 +25,7 @@ export default function PromotionAndNewsletter() {
 					</P>
 					<Button
 						innerText="Get Book"
-						iconSrc={IMAGEKIT_ICONS.CLAIM}
+						iconSrc={IMAGEKIT_ICONS.BOOK}
 						iconAlt="Get Book"
 					/>
 				</div>
@@ -34,12 +34,12 @@ export default function PromotionAndNewsletter() {
 					alt="Book"
 					width={523.81}
 					height={275}
-					className="h-[275px] w-full md:w-[524px] rounded-[12px]"
+					className="w-full md:w-[524px] h-auto md:h-[275px] aspect-video rounded-[12px]"
 				/>
 			</div>
 			<div className="flex flex-col lg:flex-row gap-[16px] md:gap-[32px] w-full rounded-[12px] p-[16px] md:p-[32px] bg-[#3C00DC80]">
-				<div className="flex flex-col text-nowrap">
-					<H1 className="text-agwhite">Ignite Your Boosters.</H1>
+				<div className="flex flex-col gap-[8px] text-nowrap">
+					<H1 className="text-agwhite text-[32px] leading-[38.4px] md:text-[40px] md:leading-[40px]">Ignite Your Boosters.</H1>
 					<P>Get all Antigravity updates in your inbox.</P>
 				</div>
 				<form className="flex flex-col gap-[16px] w-full" action="">
@@ -70,6 +70,7 @@ export default function PromotionAndNewsletter() {
 						iconSrc={IMAGEKIT_ICONS.SEND}
 						iconAlt="send"
 						type="submit"
+						className="w-full md:w-fit shadow-none"
 					/>
 				</form>
 			</div>

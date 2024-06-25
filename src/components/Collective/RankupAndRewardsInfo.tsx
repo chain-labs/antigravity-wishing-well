@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function RankupAndRewardsInfo() {
 	return (
-		<div className="relative h-fit w-full flex flex-col lg:justify-end lg:items-end p-[16px] lg:p-[64px]  pt-[84px] overflow-hidden bg-gradient-to-t from-[#000000BF] to-[#00000000]">
+		<div className="relative h-fit w-full flex flex-col lg:justify-end lg:items-end p-[16px] lg:p-[64px] overflow-hidden bg-gradient-to-t from-[#000000BF] to-[#00000000]">
 			<div className="flex flex-col gap-[16px] max-w-[600px]">
 				<H1>
 					What about Ranks,
