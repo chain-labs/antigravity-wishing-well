@@ -384,7 +384,7 @@ export default function Button({
 						className="object-cover absolute top-0 left-0 -z-[1] opacity-50 mix-blend-hue"
 					/>
 				)}
-				<div className="w-fit h-fit">
+				<div className="w-[24px] h-[24px]">
 					{loading ? (
 						<Image
 							src={IMAGEKIT_ICONS.REFRESH}
