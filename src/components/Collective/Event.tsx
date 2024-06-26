@@ -14,7 +14,7 @@ export default function Event() {
 						<H1>Event Title Goes Here.</H1>
 						<div className="flex justify-center items-center gap-[8px] w-fit">
 							<Image
-								src={IMAGEKIT_ICONS.CLAIM}
+								src={IMAGEKIT_ICONS.CALENDAR}
 								alt="Calendar Icon"
 								width={24}
 								height={24}

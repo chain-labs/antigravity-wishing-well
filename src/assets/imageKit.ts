@@ -52,6 +52,7 @@ export const IMAGEKIT_ICONS = {
 	YOUTUBE: `${IMAGEKIT_ICONS_URL}/youtube.svg?updatedAt=1719395680831`,
 	TIKTOK: `${IMAGEKIT_ICONS_URL}/tiktok.svg`,
 	INSTAGRAM: `${IMAGEKIT_ICONS_URL}/instagram.svg`,
+	CALENDAR: `${IMAGEKIT_ICONS_URL}/calendar.svg`,
 };
 
 export const IMAGEKIT_IMAGES = {
