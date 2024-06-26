@@ -168,7 +168,7 @@ function Badge({
 			className={twMerge(
 				"text-[12px] leading-[12px] relative flex items-center gap-[8px] justify-center font-sans font-extrabold text-agwhite cursor-pointer rounded-full py-[4px] px-[8px] border-2 uppercase tracking-widest w-fit",
 				special &&
-					"text-agyellow font-extrabold bg-gradient-to-b from-[#0A1133] to-[#142266] border-none"
+					"text-[12px] leading-[13.88px] pt-[5px] text-agyellow font-extrabold bg-gradient-to-b from-[#0A1133] to-[#142266] border-none"
 			)}
 		>
 			{children}
@@ -189,7 +189,13 @@ function Rank({
 	return (
 		<TD special={special} border>
 			#{rank} <Badge special={special}>Specialist Technician</Badge>
-			<div className="flex gap-[4px] justify-start items-center lg:hidden text-[18px] lg:text-[14px]">
+			<div
+				className={`flex gap-[4px] justify-start items-center lg:hidden ${
+					special
+						? "text-[22px] leading-[28.6px] md:text-[18px] md:leading-[23.6px]"
+						: "text-[18px] leading-[23.4px]"
+				}`}
+			>
 				{special ? (
 					<Image
 						src={IMAGEKIT_ICONS.WALLET_BLACK}
@@ -241,19 +247,13 @@ export default function Table({ tableData }: { tableData: tableDataType[] }) {
                             <TH key={idx} icon={header.icon} heading={header.heading} className={header.className} />
                         ))
                     } */}
-					<TH
-						icon={IMAGEKIT_ICONS.LEADERBOARD}
-						heading="Rank"
-					/>
+					<TH icon={IMAGEKIT_ICONS.LEADERBOARD} heading="Rank" />
 					<TH
 						icon={IMAGEKIT_ICONS.WALLET_WHITE}
 						heading="Wallet"
 						className="hidden lg:flex"
 					/>
-					<TH
-						icon={IMAGEKIT_ICONS.POINTS}
-						heading="Points"
-					/>
+					<TH icon={IMAGEKIT_ICONS.POINTS} heading="Points" />
 				</TR>
 			</thead>
 			<tbody className="text-lg font-medium font-general-sans text-agwhite">
@@ -270,7 +270,11 @@ export default function Table({ tableData }: { tableData: tableDataType[] }) {
 							</TD>
 							<TD
 								special={data.special ?? false}
-								// className=`text-[18px] lg:text-[14px]`
+								className={
+									data.special
+										? "text-[22px] leading-[28.6px] md:text-[18px] md:leading-[23.6px]"
+										: "md:text-[14px] md:leading-[18.2px] text-[18px] leading-[23.6px]"
+								}
 							>
 								{pointsConverterToUSCommaseparated(data.points)}
 							</TD>

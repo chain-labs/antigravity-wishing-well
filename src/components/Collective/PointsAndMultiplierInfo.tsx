@@ -57,7 +57,7 @@ export default function PointsAndMultiplierInfo() {
 					</div>
 				</Link>
 			</div>
-			<P>
+			<P className="max-w-[600px]">
 				There are bonuses for each Era and Multipliers on top of the
 				bonuses if you participate in more than 1 Era.
 				<br />

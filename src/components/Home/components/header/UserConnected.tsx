@@ -47,7 +47,7 @@ export const UserConnected: React.FC = () => {
                       onClick={openAccountModal}
                     >
                       {condenseAddress(`${account.address}`)}
-                      <Badge className="text-agwhite border-agwhite pb-[1px]">
+                      <Badge className="text-agwhite border-agwhite pb-[4px]">
                         Special Navigator
                       </Badge>
                     </p>
