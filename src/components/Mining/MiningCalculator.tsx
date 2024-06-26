@@ -34,8 +34,9 @@ export function InputCard({
           value={inputValue}
           onChange={(e) => {
             const inputCurrentValue = e.target.value
-              .replace(/[^0-9.]/g, "")
-              .replace(/(\..*?)\..*/g, "$1");
+              .replace(/[^0-9.]/g, "") // Remove any character that is not a digit or a dot.
+              .replace(/^0+(?=\d)/, "") // Remove leading zeros except when followed by a dot.
+              .replace(/(\..*?)\..*/g, "$1"); // Ensure only one dot is present in the number.
 
             if (inputCurrentValue === "") {
               setCurrentInputValue("0");

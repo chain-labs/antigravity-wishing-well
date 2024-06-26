@@ -11,11 +11,7 @@ import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
  * @param {string[]} merkleProof
  * @returns {{ mineToken: () => void; receipt: any; receiptError: any; mineError: any; isLoading: any; isPending: any; }}
  */
-const useMining = (
-  tokenAddress: string,
-  amountToInvest: number,
-  merkleProof: string[]
-) => {
+const useMining = (tokenAddress: string, amountToInvest: number) => {
   const MiningContract = useMiningContract();
 
   const {
@@ -44,7 +40,7 @@ const useMining = (
     }
   }, [mineError]);
 
-  const mineToken = () => {
+  const mineToken = (merkleProof: string[]) => {
     if (tokenAddress && amountToInvest && merkleProof) {
       mine({
         address: MiningContract?.address as `0x${string}`,

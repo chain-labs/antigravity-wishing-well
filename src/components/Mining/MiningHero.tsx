@@ -17,6 +17,7 @@ import React, {
   MouseEventHandler,
   SetStateAction,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -25,6 +26,8 @@ import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { base, pulsechain } from "viem/chains";
 import { TokenDropdownTypes } from "./types";
 import useMining from "@/hooks/sc-fns/useMining";
+import useMerkleTree from "@/hooks/sc-fns/useMerkleTree";
+import { useAccount } from "wagmi";
 
 type StateType = "No NFT" | "NFT Present" | "Claiming";
 
@@ -35,9 +38,9 @@ const STATE_TYPES = {
 
 const TOKEN_OPTIONS: TokenDropdownTypes[] = [
   {
-    label: "USDC",
-    tokenContract: "0x8f7d987620C65cffac0d625DDE108525e4d0CEE1",
-    USDvalue: 1,
+    label: "ETH",
+    tokenContract: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+    USDvalue: 3378.55,
     darkIcon: IMAGEKIT_ICONS.USDC_BLACK,
     lightIcon: IMAGEKIT_ICONS.USDC,
   },
@@ -216,7 +219,7 @@ function NonContributed({
   NFTContainerRef: React.RefObject<HTMLDivElement>;
   NFTRef: React.RefObject<HTMLDivElement>;
 }) {
-  const [value, setValue] = useState(40000);
+  const [value, setValue] = useState(0);
   const timerState = useTimer();
   useEffect(() => {
     if (!NFTHover) return;
@@ -239,12 +242,44 @@ function NonContributed({
 
   const [selectedToken, setSelectedToken] = useState(0);
 
+  const addressList = [
+    "0x049D67388852DE0Cef5E1C4FdC91096cDc0a38dF",
+    "0xd18Cd50a6bDa288d331e3956BAC496AAbCa4960d",
+    "0x9cA70B93CaE5576645F5F069524A9B9c3aef5006",
+    "0x7216dA0a7c628953aC021E5e617C98998FC28CA3",
+  ];
+
+  const account = useAccount();
+
+  const { root, generateProof } = useMerkleTree(addressList);
+
+  const proof = useMemo(() => {
+    if (account.address) {
+      const address = account.address;
+
+      return generateProof(address as `0x${string}`);
+    } else return [];
+  }, [account.address]);
+
   const { mineToken, receipt, receiptError, mineError, isLoading, isPending } =
-    useMining(TOKEN_OPTIONS[selectedToken].tokenContract, value, []);
+    useMining(TOKEN_OPTIONS[selectedToken].tokenContract, value);
 
   const handleMine = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    await mineToken();
+    if (!account.address) {
+      // TODO error toast here
+      console.log("Wallet not connected");
+      return;
+    }
+    if (!proof) {
+      // TODO error toast here
+      console.log("Proof not generated");
+      return;
+    }
+
+    if (account.address && proof) {
+      await mineToken(proof);
+    }
   };
 
   return (
@@ -270,6 +305,7 @@ function NonContributed({
       />
       <Button
         // TODO: should include a loading state
+        loading={isLoading}
         innerText="Mine Now"
         iconSrc={IMAGEKIT_ICONS.HAMMER}
         iconAlt="hammer"
