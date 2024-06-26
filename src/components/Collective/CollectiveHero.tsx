@@ -286,7 +286,7 @@ export default function CollectiveHero() {
 					isRegistered={isRegistered}
 				/>
 			</div>
-			<div className="hidden lg:block w-full max-w-[1200px]">
+			<div className="hidden lg:block w-full h-fit max-w-[1200px]">
 				<Leaderboard accountIsConnected />
 			</div>
 			<Image
