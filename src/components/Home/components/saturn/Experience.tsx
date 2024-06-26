@@ -109,8 +109,8 @@ export default function Experience() {
 		);
 
 		// saturn.current.rotation.setFromQuaternion(targetQuaternion);
-		cameraGroup.current.position.lerp(curPoint, delta * 0.5);
-		// saturn.current.position.lerp(curPoint, delta);
+		// cameraGroup.current.position.lerp(curPoint, delta * 0.5);
+		saturn.current.position.lerp(curPoint, delta);
 	});
 	return (
 		<>
