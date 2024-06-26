@@ -245,7 +245,7 @@ export default function Button({
 					className={twMerge(
 						`uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite cursor-pointer rounded-[4px] transition-[all_150ms] hover:shadow-none overflow-hidden`,
 						secondary
-							? "border-2 border-[#414343] bg-agblack active:bg-[#414343]"
+							? "border-[1px] border-[#414343] bg-agblack active:bg-[#414343] box-border"
 							: "bg-blue text-agblack active:bg-agblack",
 
 						className
@@ -264,8 +264,8 @@ export default function Button({
 						<Image
 							src={iconSrc}
 							alt={iconAlt}
-							width={iconSize[size]}
-							height={iconSize[size]}
+							width={24}
+							height={24}
 							className="object-cover"
 						/>
 					)}
@@ -371,7 +371,7 @@ export default function Button({
                                 rounded-[4px] px-4 py-3 shadow-button hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-agblack bg-blue z-0 overflow-hidden`,
 					secondary &&
 						"border-2 border-[#414343] bg-agblack active:bg-[#414343]",
-					`text-[${letterSize[size]}px]`,
+					`text-[${letterSize[size]}px] leading-[${letterSize[size]}px]`,
 					className,
 					(loading || disabled) && "cursor-not-allowed bg-[#414343]"
 				)}
@@ -386,26 +386,28 @@ export default function Button({
 						className="object-cover absolute top-0 left-0 -z-[1] opacity-50 mix-blend-hue"
 					/>
 				)}
-				{loading ? (
-					<Image
-						src={IMAGEKIT_ICONS.REFRESH}
-						alt={iconAlt}
-						width={24}
-						height={24}
-						className="object-cover animate-spin"
-					/>
-				) : (
-					iconSrc && (
+				<div className="w-fit h-fit">
+					{loading ? (
 						<Image
-							src={iconSrc}
+							src={IMAGEKIT_ICONS.REFRESH}
 							alt={iconAlt}
 							width={24}
 							height={24}
-							className="object-cover"
+							className="object-cover animate-spin"
 						/>
-					)
-				)}
-				{innerText}
+					) : (
+						iconSrc && (
+							<Image
+								src={iconSrc}
+								alt={iconAlt}
+								width={24}
+								height={24}
+								className="object-cover w-[24px] h-[24px]"
+							/>
+						)
+					)}
+				</div>
+				<div className="text-nowrap">{innerText}</div>
 			</button>
 		);
 	}

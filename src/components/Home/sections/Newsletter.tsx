@@ -75,6 +75,7 @@ export default function Newsletter() {
               iconSrc={IMAGEKIT_ICONS.SEND}
               iconAlt="send"
               type="submit"
+              className="text-[16px] leading-[16px]"
             />
           </form>
         </>
