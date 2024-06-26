@@ -70,7 +70,7 @@ interface ButtonProps {
 	/**
 	 * Function to call when the button is clicked
 	 **/
-	onClick?: (args0: React.MouseEvent) => void;
+	onClick?: React.MouseEventHandler<HTMLButtonElement>;
 	/**
 	 * Children of the button
 	 **/
@@ -96,7 +96,7 @@ interface ButtonProps {
  */
 
 const randomNumberBetween = (min: number, max: number) => {
-	return Math.floor(Math.random() * (max - min + 1) + min);
+  return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
 type AnimationSequence = Parameters<typeof animate>[0];
@@ -121,102 +121,100 @@ export default function Button({
 	disabled = false,
 	...props
 }: ButtonProps) {
-	const [scope, animate] = useAnimate();
-	const [isAnimating, setIsAnimating] = React.useState(false);
-	const innerTextStringArray = innerText.trim().split("");
-	const [isHovered, setIsHovered] = React.useState(false);
+  const [scope, animate] = useAnimate();
+  const [isAnimating, setIsAnimating] = React.useState(false);
+  const innerTextStringArray = innerText.trim().split("");
+  const [isHovered, setIsHovered] = React.useState(false);
 
-	const letterSize = {
-		small: 14,
-		medium: 16,
-		large: 18,
-	};
+  const letterSize = {
+    small: 14,
+    medium: 16,
+    large: 18,
+  };
 
-	const iconSize = {
-		small: 20,
-		medium: 25,
-		large: 30,
-	};
+  const iconSize = {
+    small: 20,
+    medium: 25,
+    large: 30,
+  };
 
-	const onButtonClick = () => {
-		if (isAnimating) return;
-		setIsAnimating(true);
+  const onButtonClick = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
 
-		const sparkles = Array.from({ length: starsCount });
-		const sparklesAnimation: AnimationSequence = sparkles.map(
-			(_, index) => [
-				`.sparkle-${index}`,
-				{
-					x: randomNumberBetween(-100, 100),
-					y: randomNumberBetween(-100, 100),
-					scale: randomNumberBetween(1.5, 2.5),
-					opacity: 1,
-				},
-				{
-					duration: 0.4,
-					at: "<",
-				},
-			]
-		);
+    const sparkles = Array.from({ length: starsCount });
+    const sparklesAnimation: AnimationSequence = sparkles.map((_, index) => [
+      `.sparkle-${index}`,
+      {
+        x: randomNumberBetween(-100, 100),
+        y: randomNumberBetween(-100, 100),
+        scale: randomNumberBetween(1.5, 2.5),
+        opacity: 1,
+      },
+      {
+        duration: 0.4,
+        at: "<",
+      },
+    ]);
 
-		const sparklesFadeOut: AnimationSequence = sparkles.map((_, index) => [
-			`.sparkle-${index}`,
-			{
-				opacity: 0,
-				scale: 0,
-			},
-			{
-				duration: 0.3,
-				at: "<",
-			},
-		]);
+    const sparklesFadeOut: AnimationSequence = sparkles.map((_, index) => [
+      `.sparkle-${index}`,
+      {
+        opacity: 0,
+        scale: 0,
+      },
+      {
+        duration: 0.3,
+        at: "<",
+      },
+    ]);
 
-		const sparklesReset: AnimationSequence = sparkles.map((_, index) => [
-			`.sparkle-${index}`,
-			{
-				x: 0,
-				y: 0,
-				opacity: 0,
-				scale: 0,
-			},
-			{
-				duration: 0.000001,
-			},
-		]);
+    const sparklesReset: AnimationSequence = sparkles.map((_, index) => [
+      `.sparkle-${index}`,
+      {
+        x: 0,
+        y: 0,
+        opacity: 0,
+        scale: 0,
+      },
+      {
+        duration: 0.000001,
+      },
+    ]);
 
-		if (disableSparkels) {
-			animate([
-				[
-					".letter",
-					{ y: -letterSize[size] },
-					{
-						duration: 0.2,
-						delay: stagger(0.2 / innerTextStringArray.length),
-					},
-				],
-				[".letter", { y: 0 }, { duration: 0.000001, at: 0.5 }],
-			]).then(() => {
-				setIsAnimating(false);
-			});
-		} else {
-			animate([
-				...sparklesReset,
-				[
-					".letter",
-					{ y: -letterSize[size] },
-					{
-						duration: 0.2,
-						delay: stagger(0.2 / innerTextStringArray.length),
-					},
-				],
-				...sparklesAnimation,
-				[".letter", { y: 0 }, { duration: 0.000001 }],
-				...sparklesFadeOut,
-			]).then(() => {
-				setIsAnimating(false);
-			});
-		}
-	};
+    if (disableSparkels) {
+      animate([
+        [
+          ".letter",
+          { y: -letterSize[size] },
+          {
+            duration: 0.2,
+            delay: stagger(0.2 / innerTextStringArray.length),
+          },
+        ],
+        [".letter", { y: 0 }, { duration: 0.000001, at: 0.5 }],
+      ]).then(() => {
+        setIsAnimating(false);
+      });
+    } else {
+      animate([
+        ...sparklesReset,
+        [
+          ".letter",
+          { y: -letterSize[size] },
+          {
+            duration: 0.2,
+            delay: stagger(0.2 / innerTextStringArray.length),
+          },
+        ],
+        ...sparklesAnimation,
+        [".letter", { y: 0 }, { duration: 0.000001 }],
+        ...sparklesFadeOut,
+      ]).then(() => {
+        setIsAnimating(false);
+      });
+    }
+  };
 
 	if (animateButton) {
 		return (

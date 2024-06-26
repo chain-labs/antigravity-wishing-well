@@ -7,27 +7,23 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Badge from "../Badge";
 import Dropdown from "../Dropdown";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
+import { TokenDropdownTypes } from "./types";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 export function InputCard({
-	inputValue,
-	setCurrentInputValue,
-	conversion,
-	dropdownOptions,
-	dropDownSelected,
-	setDropDownSelected,
+  inputValue,
+  setCurrentInputValue,
+  conversion,
+  dropdownOptions,
+  dropDownSelected,
+  setDropDownSelected,
 }: {
-	inputValue: string;
-	setCurrentInputValue: Dispatch<SetStateAction<string>>;
-	conversion: string;
-	dropdownOptions: {
-		label: string;
-		value: number;
-		lightIcon: string | StaticImport;
-		darkIcon: string | StaticImport;
-	}[];
-	dropDownSelected: number;
-	setDropDownSelected: Dispatch<SetStateAction<number>>;
+  inputValue: string;
+  setCurrentInputValue: Dispatch<SetStateAction<string>>;
+  conversion: string;
+  dropdownOptions: TokenDropdownTypes[];
+  dropDownSelected: number;
+  setDropDownSelected: Dispatch<SetStateAction<number>>;
 }) {
 	return (
 		<div className="flex justify-between bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-full border-[1px] border-agyellow">
@@ -92,23 +88,23 @@ export function InputCard({
 }
 
 export function Card({
-	value,
-	conversion,
-	multiplyer,
-	pillIconSrc,
-	pillText,
-	pillIconAlt,
-	onlyValue = false,
+  value,
+  conversion,
+  multiplyer,
+  pillIconSrc,
+  pillText,
+  pillIconAlt,
+  onlyValue = false,
 }: {
-	isEditable?: boolean;
-	value: string;
-	conversion: string;
-	multiplyer?: string;
-	pillIconSrc: string | StaticImport;
-	pillText: string;
-	dropDownSelected?: number;
-	pillIconAlt: string;
-	onlyValue?: boolean;
+  isEditable?: boolean;
+  value: string;
+  conversion: string;
+  multiplyer?: string;
+  pillIconSrc: string | StaticImport;
+  pillText: string;
+  dropDownSelected?: number;
+  pillIconAlt: string;
+  onlyValue?: boolean;
 }) {
 	return (
 		<div className="flex justify-between gap-[16px] bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-fit min-w-full border-[1px] border-agyellow">
@@ -137,89 +133,86 @@ export function Card({
 }
 
 function Multiplyer({
-	era = 2,
-	phase = 1,
-	multiplyer = 33,
+  era = 2,
+  phase = 1,
+  multiplyer = 33,
 }: {
-	era: 1 | 2 | 3;
-	phase: 1 | 2 | 3;
-	multiplyer: number;
+  era: 1 | 2 | 3;
+  phase: 1 | 2 | 3;
+  multiplyer: number;
 }) {
-	return (
-		<div className="flex justify-center items-center gap-[8px]">
-			<div className="relative flex flex-col justify-start items-start p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit min-w-[80px]">
-				<div className="absolute inset-0 opacity-[0.66] bg-agblack -z-[1]"></div>
-				<div className="text-[16px] leading-[19.2px] text-agwhite font-extrabold font-sans">
-					Era
-				</div>
-				<div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
-					{era}
-				</div>
-			</div>
-			<div className="relative flex flex-col justify-start items-start p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit min-w-[80px]">
-				<div className="absolute inset-0 opacity-[0.66] bg-agblack -z-[1]"></div>
-				<div className="text-[16px] leading-[19.2px] text-agwhite font-extrabold font-sans">
-					Phase
-				</div>
-				<div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
-					{phase}
-				</div>
-			</div>
-			<div className="flex flex-col justify-start items-start p-[8px] overflow-hidden text-agwhite text-[16px] font-semibold font-general-sans">
-				=
-			</div>
-			<div className="relative flex flex-col justify-start items-start p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-[80%]">
-				<div className="absolute inset-0 opacity-[0.66] bg-agblack -z-[1]"></div>
-				<div className="text-[16px] leading-[19.2px] text-agwhite font-extrabold font-sans">
-					Current Multiplier
-				</div>
-				<div className="text-[32px] leading-[32px] text-agyellow font-extrabold font-sans">
-					{multiplyer}x
-				</div>
-			</div>
-		</div>
-	);
+  return (
+    <div className="flex justify-center items-center gap-[8px]">
+      <div className="relative flex flex-col justify-start items-start p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit min-w-[80px]">
+        <div className="absolute inset-0 opacity-[0.66] bg-agblack -z-[1]"></div>
+        <div className="text-[16px] leading-[19.2px] text-agwhite font-extrabold font-sans">
+          Era
+        </div>
+        <div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
+          {era}
+        </div>
+      </div>
+      <div className="relative flex flex-col justify-start items-start p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit min-w-[80px]">
+        <div className="absolute inset-0 opacity-[0.66] bg-agblack -z-[1]"></div>
+        <div className="text-[16px] leading-[19.2px] text-agwhite font-extrabold font-sans">
+          Phase
+        </div>
+        <div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
+          {phase}
+        </div>
+      </div>
+      <div className="flex flex-col justify-start items-start p-[8px] overflow-hidden text-agwhite text-[16px] font-semibold font-general-sans">
+        =
+      </div>
+      <div className="relative flex flex-col justify-start items-start p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-[80%]">
+        <div className="absolute inset-0 opacity-[0.66] bg-agblack -z-[1]"></div>
+        <div className="text-[16px] leading-[19.2px] text-agwhite font-extrabold font-sans">
+          Current Multiplier
+        </div>
+        <div className="text-[32px] leading-[32px] text-agyellow font-extrabold font-sans">
+          {multiplyer}x
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export function pointsConverterToUSCommaseparated(points: number): string {
-	const [integerPart, decimalPart] = points.toString().split(".");
-	const formattedIntegerPart = integerPart.replace(
-		/\B(?=(\d{3})+(?!\d))/g,
-		","
-	);
+  const [integerPart, decimalPart] = points.toString().split(".");
+  const formattedIntegerPart = integerPart.replace(
+    /\B(?=(\d{3})+(?!\d))/g,
+    ","
+  );
 
-	return decimalPart
-		? `${formattedIntegerPart}.${decimalPart}`
-		: formattedIntegerPart;
+  return decimalPart
+    ? `${formattedIntegerPart}.${decimalPart}`
+    : formattedIntegerPart;
 }
 
 export default function MiningCalculator({
-	value,
-	setValue,
-	conversionRateToUSD,
-	era,
-	phase,
-	multiplyer,
-	inputOptions,
+  value,
+  setValue,
+  conversionRateToUSD,
+  era,
+  phase,
+  multiplyer,
+  inputOptions,
+  setSelectedToken,
 }: {
-	value: number;
-	setValue: Dispatch<SetStateAction<number>>;
-	conversionRateToUSD: number;
-	era: 1 | 2 | 3;
-	phase: 1 | 2 | 3;
-	multiplyer: number;
-	inputOptions: {
-		label: string;
-		value: number;
-		darkIcon: string | StaticImport;
-		lightIcon: string | StaticImport;
-	}[];
+  value: number;
+  setValue: Dispatch<SetStateAction<number>>;
+  conversionRateToUSD: number;
+  era: 1 | 2 | 3;
+  phase: 1 | 2 | 3;
+  multiplyer: number;
+  inputOptions: TokenDropdownTypes[];
+  setSelectedToken: Dispatch<SetStateAction<number>>;
 }) {
-	const [currentValue, setCurrentValue] = useState<string>(
-		pointsConverterToUSCommaseparated(value)
-	);
-	const [selectedOption, setSelectedOption] = useState<number>(0);
-	const [USDValue, setUSDValue] = useState(value * inputOptions[0].value);
+  const [currentValue, setCurrentValue] = useState<string>(
+    pointsConverterToUSCommaseparated(value)
+  );
+  const [selectedOption, setSelectedOption] = useState<number>(0);
+  const [USDValue, setUSDValue] = useState(value * inputOptions[0].USDvalue);
 
 	useEffect(() => {
 		console.log(selectedOption);
