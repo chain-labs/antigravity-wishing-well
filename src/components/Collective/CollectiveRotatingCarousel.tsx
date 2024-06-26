@@ -177,7 +177,7 @@ function MobileEventCards() {
 
 export default function CollectiveRotatingCarousel() {
 	return (
-		<div className="relative flex flex-col h-fit gap-[16px] my-[100px] overflow-hidden p-[16px] md:p-0">
+		<div className="relative flex flex-col h-fit gap-[32px] my-[100px] overflow-hidden p-[16px] md:p-0">
 			<H1
 				className="text-agwhite text-[32px] leading-[38.4px] md:text-[40px] md:leading-[40px]"
 				center
