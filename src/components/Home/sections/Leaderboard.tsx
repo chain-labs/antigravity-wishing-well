@@ -160,7 +160,7 @@ export default function Leaderboard({
 						/>
 					</div>
 
-					<div className="grid grid-cols-1 lg:grid-cols-3 w-full max-w-[100%] pt-6">
+					<div className="grid grid-cols-1 lg:grid-cols-3 w-full max-w-[100%]">
 						<div className="col-span-2 w-full rounded-[4px] border-[2px] border-[#414343] lg:border-none">
 							<Table tableData={tableData} />
 						</div>

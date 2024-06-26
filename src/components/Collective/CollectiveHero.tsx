@@ -263,28 +263,30 @@ export default function CollectiveHero() {
 		}
 	}, [registerFetched]);
 	return (
-		<div className="relative flex flex-col justify-start items-center w-full h-fit lg:h-screen bg-gradient-to-b from-[#000000A8] to-[#00000000] gap-[16px] p-[16px] pt-[100px] lg:pt-[200px]">
-			<H1
-				className="text-agwhite text-[56px] leading-[53.76px] md:text-[64px] md:leading-[64px]"
-				center
-			>
-				Every Flood Starts
-				<br /> with a Drop.
-			</H1>
-			<P center>
-				There are roughly 7 billion people on earth. It only takes 2
-				billion drops of water to start a flood.
-			</P>
-			<RegisterButton
-				loading={loading}
-				error={error}
-				registerIdle={registerIdle}
-				handleLogin={handleLogin}
-				setError={setError}
-				handleRegister={handleRegister}
-				isRegistered={isRegistered}
-			/>
-			<div className="hidden lg:block">
+		<div className="relative flex flex-col justify-start items-center w-full h-fit lg:h-screen bg-gradient-to-b from-[#000000A8] to-[#00000000] gap-[24px] p-[16px] pt-[100px] lg:pt-[200px]">
+			<div className="flex flex-col justify-center items-center gap-[16px]">
+				<H1
+					className="text-agwhite text-[56px] leading-[53.76px] md:text-[64px] md:leading-[64px]"
+					center
+				>
+					Every Flood Starts
+					<br /> with a Drop.
+				</H1>
+				<P center>
+					There are roughly 7 billion people on earth. It only takes 2
+					billion drops of water to start a flood.
+				</P>
+				<RegisterButton
+					loading={loading}
+					error={error}
+					registerIdle={registerIdle}
+					handleLogin={handleLogin}
+					setError={setError}
+					handleRegister={handleRegister}
+					isRegistered={isRegistered}
+				/>
+			</div>
+			<div className="hidden lg:block w-full max-w-[1200px]">
 				<Leaderboard accountIsConnected />
 			</div>
 			<Image
