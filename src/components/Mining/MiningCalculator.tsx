@@ -37,61 +37,38 @@ export function InputCard({
 					type="text"
 					value={inputValue}
 					onChange={(e) => {
-						const inputCurrentValue = e.target.value
-							.replace(/[^0-9.]/g, "")
-							.replace(/(\..*?)\..*/g, "$1");
+						let inputCurrentValue = e.target.value;
 
-						if (inputCurrentValue === "") {
-							setCurrentInputValue("0");
+						// Remove any non-numeric characters except the decimal point
+						inputCurrentValue = inputCurrentValue.replace(
+							/[^0-9.]/g,
+							""
+						);
+
+						// Ensure only one decimal point
+						const parts = inputCurrentValue.split(".");
+						if (parts.length > 2) {
+							inputCurrentValue =
+								parts[0] + "." + parts.slice(1).join("");
 						}
 
-						if (
-							inputCurrentValue.charAt(
-								inputCurrentValue.length - 1
-							) === "."
-						) {
-							let occuredOnce = false;
-							for (let i = 0; i < inputCurrentValue.length; i++) {
-								if (inputCurrentValue.charAt(i) === ".") {
-									if (occuredOnce) {
-										setCurrentInputValue(
-											inputCurrentValue.slice(0, i)
-										);
-										return;
-									}
-									occuredOnce = true;
-								}
-							}
+						// Handle empty input
+						if (inputCurrentValue === "") {
+							setCurrentInputValue("0");
+							return;
+						}
+
+						// Allow input ending with a decimal point
+						if (inputCurrentValue.endsWith(".")) {
 							setCurrentInputValue(inputCurrentValue);
 							return;
 						}
 
-						if (
-							isNaN(
-								parseFloat(
-									inputCurrentValue.charAt(
-										inputCurrentValue.length - 1
-									)
-								)
-							)
-						) {
-							console.log(
-								"inputValue.charAt(inputValue.length - 1)",
-								inputCurrentValue.charAt(
-									inputCurrentValue.length - 1
-								)
-							);
-							return;
-						}
-
+						// Validate the number
 						const numberValue = parseFloat(inputCurrentValue);
 
 						if (!isNaN(numberValue) && numberValue >= 0) {
-							setCurrentInputValue(
-								pointsConverterToUSCommaseparated(
-									numberValue
-								) ?? "0"
-							);
+							setCurrentInputValue(inputCurrentValue);
 						}
 					}}
 				/>
@@ -134,9 +111,9 @@ export function Card({
 	onlyValue?: boolean;
 }) {
 	return (
-		<div className="flex justify-between bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-full border-[1px] border-agyellow">
-			<div className="flex flex-col justify-start items-start gap-[8px] w-full">
-				<div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans max-w-[10ch]">
+		<div className="flex justify-between gap-[16px] bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-fit min-w-full border-[1px] border-agyellow">
+			<div className="flex flex-col justify-start items-start gap-[8px] w-fit">
+				<div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
 					{value}
 				</div>
 				{onlyValue ? null : (
@@ -249,7 +226,7 @@ export default function MiningCalculator({
 		const value = Number(currentValue.replace(/,/g, ""));
 		if (!isNaN(value) && value >= 0) {
 			const usdValue = value * inputOptions[selectedOption].value;
-			setUSDValue(Number(usdValue.toFixed(2)));
+			setUSDValue(Number(usdValue));
 			setValue(value);
 		}
 	}, [currentValue, conversionRateToUSD, selectedOption, inputOptions]);
@@ -297,7 +274,7 @@ export default function MiningCalculator({
 			</div>
 			<Card
 				value={pointsConverterToUSCommaseparated(
-					Number((USDValue * multiplyer).toFixed(2))
+					Number(USDValue * multiplyer)
 				)}
 				conversion={`$${pointsConverterToUSCommaseparated(USDValue)}`}
 				multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
@@ -307,7 +284,7 @@ export default function MiningCalculator({
 			/>
 			<Card
 				value={pointsConverterToUSCommaseparated(
-					Number((USDValue * multiplyer).toFixed(2))
+					Number(USDValue * multiplyer)
 				)}
 				conversion={`$${pointsConverterToUSCommaseparated(USDValue)}`}
 				multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
