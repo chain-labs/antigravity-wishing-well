@@ -218,7 +218,7 @@ export default function MiningCalculator({
 		console.log(selectedOption);
 		const value = Number(currentValue.replace(/,/g, ""));
 		if (!isNaN(value) && value >= 0) {
-			const usdValue = value * inputOptions[selectedOption].value;
+			const usdValue = value * inputOptions[selectedOption].USDvalue;
 			setUSDValue(Number(usdValue));
 			setValue(value);
 		}
