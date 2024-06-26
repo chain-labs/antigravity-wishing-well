@@ -370,7 +370,7 @@ export default function Button({
 					`uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-extrabold text-agwhite cursor-pointer text-nowrap
                                 rounded-[4px] px-4 py-3 shadow-button hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-agblack bg-blue z-0 overflow-hidden`,
 					secondary &&
-						"border-2 border-[#414343] bg-agblack active:bg-[#414343]",
+						"border-[1px] border-[#414343] bg-agblack active:bg-[#414343] box-border",
 					`text-[${letterSize[size]}px] leading-[${letterSize[size]}px]`,
 					className,
 					(loading || disabled) && "cursor-not-allowed bg-[#414343]"
