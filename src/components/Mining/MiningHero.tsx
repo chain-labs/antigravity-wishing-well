@@ -284,7 +284,7 @@ function NonContributed({
   NFTContainerRef: React.RefObject<HTMLDivElement>;
   NFTRef: React.RefObject<HTMLDivElement>;
 }) {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(40000);
   const timerState = useTimer();
 
   const { openConnectModal } = useConnectModal();
