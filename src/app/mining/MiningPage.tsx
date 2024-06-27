@@ -9,7 +9,13 @@ import StarFieldCanvas from "@/components/Home/components/background/Starfeild";
 import CanvasRendering from "@/components/Home/components/saturn/CanvasRendering";
 import Leaderboard from "@/components/Home/sections/Leaderboard";
 import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
-import { miningNotif } from "@/hooks/frontend/toast";
+import {
+	errorToast,
+	generalToast,
+	miningNotif,
+	successToast,
+	warningToast,
+} from "@/hooks/frontend/toast";
 import MiningHero from "@/components/Mining/MiningHero";
 import { useAccount } from "wagmi";
 
@@ -42,12 +48,31 @@ export default function MiningPage() {
 			miningNotif("0x...5678 just mined 2,000 DarkX tokens!");
 		}, 5000);
 
-		return () => clearInterval(interval);
+		const interval2 = setInterval(() => {
+			successToast("0x...5678 just mined 2,000 DarkX tokens!");
+		}, 10000);
+		const interval3 = setInterval(() => {
+			errorToast("0x...5678 just mined 2,000 DarkX tokens!");
+		}, 10000);
+		const interval4 = setInterval(() => {
+			warningToast("0x...5678 just mined 2,000 DarkX tokens!");
+		}, 10000);
+		const interval5 = setInterval(() => {
+			generalToast("0x...5678 just mined 2,000 DarkX tokens!");
+		}, 10000);
+
+		return () => {
+			clearInterval(interval);
+			clearInterval(interval2);
+			clearInterval(interval3);
+			clearInterval(interval4);
+			clearInterval(interval5);
+		};
 	}, []);
 
 	return (
 		<div className="bg-agblack min-h-[100vh]">
-			<div className="flex flex-col min-h-screen min-w-screen overflow-hidden">
+			{/* <div className="flex flex-col min-h-screen min-w-screen overflow-hidden">
 				<div className="relative z-0 flex flex-col min-h-screen">
 					<div className="fixed top-0 w-full z-50 items-center pt-[16px] md:pt-12 px-4">
 						<Header />
@@ -82,7 +107,7 @@ export default function MiningPage() {
 						/>
 					</div>
 				</div>
-			</div>
+			</div> */}
 		</div>
 	);
 }
