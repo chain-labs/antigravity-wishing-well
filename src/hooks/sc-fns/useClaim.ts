@@ -2,16 +2,31 @@ import useDarkClaimContract from "@/abi/DarkClaim";
 import { useEffect, useState } from "react";
 import {
   useAccount,
+  useReadContract,
   useWaitForTransactionReceipt,
   useWriteContract,
 } from "wagmi";
 import { errorToast, successToast } from "../frontend/toast";
+import useDarkContract from "@/abi/Dark";
 
+/**
+ * Primary utility hook for everything related to the claiming phase
+ *
+ * @returns {{ transactionLoading: any; claim: (points: string, nonce: string, proof: {}) => void; darkBalance: any; }}
+ */
 const useClaim = () => {
   const account = useAccount();
   const DarkClaimContract = useDarkClaimContract();
+  const DarkContract = useDarkContract();
 
   const [transactionLoading, setTransactionLoading] = useState<boolean>(false);
+
+  const { data: darkBalance } = useReadContract({
+    address: DarkContract?.address as `0x${string}`,
+    abi: DarkContract?.abi,
+    functionName: "balanceOf",
+    args: [`${account.address}`],
+  });
 
   const {
     writeContract: claimFn,
@@ -58,7 +73,7 @@ const useClaim = () => {
       });
     }
   };
-  return { transactionLoading, claim };
+  return { transactionLoading, claim, darkBalance };
 };
 
 export default useClaim;

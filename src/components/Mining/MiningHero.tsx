@@ -311,7 +311,7 @@ function NonContributed({
 
   const account = useAccount();
 
-  const { root, generateProof } = useMerkleTree(ADDRESS_LIST);
+  const { generateProof } = useMerkleTree(ADDRESS_LIST);
 
   const proof = useMemo(() => {
     if (account.address) {
@@ -321,7 +321,7 @@ function NonContributed({
     } else return [];
   }, [account.address]);
 
-  const { mineToken, transactionLoading } = useMining(
+  const { mineToken, transactionLoading, darkXBalance } = useMining(
     TOKEN_OPTIONS[selectedToken],
     value,
     proof.length > 0 ? MULTIPLIER * 2 : MULTIPLIER
@@ -356,7 +356,7 @@ function NonContributed({
 
   return (
     <div className="relative flex flex-col justify-center items-center gap-[8px] mt-[50px]">
-      {
+      {/* {
         {
           "No NFT": <NoNFTHero />,
           "NFT Present": (
@@ -364,7 +364,16 @@ function NonContributed({
           ),
           Claiming: <></>,
         }[state]
-      }
+      } */}
+      {state !== "Claiming" ? (
+        (darkXBalance as bigint) > 0 ? (
+          <NFTHero NFTHover={NFTHover} setNFTHover={setNFTHover} />
+        ) : (
+          <NoNFTHero />
+        )
+      ) : (
+        <></>
+      )}
       <MiningCalculator
         value={value}
         setValue={setValue}
@@ -399,7 +408,7 @@ function NonContributed({
 }
 
 export default function MiningHero() {
-  const [state, setState] = useState<StateType>("Claiming");
+  const [state, setState] = useState<StateType>("Mining");
   const [NFTHover, setNFTHover] = useState(false);
   const NFTRef = useRef<HTMLDivElement>(null);
   const NFTContainerRef = useRef<HTMLDivElement>(null);

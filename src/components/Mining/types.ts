@@ -13,4 +13,4 @@ export type IToken = TokenDropdownTypes & {
   decimals: number;
 };
 
-export type StateType = "No NFT" | "NFT Present" | "Claiming";
+export type StateType = "Mining" | "Claiming";

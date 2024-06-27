@@ -13,14 +13,15 @@ import { IToken } from "@/components/Mining/types";
 import { errorToast, successToast } from "../frontend/toast";
 import { watchContractEvent } from "viem/actions";
 import { sepolia } from "viem/chains";
+import useDarkXContract from "@/abi/DarkX";
 
 /**
- * Description placeholder
+ *  Primary utility hook for everything related to the mining phase
  *
  * @param {IToken} token
  * @param {number} amountToInvest
  * @param {number} multiplier
- * @returns {{ mineToken: (merkleProof: {}) => void; receipt: any; receiptError: any; mineError: any; isLoading: boolean; isPending: boolean; transactionLoading: boolean }}
+ * @returns {{ mineToken: (merkleProof: {}) => void; receipt: any; receiptError: any; mineError: any; isLoading: any; isPending: any; transactionLoading: any; darkXBalance: any; }}
  */
 const useMining = (
   token: IToken,
@@ -34,6 +35,7 @@ const useMining = (
   const [transactionLoading, setTransactionLoading] = useState<boolean>(false);
 
   const MiningContract = useMiningContract();
+  const DarkXContract = useDarkXContract();
 
   const account = useAccount();
 
@@ -43,6 +45,13 @@ const useMining = (
     }
     return 0;
   }, [multiplier, amountToInvest]);
+
+  const { data: darkXBalance } = useReadContract({
+    address: DarkXContract?.address as `0x${string}`,
+    abi: DarkXContract?.abi,
+    functionName: "balanceOf",
+    args: [`${account.address}`],
+  });
 
   const {
     writeContract: mine,
@@ -191,6 +200,7 @@ const useMining = (
     isLoading,
     isPending,
     transactionLoading,
+    darkXBalance,
   };
 };
 
