@@ -2,7 +2,7 @@ import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import Button from "@/components/Button";
 import CountdownTimer from "@/components/CountdownTimer";
 import useTimer from "@/hooks/frontend/useTimer";
-import useMerkleTree from "@/hooks/sc-fns/useMerkleTree";
+import useMerkleTree from "@/hooks/sc-fns/useMerkleTree.mine";
 import useMining from "@/hooks/sc-fns/useMining";
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { useAccount } from "wagmi";
