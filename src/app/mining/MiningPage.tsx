@@ -56,7 +56,7 @@ export default function MiningPage() {
             <Newsletter />
             <Footer />
           </div>
-          {/* <div className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[2]">
+          <div className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[2]">
             {smallerViewPort ? (
               <Image
                 src={IMAGEKIT_IMAGES.MOBILE_SATURN}
@@ -76,7 +76,7 @@ export default function MiningPage() {
               zRange={100}
               speed={0.1}
             />
-          </div> */}
+          </div>
         </div>
       </div>
     </div>
