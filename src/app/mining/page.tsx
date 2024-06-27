@@ -6,8 +6,6 @@ import { useEffect, useState } from "react";
 import { TEST_NETWORK } from "@/constants";
 import { base, pulsechain, baseSepolia } from "viem/chains";
 import dynamic from "next/dynamic";
-import ReactLenis from "lenis/react";
-import Lenis from "lenis";
 
 const MiningPage = dynamic(() => import("./MiningPage"), {
 	ssr: false,

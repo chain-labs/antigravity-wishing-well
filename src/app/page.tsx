@@ -7,8 +7,6 @@ import { useEffect, useState } from "react";
 import { TEST_NETWORK } from "@/constants";
 import { base, pulsechain, baseSepolia } from "viem/chains";
 import dynamic from "next/dynamic";
-import ReactLenis from "lenis/react";
-import Lenis from "lenis";
 
 const Homepage = dynamic(() => import("./HomePage"), {
 	ssr: false,
@@ -48,21 +46,6 @@ export default function Home() {
 			}
 		}
 	}, [account.chainId]);
-
-	// useEffect(() => {
-	// 	const lenis = new Lenis();
-
-	// 	lenis.on("scroll", (e: any) => {
-	// 		console.log(e);
-	// 	});
-
-	// 	// function raf(time: any) {
-	// 	// 	lenis.raf(time);
-	// 	// 	requestAnimationFrame(raf);
-	// 	// }
-
-	// 	// requestAnimationFrame(raf);
-	// }, []);
 
 	return (
 		<main className="min-h-screen">

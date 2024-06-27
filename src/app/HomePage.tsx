@@ -2,7 +2,6 @@
 
 import React, { Suspense, useEffect, useLayoutEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import { ReactLenis, useLenis } from "lenis/react";
 import Hero from "@/components/Home/sections/Hero";
 import Header from "@/components/Home/components/header/Header";
 import CanvasRendering from "@/components/Home/components/saturn/CanvasRendering";
