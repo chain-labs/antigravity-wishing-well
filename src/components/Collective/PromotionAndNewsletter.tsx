@@ -12,7 +12,7 @@ export default function PromotionAndNewsletter() {
 
 	return (
 		<div
-			className="flex flex-col justify-center items-center gap-[16px] md:gap-[32px] w-full md:w-fit max-w-[992px] p-[32px_16px] md:p-[32px] mx-[16px] md:mx-auto mb-[50px] md:mb-[100px] rounded-none md:rounded-[12px] relative bg-agblack border-1 border-transparent bg-clip-padding z-0
+			className="flex flex-col justify-center items-center gap-[16px] md:gap-[32px] w-full md:w-fit max-w-[992px] p-[32px_16px] md:p-[32px] md:mx-auto mb-[50px] md:mb-[100px] rounded-none md:rounded-[12px] relative bg-agblack border-1 border-transparent bg-clip-padding z-0
                     before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-bl before:from-[#3C00DC] before:to-[#FF5001] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
                     after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-agblack after:rounded-[inherit] after:overflow-hidden"
 		>

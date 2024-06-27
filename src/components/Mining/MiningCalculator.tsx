@@ -81,7 +81,7 @@ export function InputCard({
 				>
 					<button className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit">
 						<div className="bg-[#0A1133] rounded-full w-fit h-fit">
-							<div className="rounded-full text-[16px] leading-[16px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-medium bg-gradient-to-b text-transparent bg-clip-text">
+							<div className="rounded-full text-[16px] leading-[16px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent bg-clip-text">
 								MAX
 							</div>
 						</div>
@@ -93,7 +93,7 @@ export function InputCard({
 					/>
 				</div>
 				<div
-					className={`flex gap-[4px] justify-end items-center text-[16px] leading-[16px] text-agwhite opacity-75 font-general-sans font-medium`}
+					className={`flex gap-[4px] justify-end items-center text-[16px] leading-[16px] text-agwhite opacity-75 font-general-sans font-semibold`}
 				>
 					<Image
 						src={IMAGEKIT_ICONS.WALLET_WHITE}

@@ -84,6 +84,9 @@ function NFTHero({
 					<br />
 					Start mining with the recommended tokens and get Points and
 					$DARKX tokens.
+					<br />
+					<br />	
+					Hover to see your NFT:
 				</P>
 				<div className="flex justify-center items-center gap-[16px] z-50">
 					<div className="hidden md:block">
