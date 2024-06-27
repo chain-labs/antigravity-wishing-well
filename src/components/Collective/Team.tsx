@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Team() {
 	return (
-		<div className="flex flex-col justify-center items-center gap-[48px] max-w-[1000px] mx-auto min-h-screen p-[16px] my-[50px]">
+		<div className="flex flex-col justify-center items-center gap-[48px] max-w-[1000px] mx-auto  p-[16px] my-[75px]">
 			<H1 className="text-agwhite" center>
 				We&apos;re an amazing team of 3. Here&apos;s some more copy
 				about us that will amaze you.

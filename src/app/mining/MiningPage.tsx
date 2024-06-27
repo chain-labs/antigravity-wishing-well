@@ -11,9 +11,11 @@ import Leaderboard from "@/components/Home/sections/Leaderboard";
 import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import { miningNotif } from "@/hooks/frontend/toast";
 import MiningHero from "@/components/Mining/MiningHero";
+import { useAccount } from "wagmi";
 
 export default function MiningPage() {
 	const [smallerViewPort, setSmallerViewPort] = useState<boolean>(false);
+	const account = useAccount();
 
 	useEffect(() => {
 		if (window === undefined) return;
@@ -52,7 +54,9 @@ export default function MiningPage() {
 					</div>
 					<div className="z-100">
 						<MiningHero />
-						<Leaderboard accountIsConnected />
+						{account.isConnected && (
+							<Leaderboard accountIsConnected />
+						)}
 						<Newsletter />
 						<Footer />
 					</div>

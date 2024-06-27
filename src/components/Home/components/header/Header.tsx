@@ -279,7 +279,7 @@ const Header = () => {
 							<div className="w-[37px] h-[37px] xl:w-[45px] xl:h-[45px] relative">
 								<Image src={IMAGEKIT.HELMET} alt="icon" fill />
 							</div>
-							<p className="from-white to-[#999999] pl-2 font-sans font-extrabold sm:text-2xl bg-gradient-to-b text-transparent bg-clip-text">
+							<p className="from-white to-[#999999] pl-2 font-sans font-black sm:text-2xl bg-gradient-to-b text-transparent bg-clip-text">
 								ANTIGRAVITY
 							</p>
 						</div>
@@ -287,17 +287,17 @@ const Header = () => {
 							className={`relative flex justify-center items-center font-extrabold text-lg font-sans gap-[16px] oveflow-hidden`}
 						>
 							<a href="/wishwell">
-								<P uppercase gradient extrabold>
+								<P uppercase gradient extrabold className="font-sans font-extrabold">
 									Wishwell
 								</P>
 							</a>
 							<a href="/mining">
-								<P uppercase gradient extrabold>
+								<P uppercase gradient extrabold className="font-sans font-extrabold">
 									Mining
 								</P>
 							</a>
 							<a href="/collective">
-								<P uppercase gradient extrabold>
+								<P uppercase gradient extrabold className="font-sans font-extrabold">
 									Collective
 								</P>
 							</a>
@@ -305,7 +305,7 @@ const Header = () => {
 								target="_blank"
 								href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}
 							>
-								<P uppercase gradient extrabold>
+								<P uppercase gradient extrabold className="font-sans font-extrabold">
 									WHITEPAPER
 								</P>
 							</a>
@@ -364,17 +364,17 @@ const Header = () => {
 						<div className="w-full h-full bg-agblack px-8 flex flex-col items-center justify-center rounded-lg gap-6 py-4">
 							{account.isConnected && <UserConnected />}
 							<a href="/wishwell">
-								<P uppercase gradient extrabold>
+								<P uppercase gradient extrabold className="font-sans font-extrabold">
 									Wishwell
 								</P>
 							</a>
 							<a href="/mining">
-								<P uppercase gradient extrabold>
+								<P uppercase gradient extrabold className="font-sans font-extrabold">
 									Mining
 								</P>
 							</a>
 							<a href="/collective">
-								<P uppercase gradient extrabold>
+								<P uppercase gradient extrabold className="font-sans font-extrabold">
 									Collective
 								</P>
 							</a>
@@ -382,7 +382,7 @@ const Header = () => {
 								target="_blank"
 								href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}
 							>
-								<P uppercase gradient extrabold>
+								<P uppercase gradient extrabold className="font-sans font-extrabold">
 									WHITEPAPER
 								</P>
 							</a>

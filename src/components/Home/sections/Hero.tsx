@@ -32,7 +32,7 @@ export default function Hero() {
 						"--opacity": opacity,
 					} as any
 				}
-				className="relative grid grid-rows-3 md:grid-cols-3 md:grid-rows-1 w-full h-[180vh] md:h-[60vh] mt-[50vh] md:mt-[40vh] z-0 lg:opacity-[--opacity]"
+				className="relative grid grid-rows-3 md:grid-cols-3 md:grid-rows-1 w-full h-[180vh] md:h-[60vh] mt-[50vh] md:mt-[40vh] z-0 lg:opacity-[--opacity] tall:mt-[50vh]"
 			>
 				<Spinner scrollYProgress={scrollYProgress} />
 				<HeroItemCard
@@ -40,18 +40,21 @@ export default function Hero() {
 					description="Contribute to our WishWell to get the WishWell NFT + points."
 					backgroundImage={IMAGEKIT_IMAGES.WISHWELL}
 					animateFrom="left"
+					cardExternalLink="/wishwell"
 				/>
 				<HeroItemCard
 					title="Mining"
 					description="Start mining with supported tokens to get points + $DARKX tokens + the new Antigravity NFT."
 					backgroundImage={IMAGEKIT_IMAGES.MINING}
 					animateFrom="bottom"
+					cardExternalLink="/mining"
 				/>
 				<HeroItemCard
 					title="The Collective"
 					description="Learn how to leverage points, rank up & earn exciting rewards. Join The Collective!"
 					backgroundImage={IMAGEKIT_IMAGES.MINTING}
 					animateFrom="right"
+					cardExternalLink="/collective"
 				/>
 			</motion.div>
 		</div>

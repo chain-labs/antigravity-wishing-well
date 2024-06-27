@@ -4,7 +4,7 @@ import H1 from "../HTML/H1";
 
 export default function Youtube() {
 	return (
-		<div className="flex flex-col md:flex-row justify-end items-end gap-[16px] mx-auto max-w-[992px] my-[150px] p-[16px]">
+		<div className="flex flex-col md:flex-row justify-end items-end gap-[16px] mx-auto max-w-[992px] mb-[50px] p-[16px]">
 			<div className="flex flex-col gap-[16px]">
 				<H1>
 					{" "}
