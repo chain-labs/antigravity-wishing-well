@@ -69,6 +69,18 @@ export default function Event() {
 						iconSrc={IMAGEKIT_ICONS.ROCKET}
 						iconAlt="Rocket Icon"
 						className="w-full md:w-fit"
+						initialIconMotionValues={{
+							y: 0,
+							scale: 1,
+						}}
+						whileHoverIconMotionValues={{
+							y: "-1000%",
+							scale: 1.1,
+						}}
+						transitionIconMotionValues={{
+							duration: 0.25,
+							type: "spring",
+						}}
 					/>
 					<Image
 						src={ImageLink}

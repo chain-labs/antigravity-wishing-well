@@ -137,6 +137,15 @@ export default function Leaderboard({
 							secondary
 							disableSparkels
 							animateButton
+							initialIconMotionValues={{
+								rotate: 0,
+							}}
+							whileHoverIconMotionValues={{
+								rotate: 360,
+							}}
+							transitionIconMotionValues={{
+								duration: 0.25,
+							}}
 						/>
 					</div>
 
@@ -164,6 +173,17 @@ export default function Leaderboard({
 									innerText="Start mining"
 									iconSrc={IMAGEKIT_ICONS.HAMMER}
 									iconAlt="hammer icon"
+									initialIconMotionValues={{
+										rotate: 0,
+										scale: 1,
+									}}
+									whileHoverIconMotionValues={{
+										rotate: 390,
+										scale: 1.35,
+									}}
+									transitionIconMotionValues={{
+										duration: 0.25,
+									}}
 								/>
 								<a href="/" className="text-agwhite underline">
 									<P>Best ways to rank up →</P>

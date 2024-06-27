@@ -2,7 +2,15 @@
 
 import React, { use, useEffect } from "react";
 import { twMerge } from "tailwind-merge";
-import { stagger, useAnimate, animate } from "framer-motion";
+import {
+	stagger,
+	useAnimate,
+	animate,
+	motion,
+	AnimationProps,
+	VariantLabels,
+	CustomValueType, // Add this line
+} from "framer-motion";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
@@ -89,6 +97,15 @@ interface ButtonProps {
 	 * @default false
 	 * */
 	disabled?: boolean;
+	/**
+	 * motion values for the button
+	 **/
+	initialIconMotionValues?: any;
+	animateIconMotionValues?: any;
+	whileHoverIconMotionValues?: any;
+	whileTapIconMotionValues?: any;
+	whileInViewIconMotionValues?: any;
+	transitionIconMotionValues?: any;
 }
 
 /**
@@ -96,7 +113,7 @@ interface ButtonProps {
  */
 
 const randomNumberBetween = (min: number, max: number) => {
-  return Math.floor(Math.random() * (max - min + 1) + min);
+	return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
 type AnimationSequence = Parameters<typeof animate>[0];
@@ -119,102 +136,110 @@ export default function Button({
 	hallmarkIconSrc,
 	loading = false,
 	disabled = false,
+	initialIconMotionValues = {},
+	animateIconMotionValues = {},
+	whileHoverIconMotionValues = {},
+	whileTapIconMotionValues = {},
+	whileInViewIconMotionValues = {},
+	transitionIconMotionValues = {},
 	...props
 }: ButtonProps) {
-  const [scope, animate] = useAnimate();
-  const [isAnimating, setIsAnimating] = React.useState(false);
-  const innerTextStringArray = innerText.trim().split("");
-  const [isHovered, setIsHovered] = React.useState(false);
+	const [scope, animate] = useAnimate();
+	const [isAnimating, setIsAnimating] = React.useState(false);
+	const innerTextStringArray = innerText.trim().split("");
+	const [isHovered, setIsHovered] = React.useState(false);
 
-  const letterSize = {
-    small: 14,
-    medium: 16,
-    large: 18,
-  };
+	const letterSize = {
+		small: 14,
+		medium: 16,
+		large: 18,
+	};
 
-  const iconSize = {
-    small: 20,
-    medium: 25,
-    large: 30,
-  };
+	const iconSize = {
+		small: 20,
+		medium: 25,
+		large: 30,
+	};
 
-  const onButtonClick = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
+	const onButtonClick = () => {
+		if (isAnimating) return;
+		setIsAnimating(true);
 
-    const sparkles = Array.from({ length: starsCount });
-    const sparklesAnimation: AnimationSequence = sparkles.map((_, index) => [
-      `.sparkle-${index}`,
-      {
-        x: randomNumberBetween(-100, 100),
-        y: randomNumberBetween(-100, 100),
-        scale: randomNumberBetween(1.5, 2.5),
-        opacity: 1,
-      },
-      {
-        duration: 0.4,
-        at: "<",
-      },
-    ]);
+		const sparkles = Array.from({ length: starsCount });
+		const sparklesAnimation: AnimationSequence = sparkles.map(
+			(_, index) => [
+				`.sparkle-${index}`,
+				{
+					x: randomNumberBetween(-100, 100),
+					y: randomNumberBetween(-100, 100),
+					scale: randomNumberBetween(1.5, 2.5),
+					opacity: 1,
+				},
+				{
+					duration: 0.4,
+					at: "<",
+				},
+			]
+		);
 
-    const sparklesFadeOut: AnimationSequence = sparkles.map((_, index) => [
-      `.sparkle-${index}`,
-      {
-        opacity: 0,
-        scale: 0,
-      },
-      {
-        duration: 0.3,
-        at: "<",
-      },
-    ]);
+		const sparklesFadeOut: AnimationSequence = sparkles.map((_, index) => [
+			`.sparkle-${index}`,
+			{
+				opacity: 0,
+				scale: 0,
+			},
+			{
+				duration: 0.3,
+				at: "<",
+			},
+		]);
 
-    const sparklesReset: AnimationSequence = sparkles.map((_, index) => [
-      `.sparkle-${index}`,
-      {
-        x: 0,
-        y: 0,
-        opacity: 0,
-        scale: 0,
-      },
-      {
-        duration: 0.000001,
-      },
-    ]);
+		const sparklesReset: AnimationSequence = sparkles.map((_, index) => [
+			`.sparkle-${index}`,
+			{
+				x: 0,
+				y: 0,
+				opacity: 0,
+				scale: 0,
+			},
+			{
+				duration: 0.000001,
+			},
+		]);
 
-    if (disableSparkels) {
-      animate([
-        [
-          ".letter",
-          { y: -letterSize[size] },
-          {
-            duration: 0.2,
-            delay: stagger(0.2 / innerTextStringArray.length),
-          },
-        ],
-        [".letter", { y: 0 }, { duration: 0.000001, at: 0.5 }],
-      ]).then(() => {
-        setIsAnimating(false);
-      });
-    } else {
-      animate([
-        ...sparklesReset,
-        [
-          ".letter",
-          { y: -letterSize[size] },
-          {
-            duration: 0.2,
-            delay: stagger(0.2 / innerTextStringArray.length),
-          },
-        ],
-        ...sparklesAnimation,
-        [".letter", { y: 0 }, { duration: 0.000001 }],
-        ...sparklesFadeOut,
-      ]).then(() => {
-        setIsAnimating(false);
-      });
-    }
-  };
+		if (disableSparkels) {
+			animate([
+				[
+					".letter",
+					{ y: -letterSize[size] },
+					{
+						duration: 0.2,
+						delay: stagger(0.2 / innerTextStringArray.length),
+					},
+				],
+				[".letter", { y: 0 }, { duration: 0.000001, at: 0.5 }],
+			]).then(() => {
+				setIsAnimating(false);
+			});
+		} else {
+			animate([
+				...sparklesReset,
+				[
+					".letter",
+					{ y: -letterSize[size] },
+					{
+						duration: 0.2,
+						delay: stagger(0.2 / innerTextStringArray.length),
+					},
+				],
+				...sparklesAnimation,
+				[".letter", { y: 0 }, { duration: 0.000001 }],
+				...sparklesFadeOut,
+			]).then(() => {
+				setIsAnimating(false);
+			});
+		}
+	};
 
 	if (animateButton) {
 		return (
@@ -258,15 +283,26 @@ export default function Button({
 							className="object-cover absolute top-0 left-0 -z-[1] opacity-50 mix-blend-hue"
 						/>
 					)}
-					{iconSrc !== null && (
-						<Image
-							src={iconSrc}
-							alt={iconAlt}
-							width={24}
-							height={24}
-							className="object-cover"
-						/>
-					)}
+
+					<motion.div
+						initial={initialIconMotionValues}
+						animate={animateIconMotionValues}
+						whileHover={whileHoverIconMotionValues}
+						whileTap={whileTapIconMotionValues}
+						whileInView={whileInViewIconMotionValues}
+						transition={transitionIconMotionValues}
+						className="w-[24px] h-[24px]"
+					>
+						{iconSrc !== null && (
+							<Image
+								src={iconSrc}
+								alt={iconAlt}
+								width={24}
+								height={24}
+								className="object-cover"
+							/>
+						)}
+					</motion.div>
 					<span
 						className="sr-only"
 						style={{
@@ -384,7 +420,15 @@ export default function Button({
 						className="object-cover absolute top-0 left-0 -z-[1] opacity-50 mix-blend-hue"
 					/>
 				)}
-				<div className="w-[24px] h-[24px]">
+				<motion.div
+					initial={initialIconMotionValues}
+					animate={animateIconMotionValues}
+					whileHover={whileHoverIconMotionValues}
+					whileTap={whileTapIconMotionValues}
+					whileInView={whileInViewIconMotionValues}
+					transition={transitionIconMotionValues}
+					className="w-[24px] h-[24px]"
+				>
 					{loading ? (
 						<Image
 							src={IMAGEKIT_ICONS.REFRESH}
@@ -404,7 +448,7 @@ export default function Button({
 							/>
 						)
 					)}
-				</div>
+				</motion.div>
 				<div className="text-nowrap">{innerText}</div>
 			</button>
 		);

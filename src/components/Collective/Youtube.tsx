@@ -69,6 +69,18 @@ export default function Youtube() {
 						iconSrc={IMAGEKIT_ICONS.DOCUMENT}
 						iconAlt="Dark Paper"
 						className="w-full md:w-fit"
+						initialIconMotionValues={{
+							rotate: 0,
+							scale: 1,
+						}}
+						whileHoverIconMotionValues={{
+							rotate: -15,
+							scale: 1.1,
+						}}
+						transitionIconMotionValues={{
+							duration: 0.25,
+							type: "spring",
+						}}
 					/>
 					<div className="flex gap-[8px]">
 						<Button
@@ -76,14 +88,27 @@ export default function Youtube() {
 							iconSrc={IMAGEKIT_ICONS.TELEGRAM}
 							iconAlt="Telegram"
 							secondary
-							className="bg-transparent border-[#FEFFFF40] shadow-[0_4px_0px_#FEFFFF40_!important] hover:shadow-[0_0px_0px_#FEFFFF40_!important] px-[10px] py-[6px] w-full md:w-fit"
+							className="bg-transparent origin-center border-[#FEFFFF40] shadow-[0_4px_0px_#FEFFFF40_!important] hover:shadow-[0_0px_0px_#FEFFFF40_!important] px-[10px] py-[6px] w-full md:w-fit"
 						/>
 						<Button
+							initialIconMotionValues={{
+								rotate: 0,
+								scale: 1,
+							}}
+							whileHoverIconMotionValues={{
+								rotate: -30,
+								scale: 1.1,
+							}}
+							transitionIconMotionValues={{
+								duration: 0.25,
+								type: "spring",
+								bounce: 1,
+							}}
 							innerText="Discord"
 							iconSrc={IMAGEKIT_ICONS.DISCORD}
 							iconAlt="Discord"
 							secondary
-							className="bg-transparent border-[#FEFFFF40] shadow-[0_4px_0px_#FEFFFF40_!important] hover:shadow-[0_0px_0px_#FEFFFF40_!important] px-[10px] py-[6px] w-full md:w-fit"
+							className="bg-transparent origin-bottom border-[#FEFFFF40] shadow-[0_4px_0px_#FEFFFF40_!important] hover:shadow-[0_0px_0px_#FEFFFF40_!important] px-[10px] py-[6px] w-full md:w-fit"
 						/>
 					</div>
 				</div>
