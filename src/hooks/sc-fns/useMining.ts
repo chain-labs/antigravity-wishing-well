@@ -21,7 +21,7 @@ import useDarkXContract from "@/abi/DarkX";
  * @param {IToken} token
  * @param {number} amountToInvest
  * @param {number} multiplier
- * @returns {{ mineToken: (merkleProof: {}) => void; receipt: any; receiptError: any; mineError: any; isLoading: any; isPending: any; transactionLoading: any; darkXBalance: any; }}
+ * @returns {{ mineToken: (merkleProof: {}) => void; receipt: any; receiptError: any; mineError: any; isLoading: any; isPending: any; transactionLoading: boolean; darkXBalance: BigInt; tokenBalance: BigInt }}
  */
 const useMining = (
   token: IToken,
@@ -46,9 +46,18 @@ const useMining = (
     return 0;
   }, [multiplier, amountToInvest]);
 
+  // Fetching darkX token Balance
   const { data: darkXBalance } = useReadContract({
     address: DarkXContract?.address as `0x${string}`,
     abi: DarkXContract?.abi,
+    functionName: "balanceOf",
+    args: [`${account.address}`],
+  });
+
+  // Fetching current selected token Balance
+  const { data: tokenBalance } = useReadContract({
+    address: token.tokenContract as `0x${string}`,
+    abi: erc20ABI,
     functionName: "balanceOf",
     args: [`${account.address}`],
   });
@@ -201,6 +210,7 @@ const useMining = (
     isPending,
     transactionLoading,
     darkXBalance,
+    tokenBalance,
   };
 };
 
