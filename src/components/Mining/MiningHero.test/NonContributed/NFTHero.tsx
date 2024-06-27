@@ -12,7 +12,6 @@ function NFTHero({
   NFTHover: boolean;
   setNFTHover: Dispatch<SetStateAction<boolean>>;
 }) {
-  // console.log("NFTHover", NFTHover);
   return (
     <>
       <div className="md:absolute top-0 left-0 md:translate-x-[calc(-100%-48px)] flex flex-col justify-start items-start gap-[16px] md:max-w-[220px] p-[16px] md:p-0 z-10">

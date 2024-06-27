@@ -6,7 +6,7 @@ import { StateType } from "../types";
 import ContributedHero from "./ContributedHero";
 
 export default function MiningHero() {
-  const [state, setState] = useState<StateType>("NFT Present");
+  const [state, setState] = useState<StateType>("Mining");
   const [NFTHover, setNFTHover] = useState(false);
   const NFTRef = useRef<HTMLDivElement>(null);
   const NFTContainerRef = useRef<HTMLDivElement>(null);

@@ -3,9 +3,76 @@ import ContributedCard from "./ContributedCard";
 import Button from "@/components/Button";
 import H1 from "@/components/HTML/H1";
 import P from "@/components/HTML/P";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { useAccount } from "wagmi";
+import useMerkleTree from "@/hooks/sc-fns/useMerkleTree.claim";
+import { CLAIM_LISTS } from "../../constants";
+import { useMemo } from "react";
+import { formatUnits } from "viem";
+import useClaim from "@/hooks/sc-fns/useClaim";
 
 function ContributedHero() {
-  // TODO: Add claiming fn here
+  const { openConnectModal } = useConnectModal();
+  const account = useAccount();
+
+  const { generateProof } = useMerkleTree(
+    CLAIM_LISTS.accounts,
+    CLAIM_LISTS.points,
+    CLAIM_LISTS.nonces
+  );
+
+  const points = useMemo(() => {
+    if (account.address) {
+      const accountIndex = CLAIM_LISTS.accounts.findIndex(
+        (x) => x.toLowerCase() === account.address?.toLowerCase()
+      );
+
+      if (accountIndex > 0) {
+        const foundPoints = CLAIM_LISTS.points[accountIndex];
+
+        const formattedPoints = formatUnits(
+          BigInt(CLAIM_LISTS.points[accountIndex]),
+          18
+        );
+        return Number(formattedPoints);
+      } else return 0;
+    }
+
+    return 30000;
+  }, [account.address]);
+
+  const proof: string[] = useMemo(() => {
+    if (account.address) {
+      const accountIndex = CLAIM_LISTS.accounts.findIndex(
+        (x) => x.toLowerCase() === account.address?.toLowerCase()
+      );
+
+      const generatedProof = generateProof(
+        account.address,
+        CLAIM_LISTS.points[accountIndex],
+        CLAIM_LISTS.nonces[accountIndex]
+      );
+
+      return generatedProof || [];
+    }
+    return [];
+  }, [account.address]);
+
+  const { claim, transactionLoading } = useClaim();
+
+  const handleClaim = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const accountIndex = CLAIM_LISTS.accounts.findIndex(
+      (x) => x.toLowerCase() === account.address?.toLowerCase()
+    );
+
+    claim(
+      CLAIM_LISTS.points[accountIndex],
+      CLAIM_LISTS.nonces[accountIndex],
+      proof
+    );
+  };
+
   return (
     <div className="relative flex flex-col justify-center items-center gap-[24px] -mt-[50px]">
       <div className="flex flex-col justify-center items-center gap-[8px]">
@@ -18,7 +85,7 @@ function ContributedHero() {
       </div>
       <div className="flex flex-col justify-center items-center gap-[8px] w-full">
         <ContributedCard
-          value={42000}
+          value={points}
           pillText="Points"
           pillIconSrc={IMAGEKIT_ICONS.PILL_POINTS}
           pillIconAlt="points"
@@ -50,16 +117,28 @@ function ContributedHero() {
           ></div>
         </div>
         <ContributedCard
-          value={4200.41}
+          value={points}
           pillText="DARK"
           pillIconSrc={IMAGEKIT_ICONS.PILL_DARK_X}
           pillIconAlt="dark x"
         />
-        <Button
-          innerText="Claim Now"
-          iconSrc={IMAGEKIT_ICONS.CLAIM}
-          iconAlt="Claim Now"
-        />
+        {!account.isConnected ? (
+          <Button
+            innerText="Connect Wallet"
+            iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
+            iconAlt="wallet"
+            onClick={openConnectModal}
+          />
+        ) : (
+          <Button
+            innerText={transactionLoading ? "Claiming..." : "Claim Now"}
+            loading={transactionLoading}
+            disabled={points === 0}
+            iconSrc={IMAGEKIT_ICONS.CLAIM}
+            iconAlt="Claim Now"
+            onClick={handleClaim}
+          />
+        )}
       </div>
     </div>
   );

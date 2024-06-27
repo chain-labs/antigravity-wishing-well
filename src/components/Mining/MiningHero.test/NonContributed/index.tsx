@@ -10,8 +10,9 @@ import NoNFTHero from "./NoNFTHero";
 import NFTHero from "./NFTHero";
 import MiningCalculator from "./MiningCalculator";
 import { IToken, StateType, TokenDropdownTypes } from "../../types";
-import { ADDRESS_LIST, TOKEN_OPTIONS } from "../../constants";
+import { ADDRESS_LIST, MULTIPLIER, TOKEN_OPTIONS } from "../../constants";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { errorToast } from "@/hooks/frontend/toast";
 
 function NonContributed({
   state,
@@ -53,7 +54,7 @@ function NonContributed({
 
   const account = useAccount();
 
-  const { root, generateProof } = useMerkleTree(ADDRESS_LIST);
+  const { generateProof } = useMerkleTree(ADDRESS_LIST);
 
   const proof = useMemo(() => {
     if (account.address) {
@@ -63,21 +64,21 @@ function NonContributed({
     } else return [];
   }, [account.address]);
 
-  const { mineToken, transactionLoading } = useMining(
+  const { mineToken, transactionLoading, darkXBalance } = useMining(
     TOKEN_OPTIONS[selectedToken],
-    value
+    value,
+    proof.length > 0 ? MULTIPLIER * 2 : MULTIPLIER
   );
 
   const handleMine = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (!account.address) {
-      // TODO error toast here
-      console.log("Wallet not connected");
+      errorToast("Wallet not Connected! Please connect wallet");
       return;
     }
     if (!proof) {
-      // TODO error toast here
-      console.log("Proof not generated");
+      errorToast("Something went Wrong! Please Try Again.");
+      console.error("Proof not generated");
       return;
     }
 
@@ -86,9 +87,19 @@ function NonContributed({
     }
   };
 
+  // TODO: Fetch or set current era here
+  const era = useMemo<1 | 2 | 3>(() => {
+    return 2;
+  }, []);
+
+  // TODO: Fetch or set current phase here
+  const phase = useMemo<1 | 2 | 3>(() => {
+    return 1;
+  }, []);
+
   return (
     <div className="relative flex flex-col justify-center items-center gap-[8px] mt-[50px]">
-      {
+      {/* {
         {
           "No NFT": <NoNFTHero />,
           "NFT Present": (
@@ -96,14 +107,23 @@ function NonContributed({
           ),
           Claiming: <></>,
         }[state]
-      }
+      } */}
+      {state !== "Claiming" ? (
+        (darkXBalance as bigint) > 0 ? (
+          <NFTHero NFTHover={NFTHover} setNFTHover={setNFTHover} />
+        ) : (
+          <NoNFTHero />
+        )
+      ) : (
+        <></>
+      )}
       <MiningCalculator
         value={value}
         setValue={setValue}
         conversionRateToUSD={0.245}
-        era={2}
-        phase={1}
-        multiplyer={33}
+        era={era}
+        phase={phase}
+        multiplyer={proof.length > 0 ? MULTIPLIER * 2 : MULTIPLIER}
         inputOptions={TOKEN_OPTIONS}
         setSelectedToken={setSelectedToken}
       />

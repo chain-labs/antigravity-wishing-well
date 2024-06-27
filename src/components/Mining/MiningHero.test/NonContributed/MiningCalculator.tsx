@@ -5,10 +5,10 @@ import { twMerge } from "tailwind-merge";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
-import { TokenDropdownTypes } from "../../types";
 import Dropdown from "@/components/Dropdown";
 import Badge from "@/components/Badge";
 import Pill from "@/components/Pill";
+import { TokenDropdownTypes } from "../../types";
 
 export function InputCard({
   inputValue,
