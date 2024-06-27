@@ -9,7 +9,7 @@ import H1 from "@/components/HTML/H1";
 import P from "@/components/HTML/P";
 import MiningCalculator, {
   pointsConverterToUSCommaseparated,
-} from "@/components/Mining/MiningCalculator";
+} from "./MiningCalculator";
 import useTimer from "@/hooks/frontend/useTimer";
 import Image from "next/image";
 import React, {
@@ -24,27 +24,13 @@ import React, {
 import Pill from "../Pill";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { base, pulsechain } from "viem/chains";
-import { TokenDropdownTypes } from "./types";
+import { StateType, TokenDropdownTypes } from "./types";
 import useMining from "@/hooks/sc-fns/useMining";
 import useMerkleTree from "@/hooks/sc-fns/useMerkleTree";
 import { useAccount } from "wagmi";
-
-type StateType = "No NFT" | "NFT Present" | "Claiming";
-
-const STATE_TYPES = {
-  NO_NFT: "No NFT",
-  NFT_PRESENT: "NFT Present",
-};
-
-const TOKEN_OPTIONS: TokenDropdownTypes[] = [
-  {
-    label: "ETH",
-    tokenContract: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-    USDvalue: 3378.55,
-    darkIcon: IMAGEKIT_ICONS.USDC_BLACK,
-    lightIcon: IMAGEKIT_ICONS.USDC,
-  },
-];
+import { ADDRESS_LIST, MULTIPLIER, TOKEN_OPTIONS } from "./constants";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { errorToast } from "@/hooks/frontend/toast";
 
 function NoNFTHero() {
   return (
@@ -73,7 +59,6 @@ function NFTHero({
   NFTHover: boolean;
   setNFTHover: Dispatch<SetStateAction<boolean>>;
 }) {
-  // console.log("NFTHover", NFTHover);
   return (
     <>
       <div className="md:absolute top-0 left-0 md:translate-x-[calc(-100%-48px)] flex flex-col justify-start items-start gap-[16px] md:max-w-[220px] p-[16px] md:p-0 z-10">
@@ -221,6 +206,8 @@ function NonContributed({
 }) {
   const [value, setValue] = useState(0);
   const timerState = useTimer();
+
+  const { openConnectModal } = useConnectModal();
   useEffect(() => {
     if (!NFTHover) return;
     if (!NFTContainerRef.current) return;
@@ -242,16 +229,9 @@ function NonContributed({
 
   const [selectedToken, setSelectedToken] = useState(0);
 
-  const addressList = [
-    "0x049D67388852DE0Cef5E1C4FdC91096cDc0a38dF",
-    "0xd18Cd50a6bDa288d331e3956BAC496AAbCa4960d",
-    "0x9cA70B93CaE5576645F5F069524A9B9c3aef5006",
-    "0x7216dA0a7c628953aC021E5e617C98998FC28CA3",
-  ];
-
   const account = useAccount();
 
-  const { root, generateProof } = useMerkleTree(addressList);
+  const { root, generateProof } = useMerkleTree(ADDRESS_LIST);
 
   const proof = useMemo(() => {
     if (account.address) {
@@ -261,19 +241,21 @@ function NonContributed({
     } else return [];
   }, [account.address]);
 
-  const { mineToken, receipt, receiptError, mineError, isLoading, isPending } =
-    useMining(TOKEN_OPTIONS[selectedToken].tokenContract, value);
+  const { mineToken, transactionLoading } = useMining(
+    TOKEN_OPTIONS[selectedToken],
+    value,
+    proof.length > 0 ? MULTIPLIER * 2 : MULTIPLIER
+  );
 
   const handleMine = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (!account.address) {
-      // TODO error toast here
-      console.log("Wallet not connected");
+      errorToast("Wallet not Connected! Please connect wallet");
       return;
     }
     if (!proof) {
-      // TODO error toast here
-      console.log("Proof not generated");
+      errorToast("Something went Wrong! Please Try Again.");
+      console.error("Proof not generated");
       return;
     }
 
@@ -281,6 +263,16 @@ function NonContributed({
       await mineToken(proof);
     }
   };
+
+  // TODO: Fetch or set current era here
+  const era = useMemo<1 | 2 | 3>(() => {
+    return 2;
+  }, []);
+
+  // TODO: Fetch or set current phase here
+  const phase = useMemo<1 | 2 | 3>(() => {
+    return 1;
+  }, []);
 
   return (
     <div className="relative flex flex-col justify-center items-center gap-[8px] mt-[50px]">
@@ -297,20 +289,28 @@ function NonContributed({
         value={value}
         setValue={setValue}
         conversionRateToUSD={0.245}
-        era={2}
-        phase={1}
-        multiplyer={33}
+        era={era}
+        phase={phase}
+        multiplyer={proof.length > 0 ? MULTIPLIER * 2 : MULTIPLIER}
         inputOptions={TOKEN_OPTIONS}
         setSelectedToken={setSelectedToken}
       />
-      <Button
-        // TODO: should include a loading state
-        loading={isLoading}
-        innerText="Mine Now"
-        iconSrc={IMAGEKIT_ICONS.HAMMER}
-        iconAlt="hammer"
-        onClick={handleMine}
-      />
+      {!account.isConnected ? (
+        <Button
+          innerText="Connect Wallet"
+          iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
+          iconAlt="wallet"
+          onClick={openConnectModal}
+        />
+      ) : (
+        <Button
+          loading={transactionLoading}
+          innerText={transactionLoading ? "Processing" : "Mine Now"}
+          iconSrc={IMAGEKIT_ICONS.HAMMER}
+          iconAlt="hammer"
+          onClick={handleMine}
+        />
+      )}
       <div className="p-[8px] rounded-[6px] bg-[#030404A8]">
         <CountdownTimer state={timerState} fontDesktopSize={56} />
       </div>

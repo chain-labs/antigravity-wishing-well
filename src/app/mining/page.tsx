@@ -38,9 +38,9 @@ export default function Mining() {
 	return (
 		<main className="min-h-screen">
 			<div className="z-[0]">
-				<div className="z-[100]">
+				{/* <div className="z-[100]">
 					<LoadingPage contentLoaded={!loading} />
-				</div>
+				</div> */}
 				<MiningPage />
 			</div>
 		</main>
