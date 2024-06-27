@@ -321,11 +321,12 @@ function NonContributed({
     } else return [];
   }, [account.address]);
 
-  const { mineToken, transactionLoading, darkXBalance } = useMining(
-    TOKEN_OPTIONS[selectedToken],
-    value,
-    proof.length > 0 ? MULTIPLIER * 2 : MULTIPLIER
-  );
+  const { mineToken, transactionLoading, darkXBalance, tokenBalance } =
+    useMining(
+      TOKEN_OPTIONS[selectedToken],
+      value,
+      proof.length > 0 ? MULTIPLIER * 2 : MULTIPLIER
+    );
 
   const handleMine = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
