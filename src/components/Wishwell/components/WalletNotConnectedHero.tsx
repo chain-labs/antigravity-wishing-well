@@ -100,7 +100,7 @@ export default function WalletNotConnectedHero({
 							initial={{ opacity: 0 }}
 							transition={{ duration: 0.5 }}
 							ref={youtubeModelContainerRef}
-							className="absolute inset-0 bg-[#030404A8] flex justify-center items-center p-[16px] w-full h-full"
+							className="fixed inset-0 bg-[#030404A8] flex justify-center items-center p-[16px] w-full h-full z-30 backdrop-blur-sm"
 						>
 							<motion.div
 								exit={{ y: "100vh" }}
