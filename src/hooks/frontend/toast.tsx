@@ -4,7 +4,7 @@ import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from "@/assets/imageKit";
 var uniqid = require("uniqid");
 
 const GLOBALS = {
-	duration: 300000,
+	duration: 3000,
 	position: "bottom-right",
 	style: {
 		width: "400px",

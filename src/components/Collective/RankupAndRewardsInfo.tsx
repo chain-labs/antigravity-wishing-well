@@ -3,6 +3,7 @@ import H1 from "../HTML/H1";
 import P from "../HTML/P";
 import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function RankupAndRewardsInfo() {
 	return (
@@ -26,7 +27,12 @@ export default function RankupAndRewardsInfo() {
 						rewards.
 					</P>
 				</div>
-				<div className="hidden xl:block absolute right-0 top-0 w-[140%] h-[100%] [clip-path:polygon(25%_0%,100%_0%,100%_100%,0%_100%)] z-[-1] bg-agblack opacity-50"></div>
+				<motion.div
+					whileInView={{ width: "140%" }}
+					initial={{ width: "0%" }}
+					transition={{ duration: 0.75, type: "spring" }}
+					className="hidden xl:block absolute right-0 top-0 h-[100%] [clip-path:polygon(25%_0%,100%_0%,100%_100%,0%_100%)] z-[-1] bg-agblack opacity-50"
+				></motion.div>
 			</div>
 			<div className="block xl:hidden absolute h-full w-full inset-0 bg-gradient-to-t from-[#000] via-[#000000a0] to-[#00000000] z-[-1]"></div>
 			<Image

@@ -3,6 +3,7 @@ import H1 from "../HTML/H1";
 import P from "../HTML/P";
 import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function PointsAndMultiplierInfo() {
 	return (
@@ -71,7 +72,12 @@ export default function PointsAndMultiplierInfo() {
 					<br />
 					The multipliers double if you participate in all 3 Eras.
 				</P>
-				<div className="hidden xl:block absolute left-0 top-0 w-[120%] h-[100%] [clip-path:polygon(0%_0%,100%_0%,75%_100%,0%_100%)] z-[-1] bg-agblack opacity-50"></div>
+				<motion.div
+					whileInView={{ width: "120%" }}
+					initial={{ width: "0%" }}
+					transition={{ duration: 0.75, type: "spring"  }}
+					className="hidden xl:block absolute left-0 top-0 h-[100%] [clip-path:polygon(0%_0%,100%_0%,75%_100%,0%_100%)] z-[-1] bg-agblack opacity-50"
+				></motion.div>
 			</div>
 			<div className="block xl:hidden absolute h-full w-full inset-0 bg-gradient-to-b from-[#000] to-[#00000000] z-[-1]"></div>
 			<Image

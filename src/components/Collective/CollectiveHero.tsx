@@ -27,6 +27,7 @@ import {
 } from "wagmi";
 import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import Leaderboard from "./Leaderboard";
+import { motion } from "framer-motion";
 
 // Use a function to get the latest block number
 async function getLatestBlockNumber(publicClient: PublicClient) {
@@ -286,9 +287,14 @@ export default function CollectiveHero() {
 					isRegistered={isRegistered}
 				/>
 			</div>
-			<div className="hidden lg:block w-full h-fit max-w-[1200px]">
+			<motion.div
+				animate={{ y: 0 }}
+				initial={{ y: "100vh" }}
+				transition={{ duration: 1, type: "spring", bounce: 0.25, delay: 1.5 }}
+				className="hidden lg:block w-full h-fit max-w-[1200px]"
+			>
 				<Leaderboard accountIsConnected />
-			</div>
+			</motion.div>
 			<Image
 				src={IMAGEKIT_IMAGES.COLLECTIVE_HERO_BG}
 				alt="Collective Hero Background"

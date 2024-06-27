@@ -25,6 +25,7 @@ import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { base, pulsechain } from "viem/chains";
 import { TokenDropdownTypes } from "./types";
 import useMining from "@/hooks/sc-fns/useMining";
+import { AnimatePresence, motion } from "framer-motion";
 
 type StateType = "No NFT" | "NFT Present" | "Claiming";
 
@@ -288,14 +289,14 @@ function NonContributed({
 				iconAlt="hammer"
 				onClick={handleMine}
 				loading={isLoading}
-        className="mx-auto"
+				className="mx-auto"
 			/>
 			<div className="flex flex-col justify-center items-center p-[8px] rounded-[6px] bg-[#030404A8] w-full">
 				<CountdownTimer
 					state={timerState}
 					fontDesktopSize={56}
 					counterSubtitleClassName="text-[16px] leading-[19.84px] md:text-[16px] md:leading-[19.84px] text-agwhite"
-          containerClassName="text-[16px] leading-[19.84px] md:text-[16px] md:leading-[19.84px]"
+					containerClassName="text-[16px] leading-[19.84px] md:text-[16px] md:leading-[19.84px]"
 				/>
 			</div>
 		</div>
@@ -324,22 +325,51 @@ export default function MiningHero() {
 						/>
 					)}
 				</div>
-				{NFTHover && (
-					<div
-						ref={NFTContainerRef}
-						className="fixed top-0 left-0 w-screen h-screen bg-gradient-to-b from-[#ffffff1f] to-[#ffffff1f] flex justify-center items-center z-10 backdrop-blur-sm"
-					>
-						<div ref={NFTRef}>
-							<Image
-								src={IMAGEKIT_IMAGES.NFT_RECEIPT}
-								width={265}
-								height={481}
-								alt="NFT receipt"
-								className="object-cover w-[250px] md:w-[290px]"
-							/>
-						</div>
-					</div>
-				)}
+				<AnimatePresence>
+					{NFTHover && (
+						<motion.div
+							exit={{
+								opacity: 0,
+							}}
+							animate={{
+								opacity: 1,
+							}}
+							initial={{
+								opacity: 0,
+							}}
+							transition={{
+								duration: 0.5,
+							}}
+							ref={NFTContainerRef}
+							className="fixed top-0 left-0 w-screen h-screen bg-gradient-to-b from-[#ffffff1f] to-[#ffffff1f] flex justify-center items-center z-10 backdrop-blur-sm"
+						>
+							<motion.div
+								exit={{
+									y: "100vh",
+								}}
+								animate={{
+									y: 0,
+								}}
+								initial={{
+									y: "100vh",
+								}}
+								transition={{
+									duration: 0.5,
+									type: "spring",
+								}}
+								ref={NFTRef}
+							>
+								<Image
+									src={IMAGEKIT_IMAGES.NFT_RECEIPT}
+									width={265}
+									height={481}
+									alt="NFT receipt"
+									className="object-cover w-[250px] md:w-[290px]"
+								/>
+							</motion.div>
+						</motion.div>
+					)}
+				</AnimatePresence>
 				<Image
 					src={IMAGEKIT_IMAGES.MINING_BG}
 					height={1080}

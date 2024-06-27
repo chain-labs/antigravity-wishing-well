@@ -254,7 +254,6 @@ const Header = () => {
       setIsRegistered(true);
     }
   }, [registerFetched]);
-
 	return (
 		<motion.header
 			whileInView={{ y: 0 }}
@@ -286,17 +285,17 @@ const Header = () => {
 						<div
 							className={`relative flex justify-center items-center font-extrabold text-lg font-sans gap-[16px] oveflow-hidden`}
 						>
-							<a href="/wishwell">
+							<a href={location.pathname === "/wishwell" ? "#" : "/wishwell"}>
 								<P uppercase gradient extrabold className="font-sans font-extrabold">
 									Wishwell
 								</P>
 							</a>
-							<a href="/mining">
+							<a href={location.pathname === "/mining" ? "#" : "/mining"}>
 								<P uppercase gradient extrabold className="font-sans font-extrabold">
 									Mining
 								</P>
 							</a>
-							<a href="/collective">
+							<a href={location.pathname === "/collective" ? "#" : "/collective"}>
 								<P uppercase gradient extrabold className="font-sans font-extrabold">
 									Collective
 								</P>
@@ -363,17 +362,17 @@ const Header = () => {
 					<div className="flex text-agwhite w-full xl:h-16 rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px] overflow-hidden">
 						<div className="w-full h-full bg-agblack px-8 flex flex-col items-center justify-center rounded-lg gap-6 py-4">
 							{account.isConnected && <UserConnected />}
-							<a href="/wishwell">
+							<a href={location.pathname === "/wishwell" ? "#" : "/wishwell"}>
 								<P uppercase gradient extrabold className="font-sans font-extrabold">
 									Wishwell
 								</P>
 							</a>
-							<a href="/mining">
+							<a href={location.pathname === "/mining" ? "#" : "/mining"}>
 								<P uppercase gradient extrabold className="font-sans font-extrabold">
 									Mining
 								</P>
 							</a>
-							<a href="/collective">
+							<a href={location.pathname === "/collective" ? "#" : "/collective"}>
 								<P uppercase gradient extrabold className="font-sans font-extrabold">
 									Collective
 								</P>

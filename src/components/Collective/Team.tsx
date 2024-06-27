@@ -2,8 +2,10 @@ import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import H1 from "../HTML/H1";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion"; 
 
 export default function Team() {
+
 	return (
 		<div className="flex flex-col justify-center items-center gap-[48px] max-w-[1000px] mx-auto  p-[16px] my-[75px]">
 			<H1 className="text-agwhite" center>
