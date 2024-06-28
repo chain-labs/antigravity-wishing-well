@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { TEST_NETWORK } from "@/constants";
 import { base, pulsechain, baseSepolia } from "viem/chains";
 import dynamic from "next/dynamic";
+import ReactLenis from "lenis/react";
 
 const CollectivePage = dynamic(() => import("./CollectivePage"), {
 	ssr: false,
@@ -48,13 +49,15 @@ export default function Wishwell() {
 	}, [account.chainId]);
 
 	return (
-		<main className="min-h-screen">
-			<div className="z-[0]">
-				<div className="z-[100]">
-					<LoadingPage contentLoaded={!loading} />
+		<ReactLenis root>
+			<main className="min-h-screen">
+				<div className="z-[0]">
+					<div className="z-[100]">
+						<LoadingPage contentLoaded={!loading} />
+					</div>
+					<CollectivePage />
 				</div>
-				<CollectivePage />
-			</div>
-		</main>
+			</main>
+		</ReactLenis>
 	);
 }
