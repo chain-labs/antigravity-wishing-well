@@ -7,3 +7,10 @@ export type TokenDropdownTypes = {
   lightIcon: string | StaticImport;
   darkIcon: string | StaticImport;
 };
+
+export type IToken = TokenDropdownTypes & {
+  chainId: number;
+  decimals: number;
+};
+
+export type StateType = "Mining" | "Claiming";

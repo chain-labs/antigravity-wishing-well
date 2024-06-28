@@ -49,9 +49,10 @@ export const IMAGEKIT_ICONS = {
 	BOOK: `${IMAGEKIT_ICONS_URL}/book.svg`,
 	DOCUMENT: `${IMAGEKIT_ICONS_URL}/document.svg`,
 	HALF_CIRCLE_FILL: `${IMAGEKIT_ICONS_URL}/half-circle-fill.svg`,
-	YOUTUBE: `${IMAGEKIT_ICONS_URL}/youtube.svg`,
+	YOUTUBE: `${IMAGEKIT_ICONS_URL}/youtube.svg?updatedAt=1719395680831`,
 	TIKTOK: `${IMAGEKIT_ICONS_URL}/tiktok.svg`,
 	INSTAGRAM: `${IMAGEKIT_ICONS_URL}/instagram.svg`,
+	CALENDAR: `${IMAGEKIT_ICONS_URL}/calendar.svg`,
 };
 
 export const IMAGEKIT_IMAGES = {

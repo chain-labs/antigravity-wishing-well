@@ -1,14 +1,14 @@
 "use client";
 
 import P from "@/components/HTML/P";
-import Pill from "../Pill";
 import { twMerge } from "tailwind-merge";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import Badge from "../Badge";
-import Dropdown from "../Dropdown";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
-import { TokenDropdownTypes } from "./types";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import Dropdown from "@/components/Dropdown";
+import Badge from "@/components/Badge";
+import Pill from "@/components/Pill";
+import { TokenDropdownTypes } from "./types";
 
 export function InputCard({
   inputValue,
@@ -33,51 +33,34 @@ export function InputCard({
           type="text"
           value={inputValue}
           onChange={(e) => {
-            const inputCurrentValue = e.target.value
-              .replace(/[^0-9.]/g, "")
-              .replace(/(\..*?)\..*/g, "$1");
+            let inputCurrentValue = e.target.value;
 
-            if (inputCurrentValue === "") {
-              setCurrentInputValue("0");
+            // Remove any non-numeric characters except the decimal point
+            inputCurrentValue = inputCurrentValue.replace(/[^0-9.]/g, "");
+
+            // Ensure only one decimal point
+            const parts = inputCurrentValue.split(".");
+            if (parts.length > 2) {
+              inputCurrentValue = parts[0] + "." + parts.slice(1).join("");
             }
 
-            if (
-              inputCurrentValue.charAt(inputCurrentValue.length - 1) === "."
-            ) {
-              let occuredOnce = false;
-              for (let i = 0; i < inputCurrentValue.length; i++) {
-                if (inputCurrentValue.charAt(i) === ".") {
-                  if (occuredOnce) {
-                    setCurrentInputValue(inputCurrentValue.slice(0, i));
-                    return;
-                  }
-                  occuredOnce = true;
-                }
-              }
+            // Handle empty input
+            if (inputCurrentValue === "") {
+              setCurrentInputValue("0");
+              return;
+            }
+
+            // Allow input ending with a decimal point
+            if (inputCurrentValue.endsWith(".")) {
               setCurrentInputValue(inputCurrentValue);
               return;
             }
 
-            if (
-              isNaN(
-                parseFloat(
-                  inputCurrentValue.charAt(inputCurrentValue.length - 1)
-                )
-              )
-            ) {
-              console.log(
-                "inputValue.charAt(inputValue.length - 1)",
-                inputCurrentValue.charAt(inputCurrentValue.length - 1)
-              );
-              return;
-            }
-
+            // Validate the number
             const numberValue = parseFloat(inputCurrentValue);
 
             if (!isNaN(numberValue) && numberValue >= 0) {
-              setCurrentInputValue(
-                pointsConverterToUSCommaseparated(numberValue) ?? "0"
-              );
+              setCurrentInputValue(inputCurrentValue);
             }
           }}
         />
@@ -118,9 +101,9 @@ export function Card({
   onlyValue?: boolean;
 }) {
   return (
-    <div className="flex justify-between bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-full border-[1px] border-agyellow">
-      <div className="flex flex-col justify-start items-start gap-[8px] w-full">
-        <div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans max-w-[10ch]">
+    <div className="flex justify-between gap-[16px] bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-fit min-w-full border-[1px] border-agyellow">
+      <div className="flex flex-col justify-start items-start gap-[8px] w-fit">
+        <div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
           {value}
         </div>
         {onlyValue ? null : (
@@ -230,7 +213,7 @@ export default function MiningCalculator({
     const value = Number(currentValue.replace(/,/g, ""));
     if (!isNaN(value) && value >= 0) {
       const usdValue = value * inputOptions[selectedOption].USDvalue;
-      setUSDValue(Number(usdValue.toFixed(2)));
+      setUSDValue(Number(usdValue));
       setValue(value);
     }
   }, [currentValue, conversionRateToUSD, selectedOption, inputOptions]);
@@ -238,12 +221,6 @@ export default function MiningCalculator({
   useEffect(() => {
     setCurrentValue(pointsConverterToUSCommaseparated(value));
   }, [value]);
-
-  useEffect(() => {
-    if (selectedOption) {
-      setSelectedToken(selectedOption);
-    }
-  }, [selectedOption]);
 
   return (
     <div className="relative flex flex-col gap-[8px] h-fit w-[400px]">
@@ -283,9 +260,7 @@ export default function MiningCalculator({
         ></div>
       </div>
       <Card
-        value={pointsConverterToUSCommaseparated(
-          Number((USDValue * multiplyer).toFixed(2))
-        )}
+        value={pointsConverterToUSCommaseparated(Number(USDValue * multiplyer))}
         conversion={`$${pointsConverterToUSCommaseparated(USDValue)}`}
         multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
         pillIconAlt="points"
@@ -293,9 +268,7 @@ export default function MiningCalculator({
         pillText="Points"
       />
       <Card
-        value={pointsConverterToUSCommaseparated(
-          Number((USDValue * multiplyer).toFixed(2))
-        )}
+        value={pointsConverterToUSCommaseparated(Number(USDValue * multiplyer))}
         conversion={`$${pointsConverterToUSCommaseparated(USDValue)}`}
         multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
         pillIconAlt="dark x"

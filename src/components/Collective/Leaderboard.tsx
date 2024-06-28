@@ -17,44 +17,16 @@ import { useAccount } from "wagmi";
 import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from "@/assets/imageKit";
 
 function CollectiveLogo() {
-	const [hover, setHover] = useState(false);
 	return (
-		<AnimatePresence>
-			<a
-				onMouseLeave={() => setHover(false)}
-				href="/collective"
-				className="flex justify-start items-center gap-2 absolute bottom-0 right-0 lg:left-[10%] lg:top-0 z-[100] lg:translate-y-[-100%] h-fit w-fit"
-			>
-				<Image
-					src={IMAGEKIT_LOGOS.COLLECTIVE_COLOR_LOGO}
-					alt="leaderboard background"
-					width={294}
-					height={382}
-					className="object-fit opacity-25 lg:opacity-50 w-[100px] lg:w-[294px] h-[100px] lg:h-[382px]"
-				/>
-
-				<motion.div
-					animate={{
-						width: hover ? "fit-content" : 0,
-						padding: hover
-							? "8px 16px 8px 16px"
-							: "8px 0px 8px 0px",
-					}}
-					initial={{
-						width: "0%",
-						padding: "0px 0px 0px 0px",
-					}}
-					exit={{
-						width: "0%",
-						padding: "0px 0px 0px 0px",
-					}}
-					transition={{ duration: 0.2 }}
-					className="rounded-[6px] px-[16px] py-[8px] bg-agyellow text-black font-general-sans font-extrabold overflow-hidden whitespace-nowrap hidden lg:block"
-				>
-					Go to The Collective →
-				</motion.div>
-			</a>
-		</AnimatePresence>
+		<div className="flex justify-start items-center gap-2 absolute bottom-0 right-0 lg:left-[10%] lg:top-0 z-[100] lg:translate-y-[-100%] h-fit w-fit">
+			<Image
+				src={IMAGEKIT_LOGOS.COLLECTIVE_COLOR_LOGO}
+				alt="leaderboard background"
+				width={294}
+				height={382}
+				className="object-fit opacity-25 lg:opacity-50 w-[100px] lg:w-[294px] h-[100px] lg:h-[382px]"
+			/>
+		</div>
 	);
 }
 
@@ -126,7 +98,7 @@ const tableData: tableDataType[] = [
 		badge: "Specialist Technician",
 		wallet: "0x1234567890abcdef1234567890abcdef12345678",
 		points: 90000,
-	}
+	},
 ];
 
 export default function Leaderboard({
@@ -155,8 +127,8 @@ export default function Leaderboard({
 			after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-agblack after:rounded-[inherit] after:overflow-hidden
         "
 			>
-				<div className="flex flex-col gap-[16px] w-full">
-					<div className="flex flex-wrap justify-start items-center gap-[16px]">
+				<div className="flex flex-col w-full">
+					<div className="flex flex-col md:flex-row flex-wrap justify-start items-start md:items-center gap-[16px]">
 						<H1>Leaderboard</H1>
 						<Button
 							innerText="Refresh"
