@@ -31,10 +31,9 @@ export default function Form({
 		const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 		if (nameRegex.test(name) && emailRegex.test(email)) {
-			console.log("Name and email are valid");
 			setSuccess(true);
 		} else {
-			console.log("Name and email are invalid");
+			alert("Please enter a valid name and email.");
 		}
 	}
 

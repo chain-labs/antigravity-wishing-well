@@ -162,17 +162,17 @@ function Badge({
   children: React.ReactNode;
   special?: boolean;
 }) {
-  return (
-    <div
-      className={twMerge(
-        "text-[12px] leading-[12px] relative flex items-center gap-[8px] justify-center font-sans font-extrabold text-agwhite cursor-pointer rounded-full py-[4px] px-[8px] border-2 uppercase tracking-widest w-fit",
-        special &&
-          "text-agyellow font-extrabold bg-gradient-to-b from-[#0A1133] to-[#142266] border-none"
-      )}
-    >
-      {children}
-    </div>
-  );
+	return (
+		<div
+			className={twMerge(
+				"text-[12px] leading-[12px] relative flex items-center gap-[8px] justify-center font-sans font-extrabold text-agwhite cursor-pointer rounded-full py-[4px] px-[8px] border-2 uppercase tracking-widest w-fit",
+				special &&
+					"text-[12px] leading-[13.88px] pt-[5px] text-agyellow font-extrabold bg-gradient-to-b from-[#0A1133] to-[#142266] border-none"
+			)}
+		>
+			{children}
+		</div>
+	);
 }
 
 function Rank({
@@ -184,34 +184,38 @@ function Rank({
   wallet: string;
   special?: boolean;
 }) {
-  const iconLink = `@/assets/icons/${
-    special ? "wallet-black.svg" : "wallet.svg"
-  }`;
-  return (
-    <TD special={special} border>
-      #{rank} <Badge special={special}>Specialist Technician</Badge>
-      <div className="flex gap-[4px] justify-start items-center lg:hidden text-[18px] lg:text-[14px]">
-        {special ? (
-          <Image
-            src={IMAGEKIT_ICONS.WALLET_BLACK}
-            alt="wallet icon"
-            width={25}
-            height={25}
-            className="object-cover"
-          />
-        ) : (
-          <Image
-            src={IMAGEKIT_ICONS.WALLET_WHITE}
-            alt="hammer icon"
-            width={25}
-            height={25}
-            className={twMerge("object-cover")}
-          />
-        )}
-        {truncatinator(wallet)}
-      </div>
-    </TD>
-  );
+	const iconLink = `@/assets/icons/${special ? "wallet-black.svg" : "wallet.svg"}`;
+	return (
+		<TD special={special} border>
+			#{rank} <Badge special={special}>Specialist Technician</Badge>
+			<div
+				className={`flex gap-[4px] justify-start items-center lg:hidden ${
+					special
+						? "text-[22px] leading-[28.6px] md:text-[18px] md:leading-[23.6px]"
+						: "text-[18px] leading-[23.4px]"
+				}`}
+			>
+				{special ? (
+					<Image
+						src={IMAGEKIT_ICONS.WALLET_BLACK}
+						alt="wallet icon"
+						width={25}
+						height={25}
+						className="object-cover"
+					/>
+				) : (
+					<Image
+						src={IMAGEKIT_ICONS.WALLET_WHITE}
+						alt="hammer icon"
+						width={25}
+						height={25}
+						className={twMerge("object-cover")}
+					/>
+				)}
+				{truncatinator(wallet)}
+			</div>
+		</TD>
+	);
 }
 
 function pointsConverterToUSCommaseparated(points: number) {
@@ -242,41 +246,45 @@ export default function Table({ tableData }: { tableData: tableDataType[] }) {
                             <TH key={idx} icon={header.icon} heading={header.heading} className={header.className} />
                         ))
                     } */}
-          <TH icon={IMAGEKIT_ICONS.LEADERBOARD} heading="Rank" />
-          <TH
-            icon={IMAGEKIT_ICONS.WALLET_WHITE}
-            heading="Wallet"
-            className="hidden lg:flex"
-          />
-          <TH icon={IMAGEKIT_ICONS.POINTS} heading="Points" />
-        </TR>
-      </thead>
-      <tbody className="text-lg font-medium font-general-sans text-agwhite">
-        {tableData.map((data, idx) =>
-          data !== null ? (
-            <TR key={idx} special={data.special ?? false}>
-              <Rank
-                rank={data.rank}
-                wallet={data.wallet}
-                special={data.special ?? false}
-              />
-              <TD truncate special={data.special ?? false}>
-                {data.wallet}
-              </TD>
-              <TD
-                special={data.special ?? false}
-                // className=`text-[18px] lg:text-[14px]`
-              >
-                {pointsConverterToUSCommaseparated(data.points)}
-              </TD>
-            </TR>
-          ) : (
-            <TR key={idx} className="h-[2.5rem]" empty>
-              <></>
-            </TR>
-          )
-        )}
-      </tbody>
-    </table>
-  );
+					<TH icon={IMAGEKIT_ICONS.LEADERBOARD} heading="Rank" />
+					<TH
+						icon={IMAGEKIT_ICONS.WALLET_WHITE}
+						heading="Wallet"
+						className="hidden lg:flex"
+					/>
+					<TH icon={IMAGEKIT_ICONS.POINTS} heading="Points" />
+				</TR>
+			</thead>
+			<tbody className="text-lg font-medium font-general-sans text-agwhite">
+				{tableData.map((data, idx) =>
+					data !== null ? (
+						<TR key={idx} special={data.special ?? false}>
+							<Rank
+								rank={data.rank}
+								wallet={data.wallet}
+								special={data.special ?? false}
+							/>
+							<TD truncate special={data.special ?? false}>
+								{data.wallet}
+							</TD>
+							<TD
+								special={data.special ?? false}
+								className={
+									data.special
+										? "text-[22px] leading-[28.6px] md:text-[18px] md:leading-[23.6px]"
+										: "md:text-[14px] md:leading-[18.2px] text-[18px] leading-[23.6px]"
+								}
+							>
+								{pointsConverterToUSCommaseparated(data.points)}
+							</TD>
+						</TR>
+					) : (
+						<TR key={idx} className="h-[2.5rem]" empty>
+							<></>
+						</TR>
+					)
+				)}
+			</tbody>
+		</table>
+	);
 }

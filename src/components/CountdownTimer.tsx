@@ -2,6 +2,7 @@
 
 import DynamicNumberCounter from "@/components/Home/components/spinner/DynamicNumberCounter";
 import { useEffect, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 const eraToNumber = {
 	wishwell: 1,
@@ -13,6 +14,8 @@ export default function CountdownTimer({
 	state,
 	fontDesktopSize = 60,
 	fontMobileSize = 48,
+	containerClassName,
+	counterSubtitleClassName,
 }: {
 	fontDesktopSize?: number;
 	fontMobileSize?: number;
@@ -24,6 +27,8 @@ export default function CountdownTimer({
 		phase: 1 | 2 | 3;
 		era: "wishwell" | "mining" | "minting";
 	};
+	containerClassName?: string;
+	counterSubtitleClassName?: string;
 }) {
 	const [phase, setPhase] = useState(1);
 	const [era, setEra] = useState(1);
@@ -43,7 +48,12 @@ export default function CountdownTimer({
 
 	return (
 		<>
-			<div className="tracking-widest uppercase text-2xl text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
+			<div
+				className={twMerge(
+					"tracking-widest uppercase text-2xl text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text",
+					containerClassName
+				)}
+			>
 				ETA for era {era} phase {phase}
 			</div>
 			<div className="relative flex gap-2 md:gap-3 text-agyellow font-sans">
@@ -70,7 +80,12 @@ export default function CountdownTimer({
 							boxPixelSize={fontMobileSize}
 						/>
 					</h1>
-					<p className="text-lg md:text-xl uppercase font-extrabold tracking-widest">
+					<p
+						className={twMerge(
+							"text-lg md:text-xl uppercase font-extrabold tracking-widest",
+							counterSubtitleClassName
+						)}
+					>
 						Days
 					</p>
 				</div>
@@ -98,7 +113,12 @@ export default function CountdownTimer({
 							boxPixelSize={fontMobileSize}
 						/>
 					</h1>
-					<p className="text-xl uppercase font-extrabold tracking-widest">
+					<p
+						className={twMerge(
+							"text-lg md:text-xl uppercase font-extrabold tracking-widest",
+							counterSubtitleClassName
+						)}
+					>
 						Hours
 					</p>
 				</div>
@@ -126,7 +146,12 @@ export default function CountdownTimer({
 							boxPixelSize={fontMobileSize}
 						/>
 					</h1>
-					<p className="text-lg md:text-xl uppercase font-extrabold tracking-widest">
+					<p
+						className={twMerge(
+							"text-lg md:text-xl uppercase font-extrabold tracking-widest",
+							counterSubtitleClassName
+						)}
+					>
 						Mins
 					</p>
 				</div>
@@ -154,7 +179,12 @@ export default function CountdownTimer({
 							boxPixelSize={fontMobileSize}
 						/>
 					</h1>
-					<p className="text-lg md:text-xl uppercase font-extrabold tracking-widest">
+					<p
+						className={twMerge(
+							"text-lg md:text-xl uppercase font-extrabold tracking-widest",
+							counterSubtitleClassName
+						)}
+					>
 						Secs
 					</p>
 				</div>

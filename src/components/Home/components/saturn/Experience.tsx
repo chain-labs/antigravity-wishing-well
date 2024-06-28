@@ -64,11 +64,9 @@ export default function Experience() {
 
 		window.addEventListener("resize", () => {
 			if (window.innerWidth < 1200) {
-				console.log("smaller view port detected");
 				setSmallerViewPort(true);
 				setProgress(0);
 			} else {
-				console.log("larger view port detected");
 				setSmallerViewPort(false);
 			}
 		});

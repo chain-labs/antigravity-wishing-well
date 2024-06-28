@@ -2,10 +2,12 @@ import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import H1 from "../HTML/H1";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion"; 
 
 export default function Team() {
+
 	return (
-		<div className="flex flex-col justify-center items-center gap-[48px] max-w-[1000px] mx-auto min-h-screen p-[16px] my-[50px]">
+		<div className="flex flex-col justify-center items-center gap-[48px] max-w-[1000px] mx-auto  p-[16px] my-[75px] [text-shadow:_0_2px_2px_rgb(0_0_0_/_60%)]">
 			<H1 className="text-agwhite" center>
 				We&apos;re an amazing team of 3. Here&apos;s some more copy
 				about us that will amaze you.
@@ -26,7 +28,7 @@ export default function Team() {
 						/>
 					</div>
 
-					<p className="text-agwhite font-sans font-extrabold text-[20px] leading-[19.2px]">
+					<p className="text-agwhite font-sans font-extrabold text-[20px] leading-[19.2px] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%)]">
 						@PulseRayVision
 					</p>
 					<div
@@ -75,7 +77,7 @@ export default function Team() {
 						/>
 					</div>
 
-					<p className="text-agwhite font-sans font-extrabold text-[20px] leading-[19.2px]">
+					<p className="text-agwhite font-sans font-extrabold text-[20px] leading-[19.2px] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%)]">
 						@Don
 					</p>
 					<div
@@ -109,7 +111,7 @@ export default function Team() {
 						</Link>
 					</div>
 				</div>
-				<div className="flex flex-col justify-center items-center gap-[16px]">
+				<div className="flex flex-col justify-center items-center gap-[16px] [text-shadow:_0_2px_2px_rgb(0_0_0_/_60%)]">
 					<div
 						className="relative w-[145px] h-[145px] bg-agblack rounded-[8px] border-4 border-transparent bg-clip-padding z-0
                     before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-bl before:from-[#3C00DC] before:to-[#FF5001] before:rounded-[inherit] before:overflow-hidden before:m-[-4px]
@@ -124,7 +126,7 @@ export default function Team() {
 						/>
 					</div>
 
-					<p className="text-agwhite font-sans font-extrabold text-[20px] leading-[19.2px]">
+					<p className="text-agwhite font-sans font-extrabold text-[20px] leading-[19.2px] [text-shadow:_0_2px_2px_rgb(0_0_0_/_60%)]">
 						Cody Smith
 					</p>
 					<div

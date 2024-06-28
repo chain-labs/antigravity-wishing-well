@@ -19,7 +19,6 @@ export default function Dropdown({
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    console.log("selected", selected);
   }, [selected]);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {

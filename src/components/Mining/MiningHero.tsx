@@ -1,15 +1,15 @@
 import {
-  IMAGEKIT_ICONS,
-  IMAGEKIT_IMAGES,
-  IMAGEKIT_LOGOS,
+	IMAGEKIT_ICONS,
+	IMAGEKIT_IMAGES,
+	IMAGEKIT_LOGOS,
 } from "@/assets/imageKit";
 import Button from "@/components/Button";
 import CountdownTimer from "@/components/CountdownTimer";
 import H1 from "@/components/HTML/H1";
 import P from "@/components/HTML/P";
 import MiningCalculator, {
-  pointsConverterToUSCommaseparated,
-} from "./MiningCalculator";
+	pointsConverterToUSCommaseparated,
+} from "@/components/Mining/MiningCalculator";
 import useTimer from "@/hooks/frontend/useTimer";
 import Image from "next/image";
 import React, {
@@ -39,33 +39,34 @@ import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { errorToast } from "@/hooks/frontend/toast";
 import useClaim from "@/hooks/sc-fns/useClaim";
 import { formatUnits } from "viem";
+import { AnimatePresence, motion } from "framer-motion";
 
 function NoNFTHero() {
-  return (
-    <div className="md:absolute top-0 left-0 md:translate-x-[calc(-100%-48px)] flex flex-col justify-start items-start gap-[16px] md:max-w-[220px] p-[16px] md:p-0">
-      <H1 className="text-agwhite text-[56px] leading-[53.76px] md:text-[64px] md:leading-[64px]">
-        Mining
-      </H1>
-      <P>
-        Everyone is going to say you got lucky!
-        <br />
-        <br />
-        Start mining with the recommended tokens and get Points and $DARKX
-        tokens.
-        <br />
-        <br />
-        Try the interactive demo! ➡️
-      </P>
-    </div>
-  );
+	return (
+		<div className="md:absolute top-0 left-0 md:translate-x-[calc(-100%-48px)] flex flex-col justify-start items-start gap-[16px] md:max-w-[220px] p-[16px] md:p-0">
+			<H1 className="text-agwhite text-[56px] leading-[53.76px] md:text-[64px] md:leading-[64px]">
+				Mining
+			</H1>
+			<P>
+				Everyone is going to say you got lucky!
+				<br />
+				<br />
+				Start mining with the recommended tokens and get Points and
+				$DARKX tokens.
+				<br />
+				<br />
+				Try the interactive demo! ➡️
+			</P>
+		</div>
+	);
 }
 
 function NFTHero({
-  NFTHover,
-  setNFTHover,
+	NFTHover,
+	setNFTHover,
 }: {
-  NFTHover: boolean;
-  setNFTHover: Dispatch<SetStateAction<boolean>>;
+	NFTHover: boolean;
+	setNFTHover: Dispatch<SetStateAction<boolean>>;
 }) {
   return (
     <>
@@ -112,30 +113,34 @@ function NFTHero({
 }
 
 function ContributedCard({
-  value,
-  pillText,
-  pillIconSrc,
-  pillIconAlt,
+	value,
+	pillText,
+	pillIconSrc,
+	pillIconAlt,
 }: {
-  value: number;
-  pillText: string;
-  pillIconSrc: string | StaticImport;
-  pillIconAlt: string;
+	value: number;
+	pillText: string;
+	pillIconSrc: string | StaticImport;
+	pillIconAlt: string;
 }) {
-  return (
-    <div
-      className="relative flex justify-between z-0 text-agwhite transition-all duration-300 ease-in-out bg-agblack rounded-[6px] px-[12px] py-[16px] w-full border-[1px]
+	return (
+		<div
+			className="relative flex justify-between z-0 text-agwhite transition-all duration-300 ease-in-out bg-agblack rounded-[6px] px-[12px] py-[16px] w-full border-[1px]
 		before:content-[''] before:absolute before:inset-0 before:z-[-10] md:before:bg-gradient-to-bl before:from-[#5537A5] before:to-[#BF6841] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
 		after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-gradient-to-b after:from-[#0A1133] after:to-[#142266] after:rounded-[inherit] after:overflow-hidden"
-    >
-      <H1 className="text-[32px] leading-[32px] md:text-[32px] md:leading-[32px]">
-        {pointsConverterToUSCommaseparated(value)}
-      </H1>
-      <div className="flex flex-col justify-center items-center">
-        <Pill text={pillText} iconSrc={pillIconSrc} iconAlt={pillIconAlt} />
-      </div>
-    </div>
-  );
+		>
+			<H1 className="text-[32px] leading-[32px] md:text-[32px] md:leading-[32px]">
+				{pointsConverterToUSCommaseparated(value)}
+			</H1>
+			<div className="flex flex-col justify-center items-center">
+				<Pill
+					text={pillText}
+					iconSrc={pillIconSrc}
+					iconAlt={pillIconAlt}
+				/>
+			</div>
+		</div>
+	);
 }
 
 function ContributedHero() {
@@ -272,17 +277,17 @@ function ContributedHero() {
 }
 
 function NonContributed({
-  state,
-  NFTHover,
-  setNFTHover,
-  NFTContainerRef,
-  NFTRef,
+	state,
+	NFTHover,
+	setNFTHover,
+	NFTContainerRef,
+	NFTRef,
 }: {
-  state: StateType;
-  NFTHover: boolean;
-  setNFTHover: Dispatch<SetStateAction<boolean>>;
-  NFTContainerRef: React.RefObject<HTMLDivElement>;
-  NFTRef: React.RefObject<HTMLDivElement>;
+	state: StateType;
+	NFTHover: boolean;
+	setNFTHover: Dispatch<SetStateAction<boolean>>;
+	NFTContainerRef: React.RefObject<HTMLDivElement>;
+	NFTRef: React.RefObject<HTMLDivElement>;
 }) {
   const [value, setValue] = useState(40000);
   const timerState = useTimer();
@@ -298,16 +303,16 @@ function NonContributed({
       }
     });
 
-    return () => {
-      document.removeEventListener("click", () => {});
-    };
-  }, [NFTHover, NFTContainerRef, NFTRef]);
+		return () => {
+			document.removeEventListener("click", () => {});
+		};
+	}, [NFTHover, NFTContainerRef, NFTRef]);
 
-  useEffect(() => {
-    document.body.style.overflow = NFTHover ? "hidden" : "auto";
-  }, [NFTHover]);
+	useEffect(() => {
+		document.body.style.overflow = NFTHover ? "hidden" : "auto";
+	}, [NFTHover]);
 
-  const [selectedToken, setSelectedToken] = useState(0);
+	const [selectedToken, setSelectedToken] = useState(0);
 
   const account = useAccount();
 
@@ -414,48 +419,77 @@ export default function MiningHero() {
   const NFTRef = useRef<HTMLDivElement>(null);
   const NFTContainerRef = useRef<HTMLDivElement>(null);
 
-  return (
-    <div className="relative w-full min-h-screen overflow-hidden">
-      <div className="bg-gradient-to-b from-[#000] h-fit to-[#0000] overflow-hidden">
-        <div className="flex flex-col justify-center items-center w-full h-[130vh] md:h-screen md:pt-[80px]">
-          {state === "Claiming" ? (
-            <ContributedHero />
-          ) : (
-            <NonContributed
-              state={state}
-              NFTContainerRef={NFTContainerRef}
-              NFTRef={NFTRef}
-              NFTHover={NFTHover}
-              setNFTHover={setNFTHover}
-            />
-          )}
-        </div>
-        {NFTHover && (
-          <div
-            ref={NFTContainerRef}
-            className="fixed top-0 left-0 w-screen h-screen bg-gradient-to-b from-[#ffffff1f] to-[#ffffff1f] flex justify-center items-center z-10 backdrop-blur-sm"
-          >
-            <div ref={NFTRef}>
-              <Image
-                src={IMAGEKIT_IMAGES.NFT_RECEIPT}
-                width={265}
-                height={481}
-                alt="NFT receipt"
-                className="object-cover w-[250px] md:w-[290px]"
-              />
-            </div>
-          </div>
-        )}
-        <Image
-          src={IMAGEKIT_IMAGES.MINING_BG}
-          height={1080}
-          width={1920}
-          alt="background"
-          layout="cover"
-          objectFit="cover"
-          className="absolute top-0 left-0 -z-[1] w-full h-[120%] object-[15%_50%] object-none md:w-full md:h-[110%] md:object-cover"
-        />
-      </div>
-    </div>
-  );
+	return (
+		<div className="relative w-full min-h-screen h-fit">
+			<div className="bg-gradient-to-b from-[#000] h-fit to-[#0000]">
+				<div className="flex flex-col justify-center items-center w-full h-fit pt-[30px] md:pt-[100px]">
+					{state === "Claiming" ? (
+						<ContributedHero />
+					) : (
+						<NonContributed
+							state={state}
+							NFTContainerRef={NFTContainerRef}
+							NFTRef={NFTRef}
+							NFTHover={NFTHover}
+							setNFTHover={setNFTHover}
+						/>
+					)}
+				</div>
+				<AnimatePresence>
+					{NFTHover && (
+						<motion.div
+							exit={{
+								opacity: 0,
+							}}
+							animate={{
+								opacity: 1,
+							}}
+							initial={{
+								opacity: 0,
+							}}
+							transition={{
+								duration: 0.5,
+							}}
+							ref={NFTContainerRef}
+							className="fixed top-0 left-0 w-screen h-screen bg-gradient-to-b from-[#ffffff1f] to-[#ffffff1f] flex justify-center items-center z-10 backdrop-blur-sm"
+						>
+							<motion.div
+								exit={{
+									y: "100vh",
+								}}
+								animate={{
+									y: 0,
+								}}
+								initial={{
+									y: "100vh",
+								}}
+								transition={{
+									duration: 0.5,
+									type: "spring",
+								}}
+								ref={NFTRef}
+							>
+								<Image
+									src={IMAGEKIT_IMAGES.NFT_RECEIPT}
+									width={265}
+									height={481}
+									alt="NFT receipt"
+									className="object-cover w-[250px] md:w-[290px]"
+								/>
+							</motion.div>
+						</motion.div>
+					)}
+				</AnimatePresence>
+				<Image
+					src={IMAGEKIT_IMAGES.MINING_BG}
+					height={1080}
+					width={1920}
+					alt="background"
+					layout="cover"
+					objectFit="cover"
+					className="absolute top-0 left-0 -z-[1] w-full h-[120%] object-[15%_50%] object-none md:w-full md:h-[110%] md:object-cover"
+				/>
+			</div>
+		</div>
+	);
 }

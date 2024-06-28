@@ -12,6 +12,7 @@ export default function Eras() {
 				backgroundImage={IMAGEKIT_IMAGES.WISHWELL}
 				animateFrom="left"
 				className="object-[50%_55%]"
+				cardExternalLink="/wishwell"
 			/>
 			<HeroItemCard
 				title="Mining"
@@ -19,6 +20,7 @@ export default function Eras() {
 				Here is a one or two line short description about this."
 				backgroundImage={IMAGEKIT_IMAGES.MINING}
 				animateFrom="right"
+				cardExternalLink="/mining"
 			/>
 			<HeroItemCard
 				title="The Collective"
@@ -27,6 +29,7 @@ export default function Eras() {
 				backgroundImage={IMAGEKIT_IMAGES.MINTING}
 				animateFrom="left"
 				className="object-[0px_25%]"
+				cardExternalLink="/collective"
 			/>
 		</div>
 	);

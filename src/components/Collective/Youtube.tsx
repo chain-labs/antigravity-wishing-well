@@ -1,14 +1,32 @@
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import Button from "../Button";
 import H1 from "../HTML/H1";
+import { useRef } from "react";
+import { useScroll, useTransform, motion, useSpring } from "framer-motion";
 
 export default function Youtube() {
+	const targetRef = useRef<HTMLDivElement>(null);
+	const { scrollYProgress } = useScroll({
+		target: targetRef,
+		offset: ["start end", "end start"],
+	});
+
+	const gap = useTransform(scrollYProgress, [0, 0.5], ["100px", "16px"]);
+
 	return (
-		<div className="flex flex-col md:flex-row justify-end items-end gap-[16px] mx-auto max-w-[992px] my-[150px] p-[16px]">
+		<motion.div
+			style={
+				{
+					"--gap": gap,
+				} as any
+			}
+			ref={targetRef}
+			className={`flex flex-col md:flex-row justify-end items-end gap-[--gap] mx-auto max-w-[992px] mb-[50px] p-[16px]`}
+		>
 			<div className="flex flex-col gap-[16px]">
 				<H1>
 					{" "}
-					PulseRayVision Kicking Off {" "}
+					PulseRayVision Kicking Off{" "}
 					<br className="hidden md:block" />
 					Era 2 of Antigravity
 				</H1>
@@ -51,6 +69,18 @@ export default function Youtube() {
 						iconSrc={IMAGEKIT_ICONS.DOCUMENT}
 						iconAlt="Dark Paper"
 						className="w-full md:w-fit"
+						initialIconMotionValues={{
+							rotate: 0,
+							scale: 1,
+						}}
+						whileHoverIconMotionValues={{
+							rotate: -15,
+							scale: 1.1,
+						}}
+						transitionIconMotionValues={{
+							duration: 0.25,
+							type: "spring",
+						}}
 					/>
 					<div className="flex gap-[8px]">
 						<Button
@@ -58,18 +88,31 @@ export default function Youtube() {
 							iconSrc={IMAGEKIT_ICONS.TELEGRAM}
 							iconAlt="Telegram"
 							secondary
-							className="bg-transparent border-[#FEFFFF40] shadow-[0_4px_0px_#FEFFFF40_!important] hover:shadow-[0_0px_0px_#FEFFFF40_!important] px-[10px] py-[6px] w-full md:w-fit"
+							className="bg-transparent origin-center border-[#FEFFFF40] shadow-[0_4px_0px_#FEFFFF40_!important] hover:shadow-[0_0px_0px_#FEFFFF40_!important] px-[10px] py-[6px] w-full md:w-fit"
 						/>
 						<Button
+							initialIconMotionValues={{
+								rotate: 0,
+								scale: 1,
+							}}
+							whileHoverIconMotionValues={{
+								rotate: -30,
+								scale: 1.1,
+							}}
+							transitionIconMotionValues={{
+								duration: 0.25,
+								type: "spring",
+								bounce: 1,
+							}}
 							innerText="Discord"
 							iconSrc={IMAGEKIT_ICONS.DISCORD}
 							iconAlt="Discord"
 							secondary
-							className="bg-transparent border-[#FEFFFF40] shadow-[0_4px_0px_#FEFFFF40_!important] hover:shadow-[0_0px_0px_#FEFFFF40_!important] px-[10px] py-[6px] w-full md:w-fit"
+							className="bg-transparent origin-bottom border-[#FEFFFF40] shadow-[0_4px_0px_#FEFFFF40_!important] hover:shadow-[0_0px_0px_#FEFFFF40_!important] px-[10px] py-[6px] w-full md:w-fit"
 						/>
 					</div>
 				</div>
 			</div>
-		</div>
+		</motion.div>
 	);
 }

@@ -7,17 +7,13 @@ import { useEffect, useState } from "react";
 import { TEST_NETWORK } from "@/constants";
 import { base, pulsechain, baseSepolia, sepolia } from "viem/chains";
 import dynamic from "next/dynamic";
-import ReactLenis from "lenis/react";
-import Lenis from "lenis";
 
 const Homepage = dynamic(() => import("./HomePage"), {
 	ssr: false,
-	loading: () => <>{console.log("loading homepage")}</>,
 });
 
 const LoadingPage = dynamic(() => import("./LoadingPage"), {
 	ssr: false,
-	loading: () => <>{console.log("loading loading page")}</>,
 });
 
 export default function Home() {
@@ -27,7 +23,6 @@ export default function Home() {
 	useEffect(() => {
 		if (window !== undefined) {
 			window.addEventListener("load", () => {
-				console.log("window loaded page");
 				setLoading(false);
 			});
 		}
@@ -48,21 +43,6 @@ export default function Home() {
 			}
 		}
 	}, [account.chainId]);
-
-	// useEffect(() => {
-	// 	const lenis = new Lenis();
-
-	// 	lenis.on("scroll", (e: any) => {
-	// 		console.log(e);
-	// 	});
-
-	// 	// function raf(time: any) {
-	// 	// 	lenis.raf(time);
-	// 	// 	requestAnimationFrame(raf);
-	// 	// }
-
-	// 	// requestAnimationFrame(raf);
-	// }, []);
 
 	return (
 		<main className="min-h-screen">

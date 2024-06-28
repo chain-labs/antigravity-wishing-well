@@ -20,10 +20,6 @@ export default function Hero() {
 		[-150, 0]
 	);
 
-	useEffect(() => {
-		console.log(scrollYProgress.get());
-	}, [scrollYProgress]);
-
 	return (
 		<div ref={targetRef} className="w-full h-full">
 			<motion.div
@@ -40,18 +36,21 @@ export default function Hero() {
 					description="Contribute to our WishWell to get the WishWell NFT + points."
 					backgroundImage={IMAGEKIT_IMAGES.WISHWELL}
 					animateFrom="left"
+					cardExternalLink="/wishwell"
 				/>
 				<HeroItemCard
 					title="Mining"
 					description="Start mining with supported tokens to get points + $DARKX tokens + the new Antigravity NFT."
 					backgroundImage={IMAGEKIT_IMAGES.MINING}
 					animateFrom="bottom"
+					cardExternalLink="/mining"
 				/>
 				<HeroItemCard
 					title="The Collective"
 					description="Learn how to leverage points, rank up & earn exciting rewards. Join The Collective!"
 					backgroundImage={IMAGEKIT_IMAGES.MINTING}
 					animateFrom="right"
+					cardExternalLink="/collective"
 				/>
 			</motion.div>
 		</div>

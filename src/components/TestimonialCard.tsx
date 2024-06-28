@@ -41,17 +41,17 @@ export default function TesimonialCard({
 					<Image
 						src={imageUrl}
 						alt={name}
-						width={50}
-						height={50}
-						className="rounded-full w-[50px] h-[50px] object-cover"
+						width={40}
+						height={40}
+						className="rounded-full w-[40px] h-[40px] object-cover"
 					/>
 				) : (
 					<Image
 						src={IMAGEKIT_LOGOS.COMMUNITY_LOGO}
 						alt={name}
-						width={50}
-						height={50}
-						className="rounded-full object-cover"
+						width={40}
+						height={40}
+						className="rounded-full object-cover w-[40px] h-[40px]"
 					/>
 				)}
 				<div className="flex flex-col gap-[4px]">
@@ -64,7 +64,7 @@ export default function TesimonialCard({
 				</div>
 			</div>
 			<div className="w-full h-[1px] bg-[#FEFFFF]"></div>
-			<P>&quot; {fullDescription} &quot;</P>
+			<P className="text-[14px] leading-[20.3px] md:font-bold">{"“"} {fullDescription} {"”"}</P>
 		</motion.a>
 	);
 }

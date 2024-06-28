@@ -18,13 +18,13 @@ import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from "@/assets/imageKit";
 
 function CollectiveLogo() {
 	return (
-		<div className="flex justify-start items-center gap-2 absolute bottom-0 right-0 lg:left-[10%] lg:top-0 z-[100] lg:translate-y-[-100%] h-fit w-fit">
+		<div className="flex justify-start items-center gap-2 absolute bottom-0 right-0 lg:left-[10%] lg:top-[-10%] z-[100] lg:translate-y-[-100%] h-fit w-fit">
 			<Image
 				src={IMAGEKIT_LOGOS.COLLECTIVE_COLOR_LOGO}
 				alt="leaderboard background"
 				width={294}
 				height={382}
-				className="object-fit opacity-25 lg:opacity-50 w-[100px] lg:w-[294px] h-[100px] lg:h-[382px]"
+				className="object-fit opacity-25 lg:opacity-50 w-[100px] lg:w-[294px] h-[100px] lg:h-[342px]"
 			/>
 		</div>
 	);
@@ -122,12 +122,12 @@ export default function Leaderboard({
 	return (
 		<div ref={targetRef}>
 			<motion.div
-				className="relative md:absolute md:bottom-0 md:left-1/2 md:translate-x-[-50%] md:translate-y-[50%] w-full max-w-[1200px] border-t-4 border-b-4 md:border-4  mt-[30px] bg-clip-padding border-transparent p-[16px] md:p-[32px] bg-agblack md:rounded-xl z-0
+				className="relative w-full max-w-[1200px] border-t-4 border-b-4 md:border-4 bg-clip-padding border-transparent p-[16px] md:p-[32px] bg-agblack md:rounded-xl z-0
             before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-bl before:from-[#5537A5] before:to-[#BF6841] before:rounded-[inherit] before:overflow-hidden before:m-[-2px]
 			after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-agblack after:rounded-[inherit] after:overflow-hidden
         "
 			>
-				<div className="flex flex-col w-full">
+				<div className="flex flex-col gap-[16px] w-full">
 					<div className="flex flex-col md:flex-row flex-wrap justify-start items-start md:items-center gap-[16px]">
 						<H1>Leaderboard</H1>
 						<Button
@@ -137,17 +137,25 @@ export default function Leaderboard({
 							secondary
 							disableSparkels
 							animateButton
+							initialIconMotionValues={{
+								rotate: 0,
+							}}
+							whileHoverIconMotionValues={{
+								rotate: 360,
+							}}
+							transitionIconMotionValues={{
+								duration: 0.25,
+							}}
 						/>
 					</div>
 
-					<div className="grid grid-cols-1 lg:grid-cols-3 w-full max-w-[100%] pt-6">
+					<div className="grid grid-cols-1 lg:grid-cols-3 w-full max-w-[100%]">
 						<div className="col-span-2 w-full rounded-[4px] border-[2px] border-[#414343] lg:border-none">
 							<Table tableData={tableData} />
 						</div>
 
 						<div className="relative flex flex-col w-full gap-4 lg:pl-6 place-self-end">
 							<CollectiveLogo />
-							<div className="h-full w-full"></div>
 							<div className="relative flex flex-col gap-[8px] p-4 rounded-xl overflow-hidden w-full z-0">
 								<div className="bg-[#3C00DC] absolute inset-0 -z-10 opacity-[25%]"></div>
 								<Image
@@ -165,6 +173,17 @@ export default function Leaderboard({
 									innerText="Start mining"
 									iconSrc={IMAGEKIT_ICONS.HAMMER}
 									iconAlt="hammer icon"
+									initialIconMotionValues={{
+										rotate: 0,
+										scale: 1,
+									}}
+									whileHoverIconMotionValues={{
+										rotate: 390,
+										scale: 1.35,
+									}}
+									transitionIconMotionValues={{
+										duration: 0.25,
+									}}
 								/>
 								<a href="/" className="text-agwhite underline">
 									<P>Best ways to rank up →</P>
