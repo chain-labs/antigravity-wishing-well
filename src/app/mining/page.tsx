@@ -10,12 +10,10 @@ import ReactLenis from "lenis/react";
 
 const MiningPage = dynamic(() => import("./MiningPage"), {
 	ssr: false,
-	loading: () => <>{console.log("loading homepage")}</>,
 });
 
 const LoadingPage = dynamic(() => import("../LoadingPage"), {
 	ssr: false,
-	loading: () => <>{console.log("loading loading page")}</>,
 });
 
 export default function Mining() {
@@ -28,7 +26,6 @@ export default function Mining() {
 	useEffect(() => {
 		if (window !== undefined) {
 			window.addEventListener("load", () => {
-				console.log("window loaded page");
 				setLoading(false);
 			});
 		}

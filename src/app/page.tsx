@@ -10,12 +10,10 @@ import dynamic from "next/dynamic";
 
 const Homepage = dynamic(() => import("./HomePage"), {
 	ssr: false,
-	loading: () => <>{console.log("loading homepage")}</>,
 });
 
 const LoadingPage = dynamic(() => import("./LoadingPage"), {
 	ssr: false,
-	loading: () => <>{console.log("loading loading page")}</>,
 });
 
 export default function Home() {
@@ -25,7 +23,6 @@ export default function Home() {
 	useEffect(() => {
 		if (window !== undefined) {
 			window.addEventListener("load", () => {
-				console.log("window loaded page");
 				setLoading(false);
 			});
 		}

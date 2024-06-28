@@ -20,10 +20,6 @@ export default function Hero() {
 		[-150, 0]
 	);
 
-	useEffect(() => {
-		console.log(scrollYProgress.get());
-	}, [scrollYProgress]);
-
 	return (
 		<div ref={targetRef} className="w-full h-full">
 			<motion.div

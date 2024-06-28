@@ -79,10 +79,8 @@ export default function Testimonials() {
 
 		window.addEventListener("resize", () => {
 			if (window.innerWidth < 1200) {
-				console.log("smaller view port detected");
 				setSmallerViewPort(true);
 			} else {
-				console.log("larger view port detected");
 				setSmallerViewPort(false);
 			}
 		});

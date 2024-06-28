@@ -18,11 +18,6 @@ import Image from "next/image";
 import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import { ReactLenis } from "lenis/react";
 
-// const Hero = dynamic(() => import("./sections/Hero"), {
-// 	ssr: false,
-// 	loading: () => <>{console.log("loading hero")}</>,
-// });
-
 export default function HomePage() {
 	const account = useAccount();
 	const [smallerViewPort, setSmallerViewPort] = useState<boolean>(false);
@@ -32,10 +27,8 @@ export default function HomePage() {
 
 		window.addEventListener("resize", () => {
 			if (window.innerWidth < 1200) {
-				console.log("smaller view port detected");
 				setSmallerViewPort(true);
 			} else {
-				console.log("larger view port detected");
 				setSmallerViewPort(false);
 			}
 		});

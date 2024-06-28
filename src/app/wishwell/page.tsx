@@ -11,22 +11,18 @@ import ReactLenis from "lenis/react";
 
 const Contributed = dynamic(() => import("./Contributed"), {
 	ssr: false,
-	loading: () => <>{console.log("loading homepage")}</>,
 });
 
 const WalletNotConnected = dynamic(() => import("./WalletNotConnected"), {
 	ssr: false,
-	loading: () => <>{console.log("loading homepage")}</>,
 });
 
 const Registered = dynamic(() => import("./Registered"), {
 	ssr: false,
-	loading: () => <>{console.log("loading homepage")}</>,
 });
 
 const LoadingPage = dynamic(() => import("../LoadingPage"), {
 	ssr: false,
-	loading: () => <>{console.log("loading loading page")}</>,
 });
 
 export default function Wishwell() {
@@ -46,7 +42,6 @@ export default function Wishwell() {
 	useEffect(() => {
 		if (window !== undefined) {
 			window.addEventListener("load", () => {
-				console.log("window loaded page");
 				setPageLoading(false);
 			});
 		}
