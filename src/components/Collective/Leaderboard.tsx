@@ -99,6 +99,7 @@ const tableData: tableDataType[] = [
 		wallet: "0x1234567890abcdef1234567890abcdef12345678",
 		points: 90000,
 	},
+	},
 ];
 
 export default function Leaderboard({

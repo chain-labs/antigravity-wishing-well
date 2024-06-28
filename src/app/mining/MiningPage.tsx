@@ -23,8 +23,8 @@ export default function MiningPage() {
 	const [smallerViewPort, setSmallerViewPort] = useState<boolean>(false);
 	const account = useAccount();
 
-	useEffect(() => {
-		if (window === undefined) return;
+  useEffect(() => {
+    if (window === undefined) return;
 
 		window.addEventListener("resize", () => {
 			if (window.innerWidth < 1200) {
@@ -34,12 +34,12 @@ export default function MiningPage() {
 			}
 		});
 
-		window.innerWidth < 1200 && setSmallerViewPort(true);
+    window.innerWidth < 1200 && setSmallerViewPort(true);
 
-		return () => {
-			window.removeEventListener("resize", () => {});
-		};
-	}, []);
+    return () => {
+      window.removeEventListener("resize", () => {});
+    };
+  }, []);
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -96,16 +96,16 @@ export default function MiningPage() {
 							<CanvasRendering />
 						)}
 
-						<StarFieldCanvas
-							count={50}
-							xRange={100}
-							yRange={100}
-							zRange={100}
-							speed={0.1}
-						/>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
+            <StarFieldCanvas
+              count={50}
+              xRange={100}
+              yRange={100}
+              zRange={100}
+              speed={0.1}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }

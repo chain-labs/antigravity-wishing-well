@@ -1,14 +1,14 @@
 "use client";
 
 import P from "@/components/HTML/P";
-import Pill from "../Pill";
 import { twMerge } from "tailwind-merge";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import Badge from "../Badge";
-import Dropdown from "../Dropdown";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
-import { TokenDropdownTypes } from "./types";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import Dropdown from "@/components/Dropdown";
+import Badge from "@/components/Badge";
+import Pill from "@/components/Pill";
+import { TokenDropdownTypes } from "./types";
 import Image from "next/image";
 
 export function InputCard({
@@ -236,18 +236,19 @@ export default function MiningCalculator({
 	const [selectedOption, setSelectedOption] = useState<number>(0);
 	const [USDValue, setUSDValue] = useState(value * inputOptions[0].USDvalue);
 
-	useEffect(() => {
-		const value = Number(currentValue.replace(/,/g, ""));
-		if (!isNaN(value) && value >= 0) {
-			const usdValue = value * inputOptions[selectedOption].USDvalue;
-			setUSDValue(Number(usdValue));
-			setValue(value);
-		}
-	}, [currentValue, conversionRateToUSD, selectedOption, inputOptions]);
+  useEffect(() => {
+    console.log(selectedOption);
+    const value = Number(currentValue.replace(/,/g, ""));
+    if (!isNaN(value) && value >= 0) {
+      const usdValue = value * inputOptions[selectedOption].USDvalue;
+      setUSDValue(Number(usdValue));
+      setValue(value);
+    }
+  }, [currentValue, conversionRateToUSD, selectedOption, inputOptions]);
 
-	useEffect(() => {
-		setCurrentValue(pointsConverterToUSCommaseparated(value));
-	}, [value]);
+  useEffect(() => {
+    setCurrentValue(pointsConverterToUSCommaseparated(value));
+  }, [value]);
 
 	return (
 		<div className="relative flex flex-col gap-[8px] h-fit max-w-[400px]">

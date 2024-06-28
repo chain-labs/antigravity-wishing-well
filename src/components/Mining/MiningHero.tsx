@@ -13,36 +13,33 @@ import MiningCalculator, {
 import useTimer from "@/hooks/frontend/useTimer";
 import Image from "next/image";
 import React, {
-	Dispatch,
-	MouseEventHandler,
-	SetStateAction,
-	useEffect,
-	useRef,
-	useState,
+  Dispatch,
+  MouseEventHandler,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
 } from "react";
 import Pill from "../Pill";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { base, pulsechain } from "viem/chains";
-import { TokenDropdownTypes } from "./types";
+import { StateType, TokenDropdownTypes } from "./types";
 import useMining from "@/hooks/sc-fns/useMining";
+import useMerkleTree from "@/hooks/sc-fns/useMerkleTree.mine";
+import useClaimMerkleTree from "@/hooks/sc-fns/useMerkleTree.claim";
+import { useAccount } from "wagmi";
+import {
+  ADDRESS_LIST,
+  CLAIM_LISTS,
+  MULTIPLIER,
+  TOKEN_OPTIONS,
+} from "./constants";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { errorToast } from "@/hooks/frontend/toast";
+import useClaim from "@/hooks/sc-fns/useClaim";
+import { formatUnits } from "viem";
 import { AnimatePresence, motion } from "framer-motion";
-
-type StateType = "No NFT" | "NFT Present" | "Claiming";
-
-const STATE_TYPES = {
-	NO_NFT: "No NFT",
-	NFT_PRESENT: "NFT Present",
-};
-
-const TOKEN_OPTIONS: TokenDropdownTypes[] = [
-	{
-		label: "USDC",
-		tokenContract: "0x8f7d987620C65cffac0d625DDE108525e4d0CEE1",
-		USDvalue: 1,
-		darkIcon: IMAGEKIT_ICONS.USDC_BLACK,
-		lightIcon: IMAGEKIT_ICONS.USDC,
-	},
-];
 
 function NoNFTHero() {
 	return (
@@ -71,52 +68,48 @@ function NFTHero({
 	NFTHover: boolean;
 	setNFTHover: Dispatch<SetStateAction<boolean>>;
 }) {
-	// console.log("NFTHover", NFTHover);
-	return (
-		<>
-			<div className="md:absolute top-0 left-0 md:translate-x-[calc(-100%-48px)] flex flex-col justify-start items-start gap-[16px] md:max-w-[220px] p-[16px] md:p-0 z-10">
-				<H1 className="text-agwhite text-[56px] leading-[53.76px] md:text-[64px] md:leading-[64px]">
-					Mining
-				</H1>
-				<P>
-					Everyone is going to say you got lucky!
-					<br />
-					<br />
-					Start mining with the recommended tokens and get Points and
-					$DARKX tokens.
-					<br />
-					<br />	
-					Hover to see your NFT:
-				</P>
-				<div className="flex justify-center items-center gap-[16px] z-50">
-					<div className="hidden md:block">
-						<Image
-							onMouseEnter={() => setNFTHover(true)}
-							src={IMAGEKIT_LOGOS.WISHWELL_LOGO}
-							height={80}
-							width={80}
-							alt="wishwell logo hidden md:block"
-						/>
-					</div>
-					<div className="flex justify-center items-center gap-[16px] md:hidden">
-						<Image
-							src={IMAGEKIT_LOGOS.WISHWELL_LOGO}
-							height={80}
-							width={80}
-							alt="wishwell logo"
-						/>
-						<Button
-							onClick={() => setNFTHover(true)}
-							innerText="View Your NFT"
-							iconSrc={IMAGEKIT_ICONS.ROCKET}
-							iconAlt="rocket"
-							className="bg-[#030404A8] md:hidden"
-						/>
-					</div>
-				</div>
-			</div>
-		</>
-	);
+  return (
+    <>
+      <div className="md:absolute top-0 left-0 md:translate-x-[calc(-100%-48px)] flex flex-col justify-start items-start gap-[16px] md:max-w-[220px] p-[16px] md:p-0 z-10">
+        <H1 className="text-agwhite text-[56px] leading-[53.76px] md:text-[64px] md:leading-[64px]">
+          Mining
+        </H1>
+        <P>
+          Everyone is going to say you got lucky!
+          <br />
+          <br />
+          Start mining with the recommended tokens and get Points and $DARKX
+          tokens.
+        </P>
+        <div className="flex justify-center items-center gap-[16px] z-50">
+          <div className="hidden md:block">
+            <Image
+              onMouseEnter={() => setNFTHover(true)}
+              src={IMAGEKIT_LOGOS.WISHWELL_LOGO}
+              height={80}
+              width={80}
+              alt="wishwell logo hidden md:block"
+            />
+          </div>
+          <div className="flex justify-center items-center gap-[16px] md:hidden">
+            <Image
+              src={IMAGEKIT_LOGOS.WISHWELL_LOGO}
+              height={80}
+              width={80}
+              alt="wishwell logo"
+            />
+            <Button
+              onClick={() => setNFTHover(true)}
+              innerText="View Your NFT"
+              iconSrc={IMAGEKIT_ICONS.ROCKET}
+              iconAlt="rocket"
+              className="bg-[#030404A8] md:hidden"
+            />
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
 function ContributedCard({
@@ -151,64 +144,136 @@ function ContributedCard({
 }
 
 function ContributedHero() {
-	// TODO: Add claiming fn here
-	return (
-		<div className="relative flex flex-col justify-center items-center gap-[24px] mt-[50px]">
-			<div className="flex flex-col justify-center items-center gap-[8px]">
-				<H1 className="text-[64px] leading-[64px] md:text-[64px] md:leading-[64px]">
-					Claim $DARK
-				</H1>
-				<P className="text-[14px] leading-[20.3px]">
-					You can now get your $DARK tokens.
-				</P>
-			</div>
-			<div className="flex flex-col justify-center items-center gap-[8px] w-full">
-				<ContributedCard
-					value={42000}
-					pillText="Points"
-					pillIconSrc={IMAGEKIT_ICONS.PILL_POINTS}
-					pillIconAlt="points"
-				/>
-				<div
-					style={{
-						gap: "11px",
-					}}
-					className="flex justify-center items-center w-full"
-				>
-					<div
-						style={{
-							width: "100%",
-							height: "1px",
-							backgroundColor: "#FF5001",
-							borderRadius: "100px",
-						}}
-					></div>
-					<div className="text-agwhite uppercase tracking-wider text-nowrap font-bold">
-						So you get:
-					</div>
-					<div
-						style={{
-							width: "100%",
-							height: "1px",
-							backgroundColor: "#FF5001",
-							borderRadius: "100px",
-						}}
-					></div>
-				</div>
-				<ContributedCard
-					value={4200.41}
-					pillText="DARK"
-					pillIconSrc={IMAGEKIT_ICONS.PILL_DARK_X}
-					pillIconAlt="dark x"
-				/>
-				<Button
-					innerText="Claim Now"
-					iconSrc={IMAGEKIT_ICONS.CLAIM}
-					iconAlt="Claim Now"
-				/>
-			</div>
-		</div>
-	);
+  const { openConnectModal } = useConnectModal();
+  const account = useAccount();
+
+  const { generateProof } = useClaimMerkleTree(
+    CLAIM_LISTS.accounts,
+    CLAIM_LISTS.points,
+    CLAIM_LISTS.nonces
+  );
+
+  const points = useMemo(() => {
+    if (account.address) {
+      const accountIndex = CLAIM_LISTS.accounts.findIndex(
+        (x) => x.toLowerCase() === account.address?.toLowerCase()
+      );
+
+      if (accountIndex > 0) {
+        const foundPoints = CLAIM_LISTS.points[accountIndex];
+
+        const formattedPoints = formatUnits(
+          BigInt(CLAIM_LISTS.points[accountIndex]),
+          18
+        );
+        return Number(formattedPoints);
+      } else return 0;
+    }
+
+    return 30000;
+  }, [account.address]);
+
+  const proof: string[] = useMemo(() => {
+    if (account.address) {
+      const accountIndex = CLAIM_LISTS.accounts.findIndex(
+        (x) => x.toLowerCase() === account.address?.toLowerCase()
+      );
+
+      const generatedProof = generateProof(
+        account.address,
+        CLAIM_LISTS.points[accountIndex],
+        CLAIM_LISTS.nonces[accountIndex]
+      );
+
+      return generatedProof || [];
+    }
+    return [];
+  }, [account.address]);
+
+  const { claim, transactionLoading } = useClaim();
+
+  const handleClaim = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const accountIndex = CLAIM_LISTS.accounts.findIndex(
+      (x) => x.toLowerCase() === account.address?.toLowerCase()
+    );
+
+    claim(
+      CLAIM_LISTS.points[accountIndex],
+      CLAIM_LISTS.nonces[accountIndex],
+      proof
+    );
+  };
+
+  return (
+    <div className="relative flex flex-col justify-center items-center gap-[24px] -mt-[50px]">
+      <div className="flex flex-col justify-center items-center gap-[8px]">
+        <H1 className="text-[64px] leading-[64px] md:text-[64px] md:leading-[64px]">
+          Claim $DARK
+        </H1>
+        <P className="text-[14px] leading-[20.3px]">
+          You can now get your $DARK tokens.
+        </P>
+      </div>
+      <div className="flex flex-col justify-center items-center gap-[8px] w-full">
+        <ContributedCard
+          value={points}
+          pillText="Points"
+          pillIconSrc={IMAGEKIT_ICONS.PILL_POINTS}
+          pillIconAlt="points"
+        />
+        <div
+          style={{
+            gap: "11px",
+          }}
+          className="flex justify-center items-center w-full"
+        >
+          <div
+            style={{
+              width: "100%",
+              height: "1px",
+              backgroundColor: "#FF5001",
+              borderRadius: "100px",
+            }}
+          ></div>
+          <div className="text-agwhite uppercase tracking-wider text-nowrap font-bold">
+            So you get:
+          </div>
+          <div
+            style={{
+              width: "100%",
+              height: "1px",
+              backgroundColor: "#FF5001",
+              borderRadius: "100px",
+            }}
+          ></div>
+        </div>
+        <ContributedCard
+          value={points}
+          pillText="DARK"
+          pillIconSrc={IMAGEKIT_ICONS.PILL_DARK_X}
+          pillIconAlt="dark x"
+        />
+        {!account.isConnected ? (
+          <Button
+            innerText="Connect Wallet"
+            iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
+            iconAlt="wallet"
+            onClick={openConnectModal}
+          />
+        ) : (
+          <Button
+            innerText={transactionLoading ? "Claiming..." : "Claim Now"}
+            loading={transactionLoading}
+            disabled={points === 0}
+            iconSrc={IMAGEKIT_ICONS.CLAIM}
+            iconAlt="Claim Now"
+            onClick={handleClaim}
+          />
+        )}
+      </div>
+    </div>
+  );
 }
 
 function NonContributed({
@@ -224,17 +289,19 @@ function NonContributed({
 	NFTContainerRef: React.RefObject<HTMLDivElement>;
 	NFTRef: React.RefObject<HTMLDivElement>;
 }) {
-	const [value, setValue] = useState(40000);
-	const timerState = useTimer();
-	useEffect(() => {
-		if (!NFTHover) return;
-		if (!NFTContainerRef.current) return;
-		NFTContainerRef.current.addEventListener("click", (e) => {
-			// if e.currentTarget is not the NFTRef and button
-			if (NFTRef.current && !NFTRef.current.contains(e.target as Node)) {
-				setNFTHover(false);
-			}
-		});
+  const [value, setValue] = useState(40000);
+  const timerState = useTimer();
+
+  const { openConnectModal } = useConnectModal();
+  useEffect(() => {
+    if (!NFTHover) return;
+    if (!NFTContainerRef.current) return;
+    NFTContainerRef.current.addEventListener("click", (e) => {
+      // if e.currentTarget is not the NFTRef and button
+      if (NFTRef.current && !NFTRef.current.contains(e.target as Node)) {
+        setNFTHover(false);
+      }
+    });
 
 		return () => {
 			document.removeEventListener("click", () => {});
@@ -247,70 +314,110 @@ function NonContributed({
 
 	const [selectedToken, setSelectedToken] = useState(0);
 
-	const {
-		mineToken,
-		receipt,
-		receiptError,
-		mineError,
-		isLoading,
-		isPending,
-	} = useMining(TOKEN_OPTIONS[selectedToken].tokenContract, value, []);
+  const account = useAccount();
 
-	const handleMine = async (e: React.MouseEvent<HTMLButtonElement>) => {
-		e.preventDefault();
-		await mineToken();
-	};
+  const { generateProof } = useMerkleTree(ADDRESS_LIST);
 
-	return (
-		<div className="relative flex flex-col justify-center md:items-center gap-[8px] mt-[50px] min-h-fit px-[4px] md:px-0">
-			{
-				{
-					"No NFT": <NoNFTHero />,
-					"NFT Present": (
-						<NFTHero
-							NFTHover={NFTHover}
-							setNFTHover={setNFTHover}
-						/>
-					),
-					Claiming: <></>,
-				}[state]
-			}
-			<MiningCalculator
-				value={value}
-				setValue={setValue}
-				conversionRateToUSD={0.245}
-				era={2}
-				phase={1}
-				multiplyer={33}
-				inputOptions={TOKEN_OPTIONS}
-				setSelectedToken={setSelectedToken}
-			/>
-			<Button
-				// TODO: should include a loading state
-				innerText="Mine Now"
-				iconSrc={IMAGEKIT_ICONS.HAMMER}
-				iconAlt="hammer"
-				onClick={handleMine}
-				loading={isLoading}
-				className="mx-auto"
-			/>
-			<div className="flex flex-col justify-center items-center p-[8px] rounded-[6px] bg-[#030404A8] w-full">
-				<CountdownTimer
-					state={timerState}
-					fontDesktopSize={56}
-					counterSubtitleClassName="text-[16px] leading-[19.84px] md:text-[16px] md:leading-[19.84px] text-agwhite"
-					containerClassName="text-[16px] leading-[19.84px] md:text-[16px] md:leading-[19.84px]"
-				/>
-			</div>
-		</div>
-	);
+  const proof = useMemo(() => {
+    if (account.address) {
+      const address = account.address;
+
+      return generateProof(address as `0x${string}`);
+    } else return [];
+  }, [account.address]);
+
+  const { mineToken, transactionLoading, darkXBalance, tokenBalance } =
+    useMining(
+      TOKEN_OPTIONS[selectedToken],
+      value,
+      proof.length > 0 ? MULTIPLIER * 2 : MULTIPLIER
+    );
+
+  const handleMine = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (!account.address) {
+      errorToast("Wallet not Connected! Please connect wallet");
+      return;
+    }
+    if (!proof) {
+      errorToast("Something went Wrong! Please Try Again.");
+      console.error("Proof not generated");
+      return;
+    }
+
+    if (account.address && proof) {
+      await mineToken(proof);
+    }
+  };
+
+  // TODO: Fetch or set current era here
+  const era = useMemo<1 | 2 | 3>(() => {
+    return 2;
+  }, []);
+
+  // TODO: Fetch or set current phase here
+  const phase = useMemo<1 | 2 | 3>(() => {
+    return 1;
+  }, []);
+
+  return (
+    <div className="relative flex flex-col justify-center items-center gap-[8px] mt-[50px]">
+      {/* {
+        {
+          "No NFT": <NoNFTHero />,
+          "NFT Present": (
+            <NFTHero NFTHover={NFTHover} setNFTHover={setNFTHover} />
+          ),
+          Claiming: <></>,
+        }[state]
+      } */}
+      {state !== "Claiming" ? (
+        (darkXBalance as bigint) > 0 ? (
+          <NFTHero NFTHover={NFTHover} setNFTHover={setNFTHover} />
+        ) : (
+          <NoNFTHero />
+        )
+      ) : (
+        <></>
+      )}
+      <MiningCalculator
+        value={value}
+        setValue={setValue}
+        conversionRateToUSD={0.245}
+        era={era}
+        phase={phase}
+        multiplyer={proof.length > 0 ? MULTIPLIER * 2 : MULTIPLIER}
+        inputOptions={TOKEN_OPTIONS}
+        setSelectedToken={setSelectedToken}
+      />
+      {!account.isConnected ? (
+        <Button
+          innerText="Connect Wallet"
+          iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
+          iconAlt="wallet"
+          onClick={openConnectModal}
+        />
+      ) : (
+        <Button
+          loading={transactionLoading}
+          innerText={transactionLoading ? "Processing" : "Mine Now"}
+          iconSrc={IMAGEKIT_ICONS.HAMMER}
+          iconAlt="hammer"
+          onClick={handleMine}
+        />
+      )}
+      <div className="p-[8px] rounded-[6px] bg-[#030404A8]">
+        <CountdownTimer state={timerState} fontDesktopSize={56} />
+      </div>
+    </div>
+  );
 }
 
 export default function MiningHero() {
-	const [state, setState] = useState<StateType>("NFT Present");
-	const [NFTHover, setNFTHover] = useState(false);
-	const NFTRef = useRef<HTMLDivElement>(null);
-	const NFTContainerRef = useRef<HTMLDivElement>(null);
+  const [state, setState] = useState<StateType>("Mining");
+  const [NFTHover, setNFTHover] = useState(false);
+  const NFTRef = useRef<HTMLDivElement>(null);
+  const NFTContainerRef = useRef<HTMLDivElement>(null);
 
 	return (
 		<div className="relative w-full min-h-screen h-fit">
