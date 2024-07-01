@@ -74,7 +74,8 @@ export function InputCard({
 				/>
 				<P
 					style={{
-						fontSize: fontsizeClamping(inputValue, 7, 8, 16) + "px",
+						// fontSize: fontsizeClamping(inputValue, 7, 8, 16) + "px",
+						fontSize: 16 + "px",
 						lineHeight: 16 + "px",
 					}}
 					extrabold
@@ -168,7 +169,7 @@ export function Card({
 						<P
 							style={{
 								fontSize:
-									fontsizeClamping(value, 7, 8, 16) + "px",
+									fontsizeClamping(conversion, 7, 10, 16) + "px",
 								lineHeight: 16 + "px",
 							}}
 							extrabold
