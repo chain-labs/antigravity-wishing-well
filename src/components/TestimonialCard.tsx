@@ -64,7 +64,7 @@ export default function TesimonialCard({
 				</div>
 			</div>
 			<div className="w-full h-[1px] bg-[#FEFFFF]"></div>
-			<P className="text-[14px] leading-[20.3px] md:font-bold">{"“"} {fullDescription} {"”"}</P>
+			<P className="text-[14px] leading-[20.3px]">{"“"} {fullDescription} {"”"}</P>
 		</motion.a>
 	);
 }
