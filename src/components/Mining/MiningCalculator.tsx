@@ -59,7 +59,6 @@ export function InputCard({
 			setCurrentInputValue(inputCurrentValue);
 		}
 	}
-
 	return (
 		<div className="flex justify-between gap-[8px] bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-full border-[1px] border-agyellow">
 			<div className="flex flex-col justify-start items-start gap-[8px] w-full">
