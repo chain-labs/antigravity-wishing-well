@@ -5,6 +5,7 @@ import erc20ABI from "erc-20-abi";
 import {
   useAccount,
   useReadContract,
+  useSwitchChain,
   useWaitForTransactionReceipt,
   useWatchContractEvent,
   useWriteContract,
@@ -36,8 +37,18 @@ const useMining = (
 
   const MiningContract = useMiningContract();
   const DarkXContract = useDarkXContract();
+  const { switchChain } = useSwitchChain();
 
   const account = useAccount();
+
+  useEffect(() => {
+    if (account.chainId) {
+      const chainId = account.chainId;
+      if (chainId !== sepolia.id) {
+        switchChain({ chainId: sepolia.id });
+      }
+    }
+  }, [account.chainId]);
 
   const points = useMemo(() => {
     if (multiplier && amountToInvest) {
@@ -111,10 +122,10 @@ const useMining = (
   });
 
   useEffect(() => {
-    if (nativeToken) {
-      console.log({ allowance });
+    if (tokenBalance) {
+      console.log({ tokenBalance });
     }
-  }, [allowance]);
+  }, [tokenBalance]);
 
   useEffect(() => {
     if (mineError) {
@@ -210,7 +221,8 @@ const useMining = (
     isPending,
     transactionLoading,
     darkXBalance,
-    tokenBalance,
+    tokenBalance:
+      formatUnits((tokenBalance as bigint) || BigInt(0), token.decimals) || "0",
   };
 };
 
