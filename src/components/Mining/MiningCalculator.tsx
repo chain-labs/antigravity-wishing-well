@@ -10,6 +10,8 @@ import Badge from "@/components/Badge";
 import Pill from "@/components/Pill";
 import { TokenDropdownTypes } from "./types";
 import Image from "next/image";
+import { TOKEN_OPTIONS } from "./constants";
+import { useAccount } from "wagmi";
 
 export function InputCard({
   inputValue,
@@ -18,6 +20,7 @@ export function InputCard({
   dropdownOptions,
   dropDownSelected,
   setDropDownSelected,
+  tokenBalance,
 }: {
   inputValue: string;
   setCurrentInputValue: Dispatch<SetStateAction<string>>;
@@ -25,6 +28,7 @@ export function InputCard({
   dropdownOptions: TokenDropdownTypes[];
   dropDownSelected: number;
   setDropDownSelected: Dispatch<SetStateAction<number>>;
+  tokenBalance: string;
 }) {
   const [outOfFocus, setOutOfFocus] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -59,6 +63,8 @@ export function InputCard({
       setCurrentInputValue(inputCurrentValue);
     }
   }
+
+  const account = useAccount();
 
   return (
     <div className="flex justify-between gap-[8px] bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-fit min-w-full border-[1px] border-agyellow">
@@ -114,7 +120,7 @@ export function InputCard({
           >
             {inputRef &&
               pointsConverterToUSCommaseparated(
-                Number(inputRef.current?.value),
+                Number(inputRef.current?.value)
               )}
           </div>
         </form>
@@ -134,34 +140,41 @@ export function InputCard({
       <div className="flex flex-col gap-[8px]">
         <div
           className={twMerge(
-            "flex justify-center items-center gap-[8px] h-full w-fit",
+            "flex justify-center items-center gap-[8px] h-full w-fit"
           )}
         >
-          <button className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit">
-            <div className="bg-[#0A1133] rounded-full w-fit h-fit">
-              <div className="rounded-full text-[16px] leading-[16px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent bg-clip-text">
-                MAX
+          {account.isConnected && (
+            <button
+              className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
+              onClick={() => setCurrentInputValue(tokenBalance.toString())}
+            >
+              <div className="bg-[#0A1133] rounded-full w-fit h-fit">
+                <div className="rounded-full text-[16px] leading-[16px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent bg-clip-text">
+                  MAX
+                </div>
               </div>
-            </div>
-          </button>
+            </button>
+          )}
           <Dropdown
             options={dropdownOptions ?? []}
             selected={dropDownSelected}
             setSelected={setDropDownSelected}
           />
         </div>
-        <div
-          className={`flex gap-[4px] justify-end items-center text-[16px] leading-[16px] text-agwhite opacity-75 font-general-sans font-semibold`}
-        >
-          <Image
-            src={IMAGEKIT_ICONS.WALLET_WHITE}
-            alt="hammer icon"
-            width={24}
-            height={24}
-            className={twMerge("object-cover")}
-          />
-          1,245.0000 PLS
-        </div>
+        {account.isConnected && (
+          <div
+            className={`flex gap-[4px] justify-end items-center text-[16px] leading-[16px] text-agwhite opacity-75 font-general-sans font-semibold`}
+          >
+            <Image
+              src={IMAGEKIT_ICONS.WALLET_WHITE}
+              alt="hammer icon"
+              width={24}
+              height={24}
+              className={twMerge("object-cover")}
+            />
+            {`${tokenBalance} ${TOKEN_OPTIONS[dropDownSelected].label}`}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -171,7 +184,7 @@ function fontsizeClamping(
   value: string,
   maxLengthForClamping: number,
   minFontSize: number,
-  maxFontSize: number,
+  maxFontSize: number
 ) {
   return value.length >= maxLengthForClamping
     ? maxFontSize - (value.length - maxLengthForClamping) >= minFontSize
@@ -288,7 +301,7 @@ export function pointsConverterToUSCommaseparated(points: number): string {
   const [integerPart, decimalPart] = points.toString().split(".");
   const formattedIntegerPart = integerPart.replace(
     /\B(?=(\d{3})+(?!\d))/g,
-    ",",
+    ","
   );
 
   return decimalPart
@@ -305,6 +318,7 @@ export default function MiningCalculator({
   multiplyer,
   inputOptions,
   setSelectedToken,
+  tokenBalance,
 }: {
   value: number;
   setValue: Dispatch<SetStateAction<number>>;
@@ -314,6 +328,7 @@ export default function MiningCalculator({
   multiplyer: number;
   inputOptions: TokenDropdownTypes[];
   setSelectedToken: Dispatch<SetStateAction<number>>;
+  tokenBalance: string;
 }) {
   const [currentValue, setCurrentValue] = useState<string>(value + "");
   const [selectedOption, setSelectedOption] = useState<number>(0);
@@ -341,6 +356,7 @@ export default function MiningCalculator({
         dropdownOptions={inputOptions}
         dropDownSelected={selectedOption}
         setDropDownSelected={setSelectedOption}
+        tokenBalance={tokenBalance}
       />
       <Multiplyer era={era} phase={phase} multiplyer={multiplyer} />
       <div
@@ -371,7 +387,7 @@ export default function MiningCalculator({
       </div>
       <Card
         value={pointsConverterToUSCommaseparated(
-          Number((USDValue * multiplyer).toFixed(20)),
+          Number((USDValue * multiplyer).toFixed(20))
         )}
         conversion={`$${pointsConverterToUSCommaseparated(USDValue)}`}
         multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
@@ -381,7 +397,7 @@ export default function MiningCalculator({
       />
       <Card
         value={pointsConverterToUSCommaseparated(
-          Number((USDValue * multiplyer).toFixed(20)),
+          Number((USDValue * multiplyer).toFixed(20))
         )}
         conversion={`$${pointsConverterToUSCommaseparated(USDValue)}`}
         multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
