@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { IoMenu, IoCloseCircleOutline } from "react-icons/io5";
 import { UserConnected } from "./UserConnected";
 import IMAGEKIT from "../../../../app/home/images";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { RegisterButton } from "./RegisterButton";
 import P from "../../../HTML/P";
 import toast from "react-hot-toast";
@@ -36,16 +36,19 @@ async function getLatestBlockNumber(publicClient: PublicClient) {
 }
 
 const Header = () => {
-  const [isRegistered, setIsRegistered] = useState<boolean>(false);
-  const [isSuccess, setIsSuccess] = useState<boolean>(false);
-  // const [payableAmount, setPayableAmount] = useState(0);
-  const [tokenId, setTokenId] = useState<BigInt>(BigInt(0));
-  const [poll, setPoll] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
-  const AntiGravity = useContract();
-  const publicClient = usePublicClient();
-  const { openConnectModal } = useConnectModal();
+	// about section dropdown
+	const [aboutSectionOpen, setAboutSectionOpen] = useState(false);
+
+	const [isRegistered, setIsRegistered] = useState<boolean>(false);
+	const [isSuccess, setIsSuccess] = useState<boolean>(false);
+	// const [payableAmount, setPayableAmount] = useState(0);
+	const [tokenId, setTokenId] = useState<BigInt>(BigInt(0));
+	const [poll, setPoll] = useState<boolean>(false);
+	const [loading, setLoading] = useState<boolean>(false);
+	const [error, setError] = useState<boolean>(false);
+	const AntiGravity = useContract();
+	const publicClient = usePublicClient();
+	const { openConnectModal } = useConnectModal();
 
   const [isOpen, setIsOpen] = useState(false);
   // const [currentChain, setCurrentChain] = useState("");
@@ -56,9 +59,10 @@ const Header = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+	const toggleMenu = () => {
+		setIsOpen(!isOpen);
+		setAboutSectionOpen(false);
+	};
 
   const handleLogin = (e: React.MouseEvent) => {
     e.preventDefault();
