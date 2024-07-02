@@ -2,7 +2,7 @@
 
 import P from "@/components/HTML/P";
 import { twMerge } from "tailwind-merge";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Dropdown from "@/components/Dropdown";
@@ -26,6 +26,8 @@ export function InputCard({
 	dropDownSelected: number;
 	setDropDownSelected: Dispatch<SetStateAction<number>>;
 }) {
+	const [outOfFocus, setOutOfFocus] = useState(false);
+	const inputRef = useRef<HTMLInputElement>(null);
 	function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
 		let inputCurrentValue = e.target.value;
 
@@ -57,21 +59,67 @@ export function InputCard({
 			setCurrentInputValue(inputCurrentValue);
 		}
 	}
+
 	return (
-		<div className="flex justify-between bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-full border-[1px] border-agyellow">
+		<div className="flex justify-between gap-[8px] bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-full border-[1px] border-agyellow">
 			<div className="flex flex-col justify-start items-start gap-[8px] w-full">
-				<input
-					className="text-agwhite font-extrabold font-sans bg-transparent w-full h-full"
-					type="text"
-					value={inputValue}
+				<form
+					onBlur={(e) => {
+						setOutOfFocus(true);
+					}}
+					onFocus={(e) => {
+						setOutOfFocus(false);
+					}}
+					onClick={() => {
+						setOutOfFocus(false);
+						inputRef.current?.focus();
+					}}
 					style={{
 						fontSize:
 							fontsizeClamping(inputValue, 7, 16, 32) + "px",
 						lineHeight: 32 + "px",
 					}}
-					onChange={handleInputChange}
-					autoFocus
-				/>
+					className="relative text-agwhite font-extrabold font-sans bg-transparent w-full h-fit flex justify-start items-center min-w-[8ch]"
+				>
+					<input
+						ref={inputRef}
+						className="text-agwhite font-extrabold font-sans bg-transparent w-full h-full"
+						type="number"
+						defaultValue={inputValue}
+						max={500}
+						min={10}
+						onBlur={(e) => {
+							setOutOfFocus(true);
+						}}
+						onFocus={(e) => {
+							setOutOfFocus(false);
+						}}
+						style={{
+							opacity: outOfFocus ? 0 : 1,
+							width: outOfFocus ? "0" : "100%",
+							height: outOfFocus ? "0" : "fit-content",
+							zIndex: outOfFocus ? 1 : 0,
+						}}
+						onChange={handleInputChange}
+						autoFocus
+					/>
+
+					<div
+						style={{
+							opacity: outOfFocus ? 1 : 0,
+							width: outOfFocus ? "100%" : "0",
+							height: outOfFocus ? "100%" : "0",
+							zIndex: outOfFocus ? 0 : 1,
+						}}
+						className="flex justify-start items-center"
+					>
+						{inputRef &&
+							pointsConverterToUSCommaseparated(
+								Number(inputRef.current?.value)
+							)}
+					</div>
+				</form>
+
 				<P
 					style={{
 						// fontSize: fontsizeClamping(inputValue, 7, 8, 16) + "px",
@@ -169,7 +217,8 @@ export function Card({
 						<P
 							style={{
 								fontSize:
-									fontsizeClamping(conversion, 7, 10, 16) + "px",
+									fontsizeClamping(conversion, 7, 10, 16) +
+									"px",
 								lineHeight: 16 + "px",
 							}}
 							extrabold
@@ -269,14 +318,11 @@ export default function MiningCalculator({
 	inputOptions: TokenDropdownTypes[];
 	setSelectedToken: Dispatch<SetStateAction<number>>;
 }) {
-	const [currentValue, setCurrentValue] = useState<string>(
-		pointsConverterToUSCommaseparated(value)
-	);
+	const [currentValue, setCurrentValue] = useState<string>(value + "");
 	const [selectedOption, setSelectedOption] = useState<number>(0);
 	const [USDValue, setUSDValue] = useState(value * inputOptions[0].USDvalue);
 
 	useEffect(() => {
-		console.log(selectedOption);
 		const value = Number(currentValue.replace(/,/g, ""));
 		if (!isNaN(value) && value >= 0) {
 			const usdValue = value * inputOptions[selectedOption].USDvalue;
