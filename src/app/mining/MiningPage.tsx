@@ -10,29 +10,29 @@ import CanvasRendering from "@/components/Home/components/saturn/CanvasRendering
 import Leaderboard from "@/components/Home/sections/Leaderboard";
 import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import {
-	errorToast,
-	generalToast,
-	miningNotif,
-	successToast,
-	warningToast,
+  errorToast,
+  generalToast,
+  miningNotif,
+  successToast,
+  warningToast,
 } from "@/hooks/frontend/toast";
 import MiningHero from "@/components/Mining/MiningHero";
 import { useAccount } from "wagmi";
 
 export default function MiningPage() {
-	const [smallerViewPort, setSmallerViewPort] = useState<boolean>(false);
-	const account = useAccount();
+  const [smallerViewPort, setSmallerViewPort] = useState<boolean>(false);
+  const account = useAccount();
 
   useEffect(() => {
     if (window === undefined) return;
 
-		window.addEventListener("resize", () => {
-			if (window.innerWidth < 1200) {
-				setSmallerViewPort(true);
-			} else {
-				setSmallerViewPort(false);
-			}
-		});
+    window.addEventListener("resize", () => {
+      if (window.innerWidth < 1200) {
+        setSmallerViewPort(true);
+      } else {
+        setSmallerViewPort(false);
+      }
+    });
 
     window.innerWidth < 1200 && setSmallerViewPort(true);
 
@@ -41,60 +41,58 @@ export default function MiningPage() {
     };
   }, []);
 
-	useEffect(() => {
-		const interval = setInterval(() => {
-			miningNotif("0x...5678 just mined 2,000 DarkX tokens!");
-		}, 5000);
+  // useEffect(() => {
+  // 	const interval = setInterval(() => {
+  // 		miningNotif("0x...5678 just mined 2,000 DarkX tokens!");
+  // 	}, 5000);
 
-		const interval2 = setInterval(() => {
-			successToast("0x...5678 just mined 2,000 DarkX tokens!");
-		}, 10000);
-		const interval3 = setInterval(() => {
-			errorToast("0x...5678 just mined 2,000 DarkX tokens!");
-		}, 10000);
-		const interval4 = setInterval(() => {
-			warningToast("0x...5678 just mined 2,000 DarkX tokens!");
-		}, 10000);
-		const interval5 = setInterval(() => {
-			generalToast("0x...5678 just mined 2,000 DarkX tokens!");
-		}, 10000);
+  // 	const interval2 = setInterval(() => {
+  // 		successToast("0x...5678 just mined 2,000 DarkX tokens!");
+  // 	}, 10000);
+  // 	const interval3 = setInterval(() => {
+  // 		errorToast("0x...5678 just mined 2,000 DarkX tokens!");
+  // 	}, 10000);
+  // 	const interval4 = setInterval(() => {
+  // 		warningToast("0x...5678 just mined 2,000 DarkX tokens!");
+  // 	}, 10000);
+  // 	const interval5 = setInterval(() => {
+  // 		generalToast("0x...5678 just mined 2,000 DarkX tokens!");
+  // 	}, 10000);
 
-		return () => {
-			clearInterval(interval);
-			clearInterval(interval2);
-			clearInterval(interval3);
-			clearInterval(interval4);
-			clearInterval(interval5);
-		};
-	}, []);
+  // 	return () => {
+  // 		clearInterval(interval);
+  // 		clearInterval(interval2);
+  // 		clearInterval(interval3);
+  // 		clearInterval(interval4);
+  // 		clearInterval(interval5);
+  // 	};
+  // }, []);
 
-	return (
-		<div className="bg-agblack min-h-[100vh]">
-			<div className="flex flex-col min-h-screen min-w-screen overflow-hidden">
-				<div className="relative z-0 flex flex-col min-h-screen">
-					<div className="fixed top-0 w-full z-50 items-center pt-[16px] md:pt-12 px-4">
-						<Header />
-					</div>
-					<div className="z-100">
-						<MiningHero />
-						{account.isConnected && (
-							<Leaderboard accountIsConnected />
-						)}
-						<Newsletter />
-						<Footer />
-					</div>
-					<div className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[2]">
-						{smallerViewPort ? (
-							<Image
-								src={IMAGEKIT_IMAGES.MOBILE_SATURN}
-								alt="Mobile Saturn"
-								width={1920}
-								height={1080}
-								className="fixed top-0 left-0 md:hidden w-[150vw] h-fit -translate-y-1/2 mix-blend-lighten z-0 scale-[1.25] pointer-events-none select-none"
-							/>
-						) : (
-							<CanvasRendering />
-						)}
+  return (
+    <div className="bg-agblack min-h-[100vh]">
+      <div className="flex flex-col min-h-screen min-w-screen overflow-hidden">
+        <div className="relative z-0 flex flex-col min-h-screen">
+          <div className="fixed top-0 w-full z-50 items-center pt-[16px] md:pt-12 px-4">
+            <Header />
+          </div>
+          <div className="z-100">
+            <MiningHero />
+            {account.isConnected && <Leaderboard accountIsConnected />}
+            <Newsletter />
+            <Footer />
+          </div>
+          <div className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[2]">
+            {smallerViewPort ? (
+              <Image
+                src={IMAGEKIT_IMAGES.MOBILE_SATURN}
+                alt="Mobile Saturn"
+                width={1920}
+                height={1080}
+                className="fixed top-0 left-0 md:hidden w-[150vw] h-fit -translate-y-1/2 mix-blend-lighten z-0 scale-[1.25] pointer-events-none select-none"
+              />
+            ) : (
+              <CanvasRendering />
+            )}
 
             <StarFieldCanvas
               count={50}
