@@ -21,7 +21,8 @@ const config = getDefaultConfig({
     ? {
         [baseSepolia.id]: http(
           `https://base-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`
-        ),[sepolia.id]: http(
+        ),
+        [sepolia.id]: http(
           `https://eth-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`
         ),
         [pulsechain.id]: http(),
@@ -42,7 +43,7 @@ interface Props {
 
 const RainbowKitContext = ({ children }: Props) => {
   return (
-    <WagmiProvider config={config} reconnectOnMount={false}>
+    <WagmiProvider config={config} reconnectOnMount={true}>
       <QueryClientProvider client={client}>
         <RainbowKitProvider>{children}</RainbowKitProvider>
       </QueryClientProvider>

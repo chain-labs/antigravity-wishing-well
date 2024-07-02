@@ -28,6 +28,7 @@ import {
 } from "wagmi";
 import Button from "@/components/Button";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
+import Link from "next/link";
 
 // Use a function to get the latest block number
 async function getLatestBlockNumber(publicClient: PublicClient) {
@@ -36,19 +37,19 @@ async function getLatestBlockNumber(publicClient: PublicClient) {
 }
 
 const Header = () => {
-	// about section dropdown
-	const [aboutSectionOpen, setAboutSectionOpen] = useState(false);
+  // about section dropdown
+  const [aboutSectionOpen, setAboutSectionOpen] = useState(false);
 
-	const [isRegistered, setIsRegistered] = useState<boolean>(false);
-	const [isSuccess, setIsSuccess] = useState<boolean>(false);
-	// const [payableAmount, setPayableAmount] = useState(0);
-	const [tokenId, setTokenId] = useState<BigInt>(BigInt(0));
-	const [poll, setPoll] = useState<boolean>(false);
-	const [loading, setLoading] = useState<boolean>(false);
-	const [error, setError] = useState<boolean>(false);
-	const AntiGravity = useContract();
-	const publicClient = usePublicClient();
-	const { openConnectModal } = useConnectModal();
+  const [isRegistered, setIsRegistered] = useState<boolean>(false);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
+  // const [payableAmount, setPayableAmount] = useState(0);
+  const [tokenId, setTokenId] = useState<BigInt>(BigInt(0));
+  const [poll, setPoll] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+  const AntiGravity = useContract();
+  const publicClient = usePublicClient();
+  const { openConnectModal } = useConnectModal();
 
   const [isOpen, setIsOpen] = useState(false);
   // const [currentChain, setCurrentChain] = useState("");
@@ -59,10 +60,10 @@ const Header = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-	const toggleMenu = () => {
-		setIsOpen(!isOpen);
-		setAboutSectionOpen(false);
-	};
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+    setAboutSectionOpen(false);
+  };
 
   const handleLogin = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -70,7 +71,6 @@ const Header = () => {
       openConnectModal();
     }
   };
-
   return (
     <motion.header
       whileInView={{ y: 0 }}
@@ -79,7 +79,7 @@ const Header = () => {
       transition={{ duration: 0.5, delay: 1.5 }}
       className="flex flex-col h-full w-full max-[1200px] items-center justify-center gap-3 z-50 font-extrabold"
     >
-      <div className="flex text-agwhite w-full xl:w-3/4 max-w-[800px] xl:max-w-full h-14 xl:h-[72px] rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px] overflow-hidden">
+      <div className="flex text-agwhite w-full xl:w-3/4 max-w-[800px] xl:max-w-full h-14 xl:h-[72px] rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px]">
         <div className="w-full h-full bg-agblack flex items-center justify-between rounded-lg gap-6 px-4">
           {/* Desktop View */}
           <div className="hidden xl:flex xl:flex-grow xl:items-center h-full xl:justify-between xl:gap-x-6">
@@ -102,7 +102,7 @@ const Header = () => {
             <div
               className={`relative flex justify-center items-center font-extrabold text-lg font-sans gap-[16px] oveflow-hidden`}
             >
-              <a href={location.pathname === "/wishwell" ? "#" : "/wishwell"}>
+              <Link href={location.pathname === "/wishwell" ? "#" : "/wishwell"}>
                 <P
                   uppercase
                   gradient
@@ -111,8 +111,8 @@ const Header = () => {
                 >
                   Wishwell
                 </P>
-              </a>
-              <a href={location.pathname === "/mining" ? "#" : "/mining"}>
+              </Link>
+              <Link href={location.pathname === "/mining" ? "#" : "/mining"}>
                 <P
                   uppercase
                   gradient
@@ -121,8 +121,8 @@ const Header = () => {
                 >
                   Mining
                 </P>
-              </a>
-              <a
+              </Link>
+              <Link
                 href={location.pathname === "/collective" ? "#" : "/collective"}
               >
                 <P
@@ -133,33 +133,105 @@ const Header = () => {
                 >
                   Collective
                 </P>
-              </a>
-              <a
-                target="_blank"
-                href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}
+              </Link>
+              <P
+                onClick={() => setAboutSectionOpen(!aboutSectionOpen)}
+                uppercase
+                gradient
+                extrabold
+                className="relative font-sans font-extrabold flex justify-center items-center cursor-pointer"
               >
-                <P
-                  uppercase
-                  gradient
-                  extrabold
-                  className="font-sans font-extrabold"
-                >
-                  WHITEPAPER
-                </P>
-              </a>
+                About{" "}
+                <Image
+                  src={IMAGEKIT_ICONS.DOWN_WHITE}
+                  alt="Dropdown"
+                  width={16}
+                  height={16}
+                  style={{
+                    transform: aboutSectionOpen
+                      ? "rotate(180deg)"
+                      : "rotate(0deg)",
+                  }}
+                  className="origin-center transition-all duration-300 ease-in-out transform rotate-0 cursor-pointer"
+                />
+                <AnimatePresence>
+                  {aboutSectionOpen && (
+                    <motion.div
+                      exit={{
+                        height: 0,
+                        opacity: 0,
+                        gap: 0,
+                        padding: 0,
+                      }}
+                      animate={{
+                        height: "fit-content",
+                        opacity: 1,
+                        gap: "8px",
+                        padding: "10px 16px",
+                      }}
+                      initial={{
+                        height: 0,
+                        opacity: 0,
+                        gap: 0,
+                        padding: 0,
+                      }}
+                      transition={{
+                        duration: 0.3,
+                        type: "spring",
+                      }}
+                      className="absolute w-fit top-[calc(100%+32px)] left-1/2 -translate-x-1/2 rounded-[8px] z-10 p-[16px] text-agwhite transition-all duration-300 ease-in-out bg-agblack
+									before:content-[''] before:absolute before:inset-0 before:z-[-10] md:before:bg-gradient-to-bl before:from-[#3C00DC] before:to-[#FF5001] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
+									after:content-[''] after:absolute after:inset-0 after:z-[-2] md:after:bg-gradient-to-b after:from-[#030404] after:to-[#131A1A] after:rounded-[inherit] after:overflow-hidden"
+                    >
+                      <motion.div
+                        exit={{ height: 0, opacity: 0 }}
+                        animate={{
+                          height: "fit-content",
+                          opacity: 1,
+                        }}
+                        initial={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, delay: 0.3 }}
+                        className="flex flex-col justify-center items-center gap-[16px] overflow-hidden"
+                      >
+                        <a
+                          target="_blank"
+                          href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}
+                        >
+                          <P
+                            uppercase
+                            gradient
+                            extrabold
+                            center
+                            className="font-sans font-extrabold text-nowrap"
+                          >
+                            Dark Paper
+                          </P>
+                        </a>
+                        <a
+                          target="_blank"
+                          href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}
+                        >
+                          <P
+                            uppercase
+                            gradient
+                            extrabold
+                            center
+                            className="font-sans font-extrabold text-nowrap"
+                          >
+                            Darker Paper
+                          </P>
+                        </a>
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </P>
               {account.isConnected ? (
                 <>
                   <div className="w-[2px] h-[2.5rem] bg-gradient-to-b from-white via-[#999999] to-[#999999] rounded-full" />
                   <UserConnected />
                 </>
-              ) : (
-                <Button
-                  iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
-                  iconPosition="start"
-                  innerText="Connect Wallet"
-                  onClick={handleLogin}
-                />
-              )}
+              ) : null}
             </div>
           </div>
           {/* Mobile View */}
@@ -203,7 +275,9 @@ const Header = () => {
           <div className="flex text-agwhite w-full xl:h-16 rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px] overflow-hidden">
             <div className="w-full h-full bg-agblack px-8 flex flex-col items-center justify-center rounded-lg gap-6 py-4">
               {account.isConnected && <UserConnected />}
-              <a href={location.pathname === "/wishwell" ? "#" : "/wishwell"}>
+              <Link
+                href={location.pathname === "/wishwell" ? "#" : "/wishwell"}
+              >
                 <P
                   uppercase
                   gradient
@@ -212,8 +286,8 @@ const Header = () => {
                 >
                   Wishwell
                 </P>
-              </a>
-              <a href={location.pathname === "/mining" ? "#" : "/mining"}>
+              </Link>
+              <Link href={location.pathname === "/mining" ? "#" : "/mining"}>
                 <P
                   uppercase
                   gradient
@@ -222,8 +296,8 @@ const Header = () => {
                 >
                   Mining
                 </P>
-              </a>
-              <a
+              </Link>
+              <Link
                 href={location.pathname === "/collective" ? "#" : "/collective"}
               >
                 <P
@@ -234,20 +308,100 @@ const Header = () => {
                 >
                   Collective
                 </P>
-              </a>
-              <a
-                target="_blank"
-                href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}
+              </Link>
+              <P
+                onClick={() => setAboutSectionOpen(!aboutSectionOpen)}
+                uppercase
+                gradient
+                extrabold
+                className="relative font-sans font-extrabold cursor-pointer w-full flex flex-col gap-[8px]"
               >
-                <P
-                  uppercase
-                  gradient
-                  extrabold
-                  className="font-sans font-extrabold"
-                >
-                  WHITEPAPER
-                </P>
-              </a>
+                <div className="flex justify-center items-center">
+                  About{" "}
+                  <Image
+                    src={IMAGEKIT_ICONS.DOWN_WHITE}
+                    alt="Dropdown"
+                    width={16}
+                    height={16}
+                    style={{
+                      transform:
+                        aboutSectionOpen && isOpen
+                          ? "rotate(180deg)"
+                          : "rotate(0deg)",
+                    }}
+                    className="origin-center transition-all duration-300 ease-in-out transform rotate-0 cursor-pointer"
+                  />
+                </div>
+                <AnimatePresence>
+                  {aboutSectionOpen && isOpen && (
+                    <motion.div
+                      exit={{
+                        height: 0,
+                        opacity: 0,
+                        gap: 0,
+                        padding: 0,
+                      }}
+                      animate={{
+                        height: "fit-content",
+                        opacity: 1,
+                        gap: "8px",
+                        padding: "10px 16px",
+                      }}
+                      initial={{
+                        height: 0,
+                        opacity: 0,
+                        gap: 0,
+                        padding: 0,
+                      }}
+                      transition={{
+                        duration: 0.3,
+                        type: "spring",
+                      }}
+                      className="w-full rounded-[8px] z-10 p-[16px] text-agwhite transition-all duration-300 ease-in-out bg-agblack bg-gradient-to-b from-[#0A1133] to-[#142266] "
+                    >
+                      <motion.div
+                        exit={{ height: 0, opacity: 0 }}
+                        animate={{
+                          height: "fit-content",
+                          opacity: 1,
+                        }}
+                        initial={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, delay: 0.3 }}
+                        className="flex flex-col justify-center items-center gap-[2rem] overflow-hidden"
+                      >
+                        <a
+                          target="_blank"
+                          href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}
+                        >
+                          <P
+                            uppercase
+                            gradient
+                            extrabold
+                            center
+                            className="font-sans font-extrabold text-nowrap"
+                          >
+                            Dark Paper
+                          </P>
+                        </a>
+                        <a
+                          target="_blank"
+                          href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}
+                        >
+                          <P
+                            uppercase
+                            gradient
+                            extrabold
+                            center
+                            className="font-sans font-extrabold text-nowrap"
+                          >
+                            Darker Paper
+                          </P>
+                        </a>
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </P>
             </div>
           </div>
         </div>
