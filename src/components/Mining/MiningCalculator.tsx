@@ -58,7 +58,7 @@ export function InputCard({
 		}
 	}
 	return (
-		<div className="flex justify-between bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-full border-[1px] border-agyellow">
+		<div className="flex justify-between gap-[8px] bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-fit min-w-full border-[1px] border-agyellow">
 			<div className="flex flex-col justify-start items-start gap-[8px] w-full">
 				<input
 					className="text-agwhite font-extrabold font-sans bg-transparent w-full h-full"
@@ -90,7 +90,7 @@ export function InputCard({
 						"flex justify-center items-center gap-[8px] h-full w-fit"
 					)}
 				>
-					<button className="ml-[16px] flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit">
+					<button className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit">
 						<div className="bg-[#0A1133] rounded-full w-fit h-fit">
 							<div className="rounded-full text-[16px] leading-[16px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent bg-clip-text">
 								MAX
@@ -290,7 +290,7 @@ export default function MiningCalculator({
 	}, [value]);
 
 	return (
-		<div className="relative flex flex-col gap-[8px] h-fit max-w-[400px]">
+		<div className="relative flex flex-col gap-[8px] h-fit min-w-[400px] max-w-full">
 			<InputCard
 				inputValue={currentValue}
 				setCurrentInputValue={setCurrentValue}
@@ -328,7 +328,7 @@ export default function MiningCalculator({
 			</div>
 			<Card
 				value={pointsConverterToUSCommaseparated(
-					Number(USDValue * multiplyer)
+					Number((USDValue * multiplyer).toFixed(20))
 				)}
 				conversion={`$${pointsConverterToUSCommaseparated(USDValue)}`}
 				multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
@@ -338,7 +338,7 @@ export default function MiningCalculator({
 			/>
 			<Card
 				value={pointsConverterToUSCommaseparated(
-					Number(USDValue * multiplyer)
+					Number((USDValue * multiplyer).toFixed(20))
 				)}
 				conversion={`$${pointsConverterToUSCommaseparated(USDValue)}`}
 				multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
