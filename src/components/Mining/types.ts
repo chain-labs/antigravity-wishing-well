@@ -12,4 +12,4 @@ export type IToken = TokenDropdownTypes & {
   decimals: number;
 };
 
-export type StateType = "Mining" | "Claiming";
+export type StateType = "Mining" | "Claiming" | "Claimed";
