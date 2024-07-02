@@ -352,25 +352,22 @@ const Header = () => {
 								uppercase
 								gradient
 								extrabold
-								className="relative font-sans font-extrabold flex justify-center items-center gap-[8px] cursor-pointer"
+								className="relative font-sans font-extrabold flex justify-center items-center cursor-pointer"
 							>
 								About{" "}
-								<div
+								<Image
+									src={IMAGEKIT_ICONS.DOWN_WHITE}
+									alt="Dropdown"
+									width={16}
+									height={16}
 									style={{
-										transform: aboutSectionOpen
-											? "rotate(180deg)"
-											: "rotate(0deg)",
+										transform:
+											aboutSectionOpen && isOpen
+												? "rotate(180deg)"
+												: "rotate(0deg)",
 									}}
-								>
-									<P
-										uppercase
-										gradient
-										extrabold
-										className="font-sans font-extrabold"
-									>
-										v
-									</P>
-								</div>
+									className="origin-center transition-all duration-300 ease-in-out transform rotate-0 cursor-pointer"
+								/>
 								<AnimatePresence>
 									{aboutSectionOpen && (
 										<motion.div
@@ -396,18 +393,19 @@ const Header = () => {
 												duration: 0.3,
 												type: "spring",
 											}}
-											className="absolute w-fit top-[calc(100%+32px)] left-1/2 -translate-x-1/2 rounded-[6px] z-10 p-[10px_16px] text-agwhite transition-all duration-300 ease-in-out bg-agblack
-									before:content-[''] before:absolute before:inset-0 before:z-[-10] md:before:bg-gradient-to-bl before:from-[#5537A5] before:to-[#BF6841] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
-									after:content-[''] after:absolute after:inset-0 after:z-[-2] md:after:bg-agblack after:rounded-[inherit] after:overflow-hidden"
+											className="absolute w-fit top-[calc(100%+32px)] left-1/2 -translate-x-1/2 rounded-[8px] z-10 p-[16px] text-agwhite transition-all duration-300 ease-in-out bg-agblack
+									before:content-[''] before:absolute before:inset-0 before:z-[-10] md:before:bg-gradient-to-bl before:from-[#3C00DC] before:to-[#FF5001] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
+									after:content-[''] after:absolute after:inset-0 after:z-[-2] md:after:bg-gradient-to-b after:from-[#030404] after:to-[#131A1A] after:rounded-[inherit] after:overflow-hidden"
 										>
 											<motion.div
-												exit={{ height: 0 }}
+												exit={{ height: 0, opacity: 0 }}
 												animate={{
 													height: "fit-content",
+													opacity: 1,
 												}}
-												initial={{ height: 0 }}
-												transition={{ duration: 0.3 }}
-												className="flex flex-col justify-center items-center gap-[8px] overflow-hidden"
+												initial={{ height: 0, opacity: 0 }}
+												transition={{ duration: 0.3, delay: 0.3}}
+												className="flex flex-col justify-center items-center gap-[16px] overflow-hidden"
 											>
 												<a
 													target="_blank"
@@ -566,10 +564,10 @@ const Header = () => {
 								extrabold
 								className="relative font-sans font-extrabold cursor-pointer w-full flex flex-col gap-[8px]"
 							>
-								<div className="flex justify-center items-center gap-[8px]">
+								<div className="flex justify-center items-center">
 									About{" "}
 									<Image
-										src={IMAGEKIT_ICONS.DOWN}
+										src={IMAGEKIT_ICONS.DOWN_WHITE}
 										alt="Dropdown"
 										width={16}
 										height={16}
@@ -607,16 +605,17 @@ const Header = () => {
 												duration: 0.3,
 												type: "spring",
 											}}
-											className="w-full rounded-[6px] z-10 p-[10px_16px] text-agwhite transition-all duration-300 ease-in-out bg-agblack bg-gradient-to-b from-[#0A1133] to-[#142266] "
+											className="w-full rounded-[8px] z-10 p-[16px] text-agwhite transition-all duration-300 ease-in-out bg-agblack bg-gradient-to-b from-[#0A1133] to-[#142266] "
 										>
 											<motion.div
-												exit={{ height: 0 }}
+												exit={{ height: 0, opacity: 0 }}
 												animate={{
 													height: "fit-content",
+													opacity: 1,
 												}}
-												initial={{ height: 0 }}
-												transition={{ duration: 0.3 }}
-												className="flex flex-col justify-center items-center gap-[8px] overflow-hidden"
+												initial={{ height: 0, opacity: 0 }}
+												transition={{ duration: 0.3, delay: 0.3}}
+												className="flex flex-col justify-center items-center gap-[2rem] overflow-hidden"
 											>
 												<a
 													target="_blank"
