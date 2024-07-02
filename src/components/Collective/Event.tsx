@@ -23,11 +23,9 @@ export default function Event() {
 	  }`
       )
       .then((collective) => {
-        console.log({ collective });
         cmsClient
           .fetch(`*[_type=="event"&&_id=="${collective.event._ref}"][0]`)
           .then((event) => {
-            console.log({ event });
             setEvent({
               name: event.name,
               description: event.description,
