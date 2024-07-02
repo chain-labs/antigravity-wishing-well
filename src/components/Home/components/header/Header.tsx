@@ -362,7 +362,7 @@ const Header = () => {
 									height={16}
 									style={{
 										transform:
-											aboutSectionOpen && isOpen
+											aboutSectionOpen
 												? "rotate(180deg)"
 												: "rotate(0deg)",
 									}}
