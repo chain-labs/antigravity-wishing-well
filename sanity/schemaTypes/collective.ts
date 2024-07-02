@@ -1,5 +1,13 @@
 import { defineField, defineType } from "sanity";
 import { eventType } from "./event";
+import {
+  bookFields,
+  communityFields,
+  eventFields,
+  heroFields,
+  teamFields,
+  videoFields,
+} from "./fields";
 
 export const collectiveType = defineType({
   name: "collective",
@@ -8,32 +16,17 @@ export const collectiveType = defineType({
   groups: [
     { name: "hero", title: "Hero Section" },
     { name: "event", title: "Event" },
+    { name: "community", title: "Community" },
+    { name: "team", title: "Team Members" },
+    { name: "video", title: "Video" },
+    { name: "book", title: "Book" },
   ],
   fields: [
-    defineField({
-      name: "heroText",
-      title: "Hero Text",
-      group: "hero",
-      description:
-        "Add the text that needs to be the hero header. Every text that needs to be added as a separate line must be added as a new list element.",
-      type: "array",
-      of: [{ type: "string" }],
-    }),
-    defineField({
-      name: "heroDescription",
-      title: "Hero Description",
-      group: "hero",
-      description:
-        "Add the text that needs to be the hero subtext. Every text that needs to be added as a separate line must be added as a new list element.",
-      type: "array",
-      of: [{ type: "string" }],
-    }),
-    defineField({
-      name: "event",
-      type: "reference",
-      title: "Event",
-      group: "event",
-      to: [{ type: "event" }],
-    }),         
+    ...heroFields,
+    ...eventFields,
+    ...communityFields,
+    ...videoFields,
+    ...teamFields,
+    ...bookFields,
   ],
 });
