@@ -42,6 +42,7 @@ export const IMAGEKIT_ICONS = {
 	ERROR: `${IMAGEKIT_ICONS_URL}/error.svg`,
 	INFO_BLACK: `${IMAGEKIT_ICONS_URL}/info-black.svg`,
 	DOWN: `${IMAGEKIT_ICONS_URL}/down.svg`,
+	DOWN_WHITE: `${IMAGEKIT_ICONS_URL}/down-white.svg`,
 	DISCORD: `${IMAGEKIT_ICONS_URL}/discord.svg`,
 	TWITTER: `${IMAGEKIT_ICONS_URL}/twitter.svg`,
 	TELEGRAM: `${IMAGEKIT_ICONS_URL}/telegram.svg`,
