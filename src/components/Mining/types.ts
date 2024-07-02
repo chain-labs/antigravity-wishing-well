@@ -4,8 +4,7 @@ export type TokenDropdownTypes = {
   label: string;
   USDvalue: number;
   tokenContract: string;
-  lightIcon: string | StaticImport;
-  darkIcon: string | StaticImport;
+  icon: string | StaticImport;
 };
 
 export type IToken = TokenDropdownTypes & {

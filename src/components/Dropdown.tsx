@@ -51,7 +51,7 @@ export default function Dropdown({
     >
       <div className="cursor-pointer grid grid-cols-[24px_auto_16px] place-items-center gap-[4px]">
         <Image
-          src={options[selected].darkIcon}
+          src={options[selected].icon}
           alt={options[selected].label}
           width={24}
           height={24}
@@ -89,7 +89,7 @@ export default function Dropdown({
         }}
         className="absolute top-[calc(100%+8px)] right-0 rounded-[6px] z-10 text-agwhite transition-all duration-300 ease-in-out bg-agblack
 			before:content-[''] before:absolute before:inset-0 before:z-[-10] md:before:bg-gradient-to-bl before:from-[#5537A5] before:to-[#BF6841] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
-			after:content-[''] after:absolute after:inset-0 after:z-[-2] md:after:bg-agblack after:rounded-[inherit] after:overflow-hidden"
+			after:content-[''] after:absolute after:inset-0 after:z-[-2] md:after:bg-gradient-to-b after:from-[#030404] after:to-[#131A1A] after:rounded-[inherit] after:overflow-hidden"
       >
         <div
           style={{
@@ -107,7 +107,7 @@ export default function Dropdown({
                     className="flex gap-[8px] items-center justify-start w-full cursor-pointer min-w-[120px]"
                   >
                     <Image
-                      src={option.lightIcon}
+                      src={option.icon}
                       alt={option.label}
                       width={24}
                       height={24}

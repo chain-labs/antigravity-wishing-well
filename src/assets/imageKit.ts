@@ -54,6 +54,12 @@ export const IMAGEKIT_ICONS = {
 	TIKTOK: `${IMAGEKIT_ICONS_URL}/tiktok.svg`,
 	INSTAGRAM: `${IMAGEKIT_ICONS_URL}/instagram.svg`,
 	CALENDAR: `${IMAGEKIT_ICONS_URL}/calendar.svg`,
+	ETH_COLOR: `${IMAGEKIT_ICONS_URL}/eth-color.svg`,
+	PLS_COLOR: `${IMAGEKIT_ICONS_URL}/pls-color.png`,
+	USDT_COLOR: `${IMAGEKIT_ICONS_URL}/usdt-color.svg`,
+	USDC_COLOR: `${IMAGEKIT_ICONS_URL}/usdc-color.svg`,
+	WETH_COLOR: `${IMAGEKIT_ICONS_URL}/weth-color.svg`,
+	MEME_COLOR: `${IMAGEKIT_ICONS_URL}/meme-color.png`,
 };
 
 export const IMAGEKIT_IMAGES = {
