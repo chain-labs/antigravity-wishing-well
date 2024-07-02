@@ -87,7 +87,7 @@ export default function Dropdown({
           padding: isOpen ? "8px 8px" : "0px 8px",
           opacity: isOpen ? 1 : 0,
         }}
-        className="absolute top-[calc(100%+8px)] rounded-[6px] z-10 text-agwhite transition-all duration-300 ease-in-out bg-agblack
+        className="absolute top-[calc(100%+8px)] right-0 rounded-[6px] z-10 text-agwhite transition-all duration-300 ease-in-out bg-agblack
 			before:content-[''] before:absolute before:inset-0 before:z-[-10] md:before:bg-gradient-to-bl before:from-[#5537A5] before:to-[#BF6841] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
 			after:content-[''] after:absolute after:inset-0 after:z-[-2] md:after:bg-agblack after:rounded-[inherit] after:overflow-hidden"
       >
@@ -104,7 +104,7 @@ export default function Dropdown({
                   <div
                     onClick={() => setSelected(idx)}
                     key={option.label}
-                    className="flex gap-[8px] items-center justify-center w-full cursor-pointer"
+                    className="flex gap-[8px] items-center justify-start w-full cursor-pointer min-w-[120px]"
                   >
                     <Image
                       src={option.lightIcon}
