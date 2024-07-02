@@ -8,6 +8,7 @@ export default function P({
 	extrabold = false,
 	sans = false,
 	center = false,
+	onClick,
 	style = {}
 }: {
 	children: React.ReactNode;
@@ -17,10 +18,12 @@ export default function P({
 	extrabold?: boolean;
 	sans?: boolean;
 	center?: boolean;
+	onClick?: () => void;
 	style?: React.CSSProperties;
 }) {
 	return (
 		<p
+			onClick={onClick}
 			style={style}
 			className={twMerge(
 				"text-[16px] font-general-sans text-agwhite font-medium",
