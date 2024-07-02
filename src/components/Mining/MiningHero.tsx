@@ -381,6 +381,7 @@ function NonContributed({
         <></>
       )}
       <MiningCalculator
+        tokenBalance={tokenBalance}
         value={value}
         setValue={setValue}
         conversionRateToUSD={0.245}
