@@ -59,6 +59,12 @@ export function InputCard({
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     let inputCurrentValue = e.target.value;
 
+    if (inputCurrentValue === "") {
+      setCurrentInputValue("0");
+      if (inputRef.current) inputRef.current.value = "0";
+      return;
+    }
+
     // Remove any non-numeric characters except the decimal point
     inputCurrentValue = inputCurrentValue.replace(/[^0-9.]/g, "");
 
@@ -83,6 +89,12 @@ export function InputCard({
     // Validate the number
     const numberValue = parseFloat(inputCurrentValue);
 
+    if (numberValue > parseFloat(tokenBalance)) {
+      setCurrentInputValue(tokenBalance);
+      if (inputRef.current) inputRef.current.value = tokenBalance;
+      return;
+    }
+
     if (!isNaN(numberValue) && numberValue >= 0) {
       setCurrentInputValue(inputCurrentValue);
     }
@@ -93,6 +105,16 @@ export function InputCard({
       setSelectedToken(dropDownSelected);
     }
   }, [dropDownSelected]);
+
+  useEffect(() => {
+    if (
+      inputRef.current &&
+      Number(tokenBalance) <= Number(inputRef.current?.value) &&
+      tokenBalance !== "0"
+    ) {
+      if (inputRef.current) inputRef.current.value = tokenBalance;
+    }
+  }, [tokenBalance, inputValue]);
 
   const account = useAccount();
 
@@ -121,8 +143,8 @@ export function InputCard({
             className="text-agwhite font-extrabold font-sans bg-transparent w-full h-full"
             type="number"
             defaultValue={inputValue}
-            max={500}
-            min={10}
+            max={tokenBalance.toString()}
+            min={0}
             onBlur={(e) => {
               setOutOfFocus(true);
             }}
@@ -189,9 +211,22 @@ export function InputCard({
                 if (inputRef.current)
                   inputRef.current.value = tokenBalance.toString();
               }}
+              disabled={
+                (Number(tokenBalance) === 0 ||
+                  (inputRef.current &&
+                    Number(tokenBalance) <= Number(inputRef.current?.value))) ??
+                false
+              }
             >
               <div className="bg-[#0A1133] rounded-full w-fit h-fit">
-                <div className="rounded-full text-[16px] leading-[16px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent bg-clip-text">
+                <div
+                  className={twMerge(
+                    `rounded-full text-[16px] leading-[16px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent bg-clip-text`,
+                    inputRef.current &&
+                      Number(tokenBalance) <= Number(inputRef.current?.value) &&
+                      "text-agblack bg-clip-border",
+                  )}
+                >
                   MAX
                 </div>
               </div>
@@ -428,8 +463,18 @@ export default function MiningCalculator({
   }, [currentValue, conversionRateToUSD, selectedOption, inputOptions]);
 
   useEffect(() => {
-    setCurrentValue(pointsConverterToUSCommaseparated(value));
-  }, [value]);
+    if (value > parseFloat(tokenBalance) && tokenBalance !== "0") {
+      setCurrentValue(
+        pointsConverterToUSCommaseparated(
+          tokenBalance.toString().includes(".")
+            ? parseFloat(tokenBalance)
+            : parseInt(tokenBalance),
+        ),
+      );
+    } else {
+      setCurrentValue(pointsConverterToUSCommaseparated(value));
+    }
+  }, [value, tokenBalance]);
 
   return (
     <div className="relative flex flex-col gap-[8px] h-fit min-w-[400px] max-w-full">
