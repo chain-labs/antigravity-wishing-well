@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { useAccount, useSwitchChain } from "wagmi";
+import { useAccount, useSwitchChain } from 'wagmi';
 // import HomeContainer from "./home/HomeContainer";
-import "@rainbow-me/rainbowkit/styles.css";
-import { useEffect, useState } from "react";
-import { TEST_NETWORK } from "@/constants";
-import { base, pulsechain, baseSepolia, sepolia } from "viem/chains";
-import dynamic from "next/dynamic";
+import '@rainbow-me/rainbowkit/styles.css';
+import { useEffect, useState } from 'react';
+import { TEST_NETWORK } from '@/constants';
+import { base, pulsechain, baseSepolia, sepolia } from 'viem/chains';
+import dynamic from 'next/dynamic';
 
-const Homepage = dynamic(() => import("./HomePage"), {
+const Homepage = dynamic(() => import('./HomePage'), {
   ssr: false,
 });
 
-const LoadingPage = dynamic(() => import("./LoadingPage"), {
+const LoadingPage = dynamic(() => import('./LoadingPage'), {
   ssr: false,
 });
 
@@ -22,7 +22,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (window !== undefined) {
-      window.addEventListener("load", () => {
+      window.addEventListener('load', () => {
         setLoading(false);
       });
     }

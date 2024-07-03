@@ -108,30 +108,6 @@ export default function Team() {
                   />
                 </a>
               ))}
-              {/* <Link href="/telegram">
-                <Image
-                  src={IMAGEKIT_ICONS.TELEGRAM}
-                  alt="Claim Icon"
-                  width={24}
-                  height={24}
-                />
-              </Link>
-              <Link href="/telegram">
-                <Image
-                  src={IMAGEKIT_ICONS.TWITTER}
-                  alt="Claim Icon"
-                  width={24}
-                  height={24}
-                />
-              </Link>
-              <Link href="/telegram">
-                <Image
-                  src={IMAGEKIT_ICONS.YOUTUBE}
-                  alt="Claim Icon"
-                  width={24}
-                  height={24}
-                />
-              </Link> */}
             </div>
           </div>
         ))}

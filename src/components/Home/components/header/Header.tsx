@@ -102,7 +102,9 @@ const Header = () => {
             <div
               className={`relative flex justify-center items-center font-extrabold text-lg font-sans gap-[16px] oveflow-hidden`}
             >
-              <Link href={location.pathname === "/wishwell" ? "#" : "/wishwell"}>
+              <Link
+                href={location.pathname === "/wishwell" ? "#" : "/wishwell"}
+              >
                 <P
                   uppercase
                   gradient
@@ -231,7 +233,15 @@ const Header = () => {
                   <div className="w-[2px] h-[2.5rem] bg-gradient-to-b from-white via-[#999999] to-[#999999] rounded-full" />
                   <UserConnected />
                 </>
-              ) : null}
+              ) : (
+                <Button
+                  onClick={handleLogin}
+                  iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
+                  iconAlt="wallet"
+                  iconPosition="start"
+                  innerText="Connect Wallet"
+                />
+              )}
             </div>
           </div>
           {/* Mobile View */}

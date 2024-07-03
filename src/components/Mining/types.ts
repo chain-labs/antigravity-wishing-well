@@ -1,4 +1,4 @@
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 
 export type TokenDropdownTypes = {
   label: string;
@@ -12,4 +12,4 @@ export type IToken = TokenDropdownTypes & {
   decimals: number;
 };
 
-export type StateType = "Mining" | "Claiming";
+export type StateType = 'Mining' | 'Claiming';

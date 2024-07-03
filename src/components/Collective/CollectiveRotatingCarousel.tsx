@@ -28,7 +28,6 @@ function EventCard({
   caption: string;
 }) {
   const CONSTANT_HEIGHT = 250;
-
   return (
     <div
       style={{
