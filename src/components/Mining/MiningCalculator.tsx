@@ -2,7 +2,14 @@
 
 import P from "@/components/HTML/P";
 import { twMerge } from "tailwind-merge";
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  use,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Dropdown from "@/components/Dropdown";
@@ -10,6 +17,7 @@ import Badge from "@/components/Badge";
 import Pill from "@/components/Pill";
 import { TokenDropdownTypes } from "./types";
 import Image from "next/image";
+import AutomaticIncreamentalNumberCounterWithString from "./AutomaticIncreamentalNumberCounterWithString";
 import { TOKEN_OPTIONS } from "./constants";
 import { useAccount } from "wagmi";
 
@@ -34,6 +42,20 @@ export function InputCard({
 }) {
   const [outOfFocus, setOutOfFocus] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [currentConversion, setCurrentConversion] = useState<string>("");
+  const conversionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // if value is not changed withing 300ms, update the value
+    const timeout = setTimeout(() => {
+      setCurrentConversion(conversion);
+    }, 300);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [conversion]);
+
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     let inputCurrentValue = e.target.value;
 
@@ -134,6 +156,7 @@ export function InputCard({
         </form>
 
         <P
+          ref={conversionRef}
           style={{
             // fontSize: fontsizeClamping(inputValue, 7, 8, 16) + "px",
             fontSize: 16 + "px",
@@ -142,7 +165,14 @@ export function InputCard({
           extrabold
           className="opacity-75 h-full flex justify-start items-center w-fit"
         >
-          {conversion}
+          {"$"}
+          {conversionRef.current && (
+            <AutomaticIncreamentalNumberCounterWithString
+              from={conversionRef.current?.textContent ?? "0"}
+              to={currentConversion}
+              float={currentConversion.includes(".")}
+            />
+          )}
         </P>
       </div>
       <div className="flex flex-col gap-[8px]">
@@ -224,28 +254,70 @@ export function Card({
   pillIconAlt: string;
   onlyValue?: boolean;
 }) {
+  const [currentValue, setCurrentValue] = useState<string>(value);
+  const targetValueRef = useRef<HTMLDivElement>(null);
+  const [currentConversion, setCurrentConversion] =
+    useState<string>(conversion);
+  const conversionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // if value is not changed withing 300ms, update the value
+    const timeout = setTimeout(() => {
+      setCurrentValue(value);
+    }, 300);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [value]);
+  useEffect(() => {
+    // if value is not changed withing 300ms, update the value
+    const timeout = setTimeout(() => {
+      setCurrentConversion(conversion);
+    }, 300);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [conversion]);
+
   return (
     <div className="flex justify-between gap-[16px] bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-full min-w-full border-[1px] border-agyellow">
       <div className="flex flex-col justify-start items-start gap-[8px] w-full">
         <div
+          ref={targetValueRef}
           style={{
             fontSize: fontsizeClamping(value, 7, 16, 32) + "px",
             lineHeight: 32 + "px",
           }}
           className={` text-agwhite font-extrabold font-sans`}
         >
-          {value}
+          {targetValueRef.current && (
+            <AutomaticIncreamentalNumberCounterWithString
+              from={targetValueRef.current?.textContent ?? "0"}
+              to={currentValue}
+              float={currentValue.includes(".")}
+            />
+          )}
         </div>
         {onlyValue ? null : (
           <div className="flex justify-center items-center opacity-75 gap-[8px]">
             <P
+              ref={conversionRef}
               style={{
                 fontSize: fontsizeClamping(conversion, 7, 10, 16) + "px",
                 lineHeight: 16 + "px",
               }}
               extrabold
             >
-              {conversion}
+              {"$"}
+              {conversionRef.current && (
+                <AutomaticIncreamentalNumberCounterWithString
+                  from={conversionRef.current?.textContent ?? "0"}
+                  to={currentConversion}
+                  float={currentConversion.includes(".")}
+                />
+              )}
             </P>
             <P extrabold>x</P>
             <P extrabold>{multiplyer}</P>
@@ -364,7 +436,7 @@ export default function MiningCalculator({
       <InputCard
         inputValue={currentValue}
         setCurrentInputValue={setCurrentValue}
-        conversion={`$${pointsConverterToUSCommaseparated(USDValue)}`}
+        conversion={pointsConverterToUSCommaseparated(USDValue)}
         dropdownOptions={inputOptions}
         dropDownSelected={selectedOption}
         setDropDownSelected={setSelectedOption}
@@ -402,7 +474,7 @@ export default function MiningCalculator({
         value={pointsConverterToUSCommaseparated(
           Number((USDValue * multiplyer).toFixed(20)),
         )}
-        conversion={`$${pointsConverterToUSCommaseparated(USDValue)}`}
+        conversion={pointsConverterToUSCommaseparated(USDValue)}
         multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
         pillIconAlt="points"
         pillIconSrc={IMAGEKIT_ICONS.PILL_POINTS}
@@ -412,7 +484,7 @@ export default function MiningCalculator({
         value={pointsConverterToUSCommaseparated(
           Number((USDValue * multiplyer).toFixed(20)),
         )}
-        conversion={`$${pointsConverterToUSCommaseparated(USDValue)}`}
+        conversion={pointsConverterToUSCommaseparated(USDValue)}
         multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
         pillIconAlt="dark x"
         pillIconSrc={IMAGEKIT_ICONS.PILL_DARK_X}
