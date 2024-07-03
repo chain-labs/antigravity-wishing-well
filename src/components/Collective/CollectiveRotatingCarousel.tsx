@@ -93,12 +93,6 @@ function MobileEventCard({
 }
 
 function EventCardsContainer({ posts }: { posts: IPost[] }) {
-  useEffect(() => {
-    if (posts) {
-      const image = posts?.[0]?.image;
-      console.log({ image });
-    }
-  }, [posts]);
   return (
     <div className="flex ml-[16px] gap-[16px] animate-[carouselMarquee_30s_linear_infinite]">
       {posts.map((post) => (
@@ -170,9 +164,6 @@ export default function CollectiveRotatingCarousel() {
             ))
           : null}
       </H1>
-      {/* The Two Things We Value the Most:
-		  <br className="hidden md:block" /> Events & Community. */}
-
       <div className="hidden md:block relative w-full h-fit">
         <div className="absolute right-0 top-0 h-full w-[10vw] bg-gradient-to-l from-[#030404] to-[#03040400] z-[1]"></div>
         <div className="absolute left-0 top-0 h-full w-[10vw] bg-gradient-to-r from-[#030404] to-[#03040400] z-[1]"></div>

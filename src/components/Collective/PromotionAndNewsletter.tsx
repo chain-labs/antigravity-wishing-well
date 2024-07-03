@@ -20,12 +20,7 @@ export default function PromotionAndNewsletter() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
-  const [metadata, setMetadata] = useState<IBook>({
-    book_header: "",
-    book_description: "",
-    book_image: null,
-    book_url: string,
-  });
+  const [metadata, setMetadata] = useState<IBook>();
 
   useEffect(() => {
     client
@@ -35,7 +30,6 @@ export default function PromotionAndNewsletter() {
 	}`
       )
       .then((metadata) => {
-        console.log({ metadata });
         setMetadata(metadata);
       });
   }, []);
@@ -74,19 +68,23 @@ export default function PromotionAndNewsletter() {
               <P>{metadata?.book_description}</P>
             </motion.div>
           </div>
-          <Button
-            innerText="Get Book"
-            iconSrc={IMAGEKIT_ICONS.BOOK}
-            iconAlt="Get Book"
-          />
+          <a href={metadata?.book_url} target="_blank" rel="noreferrer">
+            <Button
+              innerText="Get Book"
+              iconSrc={IMAGEKIT_ICONS.BOOK}
+              iconAlt="Get Book"
+            />
+          </a>
         </div>
-        <Image
-          src={urlForImage(metadata?.book_image)}
-          alt="Book"
-          width={523.81}
-          height={275}
-          className="w-full md:w-[524px] h-auto md:h-[275px] aspect-video rounded-[12px] object-cover"
-        />
+        {metadata?.book_image && (
+          <Image
+            src={urlForImage(metadata.book_image)}
+            alt="Book"
+            width={523.81}
+            height={275}
+            className="w-full md:w-[524px] h-auto md:h-[275px] aspect-video rounded-[12px] object-cover"
+          />
+        )}
       </div>
       <div className="flex flex-col lg:flex-row gap-[16px] md:gap-[32px] w-full rounded-[12px] p-[16px] md:p-[32px] bg-[#3C00DC80]">
         <div className="flex flex-col gap-[8px] text-nowrap">
