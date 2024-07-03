@@ -185,9 +185,8 @@ export function InputCard({
             <button
               className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
               onClick={() => {
-                setCurrentInputValue(tokenBalance.toString());
-                if (inputRef.current)
-                  inputRef.current.value = tokenBalance.toString();
+                setCurrentInputValue(tokenBalance.toString())
+                if(inputRef.current) inputRef.current.value = tokenBalance.toString();
               }}
             >
               <div className="bg-[#0A1133] rounded-full w-fit h-fit">
