@@ -4,7 +4,7 @@ import { useAccount, useSwitchChain } from "wagmi";
 import "@rainbow-me/rainbowkit/styles.css";
 import { useEffect, useState } from "react";
 import { TEST_NETWORK } from "@/constants";
-import { base, pulsechain, baseSepolia } from "viem/chains";
+import { base, pulsechain, baseSepolia, sepolia } from "viem/chains";
 import dynamic from "next/dynamic";
 import useWishwell from "@/hooks/sc-fns/useWishwell";
 import ReactLenis from "lenis/react";
