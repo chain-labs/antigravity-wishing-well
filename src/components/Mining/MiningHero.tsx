@@ -325,12 +325,17 @@ function NonContributed({
     } else return [];
   }, [account.address]);
 
-  const { mineToken, transactionLoading, darkXBalance, tokenBalance } =
+  const { mineToken, transactionLoading, darkXBalance, tokenBalances } =
     useMining(
       TOKEN_OPTIONS[selectedToken],
       value,
       proof.length > 0 ? MULTIPLIER * 2 : MULTIPLIER,
     );
+  // useEffect(() => {
+  //   if (tokenBalances) {
+  //     console.log({ selectedToken });
+  //   }
+  // }, [tokenBalances]);
 
   const handleMine = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -380,6 +385,7 @@ function NonContributed({
         <></>
       )}
       <MiningCalculator
+        tokenBalance={tokenBalances?.[selectedToken] || "0"}
         value={value}
         setValue={setValue}
         conversionRateToUSD={0.245}
