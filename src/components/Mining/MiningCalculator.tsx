@@ -146,7 +146,10 @@ export function InputCard({
           {account.isConnected && (
             <button
               className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
-              onClick={() => setCurrentInputValue(tokenBalance.toString())}
+              onClick={() => {
+                setCurrentInputValue(tokenBalance.toString())
+                if(inputRef.current) inputRef.current.value = tokenBalance.toString();
+              }}
             >
               <div className="bg-[#0A1133] rounded-full w-fit h-fit">
                 <div className="rounded-full text-[16px] leading-[16px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent bg-clip-text">
