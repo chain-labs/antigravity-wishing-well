@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import P from "@/components/HTML/P";
 import { twMerge } from "tailwind-merge";

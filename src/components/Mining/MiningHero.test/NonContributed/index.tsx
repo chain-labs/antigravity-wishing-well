@@ -1,18 +1,18 @@
-import { IMAGEKIT_ICONS } from "@/assets/imageKit";
-import Button from "@/components/Button";
-import CountdownTimer from "@/components/CountdownTimer";
-import useTimer from "@/hooks/frontend/useTimer";
-import useMerkleTree from "@/hooks/sc-fns/useMerkleTree.mine";
-import useMining from "@/hooks/sc-fns/useMining";
-import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
-import { useAccount } from "wagmi";
-import NoNFTHero from "./NoNFTHero";
-import NFTHero from "./NFTHero";
-import MiningCalculator from "./MiningCalculator";
-import { IToken, StateType, TokenDropdownTypes } from "../../types";
-import { ADDRESS_LIST, MULTIPLIER, TOKEN_OPTIONS } from "../../constants";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
-import { errorToast } from "@/hooks/frontend/toast";
+import { IMAGEKIT_ICONS } from '@/assets/imageKit';
+import Button from '@/components/Button';
+import CountdownTimer from '@/components/CountdownTimer';
+import useTimer from '@/hooks/frontend/useTimer';
+import useMerkleTree from '@/hooks/sc-fns/useMerkleTree.mine';
+import useMining from '@/hooks/sc-fns/useMining';
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
+import { useAccount } from 'wagmi';
+import NoNFTHero from './NoNFTHero';
+import NFTHero from './NFTHero';
+import MiningCalculator from './MiningCalculator';
+import { IToken, StateType, TokenDropdownTypes } from '../../types';
+import { ADDRESS_LIST, MULTIPLIER, TOKEN_OPTIONS } from '../../constants';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
+import { errorToast } from '@/hooks/frontend/toast';
 
 function NonContributed({
   state,
@@ -34,7 +34,7 @@ function NonContributed({
   useEffect(() => {
     if (!NFTHover) return;
     if (!NFTContainerRef.current) return;
-    NFTContainerRef.current.addEventListener("click", (e) => {
+    NFTContainerRef.current.addEventListener('click', (e) => {
       // if e.currentTarget is not the NFTRef and button
       if (NFTRef.current && !NFTRef.current.contains(e.target as Node)) {
         setNFTHover(false);
@@ -42,12 +42,12 @@ function NonContributed({
     });
 
     return () => {
-      document.removeEventListener("click", () => {});
+      document.removeEventListener('click', () => {});
     };
   }, [NFTHover, NFTContainerRef, NFTRef]);
 
   useEffect(() => {
-    document.body.style.overflow = NFTHover ? "hidden" : "auto";
+    document.body.style.overflow = NFTHover ? 'hidden' : 'auto';
   }, [NFTHover]);
 
   const [selectedToken, setSelectedToken] = useState(0);
@@ -67,18 +67,18 @@ function NonContributed({
   const { mineToken, transactionLoading, darkXBalance } = useMining(
     TOKEN_OPTIONS[selectedToken],
     value,
-    proof.length > 0 ? MULTIPLIER * 2 : MULTIPLIER
+    proof.length > 0 ? MULTIPLIER * 2 : MULTIPLIER,
   );
 
   const handleMine = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (!account.address) {
-      errorToast("Wallet not Connected! Please connect wallet");
+      errorToast('Wallet not Connected! Please connect wallet');
       return;
     }
     if (!proof) {
-      errorToast("Something went Wrong! Please Try Again.");
-      console.error("Proof not generated");
+      errorToast('Something went Wrong! Please Try Again.');
+      console.error('Proof not generated');
       return;
     }
 
@@ -108,7 +108,7 @@ function NonContributed({
           Claiming: <></>,
         }[state]
       } */}
-      {state !== "Claiming" ? (
+      {state !== 'Claiming' ? (
         (darkXBalance as bigint) > 0 ? (
           <NFTHero NFTHover={NFTHover} setNFTHover={setNFTHover} />
         ) : (
@@ -137,7 +137,7 @@ function NonContributed({
       ) : (
         <Button
           loading={transactionLoading}
-          innerText={transactionLoading ? "Processing" : "Mine Now"}
+          innerText={transactionLoading ? 'Processing' : 'Mine Now'}
           iconSrc={IMAGEKIT_ICONS.HAMMER}
           iconAlt="hammer"
           onClick={handleMine}

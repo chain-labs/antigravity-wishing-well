@@ -1,8 +1,8 @@
-import React, { useMemo } from 'react'
-import PropTypes from 'prop-types'
-import { shaderMaterial } from '@react-three/drei'
-import { extend } from '@react-three/fiber'
-import { Color, DoubleSide, AdditiveBlending } from 'three'
+import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { shaderMaterial } from '@react-three/drei';
+import { extend } from '@react-three/fiber';
+import { Color, DoubleSide, AdditiveBlending } from 'three';
 
 /**
  * @typedef {Object} FakeGlowMaterialProps
@@ -78,11 +78,11 @@ const FakeGlowMaterial = ({
 
         #include <tonemapping_fragment>
         #include <colorspace_fragment>
-      }`
-    )
-  }, [falloff, glowInternalRadius, glowColor, glowSharpness, opacity])
+      }`,
+    );
+  }, [falloff, glowInternalRadius, glowColor, glowSharpness, opacity]);
 
-  extend({ FakeGlowMaterial })
+  extend({ FakeGlowMaterial });
 
   return (
     <fakeGlowMaterial
@@ -92,8 +92,8 @@ const FakeGlowMaterial = ({
       blending={AdditiveBlending}
       depthTest={depthTest}
     />
-  )
-}
+  );
+};
 
 FakeGlowMaterial.propTypes = {
   falloff: PropTypes.number,
@@ -105,6 +105,6 @@ FakeGlowMaterial.propTypes = {
     'THREE.BackSide',
     'THREE.DoubleSide',
   ]),
-}
+};
 
-export default FakeGlowMaterial
+export default FakeGlowMaterial;

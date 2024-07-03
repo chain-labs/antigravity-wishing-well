@@ -1,15 +1,15 @@
-import { IMAGEKIT_ICONS } from "@/assets/imageKit";
-import ContributedCard from "./ContributedCard";
-import Button from "@/components/Button";
-import H1 from "@/components/HTML/H1";
-import P from "@/components/HTML/P";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
-import { useAccount } from "wagmi";
-import useMerkleTree from "@/hooks/sc-fns/useMerkleTree.claim";
-import { CLAIM_LISTS } from "../../constants";
-import { useMemo } from "react";
-import { formatUnits } from "viem";
-import useClaim from "@/hooks/sc-fns/useClaim";
+import { IMAGEKIT_ICONS } from '@/assets/imageKit';
+import ContributedCard from './ContributedCard';
+import Button from '@/components/Button';
+import H1 from '@/components/HTML/H1';
+import P from '@/components/HTML/P';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
+import { useAccount } from 'wagmi';
+import useMerkleTree from '@/hooks/sc-fns/useMerkleTree.claim';
+import { CLAIM_LISTS } from '../../constants';
+import { useMemo } from 'react';
+import { formatUnits } from 'viem';
+import useClaim from '@/hooks/sc-fns/useClaim';
 
 function ContributedHero() {
   const { openConnectModal } = useConnectModal();
@@ -18,13 +18,13 @@ function ContributedHero() {
   const { generateProof } = useMerkleTree(
     CLAIM_LISTS.accounts,
     CLAIM_LISTS.points,
-    CLAIM_LISTS.nonces
+    CLAIM_LISTS.nonces,
   );
 
   const points = useMemo(() => {
     if (account.address) {
       const accountIndex = CLAIM_LISTS.accounts.findIndex(
-        (x) => x.toLowerCase() === account.address?.toLowerCase()
+        (x) => x.toLowerCase() === account.address?.toLowerCase(),
       );
 
       if (accountIndex > 0) {
@@ -32,7 +32,7 @@ function ContributedHero() {
 
         const formattedPoints = formatUnits(
           BigInt(CLAIM_LISTS.points[accountIndex]),
-          18
+          18,
         );
         return Number(formattedPoints);
       } else return 0;
@@ -44,13 +44,13 @@ function ContributedHero() {
   const proof: string[] = useMemo(() => {
     if (account.address) {
       const accountIndex = CLAIM_LISTS.accounts.findIndex(
-        (x) => x.toLowerCase() === account.address?.toLowerCase()
+        (x) => x.toLowerCase() === account.address?.toLowerCase(),
       );
 
       const generatedProof = generateProof(
         account.address,
         CLAIM_LISTS.points[accountIndex],
-        CLAIM_LISTS.nonces[accountIndex]
+        CLAIM_LISTS.nonces[accountIndex],
       );
 
       return generatedProof || [];
@@ -63,13 +63,13 @@ function ContributedHero() {
   const handleClaim = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const accountIndex = CLAIM_LISTS.accounts.findIndex(
-      (x) => x.toLowerCase() === account.address?.toLowerCase()
+      (x) => x.toLowerCase() === account.address?.toLowerCase(),
     );
 
     claim(
       CLAIM_LISTS.points[accountIndex],
       CLAIM_LISTS.nonces[accountIndex],
-      proof
+      proof,
     );
   };
 
@@ -92,16 +92,16 @@ function ContributedHero() {
         />
         <div
           style={{
-            gap: "11px",
+            gap: '11px',
           }}
           className="flex justify-center items-center w-full"
         >
           <div
             style={{
-              width: "100%",
-              height: "1px",
-              backgroundColor: "#FF5001",
-              borderRadius: "100px",
+              width: '100%',
+              height: '1px',
+              backgroundColor: '#FF5001',
+              borderRadius: '100px',
             }}
           ></div>
           <div className="text-agwhite uppercase tracking-wider text-nowrap font-bold">
@@ -109,10 +109,10 @@ function ContributedHero() {
           </div>
           <div
             style={{
-              width: "100%",
-              height: "1px",
-              backgroundColor: "#FF5001",
-              borderRadius: "100px",
+              width: '100%',
+              height: '1px',
+              backgroundColor: '#FF5001',
+              borderRadius: '100px',
             }}
           ></div>
         </div>
@@ -131,7 +131,7 @@ function ContributedHero() {
           />
         ) : (
           <Button
-            innerText={transactionLoading ? "Claiming..." : "Claim Now"}
+            innerText={transactionLoading ? 'Claiming...' : 'Claim Now'}
             loading={transactionLoading}
             disabled={points === 0}
             iconSrc={IMAGEKIT_ICONS.CLAIM}

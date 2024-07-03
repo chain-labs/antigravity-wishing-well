@@ -1,12 +1,12 @@
-import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
-import Image from "next/image";
-import React, { useRef, useState } from "react";
-import NonContributed from "./NonContributed";
-import { StateType } from "../types";
-import ContributedHero from "./ContributedHero";
+import { IMAGEKIT_IMAGES } from '@/assets/imageKit';
+import Image from 'next/image';
+import React, { useRef, useState } from 'react';
+import NonContributed from './NonContributed';
+import { StateType } from '../types';
+import ContributedHero from './ContributedHero';
 
 export default function MiningHero() {
-  const [state, setState] = useState<StateType>("Mining");
+  const [state, setState] = useState<StateType>('Mining');
   const [NFTHover, setNFTHover] = useState(false);
   const NFTRef = useRef<HTMLDivElement>(null);
   const NFTContainerRef = useRef<HTMLDivElement>(null);
@@ -15,7 +15,7 @@ export default function MiningHero() {
     <div className="relative w-full min-h-screen overflow-hidden">
       <div className="bg-gradient-to-b from-[#000] h-fit to-[#0000] overflow-hidden">
         <div className="flex flex-col justify-center items-center w-full h-[130vh] md:h-screen md:pt-[80px]">
-          {state === "Claiming" ? (
+          {state === 'Claiming' ? (
             <ContributedHero />
           ) : (
             <NonContributed

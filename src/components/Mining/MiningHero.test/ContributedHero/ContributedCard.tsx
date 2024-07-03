@@ -1,7 +1,7 @@
-import H1 from "@/components/HTML/H1";
-import Pill from "@/components/Pill";
-import { pointsConverterToUSCommaseparated } from "../NonContributed/MiningCalculator";
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import H1 from '@/components/HTML/H1';
+import Pill from '@/components/Pill';
+import { pointsConverterToUSCommaseparated } from '../NonContributed/MiningCalculator';
+import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 
 function ContributedCard({
   value,
