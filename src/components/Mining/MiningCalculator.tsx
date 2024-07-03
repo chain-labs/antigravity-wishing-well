@@ -29,6 +29,7 @@ export function InputCard({
   dropDownSelected,
   setDropDownSelected,
   tokenBalance,
+  setSelectedToken,
 }: {
   inputValue: string;
   setCurrentInputValue: Dispatch<SetStateAction<string>>;
@@ -36,6 +37,7 @@ export function InputCard({
   dropdownOptions: TokenDropdownTypes[];
   dropDownSelected: number;
   setDropDownSelected: Dispatch<SetStateAction<number>>;
+  setSelectedToken: Dispatch<SetStateAction<number>>;
   tokenBalance: string;
 }) {
   const [outOfFocus, setOutOfFocus] = useState(false);
@@ -85,6 +87,12 @@ export function InputCard({
       setCurrentInputValue(inputCurrentValue);
     }
   }
+
+  useEffect(() => {
+    if (dropDownSelected >= 0) {
+      setSelectedToken(dropDownSelected);
+    }
+  }, [dropDownSelected]);
 
   const account = useAccount();
 
@@ -177,8 +185,9 @@ export function InputCard({
             <button
               className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
               onClick={() => {
-                setCurrentInputValue(tokenBalance.toString())
-                if(inputRef.current) inputRef.current.value = tokenBalance.toString();
+                setCurrentInputValue(tokenBalance.toString());
+                if (inputRef.current)
+                  inputRef.current.value = tokenBalance.toString();
               }}
             >
               <div className="bg-[#0A1133] rounded-full w-fit h-fit">
@@ -205,7 +214,7 @@ export function InputCard({
               height={24}
               className={twMerge("object-cover")}
             />
-            {`${tokenBalance} ${TOKEN_OPTIONS[dropDownSelected].label}`}
+            {`${parseFloat(tokenBalance).toLocaleString()} ${TOKEN_OPTIONS[dropDownSelected].label}`}
           </div>
         )}
       </div>
@@ -432,6 +441,7 @@ export default function MiningCalculator({
         dropDownSelected={selectedOption}
         setDropDownSelected={setSelectedOption}
         tokenBalance={tokenBalance}
+        setSelectedToken={setSelectedToken}
       />
       <Multiplyer era={era} phase={phase} multiplyer={multiplyer} />
       <div
