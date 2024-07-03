@@ -4,7 +4,7 @@ import { useAccount, useSwitchChain } from "wagmi";
 import "@rainbow-me/rainbowkit/styles.css";
 import { useEffect, useState } from "react";
 import { TEST_NETWORK } from "@/constants";
-import { base, pulsechain, baseSepolia } from "viem/chains";
+import { base, pulsechain, baseSepolia, sepolia } from "viem/chains";
 import dynamic from "next/dynamic";
 import ReactLenis from "lenis/react";
 
@@ -35,7 +35,7 @@ export default function Wishwell() {
 
       if (TEST_NETWORK) {
         if (chainId !== baseSepolia.id && chainId !== pulsechain.id) {
-          switchChain.switchChain({ chainId: pulsechain.id });
+          switchChain.switchChain({ chainId: sepolia.id });
         }
       } else {
         if (chainId !== base.id && chainId !== pulsechain.id) {

@@ -67,195 +67,6 @@ export default function CollectiveHero() {
     }
   };
 
-  const getTokenIds = async (poll?: boolean) => {
-    if (publicClient === undefined) return;
-    if (!poll && checkCorrectNetwork(Number(account.chainId))) {
-      setLoading(true);
-      setIsRegistered(false);
-      setIsSuccess(false);
-    }
-    // note: using the public client which is already set to ensure another conditional logic is not needed to set the http transport.
-    // const publicClient =  createPublicClient({
-    //   chain: account.chain,
-    //   transport: http("https://base-sepolia.g.alchemy.com/v2/Ck1jBlebtn6A92-eXG1tnievZs0kfS9F"),
-    // });
-
-    const fromBlockNumber = TEST_NETWORK
-      ? process.env.NEXT_PUBLIC_BASE_SEPOLIA_FROM_BLOCK_NUMBER
-      : account.chainId == base.id
-        ? process.env.NEXT_PUBLIC_BASE_FROM_BLOCK_NUMBER
-        : process.env.NEXT_PUBLIC_PLS_FROM_BLOCK_NUMBER;
-
-    if (fromBlockNumber === undefined)
-      throw Error("Please set the enviornment variable for Block Number");
-
-    const chunkSize = 50000; // Define the chunk size as per the RPC limit
-    let currentBlock = BigInt(fromBlockNumber); // Start from this block number
-    let latestBlock; // Variable to store the latest block number
-    let tokenId; // Variable to store tokenId when found
-
-    latestBlock = await getLatestBlockNumber(publicClient); // Initialize the latest block
-    while (currentBlock <= latestBlock) {
-      // Calculate the end block for the current chunk
-      const endBlock = Math.min(
-        parseInt(currentBlock.toString()) + parseInt(chunkSize.toString()),
-        parseInt(latestBlock.toString()),
-      );
-
-      // Create the event filter for the current block range
-      const filter = await publicClient.createEventFilter({
-        address: AntiGravity?.address,
-        event: parseAbiItem(
-          "event Transfer(address indexed from, address indexed to, uint256 indexed id)",
-        ),
-        args: {
-          to: account.address,
-        },
-        fromBlock: BigInt(currentBlock),
-        toBlock: BigInt(endBlock),
-      });
-
-      // Fetch logs using the filter
-      const logs = await publicClient.getFilterLogs({ filter });
-
-      if (logs.length > 0) {
-        tokenId = logs[0]?.args.id;
-        if (tokenId) {
-          break; // Exit the loop if tokenId is found
-        }
-      }
-      // Update currentBlock for the next iteration
-      currentBlock = BigInt((endBlock + 1).toString());
-
-      // Refresh latest block number to ensure it includes recent blocks
-      latestBlock = await getLatestBlockNumber(publicClient);
-    }
-    setTokenId(tokenId ?? BigInt(0));
-    if (tokenId) {
-      try {
-        const contributionData = await axios.get(
-          `${PROXY_API_ENDPOINT}contribution/${tokenId}?blockchain=${getApiNetwork(
-            Number(account?.chainId),
-          )}`,
-        );
-        const contribution = parseFloat(contributionData.data.data.value);
-
-        setLoading(false);
-        if (contribution > 0) {
-          setIsSuccess(true);
-        } else {
-          setIsRegistered(true);
-        }
-      } catch (err) {
-        toast.error("Something went wrong. Try Again!", {
-          duration: 3000,
-        });
-        setError(true);
-        console.error({ err });
-      }
-    } else {
-      setLoading(false);
-      setIsSuccess(false);
-      setIsRegistered(false);
-    }
-  };
-
-  useEffect(() => {
-    if (account.address && checkCorrectNetwork(account.chain?.id) && !error) {
-      getTokenIds(false);
-    } else {
-      setIsRegistered(false);
-      setIsSuccess(false);
-    }
-  }, [account.address, account.chainId, error]);
-
-  useEffect(() => {
-    let timer: any;
-    if (poll) {
-      getTokenIds(true);
-
-      timer = setInterval(() => {
-        getTokenIds(true);
-      }, POLL_TIME ?? 30000);
-    }
-
-    return () => {
-      if (timer) {
-        clearInterval(timer);
-      }
-    };
-  }, [poll]);
-
-  const balance = useReadContract({
-    ...AntiGravity,
-    functionName: "balanceOf",
-    args: [account.address as `0x${string}`],
-    query: {
-      enabled: account.isConnected,
-    },
-  });
-
-  useEffect(() => {
-    if (balance.isFetched) {
-      if ((balance.data as number) > 0) {
-        if (!loading) {
-          setIsRegistered(true);
-          return;
-        }
-      }
-    }
-    setIsRegistered(false);
-  }, [balance.isFetched, balance.data, loading]);
-
-  const {
-    data: registerHash,
-    error: registerError,
-    writeContract: register,
-    isIdle: registerIdle,
-    isPending: registerPending,
-  } = useWriteContract();
-
-  const {
-    data: registerReceipt,
-    isFetching: registerFetching,
-    isLoading: registerLoading,
-    isFetched: registerFetched,
-  } = useTransactionReceipt({
-    hash: registerHash,
-  });
-
-  const handleRegister = async () => {
-    toast.loading("Getting you registered!", {
-      duration: 10000,
-    });
-
-    await register({
-      // @ts-ignore
-      address: AntiGravity?.address,
-      abi: AntiGravity?.abi,
-      functionName: "register",
-      // args: [`${payableAmount}`],
-    });
-  };
-
-  useEffect(() => {
-    if (registerError) {
-      console.log({ registerError });
-      toast.error("Something Went Wrong", {
-        duration: 3000,
-      });
-      setIsRegistered(false);
-    }
-  }, [registerError]);
-
-  useEffect(() => {
-    if (registerFetched) {
-      toast.success("Registered successful", {
-        duration: 3000,
-      });
-      setIsRegistered(true);
-    }
-  }, [registerFetched]);
   return (
     <div className="relative flex flex-col justify-start items-center w-full h-fit lg:h-screen bg-gradient-to-b from-[#000000A8] to-[#00000000] gap-[24px] p-[16px] pt-[100px] lg:pt-[200px]">
       <div className="flex flex-col justify-center items-center gap-[16px]">
@@ -270,15 +81,15 @@ export default function CollectiveHero() {
           There are roughly 7 billion people on earth. It only takes 2 billion
           drops of water to start a flood.
         </P>
-        <RegisterButton
-          loading={loading}
-          error={error}
-          registerIdle={registerIdle}
-          handleLogin={handleLogin}
-          setError={setError}
-          handleRegister={handleRegister}
-          isRegistered={isRegistered}
-        />
+        {!account.isConnected && (
+          <Button
+            onClick={handleLogin}
+            iconAlt="wallet"
+            iconPosition="start"
+            iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
+            innerText="Connect Wallet"
+          />
+        )}
       </div>
       <motion.div
         animate={{ y: 0 }}

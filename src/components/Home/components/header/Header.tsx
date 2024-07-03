@@ -28,6 +28,7 @@ import {
 } from "wagmi";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import Link from "next/link";
+import Button from "@/components/Button";
 
 // Use a function to get the latest block number
 async function getLatestBlockNumber(publicClient: PublicClient) {
@@ -232,7 +233,15 @@ const Header = () => {
                   <div className="w-[2px] h-[2.5rem] bg-gradient-to-b from-white via-[#999999] to-[#999999] rounded-full" />
                   <UserConnected />
                 </>
-              ) : null}
+              ) : (
+                <Button
+                  onClick={handleLogin}
+                  iconAlt="wallet"
+                  iconPosition="start"
+                  iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
+                  innerText="Connect Wallet"
+                />
+              )}
             </div>
           </div>
           {/* Mobile View */}
