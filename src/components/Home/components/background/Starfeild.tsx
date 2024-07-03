@@ -113,7 +113,7 @@ const StarFieldCanvas: React.FC<StarFieldCanvasProps> = ({
     <div
       id="canvas-container"
       style={{ width: "100%", height: "100vh" }}
-      className="w-full h-[100vh] fixed top-0 left-0 -z-[1] bg-agblack"
+      className="w-full h-[100vh] fixed top-0 left-0 -z-[1]"
     >
       <Suspense fallback={null}>
         <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
