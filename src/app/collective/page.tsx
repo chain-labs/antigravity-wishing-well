@@ -35,7 +35,7 @@ export default function Wishwell() {
 
       if (TEST_NETWORK) {
         if (chainId !== baseSepolia.id && chainId !== pulsechain.id) {
-          switchChain.switchChain({ chainId: pulsechain.id });
+          switchChain.switchChain({ chainId: sepolia.id });
         }
       } else {
         if (chainId !== base.id && chainId !== pulsechain.id) {
