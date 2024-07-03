@@ -101,7 +101,9 @@ const Header = () => {
             <div
               className={`relative flex justify-center items-center font-extrabold text-lg font-sans gap-[16px] oveflow-hidden`}
             >
-              <Link href={location.pathname === "/wishwell" ? "#" : "/wishwell"}>
+              <Link
+                href={location.pathname === "/wishwell" ? "#" : "/wishwell"}
+              >
                 <P
                   uppercase
                   gradient

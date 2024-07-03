@@ -12,8 +12,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 const title = "Antigravity | Join The Revolution!";
 const description = "Join the Revolution.";
-const previewImage =
-  IMAGEKIT.PREVIEW_IMAGE;
+const previewImage = IMAGEKIT.PREVIEW_IMAGE;
 const websiteUrl = new URL("https://agproject.io");
 
 export const metadata: Metadata = {

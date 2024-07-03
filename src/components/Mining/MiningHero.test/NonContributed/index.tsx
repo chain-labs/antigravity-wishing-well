@@ -67,7 +67,7 @@ function NonContributed({
   const { mineToken, transactionLoading, darkXBalance } = useMining(
     TOKEN_OPTIONS[selectedToken],
     value,
-    proof.length > 0 ? MULTIPLIER * 2 : MULTIPLIER
+    proof.length > 0 ? MULTIPLIER * 2 : MULTIPLIER,
   );
 
   const handleMine = async (e: React.MouseEvent<HTMLButtonElement>) => {

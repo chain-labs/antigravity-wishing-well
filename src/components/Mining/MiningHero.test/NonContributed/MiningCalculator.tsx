@@ -175,7 +175,7 @@ export function pointsConverterToUSCommaseparated(points: number): string {
   const [integerPart, decimalPart] = points.toString().split(".");
   const formattedIntegerPart = integerPart.replace(
     /\B(?=(\d{3})+(?!\d))/g,
-    ","
+    ",",
   );
 
   return decimalPart
@@ -203,7 +203,7 @@ export default function MiningCalculator({
   setSelectedToken: Dispatch<SetStateAction<number>>;
 }) {
   const [currentValue, setCurrentValue] = useState<string>(
-    pointsConverterToUSCommaseparated(value)
+    pointsConverterToUSCommaseparated(value),
   );
   const [selectedOption, setSelectedOption] = useState<number>(0);
   const [USDValue, setUSDValue] = useState(value * inputOptions[0].USDvalue);

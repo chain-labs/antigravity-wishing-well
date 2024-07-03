@@ -29,11 +29,11 @@ import { TOKEN_OPTIONS } from "@/components/Mining/constants";
 const useMining = (
   token: IToken,
   amountToInvest: number,
-  multiplier: number
+  multiplier: number,
 ) => {
   const [isApprovalNeeded, setIsApprovalNeeded] = useState(false);
   const [merkleProofState, setMerkleProofState] = useState<string[] | null>(
-    null
+    null,
   );
   const [transactionLoading, setTransactionLoading] = useState<boolean>(false);
 
@@ -129,14 +129,14 @@ const useMining = (
       console.log({ mineError });
       if ((mineError.cause as any).code === 4001) {
         errorToast(
-          "You cancelled the mining process. Please Try Again if you wish to mine."
+          "You cancelled the mining process. Please Try Again if you wish to mine.",
         );
       } else if (
         (mineError.cause as any).reason ===
         "ERC20: transfer amount exceeds balance"
       ) {
         errorToast(
-          `You do not have ${amountToInvest} ${token.label} in your wallet balance.`
+          `You do not have ${amountToInvest} ${token.label} in your wallet balance.`,
         );
       } else {
         errorToast("Couldn't mine your $DarkX token.");
@@ -147,11 +147,11 @@ const useMining = (
       console.log({ approveError });
       if ((approveError.cause as any).code === 4001) {
         errorToast(
-          `You did not approve sending us your ${token.label} tokens. Please Try Again if you wish to mine.`
+          `You did not approve sending us your ${token.label} tokens. Please Try Again if you wish to mine.`,
         );
       } else {
         errorToast(
-          `Couldn't approve transfer of your ${token.label} tokens for mining! Please Try Again.`
+          `Couldn't approve transfer of your ${token.label} tokens for mining! Please Try Again.`,
         );
       }
       setTransactionLoading(false);
@@ -222,8 +222,8 @@ const useMining = (
       (tokenBalance, index) =>
         formatUnits(
           (tokenBalance.result as bigint) || BigInt(0),
-          TOKEN_OPTIONS?.[index].decimals
-        ) || "0"
+          TOKEN_OPTIONS?.[index].decimals,
+        ) || "0",
     ),
   };
 };

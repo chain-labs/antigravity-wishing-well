@@ -12,7 +12,7 @@ import toast from "react-hot-toast";
 
 export const useRestFetch = <T>(
   tags: string[],
-  endpoint: string
+  endpoint: string,
 ): UseQueryResult<T, Error> => {
   return useQuery<T>({
     queryKey: tags,
@@ -22,7 +22,7 @@ export const useRestFetch = <T>(
 
 export const useRestPost = <T>(
   tags: string[],
-  url: string
+  url: string,
 ): UseMutationResult<T, any, Record<string, any>, unknown> => {
   const queryClient = useQueryClient();
   const result = useMutation<T, any, Record<string, any>>({

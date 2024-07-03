@@ -121,7 +121,7 @@ export default function Dropdown({
                         <div className="w-full h-[1px] bg-gradient-to-bl from-[#5537A5] via-[#5537A5] to-[#BF6841]" />
                       )}
                 </>
-              )
+              ),
           )}
         </div>
       </motion.div>

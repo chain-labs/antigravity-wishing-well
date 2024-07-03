@@ -21,7 +21,7 @@ export default function Mining() {
   const switchChain = useSwitchChain();
   const [loading, setLoading] = useState(true);
   const [state, setState] = useState<"No NFT" | "NFT Present" | "Claiming">(
-    "No NFT"
+    "No NFT",
   );
   useEffect(() => {
     if (window !== undefined) {

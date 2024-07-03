@@ -17,7 +17,7 @@ export default function Newsletter() {
 
   const { data, isPending, error, mutate } = useRestPost(
     ["contact"],
-    "/contact"
+    "/contact",
   );
 
   const queryClient = useQueryClient();

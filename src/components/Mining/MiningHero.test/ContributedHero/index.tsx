@@ -18,13 +18,13 @@ function ContributedHero() {
   const { generateProof } = useMerkleTree(
     CLAIM_LISTS.accounts,
     CLAIM_LISTS.points,
-    CLAIM_LISTS.nonces
+    CLAIM_LISTS.nonces,
   );
 
   const points = useMemo(() => {
     if (account.address) {
       const accountIndex = CLAIM_LISTS.accounts.findIndex(
-        (x) => x.toLowerCase() === account.address?.toLowerCase()
+        (x) => x.toLowerCase() === account.address?.toLowerCase(),
       );
 
       if (accountIndex > 0) {
@@ -32,7 +32,7 @@ function ContributedHero() {
 
         const formattedPoints = formatUnits(
           BigInt(CLAIM_LISTS.points[accountIndex]),
-          18
+          18,
         );
         return Number(formattedPoints);
       } else return 0;
@@ -44,13 +44,13 @@ function ContributedHero() {
   const proof: string[] = useMemo(() => {
     if (account.address) {
       const accountIndex = CLAIM_LISTS.accounts.findIndex(
-        (x) => x.toLowerCase() === account.address?.toLowerCase()
+        (x) => x.toLowerCase() === account.address?.toLowerCase(),
       );
 
       const generatedProof = generateProof(
         account.address,
         CLAIM_LISTS.points[accountIndex],
-        CLAIM_LISTS.nonces[accountIndex]
+        CLAIM_LISTS.nonces[accountIndex],
       );
 
       return generatedProof || [];
@@ -63,13 +63,13 @@ function ContributedHero() {
   const handleClaim = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const accountIndex = CLAIM_LISTS.accounts.findIndex(
-      (x) => x.toLowerCase() === account.address?.toLowerCase()
+      (x) => x.toLowerCase() === account.address?.toLowerCase(),
     );
 
     claim(
       CLAIM_LISTS.points[accountIndex],
       CLAIM_LISTS.nonces[accountIndex],
-      proof
+      proof,
     );
   };
 

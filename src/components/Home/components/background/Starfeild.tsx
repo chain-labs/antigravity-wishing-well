@@ -1,10 +1,18 @@
 import React, { Suspense, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { InstancedBufferGeometry, InstancedMesh, MeshBasicMaterial } from "three";
+import {
+  InstancedBufferGeometry,
+  InstancedMesh,
+  MeshBasicMaterial,
+} from "three";
 
 // Function to get a random position within a range
-const getRandomPos = (xRange: number, yRange: number, zRange: number): [number, number, number] => {
+const getRandomPos = (
+  xRange: number,
+  yRange: number,
+  zRange: number,
+): [number, number, number] => {
   return [
     Math.random() * xRange - xRange / 2,
     Math.random() * yRange - yRange / 2,
@@ -22,7 +30,13 @@ interface StarFieldProps {
 }
 
 // Star Field Component
-const StarField: React.FC<StarFieldProps> = ({ count, xRange, yRange, zRange, speed }) => {
+const StarField: React.FC<StarFieldProps> = ({
+  count,
+  xRange,
+  yRange,
+  zRange,
+  speed,
+}) => {
   const meshRef = useRef<InstancedMesh>(null);
   const dummy = new THREE.Object3D();
 
@@ -67,7 +81,7 @@ const StarField: React.FC<StarFieldProps> = ({ count, xRange, yRange, zRange, sp
   // Create material for the stars
   const material = React.useMemo(
     () => new MeshBasicMaterial({ color: "#fff" }),
-    []
+    [],
   );
 
   return (
@@ -88,7 +102,13 @@ interface StarFieldCanvasProps {
 }
 
 // Canvas Component
-const StarFieldCanvas: React.FC<StarFieldCanvasProps> = ({ count, xRange, yRange, zRange, speed }) => {
+const StarFieldCanvas: React.FC<StarFieldCanvasProps> = ({
+  count,
+  xRange,
+  yRange,
+  zRange,
+  speed,
+}) => {
   return (
     <div
       id="canvas-container"
@@ -97,7 +117,13 @@ const StarFieldCanvas: React.FC<StarFieldCanvasProps> = ({ count, xRange, yRange
     >
       <Suspense fallback={null}>
         <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
-          <StarField count={count} xRange={xRange} yRange={yRange} zRange={zRange} speed={speed} />
+          <StarField
+            count={count}
+            xRange={xRange}
+            yRange={yRange}
+            zRange={zRange}
+            speed={speed}
+          />
         </Canvas>
       </Suspense>
     </div>

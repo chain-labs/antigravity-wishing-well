@@ -16,7 +16,7 @@ type Props = {};
 const useMerkleTree = (
   accounts: Array<string>,
   points: Array<string>,
-  nonces: Array<string>
+  nonces: Array<string>,
 ) => {
   const buf2hex = (x: any) => "0x" + x.toString("hex");
 
@@ -32,14 +32,14 @@ const useMerkleTree = (
     return KECCAK256(
       encodeAbiParameters(
         [{ type: "address" }, { type: "uint256" }, { type: "uint256" }],
-        [account as `0x${string}`, BigInt(point), BigInt(nonce)]
-      )
+        [account as `0x${string}`, BigInt(point), BigInt(nonce)],
+      ),
     );
   }
 
   const tree = useMemo(() => {
     const leaves = accounts.map((acc, index) =>
-      generateLeaf(acc, points[index], nonces[index])
+      generateLeaf(acc, points[index], nonces[index]),
     );
     return new MerkleTree(leaves, KECCAK256, { sortPairs: true });
   }, [accounts, points, nonces]);

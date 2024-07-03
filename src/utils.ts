@@ -1,4 +1,10 @@
-import { base, pulsechain, pulsechainV4, baseSepolia, sepolia } from "viem/chains";
+import {
+  base,
+  pulsechain,
+  pulsechainV4,
+  baseSepolia,
+  sepolia,
+} from "viem/chains";
 import { TEST_NETWORK } from "./constants";
 
 export const toBoolean = (query: string | undefined) => {
@@ -32,7 +38,7 @@ export const checkCorrectNetwork = (chainId: number | undefined) => {
 
 export const condenseAddress = (address: string) => {
   const condensed = `${address.slice(0, 4)}...${address.slice(
-    address.length - 4
+    address.length - 4,
   )}`;
 
   return condensed;

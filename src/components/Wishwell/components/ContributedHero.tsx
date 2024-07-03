@@ -25,8 +25,8 @@ export default function ContributedHero({ tokenId }: { tokenId: string }) {
     setImageLoading(true);
     seturi(
       `${PROXY_API_ENDPOINT}svg/${tokenId}?blockchain=${getApiNetwork(
-        Number(account.chainId)
-      )}`
+        Number(account.chainId),
+      )}`,
     );
   };
   return (

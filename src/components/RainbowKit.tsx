@@ -20,16 +20,16 @@ const config = getDefaultConfig({
   transports: TEST_NETWORK
     ? {
         [baseSepolia.id]: http(
-          `https://base-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`
+          `https://base-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`,
         ),
         [sepolia.id]: http(
-          `https://eth-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`
+          `https://eth-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`,
         ),
         [pulsechain.id]: http(),
       }
     : {
         [base.id]: http(
-          `https://base-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`
+          `https://base-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`,
         ),
         [pulsechain.id]: http("https://pulsechain-rpc.publicnode.com"),
       },

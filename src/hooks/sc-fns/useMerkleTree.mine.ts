@@ -22,7 +22,7 @@ const useMerkleTree = (list: Array<string>) => {
    */
   function generateLeaf(item: string) {
     return KECCAK256(
-      encodeAbiParameters([{ type: "address" }], [item as `0x${string}`])
+      encodeAbiParameters([{ type: "address" }], [item as `0x${string}`]),
     );
   }
 

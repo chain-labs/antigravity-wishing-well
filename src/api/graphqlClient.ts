@@ -6,7 +6,7 @@ const endpoint =
 
 export const gqlFetcher = async <T>(
   query: string,
-  variables: Record<string, any>
+  variables: Record<string, any>,
 ): Promise<T> => {
   //   const document = gql(query);
   const data = await request<T>(endpoint, query, variables);
@@ -15,7 +15,7 @@ export const gqlFetcher = async <T>(
 
 export const gqlMutate = async <T>(
   query: string,
-  variables: Record<string, any>
+  variables: Record<string, any>,
 ): Promise<T> => {
   //   const document = gql(query);
   const data = await request<T>(endpoint, query, variables);
