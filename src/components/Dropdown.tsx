@@ -18,8 +18,7 @@ export default function Dropdown({
   const targetRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-  }, [selected]);
+  useEffect(() => {}, [selected]);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelected(Number(event.target.value));
