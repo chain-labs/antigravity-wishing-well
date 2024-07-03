@@ -128,7 +128,7 @@ export function InputCard({
           >
             {inputRef &&
               pointsConverterToUSCommaseparated(
-                Number(inputRef.current?.value)
+                Number(inputRef.current?.value),
               )}
           </div>
         </form>
@@ -148,7 +148,7 @@ export function InputCard({
       <div className="flex flex-col gap-[8px]">
         <div
           className={twMerge(
-            "flex justify-center items-center gap-[8px] h-full w-fit"
+            "flex justify-center items-center gap-[8px] h-full w-fit",
           )}
         >
           {account.isConnected && (
@@ -196,7 +196,7 @@ function fontsizeClamping(
   value: string,
   maxLengthForClamping: number,
   minFontSize: number,
-  maxFontSize: number
+  maxFontSize: number,
 ) {
   return value.length >= maxLengthForClamping
     ? maxFontSize - (value.length - maxLengthForClamping) >= minFontSize
@@ -313,7 +313,7 @@ export function pointsConverterToUSCommaseparated(points: number): string {
   const [integerPart, decimalPart] = points.toString().split(".");
   const formattedIntegerPart = integerPart.replace(
     /\B(?=(\d{3})+(?!\d))/g,
-    ","
+    ",",
   );
 
   return decimalPart
@@ -400,7 +400,7 @@ export default function MiningCalculator({
       </div>
       <Card
         value={pointsConverterToUSCommaseparated(
-          Number((USDValue * multiplyer).toFixed(20))
+          Number((USDValue * multiplyer).toFixed(20)),
         )}
         conversion={`$${pointsConverterToUSCommaseparated(USDValue)}`}
         multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
@@ -410,7 +410,7 @@ export default function MiningCalculator({
       />
       <Card
         value={pointsConverterToUSCommaseparated(
-          Number((USDValue * multiplyer).toFixed(20))
+          Number((USDValue * multiplyer).toFixed(20)),
         )}
         conversion={`$${pointsConverterToUSCommaseparated(USDValue)}`}
         multiplyer={pointsConverterToUSCommaseparated(multiplyer)}

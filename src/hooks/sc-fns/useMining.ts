@@ -222,8 +222,8 @@ const useMining = (
       (tokenBalance, index) =>
         formatUnits(
           (tokenBalance.result as bigint) || BigInt(0),
-          TOKEN_OPTIONS?.[index].decimals
-        ) || "0"
+          TOKEN_OPTIONS?.[index].decimals,
+        ) || "0",
     ),
   };
 };
