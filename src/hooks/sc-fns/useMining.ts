@@ -5,6 +5,7 @@ import erc20ABI from "erc-20-abi";
 import {
   useAccount,
   useReadContract,
+  useReadContracts,
   useSwitchChain,
   useWaitForTransactionReceipt,
   useWatchContractEvent,
@@ -15,6 +16,7 @@ import { errorToast, successToast } from "../frontend/toast";
 import { watchContractEvent } from "viem/actions";
 import { sepolia } from "viem/chains";
 import useDarkXContract from "@/abi/DarkX";
+import { TOKEN_OPTIONS } from "@/components/Mining/constants";
 
 /**
  *  Primary utility hook for everything related to the mining phase
@@ -66,11 +68,14 @@ const useMining = (
   });
 
   // Fetching current selected token Balance
-  const { data: tokenBalance } = useReadContract({
-    address: token.tokenContract as `0x${string}`,
-    abi: erc20ABI,
-    functionName: "balanceOf",
-    args: [`${account.address}`],
+  const { data: tokenBalances } = useReadContracts({
+    // @ts-ignore
+    contracts: TOKEN_OPTIONS.map((token) => ({
+      address: token.tokenContract as `0x${string}`,
+      abi: erc20ABI,
+      functionName: "balanceOf",
+      args: [`${account.address}`],
+    })),
   });
 
   const {
@@ -100,8 +105,6 @@ const useMining = (
   } = useWaitForTransactionReceipt({ hash: approveHash });
 
   const investAmount = useMemo(() => {
-    console.log({ amountToInvest });
-
     if (amountToInvest) {
       return parseUnits(`${amountToInvest}`, token.decimals);
     }
@@ -120,12 +123,6 @@ const useMining = (
     functionName: "allowance",
     args: [account.address, MiningContract?.address],
   });
-
-  useEffect(() => {
-    if (tokenBalance) {
-      console.log({ tokenBalance });
-    }
-  }, [tokenBalance]);
 
   useEffect(() => {
     if (mineError) {
@@ -221,8 +218,13 @@ const useMining = (
     isPending,
     transactionLoading,
     darkXBalance,
-    tokenBalance:
-      formatUnits((tokenBalance as bigint) || BigInt(0), token.decimals) || "0",
+    tokenBalances: tokenBalances?.map(
+      (tokenBalance, index) =>
+        formatUnits(
+          (tokenBalance.result as bigint) || BigInt(0),
+          TOKEN_OPTIONS?.[index].decimals
+        ) || "0"
+    ),
   };
 };
 

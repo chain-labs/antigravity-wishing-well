@@ -44,7 +44,6 @@ const useMerkleTree = (list: Array<string>) => {
   const generateProof = (candidate: string) => {
     const leaf = buf2hex(generateLeaf(candidate as `0x${string}`));
     const proof = tree.getProof(leaf).map((x) => buf2hex(x.data));
-    console.log({ proof });
 
     return proof;
   };
