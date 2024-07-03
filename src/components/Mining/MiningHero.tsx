@@ -364,22 +364,38 @@ function NonContributed({
     return 1;
   }, []);
 
+  useEffect(() => {
+    if (
+      (darkXBalance as bigint) > 0 &&
+      localStorage.getItem("nft-reveal-first-time") === "false"
+    ) {
+      localStorage.setItem("nft-reveal-first-time", "true");
+      setNFTHover(true);
+      return;
+    }
+
+    if ((darkXBalance as bigint) <= 0) {
+      console.log("here");
+      localStorage.setItem("nft-reveal-first-time", "false");
+    }
+  }, [darkXBalance]);
+
   return (
     <div className="relative flex flex-col justify-center items-center gap-[8px] mt-[50px]">
       {/* {
         {
           "No NFT": <NoNFTHero />,
           "NFT Present": (
-            <NFTHero NFTHover={NFTHover} setNFTHover={setNFTHover} />
+            <NFTHero NFTHover={NFTHover.toString()} setNFTHover={setNFTHover} />
           ),
           Claiming: <></>,
         }[state]
       } */}
       {state !== "Claiming" ? (
         (darkXBalance as bigint) > 0 ? (
-          <NoNFTHero />
-        ) : (
           <NFTHero NFTHover={NFTHover} setNFTHover={setNFTHover} />
+        ) : (
+          <NoNFTHero />
         )
       ) : (
         <></>
