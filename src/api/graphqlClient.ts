@@ -1,8 +1,8 @@
-import { gql, request } from 'graphql-request';
+import { gql, request } from "graphql-request";
 
 const endpoint =
   process.env.NEXT_PUBLIC_SUBGRAPH ||
-  'https://subgraph.satsuma-prod.com/ae960656bdbb/20487qm6brhign2ppaml2h/bipzy-polygon/api';
+  "https://subgraph.satsuma-prod.com/ae960656bdbb/20487qm6brhign2ppaml2h/bipzy-polygon/api";
 
 export const gqlFetcher = async <T>(
   query: string,

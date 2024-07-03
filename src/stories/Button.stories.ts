@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
-import Button from '@/components/Button';
+import type { Meta, StoryObj } from "@storybook/react";
+import { fn } from "@storybook/test";
+import Button from "@/components/Button";
 
 const meta = {
-  title: 'Example/Button',
+  title: "Example/Button",
   component: Button,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {},
   args: {},
 } satisfies Meta<typeof Button>;
@@ -20,31 +20,31 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    innerText: 'Click me',
-    size: 'medium',
+    innerText: "Click me",
+    size: "medium",
   },
 };
 
 export const Secondary: Story = {
   args: {
     secondary: true,
-    innerText: 'Secondary',
-    size: 'medium',
+    innerText: "Secondary",
+    size: "medium",
   },
 };
 
 export const ButtonWithIcon: Story = {
   args: {
-    innerText: 'Refresh',
-    iconSrc: require('@/assets/icons/refresh.svg'),
-    size: 'medium',
+    innerText: "Refresh",
+    iconSrc: require("@/assets/icons/refresh.svg"),
+    size: "medium",
   },
 };
 
 export const ButtonWithNoSparkles: Story = {
   args: {
-    innerText: 'No sparkles',
+    innerText: "No sparkles",
     disableSparkels: true,
-    size: 'medium',
+    size: "medium",
   },
 };

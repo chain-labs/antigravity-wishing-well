@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import P from '@/components/HTML/P';
-import { twMerge } from 'tailwind-merge';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { IMAGEKIT_ICONS } from '@/assets/imageKit';
-import { StaticImport } from 'next/dist/shared/lib/get-img-props';
-import Dropdown from '@/components/Dropdown';
-import Badge from '@/components/Badge';
-import Pill from '@/components/Pill';
-import { TokenDropdownTypes } from '../../types';
+import P from "@/components/HTML/P";
+import { twMerge } from "tailwind-merge";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { IMAGEKIT_ICONS } from "@/assets/imageKit";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import Dropdown from "@/components/Dropdown";
+import Badge from "@/components/Badge";
+import Pill from "@/components/Pill";
+import { TokenDropdownTypes } from "../../types";
 
 export function InputCard({
   inputValue,
@@ -36,22 +36,22 @@ export function InputCard({
             let inputCurrentValue = e.target.value;
 
             // Remove any non-numeric characters except the decimal point
-            inputCurrentValue = inputCurrentValue.replace(/[^0-9.]/g, '');
+            inputCurrentValue = inputCurrentValue.replace(/[^0-9.]/g, "");
 
             // Ensure only one decimal point
-            const parts = inputCurrentValue.split('.');
+            const parts = inputCurrentValue.split(".");
             if (parts.length > 2) {
-              inputCurrentValue = parts[0] + '.' + parts.slice(1).join('');
+              inputCurrentValue = parts[0] + "." + parts.slice(1).join("");
             }
 
             // Handle empty input
-            if (inputCurrentValue === '') {
-              setCurrentInputValue('0');
+            if (inputCurrentValue === "") {
+              setCurrentInputValue("0");
               return;
             }
 
             // Allow input ending with a decimal point
-            if (inputCurrentValue.endsWith('.')) {
+            if (inputCurrentValue.endsWith(".")) {
               setCurrentInputValue(inputCurrentValue);
               return;
             }
@@ -69,7 +69,7 @@ export function InputCard({
         </P>
       </div>
       <div
-        className={twMerge('flex flex-col justify-center items-center h-full')}
+        className={twMerge("flex flex-col justify-center items-center h-full")}
       >
         <Dropdown
           options={dropdownOptions ?? []}
@@ -172,10 +172,10 @@ function Multiplyer({
 }
 
 export function pointsConverterToUSCommaseparated(points: number): string {
-  const [integerPart, decimalPart] = points.toString().split('.');
+  const [integerPart, decimalPart] = points.toString().split(".");
   const formattedIntegerPart = integerPart.replace(
     /\B(?=(\d{3})+(?!\d))/g,
-    ',',
+    ",",
   );
 
   return decimalPart
@@ -210,7 +210,7 @@ export default function MiningCalculator({
 
   useEffect(() => {
     console.log(selectedOption);
-    const value = Number(currentValue.replace(/,/g, ''));
+    const value = Number(currentValue.replace(/,/g, ""));
     if (!isNaN(value) && value >= 0) {
       const usdValue = value * inputOptions[selectedOption].USDvalue;
       setUSDValue(Number(usdValue));
@@ -235,16 +235,16 @@ export default function MiningCalculator({
       <Multiplyer era={era} phase={phase} multiplyer={multiplyer} />
       <div
         style={{
-          gap: '11px',
+          gap: "11px",
         }}
         className="flex justify-center items-center"
       >
         <div
           style={{
-            width: '100%',
-            height: '1px',
-            backgroundColor: '#FF5001',
-            borderRadius: '100px',
+            width: "100%",
+            height: "1px",
+            backgroundColor: "#FF5001",
+            borderRadius: "100px",
           }}
         ></div>
         <div className="text-agwhite uppercase tracking-wider text-nowrap font-bold">
@@ -252,10 +252,10 @@ export default function MiningCalculator({
         </div>
         <div
           style={{
-            width: '100%',
-            height: '1px',
-            backgroundColor: '#FF5001',
-            borderRadius: '100px',
+            width: "100%",
+            height: "1px",
+            backgroundColor: "#FF5001",
+            borderRadius: "100px",
           }}
         ></div>
       </div>

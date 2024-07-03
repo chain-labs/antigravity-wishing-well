@@ -1,10 +1,10 @@
-'use client';
-import { IMAGEKIT_ICONS } from '@/assets/imageKit';
-import { StaticImport } from 'next/dist/shared/lib/get-img-props';
-import Image from 'next/image';
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-import { TokenDropdownTypes } from './Mining/types';
+"use client";
+import { IMAGEKIT_ICONS } from "@/assets/imageKit";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import Image from "next/image";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { TokenDropdownTypes } from "./Mining/types";
 
 export default function Dropdown({
   options,
@@ -35,10 +35,10 @@ export default function Dropdown({
       }
     };
 
-    document.addEventListener('click', handleClick);
+    document.addEventListener("click", handleClick);
 
     return () => {
-      document.removeEventListener('click', handleClick);
+      document.removeEventListener("click", handleClick);
     };
   }, []);
 
@@ -75,15 +75,15 @@ export default function Dropdown({
           width={16}
           height={16}
           style={{
-            transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+            transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
           }}
           className="origin-center transition-all duration-300 ease-in-out transform rotate-0 cursor-pointer"
         />
       </div>
       <motion.div
         style={{
-          height: isOpen ? `fit-content` : '0px',
-          padding: isOpen ? '8px 8px' : '0px 8px',
+          height: isOpen ? `fit-content` : "0px",
+          padding: isOpen ? "8px 8px" : "0px 8px",
           opacity: isOpen ? 1 : 0,
         }}
         className="absolute top-[calc(100%+8px)] right-0 rounded-[6px] z-10 text-agwhite transition-all duration-300 ease-in-out bg-agblack
@@ -92,7 +92,7 @@ export default function Dropdown({
       >
         <div
           style={{
-            display: isOpen ? 'flex' : 'none',
+            display: isOpen ? "flex" : "none",
           }}
           className="flex flex-col justify-center items-center gap-[8px]"
         >

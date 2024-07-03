@@ -1,47 +1,47 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { twMerge } from 'tailwind-merge';
-import DynamicNumberCounter from '@/components/Home/components/spinner/DynamicNumberCounter';
-import useTimer from '../../../hooks/frontend/useTimer';
-import CountdownTimer from '@/components/CountdownTimer';
-import { IMAGEKIT_IMAGES } from '@/assets/imageKit';
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { twMerge } from "tailwind-merge";
+import DynamicNumberCounter from "@/components/Home/components/spinner/DynamicNumberCounter";
+import useTimer from "../../../hooks/frontend/useTimer";
+import CountdownTimer from "@/components/CountdownTimer";
+import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 
 type stateType = {
   days: number;
   hours: number;
   mins: number;
   secs: number;
-  era: 'wishwell' | 'mining' | 'minting';
+  era: "wishwell" | "mining" | "minting";
   phase: 1 | 2 | 3;
 };
 
 function checkPhaseCompletedOrActive(
   activeState: stateType,
-  currentPhase: stateType['phase'],
-  currentEra: stateType['era'],
+  currentPhase: stateType["phase"],
+  currentEra: stateType["era"],
 ) {
-  if (activeState.era === 'wishwell') {
-    if (currentEra === 'wishwell') {
+  if (activeState.era === "wishwell") {
+    if (currentEra === "wishwell") {
       return currentPhase <= activeState.phase;
     }
     return false;
   }
 
-  if (activeState.era === 'mining') {
-    if (currentEra === 'mining') {
+  if (activeState.era === "mining") {
+    if (currentEra === "mining") {
       return currentPhase <= activeState.phase;
     }
-    if (currentEra === 'wishwell') {
+    if (currentEra === "wishwell") {
       return true;
     }
     return false;
   }
 
-  if (activeState.era === 'minting') {
-    if (currentEra === 'minting') {
+  if (activeState.era === "minting") {
+    if (currentEra === "minting") {
       return currentPhase <= activeState.phase;
     }
     return true;
@@ -54,24 +54,24 @@ function Phase({
   phase,
 }: {
   activeState: stateType;
-  era: stateType['era'];
-  phase: stateType['phase'];
+  era: stateType["era"];
+  phase: stateType["phase"];
 }) {
   return (
     <motion.div
       whileInView={{
         color: checkPhaseCompletedOrActive(activeState, phase, era)
-          ? 'black'
-          : 'transparent',
+          ? "black"
+          : "transparent",
       }}
-      initial={{ color: 'white' }}
+      initial={{ color: "white" }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: 1 }}
       className={twMerge(
-        'text-[36px] font-sans font-extrabold text-center',
+        "text-[36px] font-sans font-extrabold text-center",
         checkPhaseCompletedOrActive(activeState, phase, era)
-          ? 'text-black'
-          : 'from-white to-[#999999] bg-gradient-to-b text-transparent bg-clip-text',
+          ? "text-black"
+          : "from-white to-[#999999] bg-gradient-to-b text-transparent bg-clip-text",
       )}
     >
       {phase}
@@ -85,34 +85,34 @@ function MobilePhase({
   phase,
 }: {
   activeState: stateType;
-  era: stateType['era'];
-  phase: stateType['phase'];
+  era: stateType["era"];
+  phase: stateType["phase"];
 }) {
   if (activeState.era === era && activeState.phase === phase) {
     return (
       <motion.div
         style={{
-          color: 'black',
+          color: "black",
         }}
         whileInView={{
-          color: 'black',
+          color: "black",
         }}
-        initial={{ color: 'black' }}
+        initial={{ color: "black" }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 1 }}
         className={twMerge(
-          'relative text-[36px] font-sans font-extrabold text-center bg-agyellow rounded-lg p-4 px-8',
+          "relative text-[36px] font-sans font-extrabold text-center bg-agyellow rounded-lg p-4 px-8",
         )}
       >
         {phase}
         <motion.div
           whileInView={{
-            width: '100%',
+            width: "100%",
           }}
-          initial={{ width: '0%' }}
+          initial={{ width: "0%" }}
           transition={{
             duration: 1,
-            ease: 'easeIn',
+            ease: "easeIn",
           }}
           viewport={{ once: true }}
           className="absolute w-full h-full bottom-0 left-0 translate-y-[35%] translate-x-[2%] flex justify-center items-center "
@@ -132,11 +132,11 @@ function MobilePhase({
   return (
     <motion.div
       style={{
-        color: 'transparent',
+        color: "transparent",
       }}
       className={twMerge(
-        'text-5xl font-sans font-extrabold text-center',
-        'from-white to-[#999999] bg-gradient-to-b text-transparent bg-clip-text rounded-lg p-4 px-8',
+        "text-5xl font-sans font-extrabold text-center",
+        "from-white to-[#999999] bg-gradient-to-b text-transparent bg-clip-text rounded-lg p-4 px-8",
       )}
     >
       {phase}
@@ -146,13 +146,13 @@ function MobilePhase({
 
 function calculateActivePhasesSlider(activeState: stateType) {
   let activePhase = 0;
-  if (activeState.era === 'wishwell') {
+  if (activeState.era === "wishwell") {
     activePhase = activeState.phase;
   }
-  if (activeState.era === 'mining') {
+  if (activeState.era === "mining") {
     activePhase = activeState.phase + 3;
   }
-  if (activeState.era === 'minting') {
+  if (activeState.era === "minting") {
     activePhase = activeState.phase + 6;
   }
   return activePhase;
@@ -185,19 +185,19 @@ export default function Countdown() {
             <motion.div
               whileInView={{
                 height:
-                  state.era === 'minting'
-                    ? 'calc(200%)'
-                    : state.era === 'mining'
-                      ? 'calc(100%)'
-                      : 'calc(0%)',
-                boxShadow: '0px 5px 0px 0px rgba(0,0,0,1)',
+                  state.era === "minting"
+                    ? "calc(200%)"
+                    : state.era === "mining"
+                      ? "calc(100%)"
+                      : "calc(0%)",
+                boxShadow: "0px 5px 0px 0px rgba(0,0,0,1)",
               }}
               initial={{
-                height: '0%',
-                boxShadow: '0px 0px 0px 0px rgba(0,0,0,1)',
+                height: "0%",
+                boxShadow: "0px 0px 0px 0px rgba(0,0,0,1)",
               }}
               style={{
-                width: 'calc(100%)',
+                width: "calc(100%)",
               }}
               transition={{ duration: 1 }}
               viewport={{ once: true }}
@@ -205,11 +205,11 @@ export default function Countdown() {
             ></motion.div>
             <div
               style={{
-                color: state.era === 'wishwell' ? '#f5eb00' : 'transparent',
+                color: state.era === "wishwell" ? "#f5eb00" : "transparent",
               }}
               className={twMerge(
-                'text-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text',
-                state.era === 'wishwell' && 'text-agyellow',
+                "text-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text",
+                state.era === "wishwell" && "text-agyellow",
               )}
             >
               Wishwell
@@ -226,11 +226,11 @@ export default function Countdown() {
           <div className="flex flex-col gap-2 p-2">
             <div
               style={{
-                color: state.era === 'mining' ? '#f5eb00' : 'transparent',
+                color: state.era === "mining" ? "#f5eb00" : "transparent",
               }}
               className={twMerge(
-                'text-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text',
-                state.era === 'mining' && 'text-agyellow',
+                "text-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text",
+                state.era === "mining" && "text-agyellow",
               )}
             >
               Mining
@@ -248,19 +248,19 @@ export default function Countdown() {
             <motion.div
               whileInView={{
                 height:
-                  state.era === 'wishwell'
-                    ? 'calc(210%)'
-                    : state.era === 'mining'
-                      ? 'calc(100%)'
-                      : 'calc(0%)',
-                boxShadow: '0px -5px 0px 0px rgba(0,0,0,1)',
+                  state.era === "wishwell"
+                    ? "calc(210%)"
+                    : state.era === "mining"
+                      ? "calc(100%)"
+                      : "calc(0%)",
+                boxShadow: "0px -5px 0px 0px rgba(0,0,0,1)",
               }}
               initial={{
-                height: '0%',
-                boxShadow: '0px 0px 0px 0px rgba(0,0,0,1)',
+                height: "0%",
+                boxShadow: "0px 0px 0px 0px rgba(0,0,0,1)",
               }}
               style={{
-                width: 'calc(100%)',
+                width: "calc(100%)",
               }}
               transition={{ duration: 1 }}
               viewport={{ once: true }}
@@ -268,10 +268,10 @@ export default function Countdown() {
             ></motion.div>
             <div
               style={{
-                color: state.era === 'minting' ? '#f5eb00' : 'transparent',
+                color: state.era === "minting" ? "#f5eb00" : "transparent",
               }}
               className={twMerge(
-                'text-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text',
+                "text-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text",
               )}
             >
               Minting
@@ -293,7 +293,7 @@ export default function Countdown() {
           <div className="h-full flex flex-col gap-2">
             <div
               style={{
-                color: state.era === 'wishwell' ? '#f5eb00' : 'transparent',
+                color: state.era === "wishwell" ? "#f5eb00" : "transparent",
               }}
               className="text-[36px] leading-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text"
             >
@@ -306,7 +306,7 @@ export default function Countdown() {
           <div className="flex flex-col gap-2">
             <div
               style={{
-                color: state.era === 'mining' ? '#f5eb00' : 'transparent',
+                color: state.era === "mining" ? "#f5eb00" : "transparent",
               }}
               className="text-[36px] leading-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text"
             >
@@ -319,7 +319,7 @@ export default function Countdown() {
           <div className="flex flex-col gap-2">
             <div
               style={{
-                color: state.era === 'minting' ? '#f5eb00' : 'transparent',
+                color: state.era === "minting" ? "#f5eb00" : "transparent",
               }}
               className="text-[36px] leading-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text"
             >
@@ -345,22 +345,22 @@ export default function Countdown() {
               width: `calc(${(100 / 9) * calculateActivePhasesSlider(state)}% + 16px)`,
             }}
             // viewport={{ once: true }}
-            initial={{ width: '1%' }}
+            initial={{ width: "1%" }}
             transition={{ duration: 1 }}
             style={{
-              height: 'calc(100% + 8px)',
+              height: "calc(100% + 8px)",
               left: `calc(0% - 16px)`,
             }}
             className="absolute w-[calc((50*9)%/100%)] h-full bg-agyellow rounded z-[-1]"
           >
             <motion.div
               whileInView={{
-                width: '100%',
+                width: "100%",
               }}
-              initial={{ width: '0%' }}
+              initial={{ width: "0%" }}
               transition={{
                 duration: 1,
-                ease: 'easeIn',
+                ease: "easeIn",
               }}
               viewport={{ once: true }}
               className="w-full h-full flex justify-end items-end px-[16px]"
@@ -378,19 +378,19 @@ export default function Countdown() {
         <motion.div
           whileInView={{
             width:
-              state.era === 'wishwell'
-                ? '0%'
-                : state.era === 'mining'
-                  ? '33.33%'
-                  : 'calc(66.66%)',
-            boxShadow: '5px 0px 0px 0px rgba(0,0,0,1)',
+              state.era === "wishwell"
+                ? "0%"
+                : state.era === "mining"
+                  ? "33.33%"
+                  : "calc(66.66%)",
+            boxShadow: "5px 0px 0px 0px rgba(0,0,0,1)",
           }}
           initial={{
-            width: '0%',
-            boxShadow: '0px 0px 0px 0px rgba(0,0,0,1)',
+            width: "0%",
+            boxShadow: "0px 0px 0px 0px rgba(0,0,0,1)",
           }}
           style={{
-            height: 'calc(100%)',
+            height: "calc(100%)",
           }}
           transition={{ duration: 1 }}
           viewport={{ once: true }}
@@ -399,19 +399,19 @@ export default function Countdown() {
         <motion.div
           whileInView={{
             width:
-              state.era === 'wishwell'
-                ? '63.66%'
-                : state.era === 'mining'
-                  ? '33.33%'
-                  : '0%',
-            boxShadow: '-5px 0px 0px 0px rgba(0,0,0,1)',
+              state.era === "wishwell"
+                ? "63.66%"
+                : state.era === "mining"
+                  ? "33.33%"
+                  : "0%",
+            boxShadow: "-5px 0px 0px 0px rgba(0,0,0,1)",
           }}
           initial={{
-            width: '0%',
-            boxShadow: '0px 0px 0px 0px rgba(0,0,0,1)',
+            width: "0%",
+            boxShadow: "0px 0px 0px 0px rgba(0,0,0,1)",
           }}
           style={{
-            height: 'calc(100%)',
+            height: "calc(100%)",
           }}
           transition={{ duration: 1 }}
           viewport={{ once: true }}

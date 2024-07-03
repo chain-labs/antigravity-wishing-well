@@ -1,24 +1,24 @@
-import H1 from '@/components/HTML/H1';
-import H2 from '@/components/HTML/H2';
-import P from '@/components/HTML/P';
-import Button from '@/components/Button';
-import Image from 'next/image';
-import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from '@/assets/imageKit';
-import { successToast } from '@/hooks/frontend/toast';
-import { useState } from 'react';
-import { useAccount } from 'wagmi';
-import { PROXY_API_ENDPOINT } from '@/constants';
-import { getApiNetwork } from '@/utils';
+import H1 from "@/components/HTML/H1";
+import H2 from "@/components/HTML/H2";
+import P from "@/components/HTML/P";
+import Button from "@/components/Button";
+import Image from "next/image";
+import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
+import { successToast } from "@/hooks/frontend/toast";
+import { useState } from "react";
+import { useAccount } from "wagmi";
+import { PROXY_API_ENDPOINT } from "@/constants";
+import { getApiNetwork } from "@/utils";
 
 export default function ContributedHero({ tokenId }: { tokenId: string }) {
   const [imageLoading, setImageLoading] = useState(true);
 
-  const [uri, seturi] = useState('');
+  const [uri, seturi] = useState("");
   const account = useAccount();
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    successToast('Copied to clipboard!');
+    successToast("Copied to clipboard!");
   };
 
   const fetchImage = async () => {
@@ -59,7 +59,7 @@ export default function ContributedHero({ tokenId }: { tokenId: string }) {
                 iconAlt="info icon"
                 iconPosition="end"
                 hallmarkIconSrc={IMAGEKIT_ICONS.ETH}
-                onClick={() => copyToClipboard('Wishwell.eth')}
+                onClick={() => copyToClipboard("Wishwell.eth")}
               />
               <Button
                 innerText="Wishwell.pls"
@@ -67,7 +67,7 @@ export default function ContributedHero({ tokenId }: { tokenId: string }) {
                 iconAlt="info icon"
                 iconPosition="end"
                 hallmarkIconSrc={IMAGEKIT_ICONS.PLS}
-                onClick={() => copyToClipboard('Wishwell.pls')}
+                onClick={() => copyToClipboard("Wishwell.pls")}
               />
             </div>
           </div>

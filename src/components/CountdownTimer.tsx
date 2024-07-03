@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import DynamicNumberCounter from '@/components/Home/components/spinner/DynamicNumberCounter';
-import { useEffect, useState } from 'react';
-import { twMerge } from 'tailwind-merge';
+import DynamicNumberCounter from "@/components/Home/components/spinner/DynamicNumberCounter";
+import { useEffect, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 const eraToNumber = {
   wishwell: 1,
@@ -25,7 +25,7 @@ export default function CountdownTimer({
     mins: number;
     secs: number;
     phase: 1 | 2 | 3;
-    era: 'wishwell' | 'mining' | 'minting';
+    era: "wishwell" | "mining" | "minting";
   };
   containerClassName?: string;
   counterSubtitleClassName?: string;
@@ -36,7 +36,7 @@ export default function CountdownTimer({
   useEffect(() => {
     if (state.phase === 3) {
       setPhase(1);
-      if (state.era === 'minting') {
+      if (state.era === "minting") {
         setEra(1);
       } else {
         setEra(eraToNumber[state.era] + 1);
@@ -50,7 +50,7 @@ export default function CountdownTimer({
     <>
       <div
         className={twMerge(
-          'tracking-widest uppercase text-2xl text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text',
+          "tracking-widest uppercase text-2xl text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text",
           containerClassName,
         )}
       >
@@ -82,7 +82,7 @@ export default function CountdownTimer({
           </h1>
           <p
             className={twMerge(
-              'text-lg md:text-xl uppercase font-extrabold tracking-widest',
+              "text-lg md:text-xl uppercase font-extrabold tracking-widest",
               counterSubtitleClassName,
             )}
           >
@@ -115,7 +115,7 @@ export default function CountdownTimer({
           </h1>
           <p
             className={twMerge(
-              'text-lg md:text-xl uppercase font-extrabold tracking-widest',
+              "text-lg md:text-xl uppercase font-extrabold tracking-widest",
               counterSubtitleClassName,
             )}
           >
@@ -148,7 +148,7 @@ export default function CountdownTimer({
           </h1>
           <p
             className={twMerge(
-              'text-lg md:text-xl uppercase font-extrabold tracking-widest',
+              "text-lg md:text-xl uppercase font-extrabold tracking-widest",
               counterSubtitleClassName,
             )}
           >
@@ -181,7 +181,7 @@ export default function CountdownTimer({
           </h1>
           <p
             className={twMerge(
-              'text-lg md:text-xl uppercase font-extrabold tracking-widest',
+              "text-lg md:text-xl uppercase font-extrabold tracking-widest",
               counterSubtitleClassName,
             )}
           >

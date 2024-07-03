@@ -1,4 +1,4 @@
-import { twMerge } from 'tailwind-merge';
+import { twMerge } from "tailwind-merge";
 
 export default function GradientBorder({
   children,
@@ -13,16 +13,16 @@ export default function GradientBorder({
   from: string;
   to: string;
   direction:
-    | 't'
-    | 'r'
-    | 'b'
-    | 'l'
-    | 'tr'
-    | 'tl'
-    | 'br'
-    | 'bl'
-    | 'tlbr'
-    | 'trbl';
+    | "t"
+    | "r"
+    | "b"
+    | "l"
+    | "tr"
+    | "tl"
+    | "br"
+    | "bl"
+    | "tlbr"
+    | "trbl";
   borderSize: number;
 }) {
   return (

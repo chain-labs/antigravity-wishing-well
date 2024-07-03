@@ -2,16 +2,16 @@ import {
   IMAGEKIT_ICONS,
   IMAGEKIT_IMAGES,
   IMAGEKIT_LOGOS,
-} from '@/assets/imageKit';
-import Button from '@/components/Button';
-import CountdownTimer from '@/components/CountdownTimer';
-import H1 from '@/components/HTML/H1';
-import P from '@/components/HTML/P';
+} from "@/assets/imageKit";
+import Button from "@/components/Button";
+import CountdownTimer from "@/components/CountdownTimer";
+import H1 from "@/components/HTML/H1";
+import P from "@/components/HTML/P";
 import MiningCalculator, {
   pointsConverterToUSCommaseparated,
-} from '@/components/Mining/MiningCalculator';
-import useTimer from '@/hooks/frontend/useTimer';
-import Image from 'next/image';
+} from "@/components/Mining/MiningCalculator";
+import useTimer from "@/hooks/frontend/useTimer";
+import Image from "next/image";
 import React, {
   Dispatch,
   MouseEventHandler,
@@ -20,26 +20,26 @@ import React, {
   useMemo,
   useRef,
   useState,
-} from 'react';
-import Pill from '../Pill';
-import { StaticImport } from 'next/dist/shared/lib/get-img-props';
-import { base, pulsechain } from 'viem/chains';
-import { StateType, TokenDropdownTypes } from './types';
-import useMining from '@/hooks/sc-fns/useMining';
-import useMerkleTree from '@/hooks/sc-fns/useMerkleTree.mine';
-import useClaimMerkleTree from '@/hooks/sc-fns/useMerkleTree.claim';
-import { useAccount } from 'wagmi';
+} from "react";
+import Pill from "../Pill";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import { base, pulsechain } from "viem/chains";
+import { StateType, TokenDropdownTypes } from "./types";
+import useMining from "@/hooks/sc-fns/useMining";
+import useMerkleTree from "@/hooks/sc-fns/useMerkleTree.mine";
+import useClaimMerkleTree from "@/hooks/sc-fns/useMerkleTree.claim";
+import { useAccount } from "wagmi";
 import {
   ADDRESS_LIST,
   CLAIM_LISTS,
   MULTIPLIER,
   TOKEN_OPTIONS,
-} from './constants';
-import { useConnectModal } from '@rainbow-me/rainbowkit';
-import { errorToast } from '@/hooks/frontend/toast';
-import useClaim from '@/hooks/sc-fns/useClaim';
-import { formatUnits } from 'viem';
-import { AnimatePresence, motion } from 'framer-motion';
+} from "./constants";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { errorToast } from "@/hooks/frontend/toast";
+import useClaim from "@/hooks/sc-fns/useClaim";
+import { formatUnits } from "viem";
+import { AnimatePresence, motion } from "framer-motion";
 
 function NoNFTHero() {
   return (
@@ -220,16 +220,16 @@ function ContributedHero() {
         />
         <div
           style={{
-            gap: '11px',
+            gap: "11px",
           }}
           className="flex justify-center items-center w-full"
         >
           <div
             style={{
-              width: '100%',
-              height: '1px',
-              backgroundColor: '#FF5001',
-              borderRadius: '100px',
+              width: "100%",
+              height: "1px",
+              backgroundColor: "#FF5001",
+              borderRadius: "100px",
             }}
           ></div>
           <div className="text-agwhite uppercase tracking-wider text-nowrap font-bold">
@@ -237,10 +237,10 @@ function ContributedHero() {
           </div>
           <div
             style={{
-              width: '100%',
-              height: '1px',
-              backgroundColor: '#FF5001',
-              borderRadius: '100px',
+              width: "100%",
+              height: "1px",
+              backgroundColor: "#FF5001",
+              borderRadius: "100px",
             }}
           ></div>
         </div>
@@ -259,7 +259,7 @@ function ContributedHero() {
           />
         ) : (
           <Button
-            innerText={transactionLoading ? 'Claiming...' : 'Claim Now'}
+            innerText={transactionLoading ? "Claiming..." : "Claim Now"}
             loading={transactionLoading}
             disabled={points === 0}
             iconSrc={IMAGEKIT_ICONS.CLAIM}
@@ -292,7 +292,7 @@ function NonContributed({
   useEffect(() => {
     if (!NFTHover) return;
     if (!NFTContainerRef.current) return;
-    NFTContainerRef.current.addEventListener('click', (e) => {
+    NFTContainerRef.current.addEventListener("click", (e) => {
       // if e.currentTarget is not the NFTRef and button
       if (NFTRef.current && !NFTRef.current.contains(e.target as Node)) {
         setNFTHover(false);
@@ -300,12 +300,12 @@ function NonContributed({
     });
 
     return () => {
-      document.removeEventListener('click', () => {});
+      document.removeEventListener("click", () => {});
     };
   }, [NFTHover, NFTContainerRef, NFTRef]);
 
   useEffect(() => {
-    document.body.style.overflow = NFTHover ? 'hidden' : 'auto';
+    document.body.style.overflow = NFTHover ? "hidden" : "auto";
   }, [NFTHover]);
 
   const [selectedToken, setSelectedToken] = useState(0);
@@ -332,12 +332,12 @@ function NonContributed({
   const handleMine = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (!account.address) {
-      errorToast('Wallet not Connected! Please connect wallet');
+      errorToast("Wallet not Connected! Please connect wallet");
       return;
     }
     if (!proof) {
-      errorToast('Something went Wrong! Please Try Again.');
-      console.error('Proof not generated');
+      errorToast("Something went Wrong! Please Try Again.");
+      console.error("Proof not generated");
       return;
     }
 
@@ -367,7 +367,7 @@ function NonContributed({
           Claiming: <></>,
         }[state]
       } */}
-      {state !== 'Claiming' ? (
+      {state !== "Claiming" ? (
         (darkXBalance as bigint) > 0 ? (
           <NFTHero NFTHover={NFTHover} setNFTHover={setNFTHover} />
         ) : (
@@ -396,7 +396,7 @@ function NonContributed({
       ) : (
         <Button
           loading={transactionLoading}
-          innerText={transactionLoading ? 'Processing' : 'Mine Now'}
+          innerText={transactionLoading ? "Processing" : "Mine Now"}
           iconSrc={IMAGEKIT_ICONS.HAMMER}
           iconAlt="hammer"
           onClick={handleMine}
@@ -410,7 +410,7 @@ function NonContributed({
 }
 
 export default function MiningHero() {
-  const [state, setState] = useState<StateType>('Mining');
+  const [state, setState] = useState<StateType>("Mining");
   const [NFTHover, setNFTHover] = useState(false);
   const NFTRef = useRef<HTMLDivElement>(null);
   const NFTContainerRef = useRef<HTMLDivElement>(null);
@@ -419,7 +419,7 @@ export default function MiningHero() {
     <div className="relative w-full min-h-screen h-fit">
       <div className="bg-gradient-to-b from-[#000] h-fit to-[#0000]">
         <div className="flex flex-col justify-center items-center w-full h-fit pt-[30px] md:pt-[100px]">
-          {state === 'Claiming' ? (
+          {state === "Claiming" ? (
             <ContributedHero />
           ) : (
             <NonContributed
@@ -451,17 +451,17 @@ export default function MiningHero() {
             >
               <motion.div
                 exit={{
-                  y: '100vh',
+                  y: "100vh",
                 }}
                 animate={{
                   y: 0,
                 }}
                 initial={{
-                  y: '100vh',
+                  y: "100vh",
                 }}
                 transition={{
                   duration: 0.5,
-                  type: 'spring',
+                  type: "spring",
                 }}
                 ref={NFTRef}
               >

@@ -1,13 +1,13 @@
-import Image from 'next/image';
-import H1 from '@/components/HTML/H1';
-import P from '@/components/HTML/P';
-import Button from '@/components/Button';
-import Link from 'next/link';
+import Image from "next/image";
+import H1 from "@/components/HTML/H1";
+import P from "@/components/HTML/P";
+import Button from "@/components/Button";
+import Link from "next/link";
 import {
   IMAGEKIT_ICONS,
   IMAGEKIT_IMAGES,
   IMAGEKIT_LOGOS,
-} from '@/assets/imageKit';
+} from "@/assets/imageKit";
 
 export default function GeoBlocked() {
   return (

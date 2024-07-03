@@ -1,23 +1,23 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import Header from '@/components/Home/components/header/Header';
-import Footer from '@/components/Home/sections/Footer';
-import Newsletter from '@/components/Home/sections/Newsletter';
-import Image from 'next/image';
-import StarFieldCanvas from '@/components/Home/components/background/Starfeild';
-import CanvasRendering from '@/components/Home/components/saturn/CanvasRendering';
-import Leaderboard from '@/components/Home/sections/Leaderboard';
-import { IMAGEKIT_IMAGES } from '@/assets/imageKit';
+import { useEffect, useState } from "react";
+import Header from "@/components/Home/components/header/Header";
+import Footer from "@/components/Home/sections/Footer";
+import Newsletter from "@/components/Home/sections/Newsletter";
+import Image from "next/image";
+import StarFieldCanvas from "@/components/Home/components/background/Starfeild";
+import CanvasRendering from "@/components/Home/components/saturn/CanvasRendering";
+import Leaderboard from "@/components/Home/sections/Leaderboard";
+import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import {
   errorToast,
   generalToast,
   miningNotif,
   successToast,
   warningToast,
-} from '@/hooks/frontend/toast';
-import MiningHero from '@/components/Mining/MiningHero';
-import { useAccount } from 'wagmi';
+} from "@/hooks/frontend/toast";
+import MiningHero from "@/components/Mining/MiningHero";
+import { useAccount } from "wagmi";
 
 export default function MiningPage() {
   const [smallerViewPort, setSmallerViewPort] = useState<boolean>(false);
@@ -26,7 +26,7 @@ export default function MiningPage() {
   useEffect(() => {
     if (window === undefined) return;
 
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
       if (window.innerWidth < 1200) {
         setSmallerViewPort(true);
       } else {
@@ -37,7 +37,7 @@ export default function MiningPage() {
     window.innerWidth < 1200 && setSmallerViewPort(true);
 
     return () => {
-      window.removeEventListener('resize', () => {});
+      window.removeEventListener("resize", () => {});
     };
   }, []);
 

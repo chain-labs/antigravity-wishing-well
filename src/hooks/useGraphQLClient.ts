@@ -1,5 +1,5 @@
-import { gqlFetcher, gqlMutate } from '@/api/graphqlClient';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { gqlFetcher, gqlMutate } from "@/api/graphqlClient";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const useGQLFetch = <T>(tags: string[], query: string) => {
   return useQuery<T>({

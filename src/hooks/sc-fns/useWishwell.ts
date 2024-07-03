@@ -1,18 +1,18 @@
-import useContract from '@/abi/wishwell';
-import { POLL_TIME, PROXY_API_ENDPOINT, TEST_NETWORK } from '@/constants';
-import { checkCorrectNetwork, getApiNetwork } from '@/utils';
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import { PublicClient, parseAbiItem } from 'viem';
-import { base } from 'viem/chains';
+import useContract from "@/abi/wishwell";
+import { POLL_TIME, PROXY_API_ENDPOINT, TEST_NETWORK } from "@/constants";
+import { checkCorrectNetwork, getApiNetwork } from "@/utils";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { PublicClient, parseAbiItem } from "viem";
+import { base } from "viem/chains";
 import {
   useAccount,
   usePublicClient,
   useReadContract,
   useTransactionReceipt,
   useWriteContract,
-} from 'wagmi';
+} from "wagmi";
 
 type Props = {};
 
@@ -55,7 +55,7 @@ const useWishwell = () => {
         : process.env.NEXT_PUBLIC_PLS_FROM_BLOCK_NUMBER;
 
     if (fromBlockNumber === undefined)
-      throw Error('Please set the enviornment variable for Block Number');
+      throw Error("Please set the enviornment variable for Block Number");
 
     const chunkSize = 50000; // Define the chunk size as per the RPC limit
     let currentBlock = BigInt(fromBlockNumber); // Start from this block number
@@ -74,7 +74,7 @@ const useWishwell = () => {
       const filter = await publicClient.createEventFilter({
         address: AntiGravity?.address,
         event: parseAbiItem(
-          'event Transfer(address indexed from, address indexed to, uint256 indexed id)',
+          "event Transfer(address indexed from, address indexed to, uint256 indexed id)",
         ),
         args: {
           to: account.address,
@@ -120,7 +120,7 @@ const useWishwell = () => {
           setIsRegistered(true);
         }
       } catch (err) {
-        toast.error('Something went wrong. Try Again!', { duration: 3000 });
+        toast.error("Something went wrong. Try Again!", { duration: 3000 });
         setError(true);
         console.error({ err });
       }
@@ -161,7 +161,7 @@ const useWishwell = () => {
 
   const balance = useReadContract({
     ...AntiGravity,
-    functionName: 'balanceOf',
+    functionName: "balanceOf",
     args: [account.address as `0x${string}`],
     query: {
       enabled: account.isConnected,
@@ -198,7 +198,7 @@ const useWishwell = () => {
   });
 
   const registerFn = async () => {
-    toast.loading('Getting you registered!', {
+    toast.loading("Getting you registered!", {
       duration: 10000,
     });
 
@@ -206,7 +206,7 @@ const useWishwell = () => {
       // @ts-ignore
       address: AntiGravity?.address,
       abi: AntiGravity?.abi,
-      functionName: 'register',
+      functionName: "register",
       // args: [`${payableAmount}`],
     });
   };
@@ -214,12 +214,12 @@ const useWishwell = () => {
   useEffect(() => {
     if (registerError) {
       console.log({ registerError });
-      let errorMessage = '';
+      let errorMessage = "";
       // @ts-ignore
       if (registerError.cause.code === 4001) {
-        errorMessage = 'Transaction was rejected. Approve to continue';
+        errorMessage = "Transaction was rejected. Approve to continue";
       } else {
-        errorMessage = 'Something went wrong';
+        errorMessage = "Something went wrong";
       }
       toast.error(errorMessage, {
         duration: 3000,
@@ -230,7 +230,7 @@ const useWishwell = () => {
 
   useEffect(() => {
     if (registerFetched) {
-      toast.success('Registered successful', {
+      toast.success("Registered successful", {
         duration: 3000,
       });
       getTokenIds(false);

@@ -1,18 +1,18 @@
-import H1 from '@/components/HTML/H1';
-import P from '@/components/HTML/P';
-import Button from '@/components/Button';
-import Image from 'next/image';
+import H1 from "@/components/HTML/H1";
+import P from "@/components/HTML/P";
+import Button from "@/components/Button";
+import Image from "next/image";
 import {
   IMAGEKIT_ICONS,
   IMAGEKIT_IMAGES,
   IMAGEKIT_LOGOS,
-} from '@/assets/imageKit';
-import { successToast } from '@/hooks/frontend/toast';
+} from "@/assets/imageKit";
+import { successToast } from "@/hooks/frontend/toast";
 
 export default function RegisteredHero() {
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    successToast('Copied to clipboard!');
+    successToast("Copied to clipboard!");
   };
 
   return (
@@ -35,7 +35,7 @@ export default function RegisteredHero() {
               iconAlt="info icon"
               iconPosition="end"
               hallmarkIconSrc={IMAGEKIT_ICONS.ETH}
-              onClick={() => copyToClipboard('Wishwell.eth')}
+              onClick={() => copyToClipboard("Wishwell.eth")}
             />
             <Button
               innerText="Wishwell.pls"
@@ -43,7 +43,7 @@ export default function RegisteredHero() {
               iconAlt="info icon"
               iconPosition="end"
               hallmarkIconSrc={IMAGEKIT_ICONS.PLS}
-              onClick={() => copyToClipboard('Wishwell.pls')}
+              onClick={() => copyToClipboard("Wishwell.pls")}
             />
           </div>
 

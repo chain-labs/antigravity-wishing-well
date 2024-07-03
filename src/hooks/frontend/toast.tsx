@@ -1,25 +1,25 @@
-import toast from 'react-hot-toast';
-import Image from 'next/image';
-import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from '@/assets/imageKit';
-var uniqid = require('uniqid');
+import toast from "react-hot-toast";
+import Image from "next/image";
+import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from "@/assets/imageKit";
+var uniqid = require("uniqid");
 
 const GLOBALS = {
   duration: 3000,
-  position: 'bottom-right',
+  position: "bottom-right",
   style: {
-    width: '400px',
-    borderRadius: '6px',
-    boxShadow: '0 0 15px 0 #03040480',
-    padding: '16px',
-    gap: '0px',
+    width: "400px",
+    borderRadius: "6px",
+    boxShadow: "0 0 15px 0 #03040480",
+    padding: "16px",
+    gap: "0px",
     fontWeight: 500,
-    fontSize: '14px',
-    lineHeight: '20.3px',
-    fontFamily: 'General Sans, sans-serif',
-    display: 'flex',
-    justifyContent: 'start',
-    alignItems: 'start',
-    '& div': {
+    fontSize: "14px",
+    lineHeight: "20.3px",
+    fontFamily: "General Sans, sans-serif",
+    display: "flex",
+    justifyContent: "start",
+    alignItems: "start",
+    "& div": {
       margin: 0,
       padding: 0,
     },
@@ -45,8 +45,8 @@ export function successToast(message: string, options?: any) {
       position: GLOBALS.position,
       style: {
         ...GLOBALS.style,
-        background: '#00B031',
-        color: '#FEFFFF',
+        background: "#00B031",
+        color: "#FEFFFF",
       },
       icon: (
         <Image src={IMAGEKIT_ICONS.TICK} alt="Tick" height={24} width={24} />
@@ -75,8 +75,8 @@ export function errorToast(message: string, options?: any) {
       position: GLOBALS.position,
       style: {
         ...GLOBALS.style,
-        background: '#FF5001',
-        color: '#FEFFFF',
+        background: "#FF5001",
+        color: "#FEFFFF",
       },
       icon: (
         <Image src={IMAGEKIT_ICONS.ERROR} alt="Error" height={24} width={24} />
@@ -92,8 +92,8 @@ export function warningToast(message: string, options?: any) {
     position: GLOBALS.position,
     style: {
       ...GLOBALS.style,
-      background: '#F5EB00',
-      color: '#030404',
+      background: "#F5EB00",
+      color: "#030404",
     },
     icon: (
       <Image
@@ -113,8 +113,8 @@ export function generalToast(message: string, options?: any) {
     position: GLOBALS.position,
     style: {
       ...GLOBALS.style,
-      background: '#030404A8',
-      color: '#FEFFFF',
+      background: "#030404A8",
+      color: "#FEFFFF",
     },
     icon: <Image src={IMAGEKIT_ICONS.INFO} alt="Info" height={24} width={24} />,
     ...options,
@@ -127,8 +127,8 @@ export function miningNotif(message: string, options?: any) {
     position: GLOBALS.position,
     style: {
       ...GLOBALS.style,
-      background: '#030404A8',
-      color: '#FF5001',
+      background: "#030404A8",
+      color: "#FF5001",
     },
     icon: (
       <Image

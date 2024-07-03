@@ -62,7 +62,7 @@ Remove all files and folders from directory `/src/app/stories`:
 Go to `/.storybook/preview.js` and add the following line:
 
 ```js
-import '../src/app/globals.css'; // replace with the name of your tailwind css file
+import "../src/app/globals.css"; // replace with the name of your tailwind css file
 ```
 
 ## Adding first story
@@ -70,9 +70,9 @@ import '../src/app/globals.css'; // replace with the name of your tailwind css f
 Create a new file in `/src/app/stories` called `Button.tsx` and add the following content:
 
 ```tsx
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 
 export default function Button() {
   return (
@@ -86,13 +86,13 @@ export default function Button() {
 Then, create a new file in `/src/app/stories` called `Button.stories.ts` and add the following content:
 
 ```tsx
-'use client';
+"use client";
 
-import React from 'react';
-import Button from './Button';
+import React from "react";
+import Button from "./Button";
 
 export default {
-  title: 'Button',
+  title: "Button",
   component: Button,
 };
 

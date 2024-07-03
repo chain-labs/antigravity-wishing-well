@@ -1,14 +1,14 @@
-'use client';
-import H1 from '@/components/HTML/H1';
-import P from '@/components/HTML/P';
-import { RegisterButton } from '@/components/Home/components/header/RegisterButton';
-import Button from '@/components/Button';
-import Image from 'next/image';
-import { Dispatch, useEffect, useRef, useState } from 'react';
-import { PublicClient } from 'viem';
-import { useConnectModal } from '@rainbow-me/rainbowkit';
-import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from '@/assets/imageKit';
-import { AnimatePresence, motion } from 'framer-motion';
+"use client";
+import H1 from "@/components/HTML/H1";
+import P from "@/components/HTML/P";
+import { RegisterButton } from "@/components/Home/components/header/RegisterButton";
+import Button from "@/components/Button";
+import Image from "next/image";
+import { Dispatch, useEffect, useRef, useState } from "react";
+import { PublicClient } from "viem";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
+import { AnimatePresence, motion } from "framer-motion";
 
 // Use a function to get the latest block number
 async function getLatestBlockNumber(publicClient: PublicClient) {
@@ -50,12 +50,12 @@ export default function WalletNotConnectedHero({
 
   function openYoutubeModelHandler() {
     setOpenYoutubeModel(true);
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
   }
 
   function closeYoutubeModelHandler() {
     setOpenYoutubeModel(false);
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = "auto";
   }
 
   return (
@@ -103,10 +103,10 @@ export default function WalletNotConnectedHero({
               className="fixed inset-0 bg-[#030404A8] flex justify-center items-center p-[16px] w-full h-full z-30 backdrop-blur-sm"
             >
               <motion.div
-                exit={{ y: '100vh' }}
+                exit={{ y: "100vh" }}
                 animate={{ y: 0 }}
-                initial={{ y: '100vh' }}
-                transition={{ duration: 0.5, type: 'spring' }}
+                initial={{ y: "100vh" }}
+                transition={{ duration: 0.5, type: "spring" }}
                 ref={youtubeModelRef}
                 className="w-full h-full flex justify-center items-center"
               >

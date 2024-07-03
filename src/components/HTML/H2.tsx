@@ -1,5 +1,5 @@
-import { CSSProperties } from 'react';
-import { twMerge } from 'tailwind-merge';
+import { CSSProperties } from "react";
+import { twMerge } from "tailwind-merge";
 
 export default function H2({
   children,
@@ -14,7 +14,7 @@ export default function H2({
     <h2
       style={style}
       className={twMerge(
-        'text-[32px] leading-[32px] from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text',
+        "text-[32px] leading-[32px] from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text",
         className,
       )}
     >

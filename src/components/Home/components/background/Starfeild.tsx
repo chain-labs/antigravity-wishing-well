@@ -1,11 +1,11 @@
-import React, { Suspense, useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
+import React, { Suspense, useRef } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import * as THREE from "three";
 import {
   InstancedBufferGeometry,
   InstancedMesh,
   MeshBasicMaterial,
-} from 'three';
+} from "three";
 
 // Function to get a random position within a range
 const getRandomPos = (
@@ -80,7 +80,7 @@ const StarField: React.FC<StarFieldProps> = ({
 
   // Create material for the stars
   const material = React.useMemo(
-    () => new MeshBasicMaterial({ color: '#fff' }),
+    () => new MeshBasicMaterial({ color: "#fff" }),
     [],
   );
 
@@ -112,7 +112,7 @@ const StarFieldCanvas: React.FC<StarFieldCanvasProps> = ({
   return (
     <div
       id="canvas-container"
-      style={{ width: '100%', height: '100vh' }}
+      style={{ width: "100%", height: "100vh" }}
       className="w-full h-[100vh] fixed top-0 left-0 -z-[1] bg-agblack"
     >
       <Suspense fallback={null}>

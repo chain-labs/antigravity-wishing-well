@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
-import Spinner from '@/components/Spinner';
+import type { Meta, StoryObj } from "@storybook/react";
+import { fn } from "@storybook/test";
+import Spinner from "@/components/Spinner";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: 'Example/Spinner',
+  title: "Example/Spinner",
   component: Spinner,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {},
   args: {},
 } satisfies Meta<typeof Spinner>;
@@ -21,7 +21,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    era: 'mining',
+    era: "mining",
     stage: 1,
     bonus: 22,
     days: 4,

@@ -1,13 +1,13 @@
-import Button from '@/components/Button';
-import { TEST_NETWORK } from '@/constants';
-import { checkCorrectNetwork } from '@/utils';
-import Image from 'next/image';
-import { FiLoader } from 'react-icons/fi';
-import { baseSepolia, pulsechain } from 'viem/chains';
-import { useAccount, useSwitchChain } from 'wagmi';
-import IMAGEKIT from '../../../../app/home/images';
-import { IMAGEKIT_ICONS } from '@/assets/imageKit';
-import { useEffect } from 'react';
+import Button from "@/components/Button";
+import { TEST_NETWORK } from "@/constants";
+import { checkCorrectNetwork } from "@/utils";
+import Image from "next/image";
+import { FiLoader } from "react-icons/fi";
+import { baseSepolia, pulsechain } from "viem/chains";
+import { useAccount, useSwitchChain } from "wagmi";
+import IMAGEKIT from "../../../../app/home/images";
+import { IMAGEKIT_ICONS } from "@/assets/imageKit";
+import { useEffect } from "react";
 
 interface RegisterButtonProps {
   loading: boolean;
@@ -58,15 +58,15 @@ export const RegisterButton: React.FC<RegisterButtonProps> = ({
             ? checkCorrectNetwork(Number(account.chainId))
               ? loading
                 ? !error
-                  ? 'Checking your Registration'
-                  : 'Recheck'
+                  ? "Checking your Registration"
+                  : "Recheck"
                 : !isRegistered
                   ? registerIdle
-                    ? 'REGISTER NOW'
-                    : 'Registering...'
-                  : ''
-              : 'Change Network'
-            : 'CONNECT WALLET'
+                    ? "REGISTER NOW"
+                    : "Registering..."
+                  : ""
+              : "Change Network"
+            : "CONNECT WALLET"
         }
         loading={
           account.isConnected &&

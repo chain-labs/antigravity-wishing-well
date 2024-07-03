@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import Button from '@/components/Button';
+import Button from "@/components/Button";
 import {
   useScroll,
   useTransform,
   motion,
   AnimatePresence,
-} from 'framer-motion';
-import Image from 'next/image';
-import { useRef, useState } from 'react';
-import H1 from '@/components/HTML/H1';
-import H2 from '@/components/HTML/H2';
-import P from '@/components/HTML/P';
-import Table from '@/components/Table';
-import { useAccount } from 'wagmi';
-import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from '@/assets/imageKit';
+} from "framer-motion";
+import Image from "next/image";
+import { useRef, useState } from "react";
+import H1 from "@/components/HTML/H1";
+import H2 from "@/components/HTML/H2";
+import P from "@/components/HTML/P";
+import Table from "@/components/Table";
+import { useAccount } from "wagmi";
+import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from "@/assets/imageKit";
 
 function CollectiveLogo() {
   return (
@@ -41,62 +41,62 @@ type tableDataType = {
 const tableData: tableDataType[] = [
   {
     rank: 1,
-    badge: 'Specialist Technician',
-    wallet: '0x1234567890abcdef1234567890abcdef12345678',
+    badge: "Specialist Technician",
+    wallet: "0x1234567890abcdef1234567890abcdef12345678",
     points: 90000,
   },
   {
     rank: 2,
-    badge: 'Specialist Technician',
-    wallet: '0x1234567890abcdef1234567890abcdef12345678',
+    badge: "Specialist Technician",
+    wallet: "0x1234567890abcdef1234567890abcdef12345678",
     points: 90000,
   },
   {
     rank: 3,
-    badge: 'Specialist Technician',
-    wallet: '0x1234567890abcdef1234567890abcdef12345678',
+    badge: "Specialist Technician",
+    wallet: "0x1234567890abcdef1234567890abcdef12345678",
     points: 90000,
   },
   {
     rank: 4,
-    badge: 'Specialist Technician',
-    wallet: '0x1234567890abcdef1234567890abcdef12345678',
+    badge: "Specialist Technician",
+    wallet: "0x1234567890abcdef1234567890abcdef12345678",
     points: 90000,
   },
   {
     rank: 5,
-    badge: 'Specialist Technician',
-    wallet: '0x1234567890abcdef1234567890abcdef12345678',
+    badge: "Specialist Technician",
+    wallet: "0x1234567890abcdef1234567890abcdef12345678",
     points: 90000,
   },
   {
     rank: 6,
-    badge: 'Specialist Technician',
-    wallet: '0x1234567890abcdef1234567890abcdef12345678',
+    badge: "Specialist Technician",
+    wallet: "0x1234567890abcdef1234567890abcdef12345678",
     points: 90000,
   },
   {
     rank: 7,
-    badge: 'Specialist Technician',
-    wallet: '0x1234567890abcdef1234567890abcdef12345678',
+    badge: "Specialist Technician",
+    wallet: "0x1234567890abcdef1234567890abcdef12345678",
     points: 90000,
   },
   {
     rank: 8,
-    badge: 'Specialist Technician',
-    wallet: '0x1234567890abcdef1234567890abcdef12345678',
+    badge: "Specialist Technician",
+    wallet: "0x1234567890abcdef1234567890abcdef12345678",
     points: 90000,
   },
   {
     rank: 9,
-    badge: 'Specialist Technician',
-    wallet: '0x1234567890abcdef1234567890abcdef12345678',
+    badge: "Specialist Technician",
+    wallet: "0x1234567890abcdef1234567890abcdef12345678",
     points: 90000,
   },
   {
     rank: 10,
-    badge: 'Specialist Technician',
-    wallet: '0x1234567890abcdef1234567890abcdef12345678',
+    badge: "Specialist Technician",
+    wallet: "0x1234567890abcdef1234567890abcdef12345678",
     points: 90000,
   },
 ];
@@ -110,7 +110,7 @@ export default function Leaderboard({
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: ['start end', 'start start'],
+    offset: ["start end", "start start"],
   });
 
   const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);

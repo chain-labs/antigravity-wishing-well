@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import H1 from '@/components/HTML/H1';
-import P from '@/components/HTML/P';
-import Button from '@/components/Button';
-import { IMAGEKIT_ICONS } from '@/assets/imageKit';
+import { useState } from "react";
+import H1 from "@/components/HTML/H1";
+import P from "@/components/HTML/P";
+import Button from "@/components/Button";
+import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 
 export default function Form({
   defaultSuccess = false,
@@ -33,7 +33,7 @@ export default function Form({
     if (nameRegex.test(name) && emailRegex.test(email)) {
       setSuccess(true);
     } else {
-      alert('Please enter a valid name and email.');
+      alert("Please enter a valid name and email.");
     }
   }
 

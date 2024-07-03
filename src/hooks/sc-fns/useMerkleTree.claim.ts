@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo } from 'react';
-import KECCAK256 from 'keccak256';
-import { MerkleTree } from 'merkletreejs';
-import { encodeAbiParameters } from 'viem';
+import React, { useEffect, useMemo } from "react";
+import KECCAK256 from "keccak256";
+import { MerkleTree } from "merkletreejs";
+import { encodeAbiParameters } from "viem";
 
 type Props = {};
 
@@ -18,7 +18,7 @@ const useMerkleTree = (
   points: Array<string>,
   nonces: Array<string>,
 ) => {
-  const buf2hex = (x: any) => '0x' + x.toString('hex');
+  const buf2hex = (x: any) => "0x" + x.toString("hex");
 
   /**
    * Util Function to generate leaf for an item provided
@@ -31,7 +31,7 @@ const useMerkleTree = (
   function generateLeaf(account: string, point: string, nonce: string) {
     return KECCAK256(
       encodeAbiParameters(
-        [{ type: 'address' }, { type: 'uint256' }, { type: 'uint256' }],
+        [{ type: "address" }, { type: "uint256" }, { type: "uint256" }],
         [account as `0x${string}`, BigInt(point), BigInt(nonce)],
       ),
     );

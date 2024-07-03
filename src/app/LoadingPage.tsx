@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { IMAGEKIT_LOGOS } from '@/assets/imageKit';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { IMAGEKIT_LOGOS } from "@/assets/imageKit";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function LoadingPage({
   contentLoaded,

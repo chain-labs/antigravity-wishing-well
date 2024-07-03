@@ -1,10 +1,10 @@
-import { TEST_NETWORK } from '@/constants';
-import { useMemo } from 'react';
-import { base, pulsechain, baseSepolia } from 'viem/chains';
-import { useAccount } from 'wagmi';
-import BaseSepoliaAG from './BaseSepolia';
-import BaseAG from './Base';
-import PulsechainAG from './Pulsechain';
+import { TEST_NETWORK } from "@/constants";
+import { useMemo } from "react";
+import { base, pulsechain, baseSepolia } from "viem/chains";
+import { useAccount } from "wagmi";
+import BaseSepoliaAG from "./BaseSepolia";
+import BaseAG from "./Base";
+import PulsechainAG from "./Pulsechain";
 
 interface IContract {
   address: `0x${string}`;

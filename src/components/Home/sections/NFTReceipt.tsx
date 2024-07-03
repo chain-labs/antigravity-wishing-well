@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import Button from '@/components/Button';
-import { useScroll, useTransform, motion } from 'framer-motion';
-import Image from 'next/image';
-import { useRef } from 'react';
-import H1 from '@/components/HTML/H1';
-import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from '@/assets/imageKit';
-import Link from 'next/link';
+import Button from "@/components/Button";
+import { useScroll, useTransform, motion } from "framer-motion";
+import Image from "next/image";
+import { useRef } from "react";
+import H1 from "@/components/HTML/H1";
+import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
+import Link from "next/link";
 
 export default function NFTReceipt() {
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: ['start end', 'end start'],
+    offset: ["start end", "end start"],
   });
 
   // const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
@@ -47,7 +47,7 @@ export default function NFTReceipt() {
           className="rounded-lg"
         />
       </motion.div>
-      <Link target="_blank" href={process.env.NEXT_PUBLIC_WHITEPAPER || '/'}>
+      <Link target="_blank" href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}>
         <Button
           innerText="Claim collective rewards"
           iconSrc={IMAGEKIT_ICONS.HAMMER}

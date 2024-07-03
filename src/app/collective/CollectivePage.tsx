@@ -1,24 +1,24 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import Header from '@/components/Home/components/header/Header';
-import Footer from '@/components/Home/sections/Footer';
-import Newsletter from '@/components/Home/sections/Newsletter';
-import Image from 'next/image';
-import StarFieldCanvas from '@/components/Home/components/background/Starfeild';
-import CanvasRendering from '@/components/Home/components/saturn/CanvasRendering';
-import Leaderboard from '@/components/Collective/Leaderboard';
-import { IMAGEKIT_IMAGES } from '@/assets/imageKit';
-import { miningNotif } from '@/hooks/frontend/toast';
-import MiningHero from '@/components/Mining/MiningHero';
-import CollectiveHero from '@/components/Collective/CollectiveHero';
-import Event from '@/components/Collective/Event';
-import CollectiveRotatingCarousel from '@/components/Collective/CollectiveRotatingCarousel';
-import Youtube from '@/components/Collective/Youtube';
-import PointsAndMultiplierInfo from '@/components/Collective/PointsAndMultiplierInfo';
-import RankupAndRewardsInfo from '@/components/Collective/RankupAndRewardsInfo';
-import Team from '@/components/Collective/Team';
-import PromotionAndNewsletter from '@/components/Collective/PromotionAndNewsletter';
+import { useEffect, useState } from "react";
+import Header from "@/components/Home/components/header/Header";
+import Footer from "@/components/Home/sections/Footer";
+import Newsletter from "@/components/Home/sections/Newsletter";
+import Image from "next/image";
+import StarFieldCanvas from "@/components/Home/components/background/Starfeild";
+import CanvasRendering from "@/components/Home/components/saturn/CanvasRendering";
+import Leaderboard from "@/components/Collective/Leaderboard";
+import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
+import { miningNotif } from "@/hooks/frontend/toast";
+import MiningHero from "@/components/Mining/MiningHero";
+import CollectiveHero from "@/components/Collective/CollectiveHero";
+import Event from "@/components/Collective/Event";
+import CollectiveRotatingCarousel from "@/components/Collective/CollectiveRotatingCarousel";
+import Youtube from "@/components/Collective/Youtube";
+import PointsAndMultiplierInfo from "@/components/Collective/PointsAndMultiplierInfo";
+import RankupAndRewardsInfo from "@/components/Collective/RankupAndRewardsInfo";
+import Team from "@/components/Collective/Team";
+import PromotionAndNewsletter from "@/components/Collective/PromotionAndNewsletter";
 
 export default function CollectivePage() {
   const [smallerViewPort, setSmallerViewPort] = useState<boolean>(false);
@@ -26,7 +26,7 @@ export default function CollectivePage() {
   useEffect(() => {
     if (window === undefined) return;
 
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
       if (window.innerWidth < 1200) {
         setSmallerViewPort(true);
       } else {
@@ -37,7 +37,7 @@ export default function CollectivePage() {
     window.innerWidth < 1200 && setSmallerViewPort(true);
 
     return () => {
-      window.removeEventListener('resize', () => {});
+      window.removeEventListener("resize", () => {});
     };
   }, []);
 
