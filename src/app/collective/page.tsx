@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import { useAccount, useSwitchChain } from 'wagmi';
-import '@rainbow-me/rainbowkit/styles.css';
-import { useEffect, useState } from 'react';
-import { TEST_NETWORK } from '@/constants';
-import { base, pulsechain, baseSepolia } from 'viem/chains';
-import dynamic from 'next/dynamic';
-import ReactLenis from 'lenis/react';
+import { useAccount, useSwitchChain } from "wagmi";
+import "@rainbow-me/rainbowkit/styles.css";
+import { useEffect, useState } from "react";
+import { TEST_NETWORK } from "@/constants";
+import { base, pulsechain, baseSepolia } from "viem/chains";
+import dynamic from "next/dynamic";
+import ReactLenis from "lenis/react";
 
-const CollectivePage = dynamic(() => import('./CollectivePage'), {
+const CollectivePage = dynamic(() => import("./CollectivePage"), {
   ssr: false,
 });
 
-const LoadingPage = dynamic(() => import('../LoadingPage'), {
+const LoadingPage = dynamic(() => import("../LoadingPage"), {
   ssr: false,
 });
 
@@ -23,7 +23,7 @@ export default function Wishwell() {
   const [contributed, setContributed] = useState(true);
   useEffect(() => {
     if (window !== undefined) {
-      window.addEventListener('load', () => {
+      window.addEventListener("load", () => {
         setLoading(false);
       });
     }

@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import { use, useEffect, useState } from 'react';
-import Image from 'next/image';
-import { twMerge } from 'tailwind-merge';
-import { MotionValue, motion, useTransform } from 'framer-motion';
-import DynamicNumberCounter from './DynamicNumberCounter';
-import AutomaticIncreamentalNumberCounter from './AutomaticIncreamentalNumberCounter';
-import useTimer from '@/hooks/frontend/useTimer';
-import { IMAGEKIT_IMAGES } from '@/assets/imageKit';
+import { use, useEffect, useState } from "react";
+import Image from "next/image";
+import { twMerge } from "tailwind-merge";
+import { MotionValue, motion, useTransform } from "framer-motion";
+import DynamicNumberCounter from "./DynamicNumberCounter";
+import AutomaticIncreamentalNumberCounter from "./AutomaticIncreamentalNumberCounter";
+import useTimer from "@/hooks/frontend/useTimer";
+import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 
 let globalDelay = 1.5;
 
 type SpinnerProps = {
-  era: 'wishwell' | 'mining' | 'minting';
+  era: "wishwell" | "mining" | "minting";
   stage: 1 | 2 | 3;
   bonus: number;
   days: number;
@@ -22,30 +22,30 @@ type SpinnerProps = {
 };
 
 const styles = {
-  'era-styles': {
+  "era-styles": {
     parent:
-      'absolute flex justify-center items-center top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[470px] w-[2em] z-10 pt-24',
-    active: 'uppercase text-center text-black font-sans font-black text-3xl',
+      "absolute flex justify-center items-center top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[470px] w-[2em] z-10 pt-24",
+    active: "uppercase text-center text-black font-sans font-black text-3xl",
     passive:
-      'uppercase text-center from-white to-[#999999] bg-gradient-to-b text-transparent bg-clip-text font-sans font-black text-3xl',
+      "uppercase text-center from-white to-[#999999] bg-gradient-to-b text-transparent bg-clip-text font-sans font-black text-3xl",
   },
-  'border-styles': {
-    era: 'absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom w-[3px] h-[490px] bg-black',
+  "border-styles": {
+    era: "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom w-[3px] h-[490px] bg-black",
     stage:
-      'absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[300px] w-[3px] bg-black z-10',
+      "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[300px] w-[3px] bg-black z-10",
   },
-  'stage-styles': {
+  "stage-styles": {
     parent:
-      'absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[180px] w-[2em] z-10',
-    active: 'uppercase text-center bg-clip-text font-sans font-black text-4xl',
+      "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[180px] w-[2em] z-10",
+    active: "uppercase text-center bg-clip-text font-sans font-black text-4xl",
     passive:
-      'uppercase text-center from-white to-[#999999] bg-gradient-to-b text-transparent bg-clip-text font-sans font-black text-4xl',
+      "uppercase text-center from-white to-[#999999] bg-gradient-to-b text-transparent bg-clip-text font-sans font-black text-4xl",
   },
-  'timer-styles': {
-    parent: 'flex-col justify-center items-center gap-0',
-    number: 'font-sans text-agyellow text-5xl font-extrabold text-center',
+  "timer-styles": {
+    parent: "flex-col justify-center items-center gap-0",
+    number: "font-sans text-agyellow text-5xl font-extrabold text-center",
     label:
-      'uppercase text-sm text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text',
+      "uppercase text-sm text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text",
   },
 };
 
@@ -57,8 +57,8 @@ function H1({
   isEraLetter,
 }: {
   className?: string;
-  era: SpinnerProps['era'];
-  stage: SpinnerProps['stage'];
+  era: SpinnerProps["era"];
+  stage: SpinnerProps["stage"];
   parentClassName: string;
   isEraLetter?: string;
 }) {
@@ -70,53 +70,53 @@ function H1({
   return (
     <>
       {isEraLetter !== undefined ? (
-        <div className={twMerge(styles['era-styles'].parent, parentClassName)}>
+        <div className={twMerge(styles["era-styles"].parent, parentClassName)}>
           {currentEra === era ? (
             <motion.h1
               whileInView={{
-                color: 'black',
+                color: "black",
               }}
               initial={{
-                color: 'white',
+                color: "white",
               }}
               viewport={{ once: true }}
               transition={{
                 duration: 0.5,
                 delay: globalDelay + 1,
               }}
-              className={twMerge(styles['era-styles'].active)}
+              className={twMerge(styles["era-styles"].active)}
             >
               {isEraLetter}
             </motion.h1>
           ) : (
-            <h1 className={twMerge(styles['era-styles'].passive)}>
+            <h1 className={twMerge(styles["era-styles"].passive)}>
               {isEraLetter}
             </h1>
           )}
         </div>
       ) : (
         <div
-          className={twMerge(parentClassName, styles['stage-styles'].parent)}
+          className={twMerge(parentClassName, styles["stage-styles"].parent)}
         >
           {active ? (
             <motion.h1
               whileInView={{
-                color: 'black',
+                color: "black",
               }}
               initial={{
-                color: 'white',
+                color: "white",
               }}
               viewport={{ once: true }}
               transition={{
                 duration: 0.5,
                 delay: globalDelay + 1,
               }}
-              className={twMerge(styles['stage-styles'].active, className)}
+              className={twMerge(styles["stage-styles"].active, className)}
             >
               {stage}
             </motion.h1>
           ) : (
-            <h1 className={twMerge(styles['stage-styles'].passive, className)}>
+            <h1 className={twMerge(styles["stage-styles"].passive, className)}>
               {stage}
             </h1>
           )}
@@ -136,7 +136,7 @@ function Border({
   return (
     <div
       className={twMerge(
-        eraBorder ? styles['border-styles'].era : styles['border-styles'].stage,
+        eraBorder ? styles["border-styles"].era : styles["border-styles"].stage,
         className,
       )}
     ></div>
@@ -147,11 +147,11 @@ function decideActiveStageLocation({
   activePhase,
   activeEra,
 }: {
-  activePhase: SpinnerProps['stage'];
-  activeEra: SpinnerProps['era'];
+  activePhase: SpinnerProps["stage"];
+  activeEra: SpinnerProps["era"];
 }) {
   switch (activeEra) {
-    case 'wishwell':
+    case "wishwell":
       switch (activePhase) {
         case 1:
           return -100;
@@ -160,7 +160,7 @@ function decideActiveStageLocation({
         case 3:
           return -50;
       }
-    case 'mining':
+    case "mining":
       switch (activePhase) {
         case 1:
           return -25;
@@ -169,7 +169,7 @@ function decideActiveStageLocation({
         case 3:
           return 25;
       }
-    case 'minting':
+    case "minting":
       switch (activePhase) {
         case 1:
           return 50;
@@ -190,19 +190,19 @@ function StageHighlighter() {
   return (
     <motion.div
       whileInView={{
-        x: '-50%',
-        y: '-50%',
+        x: "-50%",
+        y: "-50%",
         rotate: `${rotation}deg`,
       }}
       initial={{
-        x: '-50%',
-        y: '-50%',
-        rotate: '180deg',
+        x: "-50%",
+        y: "-50%",
+        rotate: "180deg",
       }}
       viewport={{ once: true }}
       transition={{ duration: 1, delay: globalDelay }}
       className={twMerge(
-        'absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[300px] w-[40px] bg-agyellow z-10',
+        "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[300px] w-[40px] bg-agyellow z-10",
         `rotate-[${rotation}deg]`,
       )}
     >
@@ -217,21 +217,21 @@ function EraHighlighter() {
   return (
     <motion.div
       whileInView={{
-        x: '-50%',
-        y: '-50%',
+        x: "-50%",
+        y: "-50%",
         rotate:
-          activeEra === 'wishwell' ? -75 : activeEra === 'minting' ? 75 : 0,
+          activeEra === "wishwell" ? -75 : activeEra === "minting" ? 75 : 0,
       }}
       initial={{
-        x: '-50%',
-        y: '-50%',
+        x: "-50%",
+        y: "-50%",
         rotate: -180,
       }}
       viewport={{ once: true }}
       transition={{ duration: 1, delay: globalDelay }}
       className={twMerge(
-        'absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[490px] w-[190px] bg-agyellow z-10',
-        `rotate-[${activeEra === 'wishwell' ? -75 : activeEra === 'minting' ? 75 : 0}deg]`,
+        "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[490px] w-[190px] bg-agyellow z-10",
+        `rotate-[${activeEra === "wishwell" ? -75 : activeEra === "minting" ? 75 : 0}deg]`,
       )}
     >
       <div className="absolute bottom-0 left-[50%] translate-x-[calc(-100%_-_10px)] origin-bottom rotate-[37.5deg] h-[490px] w-[90px] bg-agyellow z-20"></div>
@@ -250,49 +250,49 @@ function Era() {
           era="wishwell"
           stage={activePhase}
           parentClassName="rotate-[-96deg]"
-          isEraLetter={'W'}
+          isEraLetter={"W"}
         />
         <H1
           era="wishwell"
           stage={activePhase}
           parentClassName="rotate-[-90deg]"
-          isEraLetter={'i'}
+          isEraLetter={"i"}
         />
         <H1
           era="wishwell"
           stage={activePhase}
           parentClassName="rotate-[-85deg]"
-          isEraLetter={'s'}
+          isEraLetter={"s"}
         />
         <H1
           era="wishwell"
           stage={activePhase}
           parentClassName="rotate-[-78deg]"
-          isEraLetter={'h'}
+          isEraLetter={"h"}
         />
         <H1
           era="wishwell"
           stage={activePhase}
           parentClassName="rotate-[-70deg]"
-          isEraLetter={'w'}
+          isEraLetter={"w"}
         />
         <H1
           era="wishwell"
           stage={activePhase}
           parentClassName="rotate-[-62deg]"
-          isEraLetter={'e'}
+          isEraLetter={"e"}
         />
         <H1
           era="wishwell"
           stage={activePhase}
           parentClassName="rotate-[-56deg]"
-          isEraLetter={'l'}
+          isEraLetter={"l"}
         />
         <H1
           era="wishwell"
           stage={activePhase}
           parentClassName="rotate-[-50deg]"
-          isEraLetter={'l'}
+          isEraLetter={"l"}
         />
       </div>
       <Border eraBorder className="rotate-[-37.5deg]" />
@@ -301,37 +301,37 @@ function Era() {
           era="mining"
           stage={activePhase}
           parentClassName="rotate-[-12deg]"
-          isEraLetter={'M'}
+          isEraLetter={"M"}
         />
         <H1
           era="mining"
           stage={activePhase}
           parentClassName="rotate-[-6deg]"
-          isEraLetter={'i'}
+          isEraLetter={"i"}
         />
         <H1
           era="mining"
           stage={activePhase}
           parentClassName="rotate-[-1deg]"
-          isEraLetter={'n'}
+          isEraLetter={"n"}
         />
         <H1
           era="mining"
           stage={activePhase}
           parentClassName="rotate-[4deg]"
-          isEraLetter={'i'}
+          isEraLetter={"i"}
         />
         <H1
           era="mining"
           stage={activePhase}
           parentClassName="rotate-[9deg]"
-          isEraLetter={'n'}
+          isEraLetter={"n"}
         />
         <H1
           era="mining"
           stage={activePhase}
           parentClassName="rotate-[16deg]"
-          isEraLetter={'g'}
+          isEraLetter={"g"}
         />
       </div>
       <Border eraBorder className="rotate-[37.5deg]" />
@@ -340,43 +340,43 @@ function Era() {
           era="minting"
           stage={activePhase}
           parentClassName="rotate-[61deg]"
-          isEraLetter={'M'}
+          isEraLetter={"M"}
         />
         <H1
           era="minting"
           stage={activePhase}
           parentClassName="rotate-[67deg]"
-          isEraLetter={'i'}
+          isEraLetter={"i"}
         />
         <H1
           era="minting"
           stage={activePhase}
           parentClassName="rotate-[73deg]"
-          isEraLetter={'n'}
+          isEraLetter={"n"}
         />
         <H1
           era="minting"
           stage={activePhase}
           parentClassName="rotate-[79deg]"
-          isEraLetter={'t'}
+          isEraLetter={"t"}
         />
         <H1
           era="minting"
           stage={activePhase}
           parentClassName="rotate-[84deg]"
-          isEraLetter={'i'}
+          isEraLetter={"i"}
         />
         <H1
           era="minting"
           stage={activePhase}
           parentClassName="rotate-[89deg]"
-          isEraLetter={'n'}
+          isEraLetter={"n"}
         />
         <H1
           era="minting"
           stage={activePhase}
           parentClassName="rotate-[96deg]"
-          isEraLetter={'g'}
+          isEraLetter={"g"}
         />
       </div>
     </>
@@ -426,19 +426,19 @@ function Pointer() {
         rotate: `${rotation}deg`,
       }}
       whileInView={{
-        x: '-50%',
-        y: '-50%',
+        x: "-50%",
+        y: "-50%",
         rotate: `${rotation}deg`,
       }}
       initial={{
-        x: '-50%',
-        y: '-50%',
-        rotate: '-180deg',
+        x: "-50%",
+        y: "-50%",
+        rotate: "-180deg",
       }}
       viewport={{ once: true }}
       transition={{ duration: 1, delay: globalDelay }}
       className={twMerge(
-        'absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[100px] w-[50px] z-10 pt-0',
+        "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[100px] w-[50px] z-10 pt-0",
         `rotate-[${rotation}deg]`,
       )}
     >
@@ -466,38 +466,38 @@ function Timer() {
         className="absolute top-0 left-0 h-[220px] -z-[1]"
       />
       <div className="flex gap-4">
-        <div className={styles['timer-styles'].parent}>
-          <div className={styles['timer-styles'].number}>
+        <div className={styles["timer-styles"].parent}>
+          <div className={styles["timer-styles"].number}>
             <DynamicNumberCounter
               count={timer.days}
               setCount={() => {}}
               modulo={100000000}
             />
           </div>
-          <div className={styles['timer-styles'].label}>Days</div>
+          <div className={styles["timer-styles"].label}>Days</div>
         </div>
-        <div className={styles['timer-styles'].parent}>
-          <div className={styles['timer-styles'].number}>
+        <div className={styles["timer-styles"].parent}>
+          <div className={styles["timer-styles"].number}>
             <DynamicNumberCounter
               count={timer.hours}
               setCount={() => {}}
               modulo={24}
             />
           </div>
-          <div className={styles['timer-styles'].label}>Hours</div>
+          <div className={styles["timer-styles"].label}>Hours</div>
         </div>
-        <div className={styles['timer-styles'].parent}>
-          <div className={styles['timer-styles'].number}>
+        <div className={styles["timer-styles"].parent}>
+          <div className={styles["timer-styles"].number}>
             <DynamicNumberCounter
               count={timer.mins}
               setCount={() => {}}
               modulo={60}
             />
           </div>
-          <div className={styles['timer-styles'].label}>Mins</div>
+          <div className={styles["timer-styles"].label}>Mins</div>
         </div>
-        <div className={styles['timer-styles'].parent}>
-          <div className={styles['timer-styles'].number}>
+        <div className={styles["timer-styles"].parent}>
+          <div className={styles["timer-styles"].number}>
             {/* <NumberCounter
 				from={activeState.secs}
 				to={activeState.secs - 1}
@@ -508,7 +508,7 @@ function Timer() {
               modulo={60}
             />
           </div>
-          <div className={styles['timer-styles'].label}>Secs</div>
+          <div className={styles["timer-styles"].label}>Secs</div>
         </div>
       </div>
       <div className="font-sans text-agyellow text-2xl font-bold text-center uppercase tracking-widest">
@@ -535,7 +535,7 @@ export default function Spinner({
   scrollYProgress: MotionValue<number>;
 }) {
   const [activeState, setActiveState] = useState<SpinnerProps>({
-    era: 'mining',
+    era: "mining",
     stage: 1,
     bonus: 22,
     days: 4,
@@ -601,10 +601,10 @@ export default function Spinner({
     <motion.div
       style={{ opacity }}
       whileInView={{
-        filter: 'saturate(1)',
+        filter: "saturate(1)",
       }}
       initial={{
-        filter: 'saturate(0)',
+        filter: "saturate(0)",
       }}
       viewport={{ once: true }}
       transition={{ duration: 1, delay: globalDelay }}

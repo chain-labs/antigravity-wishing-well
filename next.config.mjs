@@ -12,12 +12,12 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: 'ik.imagekit.io',
-        protocol: 'https',
+        hostname: "ik.imagekit.io",
+        protocol: "https",
       },
       {
-        hostname: 's3.amazonaws.com',
-        protocol: 'https',
+        hostname: "s3.amazonaws.com",
+        protocol: "https",
       },
     ],
     dangerouslyAllowSVG: true,
@@ -25,11 +25,11 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/test/api/:path*',
+        source: "/test/api/:path*",
         destination: `${TEST_API_ENDPOINT}/api/:path*`,
       },
       {
-        source: '/api/:path*',
+        source: "/api/:path*",
         destination: `${API_ENDPOINT}/api/:path*`,
       },
     ];

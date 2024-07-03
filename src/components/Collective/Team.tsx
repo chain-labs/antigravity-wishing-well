@@ -1,8 +1,8 @@
-import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from '@/assets/imageKit';
-import H1 from '../HTML/H1';
-import Image from 'next/image';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
+import H1 from "../HTML/H1";
+import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
 import {
   EMAIL_CODY,
   INSTAGRAM_CODY,
@@ -11,63 +11,63 @@ import {
   TWITTER,
   TWITTER_HEXIEST,
   YOUTUBE,
-} from '@/constants';
+} from "@/constants";
 
 const SOCIALS = [
   {
-    title: '@PulseRayVision',
+    title: "@PulseRayVision",
     image: IMAGEKIT_IMAGES.MAX,
     socials: [
       {
         icon: IMAGEKIT_ICONS.TELEGRAM,
-        alt: 'telegram',
+        alt: "telegram",
         url: TELEGRAM,
       },
       {
         icon: IMAGEKIT_ICONS.TWITTER,
-        alt: 'twitter',
+        alt: "twitter",
         url: TWITTER,
       },
       {
         icon: IMAGEKIT_ICONS.YOUTUBE,
-        alt: 'youtube',
+        alt: "youtube",
         url: YOUTUBE,
       },
     ],
   },
   {
-    title: '@Don',
+    title: "@Don",
     image: IMAGEKIT_IMAGES.DON,
     socials: [
       {
         icon: IMAGEKIT_ICONS.TELEGRAM,
-        alt: 'telegram',
+        alt: "telegram",
         url: TELEGRAM,
       },
       {
         icon: IMAGEKIT_ICONS.TWITTER,
-        alt: 'twitter',
+        alt: "twitter",
         url: TWITTER,
       },
       {
         icon: IMAGEKIT_ICONS.YOUTUBE,
-        alt: 'youtube',
+        alt: "youtube",
         url: YOUTUBE,
       },
     ],
   },
   {
-    title: 'Cody Smith',
+    title: "Cody Smith",
     image: IMAGEKIT_IMAGES.CODY,
     socials: [
       {
         icon: IMAGEKIT_ICONS.TIKTOK,
-        alt: 'tiktok',
+        alt: "tiktok",
         url: TIKTOK_CODY,
       },
       {
         icon: IMAGEKIT_ICONS.INSTAGRAM,
-        alt: 'instagram',
+        alt: "instagram",
         url: INSTAGRAM_CODY,
       },
     ],

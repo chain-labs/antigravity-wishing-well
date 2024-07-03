@@ -1,23 +1,23 @@
-import { IMAGEKIT_ICONS } from '@/assets/imageKit';
-import Button from '../Button';
-import H1 from '../HTML/H1';
-import { useRef } from 'react';
-import { useScroll, useTransform, motion, useSpring } from 'framer-motion';
+import { IMAGEKIT_ICONS } from "@/assets/imageKit";
+import Button from "../Button";
+import H1 from "../HTML/H1";
+import { useRef } from "react";
+import { useScroll, useTransform, motion, useSpring } from "framer-motion";
 
 export default function Youtube() {
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: ['start end', 'end start'],
+    offset: ["start end", "end start"],
   });
 
-  const gap = useTransform(scrollYProgress, [0, 0.5], ['100px', '16px']);
+  const gap = useTransform(scrollYProgress, [0, 0.5], ["100px", "16px"]);
 
   return (
     <motion.div
       style={
         {
-          '--gap': gap,
+          "--gap": gap,
         } as any
       }
       ref={targetRef}
@@ -25,7 +25,7 @@ export default function Youtube() {
     >
       <div className="flex flex-col gap-[16px]">
         <H1>
-          {' '}
+          {" "}
           PulseRayVision Kicking Off <br className="hidden md:block" />
           Era 2 of Antigravity
         </H1>
@@ -78,7 +78,7 @@ export default function Youtube() {
             }}
             transitionIconMotionValues={{
               duration: 0.25,
-              type: 'spring',
+              type: "spring",
             }}
           />
           <div className="flex gap-[8px]">
@@ -100,7 +100,7 @@ export default function Youtube() {
               }}
               transitionIconMotionValues={{
                 duration: 0.25,
-                type: 'spring',
+                type: "spring",
                 bounce: 1,
               }}
               innerText="Discord"

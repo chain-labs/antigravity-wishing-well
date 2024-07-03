@@ -1,33 +1,33 @@
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { IoMenu, IoCloseCircleOutline } from 'react-icons/io5';
-import { UserConnected } from './UserConnected';
-import IMAGEKIT from '../../../../app/home/images';
-import { motion, AnimatePresence } from 'framer-motion';
-import { RegisterButton } from './RegisterButton';
-import P from '../../../HTML/P';
-import toast from 'react-hot-toast';
-import useContract from '@/abi/wishwell';
-import { PublicClient, parseAbiItem } from 'viem';
-import axios from 'axios';
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { IoMenu, IoCloseCircleOutline } from "react-icons/io5";
+import { UserConnected } from "./UserConnected";
+import IMAGEKIT from "../../../../app/home/images";
+import { motion, AnimatePresence } from "framer-motion";
+import { RegisterButton } from "./RegisterButton";
+import P from "../../../HTML/P";
+import toast from "react-hot-toast";
+import useContract from "@/abi/wishwell";
+import { PublicClient, parseAbiItem } from "viem";
+import axios from "axios";
 import {
   POLL_TIME,
   PROXY_API_ENDPOINT,
   TEST_NETWORK,
   TIMER,
-} from '@/constants';
-import { checkCorrectNetwork, getApiNetwork } from '@/utils';
-import { base } from 'viem/chains';
-import { useConnectModal } from '@rainbow-me/rainbowkit';
+} from "@/constants";
+import { checkCorrectNetwork, getApiNetwork } from "@/utils";
+import { base } from "viem/chains";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 import {
   useAccount,
   usePublicClient,
   useReadContract,
   useTransactionReceipt,
   useWriteContract,
-} from 'wagmi';
-import { IMAGEKIT_ICONS } from '@/assets/imageKit';
-import Link from 'next/link';
+} from "wagmi";
+import { IMAGEKIT_ICONS } from "@/assets/imageKit";
+import Link from "next/link";
 
 // Use a function to get the latest block number
 async function getLatestBlockNumber(publicClient: PublicClient) {
@@ -56,7 +56,7 @@ const Header = () => {
   const account = useAccount();
 
   function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   const toggleMenu = () => {
@@ -85,8 +85,8 @@ const Header = () => {
             <div
               className="flex items-center cursor-pointer"
               onClick={() => {
-                if (window.location.pathname !== '/') {
-                  window.location.href = '/';
+                if (window.location.pathname !== "/") {
+                  window.location.href = "/";
                 }
                 scrollToTop();
               }}
@@ -102,7 +102,7 @@ const Header = () => {
               className={`relative flex justify-center items-center font-extrabold text-lg font-sans gap-[16px] oveflow-hidden`}
             >
               <Link
-                href={location.pathname === '/wishwell' ? '#' : '/wishwell'}
+                href={location.pathname === "/wishwell" ? "#" : "/wishwell"}
               >
                 <P
                   uppercase
@@ -113,7 +113,7 @@ const Header = () => {
                   Wishwell
                 </P>
               </Link>
-              <Link href={location.pathname === '/mining' ? '#' : '/mining'}>
+              <Link href={location.pathname === "/mining" ? "#" : "/mining"}>
                 <P
                   uppercase
                   gradient
@@ -124,7 +124,7 @@ const Header = () => {
                 </P>
               </Link>
               <Link
-                href={location.pathname === '/collective' ? '#' : '/collective'}
+                href={location.pathname === "/collective" ? "#" : "/collective"}
               >
                 <P
                   uppercase
@@ -142,7 +142,7 @@ const Header = () => {
                 extrabold
                 className="relative font-sans font-extrabold flex justify-center items-center cursor-pointer"
               >
-                About{' '}
+                About{" "}
                 <Image
                   src={IMAGEKIT_ICONS.DOWN_WHITE}
                   alt="Dropdown"
@@ -150,8 +150,8 @@ const Header = () => {
                   height={16}
                   style={{
                     transform: aboutSectionOpen
-                      ? 'rotate(180deg)'
-                      : 'rotate(0deg)',
+                      ? "rotate(180deg)"
+                      : "rotate(0deg)",
                   }}
                   className="origin-center transition-all duration-300 ease-in-out transform rotate-0 cursor-pointer"
                 />
@@ -165,10 +165,10 @@ const Header = () => {
                         padding: 0,
                       }}
                       animate={{
-                        height: 'fit-content',
+                        height: "fit-content",
                         opacity: 1,
-                        gap: '8px',
-                        padding: '10px 16px',
+                        gap: "8px",
+                        padding: "10px 16px",
                       }}
                       initial={{
                         height: 0,
@@ -178,7 +178,7 @@ const Header = () => {
                       }}
                       transition={{
                         duration: 0.3,
-                        type: 'spring',
+                        type: "spring",
                       }}
                       className="absolute w-fit top-[calc(100%+32px)] left-1/2 -translate-x-1/2 rounded-[8px] z-10 p-[16px] text-agwhite transition-all duration-300 ease-in-out bg-agblack
 									before:content-[''] before:absolute before:inset-0 before:z-[-10] md:before:bg-gradient-to-bl before:from-[#3C00DC] before:to-[#FF5001] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
@@ -187,7 +187,7 @@ const Header = () => {
                       <motion.div
                         exit={{ height: 0, opacity: 0 }}
                         animate={{
-                          height: 'fit-content',
+                          height: "fit-content",
                           opacity: 1,
                         }}
                         initial={{ height: 0, opacity: 0 }}
@@ -196,7 +196,7 @@ const Header = () => {
                       >
                         <a
                           target="_blank"
-                          href={process.env.NEXT_PUBLIC_WHITEPAPER || '/'}
+                          href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}
                         >
                           <P
                             uppercase
@@ -210,7 +210,7 @@ const Header = () => {
                         </a>
                         <a
                           target="_blank"
-                          href={process.env.NEXT_PUBLIC_WHITEPAPER || '/'}
+                          href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}
                         >
                           <P
                             uppercase
@@ -239,8 +239,8 @@ const Header = () => {
           <div
             className="flex max-w-[500px] xl:hidden items-center cursor-pointer"
             onClick={() => {
-              if (window.location.pathname !== '/') {
-                window.location.href = '/';
+              if (window.location.pathname !== "/") {
+                window.location.href = "/";
               }
               scrollToTop();
             }}
@@ -277,7 +277,7 @@ const Header = () => {
             <div className="w-full h-full bg-agblack px-8 flex flex-col items-center justify-center rounded-lg gap-6 py-4">
               {account.isConnected && <UserConnected />}
               <Link
-                href={location.pathname === '/wishwell' ? '#' : '/wishwell'}
+                href={location.pathname === "/wishwell" ? "#" : "/wishwell"}
               >
                 <P
                   uppercase
@@ -288,7 +288,7 @@ const Header = () => {
                   Wishwell
                 </P>
               </Link>
-              <Link href={location.pathname === '/mining' ? '#' : '/mining'}>
+              <Link href={location.pathname === "/mining" ? "#" : "/mining"}>
                 <P
                   uppercase
                   gradient
@@ -299,7 +299,7 @@ const Header = () => {
                 </P>
               </Link>
               <Link
-                href={location.pathname === '/collective' ? '#' : '/collective'}
+                href={location.pathname === "/collective" ? "#" : "/collective"}
               >
                 <P
                   uppercase
@@ -318,7 +318,7 @@ const Header = () => {
                 className="relative font-sans font-extrabold cursor-pointer w-full flex flex-col gap-[8px]"
               >
                 <div className="flex justify-center items-center">
-                  About{' '}
+                  About{" "}
                   <Image
                     src={IMAGEKIT_ICONS.DOWN_WHITE}
                     alt="Dropdown"
@@ -327,8 +327,8 @@ const Header = () => {
                     style={{
                       transform:
                         aboutSectionOpen && isOpen
-                          ? 'rotate(180deg)'
-                          : 'rotate(0deg)',
+                          ? "rotate(180deg)"
+                          : "rotate(0deg)",
                     }}
                     className="origin-center transition-all duration-300 ease-in-out transform rotate-0 cursor-pointer"
                   />
@@ -343,10 +343,10 @@ const Header = () => {
                         padding: 0,
                       }}
                       animate={{
-                        height: 'fit-content',
+                        height: "fit-content",
                         opacity: 1,
-                        gap: '8px',
-                        padding: '10px 16px',
+                        gap: "8px",
+                        padding: "10px 16px",
                       }}
                       initial={{
                         height: 0,
@@ -356,14 +356,14 @@ const Header = () => {
                       }}
                       transition={{
                         duration: 0.3,
-                        type: 'spring',
+                        type: "spring",
                       }}
                       className="w-full rounded-[8px] z-10 p-[16px] text-agwhite transition-all duration-300 ease-in-out bg-agblack bg-gradient-to-b from-[#0A1133] to-[#142266] "
                     >
                       <motion.div
                         exit={{ height: 0, opacity: 0 }}
                         animate={{
-                          height: 'fit-content',
+                          height: "fit-content",
                           opacity: 1,
                         }}
                         initial={{ height: 0, opacity: 0 }}
@@ -372,7 +372,7 @@ const Header = () => {
                       >
                         <a
                           target="_blank"
-                          href={process.env.NEXT_PUBLIC_WHITEPAPER || '/'}
+                          href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}
                         >
                           <P
                             uppercase
@@ -386,7 +386,7 @@ const Header = () => {
                         </a>
                         <a
                           target="_blank"
-                          href={process.env.NEXT_PUBLIC_WHITEPAPER || '/'}
+                          href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}
                         >
                           <P
                             uppercase

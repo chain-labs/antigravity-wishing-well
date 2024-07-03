@@ -1,8 +1,8 @@
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { shaderMaterial } from '@react-three/drei';
-import { extend } from '@react-three/fiber';
-import { Color, DoubleSide, AdditiveBlending } from 'three';
+import React, { useMemo } from "react";
+import PropTypes from "prop-types";
+import { shaderMaterial } from "@react-three/drei";
+import { extend } from "@react-three/fiber";
+import { Color, DoubleSide, AdditiveBlending } from "three";
 
 /**
  * @typedef {Object} FakeGlowMaterialProps
@@ -22,9 +22,9 @@ import { Color, DoubleSide, AdditiveBlending } from 'three';
 const FakeGlowMaterial = ({
   falloff = 0.1,
   glowInternalRadius = 6.0,
-  glowColor = '#00ff00',
+  glowColor = "#00ff00",
   glowSharpness = 1.0,
-  side = 'THREE.FrontSide',
+  side = "THREE.FrontSide",
   depthTest = false,
   opacity = 1.0,
 }) => {
@@ -101,9 +101,9 @@ FakeGlowMaterial.propTypes = {
   glowColor: PropTypes.string,
   glowSharpness: PropTypes.number,
   side: PropTypes.oneOf([
-    'THREE.FrontSide',
-    'THREE.BackSide',
-    'THREE.DoubleSide',
+    "THREE.FrontSide",
+    "THREE.BackSide",
+    "THREE.DoubleSide",
   ]),
 };
 

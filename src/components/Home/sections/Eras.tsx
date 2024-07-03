@@ -1,6 +1,6 @@
-'use client';
-import { IMAGEKIT_IMAGES } from '@/assets/imageKit';
-import HeroItemCard from '@/components/HeroItemCard';
+"use client";
+import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
+import HeroItemCard from "@/components/HeroItemCard";
 
 export default function Eras() {
   return (

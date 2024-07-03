@@ -1,9 +1,9 @@
-import { condenseAddress } from '@/utils';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { useAccount } from 'wagmi';
-import { PiWarningCircle } from 'react-icons/pi';
-import { Badge } from '../../../HTML/Badge';
-import Image from 'next/image';
+import { condenseAddress } from "@/utils";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useAccount } from "wagmi";
+import { PiWarningCircle } from "react-icons/pi";
+import { Badge } from "../../../HTML/Badge";
+import Image from "next/image";
 
 export const UserConnected: React.FC = () => {
   const account = useAccount();
@@ -37,8 +37,8 @@ export const UserConnected: React.FC = () => {
                 {chain.hasIcon ? (
                   <>
                     <img
-                      src={chain.iconUrl ?? ''}
-                      alt={chain.name ?? ''}
+                      src={chain.iconUrl ?? ""}
+                      alt={chain.name ?? ""}
                       className="w-[40px] h-[40px] rounded-full aspect-square"
                       onClick={openChainModal}
                     />

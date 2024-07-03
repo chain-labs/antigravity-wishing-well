@@ -1,14 +1,14 @@
-import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from '@/assets/imageKit';
-import Button from '../Button';
-import H1 from '../HTML/H1';
-import P from '../HTML/P';
-import Image from 'next/image';
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
+import Button from "../Button";
+import H1 from "../HTML/H1";
+import P from "../HTML/P";
+import Image from "next/image";
+import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function PromotionAndNewsletter() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
 
   return (
     <div
@@ -21,10 +21,10 @@ export default function PromotionAndNewsletter() {
           <div className="overflow-hidden">
             <motion.div
               whileInView={{ y: 0 }}
-              initial={{ y: '100%' }}
+              initial={{ y: "100%" }}
               transition={{
                 duration: 0.5,
-                type: 'spring',
+                type: "spring",
                 bounce: 0.25,
               }}
             >
@@ -34,10 +34,10 @@ export default function PromotionAndNewsletter() {
           <div className="overflow-hidden">
             <motion.div
               whileInView={{ y: 0 }}
-              initial={{ y: '100%' }}
+              initial={{ y: "100%" }}
               transition={{
                 duration: 0.75,
-                type: 'spring',
+                type: "spring",
                 bounce: 0.25,
               }}
             >

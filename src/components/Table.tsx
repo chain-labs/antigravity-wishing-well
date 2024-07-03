@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { motion, AnimatePresence } from 'framer-motion';
-import { StaticImport } from 'next/dist/shared/lib/get-img-props';
-import Image from 'next/image';
-import { useState } from 'react';
-import { twMerge } from 'tailwind-merge';
-import H1 from '@/components/HTML/H1';
-import H3 from '@/components/HTML/H3';
-import H2 from '@/components/HTML/H2';
-import P from '@/components/HTML/P';
-import { IMAGEKIT_ICONS } from '@/assets/imageKit';
+import { motion, AnimatePresence } from "framer-motion";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import Image from "next/image";
+import { useState } from "react";
+import { twMerge } from "tailwind-merge";
+import H1 from "@/components/HTML/H1";
+import H3 from "@/components/HTML/H3";
+import H2 from "@/components/HTML/H2";
+import P from "@/components/HTML/P";
+import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 
 function TH({
   icon,
@@ -45,7 +45,7 @@ function TH({
 
 function truncatinator(str: string) {
   return (
-    str.substring(0, 6) + '...' + str.substring(str.length - 4, str.length)
+    str.substring(0, 6) + "..." + str.substring(str.length - 4, str.length)
   );
 }
 
@@ -71,15 +71,15 @@ function TD({
     setTruncateHover(false);
   }
 
-  if (truncate && children && typeof children === 'string') {
+  if (truncate && children && typeof children === "string") {
     return (
       <AnimatePresence>
         <td
           onMouseEnter={truncateHoverTrue}
           onMouseLeave={truncateHoverFalse}
           className={twMerge(
-            'text-[14px] relative border-r-2 border-[#414343] lg:border-[#8275A5] bg-clip-padding hidden lg:flex flex-col lg:flex-row justify-start items-center z-10 px-[12px] py-[6px] w-full truncate hover:overflow-visible',
-            special && 'text-[18px]',
+            "text-[14px] relative border-r-2 border-[#414343] lg:border-[#8275A5] bg-clip-padding hidden lg:flex flex-col lg:flex-row justify-start items-center z-10 px-[12px] py-[6px] w-full truncate hover:overflow-visible",
+            special && "text-[18px]",
             className,
           )}
         >
@@ -94,8 +94,8 @@ function TD({
                 }}
                 transition={{ duration: 0.2, delay: 0.5 }}
                 className={twMerge(
-                  'absolute top-[50%] left-[50%] p-2 -translate-x-1/2 -translate-y-1/2 rounded-[4px] bg-blue text-center text-agwhite z-10',
-                  special && ' text-[18px] bg-agyellow text-black ',
+                  "absolute top-[50%] left-[50%] p-2 -translate-x-1/2 -translate-y-1/2 rounded-[4px] bg-blue text-center text-agwhite z-10",
+                  special && " text-[18px] bg-agyellow text-black ",
                 )}
               >
                 {children}
@@ -112,9 +112,9 @@ function TD({
   return (
     <td
       className={twMerge(
-        'text-[14px] relative border-r-2 border-[#414343] lg:border-[#8275A5] bg-clip-padding flex flex-col justify-center lg:justify-start lg:items-center gap-[4px] lg:gap-4 lg:flex-row z-0 p-[8px] lg:px-[12px] lg:py-[6px]',
-        special && !border && 'border-none text-[18px] py-[10px]',
-        border && special && 'border-r-2 text-[18px] py-[10px]',
+        "text-[14px] relative border-r-2 border-[#414343] lg:border-[#8275A5] bg-clip-padding flex flex-col justify-center lg:justify-start lg:items-center gap-[4px] lg:gap-4 lg:flex-row z-0 p-[8px] lg:px-[12px] lg:py-[6px]",
+        special && !border && "border-none text-[18px] py-[10px]",
+        border && special && "border-r-2 text-[18px] py-[10px]",
         className,
       )}
     >
@@ -139,11 +139,11 @@ function TR({
   return (
     <tr
       className={twMerge(
-        'relative grid grid-cols-[2fr_1fr] lg:grid-cols-[2fr_1fr_1fr] w-full lg:border-l-2 border-b-2 border-[#414343] lg:border-[#8275A5] z-0',
-        special && ' text-black font-extrabold  border-none',
+        "relative grid grid-cols-[2fr_1fr] lg:grid-cols-[2fr_1fr_1fr] w-full lg:border-l-2 border-b-2 border-[#414343] lg:border-[#8275A5] z-0",
+        special && " text-black font-extrabold  border-none",
         empty &&
-          'bg-gradient-to-b from-[#142266] via-[#0A1133] to-[#142266] border-r-2',
-        th && 'border-none',
+          "bg-gradient-to-b from-[#142266] via-[#0A1133] to-[#142266] border-r-2",
+        th && "border-none",
         className,
       )}
     >
@@ -165,9 +165,9 @@ function Badge({
   return (
     <div
       className={twMerge(
-        'text-[12px] leading-[12px] relative flex items-center gap-[8px] justify-center font-sans font-extrabold text-agwhite cursor-pointer rounded-full py-[4px] px-[8px] border-2 uppercase tracking-widest w-fit',
+        "text-[12px] leading-[12px] relative flex items-center gap-[8px] justify-center font-sans font-extrabold text-agwhite cursor-pointer rounded-full py-[4px] px-[8px] border-2 uppercase tracking-widest w-fit",
         special &&
-          'text-[12px] leading-[13.88px] pt-[5px] text-agyellow font-extrabold bg-gradient-to-b from-[#0A1133] to-[#142266] border-none',
+          "text-[12px] leading-[13.88px] pt-[5px] text-agyellow font-extrabold bg-gradient-to-b from-[#0A1133] to-[#142266] border-none",
       )}
     >
       {children}
@@ -184,15 +184,15 @@ function Rank({
   wallet: string;
   special?: boolean;
 }) {
-  const iconLink = `@/assets/icons/${special ? 'wallet-black.svg' : 'wallet.svg'}`;
+  const iconLink = `@/assets/icons/${special ? "wallet-black.svg" : "wallet.svg"}`;
   return (
     <TD special={special} border>
       #{rank} <Badge special={special}>Specialist Technician</Badge>
       <div
         className={`flex gap-[4px] justify-start items-center lg:hidden ${
           special
-            ? 'text-[22px] leading-[28.6px] md:text-[18px] md:leading-[23.6px]'
-            : 'text-[18px] leading-[23.4px]'
+            ? "text-[22px] leading-[28.6px] md:text-[18px] md:leading-[23.6px]"
+            : "text-[18px] leading-[23.4px]"
         }`}
       >
         {special ? (
@@ -209,7 +209,7 @@ function Rank({
             alt="hammer icon"
             width={25}
             height={25}
-            className={twMerge('object-cover')}
+            className={twMerge("object-cover")}
           />
         )}
         {truncatinator(wallet)}
@@ -219,7 +219,7 @@ function Rank({
 }
 
 function pointsConverterToUSCommaseparated(points: number) {
-  return points.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return points.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 type tableDataType = {
@@ -271,8 +271,8 @@ export default function Table({ tableData }: { tableData: tableDataType[] }) {
                 special={data.special ?? false}
                 className={
                   data.special
-                    ? 'text-[22px] leading-[28.6px] md:text-[18px] md:leading-[23.6px]'
-                    : 'md:text-[14px] md:leading-[18.2px] text-[18px] leading-[23.6px]'
+                    ? "text-[22px] leading-[28.6px] md:text-[18px] md:leading-[23.6px]"
+                    : "md:text-[14px] md:leading-[18.2px] text-[18px] leading-[23.6px]"
                 }
               >
                 {pointsConverterToUSCommaseparated(data.points)}

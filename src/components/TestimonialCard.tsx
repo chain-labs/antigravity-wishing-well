@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useTransform, motion, MotionValue } from 'framer-motion';
-import { StaticImport } from 'next/dist/shared/lib/get-img-props';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import P from '@/components/HTML/P';
-import { IMAGEKIT_LOGOS } from '@/assets/imageKit';
+import { useTransform, motion, MotionValue } from "framer-motion";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import P from "@/components/HTML/P";
+import { IMAGEKIT_LOGOS } from "@/assets/imageKit";
 
 export type TestimonialCardType = {
   name: string;
@@ -28,7 +28,7 @@ export default function TesimonialCard({
     <motion.a
       style={
         {
-          '--gap': marginTestimonial,
+          "--gap": marginTestimonial,
         } as any
       }
       href={externalLink}
@@ -65,7 +65,7 @@ export default function TesimonialCard({
       </div>
       <div className="w-full h-[1px] bg-[#FEFFFF]"></div>
       <P className="text-[14px] leading-[20.3px]">
-        {'“'} {fullDescription} {'”'}
+        {"“"} {fullDescription} {"”"}
       </P>
     </motion.a>
   );

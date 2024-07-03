@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
 import {
   KeyframeOptions,
   animate,
   useInView,
   useIsomorphicLayoutEffect,
-} from 'framer-motion';
-import { Dispatch, SetStateAction, useRef } from 'react';
-import { twMerge } from 'tailwind-merge';
+} from "framer-motion";
+import { Dispatch, SetStateAction, useRef } from "react";
+import { twMerge } from "tailwind-merge";
 
 type NumberCounterProps = {
   from: number;
@@ -32,13 +32,13 @@ export default function AutomaticIncreamentalNumberCounter(
 
     const controls = animate(props.from, props.to, {
       duration: 1.5,
-      ease: 'easeInOut',
+      ease: "easeInOut",
       ...props.animationOptions,
       onUpdate(value) {
         element.textContent = String(
           props.float
-            ? String(value.toFixed(3)).padStart(2, '0')
-            : String(Math.floor(value)).padStart(2, '0'),
+            ? String(value.toFixed(3)).padStart(2, "0")
+            : String(Math.floor(value)).padStart(2, "0"),
         );
       },
       onComplete() {

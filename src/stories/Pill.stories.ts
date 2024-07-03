@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
-import Pill from '@/components/Pill';
+import type { Meta, StoryObj } from "@storybook/react";
+import { fn } from "@storybook/test";
+import Pill from "@/components/Pill";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: 'Example/Pill',
+  title: "Example/Pill",
   component: Pill,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {},
   args: {},
 } satisfies Meta<typeof Pill>;
@@ -21,14 +21,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    text: 'Pill',
+    text: "Pill",
   },
 };
 
 export const WithIcon: Story = {
   args: {
-    text: 'Points',
-    iconSrc: require('@/assets/icons/pill-points.svg'),
-    iconAlt: 'Icon',
+    text: "Points",
+    iconSrc: require("@/assets/icons/pill-points.svg"),
+    iconAlt: "Icon",
   },
 };

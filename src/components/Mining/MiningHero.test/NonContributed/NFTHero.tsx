@@ -1,9 +1,9 @@
-import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from '@/assets/imageKit';
-import Button from '@/components/Button';
-import H1 from '@/components/HTML/H1';
-import P from '@/components/HTML/P';
-import Image from 'next/image';
-import { Dispatch, SetStateAction } from 'react';
+import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from "@/assets/imageKit";
+import Button from "@/components/Button";
+import H1 from "@/components/HTML/H1";
+import P from "@/components/HTML/P";
+import Image from "next/image";
+import { Dispatch, SetStateAction } from "react";
 
 function NFTHero({
   NFTHover,

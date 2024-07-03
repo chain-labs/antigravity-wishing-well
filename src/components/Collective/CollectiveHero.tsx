@@ -1,33 +1,33 @@
-'use client';
-import H1 from '@/components/HTML/H1';
-import P from '@/components/HTML/P';
-import { RegisterButton } from '@/components/Home/components/header/RegisterButton';
-import Button from '@/components/Button';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import useContract from '@/abi/wishwell';
-import { PublicClient, parseAbiItem } from 'viem';
-import axios from 'axios';
+"use client";
+import H1 from "@/components/HTML/H1";
+import P from "@/components/HTML/P";
+import { RegisterButton } from "@/components/Home/components/header/RegisterButton";
+import Button from "@/components/Button";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import useContract from "@/abi/wishwell";
+import { PublicClient, parseAbiItem } from "viem";
+import axios from "axios";
 import {
   POLL_TIME,
   PROXY_API_ENDPOINT,
   TEST_NETWORK,
   TIMER,
-} from '@/constants';
-import { checkCorrectNetwork, getApiNetwork } from '@/utils';
-import { base } from 'viem/chains';
-import { useConnectModal } from '@rainbow-me/rainbowkit';
+} from "@/constants";
+import { checkCorrectNetwork, getApiNetwork } from "@/utils";
+import { base } from "viem/chains";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 import {
   useAccount,
   usePublicClient,
   useReadContract,
   useTransactionReceipt,
   useWriteContract,
-} from 'wagmi';
-import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from '@/assets/imageKit';
-import Leaderboard from './Leaderboard';
-import { motion } from 'framer-motion';
+} from "wagmi";
+import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
+import Leaderboard from "./Leaderboard";
+import { motion } from "framer-motion";
 
 // Use a function to get the latest block number
 async function getLatestBlockNumber(publicClient: PublicClient) {
@@ -53,7 +53,7 @@ export default function CollectiveHero() {
   const account = useAccount();
 
   function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   const toggleMenu = () => {
@@ -87,7 +87,7 @@ export default function CollectiveHero() {
         : process.env.NEXT_PUBLIC_PLS_FROM_BLOCK_NUMBER;
 
     if (fromBlockNumber === undefined)
-      throw Error('Please set the enviornment variable for Block Number');
+      throw Error("Please set the enviornment variable for Block Number");
 
     const chunkSize = 50000; // Define the chunk size as per the RPC limit
     let currentBlock = BigInt(fromBlockNumber); // Start from this block number
@@ -106,7 +106,7 @@ export default function CollectiveHero() {
       const filter = await publicClient.createEventFilter({
         address: AntiGravity?.address,
         event: parseAbiItem(
-          'event Transfer(address indexed from, address indexed to, uint256 indexed id)',
+          "event Transfer(address indexed from, address indexed to, uint256 indexed id)",
         ),
         args: {
           to: account.address,
@@ -147,7 +147,7 @@ export default function CollectiveHero() {
           setIsRegistered(true);
         }
       } catch (err) {
-        toast.error('Something went wrong. Try Again!', {
+        toast.error("Something went wrong. Try Again!", {
           duration: 3000,
         });
         setError(true);
@@ -188,7 +188,7 @@ export default function CollectiveHero() {
 
   const balance = useReadContract({
     ...AntiGravity,
-    functionName: 'balanceOf',
+    functionName: "balanceOf",
     args: [account.address as `0x${string}`],
     query: {
       enabled: account.isConnected,
@@ -225,7 +225,7 @@ export default function CollectiveHero() {
   });
 
   const handleRegister = async () => {
-    toast.loading('Getting you registered!', {
+    toast.loading("Getting you registered!", {
       duration: 10000,
     });
 
@@ -233,7 +233,7 @@ export default function CollectiveHero() {
       // @ts-ignore
       address: AntiGravity?.address,
       abi: AntiGravity?.abi,
-      functionName: 'register',
+      functionName: "register",
       // args: [`${payableAmount}`],
     });
   };
@@ -241,7 +241,7 @@ export default function CollectiveHero() {
   useEffect(() => {
     if (registerError) {
       console.log({ registerError });
-      toast.error('Something Went Wrong', {
+      toast.error("Something Went Wrong", {
         duration: 3000,
       });
       setIsRegistered(false);
@@ -250,7 +250,7 @@ export default function CollectiveHero() {
 
   useEffect(() => {
     if (registerFetched) {
-      toast.success('Registered successful', {
+      toast.success("Registered successful", {
         duration: 3000,
       });
       setIsRegistered(true);
@@ -282,8 +282,8 @@ export default function CollectiveHero() {
       </div>
       <motion.div
         animate={{ y: 0 }}
-        initial={{ y: '100vh' }}
-        transition={{ duration: 1, type: 'spring', bounce: 0.25, delay: 1.5 }}
+        initial={{ y: "100vh" }}
+        transition={{ duration: 1, type: "spring", bounce: 0.25, delay: 1.5 }}
         className="hidden lg:block w-full h-fit max-w-[1200px]"
       >
         <Leaderboard accountIsConnected />

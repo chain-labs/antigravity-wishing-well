@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import { twMerge } from 'tailwind-merge';
-import { motion } from 'framer-motion';
-import DynamicNumberCounter from '@/components/Home/components/spinner/DynamicNumberCounter';
-import AutomaticIncreamentalNumberCounter from '@/components/Home/components/spinner/AutomaticIncreamentalNumberCounter';
-import { IMAGEKIT_IMAGES } from '@/assets/imageKit';
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { twMerge } from "tailwind-merge";
+import { motion } from "framer-motion";
+import DynamicNumberCounter from "@/components/Home/components/spinner/DynamicNumberCounter";
+import AutomaticIncreamentalNumberCounter from "@/components/Home/components/spinner/AutomaticIncreamentalNumberCounter";
+import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 
 const globalDelay = 1.5;
 
@@ -18,7 +18,7 @@ type SpinnerProps = {
   /*
    * Era of the spinner
    */
-  era: 'wishwell' | 'mining' | 'minting';
+  era: "wishwell" | "mining" | "minting";
   /*
    * Stage of the spinner
    */
@@ -46,30 +46,30 @@ type SpinnerProps = {
 };
 
 const styles = {
-  'era-styles': {
+  "era-styles": {
     parent:
-      'absolute flex justify-center items-center top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[470px] w-[2em] z-10 pt-24',
-    active: 'uppercase text-center text-black font-sans font-black text-3xl',
+      "absolute flex justify-center items-center top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[470px] w-[2em] z-10 pt-24",
+    active: "uppercase text-center text-black font-sans font-black text-3xl",
     passive:
-      'uppercase text-center from-white to-[#999999] bg-gradient-to-b text-transparent bg-clip-text font-sans font-black text-3xl',
+      "uppercase text-center from-white to-[#999999] bg-gradient-to-b text-transparent bg-clip-text font-sans font-black text-3xl",
   },
-  'border-styles': {
-    era: 'absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom w-[3px] h-[490px] bg-black',
+  "border-styles": {
+    era: "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom w-[3px] h-[490px] bg-black",
     stage:
-      'absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[300px] w-[3px] bg-black z-10',
+      "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[300px] w-[3px] bg-black z-10",
   },
-  'stage-styles': {
+  "stage-styles": {
     parent:
-      'absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[180px] w-[2em] z-10',
-    active: 'uppercase text-center bg-clip-text font-sans font-black text-4xl',
+      "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[180px] w-[2em] z-10",
+    active: "uppercase text-center bg-clip-text font-sans font-black text-4xl",
     passive:
-      'uppercase text-center from-white to-[#999999] bg-gradient-to-b text-transparent bg-clip-text font-sans font-black text-4xl',
+      "uppercase text-center from-white to-[#999999] bg-gradient-to-b text-transparent bg-clip-text font-sans font-black text-4xl",
   },
-  'timer-styles': {
-    parent: 'flex-col justify-center items-center gap-0',
-    number: 'font-sans text-agyellow text-5xl font-extrabold text-center',
+  "timer-styles": {
+    parent: "flex-col justify-center items-center gap-0",
+    number: "font-sans text-agyellow text-5xl font-extrabold text-center",
     label:
-      'uppercase text-sm text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text',
+      "uppercase text-sm text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text",
   },
 };
 
@@ -82,8 +82,8 @@ function H1({
   isEraLetter,
 }: {
   className?: string;
-  era: SpinnerProps['era'];
-  stage: SpinnerProps['stage'];
+  era: SpinnerProps["era"];
+  stage: SpinnerProps["stage"];
   parentClassName: string;
   currentState: SpinnerProps;
   isEraLetter?: string;
@@ -93,53 +93,53 @@ function H1({
   return (
     <>
       {isEraLetter !== undefined ? (
-        <div className={twMerge(styles['era-styles'].parent, parentClassName)}>
+        <div className={twMerge(styles["era-styles"].parent, parentClassName)}>
           {currentState.era === era ? (
             <motion.h1
               whileInView={{
-                color: 'black',
+                color: "black",
               }}
               initial={{
-                color: 'white',
+                color: "white",
               }}
               viewport={{ once: true }}
               transition={{
                 duration: 0.5,
                 delay: globalDelay + 1,
               }}
-              className={twMerge(styles['era-styles'].active)}
+              className={twMerge(styles["era-styles"].active)}
             >
               {isEraLetter}
             </motion.h1>
           ) : (
-            <h1 className={twMerge(styles['era-styles'].passive)}>
+            <h1 className={twMerge(styles["era-styles"].passive)}>
               {isEraLetter}
             </h1>
           )}
         </div>
       ) : (
         <div
-          className={twMerge(parentClassName, styles['stage-styles'].parent)}
+          className={twMerge(parentClassName, styles["stage-styles"].parent)}
         >
           {active ? (
             <motion.h1
               whileInView={{
-                color: 'black',
+                color: "black",
               }}
               initial={{
-                color: 'white',
+                color: "white",
               }}
               viewport={{ once: true }}
               transition={{
                 duration: 0.5,
                 delay: globalDelay + 1,
               }}
-              className={twMerge(styles['stage-styles'].active, className)}
+              className={twMerge(styles["stage-styles"].active, className)}
             >
               {stage}
             </motion.h1>
           ) : (
-            <h1 className={twMerge(styles['stage-styles'].passive, className)}>
+            <h1 className={twMerge(styles["stage-styles"].passive, className)}>
               {stage}
             </h1>
           )}
@@ -159,7 +159,7 @@ function Border({
   return (
     <div
       className={twMerge(
-        eraBorder ? styles['border-styles'].era : styles['border-styles'].stage,
+        eraBorder ? styles["border-styles"].era : styles["border-styles"].stage,
         className,
       )}
     ></div>
@@ -168,7 +168,7 @@ function Border({
 
 function decideActiveStageLocation(activeState: SpinnerProps) {
   switch (activeState.era) {
-    case 'wishwell':
+    case "wishwell":
       switch (activeState.stage) {
         case 1:
           return -100;
@@ -177,7 +177,7 @@ function decideActiveStageLocation(activeState: SpinnerProps) {
         case 3:
           return -50;
       }
-    case 'mining':
+    case "mining":
       switch (activeState.stage) {
         case 1:
           return -25;
@@ -186,7 +186,7 @@ function decideActiveStageLocation(activeState: SpinnerProps) {
         case 3:
           return 25;
       }
-    case 'minting':
+    case "minting":
       switch (activeState.stage) {
         case 1:
           return 50;
@@ -202,19 +202,19 @@ function StageHighlighter({ activeState }: { activeState: SpinnerProps }) {
   return (
     <motion.div
       whileInView={{
-        x: '-50%',
-        y: '-50%',
+        x: "-50%",
+        y: "-50%",
         rotate: decideActiveStageLocation(activeState),
       }}
       initial={{
-        x: '-50%',
-        y: '-50%',
+        x: "-50%",
+        y: "-50%",
         rotate: -180,
       }}
       viewport={{ once: true }}
       transition={{ duration: 1, delay: globalDelay }}
       className={twMerge(
-        'absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[300px] w-[40px] bg-agyellow z-10',
+        "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[300px] w-[40px] bg-agyellow z-10",
         `rotate-[${decideActiveStageLocation(activeState)}deg]`,
       )}
     >
@@ -228,25 +228,25 @@ function EraHighlighter({ activeState }: { activeState: SpinnerProps }) {
   return (
     <motion.div
       whileInView={{
-        x: '-50%',
-        y: '-50%',
+        x: "-50%",
+        y: "-50%",
         rotate:
-          activeState.era === 'wishwell'
+          activeState.era === "wishwell"
             ? -75
-            : activeState.era === 'minting'
+            : activeState.era === "minting"
               ? 75
               : 0,
       }}
       initial={{
-        x: '-50%',
-        y: '-50%',
+        x: "-50%",
+        y: "-50%",
         rotate: 180,
       }}
       viewport={{ once: true }}
       transition={{ duration: 1, delay: globalDelay }}
       className={twMerge(
-        'absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[490px] w-[190px] bg-agyellow z-10',
-        `rotate-[${activeState.era === 'wishwell' ? -75 : activeState.era === 'minting' ? 75 : 0}deg]`,
+        "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[490px] w-[190px] bg-agyellow z-10",
+        `rotate-[${activeState.era === "wishwell" ? -75 : activeState.era === "minting" ? 75 : 0}deg]`,
       )}
     >
       <div className="absolute bottom-0 left-[50%] translate-x-[calc(-100%_-_10px)] origin-bottom rotate-[37.5deg] h-[490px] w-[90px] bg-agyellow z-20"></div>
@@ -265,56 +265,56 @@ function Era({ activeState }: { activeState: SpinnerProps }) {
           stage={activeState.stage}
           parentClassName="rotate-[-96deg]"
           currentState={activeState}
-          isEraLetter={'W'}
+          isEraLetter={"W"}
         />
         <H1
           era="wishwell"
           stage={activeState.stage}
           parentClassName="rotate-[-90deg]"
           currentState={activeState}
-          isEraLetter={'i'}
+          isEraLetter={"i"}
         />
         <H1
           era="wishwell"
           stage={activeState.stage}
           parentClassName="rotate-[-85deg]"
           currentState={activeState}
-          isEraLetter={'s'}
+          isEraLetter={"s"}
         />
         <H1
           era="wishwell"
           stage={activeState.stage}
           parentClassName="rotate-[-78deg]"
           currentState={activeState}
-          isEraLetter={'h'}
+          isEraLetter={"h"}
         />
         <H1
           era="wishwell"
           stage={activeState.stage}
           parentClassName="rotate-[-70deg]"
           currentState={activeState}
-          isEraLetter={'w'}
+          isEraLetter={"w"}
         />
         <H1
           era="wishwell"
           stage={activeState.stage}
           parentClassName="rotate-[-62deg]"
           currentState={activeState}
-          isEraLetter={'e'}
+          isEraLetter={"e"}
         />
         <H1
           era="wishwell"
           stage={activeState.stage}
           parentClassName="rotate-[-56deg]"
           currentState={activeState}
-          isEraLetter={'l'}
+          isEraLetter={"l"}
         />
         <H1
           era="wishwell"
           stage={activeState.stage}
           parentClassName="rotate-[-50deg]"
           currentState={activeState}
-          isEraLetter={'l'}
+          isEraLetter={"l"}
         />
       </div>
       <Border eraBorder className="rotate-[-37.5deg]" />
@@ -324,42 +324,42 @@ function Era({ activeState }: { activeState: SpinnerProps }) {
           stage={activeState.stage}
           parentClassName="rotate-[-12deg]"
           currentState={activeState}
-          isEraLetter={'M'}
+          isEraLetter={"M"}
         />
         <H1
           era="mining"
           stage={activeState.stage}
           parentClassName="rotate-[-6deg]"
           currentState={activeState}
-          isEraLetter={'i'}
+          isEraLetter={"i"}
         />
         <H1
           era="mining"
           stage={activeState.stage}
           parentClassName="rotate-[-1deg]"
           currentState={activeState}
-          isEraLetter={'n'}
+          isEraLetter={"n"}
         />
         <H1
           era="mining"
           stage={activeState.stage}
           parentClassName="rotate-[4deg]"
           currentState={activeState}
-          isEraLetter={'i'}
+          isEraLetter={"i"}
         />
         <H1
           era="mining"
           stage={activeState.stage}
           parentClassName="rotate-[9deg]"
           currentState={activeState}
-          isEraLetter={'n'}
+          isEraLetter={"n"}
         />
         <H1
           era="mining"
           stage={activeState.stage}
           parentClassName="rotate-[16deg]"
           currentState={activeState}
-          isEraLetter={'g'}
+          isEraLetter={"g"}
         />
       </div>
       <Border eraBorder className="rotate-[37.5deg]" />
@@ -369,49 +369,49 @@ function Era({ activeState }: { activeState: SpinnerProps }) {
           stage={activeState.stage}
           parentClassName="rotate-[61deg]"
           currentState={activeState}
-          isEraLetter={'M'}
+          isEraLetter={"M"}
         />
         <H1
           era="minting"
           stage={activeState.stage}
           parentClassName="rotate-[67deg]"
           currentState={activeState}
-          isEraLetter={'i'}
+          isEraLetter={"i"}
         />
         <H1
           era="minting"
           stage={activeState.stage}
           parentClassName="rotate-[73deg]"
           currentState={activeState}
-          isEraLetter={'n'}
+          isEraLetter={"n"}
         />
         <H1
           era="minting"
           stage={activeState.stage}
           parentClassName="rotate-[79deg]"
           currentState={activeState}
-          isEraLetter={'t'}
+          isEraLetter={"t"}
         />
         <H1
           era="minting"
           stage={activeState.stage}
           parentClassName="rotate-[84deg]"
           currentState={activeState}
-          isEraLetter={'i'}
+          isEraLetter={"i"}
         />
         <H1
           era="minting"
           stage={activeState.stage}
           parentClassName="rotate-[89deg]"
           currentState={activeState}
-          isEraLetter={'n'}
+          isEraLetter={"n"}
         />
         <H1
           era="minting"
           stage={activeState.stage}
           parentClassName="rotate-[96deg]"
           currentState={activeState}
-          isEraLetter={'g'}
+          isEraLetter={"g"}
         />
       </div>
     </>
@@ -498,19 +498,19 @@ function Pointer({ activeState }: { activeState: SpinnerProps }) {
   return (
     <motion.div
       whileInView={{
-        x: '-50%',
-        y: '-50%',
+        x: "-50%",
+        y: "-50%",
         rotate: decideActiveStageLocation(activeState),
       }}
       initial={{
-        x: '-50%',
-        y: '-50%',
+        x: "-50%",
+        y: "-50%",
         rotate: 180,
       }}
       viewport={{ once: true }}
       transition={{ duration: 1, delay: globalDelay }}
       className={twMerge(
-        'absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[100px] w-[50px] z-10 pt-0',
+        "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[100px] w-[50px] z-10 pt-0",
         `rotate-[${decideActiveStageLocation(activeState)}deg]`,
       )}
     >
@@ -537,38 +537,38 @@ function Timer({ activeState }: { activeState: SpinnerProps }) {
         className="absolute top-0 left-0 h-[220px] -z-[1]"
       />
       <div className="flex gap-4">
-        <div className={styles['timer-styles'].parent}>
-          <div className={styles['timer-styles'].number}>
+        <div className={styles["timer-styles"].parent}>
+          <div className={styles["timer-styles"].number}>
             <DynamicNumberCounter
               count={activeState.days}
               setCount={() => {}}
               modulo={100000000}
             />
           </div>
-          <div className={styles['timer-styles'].label}>Days</div>
+          <div className={styles["timer-styles"].label}>Days</div>
         </div>
-        <div className={styles['timer-styles'].parent}>
-          <div className={styles['timer-styles'].number}>
+        <div className={styles["timer-styles"].parent}>
+          <div className={styles["timer-styles"].number}>
             <DynamicNumberCounter
               count={activeState.hours}
               setCount={() => {}}
               modulo={24}
             />
           </div>
-          <div className={styles['timer-styles'].label}>Hours</div>
+          <div className={styles["timer-styles"].label}>Hours</div>
         </div>
-        <div className={styles['timer-styles'].parent}>
-          <div className={styles['timer-styles'].number}>
+        <div className={styles["timer-styles"].parent}>
+          <div className={styles["timer-styles"].number}>
             <DynamicNumberCounter
               count={activeState.mins}
               setCount={() => {}}
               modulo={60}
             />
           </div>
-          <div className={styles['timer-styles'].label}>Mins</div>
+          <div className={styles["timer-styles"].label}>Mins</div>
         </div>
-        <div className={styles['timer-styles'].parent}>
-          <div className={styles['timer-styles'].number}>
+        <div className={styles["timer-styles"].parent}>
+          <div className={styles["timer-styles"].number}>
             {/* <NumberCounter
 				from={activeState.secs}
 				to={activeState.secs - 1}
@@ -579,7 +579,7 @@ function Timer({ activeState }: { activeState: SpinnerProps }) {
               modulo={60}
             />
           </div>
-          <div className={styles['timer-styles'].label}>Secs</div>
+          <div className={styles["timer-styles"].label}>Secs</div>
         </div>
       </div>
       <div className="font-sans text-agyellow text-2xl font-bold text-center uppercase tracking-widest">
@@ -601,7 +601,7 @@ function Bonus({ activeState }: { activeState: SpinnerProps }) {
 }
 
 export default function Spinner({
-  era = 'mining',
+  era = "mining",
   stage = 1,
   bonus = 22,
   days = 4,
@@ -667,10 +667,10 @@ export default function Spinner({
   return (
     <motion.div
       whileInView={{
-        filter: 'saturate(1)',
+        filter: "saturate(1)",
       }}
       initial={{
-        filter: 'saturate(0)',
+        filter: "saturate(0)",
       }}
       viewport={{ once: true }}
       transition={{ duration: 1, delay: globalDelay }}

@@ -1,9 +1,9 @@
-import { StaticImport } from 'next/dist/shared/lib/get-img-props';
-import H1 from '../HTML/H1';
-import Image from 'next/image';
-import P from '../HTML/P';
-import { IMAGEKIT_COLLECTIVE } from '@/assets/imageKit';
-import { motion } from 'framer-motion';
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import H1 from "../HTML/H1";
+import Image from "next/image";
+import P from "../HTML/P";
+import { IMAGEKIT_COLLECTIVE } from "@/assets/imageKit";
+import { motion } from "framer-motion";
 
 function EventCard({
   image,
@@ -33,7 +33,7 @@ function EventCard({
           height={CONSTANT_HEIGHT}
           width={(image.width * CONSTANT_HEIGHT) / image.height}
           style={{
-            objectFit: 'cover',
+            objectFit: "cover",
             width: (image.width * CONSTANT_HEIGHT) / image.height,
             height: CONSTANT_HEIGHT,
           }}
@@ -130,7 +130,7 @@ function EventCardsContainer() {
 function MobileEventCards() {
   return (
     <>
-      {' '}
+      {" "}
       <MobileEventCard
         image={IMAGEKIT_COLLECTIVE.ANTIGRAVITY_MEETUP_1}
         caption="Don, Max & Cody at the Pulschain Tour Salt Lake 2024"

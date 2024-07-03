@@ -1,7 +1,7 @@
-import useMiningContract from '@/abi/MiningRig';
-import { useEffect, useMemo, useState } from 'react';
-import { formatUnits, parseUnits, zeroAddress } from 'viem';
-import erc20ABI from 'erc-20-abi';
+import useMiningContract from "@/abi/MiningRig";
+import { useEffect, useMemo, useState } from "react";
+import { formatUnits, parseUnits, zeroAddress } from "viem";
+import erc20ABI from "erc-20-abi";
 import {
   useAccount,
   useReadContract,
@@ -9,12 +9,12 @@ import {
   useWaitForTransactionReceipt,
   useWatchContractEvent,
   useWriteContract,
-} from 'wagmi';
-import { IToken } from '@/components/Mining/types';
-import { errorToast, successToast } from '../frontend/toast';
-import { watchContractEvent } from 'viem/actions';
-import { sepolia } from 'viem/chains';
-import useDarkXContract from '@/abi/DarkX';
+} from "wagmi";
+import { IToken } from "@/components/Mining/types";
+import { errorToast, successToast } from "../frontend/toast";
+import { watchContractEvent } from "viem/actions";
+import { sepolia } from "viem/chains";
+import useDarkXContract from "@/abi/DarkX";
 
 /**
  *  Primary utility hook for everything related to the mining phase
@@ -61,7 +61,7 @@ const useMining = (
   const { data: darkXBalance } = useReadContract({
     address: DarkXContract?.address as `0x${string}`,
     abi: DarkXContract?.abi,
-    functionName: 'balanceOf',
+    functionName: "balanceOf",
     args: [`${account.address}`],
   });
 
@@ -69,7 +69,7 @@ const useMining = (
   const { data: tokenBalance } = useReadContract({
     address: token.tokenContract as `0x${string}`,
     abi: erc20ABI,
-    functionName: 'balanceOf',
+    functionName: "balanceOf",
     args: [`${account.address}`],
   });
 
@@ -111,13 +111,13 @@ const useMining = (
   const { data: nativeToken } = useReadContract({
     address: MiningContract?.address as `0x${string}`,
     abi: MiningContract?.abi,
-    functionName: 'NATIVE_TOKEN',
+    functionName: "NATIVE_TOKEN",
   });
 
   const { data: allowance } = useReadContract({
     address: token.tokenContract as `0x${string}`,
     abi: erc20ABI,
-    functionName: 'allowance',
+    functionName: "allowance",
     args: [account.address, MiningContract?.address],
   });
 
@@ -132,11 +132,11 @@ const useMining = (
       console.log({ mineError });
       if ((mineError.cause as any).code === 4001) {
         errorToast(
-          'You cancelled the mining process. Please Try Again if you wish to mine.',
+          "You cancelled the mining process. Please Try Again if you wish to mine.",
         );
       } else if (
         (mineError.cause as any).reason ===
-        'ERC20: transfer amount exceeds balance'
+        "ERC20: transfer amount exceeds balance"
       ) {
         errorToast(
           `You do not have ${amountToInvest} ${token.label} in your wallet balance.`,
@@ -179,14 +179,14 @@ const useMining = (
         approve({
           address: token.tokenContract as `0x${string}`,
           abi: erc20ABI,
-          functionName: 'approve',
+          functionName: "approve",
           args: [MiningContract.address, investAmount],
         });
       } else {
         mine({
           address: MiningContract?.address as `0x${string}`,
           abi: MiningContract?.abi,
-          functionName: 'mine',
+          functionName: "mine",
           args: [token.tokenContract, investAmount, merkleProof],
           value: token.tokenContract === nativeToken ? investAmount : BigInt(0),
         });
@@ -198,12 +198,12 @@ const useMining = (
     if (approveReceipt)
       console.log({ approveReceipt, approveIsLoading, isApprovalNeeded });
     if (isApprovalNeeded && !approveIsLoading && approveReceipt) {
-      console.log('mining', { merkleProofState });
+      console.log("mining", { merkleProofState });
 
       mine({
         address: MiningContract?.address as `0x${string}`,
         abi: MiningContract?.abi,
-        functionName: 'mine',
+        functionName: "mine",
         args: [token.tokenContract, investAmount, merkleProofState || []],
         value: token.tokenContract === nativeToken ? investAmount : BigInt(0),
       });
@@ -222,7 +222,7 @@ const useMining = (
     transactionLoading,
     darkXBalance,
     tokenBalance:
-      formatUnits((tokenBalance as bigint) || BigInt(0), token.decimals) || '0',
+      formatUnits((tokenBalance as bigint) || BigInt(0), token.decimals) || "0",
   };
 };
 

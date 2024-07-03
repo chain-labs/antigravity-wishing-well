@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
-import CountdownTimer from '@/components/CountdownTimer';
+import type { Meta, StoryObj } from "@storybook/react";
+import { fn } from "@storybook/test";
+import CountdownTimer from "@/components/CountdownTimer";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: 'Example/CountdownTimer',
+  title: "Example/CountdownTimer",
   component: CountdownTimer,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {},
   args: {},
 } satisfies Meta<typeof CountdownTimer>;
@@ -27,7 +27,7 @@ export const Default: Story = {
       mins: 3,
       secs: 4,
       phase: 3,
-      era: 'minting',
+      era: "minting",
     },
   },
 };

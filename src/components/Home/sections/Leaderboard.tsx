@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import Button from '@/components/Button';
+import Button from "@/components/Button";
 import {
   useScroll,
   useTransform,
   motion,
   AnimatePresence,
-} from 'framer-motion';
-import Image from 'next/image';
-import { useRef, useState } from 'react';
-import H1 from '@/components/HTML/H1';
-import H2 from '@/components/HTML/H2';
-import P from '@/components/HTML/P';
-import Table from '@/components/Table';
-import { useAccount } from 'wagmi';
-import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from '@/assets/imageKit';
+} from "framer-motion";
+import Image from "next/image";
+import { useRef, useState } from "react";
+import H1 from "@/components/HTML/H1";
+import H2 from "@/components/HTML/H2";
+import P from "@/components/HTML/P";
+import Table from "@/components/Table";
+import { useAccount } from "wagmi";
+import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from "@/assets/imageKit";
 
 function CollectiveLogo() {
   const [hover, setHover] = useState(false);
@@ -36,16 +36,16 @@ function CollectiveLogo() {
 
         <motion.div
           animate={{
-            width: hover ? 'fit-content' : 0,
-            padding: hover ? '8px 16px 8px 16px' : '8px 0px 8px 0px',
+            width: hover ? "fit-content" : 0,
+            padding: hover ? "8px 16px 8px 16px" : "8px 0px 8px 0px",
           }}
           initial={{
-            width: '0%',
-            padding: '0px 0px 0px 0px',
+            width: "0%",
+            padding: "0px 0px 0px 0px",
           }}
           exit={{
-            width: '0%',
-            padding: '0px 0px 0px 0px',
+            width: "0%",
+            padding: "0px 0px 0px 0px",
           }}
           transition={{ duration: 0.2 }}
           className="rounded-[6px] px-[16px] py-[8px] bg-agyellow text-black font-general-sans font-extrabold overflow-hidden whitespace-nowrap hidden lg:block"
@@ -68,52 +68,52 @@ type tableDataType = {
 const tableData: tableDataType[] = [
   {
     rank: 1,
-    badge: 'Specialist Technician',
-    wallet: '0x1234567890abcdef1234567890abcdef12345678',
+    badge: "Specialist Technician",
+    wallet: "0x1234567890abcdef1234567890abcdef12345678",
     points: 90000,
   },
   {
     rank: 2,
-    badge: 'Specialist Technician',
-    wallet: '0x1234567890abcdef1234567890abcdef12345678',
+    badge: "Specialist Technician",
+    wallet: "0x1234567890abcdef1234567890abcdef12345678",
     points: 90000,
   },
   {
     rank: 3,
-    badge: 'Specialist Technician',
-    wallet: '0x1234567890abcdef1234567890abcdef12345678',
+    badge: "Specialist Technician",
+    wallet: "0x1234567890abcdef1234567890abcdef12345678",
     points: 90000,
   },
   {
     rank: 4,
-    badge: 'Specialist Technician',
-    wallet: '0x1234567890abcdef1234567890abcdef12345678',
+    badge: "Specialist Technician",
+    wallet: "0x1234567890abcdef1234567890abcdef12345678",
     points: 90000,
   },
   {
     rank: 5,
-    badge: 'Specialist Technician',
-    wallet: '0x1234567890abcdef1234567890abcdef12345678',
+    badge: "Specialist Technician",
+    wallet: "0x1234567890abcdef1234567890abcdef12345678",
     points: 90000,
   },
   null,
   {
     rank: 1234566,
-    badge: 'Specialist Technician',
-    wallet: '0x1234567890abcdef1234567890abcdef12345678',
+    badge: "Specialist Technician",
+    wallet: "0x1234567890abcdef1234567890abcdef12345678",
     points: 90000,
   },
   {
     rank: 1234567,
-    badge: 'Specialist Technician',
-    wallet: '0x1234567890abcdef1234567890abcdef12345678',
+    badge: "Specialist Technician",
+    wallet: "0x1234567890abcdef1234567890abcdef12345678",
     points: 90000,
     special: true,
   },
   {
     rank: 1234568,
-    badge: 'Specialist Technician',
-    wallet: '0x1234567890abcdef1234567890abcdef12345678',
+    badge: "Specialist Technician",
+    wallet: "0x1234567890abcdef1234567890abcdef12345678",
     points: 90000,
   },
 ];
@@ -127,7 +127,7 @@ export default function Leaderboard({
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: ['start end', 'start start'],
+    offset: ["start end", "start start"],
   });
 
   const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
@@ -171,7 +171,7 @@ export default function Leaderboard({
                 </h2>
                 <H2
                   style={{
-                    wordWrap: 'break-word',
+                    wordWrap: "break-word",
                   }}
                 >
                   {account.address}

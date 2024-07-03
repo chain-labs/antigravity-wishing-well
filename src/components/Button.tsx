@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { use, useEffect } from 'react';
-import { twMerge } from 'tailwind-merge';
+import React, { use, useEffect } from "react";
+import { twMerge } from "tailwind-merge";
 import {
   stagger,
   useAnimate,
@@ -10,10 +10,10 @@ import {
   AnimationProps,
   VariantLabels,
   CustomValueType, // Add this line
-} from 'framer-motion';
-import { StaticImport } from 'next/dist/shared/lib/get-img-props';
-import Image from 'next/image';
-import { IMAGEKIT_ICONS } from '@/assets/imageKit';
+} from "framer-motion";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import Image from "next/image";
+import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 
 interface ButtonProps {
   /**
@@ -40,7 +40,7 @@ interface ButtonProps {
    * Position of the icon
    * @default "start"
    **/
-  iconPosition?: 'start' | 'end';
+  iconPosition?: "start" | "end";
   /**
    * Color of the stars
    * @default "yellow"
@@ -55,7 +55,7 @@ interface ButtonProps {
    * Size of the button
    * @default "medium"
    **/
-  size?: 'small' | 'medium' | 'large';
+  size?: "small" | "medium" | "large";
   /**
    * Whether to disable the sparkles animation
    * @default false
@@ -74,7 +74,7 @@ interface ButtonProps {
    * Type of the button
    * @default "button"
    **/
-  type?: 'submit' | 'reset' | 'button';
+  type?: "submit" | "reset" | "button";
   /**
    * Function to call when the button is clicked
    **/
@@ -120,17 +120,17 @@ type AnimationSequence = Parameters<typeof animate>[0];
 
 export default function Button({
   secondary = false,
-  innerText = 'Click me',
+  innerText = "Click me",
   iconSrc = null,
-  iconAlt = 'icon',
-  iconPosition = 'start',
-  starsColor = 'yellow',
+  iconAlt = "icon",
+  iconPosition = "start",
+  starsColor = "yellow",
   starsCount = 20,
-  size = 'medium',
+  size = "medium",
   disableSparkels = false,
-  className = '',
+  className = "",
   animateButton = false,
-  type = 'button',
+  type = "button",
   onClick,
   children,
   hallmarkIconSrc,
@@ -146,7 +146,7 @@ export default function Button({
 }: ButtonProps) {
   const [scope, animate] = useAnimate();
   const [isAnimating, setIsAnimating] = React.useState(false);
-  const innerTextStringArray = innerText.trim().split('');
+  const innerTextStringArray = innerText.trim().split("");
   const [isHovered, setIsHovered] = React.useState(false);
 
   const letterSize = {
@@ -176,7 +176,7 @@ export default function Button({
       },
       {
         duration: 0.4,
-        at: '<',
+        at: "<",
       },
     ]);
 
@@ -188,7 +188,7 @@ export default function Button({
       },
       {
         duration: 0.3,
-        at: '<',
+        at: "<",
       },
     ]);
 
@@ -208,14 +208,14 @@ export default function Button({
     if (disableSparkels) {
       animate([
         [
-          '.letter',
+          ".letter",
           { y: -letterSize[size] },
           {
             duration: 0.2,
             delay: stagger(0.2 / innerTextStringArray.length),
           },
         ],
-        ['.letter', { y: 0 }, { duration: 0.000001, at: 0.5 }],
+        [".letter", { y: 0 }, { duration: 0.000001, at: 0.5 }],
       ]).then(() => {
         setIsAnimating(false);
       });
@@ -223,7 +223,7 @@ export default function Button({
       animate([
         ...sparklesReset,
         [
-          '.letter',
+          ".letter",
           { y: -letterSize[size] },
           {
             duration: 0.2,
@@ -231,7 +231,7 @@ export default function Button({
           },
         ],
         ...sparklesAnimation,
-        ['.letter', { y: 0 }, { duration: 0.000001 }],
+        [".letter", { y: 0 }, { duration: 0.000001 }],
         ...sparklesFadeOut,
       ]).then(() => {
         setIsAnimating(false);
@@ -248,12 +248,12 @@ export default function Button({
           onClick={onButtonClick}
           style={
             {
-              flexDirection: iconPosition === 'start' ? 'row' : 'row-reverse',
-              transform: isHovered ? 'translateY(4px)' : 'translateY(0px)',
+              flexDirection: iconPosition === "start" ? "row" : "row-reverse",
+              transform: isHovered ? "translateY(4px)" : "translateY(0px)",
               boxShadow: isHovered
-                ? `0px 0px 0px 0px ${secondary ? '#414343' : '#000'}`
-                : `0px 4px 0px 0px ${secondary ? '#414343' : '#000'}`,
-              padding: secondary ? '6px 10px' : '12px 16px',
+                ? `0px 0px 0px 0px ${secondary ? "#414343" : "#000"}`
+                : `0px 4px 0px 0px ${secondary ? "#414343" : "#000"}`,
+              padding: secondary ? "6px 10px" : "12px 16px",
             } as any
           }
           onMouseEnter={() => setIsHovered(true)}
@@ -261,8 +261,8 @@ export default function Button({
           className={twMerge(
             `uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-bold text-agwhite cursor-pointer rounded-[4px] transition-[all_150ms] hover:shadow-none overflow-hidden`,
             secondary
-              ? 'border-[1px] border-[#414343] bg-agblack active:bg-[#414343] box-border'
-              : 'bg-blue text-agblack active:bg-agblack',
+              ? "border-[1px] border-[#414343] bg-agblack active:bg-[#414343] box-border"
+              : "bg-blue text-agblack active:bg-agblack",
 
             className,
           )}
@@ -299,15 +299,15 @@ export default function Button({
           <span
             className="sr-only"
             style={{
-              position: 'absolute',
-              width: '1px',
-              height: '1px',
-              padding: '0',
-              margin: '-1px',
-              overflow: 'hidden',
-              clip: 'rect(0, 0, 0, 0)',
-              whiteSpace: 'nowrap',
-              borderWidth: '0',
+              position: "absolute",
+              width: "1px",
+              height: "1px",
+              padding: "0",
+              margin: "-1px",
+              overflow: "hidden",
+              clip: "rect(0, 0, 0, 0)",
+              whiteSpace: "nowrap",
+              borderWidth: "0",
             }}
           >
             {innerText}
@@ -324,7 +324,7 @@ export default function Button({
             aria-hidden
           >
             {innerTextStringArray.map((letter, index) => {
-              if (letter === ' ') {
+              if (letter === " ") {
                 return (
                   <span
                     data-letter={letter}
@@ -333,7 +333,7 @@ export default function Button({
                   >
                     <div
                       style={{
-                        width: '0.5ch',
+                        width: "0.5ch",
                         height: `${letterSize[size]}px`,
                       }}
                     >
@@ -341,7 +341,7 @@ export default function Button({
                     </div>
                     <div
                       style={{
-                        width: '0.5ch',
+                        width: "0.5ch",
                         height: `${letterSize[size]}px`,
                       }}
                     >
@@ -384,8 +384,8 @@ export default function Button({
         onClick={onClick}
         style={
           {
-            flexDirection: iconPosition === 'start' ? 'row' : 'row-reverse',
-            transform: isHovered ? 'translateY(4px)' : 'translateY(0px)',
+            flexDirection: iconPosition === "start" ? "row" : "row-reverse",
+            transform: isHovered ? "translateY(4px)" : "translateY(0px)",
           } as any
         }
         onMouseEnter={() => setIsHovered(true)}
@@ -394,10 +394,10 @@ export default function Button({
           `uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-extrabold text-agwhite cursor-pointer text-nowrap
                                 rounded-[4px] px-4 py-3 shadow-button hover:translate-y-1 transition-[all_150ms] hover:shadow-none active:bg-agblack bg-blue z-0 overflow-hidden`,
           secondary &&
-            'border-[1px] border-[#414343] bg-agblack active:bg-[#414343] box-border',
+            "border-[1px] border-[#414343] bg-agblack active:bg-[#414343] box-border",
           `text-[${letterSize[size]}px] leading-[${letterSize[size]}px]`,
           className,
-          (loading || disabled) && 'cursor-not-allowed bg-[#414343]',
+          (loading || disabled) && "cursor-not-allowed bg-[#414343]",
         )}
         disabled={loading || disabled}
       >

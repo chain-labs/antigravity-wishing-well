@@ -1,9 +1,9 @@
-import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from '@/assets/imageKit';
-import Image from 'next/image';
-import H1 from '../HTML/H1';
-import P from '../HTML/P';
-import Button from '../Button';
-import { motion } from 'framer-motion';
+import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
+import Image from "next/image";
+import H1 from "../HTML/H1";
+import P from "../HTML/P";
+import Button from "../Button";
+import { motion } from "framer-motion";
 
 export default function Event() {
   const ImageLink = IMAGEKIT_IMAGES.COLLECTIVE_EVENT;
@@ -15,10 +15,10 @@ export default function Event() {
             <div className="overflow-hidden">
               <motion.div
                 whileInView={{ y: 0 }}
-                initial={{ y: '100%' }}
+                initial={{ y: "100%" }}
                 transition={{
                   duration: 0.5,
-                  type: 'spring',
+                  type: "spring",
                   bounce: 0.25,
                 }}
               >
@@ -28,10 +28,10 @@ export default function Event() {
             <div className="overflow-hidden">
               <motion.div
                 whileInView={{ y: 0 }}
-                initial={{ y: '100%' }}
+                initial={{ y: "100%" }}
                 transition={{
                   duration: 0.75,
-                  type: 'spring',
+                  type: "spring",
                   bounce: 0.25,
                 }}
               >
@@ -50,10 +50,10 @@ export default function Event() {
             <div className="overflow-hidden">
               <motion.div
                 whileInView={{ y: 0 }}
-                initial={{ y: '100%' }}
+                initial={{ y: "100%" }}
                 transition={{
                   duration: 1,
-                  type: 'spring',
+                  type: "spring",
                   bounce: 0.25,
                 }}
               >
@@ -74,12 +74,12 @@ export default function Event() {
               scale: 1,
             }}
             whileHoverIconMotionValues={{
-              y: '-1000%',
+              y: "-1000%",
               scale: 1.1,
             }}
             transitionIconMotionValues={{
               duration: 0.25,
-              type: 'spring',
+              type: "spring",
             }}
           />
           <Image

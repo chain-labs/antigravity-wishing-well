@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export type CountdownType = {
-  era: 'wishwell' | 'mining' | 'minting';
+  era: "wishwell" | "mining" | "minting";
   phase: 1 | 2 | 3;
   days: number;
   hours: number;
@@ -12,7 +12,7 @@ export type CountdownType = {
 };
 
 const DEFAULT: CountdownType = {
-  era: 'wishwell',
+  era: "wishwell",
   phase: 3,
   days: 0,
   hours: 0,
@@ -26,16 +26,16 @@ function setTimer(newTimer: CountdownType) {
   timer = newTimer;
 }
 
-function getNextEra(currentEra: CountdownType['era']): CountdownType['era'] {
+function getNextEra(currentEra: CountdownType["era"]): CountdownType["era"] {
   switch (currentEra) {
-    case 'wishwell':
-      return 'mining';
-    case 'mining':
-      return 'minting';
-    case 'minting':
-      return 'wishwell';
+    case "wishwell":
+      return "mining";
+    case "mining":
+      return "minting";
+    case "minting":
+      return "wishwell";
     default:
-      return 'mining';
+      return "mining";
   }
 }
 

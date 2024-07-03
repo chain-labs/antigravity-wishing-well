@@ -1,15 +1,15 @@
-import { IMAGEKIT_ICONS } from '@/assets/imageKit';
-import ContributedCard from './ContributedCard';
-import Button from '@/components/Button';
-import H1 from '@/components/HTML/H1';
-import P from '@/components/HTML/P';
-import { useConnectModal } from '@rainbow-me/rainbowkit';
-import { useAccount } from 'wagmi';
-import useMerkleTree from '@/hooks/sc-fns/useMerkleTree.claim';
-import { CLAIM_LISTS } from '../../constants';
-import { useMemo } from 'react';
-import { formatUnits } from 'viem';
-import useClaim from '@/hooks/sc-fns/useClaim';
+import { IMAGEKIT_ICONS } from "@/assets/imageKit";
+import ContributedCard from "./ContributedCard";
+import Button from "@/components/Button";
+import H1 from "@/components/HTML/H1";
+import P from "@/components/HTML/P";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { useAccount } from "wagmi";
+import useMerkleTree from "@/hooks/sc-fns/useMerkleTree.claim";
+import { CLAIM_LISTS } from "../../constants";
+import { useMemo } from "react";
+import { formatUnits } from "viem";
+import useClaim from "@/hooks/sc-fns/useClaim";
 
 function ContributedHero() {
   const { openConnectModal } = useConnectModal();
@@ -92,16 +92,16 @@ function ContributedHero() {
         />
         <div
           style={{
-            gap: '11px',
+            gap: "11px",
           }}
           className="flex justify-center items-center w-full"
         >
           <div
             style={{
-              width: '100%',
-              height: '1px',
-              backgroundColor: '#FF5001',
-              borderRadius: '100px',
+              width: "100%",
+              height: "1px",
+              backgroundColor: "#FF5001",
+              borderRadius: "100px",
             }}
           ></div>
           <div className="text-agwhite uppercase tracking-wider text-nowrap font-bold">
@@ -109,10 +109,10 @@ function ContributedHero() {
           </div>
           <div
             style={{
-              width: '100%',
-              height: '1px',
-              backgroundColor: '#FF5001',
-              borderRadius: '100px',
+              width: "100%",
+              height: "1px",
+              backgroundColor: "#FF5001",
+              borderRadius: "100px",
             }}
           ></div>
         </div>
@@ -131,7 +131,7 @@ function ContributedHero() {
           />
         ) : (
           <Button
-            innerText={transactionLoading ? 'Claiming...' : 'Claim Now'}
+            innerText={transactionLoading ? "Claiming..." : "Claim Now"}
             loading={transactionLoading}
             disabled={points === 0}
             iconSrc={IMAGEKIT_ICONS.CLAIM}

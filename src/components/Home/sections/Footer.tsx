@@ -1,6 +1,6 @@
-import Image from 'next/image';
-import P from '@/components/HTML/P';
-import { IMAGEKIT_LOGOS } from '@/assets/imageKit';
+import Image from "next/image";
+import P from "@/components/HTML/P";
+import { IMAGEKIT_LOGOS } from "@/assets/imageKit";
 
 export default function Footer() {
   return (

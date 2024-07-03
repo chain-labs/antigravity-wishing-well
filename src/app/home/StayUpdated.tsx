@@ -1,17 +1,17 @@
-import Button from '@/components/Button';
-import Image from 'next/image';
-import { useState } from 'react';
-import IMAGEKIT from './images';
-import { useRestPost } from '@/hooks/useRestClient';
+import Button from "@/components/Button";
+import Image from "next/image";
+import { useState } from "react";
+import IMAGEKIT from "./images";
+import { useRestPost } from "@/hooks/useRestClient";
 
 const StayUpdated = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [submit, setSubmit] = useState(false);
 
   const { data, isPending, error, mutate } = useRestPost(
-    ['contact'],
-    '/contact',
+    ["contact"],
+    "/contact",
   );
 
   const handleSubmit = (e: React.MouseEvent) => {
@@ -36,17 +36,17 @@ const StayUpdated = () => {
         <div className="absolute w-full h-full bg-black opacity-50 z-0" />
         <div
           className={`flex px-4 justify-center w-full z-10 ${
-            !submit ? 'py-8' : 'py-8'
+            !submit ? "py-8" : "py-8"
           }`}
         >
           <div className="flex mt-52 sm:mt-0 flex-col gap-8 sm:flex-row justify-center max-w-[1280px] w-full sm:w-3/4">
             <div className="flex flex-col mr-20 gap-4">
               <p className="font-sans text-5xl font-black text-agwhite">
-                {!submit ? 'Stay Updated!' : 'Success!'}
+                {!submit ? "Stay Updated!" : "Success!"}
               </p>
               <p className="font-sans font-normal text-agwhite">
                 {!submit
-                  ? 'Get all Antigravity updates in your inbox.'
+                  ? "Get all Antigravity updates in your inbox."
                   : `You’ll get all Antigravity updates in your inbox. Stay tuned.`}
               </p>
             </div>

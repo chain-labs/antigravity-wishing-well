@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { StaticImport } from 'next/dist/shared/lib/get-img-props';
-import { useState } from 'react';
-import { twMerge } from 'tailwind-merge';
-import Link from 'next/link';
-import H1 from './HTML/H1';
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import { useState } from "react";
+import { twMerge } from "tailwind-merge";
+import Link from "next/link";
+import H1 from "./HTML/H1";
 
 /**
  * Primary UI component for user interaction
@@ -28,7 +28,7 @@ type HeroItemCardProps = {
   /**
    * Animation direction of the card when it enters the viewport
    */
-  animateFrom: 'left' | 'right' | 'bottom' | 'none';
+  animateFrom: "left" | "right" | "bottom" | "none";
   /**
    * range[0, 1] opacity of the background image when not hovered
    */
@@ -60,11 +60,11 @@ type HeroItemCardProps = {
 };
 
 export default function HeroItemCard({
-  cardExternalLink = '/',
+  cardExternalLink = "/",
   title,
   description,
   backgroundImage,
-  animateFrom = 'none',
+  animateFrom = "none",
   defaultImageOpacity = 0.65,
   hoverImageOpacity = 0.25,
   enterAnimationDuration = 1,
@@ -75,9 +75,9 @@ export default function HeroItemCard({
   const [hover, setHover] = useState(false);
 
   const initialState = {
-    x: animateFrom === 'left' ? '-100%' : animateFrom === 'right' ? '100%' : 0,
-    y: animateFrom === 'none' ? 0 : '100%',
-    rotate: animateFrom === 'left' ? 45 : animateFrom === 'right' ? -45 : 0,
+    x: animateFrom === "left" ? "-100%" : animateFrom === "right" ? "100%" : 0,
+    y: animateFrom === "none" ? 0 : "100%",
+    rotate: animateFrom === "left" ? 45 : animateFrom === "right" ? -45 : 0,
   };
 
   return (
@@ -111,13 +111,13 @@ export default function HeroItemCard({
             opacity: hover ? hoverImageOpacity : defaultImageOpacity,
           }}
           className={twMerge(
-            'absolute top-0 left-0 object-cover h-full w-full -z-10 transition-opacity duration-500',
-            className ?? '',
+            "absolute top-0 left-0 object-cover h-full w-full -z-10 transition-opacity duration-500",
+            className ?? "",
           )}
         />
         <H1>{title}</H1>
         <motion.p
-          animate={{ height: hover ? 'auto' : 0 }}
+          animate={{ height: hover ? "auto" : 0 }}
           initial={{ height: 0 }}
           transition={{
             duration: descriptionRevealAnimationDuration,

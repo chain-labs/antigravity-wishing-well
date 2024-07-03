@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   Environment,
@@ -8,14 +8,14 @@ import {
   PerspectiveCamera,
   Sphere,
   useProgress,
-} from '@react-three/drei';
-import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
-import * as THREE from 'three';
-import { Saturn } from './Saturn';
-import { scroll } from 'framer-motion';
-import { Bloom, EffectComposer } from '@react-three/postprocessing';
-import { Gradient, LayerMaterial } from 'lamina';
-import { useFrame } from '@react-three/fiber';
+} from "@react-three/drei";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import * as THREE from "three";
+import { Saturn } from "./Saturn";
+import { scroll } from "framer-motion";
+import { Bloom, EffectComposer } from "@react-three/postprocessing";
+import { Gradient, LayerMaterial } from "lamina";
+import { useFrame } from "@react-three/fiber";
 
 const Loader = () => {
   const { progress } = useProgress();
@@ -43,7 +43,7 @@ export default function Experience() {
       new THREE.Vector3(-5, -4, 0), //countdown
       new THREE.Vector3(-5, -4, 0), //newsletter
     ]);
-    curve.curveType = 'catmullrom';
+    curve.curveType = "catmullrom";
     curve.closed = false;
     return curve;
   }, []);
@@ -61,7 +61,7 @@ export default function Experience() {
   useEffect(() => {
     if (window === undefined) return;
 
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
       if (window.innerWidth < 1200) {
         setSmallerViewPort(true);
         setProgress(0);
@@ -73,7 +73,7 @@ export default function Experience() {
     window.innerWidth < 1200 && setSmallerViewPort(true);
 
     return () => {
-      window.removeEventListener('resize', () => {});
+      window.removeEventListener("resize", () => {});
     };
   }, []);
 
@@ -144,7 +144,7 @@ export default function Experience() {
         <pointLight
           position={[3.74, 6.56, -10]}
           args={[undefined, 119.72, 0]}
-          color={'#ffdfc2'}
+          color={"#ffdfc2"}
           visible={true}
           distance={-0.04}
         />
@@ -152,14 +152,14 @@ export default function Experience() {
           position={[-7.64, -1.38, -8.5]}
           args={[undefined, 96.82]}
           visible={true}
-          color={'#ffdac2'}
+          color={"#ffdac2"}
         />
 
         <hemisphereLight
           position={[-1.8, -0.72, 8.54]}
           args={[undefined, undefined, 0]}
           visible={true}
-          color={'#3d2f1f'}
+          color={"#3d2f1f"}
           intensity={1.4}
         />
         {/* <EffectComposer>
