@@ -61,6 +61,12 @@ export function InputCard({
     };
   }, [conversion]);
 
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.value = tokenBalance;
+    }
+  }, [tokenBalance]);
+
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     let inputCurrentValue = e.target.value;
 
@@ -96,7 +102,6 @@ export function InputCard({
       warningToast("You can't input less than the minimum value");
       // setCurrentInputValue("0.0000001");
       // if (inputRef.current) inputRef.current.value = "0.0000001";
-      return;
     }
 
     if (numberValue > parseFloat(tokenBalance) && accountConnected) {
