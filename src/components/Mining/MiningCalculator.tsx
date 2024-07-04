@@ -74,12 +74,14 @@ export function InputCard({
     }
 
     // Handle empty input
-    if (inputCurrentValue === "" ) {
-      // setCurrentInputValue(String(minValue));
-      // if (inputRef.current) inputRef.current.value = String(minValue);
-      warningToast("You can't input less than the minimum value which is " + minValue);
-      return;
-    }
+    // if (inputCurrentValue === "") {
+    //   // setCurrentInputValue(String(minValue));
+    //   // if (inputRef.current) inputRef.current.value = String(minValue);
+    //   warningToast(
+    //     "You can't input less than the minimum value which is " + minValue,
+    //   );
+    //   return;
+    // }
 
     // Allow input ending with a decimal point
     if (inputCurrentValue.endsWith(".")) {
@@ -90,17 +92,19 @@ export function InputCard({
     // Validate the number
     const numberValue = parseFloat(inputCurrentValue);
 
-    if (numberValue < minValue && accountConnected) {
-      warningToast(
-        "You can't input less than the minimum value which is " + minValue,
-      );
+    if (numberValue < 0.0000001 && accountConnected) {
+      warningToast("You can't input less than the minimum value");
+      // setCurrentInputValue("0.0000001");
+      // if (inputRef.current) inputRef.current.value = "0.0000001";
       return;
     }
 
     if (numberValue > parseFloat(tokenBalance) && accountConnected) {
       setCurrentInputValue(tokenBalance);
       if (inputRef.current) inputRef.current.value = tokenBalance;
-      warningToast("You can't input more than your balance which is " + tokenBalance);
+      warningToast(
+        "You can't input more than your balance which is " + tokenBalance,
+      );
       return;
     }
 
@@ -279,6 +283,12 @@ function fontsizeClamping(
     : maxFontSize;
 }
 
+function USFormatToNumber(value: string): number {
+  const num = parseFloat(value.replace(/[$,]/g, ""));
+  // Ensure the value does not go below a threshold
+  return isNaN(num) ? 0 : Math.max(num, 1e-300);
+}
+
 export function Card({
   value,
   conversion,
@@ -304,18 +314,25 @@ export function Card({
     useState<string>(conversion);
   const conversionRef = useRef<HTMLDivElement>(null);
 
+  console.log(currentValue, targetValueRef.current?.textContent);
+
   useEffect(() => {
-    // if value is not changed withing 300ms, update the value
+    // if value is not changed within 300ms, update the value
     const timeout = setTimeout(() => {
-      setCurrentValue(value);
+      if (USFormatToNumber(value) >= 0.0001) {
+        setCurrentValue(value);
+      } else {
+        setCurrentValue("0.0001");
+      }
     }, 300);
 
     return () => {
       clearTimeout(timeout);
     };
   }, [value]);
+
   useEffect(() => {
-    // if value is not changed withing 300ms, update the value
+    // if conversion is not changed within 300ms, update the value
     const timeout = setTimeout(() => {
       setCurrentConversion(conversion);
     }, 300);
@@ -336,9 +353,14 @@ export function Card({
           }}
           className={` text-agwhite font-extrabold font-sans`}
         >
+          {USFormatToNumber(value) < 0.0001 && "<"}
           {targetValueRef.current && (
             <AutomaticIncreamentalNumberCounterWithString
-              from={targetValueRef.current?.textContent ?? "0"}
+              from={
+                isNaN(parseFloat(String(targetValueRef.current?.textContent)))
+                  ? "0"
+                  : targetValueRef.current?.textContent ?? "0"
+              }
               to={currentValue}
               float={currentValue.includes(".")}
             />
@@ -529,7 +551,7 @@ export default function MiningCalculator({
       </div>
       <Card
         value={pointsConverterToUSCommaseparated(
-          Number((USDValue * multiplyer).toFixed(20)),
+          Number((USDValue * multiplyer).toFixed(8)),
         )}
         conversion={pointsConverterToUSCommaseparated(USDValue)}
         multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
@@ -539,7 +561,7 @@ export default function MiningCalculator({
       />
       <Card
         value={pointsConverterToUSCommaseparated(
-          Number((USDValue * multiplyer).toFixed(20)),
+          Number((USDValue * multiplyer).toFixed(8)),
         )}
         conversion={pointsConverterToUSCommaseparated(USDValue)}
         multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
