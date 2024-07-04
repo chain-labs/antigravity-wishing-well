@@ -20,9 +20,11 @@ import Image from "next/image";
 import AutomaticIncreamentalNumberCounterWithString from "./AutomaticIncreamentalNumberCounterWithString";
 import { TOKEN_OPTIONS } from "./constants";
 import { useAccount } from "wagmi";
+import { warningToast } from "@/hooks/frontend/toast";
 
 export function InputCard({
   inputValue,
+  minValue,
   setCurrentInputValue,
   conversion,
   dropdownOptions,
@@ -30,8 +32,10 @@ export function InputCard({
   setDropDownSelected,
   tokenBalance,
   setSelectedToken,
+  accountConnected,
 }: {
   inputValue: string;
+  minValue: number;
   setCurrentInputValue: Dispatch<SetStateAction<string>>;
   conversion: string;
   dropdownOptions: TokenDropdownTypes[];
@@ -39,6 +43,7 @@ export function InputCard({
   setDropDownSelected: Dispatch<SetStateAction<number>>;
   setSelectedToken: Dispatch<SetStateAction<number>>;
   tokenBalance: string;
+  accountConnected: boolean;
 }) {
   const [outOfFocus, setOutOfFocus] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -59,12 +64,6 @@ export function InputCard({
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     let inputCurrentValue = e.target.value;
 
-    if (inputCurrentValue === "") {
-      setCurrentInputValue("0");
-      if (inputRef.current) inputRef.current.value = "0";
-      return;
-    }
-
     // Remove any non-numeric characters except the decimal point
     inputCurrentValue = inputCurrentValue.replace(/[^0-9.]/g, "");
 
@@ -75,8 +74,10 @@ export function InputCard({
     }
 
     // Handle empty input
-    if (inputCurrentValue === "") {
-      setCurrentInputValue("0");
+    if (inputCurrentValue === "" ) {
+      // setCurrentInputValue(String(minValue));
+      // if (inputRef.current) inputRef.current.value = String(minValue);
+      warningToast("You can't input less than the minimum value which is " + minValue);
       return;
     }
 
@@ -89,9 +90,17 @@ export function InputCard({
     // Validate the number
     const numberValue = parseFloat(inputCurrentValue);
 
-    if (numberValue > parseFloat(tokenBalance)) {
+    if (numberValue < minValue && accountConnected) {
+      warningToast(
+        "You can't input less than the minimum value which is " + minValue,
+      );
+      return;
+    }
+
+    if (numberValue > parseFloat(tokenBalance) && accountConnected) {
       setCurrentInputValue(tokenBalance);
       if (inputRef.current) inputRef.current.value = tokenBalance;
+      warningToast("You can't input more than your balance which is " + tokenBalance);
       return;
     }
 
@@ -452,6 +461,7 @@ export default function MiningCalculator({
   const [currentValue, setCurrentValue] = useState<string>(value + "");
   const [selectedOption, setSelectedOption] = useState<number>(0);
   const [USDValue, setUSDValue] = useState(value * inputOptions[0].USDvalue);
+  const account = useAccount();
 
   useEffect(() => {
     const value = Number(currentValue.replace(/,/g, ""));
@@ -480,6 +490,7 @@ export default function MiningCalculator({
     <div className="relative flex flex-col gap-[8px] h-fit min-w-[400px] max-w-full">
       <InputCard
         inputValue={currentValue}
+        minValue={0.0001 / multiplyer}
         setCurrentInputValue={setCurrentValue}
         conversion={pointsConverterToUSCommaseparated(USDValue)}
         dropdownOptions={inputOptions}
@@ -487,6 +498,7 @@ export default function MiningCalculator({
         setDropDownSelected={setSelectedOption}
         tokenBalance={tokenBalance}
         setSelectedToken={setSelectedToken}
+        accountConnected={account.isConnected}
       />
       <Multiplyer era={era} phase={phase} multiplyer={multiplyer} />
       <div
