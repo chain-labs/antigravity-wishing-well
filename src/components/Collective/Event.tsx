@@ -4,8 +4,37 @@ import H1 from "../HTML/H1";
 import P from "../HTML/P";
 import Button from "../Button";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { client as cmsClient } from "../../../sanity/lib/client";
+import moment from "moment";
 
 export default function Event() {
+  const [event, setEvent] = useState({
+    name: "",
+    description: [],
+    date: "",
+    register_url: "",
+  });
+  useEffect(() => {
+    cmsClient
+      .fetch(
+        `*[_type=="collective"][0]{
+		event
+	  }`
+      )
+      .then((collective) => {
+        cmsClient
+          .fetch(`*[_type=="event"&&_id=="${collective.event._ref}"][0]`)
+          .then((event) => {
+            setEvent({
+              name: event.name,
+              description: event.description,
+              date: event.date,
+              register_url: event.register_url,
+            });
+          });
+      });
+  }, []);
   const ImageLink = IMAGEKIT_IMAGES.COLLECTIVE_EVENT;
   return (
     <div className=" my-[50px] md:my-0 h-fit w-full flex justify-center items-center">
@@ -22,7 +51,7 @@ export default function Event() {
                   bounce: 0.25,
                 }}
               >
-                <H1>Event Title Goes Here.</H1>
+                <H1>{event.name}</H1>
               </motion.div>
             </div>
             <div className="overflow-hidden">
@@ -43,45 +72,47 @@ export default function Event() {
                     height={24}
                     className="object-cover"
                   />
-                  <P>July 28th, 2024</P>
+                  <P>{moment(event.date).format("LL")}</P>
                 </div>
               </motion.div>
             </div>
-            <div className="overflow-hidden">
-              <motion.div
-                whileInView={{ y: 0 }}
-                initial={{ y: "100%" }}
-                transition={{
-                  duration: 1,
-                  type: "spring",
-                  bounce: 0.25,
-                }}
-              >
-                <P>
-                  Event description should go here. It should be fairly
-                  descriptive, but not too long.
-                </P>
-              </motion.div>
+            <div className="overflow-hidden ">
+              {event.description.map((desc) => (
+                <motion.div
+                  key={desc}
+                  whileInView={{ y: 0 }}
+                  initial={{ y: "100%" }}
+                  transition={{
+                    duration: 1,
+                    type: "spring",
+                    bounce: 0.25,
+                  }}
+                >
+                  <P>{desc}</P>
+                </motion.div>
+              ))}
             </div>
           </div>
-          <Button
-            innerText="Register For Event"
-            iconSrc={IMAGEKIT_ICONS.ROCKET}
-            iconAlt="Rocket Icon"
-            className="w-full md:w-fit"
-            initialIconMotionValues={{
-              y: 0,
-              scale: 1,
-            }}
-            whileHoverIconMotionValues={{
-              y: "-1000%",
-              scale: 1.1,
-            }}
-            transitionIconMotionValues={{
-              duration: 0.25,
-              type: "spring",
-            }}
-          />
+          <a href={event.register_url} target="_blank" rel="noreferrer">
+            <Button
+              innerText="Register For Event"
+              iconSrc={IMAGEKIT_ICONS.ROCKET}
+              iconAlt="Rocket Icon"
+              className="w-full md:w-fit"
+              initialIconMotionValues={{
+                y: 0,
+                scale: 1,
+              }}
+              whileHoverIconMotionValues={{
+                y: "-1000%",
+                scale: 1.1,
+              }}
+              transitionIconMotionValues={{
+                duration: 0.25,
+                type: "spring",
+              }}
+            />
+          </a>
           <Image
             src={ImageLink}
             alt="Collective Event"

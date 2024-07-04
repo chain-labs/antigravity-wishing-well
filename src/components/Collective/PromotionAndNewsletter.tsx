@@ -3,12 +3,36 @@ import Button from "../Button";
 import H1 from "../HTML/H1";
 import P from "../HTML/P";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { client } from "../../../sanity/lib/client";
+import { Image as IImage } from "sanity";
+import { urlForImage } from "../../../sanity/lib/image";
+
+interface IBook {
+  book_header: string;
+  book_description: string;
+  book_image: IImage;
+  book_url: string;
+}
 
 export default function PromotionAndNewsletter() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+
+  const [metadata, setMetadata] = useState<IBook>();
+
+  useEffect(() => {
+    client
+      .fetch(
+        `*[_type=="collective"][0]{
+		book_header, book_description, book_image, book_url
+	}`
+      )
+      .then((metadata) => {
+        setMetadata(metadata);
+      });
+  }, []);
 
   return (
     <div
@@ -28,7 +52,7 @@ export default function PromotionAndNewsletter() {
                 bounce: 0.25,
               }}
             >
-              <H1 className="agwhite">Check Out Our Book!</H1>
+              <H1 className="agwhite">{metadata?.book_header}</H1>
             </motion.div>
           </div>
           <div className="overflow-hidden">
@@ -41,26 +65,26 @@ export default function PromotionAndNewsletter() {
                 bounce: 0.25,
               }}
             >
-              <P>
-                Dive into the story and the lore behind Antigravity. Our books
-                often have hidden easter eggs for our hardcore community
-                members.
-              </P>
+              <P>{metadata?.book_description}</P>
             </motion.div>
           </div>
-          <Button
-            innerText="Get Book"
-            iconSrc={IMAGEKIT_ICONS.BOOK}
-            iconAlt="Get Book"
-          />
+          <a href={metadata?.book_url} target="_blank" rel="noreferrer">
+            <Button
+              innerText="Get Book"
+              iconSrc={IMAGEKIT_ICONS.BOOK}
+              iconAlt="Get Book"
+            />
+          </a>
         </div>
-        <Image
-          src={IMAGEKIT_IMAGES.BOOK_COVER_ART}
-          alt="Book"
-          width={523.81}
-          height={275}
-          className="w-full md:w-[524px] h-auto md:h-[275px] aspect-video rounded-[12px] object-cover"
-        />
+        {metadata?.book_image && (
+          <Image
+            src={urlForImage(metadata.book_image)}
+            alt="Book"
+            width={523.81}
+            height={275}
+            className="w-full md:w-[524px] h-auto md:h-[275px] aspect-video rounded-[12px] object-cover"
+          />
+        )}
       </div>
       <div className="flex flex-col lg:flex-row gap-[16px] md:gap-[32px] w-full rounded-[12px] p-[16px] md:p-[32px] bg-[#3C00DC80]">
         <div className="flex flex-col gap-[8px] text-nowrap">

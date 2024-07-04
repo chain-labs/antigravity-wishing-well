@@ -1,10 +1,28 @@
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import Button from "../Button";
 import H1 from "../HTML/H1";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useScroll, useTransform, motion, useSpring } from "framer-motion";
+import { client } from "../../../sanity/lib/client";
 
 export default function Youtube() {
+  const [metadata, setMetadata] = useState<{
+    video_title: string;
+    video_url: string;
+  }>();
+
+  useEffect(() => {
+    client
+      .fetch(
+        `*[_type=="collective"][0]{
+		  video_title, video_url
+		}`
+      )
+      .then((metadata) => {
+        console.log({ metadata });
+        setMetadata(metadata);
+      });
+  }, []);
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -25,15 +43,16 @@ export default function Youtube() {
     >
       <div className="flex flex-col gap-[16px]">
         <H1>
-          {" "}
+          {metadata?.video_title}
+          {/* {" "}
           PulseRayVision Kicking Off <br className="hidden md:block" />
-          Era 2 of Antigravity
+          Era 2 of Antigravity */}
         </H1>
         <div className="relative">
           <iframe
             width="662"
             height="370"
-            src="https://www.youtube.com/embed/2EXntlJbmzw?si=xT5qv8SQDBVKGQ8q"
+            src={metadata?.video_url}
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -44,7 +63,7 @@ export default function Youtube() {
           <iframe
             width="662"
             height="370"
-            src="https://www.youtube.com/embed/2EXntlJbmzw?si=xT5qv8SQDBVKGQ8q"
+            src={metadata?.video_url}
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

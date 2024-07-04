@@ -26,9 +26,9 @@ import {
   useTransactionReceipt,
   useWriteContract,
 } from "wagmi";
+import Button from "@/components/Button";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import Link from "next/link";
-import Button from "@/components/Button";
 
 // Use a function to get the latest block number
 async function getLatestBlockNumber(publicClient: PublicClient) {
@@ -236,9 +236,9 @@ const Header = () => {
               ) : (
                 <Button
                   onClick={handleLogin}
+                  iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
                   iconAlt="wallet"
                   iconPosition="start"
-                  iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
                   innerText="Connect Wallet"
                 />
               )}
