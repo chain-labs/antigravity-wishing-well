@@ -325,7 +325,7 @@ function NonContributed({
     } else return [];
   }, [account.address]);
 
-  const { mineToken, transactionLoading, darkXBalance, tokenBalances } =
+  const { mineToken, transactionLoading, darkXBalance, tokenBalances, receipt } =
     useMining(
       TOKEN_OPTIONS[selectedToken],
       value,
@@ -336,6 +336,12 @@ function NonContributed({
   //     console.log({ selectedToken });
   //   }
   // }, [tokenBalances]);
+
+  useEffect(() => {
+    if (receipt) {
+      setNFTHover(true);
+    }
+  }, [receipt]);
 
   const handleMine = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
