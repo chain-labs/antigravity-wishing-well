@@ -31,7 +31,7 @@ function CollectiveLogo() {
           alt="leaderboard background"
           width={100}
           height={100}
-          className="object-cover opacity-25 lg:opacity-100 w-fit"
+          className="object-cover opacity-25 lg:opacity-100 h-[100px] w-auto"
         />
 
         <motion.div
