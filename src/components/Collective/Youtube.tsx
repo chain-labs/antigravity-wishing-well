@@ -16,7 +16,7 @@ export default function Youtube() {
       .fetch(
         `*[_type=="collective"][0]{
 		  video_title, video_url
-		}`
+		}`,
       )
       .then((metadata) => {
         console.log({ metadata });

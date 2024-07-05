@@ -20,7 +20,7 @@ export default function Event() {
       .fetch(
         `*[_type=="collective"][0]{
 		event
-	  }`
+	  }`,
       )
       .then((collective) => {
         cmsClient
