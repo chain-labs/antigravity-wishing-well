@@ -7,9 +7,6 @@ export default function useLoading() {
   const [loading, setLoading] = useState(true);
   const [loadingComplete, setLoadingComplete] = useState(false);
   useEffect(() => {
-    if (loadedOnce) {
-      setLoading(false);
-    }
     if (window !== undefined) {
       window.addEventListener("load", () => {
         setLoading(false);

@@ -40,7 +40,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
           </div>
           <div className="z-100">
             {children}
-            <Footer />
+            {!loading && <Footer />}
           </div>
         </div>
       </motion.main>

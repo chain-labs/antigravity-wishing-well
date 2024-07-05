@@ -88,22 +88,14 @@ const Header = () => {
         <div className="w-full h-full bg-agblack flex items-center justify-between rounded-lg gap-6 px-4">
           {/* Desktop View */}
           <div className="hidden xl:flex xl:flex-grow xl:items-center h-full xl:justify-between xl:gap-x-6">
-            <div
-              className="flex items-center cursor-pointer"
-              onClick={() => {
-                if (window.location.pathname !== "/") {
-                  window.location.href = "/";
-                }
-                scrollToTop();
-              }}
-            >
+            <Link className="flex items-center cursor-pointer" href="/">
               <div className="w-[37px] h-[37px] xl:w-[45px] xl:h-[45px] relative">
                 <Image src={IMAGEKIT.HELMET} alt="icon" fill />
               </div>
               <p className="from-white to-[#999999] pl-2 font-sans font-black sm:text-2xl bg-gradient-to-b text-transparent bg-clip-text">
                 ANTIGRAVITY
               </p>
-            </div>
+            </Link>
             <div
               className={`relative flex justify-center items-center font-extrabold text-lg font-sans gap-[16px] oveflow-hidden`}
             >
@@ -250,14 +242,9 @@ const Header = () => {
             </div>
           </div>
           {/* Mobile View */}
-          <div
+          <Link
             className="flex max-w-[500px] xl:hidden items-center cursor-pointer"
-            onClick={() => {
-              if (window.location.pathname !== "/") {
-                window.location.href = "/";
-              }
-              scrollToTop();
-            }}
+            href="/"
           >
             <div className="w-[37px] h-[37px] xl:w-[45px] xl:h-[45px] relative">
               <Image src={IMAGEKIT.HELMET} alt="icon" fill />
@@ -265,7 +252,7 @@ const Header = () => {
             <p className="from-white to-[#999999] pl-2 font-sans font-extrabold sm:text-2xl bg-gradient-to-b text-transparent bg-clip-text">
               ANTIGRAVITY
             </p>
-          </div>
+          </Link>
           <div className="flex xl:hidden">
             {isOpen ? (
               <IoCloseCircleOutline
