@@ -5,7 +5,7 @@ const IMAGEKIT_LOGOS_URL = `${IMAGEKIT}/logos`;
 const IMAGEKIT_COLLECTIVE_URL = `${IMAGEKIT}/collective`;
 
 export const IMAGEKIT_LOGOS = {
-  LOGO: `${IMAGEKIT_LOGOS_URL}/logo-color.svg`,
+  LOGO: `${IMAGEKIT_LOGOS_URL}/logo-color.png?updatedAt=1720174371751`,
   COLLECTIVE_COLOR_LOGO: `${IMAGEKIT_LOGOS_URL}/collective-color-logo.svg`,
   COMMUNITY_LOGO: `${IMAGEKIT_LOGOS_URL}/community-logo.svg`,
   WISHWELL_LOGO: `${IMAGEKIT_LOGOS_URL}/wishwell-logo.svg`,
