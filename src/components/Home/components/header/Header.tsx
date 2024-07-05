@@ -27,7 +27,7 @@ import {
   useWriteContract,
 } from "wagmi";
 import Button from "@/components/Button";
-import { IMAGEKIT_ICONS } from "@/assets/imageKit";
+import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from "@/assets/imageKit";
 import Link from "next/link";
 import Button from "@/components/Button";
 
@@ -94,7 +94,7 @@ const Header = () => {
               }}
             >
               <div className="w-[37px] h-[37px] xl:w-[45px] xl:h-[45px] relative">
-                <Image src={IMAGEKIT.HELMET} alt="icon" fill />
+                <Image src={IMAGEKIT_LOGOS.LOGO} alt="icon" fill />
               </div>
               <p className="from-white to-[#999999] pl-2 font-sans font-black sm:text-2xl bg-gradient-to-b text-transparent bg-clip-text">
                 ANTIGRAVITY
@@ -256,7 +256,7 @@ const Header = () => {
             }}
           >
             <div className="w-[37px] h-[37px] xl:w-[45px] xl:h-[45px] relative">
-              <Image src={IMAGEKIT.HELMET} alt="icon" fill />
+              <Image src={IMAGEKIT_LOGOS.LOGO} alt="icon" fill />
             </div>
             <p className="from-white to-[#999999] pl-2 font-sans font-extrabold sm:text-2xl bg-gradient-to-b text-transparent bg-clip-text">
               ANTIGRAVITY
