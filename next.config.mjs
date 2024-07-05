@@ -19,6 +19,10 @@ const nextConfig = {
         hostname: "s3.amazonaws.com",
         protocol: "https",
       },
+      {
+        hostname: "cdn.sanity.io",
+        protocol: "https",
+      }
     ],
     dangerouslyAllowSVG: true,
   },

@@ -12,21 +12,9 @@ const Homepage = dynamic(() => import("./HomePage"), {
   ssr: false,
 });
 
-const LoadingPage = dynamic(() => import("./LoadingPage"), {
-  ssr: false,
-});
-
 export default function Home() {
   const account = useAccount();
   const switchChain = useSwitchChain();
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    if (window !== undefined) {
-      window.addEventListener("load", () => {
-        setLoading(false);
-      });
-    }
-  }, []);
 
   useEffect(() => {
     if (account.chainId) {
@@ -48,14 +36,5 @@ export default function Home() {
     }
   }, [account.chainId]);
 
-  return (
-    <main className="min-h-screen">
-      <div className="z-[0]">
-        <div className="z-[100]">
-          <LoadingPage contentLoaded={!loading} />
-        </div>
-        <Homepage />
-      </div>
-    </main>
-  );
+  return <Homepage />;
 }

@@ -28,7 +28,6 @@ const LoadingPage = dynamic(() => import("../LoadingPage"), {
 export default function Wishwell() {
   const account = useAccount();
   const switchChain = useSwitchChain();
-  const [pageLoading, setPageLoading] = useState(true);
   const {
     isRegistered,
     isSuccess,
@@ -38,14 +37,6 @@ export default function Wishwell() {
     tokenId,
     loading,
   } = useWishwell();
-
-  useEffect(() => {
-    if (window !== undefined) {
-      window.addEventListener("load", () => {
-        setPageLoading(false);
-      });
-    }
-  }, []);
 
   useEffect(() => {
     if (account.chainId) {
@@ -64,45 +55,38 @@ export default function Wishwell() {
   }, [account.chainId]);
 
   return (
-    <ReactLenis root>
-      <main className="min-h-screen">
-        <div className="z-[0]">
-          <div className="z-[100]">
-            <LoadingPage contentLoaded={!pageLoading} />
-          </div>
-          {account.status === "connected" ? (
-            isRegistered ? (
-              isSuccess ? (
-                <Contributed tokenId={tokenId.toString()} />
-              ) : (
-                <Registered />
-              )
-            ) : (
-              <WalletNotConnected
-                registrationKit={{
-                  error,
-                  loading,
-                  setError,
-                  isRegistered,
-                  handleRegister: registerKit.registerFn,
-                  registerIdle: registerKit.registerIdle,
-                }}
-              />
-            )
+    <>
+      {account.status === "connected" ? (
+        isRegistered ? (
+          isSuccess ? (
+            <Contributed tokenId={tokenId.toString()} />
           ) : (
-            <WalletNotConnected
-              registrationKit={{
-                error,
-                loading,
-                setError,
-                isRegistered,
-                handleRegister: registerKit.registerFn,
-                registerIdle: registerKit.registerIdle,
-              }}
-            />
-          )}
-        </div>
-      </main>
-    </ReactLenis>
+            <Registered />
+          )
+        ) : (
+          <WalletNotConnected
+            registrationKit={{
+              error,
+              loading,
+              setError,
+              isRegistered,
+              handleRegister: registerKit.registerFn,
+              registerIdle: registerKit.registerIdle,
+            }}
+          />
+        )
+      ) : (
+        <WalletNotConnected
+          registrationKit={{
+            error,
+            loading,
+            setError,
+            isRegistered,
+            handleRegister: registerKit.registerFn,
+            registerIdle: registerKit.registerIdle,
+          }}
+        />
+      )}
+    </>
   );
 }

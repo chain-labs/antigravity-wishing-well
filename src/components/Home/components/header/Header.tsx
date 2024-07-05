@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { IoMenu, IoCloseCircleOutline } from "react-icons/io5";
@@ -29,6 +31,7 @@ import {
 import Button from "@/components/Button";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import Link from "next/link";
+import useLoading from "@/hooks/frontend/useLoading";
 
 // Use a function to get the latest block number
 async function getLatestBlockNumber(publicClient: PublicClient) {
@@ -56,6 +59,8 @@ const Header = () => {
 
   const account = useAccount();
 
+  const { strictNoLoading } = useLoading();
+
   function scrollToTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -74,7 +79,7 @@ const Header = () => {
   return (
     <motion.header
       whileInView={{ y: 0 }}
-      initial={{ y: -50 }}
+      initial={{ y: strictNoLoading ? 0 : -50 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: 1.5 }}
       className="flex flex-col h-full w-full max-[1200px] items-center justify-center gap-3 z-50 font-extrabold"

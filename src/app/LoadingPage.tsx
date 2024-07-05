@@ -1,6 +1,7 @@
 "use client";
 
 import { IMAGEKIT_LOGOS } from "@/assets/imageKit";
+import useLoading from "@/hooks/frontend/useLoading";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -11,6 +12,7 @@ export default function LoadingPage({
 }) {
   const [progress, setProgress] = useState(0);
   const [slideUpProgress, setSlideUpProgress] = useState(0);
+  const { setLoadingComplete } = useLoading();
   useEffect(() => {
     if (contentLoaded) {
       const interval = setInterval(() => {
@@ -44,6 +46,7 @@ export default function LoadingPage({
           if (prev < 100) {
             return prev + 1;
           }
+          setLoadingComplete(true);
           return prev + 100;
         });
       }, 1);
