@@ -40,6 +40,7 @@ import { errorToast } from "@/hooks/frontend/toast";
 import useClaim from "@/hooks/sc-fns/useClaim";
 import { formatUnits } from "viem";
 import { AnimatePresence, motion } from "framer-motion";
+import { useRestFetch } from "@/hooks/useRestClient";
 
 function NoNFTHero() {
   return (
@@ -289,6 +290,7 @@ function NonContributed({
   const timerState = useTimer();
 
   const { openConnectModal } = useConnectModal();
+
   useEffect(() => {
     if (!NFTHover) return;
     if (!NFTContainerRef.current) return;
@@ -322,9 +324,9 @@ function NonContributed({
     } else return [];
   }, [account.address]);
 
-  const { mineToken, transactionLoading, darkXBalance, tokenBalances } =
+  const { mineToken, transactionLoading, darkXBalance, tokenBalances, tokens } =
     useMining(
-      TOKEN_OPTIONS[selectedToken],
+      selectedToken,
       value,
       proof.length > 0 ? MULTIPLIER * 2 : MULTIPLIER,
     );
@@ -333,6 +335,16 @@ function NonContributed({
   //     console.log({ selectedToken });
   //   }
   // }, [tokenBalances]);
+
+  const { data: tokenPrice } = useRestFetch<{ price: number }>(
+    ["token_price", tokens?.[selectedToken].address],
+    `/be/coinPrices?token=${tokens?.[selectedToken].address}&pool=${tokens?.[selectedToken]?.pool}&network=${"sepolia-testnet"}`,
+    { proxy: true, enabled: !!tokens?.[selectedToken].address },
+  );
+
+  const usdValue = useMemo(() => {
+    return tokenPrice?.price;
+  }, [tokenPrice]);
 
   const handleMine = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -363,15 +375,6 @@ function NonContributed({
 
   return (
     <div className="relative flex flex-col justify-center items-center gap-[8px] mt-[50px]">
-      {/* {
-        {
-          "No NFT": <NoNFTHero />,
-          "NFT Present": (
-            <NFTHero NFTHover={NFTHover} setNFTHover={setNFTHover} />
-          ),
-          Claiming: <></>,
-        }[state]
-      } */}
       {state !== "Claiming" ? (
         (darkXBalance as bigint) > 0 ? (
           <NFTHero NFTHover={NFTHover} setNFTHover={setNFTHover} />
@@ -389,7 +392,12 @@ function NonContributed({
         era={era}
         phase={phase}
         multiplyer={proof.length > 0 ? MULTIPLIER * 2 : MULTIPLIER}
-        inputOptions={TOKEN_OPTIONS}
+        inputOptions={
+          tokens?.map((token) => ({
+            ...token,
+            USDvalue: usdValue,
+          })) || []
+        }
         setSelectedToken={setSelectedToken}
       />
       {!account.isConnected ? (

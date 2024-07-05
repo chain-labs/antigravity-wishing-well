@@ -22,9 +22,6 @@ import { useConnectModal } from "@rainbow-me/rainbowkit";
 import {
   useAccount,
   usePublicClient,
-  useReadContract,
-  useTransactionReceipt,
-  useWriteContract,
 } from "wagmi";
 import Button from "@/components/Button";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";

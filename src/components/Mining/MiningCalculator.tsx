@@ -214,7 +214,7 @@ export function InputCard({
               height={24}
               className={twMerge("object-cover")}
             />
-            {`${parseFloat(tokenBalance).toLocaleString()} ${TOKEN_OPTIONS[dropDownSelected].label}`}
+            {`${parseFloat(tokenBalance).toLocaleString()} ${dropdownOptions?.[dropDownSelected]?.symbol}`}
           </div>
         )}
       </div>
@@ -416,12 +416,14 @@ export default function MiningCalculator({
 }) {
   const [currentValue, setCurrentValue] = useState<string>(value + "");
   const [selectedOption, setSelectedOption] = useState<number>(0);
-  const [USDValue, setUSDValue] = useState(value * inputOptions[0].USDvalue);
+  const [USDValue, setUSDValue] = useState(
+    value * (inputOptions[0]?.USDvalue || 0),
+  );
 
   useEffect(() => {
     const value = Number(currentValue.replace(/,/g, ""));
     if (!isNaN(value) && value >= 0) {
-      const usdValue = value * inputOptions[selectedOption].USDvalue;
+      const usdValue = value * (inputOptions[selectedOption]?.USDvalue || 0);
       setUSDValue(Number(usdValue));
       setValue(value);
     }
