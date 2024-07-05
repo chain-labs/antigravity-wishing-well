@@ -5,9 +5,20 @@ import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import ReactLenis from "lenis/react";
 import useLoading from "@/hooks/frontend/useLoading";
-import Header from "@/components/Home/components/header/Header";
-import Footer from "@/components/Home/sections/Footer";
-import LoadingPage from "./LoadingPage";
+
+const LoadingPage = dynamic(() => import("@/app/LoadingPage"), {
+  ssr: false,
+});
+
+const Header = dynamic(
+  () => import("@/components/Home/components/header/Header"),
+  {
+    ssr: false,
+  },
+);
+const Footer = dynamic(() => import("@/components/Home/sections/Footer"), {
+  ssr: false,
+});
 
 export default function Template({ children }: { children: React.ReactNode }) {
   const { loading, strictNoLoading } = useLoading();
