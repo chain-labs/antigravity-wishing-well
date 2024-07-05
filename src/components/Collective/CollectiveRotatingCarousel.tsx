@@ -4,6 +4,17 @@ import Image from "next/image";
 import P from "../HTML/P";
 import { IMAGEKIT_COLLECTIVE } from "@/assets/imageKit";
 import { motion } from "framer-motion";
+import React, { useEffect, useMemo, useState } from "react";
+import { Image as IImage } from "sanity";
+import { client } from "../../../sanity/lib/client";
+import { urlForImage } from "../../../sanity/lib/image";
+
+export interface IPost {
+  image: IImage;
+  caption: string;
+  width: number;
+  height: number;
+}
 
 function EventCard({
   image,
@@ -80,121 +91,88 @@ function MobileEventCard({
   );
 }
 
-function EventCardsContainer() {
+function EventCardsContainer({ posts }: { posts: IPost[] }) {
   return (
     <div className="flex ml-[16px] gap-[16px] animate-[carouselMarquee_30s_linear_infinite]">
-      <EventCard
-        image={IMAGEKIT_COLLECTIVE.ANTIGRAVITY_MEETUP_1}
-        caption="Don, Max & Cody at the Pulschain Tour Salt Lake 2024"
-      />
-      <EventCard
-        image={IMAGEKIT_COLLECTIVE.ANTIGRAVITY_MEETUP_2}
-        caption="Rags2Riches, Freddie Quotes, CryptoSloth, & Max at Crypto Bootcamp NC 2023"
-      />
-      <EventCard
-        image={IMAGEKIT_COLLECTIVE.ANTIGRAVITY_MEETUP_3}
-        caption="Salt Lake City Meetup 2023"
-      />
-      <EventCard
-        image={IMAGEKIT_COLLECTIVE.ANTIGRAVITY_MEETUP_4}
-        caption="Highest of Stakes Premiere, Salt Lake City 2024 Don Max & Lainey"
-      />
-      <EventCard
-        image={IMAGEKIT_COLLECTIVE.ANTIGRAVITY_MEETUP_5}
-        caption="Dave & Dave on The Texan Tour 2022"
-      />
-      <EventCard
-        image={IMAGEKIT_COLLECTIVE.ANTIGRAVITY_MEETUP_6}
-        caption="NFT NYC 2023 BitBoy, Don & Max"
-      />
-      <EventCard
-        image={IMAGEKIT_COLLECTIVE.ANTIGRAVITY_MEETUP_7}
-        caption="Hex' 3rd Birthday in San Diego 2022 HexNinja, Bloobum, & Max"
-      />
-      <EventCard
-        image={IMAGEKIT_COLLECTIVE.ANTIGRAVITY_MEETUP_8}
-        caption="Meetup in Salt Lake 2023 Mati Allin, Die Hard Hexicans"
-      />
-      <EventCard
-        image={IMAGEKIT_COLLECTIVE.ANTIGRAVITY_MEETUP_9}
-        caption="Hex Conference in Las Vegas 2023, Goldkey, Dipcatcher, Yashdeep, Max"
-      />
-      <EventCard
-        image={IMAGEKIT_COLLECTIVE.ANTIGRAVITY_MEETUP_10}
-        caption="Antigravity's 1st ever Meetup in Salt Lake 2024 Max & Cody"
-      />
+      {posts.map((post) => (
+        <EventCard
+          key={`caption-${post.caption}`}
+          image={{
+            link: urlForImage(post.image),
+            height: post.height,
+            width: post.width,
+          }}
+          caption={post.caption}
+        />
+      ))}
     </div>
   );
 }
 
-function MobileEventCards() {
+function MobileEventCards({ posts }: { posts: IPost[] }) {
   return (
     <>
       {" "}
-      <MobileEventCard
-        image={IMAGEKIT_COLLECTIVE.ANTIGRAVITY_MEETUP_1}
-        caption="Don, Max & Cody at the Pulschain Tour Salt Lake 2024"
-      />
-      <MobileEventCard
-        image={IMAGEKIT_COLLECTIVE.ANTIGRAVITY_MEETUP_2}
-        caption="Rags2Riches, Freddie Quotes, CryptoSloth, & Max at Crypto Bootcamp NC 2023"
-      />
-      <MobileEventCard
-        image={IMAGEKIT_COLLECTIVE.ANTIGRAVITY_MEETUP_3}
-        caption="Salt Lake City Meetup 2023"
-      />
-      <MobileEventCard
-        image={IMAGEKIT_COLLECTIVE.ANTIGRAVITY_MEETUP_4}
-        caption="Highest of Stakes Premiere, Salt Lake City 2024 Don Max & Lainey"
-      />
-      <MobileEventCard
-        image={IMAGEKIT_COLLECTIVE.ANTIGRAVITY_MEETUP_5}
-        caption="Dave & Dave on The Texan Tour 2022"
-      />
-      <MobileEventCard
-        image={IMAGEKIT_COLLECTIVE.ANTIGRAVITY_MEETUP_6}
-        caption="NFT NYC 2023 BitBoy, Don & Max"
-      />
-      <MobileEventCard
-        image={IMAGEKIT_COLLECTIVE.ANTIGRAVITY_MEETUP_7}
-        caption="Hex' 3rd Birthday in San Diego 2022 HexNinja, Bloobum, & Max"
-      />
-      <MobileEventCard
-        image={IMAGEKIT_COLLECTIVE.ANTIGRAVITY_MEETUP_8}
-        caption="Meetup in Salt Lake 2023 Mati Allin, Die Hard Hexicans"
-      />
-      <MobileEventCard
-        image={IMAGEKIT_COLLECTIVE.ANTIGRAVITY_MEETUP_9}
-        caption="Hex Conference in Las Vegas 2023, Goldkey, Dipcatcher, Yashdeep, Max"
-      />
-      <MobileEventCard
-        image={IMAGEKIT_COLLECTIVE.ANTIGRAVITY_MEETUP_10}
-        caption="Antigravity's 1st ever Meetup in Salt Lake 2024 Max & Cody"
-      />
+      {posts.map((post) => (
+        <MobileEventCard
+          key={`caption-${post.caption}`}
+          image={{
+            link: urlForImage(post.image),
+            height: post.height,
+            width: post.width,
+          }}
+          caption={post.caption}
+        />
+      ))}
     </>
   );
 }
 
 export default function CollectiveRotatingCarousel() {
+  const [posts, setPosts] = useState<
+    { image: IImage; caption: string; width: number; height: number }[]
+  >([]);
+  const [headerText, setHeaderText] = useState<string[]>([]);
+
+  useEffect(() => {
+    console.log({ IMAGEKIT_COLLECTIVE });
+    client
+      .fetch(
+        `*[_type=="collective"][0]{
+		  community_header, post
+		}`
+      )
+      .then((community) => {
+        setPosts(community.post);
+        setHeaderText(community.community_header);
+      });
+  }, []);
+
   return (
     <div className="relative flex flex-col h-fit gap-[32px] my-[50px] overflow-hidden p-[16px] md:p-0">
       <H1
         className="text-agwhite text-[32px] leading-[38.4px] md:text-[40px] md:leading-[40px]"
         center
       >
-        The Two Things We Value the Most:
-        <br className="hidden md:block" /> Events & Community.
+        {headerText
+          ? headerText?.map((text) => (
+              <React.Fragment key={text}>
+                {text}
+                <br className="hidden md:block" />{" "}
+              </React.Fragment>
+            ))
+          : null}
       </H1>
       <div className="hidden md:block relative w-full h-fit">
         <div className="absolute right-0 top-0 h-full w-[10vw] bg-gradient-to-l from-[#030404] to-[#03040400] z-[1]"></div>
         <div className="absolute left-0 top-0 h-full w-[10vw] bg-gradient-to-r from-[#030404] to-[#03040400] z-[1]"></div>
         <div className="w-fit left-0 relative flex ">
-          <EventCardsContainer />
-          <EventCardsContainer />
+          <EventCardsContainer posts={posts} />
+          <EventCardsContainer posts={posts} />
         </div>
       </div>
       <div className="flex md:hidden flex-col w-full gap-[16px] justify-center items-center">
-        <MobileEventCards />
+        <MobileEventCards posts={posts} />
       </div>
     </div>
   );

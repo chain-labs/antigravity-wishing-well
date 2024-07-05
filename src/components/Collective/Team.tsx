@@ -3,89 +3,73 @@ import H1 from "../HTML/H1";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-  EMAIL_CODY,
-  INSTAGRAM_CODY,
-  TELEGRAM,
-  TIKTOK_CODY,
-  TWITTER,
-  TWITTER_HEXIEST,
-  YOUTUBE,
-} from "@/constants";
+import React, { useEffect, useState } from "react";
+import { client } from "../../../sanity/lib/client";
+import { Image as IImage } from "sanity";
+import { urlForImage } from "../../../sanity/lib/image";
 
-const SOCIALS = [
-  {
-    title: "@PulseRayVision",
-    image: IMAGEKIT_IMAGES.MAX,
-    socials: [
-      {
-        icon: IMAGEKIT_ICONS.TELEGRAM,
-        alt: "telegram",
-        url: TELEGRAM,
-      },
-      {
-        icon: IMAGEKIT_ICONS.TWITTER,
-        alt: "twitter",
-        url: TWITTER,
-      },
-      {
-        icon: IMAGEKIT_ICONS.YOUTUBE,
-        alt: "youtube",
-        url: YOUTUBE,
-      },
-    ],
-  },
-  {
-    title: "@Don",
-    image: IMAGEKIT_IMAGES.DON,
-    socials: [
-      {
-        icon: IMAGEKIT_ICONS.TELEGRAM,
-        alt: "telegram",
-        url: TELEGRAM,
-      },
-      {
-        icon: IMAGEKIT_ICONS.TWITTER,
-        alt: "twitter",
-        url: TWITTER,
-      },
-      {
-        icon: IMAGEKIT_ICONS.YOUTUBE,
-        alt: "youtube",
-        url: YOUTUBE,
-      },
-    ],
-  },
-  {
-    title: "Cody Smith",
-    image: IMAGEKIT_IMAGES.CODY,
-    socials: [
-      {
-        icon: IMAGEKIT_ICONS.TIKTOK,
-        alt: "tiktok",
-        url: TIKTOK_CODY,
-      },
-      {
-        icon: IMAGEKIT_ICONS.INSTAGRAM,
-        alt: "instagram",
-        url: INSTAGRAM_CODY,
-      },
-    ],
-  },
-];
+interface ITeamMember {
+  handle: string;
+  image: IImage;
+  socials: {
+    type: string;
+    url: string;
+  }[];
+}
 
 export default function Team() {
+  const [metadata, setMetadata] = useState<{
+    team_header: string[];
+    team_members: ITeamMember[];
+  }>();
+
+  useEffect(() => {
+    client
+      .fetch(
+        `*[_type=="collective"][0]{
+			team_header, team_members
+		}`
+      )
+      .then((metadata) => {
+        console.log({ metadata });
+        setMetadata(metadata);
+      });
+  }, []);
+
+  const iconManage = (platform: string) => {
+    switch (platform) {
+      case "Telegram":
+        return IMAGEKIT_ICONS.TELEGRAM;
+      case "Twitter":
+        return IMAGEKIT_ICONS.TWITTER;
+      case "Youtube":
+        return IMAGEKIT_ICONS.YOUTUBE;
+      case "TikTok":
+        return IMAGEKIT_ICONS.TIKTOK;
+      case "Instagram":
+        return IMAGEKIT_ICONS.INSTAGRAM;
+      default:
+        return IMAGEKIT_ICONS.INSTAGRAM;
+    }
+  };
+
   return (
     <div className="flex flex-col justify-center items-center gap-[48px] max-w-[1000px] mx-auto  p-[16px] my-[75px] [text-shadow:_0_2px_2px_rgb(0_0_0_/_60%)]">
       <H1 className="text-agwhite" center>
-        We&apos;re an amazing team of 3. Here&apos;s some more copy about us
-        that will amaze you.
+        {metadata?.team_header
+          ? metadata.team_header?.map((text) => (
+              <React.Fragment key={text}>
+                {text}
+                <br className="hidden md:block" />{" "}
+              </React.Fragment>
+            ))
+          : null}
       </H1>
       <div className="flex justify-center flex-wrap items-center gap-[32px] md:gap-[48px]">
-        {SOCIALS.map((social) => (
+        {metadata?.team_members.map((member) => (
           <div
-            key={social.title}
             className="flex flex-col justify-center items-center gap-[16px]"
+            key={member.handle}
           >
             <div
               className="relative w-[145px] h-[145px] bg-agblack rounded-[8px] border-4 border-transparent bg-clip-padding z-0
@@ -93,7 +77,7 @@ export default function Team() {
                     after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-agblack after:rounded-[inherit] after:overflow-hidden"
             >
               <Image
-                src={social.image}
+                src={urlForImage(member.image)}
                 alt="Collective Event"
                 width={145}
                 height={145}
@@ -102,22 +86,27 @@ export default function Team() {
             </div>
 
             <p className="text-agwhite font-sans font-extrabold text-[20px] leading-[19.2px] [text-shadow:_0_1px_0_rgb(0_0_0_/_40%)]">
-              {social.title}
+              {member.handle}
             </p>
             <div
               className="flex justify-center items-center gap-[16px] w-fit px-[16px] py-[8px] rounded-[8px] relative bg-gradient-to-b from-[#030404BF] to-[#131A1ABF] border-1 border-transparent bg-clip-padding z-0
                     before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-bl before:from-[#3C00DC] before:to-[#FF5001] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
                     after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-agblack after:rounded-[inherit] after:overflow-hidden"
             >
-              {social.socials.map((socialLink) => (
-                <Link key={socialLink.alt} href={socialLink.url}>
+              {member.socials.map((social) => (
+                <a
+                  href={social.url}
+                  target="_blank"
+                  key={social.url}
+                  rel="noreferrer"
+                >
                   <Image
-                    src={socialLink.icon}
-                    alt={socialLink.alt}
+                    src={iconManage(social.type)}
+                    alt="Claim Icon"
                     width={24}
                     height={24}
                   />
-                </Link>
+                </a>
               ))}
             </div>
           </div>
