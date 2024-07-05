@@ -34,6 +34,7 @@ export default function CountdownTimer({
   const [era, setEra] = useState(1);
 
   useEffect(() => {
+    if (!state) return;
     if (state.phase === 3) {
       setPhase(1);
       if (state.era === "minting") {
@@ -42,9 +43,12 @@ export default function CountdownTimer({
         setEra(eraToNumber[state.era] + 1);
       }
     } else {
+      setEra(eraToNumber[state.era]);
       setPhase(state.phase + 1);
     }
-  }, [state.phase, state.era]);
+  }, [state]);
+
+  if (!state) return null;
 
   return (
     <>

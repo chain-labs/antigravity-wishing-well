@@ -27,7 +27,7 @@ export default function PromotionAndNewsletter() {
       .fetch(
         `*[_type=="collective"][0]{
 		book_header, book_description, book_image, book_url
-	}`
+	}`,
       )
       .then((metadata) => {
         setMetadata(metadata);

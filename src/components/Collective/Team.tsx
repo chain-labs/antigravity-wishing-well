@@ -28,7 +28,7 @@ export default function Team() {
       .fetch(
         `*[_type=="collective"][0]{
 			team_header, team_members
-		}`
+		}`,
       )
       .then((metadata) => {
         console.log({ metadata });
