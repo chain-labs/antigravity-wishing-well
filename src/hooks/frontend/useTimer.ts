@@ -97,12 +97,17 @@ export default function useTimer() {
           "https://hujrbtk3.api.sanity.io/v2024-07-01/data/query/collective_page?query=*%5B_type%3D%3D%22timestamps%22%5D%5B0%5D",
         );
         const data = await response.json();
-        
+
         const { era, phase } = getCurrentEraAndPhase(data.result);
         const phaseStartKey = `${era}_phase_${phase}_end`;
         const initialTime = calculateTimeDifference(data.result[phaseStartKey]);
         const initialTimer: CountdownType = {
-          era: era === "era_1" ? "wishwell" : era === "era_2" ? "mining" : "minting" as "wishwell" | "mining" | "minting",
+          era:
+            era === "era_1"
+              ? "wishwell"
+              : era === "era_2"
+                ? "mining"
+                : ("minting" as "wishwell" | "mining" | "minting"),
           phase: phase as 1 | 2 | 3,
           ...initialTime,
         };

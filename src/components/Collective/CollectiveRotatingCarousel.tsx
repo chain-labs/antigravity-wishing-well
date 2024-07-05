@@ -140,7 +140,7 @@ export default function CollectiveRotatingCarousel() {
       .fetch(
         `*[_type=="collective"][0]{
 		  community_header, post
-		}`
+		}`,
       )
       .then((community) => {
         setPosts(community.post);
