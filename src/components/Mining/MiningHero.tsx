@@ -42,7 +42,7 @@ import { formatUnits } from "viem";
 import { AnimatePresence, motion } from "framer-motion";
 import AutomaticIncreamentalNumberCounter from "../Home/components/spinner/AutomaticIncreamentalNumberCounter";
 import BadgeIncrementalCounter from "./BadgeIncrementalCounter";
-import StarFieldCanvas from "../Home/components/background/Starfeild";
+import StarFieldCanvas from "./Starfeild";
 
 function NoNFTHero() {
   return (
@@ -518,7 +518,7 @@ function NFTPopUp({
               xRange={100}
               yRange={100}
               zRange={100}
-              speed={2}
+              speed={0.75}
             />
           </motion.div>
         )}
