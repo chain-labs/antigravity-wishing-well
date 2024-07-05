@@ -4,6 +4,7 @@ import Newsletter from "@/components/Home/sections/Newsletter";
 import Leaderboard from "@/components/Home/sections/Leaderboard";
 import MiningHero from "@/components/Mining/MiningHero";
 import { useAccount } from "wagmi";
+import Footer from "@/components/Home/sections/Footer";
 
 export default function MiningPage() {
   const account = useAccount();
@@ -40,6 +41,7 @@ export default function MiningPage() {
       <MiningHero />
       {account.isConnected && <Leaderboard accountIsConnected />}
       <Newsletter />
+      <Footer />
     </>
   );
 }

@@ -2,12 +2,14 @@
 
 import { useAccount, useSwitchChain } from "wagmi";
 import "@rainbow-me/rainbowkit/styles.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { TEST_NETWORK } from "@/constants";
 import { base, pulsechain, baseSepolia, sepolia } from "viem/chains";
 import dynamic from "next/dynamic";
 import useWishwell from "@/hooks/sc-fns/useWishwell";
-import ReactLenis from "lenis/react";
+import Footer from "@/components/Home/sections/Footer";
+import Newsletter from "@/components/Home/sections/Newsletter";
+import Leaderboard from "@/components/Collective/Leaderboard";
 
 const Contributed = dynamic(() => import("./Contributed"), {
   ssr: false,
@@ -18,10 +20,6 @@ const WalletNotConnected = dynamic(() => import("./WalletNotConnected"), {
 });
 
 const Registered = dynamic(() => import("./Registered"), {
-  ssr: false,
-});
-
-const LoadingPage = dynamic(() => import("../LoadingPage"), {
   ssr: false,
 });
 
@@ -87,6 +85,9 @@ export default function Wishwell() {
           }}
         />
       )}
+      {account.isConnected && <Leaderboard accountIsConnected />}
+      <Newsletter />
+      <Footer />
     </>
   );
 }

@@ -8,6 +8,7 @@ import PointsAndMultiplierInfo from "@/components/Collective/PointsAndMultiplier
 import RankupAndRewardsInfo from "@/components/Collective/RankupAndRewardsInfo";
 import Team from "@/components/Collective/Team";
 import PromotionAndNewsletter from "@/components/Collective/PromotionAndNewsletter";
+import Footer from "@/components/Home/sections/Footer";
 
 export default function CollectivePage() {
   return (
@@ -24,6 +25,7 @@ export default function CollectivePage() {
       <RankupAndRewardsInfo />
       <Team />
       <PromotionAndNewsletter />
+      <Footer />
     </>
   );
 }

@@ -24,26 +24,23 @@ export default function Template({ children }: { children: React.ReactNode }) {
   const { loading, strictNoLoading } = useLoading();
   return (
     <ReactLenis root>
-      <motion.main
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 1 }}
-        className="min-h-screen"
-      >
+      <main className="min-h-screen">
         <div className="z-[0]">
           <div className="z-[100]">
             {!strictNoLoading && <LoadingPage contentLoaded={!loading} />}
           </div>
-          <div className="fixed top-0 w-full z-50 items-center pt-[16px] md:pt-12 px-4">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1 }}
+            className="fixed top-0 w-full z-50 items-center pt-[16px] md:pt-12 px-4"
+          >
             <Header />
-          </div>
-          <div className="z-100">
-            {children}
-            {!loading && <Footer />}
-          </div>
+          </motion.div>
+          <div className="z-100">{children}</div>
         </div>
-      </motion.main>
+      </main>
     </ReactLenis>
   );
 }

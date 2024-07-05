@@ -1,12 +1,7 @@
 import Image from "next/image";
 import Header from "@/components/Home/components/header/Header";
 import WalletNotConnectedHero from "@/components/Wishwell/components/WalletNotConnectedHero";
-import { Dispatch, useEffect, useState } from "react";
-import CanvasRendering from "@/components/Home/components/saturn/CanvasRendering";
-import StarFieldCanvas from "@/components/Home/components/background/Starfeild";
-import Newsletter from "@/components/Home/sections/Newsletter";
-import Footer from "@/components/Home/sections/Footer";
-import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
+import { Dispatch } from "react";
 
 export default function WalletNotConnected({
   registrationKit,
@@ -23,7 +18,6 @@ export default function WalletNotConnected({
   return (
     <>
       <WalletNotConnectedHero registrationKit={registrationKit} />
-      <Newsletter />
     </>
   );
 }
