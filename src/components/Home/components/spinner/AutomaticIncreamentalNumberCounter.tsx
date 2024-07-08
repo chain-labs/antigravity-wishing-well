@@ -17,6 +17,7 @@ type NumberCounterProps = {
   currentCount?: number;
   setCurrentCount?: Dispatch<SetStateAction<number>>;
   classNames?: string;
+  floatingPoint?: number;
 };
 
 export default function AutomaticIncreamentalNumberCounter(
@@ -37,7 +38,7 @@ export default function AutomaticIncreamentalNumberCounter(
       onUpdate(value) {
         element.textContent = String(
           props.float
-            ? String(value.toFixed(3)).padStart(2, "0")
+            ? String(value.toFixed(props.floatingPoint ?? 3)).padStart(2, "0")
             : String(Math.floor(value)).padStart(2, "0"),
         );
       },

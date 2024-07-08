@@ -4,7 +4,7 @@ import P from "@/components/HTML/P";
 import { RegisterButton } from "@/components/Home/components/header/RegisterButton";
 import Button from "@/components/Button";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useContract from "@/abi/wishwell";
 import { PublicClient, parseAbiItem } from "viem";
@@ -28,6 +28,7 @@ import {
 import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import Leaderboard from "./Leaderboard";
 import { motion } from "framer-motion";
+import { client as cmsClient } from "../../../sanity/lib/client";
 
 // Use a function to get the latest block number
 async function getLatestBlockNumber(publicClient: PublicClient) {
@@ -36,21 +37,34 @@ async function getLatestBlockNumber(publicClient: PublicClient) {
 }
 
 export default function CollectiveHero() {
-  const [isRegistered, setIsRegistered] = useState<boolean>(false);
-  const [isSuccess, setIsSuccess] = useState<boolean>(false);
-  // const [payableAmount, setPayableAmount] = useState(0);
-  const [tokenId, setTokenId] = useState<BigInt>(BigInt(0));
-  const [poll, setPoll] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const AntiGravity = useContract();
-  const publicClient = usePublicClient();
   const { openConnectModal } = useConnectModal();
 
   const [isOpen, setIsOpen] = useState(false);
-  // const [currentChain, setCurrentChain] = useState("");
 
   const account = useAccount();
+
+  const [content, setContent] = useState<{
+    heroText: string[];
+    heroDescription: string[];
+  }>({
+    heroText: [],
+    heroDescription: [],
+  });
+
+  useEffect(() => {
+    cmsClient
+      .fetch(
+        `*[_type=="collective"][0]{
+		heroDescription,
+		heroText
+	  }`,
+      )
+      .then((hero) => {
+        setContent({ ...hero });
+      });
+  }, []);
 
   function scrollToTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -74,20 +88,26 @@ export default function CollectiveHero() {
           className="text-agwhite text-[56px] leading-[53.76px] md:text-[64px] md:leading-[64px]"
           center
         >
-          Every Flood Starts
-          <br /> with a Drop.
+          {content.heroText.map((text) => (
+            <React.Fragment key={text}>
+              {text}
+              <br />
+            </React.Fragment>
+          ))}
         </H1>
-        <P center>
-          There are roughly 7 billion people on earth. It only takes 2 billion
-          drops of water to start a flood.
-        </P>
+        <div className="flex flex-col gap-y-2">
+          {content.heroDescription.map((text) => (
+            <P center key={text}>
+              {text}
+            </P>
+          ))}
+        </div>
         {!account.isConnected && (
           <Button
-            onClick={handleLogin}
-            iconAlt="wallet"
-            iconPosition="start"
             iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
+            iconPosition="start"
             innerText="Connect Wallet"
+            onClick={handleLogin}
           />
         )}
       </div>
