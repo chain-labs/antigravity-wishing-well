@@ -19,14 +19,10 @@ import {
 import { checkCorrectNetwork, getApiNetwork } from "@/utils";
 import { base } from "viem/chains";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
-import {
-  useAccount,
-  usePublicClient,
-} from "wagmi";
+import { useAccount, usePublicClient } from "wagmi";
 import Button from "@/components/Button";
 import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from "@/assets/imageKit";
 import Link from "next/link";
-import Button from "@/components/Button";
 
 // Use a function to get the latest block number
 async function getLatestBlockNumber(publicClient: PublicClient) {
