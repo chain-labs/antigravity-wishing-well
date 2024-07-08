@@ -59,7 +59,7 @@ export default function WalletNotConnectedHero({
   }
 
   return (
-    <div className="relative w-screen h-screen">
+    <div className="relative w-screen h-screen z-0">
       <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-[#000000c0] to-[#00000000] overflow-hidden">
         <div className="absolute bottom-0 left-0 flex flex-col gap-[16px] p-[16px] md:py-[48px] md:px-[96px] z-0">
           <div className="flex flex-col">

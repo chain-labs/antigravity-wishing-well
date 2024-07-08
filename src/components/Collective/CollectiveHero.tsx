@@ -82,7 +82,7 @@ export default function CollectiveHero() {
   };
 
   return (
-    <div className="relative flex flex-col justify-start items-center w-full h-fit lg:h-screen bg-gradient-to-b from-[#000000A8] to-[#00000000] gap-[24px] p-[16px] pt-[100px] lg:pt-[200px]">
+    <div className="relative flex flex-col justify-start items-center w-full h-fit lg:h-screen bg-gradient-to-b from-[#000000A8] to-[#00000000] gap-[24px] p-[16px] pt-[100px] lg:pt-[200px] z-0">
       <div className="flex flex-col justify-center items-center gap-[16px]">
         <H1
           className="text-agwhite text-[56px] leading-[53.76px] md:text-[64px] md:leading-[64px]"
