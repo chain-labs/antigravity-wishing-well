@@ -1,12 +1,8 @@
-"use client";
-import React, { Suspense, useRef } from "react";
+import React, { Suspense, useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import {
-  InstancedBufferGeometry,
-  InstancedMesh,
-  MeshBasicMaterial,
-} from "three";
+import { InstancedMesh, MeshBasicMaterial } from "three";
+import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 
 // Function to get a random position within a range
 const getRandomPos = (
@@ -28,6 +24,7 @@ interface StarFieldProps {
   yRange: number;
   zRange: number;
   speed: number;
+  texture: THREE.Texture;
 }
 
 // Star Field Component
@@ -37,12 +34,13 @@ const StarField: React.FC<StarFieldProps> = ({
   yRange,
   zRange,
   speed,
+  texture,
 }) => {
   const meshRef = useRef<InstancedMesh>(null);
   const dummy = new THREE.Object3D();
 
   // Memoize the initial positions of the stars
-  const initialPositions = React.useMemo<[number, number, number][]>(() => {
+  const initialPositions = useMemo<[number, number, number][]>(() => {
     const positions = [];
     for (let i = 0; i < count; i++) {
       positions.push(getRandomPos(xRange, yRange, zRange));
@@ -70,25 +68,15 @@ const StarField: React.FC<StarFieldProps> = ({
     }
   });
 
-  // Create buffer geometry for instanced mesh
-  const geometry = React.useMemo(() => {
-    const geo = new THREE.BufferGeometry();
-    const instGeo = new InstancedBufferGeometry();
-    instGeo.index = geo.index;
-    instGeo.attributes.position = geo.attributes.position;
-    return instGeo;
-  }, []);
-
-  // Create material for the stars
-  const material = React.useMemo(
-    () => new MeshBasicMaterial({ color: "#fff" }),
-    [],
+  // Create material for the stars with the texture
+  const material = useMemo(
+    () => new MeshBasicMaterial({ map: texture, transparent: true }),
+    [texture]
   );
 
   return (
-    <instancedMesh ref={meshRef} args={[geometry, material, count]}>
-      <sphereGeometry args={[0.1, 8, 8]} />
-      <meshBasicMaterial color="#fff" />
+    <instancedMesh ref={meshRef} args={[new THREE.BufferGeometry(), material, count]}>
+      <planeGeometry args={[1, 1]} />
     </instancedMesh>
   );
 };
@@ -110,6 +98,9 @@ const StarFieldCanvas: React.FC<StarFieldCanvasProps> = ({
   zRange,
   speed,
 }) => {
+  // Load the star texture
+  const texture = useMemo(() => new THREE.TextureLoader().load(IMAGEKIT_ICONS.PILL_DARK_X), []);
+
   return (
     <div
       id="canvas-container"
@@ -124,6 +115,7 @@ const StarFieldCanvas: React.FC<StarFieldCanvasProps> = ({
             yRange={yRange}
             zRange={zRange}
             speed={speed}
+            texture={texture}
           />
         </Canvas>
       </Suspense>

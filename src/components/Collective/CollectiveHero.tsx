@@ -59,7 +59,7 @@ export default function CollectiveHero() {
         `*[_type=="collective"][0]{
 		heroDescription,
 		heroText
-	  }`
+	  }`,
       )
       .then((hero) => {
         setContent({ ...hero });
