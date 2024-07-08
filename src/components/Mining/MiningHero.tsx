@@ -28,13 +28,8 @@ import { IToken, StateType, TokenDropdownTypes } from "./types";
 import useMining from "@/hooks/sc-fns/useMining";
 import useMerkleTree from "@/hooks/sc-fns/useMerkleTree.mine";
 import useClaimMerkleTree from "@/hooks/sc-fns/useMerkleTree.claim";
-import { useAccount } from "wagmi";
-import {
-  ADDRESS_LIST,
-  CLAIM_LISTS,
-  MULTIPLIER,
-  TOKEN_OPTIONS,
-} from "./constants";
+import { useAccount, useReadContract } from "wagmi";
+import { MULTIPLIER } from "./constants";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { errorToast } from "@/hooks/frontend/toast";
 import useClaim from "@/hooks/sc-fns/useClaim";
@@ -44,6 +39,8 @@ import { useRestFetch } from "@/hooks/useRestClient";
 import AutomaticIncreamentalNumberCounter from "../Home/components/spinner/AutomaticIncreamentalNumberCounter";
 import BadgeIncrementalCounter from "./BadgeIncrementalCounter";
 import StarFieldCanvas from "./Starfeild";
+import useDarkContract from "@/abi/Dark";
+import useDarkClaimContract from "@/abi/DarkClaim";
 
 function NoNFTHero() {
   return (
@@ -147,60 +144,99 @@ function ContributedHero() {
   const { openConnectModal } = useConnectModal();
   const account = useAccount();
 
+  const { data: era2Data } = useRestFetch(["s3"], `/s3?file=era2`, {
+    proxy: true,
+  });
+
+  const ERA2_DATA: { accounts: string[]; points: string[]; nonces: string[] } =
+    useMemo(() => {
+      if (era2Data) {
+        console.log({ era2Data });
+        // @ts-ignore
+        const era2DataStream = era2Data?.data?.era2;
+        return era2DataStream;
+      }
+      return { accounts: [], points: [], nonces: [] };
+    }, [era2Data]);
+
   const { generateProof } = useClaimMerkleTree(
-    CLAIM_LISTS.accounts,
-    CLAIM_LISTS.points,
-    CLAIM_LISTS.nonces,
+    ERA2_DATA.accounts,
+    ERA2_DATA.points,
+    ERA2_DATA.nonces,
   );
 
   const points = useMemo(() => {
     if (account.address) {
-      const accountIndex = CLAIM_LISTS.accounts.findIndex(
+      const accountIndex = ERA2_DATA.accounts.findIndex(
         (x) => x.toLowerCase() === account.address?.toLowerCase(),
       );
 
       if (accountIndex > 0) {
-        const foundPoints = CLAIM_LISTS.points[accountIndex];
+        const foundPoints = ERA2_DATA.points[accountIndex];
 
-        const formattedPoints = formatUnits(
-          BigInt(CLAIM_LISTS.points[accountIndex]),
-          18,
-        );
+        const formattedPoints = formatUnits(BigInt(foundPoints), 18);
         return Number(formattedPoints);
       } else return 0;
     }
 
-    return 30000;
-  }, [account.address]);
+    return 40000;
+  }, [account.address, era2Data]);
 
   const proof: string[] = useMemo(() => {
-    if (account.address) {
-      const accountIndex = CLAIM_LISTS.accounts.findIndex(
+    if (account.address && ERA2_DATA) {
+      const accountIndex = ERA2_DATA.accounts.findIndex(
         (x) => x.toLowerCase() === account.address?.toLowerCase(),
       );
 
       const generatedProof = generateProof(
         account.address,
-        CLAIM_LISTS.points[accountIndex],
-        CLAIM_LISTS.nonces[accountIndex],
+        ERA2_DATA.points[accountIndex],
+        ERA2_DATA.nonces[accountIndex],
       );
 
+      console.log({ generatedProof });
       return generatedProof || [];
     }
     return [];
-  }, [account.address]);
+  }, [account.address, era2Data]);
+
+  const DarkContract = useDarkContract();
+  const DarkClaimContract = useDarkClaimContract();
+
+  const { data: dark_MAX_SUPPLY } = useReadContract({
+    address: DarkContract.address as `0x${string}`,
+    abi: DarkContract.abi,
+    functionName: "MAX_SUPPLY",
+  });
+
+  const { data: dark_total_points } = useReadContract({
+    address: DarkClaimContract.address as `0x${string}`,
+    abi: DarkClaimContract.abi,
+    functionName: "totalPoints",
+  });
+
+  const darkTokens = useMemo(() => {
+    console.log({ dark_total_points, dark_MAX_SUPPLY, points });
+    if (points && dark_MAX_SUPPLY) {
+      const MAX_SUPPLY = Number(formatUnits(dark_MAX_SUPPLY as bigint, 18));
+      const totalPoints = Number(formatUnits(dark_total_points as bigint, 18));
+      const dark = (((points * MAX_SUPPLY) / totalPoints) * 10) / 100;
+      return dark;
+    }
+    return 0;
+  }, [points, dark_MAX_SUPPLY, dark_total_points]);
 
   const { claim, transactionLoading } = useClaim();
 
   const handleClaim = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const accountIndex = CLAIM_LISTS.accounts.findIndex(
+    const accountIndex = ERA2_DATA.accounts.findIndex(
       (x) => x.toLowerCase() === account.address?.toLowerCase(),
     );
 
     claim(
-      CLAIM_LISTS.points[accountIndex],
-      CLAIM_LISTS.nonces[accountIndex],
+      ERA2_DATA.points[accountIndex],
+      ERA2_DATA.nonces[accountIndex],
       proof,
     );
   };
@@ -249,7 +285,7 @@ function ContributedHero() {
           ></div>
         </div>
         <ContributedCard
-          value={points}
+          value={darkTokens}
           pillText="DARK"
           pillIconSrc={IMAGEKIT_ICONS.PILL_DARK_X}
           pillIconAlt="dark x"
@@ -714,7 +750,7 @@ function NFTPopUp({
 }
 
 export default function MiningHero() {
-  const [state, setState] = useState<StateType>("Mining");
+  const [state, setState] = useState<StateType>("Claiming");
   const [NFTHover, setNFTHover] = useState(false);
   const NFTRef = useRef<HTMLDivElement>(null);
   const NFTContainerRef = useRef<HTMLDivElement>(null);
