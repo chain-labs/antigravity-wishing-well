@@ -73,6 +73,12 @@ export default function PromotionAndNewsletter() {
               innerText="Get Book"
               iconSrc={IMAGEKIT_ICONS.BOOK}
               iconAlt="Get Book"
+              variants={{
+                hover: {
+                  scale: 1.35,
+                  transition: { duration: 0.5, type: "spring" },
+                },
+              }}
             />
           </a>
         </div>
@@ -117,6 +123,15 @@ export default function PromotionAndNewsletter() {
             />
           </div>
           <Button
+            variants={{
+              hover: {
+                animationName: "flyingPlane",
+                animationDuration: "0.5s",
+                animationFillMode: "forwards",
+                animationTimingFunction: "linear",
+                animationDelay: "0.5s",
+              },
+            }}
             innerText="Submit"
             iconSrc={IMAGEKIT_ICONS.SEND}
             iconAlt="send"

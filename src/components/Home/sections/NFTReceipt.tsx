@@ -52,6 +52,16 @@ export default function NFTReceipt() {
           innerText="Claim collective rewards"
           iconSrc={IMAGEKIT_ICONS.HAMMER}
           iconAlt="hammer icon"
+          variants={{
+            hover: {
+              scale: 1.35,
+              rotate: 390,
+              transition: {
+                duration: 1,
+                type: "spring",
+              },
+            },
+          }}
         />
       </Link>
     </div>

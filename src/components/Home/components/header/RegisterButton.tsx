@@ -75,6 +75,18 @@ export const RegisterButton: React.FC<RegisterButtonProps> = ({
         }
         iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
         iconPosition="start"
+        variants={
+          !account.isConnected &&
+          !isRegistered &&
+          registerIdle ? {
+            hover: {
+              animationName: "wiggle",
+              animationDuration: "1s",
+              animationFillMode: "forwards",
+              animationTimingFunction: "linear",
+            },
+          } : {}
+        }
       />
       {/* {(account.address && loading && !error) || !registerIdle ? (
 				<div className="animate-[spin_2s_ease-out_infinite]">

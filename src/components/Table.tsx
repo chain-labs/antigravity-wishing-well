@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import { useState } from "react";
@@ -15,13 +15,18 @@ function TH({
   icon,
   heading,
   className,
+  variants = {} as Variants,
 }: {
   icon: string | StaticImport;
   heading: string;
   className?: string;
+  variants?: Variants;
 }) {
+  const [hover, setHover] = useState(false);
   return (
-    <th
+    <motion.th
+      onHoverStart={() => setHover(true)}
+      onHoverEnd={() => setHover(false)}
       className={twMerge(
         `relative bg-[#0A0025] border-[2px] lg:border-[2px] border-transparent bg-clip-padding flex flex-col lg:flex-row justify-between z-0 px-3 py-[10px] w-full
             before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-bl before:from-[#3C00DC] before:to-[#FF5001] before:rounded-[inherit] before:overflow-hidden before:mb-[-1px] before:ml-[-1px] lg:before:m-[-1px]
@@ -30,16 +35,18 @@ function TH({
       )}
     >
       <H3>
-        <Image
-          src={icon}
-          alt={`${heading} icon`}
-          width={25}
-          height={25}
-          className="object-cover"
-        />
+        <motion.div animate={hover ? "hover" : ""} variants={variants}>
+          <Image
+            src={icon}
+            alt={`${heading} icon`}
+            width={25}
+            height={25}
+            className="object-cover"
+          />
+        </motion.div>
         {heading}
       </H3>
-    </th>
+    </motion.th>
   );
 }
 
@@ -179,15 +186,17 @@ function Rank({
   rank,
   wallet,
   special = false,
+  badge,
 }: {
   rank: number;
   wallet: string;
   special?: boolean;
+  badge: string;
 }) {
   const iconLink = `@/assets/icons/${special ? "wallet-black.svg" : "wallet.svg"}`;
   return (
     <TD special={special} border>
-      #{rank} <Badge special={special}>Specialist Technician</Badge>
+      #{rank} <Badge special={special}>{badge}</Badge>
       <div
         className={`flex gap-[4px] justify-start items-center lg:hidden ${
           special
@@ -219,7 +228,15 @@ function Rank({
 }
 
 function pointsConverterToUSCommaseparated(points: number) {
-  return points.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const [integerPart, decimalPart] = points.toString().split(".");
+  const formattedIntegerPart = integerPart.replace(
+    /\B(?=(\d{3})+(?!\d))/g,
+    ",",
+  );
+
+  return decimalPart
+    ? `${formattedIntegerPart}.${decimalPart}`
+    : formattedIntegerPart;
 }
 
 type tableDataType = {
@@ -246,13 +263,42 @@ export default function Table({ tableData }: { tableData: tableDataType[] }) {
                             <TH key={idx} icon={header.icon} heading={header.heading} className={header.className} />
                         ))
                     } */}
-          <TH icon={IMAGEKIT_ICONS.LEADERBOARD} heading="Rank" />
+          <TH
+            icon={IMAGEKIT_ICONS.LEADERBOARD}
+            heading="Rank"
+            variants={{
+              hover: {
+                scale: 1.25,
+                transition: {
+                  duration: 0.5,
+                  type: "spring",
+                },
+              },
+            }}
+          />
           <TH
             icon={IMAGEKIT_ICONS.WALLET_WHITE}
             heading="Wallet"
             className="hidden lg:flex"
+            variants={{
+              hover: {
+                animationName: "wiggle",
+                animationDuration: "1s",
+                animationFillMode: "forwards",
+                animationTimingFunction: "linear",
+              },
+            }}
           />
-          <TH icon={IMAGEKIT_ICONS.POINTS} heading="Points" />
+          <TH
+            icon={IMAGEKIT_ICONS.POINTS}
+            heading="Points"
+            variants={{
+              hover: {
+                rotate: 120,
+                transition: { duration: 1, type: "spring" },
+              },
+            }}
+          />
         </TR>
       </thead>
       <tbody className="text-lg font-medium font-general-sans text-agwhite">
@@ -263,6 +309,7 @@ export default function Table({ tableData }: { tableData: tableDataType[] }) {
                 rank={data.rank}
                 wallet={data.wallet}
                 special={data.special ?? false}
+                badge={data.badge}
               />
               <TD truncate special={data.special ?? false}>
                 {data.wallet}
@@ -275,7 +322,11 @@ export default function Table({ tableData }: { tableData: tableDataType[] }) {
                     : "md:text-[14px] md:leading-[18.2px] text-[18px] leading-[23.6px]"
                 }
               >
-                {pointsConverterToUSCommaseparated(data.points)}
+                {pointsConverterToUSCommaseparated(
+                  String(data.points).includes(".")
+                    ? parseFloat(data.points.toFixed(4))
+                    : data.points,
+                )}
               </TD>
             </TR>
           ) : (

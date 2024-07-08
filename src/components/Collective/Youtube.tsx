@@ -87,21 +87,28 @@ export default function Youtube() {
             iconSrc={IMAGEKIT_ICONS.DOCUMENT}
             iconAlt="Dark Paper"
             className="w-full md:w-fit"
-            initialIconMotionValues={{
-              rotate: 0,
-              scale: 1,
-            }}
-            whileHoverIconMotionValues={{
-              rotate: -15,
-              scale: 1.1,
-            }}
-            transitionIconMotionValues={{
-              duration: 0.25,
-              type: "spring",
+            variants={{
+              hover: {
+                scale: 1.5,
+                rotate: -11,
+                transition: {
+                  duration: 0.5,
+                  type: "spring",
+                },
+              },
             }}
           />
           <div className="flex gap-[8px]">
             <Button
+              variants={{
+                hover: {
+                  animationName: "flyingPlane",
+                  animationDuration: "0.5s",
+                  animationFillMode: "forwards",
+                  animationTimingFunction: "linear",
+                  animationDelay: "0.5s",
+                },
+              }}
               innerText="Telegram"
               iconSrc={IMAGEKIT_ICONS.TELEGRAM}
               iconAlt="Telegram"
@@ -109,18 +116,13 @@ export default function Youtube() {
               className="bg-transparent origin-center border-[#FEFFFF40] shadow-[0_4px_0px_#FEFFFF40_!important] hover:shadow-[0_0px_0px_#FEFFFF40_!important] px-[10px] py-[6px] w-full md:w-fit"
             />
             <Button
-              initialIconMotionValues={{
-                rotate: 0,
-                scale: 1,
-              }}
-              whileHoverIconMotionValues={{
-                rotate: -30,
-                scale: 1.1,
-              }}
-              transitionIconMotionValues={{
-                duration: 0.25,
-                type: "spring",
-                bounce: 1,
+              variants={{
+                hover: {
+                  animationName: "wiggle",
+                  animationDuration: "1s",
+                  animationFillMode: "forwards",
+                  animationTimingFunction: "linear",
+                },
               }}
               innerText="Discord"
               iconSrc={IMAGEKIT_ICONS.DISCORD}
@@ -129,6 +131,21 @@ export default function Youtube() {
               className="bg-transparent origin-bottom border-[#FEFFFF40] shadow-[0_4px_0px_#FEFFFF40_!important] hover:shadow-[0_0px_0px_#FEFFFF40_!important] px-[10px] py-[6px] w-full md:w-fit"
             />
           </div>
+          <Button
+            variants={{
+              hover: {
+                animationName: "wiggle",
+                animationDuration: "1s",
+                animationFillMode: "forwards",
+                animationTimingFunction: "linear",
+              },
+            }}
+            innerText="Twitter"
+            iconSrc={IMAGEKIT_ICONS.TWITTER}
+            iconAlt="Discord"
+            secondary
+            className="w-full bg-transparent origin-bottom border-[#FEFFFF40] shadow-[0_4px_0px_#FEFFFF40_!important] hover:shadow-[0_0px_0px_#FEFFFF40_!important] px-[10px] py-[6px]"
+          />
         </div>
       </div>
     </motion.div>

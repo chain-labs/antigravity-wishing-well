@@ -11,3 +11,72 @@
     margin: 0;
   }
 }
+
+@keyframes rocketLaunch {
+  0% {
+    transform: translateY(4px);
+  }
+  49.9% {
+    transform: translateY(-150%);
+  }
+  50% {
+    transform: translateY(150%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes rocketLaunchRest {
+  to {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes wiggle {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  10%{
+    transform: rotate(30deg);
+  }
+  20%{
+    transform: rotate(-30deg);
+  }
+  30%{
+    transform: rotate(15deg);
+  }
+  40%{
+    transform: rotate(-15deg);
+  }
+  50%{
+    transform: rotate(10deg);
+  }
+  60%{
+    transform: rotate(-10deg);
+  }
+  70%{
+    transform: rotate(5deg);
+  }
+  80%{
+    transform: rotate(-5deg);
+  }
+  90%{
+    transform: rotate(2deg);
+  }
+}
+
+@keyframes flyingPlane {
+  0% {
+    transform: translate(0, 0%);
+  }
+  49.9% {
+    transform: translate(150%, -150%);
+  }
+  50% {
+    transform: translate(-150%, 150%);
+  }
+  100% {
+    transform: translate(0%, 0%);
+  }
+}

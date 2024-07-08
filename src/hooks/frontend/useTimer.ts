@@ -12,8 +12,8 @@ export type CountdownType = {
 };
 
 const DEFAULT: CountdownType = {
-  era: "wishwell",
-  phase: 1,
+  era: "mining",
+  phase: 2,
   days: 0,
   hours: 0,
   mins: 0,

@@ -32,6 +32,8 @@ import Button from "@/components/Button";
 import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from "@/assets/imageKit";
 import Link from "next/link";
 import useLoading from "@/hooks/frontend/useLoading";
+import AnimatedButton from "@/components/AnimatedButton";
+import AnimatedText from "@/components/AnimatedText";
 
 // Use a function to get the latest block number
 async function getLatestBlockNumber(publicClient: PublicClient) {
@@ -100,7 +102,9 @@ const Header = () => {
               className={`relative flex justify-center items-center font-extrabold text-lg font-sans gap-[16px] oveflow-hidden`}
             >
               <Link
-                href={location.pathname === "/wishwell" ? "#" : "/wishwell"}
+                href={
+                  location.pathname === "/wishwell" ? "/wishwell#" : "/wishwell"
+                }
               >
                 <P
                   uppercase
@@ -111,7 +115,9 @@ const Header = () => {
                   Wishwell
                 </P>
               </Link>
-              <Link href={location.pathname === "/mining" ? "#" : "/mining"}>
+              <Link
+                href={location.pathname === "/mining" ? "/mining#" : "/mining"}
+              >
                 <P
                   uppercase
                   gradient
@@ -122,7 +128,11 @@ const Header = () => {
                 </P>
               </Link>
               <Link
-                href={location.pathname === "/collective" ? "#" : "/collective"}
+                href={
+                  location.pathname === "/collective"
+                    ? "/collective#"
+                    : "/collective"
+                }
               >
                 <P
                   uppercase
@@ -237,6 +247,14 @@ const Header = () => {
                   iconAlt="wallet"
                   iconPosition="start"
                   innerText="Connect Wallet"
+                  variants={{
+                    hover: {
+                      animationName: "wiggle",
+                      animationDuration: "1s",
+                      animationFillMode: "forwards",
+                      animationTimingFunction: "linear",
+                    },
+                  }}
                 />
               )}
             </div>
@@ -278,7 +296,9 @@ const Header = () => {
             <div className="w-full h-full bg-agblack px-8 flex flex-col items-center justify-center rounded-lg gap-6 py-4">
               {account.isConnected && <UserConnected />}
               <Link
-                href={location.pathname === "/wishwell" ? "#" : "/wishwell"}
+                href={
+                  location.pathname === "/wishwell" ? "/wishwell#" : "/wishwell"
+                }
               >
                 <P
                   uppercase
@@ -289,7 +309,9 @@ const Header = () => {
                   Wishwell
                 </P>
               </Link>
-              <Link href={location.pathname === "/mining" ? "#" : "/mining"}>
+              <Link
+                href={location.pathname === "/mining" ? "/mining#" : "/mining"}
+              >
                 <P
                   uppercase
                   gradient
@@ -300,7 +322,11 @@ const Header = () => {
                 </P>
               </Link>
               <Link
-                href={location.pathname === "/collective" ? "#" : "/collective"}
+                href={
+                  location.pathname === "/collective"
+                    ? "/collective#"
+                    : "/collective"
+                }
               >
                 <P
                   uppercase

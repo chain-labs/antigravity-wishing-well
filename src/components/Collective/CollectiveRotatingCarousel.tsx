@@ -19,6 +19,7 @@ export interface IPost {
 function EventCard({
   image,
   caption,
+  containerHovered = false,
 }: {
   image: {
     link: string | StaticImport;
@@ -26,10 +27,17 @@ function EventCard({
     width: number;
   };
   caption: string;
+  containerHovered: boolean;
 }) {
   const CONSTANT_HEIGHT = 250;
   return (
-    <div
+    <motion.div
+      animate={{
+        filter: containerHovered ? "saturate(0)" : "saturate(1)",
+      }}
+      whileHover={{
+        filter: "saturate(1)",
+      }}
       style={{
         width: (image.width * CONSTANT_HEIGHT) / image.height,
       }}
@@ -54,7 +62,7 @@ function EventCard({
       <div className="p-[10.88px] w-full h-full bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-b-[8.16px]">
         <P>{caption}</P>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -91,9 +99,20 @@ function MobileEventCard({
   );
 }
 
-function EventCardsContainer({ posts }: { posts: IPost[] }) {
+function EventCardsContainer({
+  posts,
+  isHovered,
+}: {
+  posts: IPost[];
+  isHovered: boolean;
+}) {
   return (
-    <div className="flex ml-[16px] gap-[16px] animate-[carouselMarquee_30s_linear_infinite]">
+    <div
+      style={{
+        animationPlayState: isHovered ? "paused" : "running",
+      }}
+      className="flex ml-[16px] gap-[16px] animate-[carouselMarquee_30s_linear_infinite]"
+    >
       {posts.map((post) => (
         <EventCard
           key={`caption-${post.caption}`}
@@ -103,6 +122,7 @@ function EventCardsContainer({ posts }: { posts: IPost[] }) {
             width: post.width,
           }}
           caption={post.caption}
+          containerHovered={isHovered}
         />
       ))}
     </div>
@@ -133,6 +153,7 @@ export default function CollectiveRotatingCarousel() {
     { image: IImage; caption: string; width: number; height: number }[]
   >([]);
   const [headerText, setHeaderText] = useState<string[]>([]);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     console.log({ IMAGEKIT_COLLECTIVE });
@@ -166,9 +187,13 @@ export default function CollectiveRotatingCarousel() {
       <div className="hidden md:block relative w-full h-fit">
         <div className="absolute right-0 top-0 h-full w-[10vw] bg-gradient-to-l from-[#030404] to-[#03040400] z-[1]"></div>
         <div className="absolute left-0 top-0 h-full w-[10vw] bg-gradient-to-r from-[#030404] to-[#03040400] z-[1]"></div>
-        <div className="w-fit left-0 relative flex ">
-          <EventCardsContainer posts={posts} />
-          <EventCardsContainer posts={posts} />
+        <div
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          className="w-fit left-0 relative flex"
+        >
+          <EventCardsContainer posts={posts} isHovered={isHovered} />
+          <EventCardsContainer posts={posts} isHovered={isHovered} />
         </div>
       </div>
       <div className="flex md:hidden flex-col w-full gap-[16px] justify-center items-center">

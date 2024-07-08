@@ -325,12 +325,17 @@ function NonContributed({
     } else return [];
   }, [account.address]);
 
-  const { mineToken, transactionLoading, darkXBalance, tokenBalances, receipt } =
-    useMining(
-      TOKEN_OPTIONS[selectedToken],
-      value,
-      proof.length > 0 ? MULTIPLIER * 2 : MULTIPLIER,
-    );
+  const {
+    mineToken,
+    transactionLoading,
+    darkXBalance,
+    tokenBalances,
+    receipt,
+  } = useMining(
+    TOKEN_OPTIONS[selectedToken],
+    value,
+    proof.length > 0 ? MULTIPLIER * 2 : MULTIPLIER,
+  );
   // useEffect(() => {
   //   if (tokenBalances) {
   //     console.log({ selectedToken });
@@ -423,6 +428,14 @@ function NonContributed({
           iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
           iconAlt="wallet"
           onClick={openConnectModal}
+          variants={{
+            hover: {
+              animationName: "wiggle",
+              animationDuration: "1s",
+              animationFillMode: "forwards",
+              animationTimingFunction: "linear",
+            },
+          }}
         />
       ) : (
         <Button
@@ -431,6 +444,16 @@ function NonContributed({
           iconSrc={IMAGEKIT_ICONS.HAMMER}
           iconAlt="hammer"
           onClick={handleMine}
+          variants={{
+            hover: {
+              scale: 1.35,
+              rotate: 390,
+              transition: {
+                duration: 1,
+                type: "spring",
+              },
+            },
+          }}
         />
       )}
       <div className="p-[8px] rounded-[6px] bg-[#030404A8]">

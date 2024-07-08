@@ -71,6 +71,15 @@ export default function Newsletter() {
               required
             />
             <Button
+              variants={{
+                hover: {
+                  animationName: "flyingPlane",
+                  animationDuration: "0.5s",
+                  animationFillMode: "forwards",
+                  animationTimingFunction: "linear",
+                  animationDelay: "0.5s",
+                },
+              }}
               innerText="Submit"
               iconSrc={IMAGEKIT_ICONS.SEND}
               iconAlt="send"

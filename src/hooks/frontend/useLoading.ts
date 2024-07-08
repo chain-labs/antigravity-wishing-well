@@ -8,10 +8,23 @@ export default function useLoading() {
   const [loadingComplete, setLoadingComplete] = useState(false);
   useEffect(() => {
     if (window !== undefined) {
+      window.addEventListener("beforeunload", () => {
+        setLoading(true);
+      });
       window.addEventListener("load", () => {
         setLoading(false);
       });
     }
+    return () => {
+      if (window !== undefined) {
+        window.removeEventListener("beforeunload", () => {
+          setLoading(true);
+        });
+        window.removeEventListener("load", () => {
+          setLoading(false);
+        });
+      }
+    };
   }, []);
 
   useEffect(() => {

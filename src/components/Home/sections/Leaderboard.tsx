@@ -8,13 +8,16 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import H1 from "@/components/HTML/H1";
 import H2 from "@/components/HTML/H2";
 import P from "@/components/HTML/P";
 import Table from "@/components/Table";
 import { useAccount } from "wagmi";
 import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from "@/assets/imageKit";
+import AnimatedButton from "@/components/AnimatedButton";
+import Link from "next/link";
+import GradientBorder from "@/components/GradientBorder";
 
 function CollectiveLogo() {
   const [hover, setHover] = useState(false);
@@ -65,7 +68,7 @@ type tableDataType = {
   special?: boolean;
 } | null;
 
-const tableData: tableDataType[] = [
+const tableDataStatic: tableDataType[] = [
   {
     rank: 1,
     badge: "Specialist Technician",
@@ -123,6 +126,7 @@ export default function Leaderboard({
 }: {
   accountIsConnected: boolean;
 }) {
+  const [tableData, setTableData] = useState<tableDataType[]>(tableDataStatic);
   const account = useAccount();
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -132,6 +136,23 @@ export default function Leaderboard({
 
   const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
 
+  // useEffect(() => {
+  //   fetch("http://3.90.153.171:3000/api/leaderboard", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       walletAddress: account.address,
+  //     }),
+  //   }).then((res) =>
+  //     res.json().then((data) => {
+  //       console.log(data);
+  //       setTableData(data["allTimeLeaderboard"]);
+  //     }),
+  //   );
+  // }, [account]);
+
   if (!accountIsConnected) {
     return <div className="h-screen w-screen hidden lg:block"></div>;
   }
@@ -140,21 +161,30 @@ export default function Leaderboard({
     <div ref={targetRef}>
       <motion.div
         style={{ opacity }}
-        className="relative max-w-[1200px] p-[16px] lg:p-8 border-t-4 border-b-4 lg:border-4 my-32 lg:mx-auto md:translate-x-0 md:w-4/5 md:mx-auto bg-[#0A0025] rounded-none lg:rounded-xl border-transparent bg-clip-padding flex flex-col lg:flex-row justify-between gap-[16px] lg:gap-32 z-0
-            before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-bl before:from-[#5537A5] before:to-[#BF6841] before:rounded-[inherit] before:overflow-hidden before:m-[-2px]
-			after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-agblack after:rounded-[inherit] after:overflow-hidden
-        "
+        className={
+          GradientBorder({
+            from: "#5537A5",
+            to: "#BF6841",
+            direction: "bl",
+            borderSize: 4,
+          }) +
+          "relative max-w-[1200px] p-[16px] lg:p-8 border-t-4 border-b-4 lg:border-4 my-32 lg:mx-auto md:translate-x-0 md:w-4/5 md:mx-auto bg-[#0A0025] rounded-none lg:rounded-xl flex flex-col lg:flex-row justify-between gap-[16px] lg:gap-32"
+        }
       >
         <div className="flex flex-col gap-[16px] w-full">
           <div className="flex flex-wrap justify-start items-center gap-[16px]">
             <H1>Leaderboard</H1>
-            <Button
+            <AnimatedButton
               innerText="Refresh"
               iconSrc={IMAGEKIT_ICONS.REFRESH}
               iconAlt="refresh icon"
               secondary
               disableSparkels
-              animateButton
+              variants={{
+                hover: {
+                  animation: "spin 1s linear infinite forwards",
+                },
+              }}
             />
           </div>
 
@@ -192,14 +222,26 @@ export default function Leaderboard({
                   You&apos;re only 1,500 points away from leveling up. Mine now
                   to rank up!
                 </P>
-                <Button
-                  innerText="Start mining"
-                  iconSrc={IMAGEKIT_ICONS.HAMMER}
-                  iconAlt="hammer icon"
-                />
-                <a href="/" className="text-agwhite underline">
+                <Link href="/mining">
+                  <Button
+                    innerText="Start mining"
+                    iconSrc={IMAGEKIT_ICONS.HAMMER}
+                    iconAlt="hammer icon"
+                    variants={{
+                      hover: {
+                        scale: 1.35,
+                        rotate: 390,
+                        transition: {
+                          duration: 1,
+                          type: "spring",
+                        },
+                      },
+                    }}
+                  />
+                </Link>
+                <Link href="/" className="text-agwhite underline">
                   <P>Best ways to rank up →</P>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
