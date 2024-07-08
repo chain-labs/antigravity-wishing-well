@@ -1,29 +1,71 @@
+import { TEST_NETWORK } from "@/constants";
+import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
+import { base, pulsechain, sepolia } from "viem/chains";
+
 
 export async function GET(request: NextRequest) {
   const baseURL = "https://antigravity-s3.s3.us-east-1.amazonaws.com/static";
-  let URL = "";
+  let URL = [""];
 
   const file = request.nextUrl.searchParams.get("file");
 
   console.log({ file });
   switch (file) {
     case "tokens": {
-      URL = `${baseURL}/mining_tokenlist.json`;
-      console.log({ URL });
+      URL = [`${baseURL}/mining_tokenlist.json`];
       break;
+    }
+    case "era1": {
+      // TODO: change ERA1 prod route
+      URL = [
+        TEST_NETWORK
+          ? `${baseURL}/ERA1/output.test.json`
+          : `${baseURL}/ERA1/output.test.json`,
+      ];
+      break;
+    }
+    case "era2": {
+      // TODO: change ERA2 prod route
+      URL = [
+        TEST_NETWORK
+          ? `${baseURL}/ERA2/output.test.json`
+          : `${baseURL}/ERA2/output.test.json`,
+      ];
+      break;
+    }
+    default: {
+      URL = [
+        `${baseURL}/mining_tokenlist.json`,
+        TEST_NETWORK
+          ? `${baseURL}/ERA1/output.test.json`
+          : `${baseURL}/ERA1/output.test.json`,
+        TEST_NETWORK
+          ? `${baseURL}/ERA2/output.test.json`
+          : `${baseURL}/ERA2/output.test.json`,
+      ];
     }
   }
 
-  const res = await fetch(URL, {
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization",
-    },
-  });
-  const data = await res.json();
+  try {
+    const requests = URL.map((url) => axios.get(url));
+    const responses = await axios.all(requests);
 
-  return NextResponse.json({ data });
+    const datas = responses.map((response) => {
+      return { data: response.data };
+    });
+
+    return NextResponse.json({
+      data: {
+        tokens: datas[0]?.data?.tokens || null,
+        era1: datas[1]?.data || null,
+        era2: datas[2]?.data || null,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({
+      error: "Not Found",
+    });
+  }
 }

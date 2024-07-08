@@ -24,7 +24,7 @@ import React, {
 import Pill from "../Pill";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { base, pulsechain } from "viem/chains";
-import { StateType, TokenDropdownTypes } from "./types";
+import { IToken, StateType, TokenDropdownTypes } from "./types";
 import useMining from "@/hooks/sc-fns/useMining";
 import useMerkleTree from "@/hooks/sc-fns/useMerkleTree.mine";
 import useClaimMerkleTree from "@/hooks/sc-fns/useMerkleTree.claim";
@@ -317,7 +317,28 @@ function NonContributed({
 
   const account = useAccount();
 
-  const { generateProof } = useMerkleTree(ADDRESS_LIST);
+  const { data: s3Data } = useRestFetch(["s3"], `/s3`, { proxy: true });
+
+  const tokens: IToken[] = useMemo(() => {
+    if (s3Data) {
+      const tokensData = (s3Data as any)?.data?.tokens?.filter(
+        (token: IToken) => token.chainId === account.chainId,
+      );
+      return tokensData;
+    }
+    return [];
+  }, [s3Data, account.chainId]);
+
+  const ERA1_ADDRESSES: string[] = useMemo(() => {
+    if (s3Data) {
+      const era1Data = (s3Data as any)?.data?.era1?.accounts;
+      console.log({ era1Data });
+      return era1Data;
+    }
+    return [];
+  }, [s3Data]);
+
+  const { generateProof } = useMerkleTree(ERA1_ADDRESSES);
 
   const proof = useMemo(() => {
     if (account.address) {
@@ -327,12 +348,18 @@ function NonContributed({
     } else return [];
   }, [account.address]);
 
-  const { mineToken, transactionLoading, darkXBalance, tokenBalances, tokens, receipt } =
-    useMining(
-      selectedToken,
-      value,
-      proof.length > 0 ? MULTIPLIER * 2 : MULTIPLIER,
-    );
+  const {
+    mineToken,
+    transactionLoading,
+    darkXBalance,
+    tokenBalances,
+    receipt,
+  } = useMining(
+    selectedToken,
+    tokens,
+    value,
+    proof.length > 0 ? MULTIPLIER * 2 : MULTIPLIER,
+  );
   // useEffect(() => {
   //   if (tokenBalances) {
   //     console.log({ selectedToken });
@@ -340,12 +367,13 @@ function NonContributed({
   // }, [tokenBalances]);
 
   const { data: tokenPrice } = useRestFetch<{ price: number }>(
-    ["token_price", tokens?.[selectedToken].address],
-    `/be/coinPrices?token=${tokens?.[selectedToken].address}&pool=${tokens?.[selectedToken]?.pool}&network=${"sepolia-testnet"}`,
-    { proxy: true, enabled: !!tokens?.[selectedToken].address },
+    ["token_price", tokens?.[selectedToken]?.address],
+    `/be/coinPrices?token=${tokens?.[selectedToken]?.address}&pool=${tokens?.[selectedToken]?.pool}&network=${tokens?.[selectedToken]?.chainId}`,
+    { proxy: true, enabled: !!tokens?.[selectedToken]?.address },
   );
 
   const usdValue = useMemo(() => {
+    console.log({ tokenPrice });
     return tokenPrice?.price;
   }, [tokenPrice]);
   useEffect(() => {

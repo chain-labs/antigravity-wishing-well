@@ -8,7 +8,6 @@ import {
   useReadContracts,
   useSwitchChain,
   useWaitForTransactionReceipt,
-  useWatchContractEvent,
   useWriteContract,
 } from "wagmi";
 import { IToken } from "@/components/Mining/types";
@@ -16,8 +15,6 @@ import { errorToast, successToast } from "../frontend/toast";
 import { watchContractEvent } from "viem/actions";
 import { sepolia } from "viem/chains";
 import useDarkXContract from "@/abi/DarkX";
-import { useRestFetch } from "../useRestClient";
-// import { TOKEN_OPTIONS } from "@/components/Mining/constants";
 
 /**
  *  Primary utility hook for everything related to the mining phase
@@ -29,6 +26,7 @@ import { useRestFetch } from "../useRestClient";
  */
 const useMining = (
   tokenSelected: number,
+  tokens: IToken[],
   amountToInvest: number,
   multiplier: number,
 ) => {
@@ -43,30 +41,11 @@ const useMining = (
   const account = useAccount();
   const { switchChain } = useSwitchChain();
 
-  // Fetching all the valid tokens from S3
-  const {
-    data: tokensData,
-    isLoading: tokenFetchLoading,
-    error: tokenFetchError,
-  } = useRestFetch(["tokens"], "/s3?file=tokens", {
-    select: (data) => data.tokens,
-    proxy: true /* proxy setting */,
-  });
-
-  // Filtering tokens available in current chain
-  const tokensList = useMemo<IToken[]>(() => {
-    // @ts-ignore
-    const result = tokensData?.data?.tokens.filter(
-      (token: IToken) => token.chainId === account.chainId,
-    );
-    return result;
-  }, [tokensData, account.chainId]);
-
   // Single out currently selected token
   const token = useMemo<IToken>(() => {
     // @ts-ignore
-    return tokensList?.[tokenSelected];
-  }, [tokensList, tokenSelected]);
+    return tokens?.[tokenSelected];
+  }, [tokens, tokenSelected]);
 
   // switch to the chain that is currently valid and correct on load
   useEffect(() => {
@@ -97,20 +76,13 @@ const useMining = (
   // Fetching current selected token Balance
   const { data: tokenBalance } = useReadContracts({
     // @ts-ignore
-    contracts: tokensList?.map((token) => ({
+    contracts: tokens?.map((token) => ({
       address: token.address as `0x${string}`,
       abi: erc20ABI,
       functionName: "balanceOf",
       args: [`${account.address}`],
     })),
   });
-
-  // Check errors in fetching tokens and log incoming token data for dev
-  useEffect(() => {
-    if (tokenFetchError) {
-      console.log({ tokenFetchError });
-    }
-  }, [tokenFetchError]);
 
   /* Approval Contract Function Declaration */
 
@@ -148,10 +120,7 @@ const useMining = (
 
   const investAmount = useMemo(() => {
     if (amountToInvest) {
-      return parseUnits(
-        `${amountToInvest}`,
-        tokensList?.[tokenSelected]?.decimals,
-      );
+      return parseUnits(`${amountToInvest}`, tokens?.[tokenSelected]?.decimals);
     }
     return BigInt(0);
   }, [amountToInvest]);
@@ -163,7 +132,7 @@ const useMining = (
   });
 
   const { data: allowance } = useReadContract({
-    address: tokensList?.[tokenSelected]?.address as `0x${string}`,
+    address: tokens?.[tokenSelected]?.address as `0x${string}`,
     abi: erc20ABI,
     functionName: "allowance",
     args: [account.address, MiningContract?.address],
@@ -262,13 +231,11 @@ const useMining = (
     isPending,
     transactionLoading,
     darkXBalance,
-    // @ts-ignore
-    tokens: tokensList,
     tokenBalances: tokenBalance?.map(
       (tokenBalance: any, index: number) =>
         formatUnits(
           (tokenBalance.result as bigint) || BigInt(0),
-          tokensList?.[index].decimals,
+          tokens?.[index].decimals,
         ) || "0",
     ),
   };
