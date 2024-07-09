@@ -397,6 +397,7 @@ export default function MiningCalculator({
   value,
   setValue,
   conversionRateToUSD,
+  points,
   era,
   phase,
   multiplyer,
@@ -407,6 +408,7 @@ export default function MiningCalculator({
   value: number;
   setValue: Dispatch<SetStateAction<number>>;
   conversionRateToUSD: number;
+  points: number;
   era: 1 | 2 | 3;
   phase: 1 | 2 | 3;
   multiplyer: number;
@@ -473,9 +475,7 @@ export default function MiningCalculator({
         ></div>
       </div>
       <Card
-        value={pointsConverterToUSCommaseparated(
-          Number((USDValue * multiplyer).toFixed(20)),
-        )}
+        value={pointsConverterToUSCommaseparated(Number(points.toFixed(20)))}
         conversion={pointsConverterToUSCommaseparated(USDValue)}
         multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
         pillIconAlt="points"
@@ -483,9 +483,7 @@ export default function MiningCalculator({
         pillText="Points"
       />
       <Card
-        value={pointsConverterToUSCommaseparated(
-          Number((USDValue * multiplyer).toFixed(20)),
-        )}
+        value={pointsConverterToUSCommaseparated(Number(points.toFixed(20)))}
         conversion={pointsConverterToUSCommaseparated(USDValue)}
         multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
         pillIconAlt="dark x"
