@@ -1,7 +1,8 @@
+import { API_ENDPOINT } from "@/constants";
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BACKEND,
+  baseURL: API_ENDPOINT,
 });
 
 const axiosProxyInstance = axios.create({});
@@ -20,6 +21,6 @@ export const mutate = async <T>(
   payload: Record<string, any>,
   headers?: Record<string, any>,
 ): Promise<T> => {
-  const { data } = await axiosInstance.post<T>(url, { data: payload, headers });
+  const { data } = await axiosInstance.post<T>(url, payload, { headers });
   return data;
 };

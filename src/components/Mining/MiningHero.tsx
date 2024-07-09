@@ -35,12 +35,13 @@ import { errorToast } from "@/hooks/frontend/toast";
 import useClaim from "@/hooks/sc-fns/useClaim";
 import { formatUnits } from "viem";
 import { AnimatePresence, motion } from "framer-motion";
-import { useRestFetch } from "@/hooks/useRestClient";
+import { useRestFetch, useRestPost } from "@/hooks/useRestClient";
 import AutomaticIncreamentalNumberCounter from "../Home/components/spinner/AutomaticIncreamentalNumberCounter";
 import BadgeIncrementalCounter from "./BadgeIncrementalCounter";
 import StarFieldCanvas from "./Starfeild";
 import useDarkContract from "@/abi/Dark";
 import useDarkClaimContract from "@/abi/DarkClaim";
+import { TEST_NETWORK } from "@/constants";
 
 function NoNFTHero() {
   return (
@@ -151,7 +152,6 @@ function ContributedHero() {
   const ERA2_DATA: { accounts: string[]; points: string[]; nonces: string[] } =
     useMemo(() => {
       if (era2Data) {
-        console.log({ era2Data });
         // @ts-ignore
         const era2DataStream = era2Data?.data?.era2;
         return era2DataStream;
@@ -356,6 +356,9 @@ function NonContributed({
   const { data: s3Data } = useRestFetch(["s3"], `/s3`, { proxy: true });
 
   const tokens: IToken[] = useMemo(() => {
+    if (!account.isConnected) {
+      return (s3Data as any)?.data?.tokens;
+    }
     if (s3Data) {
       const tokensData = (s3Data as any)?.data?.tokens?.filter(
         (token: IToken) => token.chainId === account.chainId,
@@ -368,7 +371,6 @@ function NonContributed({
   const ERA1_ADDRESSES: string[] = useMemo(() => {
     if (s3Data) {
       const era1Data = (s3Data as any)?.data?.era1?.accounts;
-      console.log({ era1Data });
       return era1Data;
     }
     return [];
@@ -382,7 +384,7 @@ function NonContributed({
 
       return generateProof(address as `0x${string}`);
     } else return [];
-  }, [account.address]);
+  }, [account.address, ERA1_ADDRESSES]);
 
   const {
     mineToken,
@@ -409,7 +411,6 @@ function NonContributed({
   );
 
   const usdValue = useMemo(() => {
-    console.log({ tokenPrice });
     return tokenPrice?.price;
   }, [tokenPrice]);
   useEffect(() => {
@@ -417,6 +418,38 @@ function NonContributed({
       setNFTHover(true);
     }
   }, [receipt]);
+
+  const {
+    data: predictedPointsData,
+    isSuccess: predictedPointsSuccess,
+    mutate: predictPointsFn,
+  } = useRestPost(
+    ["token_price", tokens?.[selectedToken]?.address],
+    TEST_NETWORK ? "/api/predict-points" : "/api/predict-points",
+    // { enabled: !!usdValue },
+  );
+
+  useEffect(() => {
+    if (usdValue && account.isConnected) {
+      predictPointsFn({
+        walletAddress: account.address,
+        amount: value * usdValue || 0,
+      });
+    }
+  }, [account.address, usdValue, value]);
+
+  const predictedPoints = useMemo(() => {
+    if (predictedPointsData) {
+      // @ts-ignore
+      return predictedPointsData?.points || 0;
+    }
+    return 0;
+  }, [predictedPointsData, predictedPointsSuccess]);
+
+  const multiplyer = useMemo(() => {
+    const multiplyerData = predictedPoints / (value * (usdValue || 0));
+    return multiplyerData;
+  }, [predictedPoints, value, usdValue]);
 
   const handleMine = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -475,11 +508,12 @@ function NonContributed({
       <MiningCalculator
         tokenBalance={tokenBalances?.[selectedToken] || "0"}
         value={value}
+        points={predictedPoints || 0}
         setValue={setValue}
         conversionRateToUSD={0.245}
         era={era}
         phase={phase}
-        multiplyer={proof.length > 0 ? MULTIPLIER * 2 : MULTIPLIER}
+        multiplyer={multiplyer}
         inputOptions={
           tokens?.map((token) => ({
             ...token,
@@ -750,7 +784,7 @@ function NFTPopUp({
 }
 
 export default function MiningHero() {
-  const [state, setState] = useState<StateType>("Claiming");
+  const [state, setState] = useState<StateType>("Mining");
   const [NFTHover, setNFTHover] = useState(false);
   const NFTRef = useRef<HTMLDivElement>(null);
   const NFTContainerRef = useRef<HTMLDivElement>(null);
