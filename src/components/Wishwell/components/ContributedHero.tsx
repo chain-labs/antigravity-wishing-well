@@ -30,7 +30,7 @@ export default function ContributedHero({ tokenId }: { tokenId: string }) {
     );
   };
   return (
-    <div className="relative w-full min-h-screen overflow-hidden">
+    <div className="relative w-full min-h-screen overflow-hidden z-0">
       <div className="relative bg-gradient-to-b from-[#0000] h-fit to-[#000] overflow-hidden">
         <div className="flex flex-col justify-center items-center gap-[32px] mx-[16px] pt-[108px] md:pt-[164px] h-fit ">
           <div className="flex flex-col gap-[8px] justify-center items-center">

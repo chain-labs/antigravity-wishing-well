@@ -756,7 +756,7 @@ export default function MiningHero() {
   const NFTContainerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="relative w-full min-h-screen h-fit">
+    <div className="relative w-full min-h-screen h-fit z-0">
       <div className="bg-gradient-to-b from-[#000] h-fit to-[#0000]">
         <div className="flex flex-col justify-center items-center w-full h-fit pt-[30px] md:pt-[100px]">
           {state === "Claiming" ? (

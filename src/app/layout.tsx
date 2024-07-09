@@ -7,6 +7,11 @@ import RainbowKitContext from "@/components/RainbowKit";
 import { Toaster } from "react-hot-toast";
 import GoogleAnalytics from "./analytics";
 import IMAGEKIT from "./home/images";
+import Image from "next/image";
+import Header from "@/components/Home/components/header/Header";
+import StarFieldCanvas from "@/components/Home/components/background/Starfeild";
+import SaturnCanvasORImage from "./SaturnCanvasORImage";
+import Footer from "@/components/Home/sections/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -58,13 +63,26 @@ export default function RootLayout({
     <html lang="en">
       <GoogleAnalytics />
       <body className={inter.className}>
-        <div>
-          <Toaster />
-          <RainbowKitContext>{children}</RainbowKitContext>
-        </div>
-        {/* <div className="sm:hidden block">
-          <MobileView />
-        </div> */}
+        <Toaster />
+        <RainbowKitContext>
+          <div className="bg-agblack min-h-[100vh]">
+            <div className="flex flex-col min-h-screen min-w-screen overflow-hidden">
+              <div className="relative z-0 flex flex-col min-h-screen">
+                {children}
+                <div className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[1]">
+                  <SaturnCanvasORImage />
+                  <StarFieldCanvas
+                    count={50}
+                    xRange={100}
+                    yRange={100}
+                    zRange={100}
+                    speed={0.1}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </RainbowKitContext>
       </body>
     </html>
   );
