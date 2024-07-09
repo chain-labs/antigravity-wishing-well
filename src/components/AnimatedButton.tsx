@@ -131,6 +131,7 @@ export default function AnimatedButton({
     large: 18,
   };
   const onButtonClick = () => {
+    onClick && onClick({} as React.MouseEvent<HTMLButtonElement>);
     if (isAnimating) return;
     setIsAnimating(true);
 

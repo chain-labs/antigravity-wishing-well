@@ -136,22 +136,26 @@ export default function Leaderboard({
 
   const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
 
-  // useEffect(() => {
-  //   fetch("http://3.90.153.171:3000/api/leaderboard", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       walletAddress: account.address,
-  //     }),
-  //   }).then((res) =>
-  //     res.json().then((data) => {
-  //       console.log(data);
-  //       setTableData(data["allTimeLeaderboard"]);
-  //     }),
-  //   );
-  // }, [account]);
+  useEffect(() => {
+    handleRefresh();
+  }, []);
+
+  const handleRefresh = () => {
+    //randomize only one index
+    fetch("http://3.90.153.171:3000/api/leaderboard", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        walletAddress: account.address,
+      }),
+    }).then((res) =>
+      res.json().then((data) => {
+        setTableData(data["allTimeLeaderboard"]);
+      }),
+    );
+  };
 
   if (!accountIsConnected) {
     return <div className="h-screen w-screen hidden lg:block"></div>;
@@ -180,6 +184,7 @@ export default function Leaderboard({
               iconAlt="refresh icon"
               secondary
               disableSparkels
+              onClick={handleRefresh}
               variants={{
                 hover: {
                   animation: "spin 1s linear infinite forwards",
