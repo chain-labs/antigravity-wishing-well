@@ -4,7 +4,13 @@ const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BACKEND,
 });
 
-export const fetcher = async <T>(url: string): Promise<T> => {
+const axiosProxyInstance = axios.create({});
+
+export const fetcher = async <T>(url: string, proxy?: boolean): Promise<T> => {
+  if (proxy) {
+    const { data } = await axiosProxyInstance.get<T>(url);
+    return data;
+  }
   const { data } = await axiosInstance.get<T>(url);
   return data;
 };

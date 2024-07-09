@@ -50,8 +50,8 @@ export default function Dropdown({
     >
       <div className="cursor-pointer grid grid-cols-[24px_auto_16px] place-items-center gap-[4px]">
         <Image
-          src={options[selected].icon}
-          alt={options[selected].label}
+          src={options[selected]?.logoURI}
+          alt={options[selected]?.symbol}
           width={24}
           height={24}
         />
@@ -62,13 +62,13 @@ export default function Dropdown({
           onChange={handleChange}
         >
           {options.map((option, idx) => (
-            <option key={option.label} value={idx}>
-              {option.label}
+            <option key={option.symbol} value={idx}>
+              {option.symbol}
             </option>
           ))}
         </select>
 
-        {options[selected] && options[selected].label}
+        {options[selected] && options[selected].symbol}
         <Image
           src={IMAGEKIT_ICONS.DOWN}
           alt="Dropdown"
@@ -102,16 +102,16 @@ export default function Dropdown({
                 <>
                   <div
                     onClick={() => setSelected(idx)}
-                    key={option.label}
+                    key={option?.symbol}
                     className="flex gap-[8px] items-center justify-start w-full cursor-pointer min-w-[120px]"
                   >
                     <Image
-                      src={option.icon}
-                      alt={option.label}
+                      src={option.logoURI}
+                      alt={option?.symbol}
                       width={24}
                       height={24}
                     />
-                    {option.label}
+                    {option?.symbol}
                   </div>
                   {selected === options.length - 1
                     ? idx !== options.length - 2 && (

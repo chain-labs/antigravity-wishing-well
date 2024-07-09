@@ -26,18 +26,22 @@ const nextConfig = {
       {
         hostname: "antigravity-s3.s3.us-east-1.amazonaws.com",
         protocol: "https",
-      }
+      },
+      {
+        hostname: "assets.coingecko.com",
+        protocol: "https",
+      },
     ],
     dangerouslyAllowSVG: true,
   },
   async rewrites() {
     return [
       {
-        source: "/test/api/:path*",
+        source: "/test/be-api/:path*",
         destination: `${TEST_API_ENDPOINT}/api/:path*`,
       },
       {
-        source: "/api/:path*",
+        source: "/be-api/:path*",
         destination: `${API_ENDPOINT}/api/:path*`,
       },
     ];
