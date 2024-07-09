@@ -130,7 +130,7 @@ export default function Newsletter() {
               >
                 <p className="text-xl text-center from-white to-[#999999] font-sans font-medium bg-gradient-to-b text-transparent bg-clip-text">
                   You&apos;ll get all Antigravity updates in your inbox.
-                  <br /> Stay tune!.
+                  <br /> Stay tuned!
                 </p>
               </motion.div>
             </div>
