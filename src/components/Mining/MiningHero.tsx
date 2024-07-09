@@ -795,7 +795,7 @@ function NFTPopUp({
 }
 
 export default function MiningHero() {
-  const [state, setState] = useState<StateType>("Claiming");
+  const [state, setState] = useState<StateType>("Mining");
   const [NFTHover, setNFTHover] = useState(false);
   const NFTRef = useRef<HTMLDivElement>(null);
   const NFTContainerRef = useRef<HTMLDivElement>(null);
