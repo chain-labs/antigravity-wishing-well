@@ -75,7 +75,7 @@ export default function Wishwell() {
           }}
         />
       )}
-      {account.isConnected && <Leaderboard accountIsConnected />}
+      {account.isConnected && <Leaderboard accountIsConnected typeOfLeaderboard="allTimeLeaderboard" />}
       <Newsletter />
       <Footer />
     </>

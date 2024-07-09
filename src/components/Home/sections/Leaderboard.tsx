@@ -123,8 +123,10 @@ const tableDataStatic: tableDataType[] = [
 
 export default function Leaderboard({
   accountIsConnected,
+  typeOfLeaderboard,
 }: {
   accountIsConnected: boolean;
+  typeOfLeaderboard: "allTimeLeaderboard" | "era1Leaderboard" | "era2Leaderboard";
 }) {
   const [tableData, setTableData] = useState<tableDataType[]>(tableDataStatic);
   const account = useAccount();
@@ -152,7 +154,7 @@ export default function Leaderboard({
       }),
     }).then((res) =>
       res.json().then((data) => {
-        setTableData(data["allTimeLeaderboard"]);
+        setTableData(data[typeOfLeaderboard]);
       }),
     );
   };
