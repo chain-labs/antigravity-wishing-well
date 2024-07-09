@@ -7,14 +7,15 @@ import {
 } from "framer-motion";
 import { useRef } from "react";
 
-const ROTATION_RANGE = 15;
-const HALF_ROTATION_RANGE = ROTATION_RANGE / 2;
 
 export default function ThreeDHovercardEffect({
   children,
+  ROTATION_RANGE = 15
 }: {
   children: React.ReactNode;
+  ROTATION_RANGE?: number;
 }) {
+  const HALF_ROTATION_RANGE = ROTATION_RANGE / 2;
   const ref = useRef<HTMLDivElement | null>(null);
 
   const x = useMotionValue(0);

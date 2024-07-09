@@ -7,6 +7,7 @@ import { useRef } from "react";
 import H1 from "@/components/HTML/H1";
 import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import Link from "next/link";
+import ThreeDHovercardEffect from "@/components/ThreeDHovercardEffect";
 
 export default function NFTReceipt() {
   const targetRef = useRef<HTMLDivElement>(null);
@@ -39,13 +40,15 @@ export default function NFTReceipt() {
           y,
         }}
       >
-        <Image
-          src={IMAGEKIT_IMAGES.NFT_RECEIPT}
-          alt="NFT Receipt"
-          width={300}
-          height={600}
-          className="rounded-lg"
-        />
+        <ThreeDHovercardEffect ROTATION_RANGE={10}>
+          <Image
+            src={IMAGEKIT_IMAGES.NFT_RECEIPT}
+            alt="NFT Receipt"
+            width={300}
+            height={600}
+            className="rounded-lg"
+          />
+        </ThreeDHovercardEffect>
       </motion.div>
       <Link target="_blank" href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}>
         <Button
