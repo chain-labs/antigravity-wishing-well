@@ -8,16 +8,28 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
+import { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 
 export const useRestFetch = <T>(
   tags: string[],
   endpoint: string,
+  {
+    proxy = false,
+    select,
+    enabled = true,
+  }: {
+    proxy?: boolean;
+    select?: (arg0: any) => any;
+    enabled?: boolean;
+  },
 ): UseQueryResult<T, Error> => {
-  return useQuery<T>({
-    queryKey: tags,
-    queryFn: () => fetcher<T>(endpoint),
+  const result = useQuery<T, Error>({
+    queryKey: [...tags],
+    queryFn: () => fetcher<T>(endpoint, proxy),
+    enabled: enabled,
   });
+  return result;
 };
 
 export const useRestPost = <T>(

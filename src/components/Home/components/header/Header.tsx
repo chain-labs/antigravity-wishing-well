@@ -21,13 +21,7 @@ import {
 import { checkCorrectNetwork, getApiNetwork } from "@/utils";
 import { base } from "viem/chains";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
-import {
-  useAccount,
-  usePublicClient,
-  useReadContract,
-  useTransactionReceipt,
-  useWriteContract,
-} from "wagmi";
+import { useAccount, usePublicClient } from "wagmi";
 import Button from "@/components/Button";
 import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from "@/assets/imageKit";
 import Link from "next/link";
