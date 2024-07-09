@@ -14,7 +14,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <Leaderboard accountIsConnected={account.isConnected} typeOfLeaderboard="era1Leaderboard" />
+      <Leaderboard accountIsConnected={account.isConnected} typeOfLeaderboard="allTimeLeaderboard" />
       <Testimonials />
       <NFTReceipt />
       <Eras />

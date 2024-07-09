@@ -143,7 +143,6 @@ export default function Leaderboard({
   }, []);
 
   const handleRefresh = () => {
-    //randomize only one index
     fetch("http://3.90.153.171:3000/api/leaderboard", {
       method: "POST",
       headers: {
