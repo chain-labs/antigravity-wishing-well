@@ -80,3 +80,9 @@
     transform: translate(0%, 0%);
   }
 }
+
+@keyframes restflyingPlane {
+  to {
+    transform: translate(0%, 0%);
+  }
+}

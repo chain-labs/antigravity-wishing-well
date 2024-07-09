@@ -43,6 +43,20 @@ export default function NotFound() {
             iconSrc={IMAGEKIT_ICONS.ROCKET}
             iconAlt="rocket icon"
             className="w-full md:w-fit"
+            variants={{
+              hover: {
+                animationName: "rocketLaunch",
+                animationDuration: "0.5s",
+                animationFillMode: "forwards",
+                animationTimingFunction: "linear",
+              },
+              rest: {
+                animationName: "rocketLaunchRest",
+                animationDuration: "0.5s",
+                animationFillMode: "forwards",
+                animationTimingFunction: "linear",
+              },
+            }}
           />
         </Link>
       </div>

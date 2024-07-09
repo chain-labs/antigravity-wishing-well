@@ -106,8 +106,11 @@ export default function Youtube() {
                   animationDuration: "0.5s",
                   animationFillMode: "forwards",
                   animationTimingFunction: "linear",
-                  animationDelay: "0.5s",
+                  animationDelay: "0.25s",
                 },
+                rest:{
+                  animationName: "restflyingPlane"
+                }
               }}
               innerText="Telegram"
               iconSrc={IMAGEKIT_ICONS.TELEGRAM}

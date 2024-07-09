@@ -166,8 +166,11 @@ export default function PromotionAndNewsletter() {
                       animationDuration: "0.5s",
                       animationFillMode: "forwards",
                       animationTimingFunction: "linear",
-                      animationDelay: "0.5s",
+                      animationDelay: "0.25s",
                     },
+                    rest:{
+                      animationName: "restflyingPlane"
+                    }
                   }}
                   innerText="Submit"
                   iconSrc={IMAGEKIT_ICONS.SEND}
