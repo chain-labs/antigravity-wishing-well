@@ -7,10 +7,9 @@ import {
 } from "framer-motion";
 import { useRef } from "react";
 
-
 export default function ThreeDHovercardEffect({
   children,
-  ROTATION_RANGE = 15
+  ROTATION_RANGE = 15,
 }: {
   children: React.ReactNode;
   ROTATION_RANGE?: number;
@@ -34,11 +33,17 @@ export default function ThreeDHovercardEffect({
     const width = rect.width;
     const height = rect.height;
 
-    const mouseX = (e.clientX - rect.left) * ROTATION_RANGE - width / 2;
-    const mouseY = (e.clientY - rect.top) * ROTATION_RANGE - height / 2;
+    const centerX = width / 2;
+    const centerY = height / 2;
 
-    const rX = (mouseY / height - ROTATION_RANGE) * -1;
-    const rY = mouseX / width - ROTATION_RANGE;
+    // make mousex and mousey to range from -1 to 1
+    const mouseX =
+      ((e.clientX - rect.left - centerX) / centerX) * ROTATION_RANGE;
+    const mouseY =
+      ((e.clientY - rect.top - centerY) / centerY) * ROTATION_RANGE;
+
+    const rX = mouseY;
+    const rY = mouseX * -1;
 
     x.set(rX);
     y.set(rY);
