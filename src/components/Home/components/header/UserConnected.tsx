@@ -4,9 +4,48 @@ import { useAccount } from "wagmi";
 import { PiWarningCircle } from "react-icons/pi";
 import { Badge } from "../../../HTML/Badge";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export const UserConnected: React.FC = () => {
   const account = useAccount();
+  const [badge, setBadge] = useState("");
+
+  useEffect(() => {
+    fetch("http://3.90.153.171:3000/api/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        walletAddress: account.address?.toLowerCase(),
+      }),
+    }).then((res) =>
+      res.json().then(async (data) => {
+        setBadge(data.rank);
+        fetch("http://3.90.153.171:3000/api/generate-nft", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            tokenId: data.antigravityTokenId,
+            era: 2,
+            blockchain: "base",
+          }),
+        }).then((res) =>
+          res
+            .json()
+            .then(async (NFTdata) =>
+              localStorage.setItem(
+                "user-data",
+                JSON.stringify({ ...data, nftURL: NFTdata.url }),
+              ),
+            ),
+        );
+      }),
+    );
+  }, []);
+
   return (
     <div className="flex text-lg">
       <ConnectButton.Custom>
@@ -48,7 +87,7 @@ export const UserConnected: React.FC = () => {
                     >
                       {condenseAddress(`${account.address}`)}
                       <Badge className="text-agwhite border-agwhite pb-[4px] opacity-[66%]">
-                        Special Navigator
+                        {badge}
                       </Badge>
                     </p>
                   </>

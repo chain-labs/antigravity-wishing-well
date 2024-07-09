@@ -485,7 +485,8 @@ function NFTPopUp({
     total: number;
     conversion: number;
     badge: string;
-    tokenId: number;
+    wishwellTokenId: number;
+    antigravityTokenId: number;
     nftURL: string;
   }>(null);
   const [completeAnimationComplete, setCompleteAnimationComplete] =
@@ -494,27 +495,19 @@ function NFTPopUp({
     useState(false);
 
   useEffect(() => {
-    fetch("http://3.90.153.171:3000/api/user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        walletAddress: account.address?.toLowerCase(),
-      }),
-    }).then((res) =>
-      res.json().then(async (data) =>
-        setPoints({
-          wishwell: data["wishwellPoints"],
-          mining: data["miningPoints"],
-          total: data["totalPoints"],
-          conversion: data["conversion"] ?? 10,
-          badge: data["rank"],
-          tokenId: data["antigravityTokenId"],
-          nftURL: IMAGEKIT_IMAGES.NFT_RECEIPT,
-        }),
-      ),
-    );
+    if (account.address && localStorage.getItem("user-data")) {
+      const data = JSON.parse(localStorage.getItem("user-data") as string);
+      setPoints({
+        wishwell: data.wishwellPoints,
+        mining: data.miningPoints,
+        total: data.totalPoints,
+        conversion: 10,
+        badge: data.rank,
+        wishwellTokenId: data.wishwellTokenId,
+        antigravityTokenId: data.antigravityTokenId,
+        nftURL: data.nftURL,
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -538,7 +531,7 @@ function NFTPopUp({
         duration: 0.5,
       }}
       ref={NFTContainerRef}
-      className="fixed top-0 left-0 w-screen h-screen bg-[#0000001f] flex justify-center items-center z-10 backdrop-blur-lg"
+      className="fixed top-0 left-0 w-screen h-screen bg-[#0000001f] flex justify-center items-center z-10 backdrop-blur-lg cursor-not-allowed"
     >
       <AnimatePresence>
         {!starfieldAnimationComplete && (
@@ -581,7 +574,7 @@ function NFTPopUp({
           type: "spring",
         }}
         ref={NFTRef}
-        className="z-0"
+        className="z-0 cursor-pointer"
       >
         {points && (
           <AnimatePresence>
