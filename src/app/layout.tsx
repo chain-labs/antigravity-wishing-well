@@ -12,6 +12,7 @@ import Header from "@/components/Home/components/header/Header";
 import StarFieldCanvas from "@/components/Home/components/background/Starfeild";
 import SaturnCanvasORImage from "./SaturnCanvasORImage";
 import Footer from "@/components/Home/sections/Footer";
+import AnimatedNebulaBG from "@/components/AnimatedNebulaBG";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -78,6 +79,7 @@ export default function RootLayout({
                     zRange={100}
                     speed={0.1}
                   />
+                  <AnimatedNebulaBG />
                 </div>
               </div>
             </div>
