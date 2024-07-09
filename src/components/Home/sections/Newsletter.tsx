@@ -10,6 +10,7 @@ import Button from "@/components/Button";
 import toast from "react-hot-toast";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import { AnimatePresence, motion } from "framer-motion";
+import { successToast } from "@/hooks/frontend/toast";
 
 export default function Newsletter() {
   const [success, setSuccess] = useState(false);
@@ -17,15 +18,14 @@ export default function Newsletter() {
   const [email, setEmail] = useState("");
 
   const { data, isPending, error, mutate } = useRestPost(
-    ["contact"],
-    "/contact",
+    ["newsletter"],
+    "/newsletter",
   );
-
-  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (data) {
-      toast.success("Subscribed successfully");
+      successToast("Subscribed successfully");
+      setSuccess(true);
     }
   }, [data]);
 

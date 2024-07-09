@@ -4,10 +4,12 @@ import H1 from "../HTML/H1";
 import P from "../HTML/P";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { client } from "../../../sanity/lib/client";
 import { Image as IImage } from "sanity";
 import { urlForImage } from "../../../sanity/lib/image";
+import { useRestPost } from "@/hooks/useRestClient";
+import { successToast } from "@/hooks/frontend/toast";
 
 interface IBook {
   book_header: string;
@@ -17,8 +19,29 @@ interface IBook {
 }
 
 export default function PromotionAndNewsletter() {
+  const [success, setSuccess] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+
+  const { data, isPending, error, mutate } = useRestPost(
+    ["newsletter"],
+    "/newsletter",
+  );
+
+  useEffect(() => {
+    if (data) {
+      successToast("Subscribed successfully");
+      setSuccess(true);
+    }
+  }, [data]);
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+
+    if (name && email) {
+      mutate({ name, email });
+    }
+  };
 
   const [metadata, setMetadata] = useState<IBook>();
 
@@ -93,52 +116,108 @@ export default function PromotionAndNewsletter() {
         )}
       </div>
       <div className="flex flex-col lg:flex-row gap-[16px] md:gap-[32px] w-full rounded-[12px] p-[16px] md:p-[32px] bg-[#3C00DC80]">
-        <div className="flex flex-col gap-[8px] text-nowrap">
-          <H1 className="text-agwhite text-[32px] leading-[38.4px] md:text-[40px] md:leading-[40px]">
-            Ignite Your Boosters.
-          </H1>
-          <P>Get all Antigravity updates in your inbox.</P>
-        </div>
-        <form className="flex flex-col gap-[16px] w-full" action="">
-          <div className="flex flex-col lg:flex-row gap-[16px]">
-            <input
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Your Name"
-              className="text-agblack p-3 rounded-[8px] w-full font-sans font-semibold text-lg"
-              required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="your@email.com"
-              className="text-agblack p-3 rounded-[8px] w-full font-sans font-semibold text-lg"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <Button
-            variants={{
-              hover: {
-                animationName: "flyingPlane",
-                animationDuration: "0.5s",
-                animationFillMode: "forwards",
-                animationTimingFunction: "linear",
-                animationDelay: "0.5s",
-              },
-            }}
-            innerText="Submit"
-            iconSrc={IMAGEKIT_ICONS.SEND}
-            iconAlt="send"
-            type="submit"
-            className="w-full md:w-fit shadow-none"
-          />
-        </form>
+        <AnimatePresence>
+          {!success ? (
+            <>
+              {" "}
+              <motion.div
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                className="flex flex-col gap-[8px] text-nowrap"
+              >
+                <H1 className="text-agwhite text-[32px] leading-[38.4px] md:text-[40px] md:leading-[40px]">
+                  Ignite Your Boosters.
+                </H1>
+                <P>Get all Antigravity updates in your inbox.</P>
+              </motion.div>
+              <motion.form
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                className="flex flex-col gap-[16px] w-full"
+                onSubmit={handleSubmit}
+                action=""
+              >
+                <div className="flex flex-col lg:flex-row gap-[16px]">
+                  <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    placeholder="Your Name"
+                    className="text-agblack p-3 rounded-[8px] w-full font-sans font-semibold text-lg"
+                    required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="your@email.com"
+                    className="text-agblack p-3 rounded-[8px] w-full font-sans font-semibold text-lg"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+                <Button
+                  variants={{
+                    hover: {
+                      animationName: "flyingPlane",
+                      animationDuration: "0.5s",
+                      animationFillMode: "forwards",
+                      animationTimingFunction: "linear",
+                      animationDelay: "0.5s",
+                    },
+                  }}
+                  innerText="Submit"
+                  iconSrc={IMAGEKIT_ICONS.SEND}
+                  iconAlt="send"
+                  type="submit"
+                  className="w-full md:w-fit shadow-none"
+                />
+              </motion.form>
+            </>
+          ) : (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              className="flex flex-col justify-center items-center gap-4 mx-auto"
+            >
+              <div className="overflow-hidden">
+                <motion.div
+                  initial={{ y: "100%" }}
+                  animate={{ y: 0 }}
+                  exit={{ y: "100%" }}
+                  transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
+                >
+                  <H1 className="text-[48px] leading-[48px]" center>
+                    Success!
+                  </H1>
+                </motion.div>
+              </div>
+              <div className="overflow-hidden">
+                <motion.div
+                  initial={{ y: "100%" }}
+                  animate={{ y: 0 }}
+                  exit={{ y: "100%" }}
+                  transition={{
+                    duration: 0.5,
+                    type: "spring",
+                    stiffness: 100,
+                    delay: 0.25,
+                  }}
+                >
+                  <p className="text-xl text-center from-white to-[#999999] font-sans font-medium bg-gradient-to-b text-transparent bg-clip-text">
+                    You&apos;ll get all Antigravity updates in your inbox.
+                    <br /> Stay tune!.
+                  </p>
+                </motion.div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
