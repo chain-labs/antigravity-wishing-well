@@ -500,7 +500,7 @@ function NFTPopUp({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        walletAddress: account.address,
+        walletAddress: account.address?.toLowerCase(),
       }),
     }).then((res) =>
       res.json().then(async (data) =>
@@ -592,7 +592,7 @@ function NFTPopUp({
                     opacity: 0,
                   }}
                   transition={{ duration: 2 }}
-                  className="relative w-fit max-w-[265px] h-fit flex flex-col justify-center items-center gap-[8px] p-[16px] rounded-[12px] bg-agblack border-[6px] z-0
+                  className="relative w-fit min-w-[265px] h-fit flex flex-col justify-center items-center gap-[8px] p-[16px] rounded-[12px] bg-agblack border-[6px] z-0
             before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-tr before:from-[#3C00DC] before:to-[#FF5001] before:rounded-[inherit] before:overflow-hidden before:m-[-6px]
 			after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-agblack after:rounded-[inherit] after:overflow-hidden
         "
