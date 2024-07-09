@@ -206,7 +206,7 @@ function ContributedHero() {
   };
 
   return (
-    <div className="relative flex flex-col justify-center items-center gap-[24px] -mt-[50px]">
+    <div className="relative flex flex-col justify-center items-center gap-[24px] mt-[50px]">
       <div className="flex flex-col justify-center items-center gap-[8px]">
         <H1 className="text-[64px] leading-[64px] md:text-[64px] md:leading-[64px]">
           Claim $DARK
@@ -736,7 +736,7 @@ function NFTPopUp({
 }
 
 export default function MiningHero() {
-  const [state, setState] = useState<StateType>("Mining");
+  const [state, setState] = useState<StateType>("Claiming");
   const [NFTHover, setNFTHover] = useState(false);
   const NFTRef = useRef<HTMLDivElement>(null);
   const NFTContainerRef = useRef<HTMLDivElement>(null);
