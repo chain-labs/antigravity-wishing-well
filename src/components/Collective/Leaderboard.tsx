@@ -184,13 +184,26 @@ export default function Leaderboard({
               <CollectiveLogo />
               <div className="relative flex flex-col gap-[8px] p-4 rounded-xl overflow-hidden w-full z-0">
                 <div className="bg-[#3C00DC] absolute inset-0 -z-10 opacity-[25%]"></div>
-                <Image
-                  src={IMAGEKIT_ICONS.INFO}
-                  alt="info icon"
-                  width={24}
-                  height={24}
-                  className="object-cover"
-                />
+                <motion.div
+                  initial={{
+                    animationName: "",
+                  }}
+                  whileHover={{
+                    animationName: "wiggle",
+                    animationDuration: "1s",
+                    animationFillMode: "forwards",
+                    animationTimingFunction: "linear",
+                  }}
+                  className="h-fit w-fit origin-center"
+                >
+                  <Image
+                    src={IMAGEKIT_ICONS.INFO}
+                    alt="info icon"
+                    width={24}
+                    height={24}
+                    className="object-cover"
+                  />
+                </motion.div>
 
                 <P className="font-medium">Mine now to rank up!</P>
                 <Link href={"/mining"}>
