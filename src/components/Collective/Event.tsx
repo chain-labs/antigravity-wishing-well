@@ -39,7 +39,7 @@ export default function Event() {
   const ImageLink = IMAGEKIT_IMAGES.COLLECTIVE_EVENT;
   return (
     <div className=" my-[50px] md:my-0 h-fit w-full flex justify-center items-center">
-      <ThreeDHovercardEffect>
+      <ThreeDHovercardEffect ROTATION_RANGE={10}>
         <div className="relative flex w-screen max-w-[992px] h-[523px] z-0">
           <div className="flex flex-col md:flex-row justify-end md:justify-between items-end gap-[8px] overflow-hidden h-full w-full md:rounded-[12px] bg-gradient-to-t from-[#000000BF] to-[#00000000] p-[16px]">
             <div className="flex flex-col gap-[8px]">
