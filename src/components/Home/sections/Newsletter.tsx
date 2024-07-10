@@ -19,7 +19,7 @@ export default function Newsletter() {
 
   const { data, isPending, error, mutate } = useRestPost(
     ["newsletter"],
-    "/newsletter",
+    "/api/newsletter",
   );
 
   useEffect(() => {

@@ -25,7 +25,7 @@ export default function PromotionAndNewsletter() {
 
   const { data, isPending, error, mutate } = useRestPost(
     ["newsletter"],
-    "/newsletter",
+    "/api/newsletter",
   );
 
   useEffect(() => {

@@ -11,7 +11,7 @@ const StayUpdated = () => {
 
   const { data, isPending, error, mutate } = useRestPost(
     ["contact"],
-    "/contact",
+    "/api/contact",
   );
 
   const handleSubmit = (e: React.MouseEvent) => {

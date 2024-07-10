@@ -19,12 +19,12 @@ export const UserConnected: React.FC = () => {
 
   const { data: userData, mutate: mutateUserData } = useRestPost<UserData>(
     ["user"],
-    "/user",
+    "/api/user",
   );
 
   const { data: NFTData, mutate: mutateNFTData } = useRestPost<any>(
     ["generate-nft"],
-    "/generate-nft",
+    "/api/generate-nft",
   );
 
   // useEffect(() => {

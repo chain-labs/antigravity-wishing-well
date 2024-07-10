@@ -141,7 +141,7 @@ export default function Leaderboard({
   });
   const { data: leaderboardData, mutate: mutateLeaderboardData } = useRestPost(
     ["leaderboard"],
-    "/leaderboard",
+    "/api/leaderboard",
   );
 
   const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);

@@ -119,7 +119,7 @@ export default function Leaderboard({
   });
   const { data: leaderboardData, mutate: mutateLeaderboardData } = useRestPost(
     ["leaderboard"],
-    "/leaderboard",
+    "/api/leaderboard",
   );
 
   useEffect(() => {
