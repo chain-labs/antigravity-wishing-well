@@ -86,6 +86,8 @@ function setTimestamps(newTimestamps: any) {
   timestamps = newTimestamps;
 }
 
+let checkTimeOnceToServer = false;
+
 export default function useTimer() {
   const [currentTimer, setCurrentTimer] = useState<CountdownType>(timer);
   const [currentTimeStamps, setCurrentTimeStamps] = useState(timestamps);
@@ -112,7 +114,7 @@ export default function useTimer() {
       setCurrentTimeStamps(data);
     }
 
-    if (timestamps === null && localStorage.getItem("timestamps") === null && currentTimeStamps === null) {
+    if (timestamps === null && currentTimeStamps === null) {
       async function fetchData() {
         const response = await fetch(
           "https://hujrbtk3.api.sanity.io/v2024-07-01/data/query/collective_page?query=*%5B_type%3D%3D%22timestamps%22%5D%5B0%5D",
@@ -132,11 +134,22 @@ export default function useTimer() {
           phase: phase as 1 | 2 | 3,
           ...initialTime,
         };
-        setTimer(initialTimer);
-        setCurrentTimer(initialTimer);
-        setTimestamps(data.result);
-        setCurrentTimeStamps(data.result);
-        localStorage.setItem("timestamps", JSON.stringify(data.result));
+        if (localStorage.getItem("timestamps") === null) {
+          setTimer(initialTimer);
+          setCurrentTimer(initialTimer);
+          setTimestamps(data.result);
+          setCurrentTimeStamps(data.result);
+          localStorage.setItem("timestamps", JSON.stringify(data.result));
+        } else if (
+          localStorage.getItem("timestamps") !== null &&
+          localStorage.getItem("timestamps") !== JSON.stringify(data.result)
+        ) {
+          setTimer(initialTimer);
+          setCurrentTimer(initialTimer);
+          setTimestamps(data.result);
+          setCurrentTimeStamps(data.result);
+          localStorage.setItem("timestamps", JSON.stringify(data.result));
+        }
       }
 
       fetchData();
