@@ -63,6 +63,7 @@ export const IMAGEKIT_ICONS = {
 };
 
 export const IMAGEKIT_IMAGES = {
+  INTERNAL_ERROR: `${IMAGEKIT}/500-error.png`,
   NOT_FOUND: `${IMAGEKIT}/404-not-found.png`,
   COUNTDOWN_BG_GRID: `${IMAGEKIT}/countdown-bg-grid.svg`,
   COUNTER_BG: `${IMAGEKIT}/counter-background.svg`,
