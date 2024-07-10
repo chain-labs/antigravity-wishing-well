@@ -52,7 +52,8 @@
     "three-stdlib": "^2.30.3",
     "uniqid": "^5.4.0",
     "viem": "2.x",
-    "wagmi": "^2.5.16"
+    "wagmi": "^2.5.16",
+    "zustand": "^4.5.4"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "1.5.0",

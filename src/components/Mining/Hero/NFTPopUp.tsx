@@ -8,12 +8,13 @@ import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import H1 from "@/components/HTML/H1";
 import P from "@/components/HTML/P";
 import AutomaticIncreamentalNumberCounter from "@/components/Home/components/spinner/AutomaticIncreamentalNumberCounter";
+import useUserData from "@/app/(client)/store";
 
 export default function NFTPopUp({
   NFTContainerRef,
   NFTRef,
   minedSuccess = false,
-  setMinedSuccess
+  setMinedSuccess,
 }: {
   NFTContainerRef: React.RefObject<HTMLDivElement>;
   NFTRef: React.RefObject<HTMLDivElement>;
@@ -42,19 +43,19 @@ export default function NFTPopUp({
     useState(false);
   const [starfieldAnimationComplete, setStarfieldAnimationComplete] =
     useState(false);
+  const { nftURL, wishwellPoints, miningPoints, totalPoints, rank, wishwellTokenId, antigravityTokenId} = useUserData();
 
   useEffect(() => {
     if (account.address && localStorage.getItem("user-data")) {
-      const data = JSON.parse(localStorage.getItem("user-data") as string);
       setPoints({
-        wishwell: data.wishwellPoints,
-        mining: data.miningPoints,
-        total: data.totalPoints,
+        wishwell: wishwellPoints,
+        mining: miningPoints,
+        total: totalPoints,
         conversion: 10,
-        badge: data.rank,
-        wishwellTokenId: data.wishwellTokenId,
-        antigravityTokenId: data.antigravityTokenId,
-        nftURL: data.nftURL,
+        badge: rank,
+        wishwellTokenId: wishwellTokenId,
+        antigravityTokenId: antigravityTokenId,
+        nftURL: nftURL,
       });
     }
   }, []);
