@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { AnimatePresence, motion } from "framer-motion";
 import DarkXFieldCanvas from "@/components/Mining/DarkXfield";
@@ -13,10 +13,12 @@ export default function NFTPopUp({
   NFTContainerRef,
   NFTRef,
   minedSuccess = false,
+  setMinedSuccess
 }: {
   NFTContainerRef: React.RefObject<HTMLDivElement>;
   NFTRef: React.RefObject<HTMLDivElement>;
   minedSuccess?: boolean;
+  setMinedSuccess: Dispatch<SetStateAction<boolean>>;
 }) {
   // const points = {
   //   wishwell: 41415.65,
@@ -60,6 +62,7 @@ export default function NFTPopUp({
   useEffect(() => {
     setTimeout(() => {
       setCompleteAnimationComplete(true);
+      setMinedSuccess(false);
     }, 3000);
   }, []);
 

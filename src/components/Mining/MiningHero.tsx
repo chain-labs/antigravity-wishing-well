@@ -33,7 +33,7 @@ export default function MiningHero() {
         </div>
         <AnimatePresence>
           {NFTHover && (
-            <NFTPopUp NFTContainerRef={NFTContainerRef} NFTRef={NFTRef} minedSuccess={minedSuccess} />
+            <NFTPopUp NFTContainerRef={NFTContainerRef} NFTRef={NFTRef} minedSuccess={minedSuccess} setMinedSuccess={setMinedSuccess} />
           )}
         </AnimatePresence>
         <Image
