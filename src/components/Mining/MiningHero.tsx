@@ -8,7 +8,7 @@ import { StateType } from "./types";
 import NonContributed from "./Hero/NonContributed";
 
 export default function MiningHero() {
-  const [state, setState] = useState<StateType>("Mining");
+  const [state, setState] = useState<StateType>("Claiming");
   const [NFTHover, setNFTHover] = useState(false);
   const NFTRef = useRef<HTMLDivElement>(null);
   const NFTContainerRef = useRef<HTMLDivElement>(null);
@@ -33,7 +33,12 @@ export default function MiningHero() {
         </div>
         <AnimatePresence>
           {NFTHover && (
-            <NFTPopUp NFTContainerRef={NFTContainerRef} NFTRef={NFTRef} minedSuccess={minedSuccess} setMinedSuccess={setMinedSuccess} />
+            <NFTPopUp
+              NFTContainerRef={NFTContainerRef}
+              NFTRef={NFTRef}
+              minedSuccess={minedSuccess}
+              setMinedSuccess={setMinedSuccess}
+            />
           )}
         </AnimatePresence>
         <Image
