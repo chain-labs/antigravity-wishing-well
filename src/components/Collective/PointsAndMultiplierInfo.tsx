@@ -19,12 +19,20 @@ export default function PointsAndMultiplierInfo() {
 							before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-b before:from-[#B4EBF8] before:to-[#789DFA] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
                     		after:content-[''] after:absolute after:inset-0 after:z-[-2]  after:bg-gradient-to-b after:from-[#0A1133] after:to-[#142266] after:rounded-[inherit] after:overflow-hidden`}
             >
-              <Image
-                src={IMAGEKIT_ICONS.HALF_CIRCLE_FILL}
-                alt="Wishwell"
-                width={24}
-                height={24}
-              />
+              <motion.div
+                whileHover={{
+                  scale: 1.1,
+                  rotate: 360,
+                  transition: { duration: 1, type: "spring" },
+                }}
+              >
+                <Image
+                  src={IMAGEKIT_ICONS.HALF_CIRCLE_FILL}
+                  alt="Wishwell"
+                  width={24}
+                  height={24}
+                />
+              </motion.div>
               <P className="text-[14px] leading-[20.3px]">Wishwell</P>
             </div>
           </Link>
@@ -34,12 +42,23 @@ export default function PointsAndMultiplierInfo() {
 							before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-b before:from-[#B4EBF8] before:to-[#789DFA] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
                     		after:content-[''] after:absolute after:inset-0 after:z-[-2]  after:bg-gradient-to-b after:from-[#0A1133] after:to-[#142266] after:rounded-[inherit] after:overflow-hidden`}
             >
-              <Image
-                src={IMAGEKIT_ICONS.HAMMER}
-                alt="Wishwell"
-                width={24}
-                height={24}
-              />
+              <motion.div
+                whileHover={{
+                  scale: 1.2,
+                  rotate: 390,
+                  transition: {
+                    duration: 1,
+                    type: "spring",
+                  },
+                }}
+              >
+                <Image
+                  src={IMAGEKIT_ICONS.HAMMER}
+                  alt="Wishwell"
+                  width={24}
+                  height={24}
+                />
+              </motion.div>
               <P className="text-[14px] leading-[20.3px]">Mining</P>
             </div>
           </Link>
@@ -49,12 +68,19 @@ export default function PointsAndMultiplierInfo() {
 							before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-b before:from-[#B4EBF8] before:to-[#789DFA] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
                     		after:content-[''] after:absolute after:inset-0 after:z-[-2]  after:bg-gradient-to-b after:from-[#0A1133] after:to-[#142266] after:rounded-[inherit] after:overflow-hidden`}
             >
-              <Image
-                src={IMAGEKIT_ICONS.CUBE}
-                alt="Wishwell"
-                width={24}
-                height={24}
-              />
+              <motion.div
+                whileHover={{
+                  scale: 1.5,
+                  transition: { duration: 1, type: "spring" },
+                }}
+              >
+                <Image
+                  src={IMAGEKIT_ICONS.CUBE}
+                  alt="Wishwell"
+                  width={24}
+                  height={24}
+                />
+              </motion.div>
               <P className="text-[14px] leading-[20.3px]">Minting</P>
             </div>
           </div>

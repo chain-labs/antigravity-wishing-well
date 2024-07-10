@@ -22,7 +22,15 @@ const nextConfig = {
       {
         hostname: "cdn.sanity.io",
         protocol: "https",
-      }
+      },
+      {
+        hostname: "antigravity-s3.s3.us-east-1.amazonaws.com",
+        protocol: "https",
+      },
+      {
+        hostname: "assets.coingecko.com",
+        protocol: "https",
+      },
     ],
     dangerouslyAllowSVG: true,
   },

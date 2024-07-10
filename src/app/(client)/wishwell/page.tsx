@@ -5,23 +5,13 @@ import "@rainbow-me/rainbowkit/styles.css";
 import { useEffect } from "react";
 import { TEST_NETWORK } from "@/constants";
 import { base, pulsechain, baseSepolia, sepolia } from "viem/chains";
-import dynamic from "next/dynamic";
 import useWishwell from "@/hooks/sc-fns/useWishwell";
 import Footer from "@/components/Home/sections/Footer";
 import Newsletter from "@/components/Home/sections/Newsletter";
-import Leaderboard from "@/components/Collective/Leaderboard";
-
-const Contributed = dynamic(() => import("./Contributed"), {
-  ssr: false,
-});
-
-const WalletNotConnected = dynamic(() => import("./WalletNotConnected"), {
-  ssr: false,
-});
-
-const Registered = dynamic(() => import("./Registered"), {
-  ssr: false,
-});
+import Leaderboard from "@/components/Home/sections/Leaderboard";
+import WalletNotConnectedHero from "@/components/Wishwell/components/WalletNotConnectedHero";
+import RegisteredHero from "@/components/Wishwell/components/RegisteredHero";
+import ContributedHero from "@/components/Wishwell/components/ContributedHero";
 
 export default function Wishwell() {
   const account = useAccount();
@@ -57,12 +47,12 @@ export default function Wishwell() {
       {account.status === "connected" ? (
         isRegistered ? (
           isSuccess ? (
-            <Contributed tokenId={tokenId.toString()} />
+            <ContributedHero tokenId={tokenId.toString()} />
           ) : (
-            <Registered />
+            <RegisteredHero />
           )
         ) : (
-          <WalletNotConnected
+          <WalletNotConnectedHero
             registrationKit={{
               error,
               loading,
@@ -74,7 +64,7 @@ export default function Wishwell() {
           />
         )
       ) : (
-        <WalletNotConnected
+        <WalletNotConnectedHero
           registrationKit={{
             error,
             loading,
@@ -85,7 +75,7 @@ export default function Wishwell() {
           }}
         />
       )}
-      {account.isConnected && <Leaderboard accountIsConnected />}
+      {account.isConnected && <Leaderboard accountIsConnected typeOfLeaderboard="allTimeLeaderboard" />}
       <Newsletter />
       <Footer />
     </>

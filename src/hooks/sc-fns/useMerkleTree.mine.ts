@@ -42,7 +42,12 @@ const useMerkleTree = (list: Array<string>) => {
    * @returns {*}
    */
   const generateProof = (candidate: string) => {
-    const leaf = buf2hex(generateLeaf(candidate as `0x${string}`));
+    const queryAccount = list.find(
+      (acc) => acc.toLowerCase() === candidate.toLowerCase(),
+    );
+    const leaf = buf2hex(
+      generateLeaf((queryAccount || candidate) as `0x${string}`),
+    );
     const proof = tree.getProof(leaf).map((x) => buf2hex(x.data));
 
     return proof;

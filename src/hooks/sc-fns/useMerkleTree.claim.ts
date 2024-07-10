@@ -57,10 +57,15 @@ const useMerkleTree = (
    * @returns {*}
    */
   const generateProof = (account: string, point: string, nonce: string) => {
+    console.log({ account, point, nonce });
     if (!point && !nonce) {
       return [];
     }
-    const leaf = buf2hex(generateLeaf(account, point, nonce));
+    const queryAccount = accounts.find(
+      (acc) => acc.toLowerCase() === account.toLowerCase(),
+    );
+    console.log({ queryAccount });
+    const leaf = buf2hex(generateLeaf(queryAccount || account, point, nonce));
     const proof = tree.getProof(leaf).map((x) => buf2hex(x.data));
     console.log({ root });
 

@@ -212,7 +212,6 @@ function StageHighlighter({ activeState }: { activeState: SpinnerProps }) {
         rotate: -180,
       }}
       viewport={{ once: true }}
-      transition={{ duration: 1, delay: globalDelay }}
       className={twMerge(
         "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[300px] w-[40px] bg-agyellow z-10",
         `rotate-[${decideActiveStageLocation(activeState)}deg]`,
@@ -243,7 +242,6 @@ function EraHighlighter({ activeState }: { activeState: SpinnerProps }) {
         rotate: 180,
       }}
       viewport={{ once: true }}
-      transition={{ duration: 1, delay: globalDelay }}
       className={twMerge(
         "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[490px] w-[190px] bg-agyellow z-10",
         `rotate-[${activeState.era === "wishwell" ? -75 : activeState.era === "minting" ? 75 : 0}deg]`,
@@ -508,7 +506,7 @@ function Pointer({ activeState }: { activeState: SpinnerProps }) {
         rotate: 180,
       }}
       viewport={{ once: true }}
-      transition={{ duration: 1, delay: globalDelay }}
+      transition={{ }}
       className={twMerge(
         "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[100px] w-[50px] z-10 pt-0",
         `rotate-[${decideActiveStageLocation(activeState)}deg]`,
