@@ -6,14 +6,21 @@ import { Badge } from "../../../HTML/Badge";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRestPost } from "@/hooks/useRestClient";
+import useUserData from "@/app/(client)/store";
 
 export const UserConnected: React.FC = () => {
   const account = useAccount();
-  const [badge, setBadge] = useState("");
+  const { mutation: storeUserData, rank } = useUserData();
 
   interface UserData {
     rank: string;
-    antigravityTokenId: string; // Add the 'antigravityTokenId' property
+    antigravityTokenId: number; // Add the 'antigravityTokenId' property
+    walletAddress: string; // Add the 'walletAddress' property
+    wishwellTokenId: number; // Add the 'wishwellTokenId' property
+    nftURL: string; // Add the 'nftURL' property
+    wishwellPoints: number; // Add the 'wishwellPoints' property
+    miningPoints: number; // Add the 'miningPoints' property
+    totalPoints: number;
     // Add other properties if necessary
   }
 
@@ -27,48 +34,7 @@ export const UserConnected: React.FC = () => {
     "/api/generate-nft",
   );
 
-  // useEffect(() => {
-  //   fetch("http://3.90.153.171:3000/api/user", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       walletAddress: account.address?.toLowerCase(),
-  //     }),
-  //   }).then((res) =>
-  //     res.json().then(async (data) => {
-  //       setBadge(data.rank);
-  //       fetch("http://3.90.153.171:3000/api/generate-nft", {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({
-  //           tokenId: data.antigravityTokenId,
-  //           era: 2,
-  //           blockchain: "base",
-  //         }),
-  //       }).then((res) =>
-  //         res
-  //           .json()
-  //           .then(async (NFTdata) =>
-  //             localStorage.setItem(
-  //               "user-data",
-  //               JSON.stringify({ ...data, nftURL: NFTdata.url }),
-  //             ),
-  //           ),
-  //       );
-  //     }),
-  //   );
-  // }, []);
-
   useEffect(() => {
-    const userDataString = localStorage.getItem("user-data");
-    if (userDataString) {
-      const userData = JSON.parse(userDataString) as UserData;
-      setBadge(userData?.rank as string);
-    }
     if (account.isConnected) {
       mutateUserData({
         walletAddress: account.address?.toLowerCase(),
@@ -78,8 +44,15 @@ export const UserConnected: React.FC = () => {
 
   useEffect(() => {
     if (userData) {
-      localStorage.setItem("user-data", JSON.stringify(userData));
-      setBadge(userData?.rank as string);
+      storeUserData({
+        walletAddress: userData.walletAddress,
+        rank: userData.rank,
+        antigravityTokenId: userData.antigravityTokenId,
+        wishwellTokenId: userData.wishwellTokenId,
+        wishwellPoints: userData.wishwellPoints,
+        miningPoints: userData.miningPoints,
+        totalPoints: userData.totalPoints,
+      });
       mutateNFTData({
         tokenId: userData.antigravityTokenId,
         era: 2,
@@ -90,10 +63,9 @@ export const UserConnected: React.FC = () => {
 
   useEffect(() => {
     if (NFTData) {
-      localStorage.setItem(
-        "user-data",
-        JSON.stringify({ ...userData, nftURL: NFTData.url }),
-      );
+      storeUserData({
+        nftURL: NFTData.url,
+      });
     }
   }, [NFTData]);
 
@@ -138,7 +110,7 @@ export const UserConnected: React.FC = () => {
                     >
                       {condenseAddress(`${account.address}`)}
                       <Badge className="text-agwhite border-agwhite pb-[4px] opacity-[66%]">
-                        {badge}
+                        {rank}
                       </Badge>
                     </p>
                   </>
