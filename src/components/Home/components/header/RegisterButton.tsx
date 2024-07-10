@@ -5,7 +5,7 @@ import Image from "next/image";
 import { FiLoader } from "react-icons/fi";
 import { baseSepolia, pulsechain } from "viem/chains";
 import { useAccount, useSwitchChain } from "wagmi";
-import IMAGEKIT from "../../../../app/home/images";
+import IMAGEKIT from "../../../../app/(client)/home/images";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import { useEffect } from "react";
 
@@ -76,16 +76,16 @@ export const RegisterButton: React.FC<RegisterButtonProps> = ({
         iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
         iconPosition="start"
         variants={
-          !account.isConnected &&
-          !isRegistered &&
-          registerIdle ? {
-            hover: {
-              animationName: "wiggle",
-              animationDuration: "1s",
-              animationFillMode: "forwards",
-              animationTimingFunction: "linear",
-            },
-          } : {}
+          !account.isConnected && !isRegistered && registerIdle
+            ? {
+                hover: {
+                  animationName: "wiggle",
+                  animationDuration: "1s",
+                  animationFillMode: "forwards",
+                  animationTimingFunction: "linear",
+                },
+              }
+            : {}
         }
       />
       {/* {(account.address && loading && !error) || !registerIdle ? (

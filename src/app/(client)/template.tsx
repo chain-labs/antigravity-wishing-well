@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import ReactLenis from "lenis/react";
 import useLoading from "@/hooks/frontend/useLoading";
 
-const LoadingPage = dynamic(() => import("@/app/LoadingPage"), {
+const LoadingPage = dynamic(() => import("@/app/(client)/LoadingPage"), {
   ssr: false,
 });
 

@@ -13,6 +13,7 @@ import StarFieldCanvas from "@/components/Home/components/background/Starfeild";
 import SaturnCanvasORImage from "./SaturnCanvasORImage";
 import Footer from "@/components/Home/sections/Footer";
 import AnimatedNebulaBG from "@/components/AnimatedNebulaBG";
+import { useEffect } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -60,6 +61,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // useEffect(() => {
+  //   console.log({ router });
+  // }, [router]);
+  // if (router === "/cms") {
+  //   return <html lang="en">{children}</html>;
+  // }
   return (
     <html lang="en">
       <GoogleAnalytics />
