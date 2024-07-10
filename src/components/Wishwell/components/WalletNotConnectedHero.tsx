@@ -88,6 +88,14 @@ export default function WalletNotConnectedHero({
               iconSrc={IMAGEKIT_ICONS.INFO}
               iconAlt="info icon"
               onClick={openYoutubeModelHandler}
+              variants={{
+                hover: {
+                  animationName: "wiggle",
+                  animationDuration: "1s",
+                  animationFillMode: "forwards",
+                  animationTimingFunction: "linear",
+                },
+              }}
             />
           </div>
         </div>

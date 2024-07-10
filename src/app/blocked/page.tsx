@@ -1,15 +1,32 @@
+"use client";
+
 import Image from "next/image";
 import H1 from "@/components/HTML/H1";
 import P from "@/components/HTML/P";
 import Button from "@/components/Button";
-import Link from "next/link";
 import {
   IMAGEKIT_ICONS,
   IMAGEKIT_IMAGES,
   IMAGEKIT_LOGOS,
 } from "@/assets/imageKit";
+import { AnimatePresence, motion } from "framer-motion";
+import { useRef, useState } from "react";
 
 export default function GeoBlocked() {
+  const [openYoutubeModel, setOpenYoutubeModel] = useState(false);
+  const youtubeModelRef = useRef<HTMLDivElement>(null);
+  const youtubeModelContainerRef = useRef<HTMLDivElement>(null);
+
+  function openYoutubeModelHandler() {
+    setOpenYoutubeModel(true);
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeYoutubeModelHandler() {
+    setOpenYoutubeModel(false);
+    document.body.style.overflow = "auto";
+  }
+
   return (
     <div
       className={`fixed left-0 h-screen w-screen overflow-hidden bg-gradient-to-b from-[#030404] to-[#131A1A] z-[10000] `}
@@ -38,14 +55,21 @@ export default function GeoBlocked() {
           <br /> Should you be in an available country and still be running into
           issues, please follow this link to learn how to use a VPN to navigate.
         </P>
-        <Link href="/" className="w-full">
-          <Button
-            innerText="How to use vpn"
-            iconSrc={IMAGEKIT_ICONS.INFO}
-            iconAlt="info icon"
-            className="w-full md:w-fit"
-          />
-        </Link>
+        <Button
+          innerText="How to use vpn"
+          iconSrc={IMAGEKIT_ICONS.INFO}
+          iconAlt="info icon"
+          className="w-full md:w-fit"
+          variants={{
+            hover: {
+              animationName: "wiggle",
+              animationDuration: "1s",
+              animationFillMode: "forwards",
+              animationTimingFunction: "linear",
+            },
+          }}
+          onClick={openYoutubeModelHandler}
+        />
       </div>
 
       <Image
@@ -56,6 +80,44 @@ export default function GeoBlocked() {
         layout="fixed"
         className="absolute top-0 left-0 -z-[2] w-[110vw] h-screen object-[50%_50%] object-none md:object-cover"
       />
+
+      <AnimatePresence>
+        {openYoutubeModel && (
+          <motion.div
+            exit={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            ref={youtubeModelContainerRef}
+            className="fixed inset-0 bg-[#030404A8] flex justify-center items-center p-[16px] w-full h-full z-30 backdrop-blur-sm"
+          >
+            <motion.div
+              exit={{ y: "100vh" }}
+              animate={{ y: 0 }}
+              initial={{ y: "100vh" }}
+              transition={{ duration: 0.5, type: "spring" }}
+              ref={youtubeModelRef}
+              className="w-full h-full flex justify-center items-center"
+            >
+              <div
+                className="absolute inset-0 h-full w-full z-[-1]"
+                onMouseDown={closeYoutubeModelHandler}
+              ></div>
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/pCkOdfJUQE8?si=7KwrF4rfQpKgdFQt"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                className="rounded-[12px] w-full h-fit aspect-video max-w-[800px] mx-auto"
+                allowFullScreen
+              ></iframe>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="absolute inset-0 bg-gradient-to-b from-[#000] via-[#00000000] to-[#000] -z-[1] opacity-70"></div>
     </div>

@@ -38,8 +38,8 @@ export default function AutomaticIncreamentalNumberCounter(
       onUpdate(value) {
         element.textContent = String(
           props.float
-            ? String(value.toFixed(props.floatingPoint ?? 3)).padStart(2, "0")
-            : String(Math.floor(value)).padStart(2, "0"),
+            ? String(value.toFixed(props.floatingPoint ?? 3))
+            : String(Math.floor(value)),
         );
       },
       onComplete() {

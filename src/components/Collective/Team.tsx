@@ -94,11 +94,12 @@ export default function Team() {
                     after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-agblack after:rounded-[inherit] after:overflow-hidden"
             >
               {member.socials.map((social) => (
-                <a
+                <motion.a
                   href={social.url}
                   target="_blank"
                   key={social.url}
                   rel="noreferrer"
+                  whileHover={{ scale: 1.2 }}
                 >
                   <Image
                     src={iconManage(social.type)}
@@ -106,7 +107,7 @@ export default function Team() {
                     width={24}
                     height={24}
                   />
-                </a>
+                </motion.a>
               ))}
             </div>
           </div>

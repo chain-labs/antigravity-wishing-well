@@ -7,7 +7,8 @@ const GLOBALS = {
   duration: 3000,
   position: "bottom-right",
   style: {
-    width: "400px",
+    width: "fit",
+    maxWidth: "400px",
     borderRadius: "6px",
     boxShadow: "0 0 15px 0 #03040480",
     padding: "16px",

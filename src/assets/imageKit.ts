@@ -85,6 +85,7 @@ export const IMAGEKIT_IMAGES = {
   BOOK_COVER_ART: `${IMAGEKIT}/book-cover-art.png`,
   COLLECTIVE_POINTS_AND_MULTIPLIER_INFO_BG: `${IMAGEKIT}/collective-points-and-multiplier-info-bg.png`,
   COLLECTIVE_RANKUP_AND_REWARDS_INFO_BG: `${IMAGEKIT}/collective-rankup-and-rewards-info-bg.png?updatedAt=1719221781752`,
+  NEBULA_BG: `${IMAGEKIT}/nebula-bg.jpg`,
 };
 
 export const IMAGEKIT_COLLECTIVE = {

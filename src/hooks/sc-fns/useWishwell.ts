@@ -13,6 +13,7 @@ import {
   useTransactionReceipt,
   useWriteContract,
 } from "wagmi";
+import { errorToast, generalToast, successToast } from "../frontend/toast";
 
 type Props = {};
 
@@ -120,7 +121,7 @@ const useWishwell = () => {
           setIsRegistered(true);
         }
       } catch (err) {
-        toast.error("Something went wrong. Try Again!", { duration: 3000 });
+        errorToast("Something went wrong. Try Again!", { duration: 3000 });
         setError(true);
         console.error({ err });
       }
@@ -198,7 +199,7 @@ const useWishwell = () => {
   });
 
   const registerFn = async () => {
-    toast.loading("Getting you registered!", {
+    generalToast("Getting you registered!", {
       duration: 10000,
     });
 
@@ -221,7 +222,7 @@ const useWishwell = () => {
       } else {
         errorMessage = "Something went wrong";
       }
-      toast.error(errorMessage, {
+      errorToast(errorMessage, {
         duration: 3000,
       });
       setIsRegistered(false);
@@ -230,7 +231,7 @@ const useWishwell = () => {
 
   useEffect(() => {
     if (registerFetched) {
-      toast.success("Registered successful", {
+      successToast("Registered successful", {
         duration: 3000,
       });
       getTokenIds(false);
