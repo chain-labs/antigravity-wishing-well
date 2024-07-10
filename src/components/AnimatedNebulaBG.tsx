@@ -6,10 +6,10 @@ import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 export default function AnimatedNebulaBG() {
   return (
     <motion.img
-      initial={{ objectPosition: "50% 50%" }}
-      animate={{ objectPosition: "100% 100%" }}
-      exit={{ objectPosition: "50% 50%" }}
-      transition={{ duration: 120, repeat: Infinity }}
+      initial={{ scale: 1, objectPosition: "50% 50%" }}
+      animate={{ scale: 2, objectPosition: "50% 100%" }}
+      exit={{ scale: 1, objectPosition: "50% 50%" }}
+      transition={{ duration: 120, repeat: Infinity, repeatType: "reverse"}}
       src={IMAGEKIT_IMAGES.NEBULA_BG}
       alt="nebula"
       height={1080}
