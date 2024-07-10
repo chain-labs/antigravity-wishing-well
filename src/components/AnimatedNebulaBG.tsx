@@ -7,7 +7,7 @@ export default function AnimatedNebulaBG() {
   return (
     <motion.img
       initial={{ scale: 1, objectPosition: "50% 50%" }}
-      animate={{ scale: 2, objectPosition: "50% 100%" }}
+      animate={{ scale: 1.1, objectPosition: "50% 100%" }}
       exit={{ scale: 1, objectPosition: "50% 50%" }}
       transition={{ duration: 120, repeat: Infinity, repeatType: "reverse"}}
       src={IMAGEKIT_IMAGES.NEBULA_BG}
