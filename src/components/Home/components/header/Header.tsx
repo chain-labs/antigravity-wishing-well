@@ -1,33 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { IoMenu, IoCloseCircleOutline } from "react-icons/io5";
 import { UserConnected } from "./UserConnected";
-import IMAGEKIT from "../../../../app/home/images";
 import { motion, AnimatePresence } from "framer-motion";
-import { RegisterButton } from "./RegisterButton";
 import P from "../../../HTML/P";
-import toast from "react-hot-toast";
-import useContract from "@/abi/wishwell";
-import { PublicClient, parseAbiItem } from "viem";
-import axios from "axios";
-import {
-  POLL_TIME,
-  PROXY_API_ENDPOINT,
-  TEST_NETWORK,
-  TIMER,
-} from "@/constants";
-import { checkCorrectNetwork, getApiNetwork } from "@/utils";
-import { base } from "viem/chains";
+import { PublicClient } from "viem";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
-import { useAccount, usePublicClient } from "wagmi";
+import { useAccount } from "wagmi";
 import Button from "@/components/Button";
 import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from "@/assets/imageKit";
 import Link from "next/link";
 import useLoading from "@/hooks/frontend/useLoading";
-import AnimatedButton from "@/components/AnimatedButton";
-import AnimatedText from "@/components/AnimatedText";
 
 // Use a function to get the latest block number
 async function getLatestBlockNumber(publicClient: PublicClient) {
@@ -38,16 +23,6 @@ async function getLatestBlockNumber(publicClient: PublicClient) {
 const Header = () => {
   // about section dropdown
   const [aboutSectionOpen, setAboutSectionOpen] = useState(false);
-
-  const [isRegistered, setIsRegistered] = useState<boolean>(false);
-  const [isSuccess, setIsSuccess] = useState<boolean>(false);
-  // const [payableAmount, setPayableAmount] = useState(0);
-  const [tokenId, setTokenId] = useState<BigInt>(BigInt(0));
-  const [poll, setPoll] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
-  const AntiGravity = useContract();
-  const publicClient = usePublicClient();
   const { openConnectModal } = useConnectModal();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -56,10 +31,6 @@ const Header = () => {
   const account = useAccount();
 
   const { strictNoLoading } = useLoading();
-
-  function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
