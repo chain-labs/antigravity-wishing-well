@@ -25,6 +25,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     tokenBalance: "120",
+    points: 440000,
     value: 40000,
     setValue: () => {}, // Add a dummy setValue function
     conversionRateToUSD: 0.245,

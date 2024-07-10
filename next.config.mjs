@@ -37,11 +37,11 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/test/be-api/:path*",
+        source: "/test/api/:path*",
         destination: `${TEST_API_ENDPOINT}/api/:path*`,
       },
       {
-        source: "/be-api/:path*",
+        source: "/api/:path*",
         destination: `${API_ENDPOINT}/api/:path*`,
       },
     ];
