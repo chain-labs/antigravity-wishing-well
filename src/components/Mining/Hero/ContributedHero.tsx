@@ -95,14 +95,8 @@ export default function ContributedHero() {
 
       const darkRatio = MAX_SUPPLY / total_points;
       // (dark_MAX_SUPPLY as bigint) / (dark_total_points as bigint);
-      const dark = darkRatio * points;
-      console.log({
-        dark,
-        dark_MAX_SUPPLY,
-        dark_total_points,
-        points,
-        darkRatio,
-      });
+      const dark = darkRatio * points * 0.1;
+
       return dark;
     }
     return 0;
