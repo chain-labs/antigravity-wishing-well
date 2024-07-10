@@ -103,9 +103,9 @@ export default function ContributedHero() {
         points,
         darkRatio,
       });
-      return dark.toString();
+      return dark;
     }
-    return "0";
+    return 0;
   }, [points, dark_MAX_SUPPLY, dark_total_points]);
 
   const { claim, transactionLoading } = useClaim();
