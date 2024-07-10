@@ -142,7 +142,7 @@ export default function Leaderboard({
   });
 
   const [externalLinks, setExternalLinks] = useState<{
-    best_ways_to_rank_up: string;
+    best_way_to_rank_up: string;
   }>();
 
   useEffect(() => {
@@ -288,10 +288,10 @@ export default function Leaderboard({
                   />
                 </Link>
                 <a
-                  href={externalLinks?.best_ways_to_rank_up}
+                  href={externalLinks?.best_way_to_rank_up}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-agwhite underline"
+                  className="text-agwhite underline cursor-pointer"
                 >
                   <P>Best ways to rank up →</P>
                 </a>
