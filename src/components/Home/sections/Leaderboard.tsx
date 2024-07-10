@@ -19,6 +19,7 @@ import AnimatedButton from "@/components/AnimatedButton";
 import Link from "next/link";
 import GradientBorder from "@/components/GradientBorder";
 import { useRestPost } from "@/hooks/useRestClient";
+import { client } from "../../../../sanity/lib/client";
 
 function CollectiveLogo() {
   const [hover, setHover] = useState(false);
@@ -139,6 +140,23 @@ export default function Leaderboard({
     target: targetRef,
     offset: ["start end", "start start"],
   });
+
+  const [externalLinks, setExternalLinks] = useState<{
+    best_ways_to_rank_up: string;
+  }>();
+
+  useEffect(() => {
+    client
+      .fetch(
+        `*[_type=="external_links"][0]{
+          best_way_to_rank_up
+        }`,
+      )
+      .then((externalLinks) => {
+        setExternalLinks(externalLinks);
+      });
+  }, []);
+
   const { data: leaderboardData, mutate: mutateLeaderboardData } = useRestPost(
     ["leaderboard"],
     "/api/leaderboard",
@@ -269,9 +287,14 @@ export default function Leaderboard({
                     }}
                   />
                 </Link>
-                <Link href="/" className="text-agwhite underline">
+                <a
+                  href={externalLinks?.best_ways_to_rank_up}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-agwhite underline"
+                >
                   <P>Best ways to rank up →</P>
-                </Link>
+                </a>
               </div>
             </div>
           </div>

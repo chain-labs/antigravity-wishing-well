@@ -9,6 +9,7 @@ import { PublicClient } from "viem";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import { AnimatePresence, motion } from "framer-motion";
+import { client } from "../../../../sanity/lib/client";
 
 // Use a function to get the latest block number
 async function getLatestBlockNumber(publicClient: PublicClient) {
@@ -32,6 +33,23 @@ export default function WalletNotConnectedHero({
   const [openYoutubeModel, setOpenYoutubeModel] = useState(false);
   const youtubeModelRef = useRef<HTMLDivElement>(null);
   const youtubeModelContainerRef = useRef<HTMLDivElement>(null);
+
+  const [externalLinks, setExternalLinks] = useState<{
+    how_to_contribute: string;
+  }>();
+
+  useEffect(() => {
+    client
+      .fetch(
+        `*[_type=="external_links"][0]{
+          how_to_contribute
+        }`,
+      )
+      .then((externalLinks) => {
+        setExternalLinks(externalLinks);
+      });
+  }, []);
+
   const handleLogin = (e: React.MouseEvent) => {
     e.preventDefault();
     if (openConnectModal) {
@@ -125,7 +143,7 @@ export default function WalletNotConnectedHero({
                 <iframe
                   width="560"
                   height="315"
-                  src="https://www.youtube.com/embed/OV24J11ByTk?si=AlVV13C9_Jn5VcON"
+                  src={externalLinks?.how_to_contribute}
                   title="YouTube video player"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
