@@ -91,8 +91,12 @@ export default function ContributedHero() {
     console.log({ dark_total_points, dark_MAX_SUPPLY, points });
     if (points && dark_MAX_SUPPLY) {
       const MAX_SUPPLY = Number(formatUnits(dark_MAX_SUPPLY as bigint, 18));
-      const totalPoints = Number(formatUnits(dark_total_points as bigint, 18));
-      const dark = (((points * MAX_SUPPLY) / totalPoints) * 10) / 100;
+      const total_points = Number(formatUnits(dark_total_points as bigint, 18));
+
+      const darkRatio = MAX_SUPPLY / total_points;
+      // (dark_MAX_SUPPLY as bigint) / (dark_total_points as bigint);
+      const dark = darkRatio * points * 0.1;
+
       return dark;
     }
     return 0;
@@ -114,7 +118,7 @@ export default function ContributedHero() {
   };
 
   return (
-    <div className="relative flex flex-col justify-center items-center gap-[24px] -mt-[50px]">
+    <div className="relative flex flex-col justify-center items-center gap-[24px] mt-[50px]">
       <div className="flex flex-col justify-center items-center gap-[8px]">
         <H1 className="text-[64px] leading-[64px] md:text-[64px] md:leading-[64px]">
           Claim $DARK

@@ -22,7 +22,7 @@ export default function NonContributed({
   setNFTHover,
   NFTContainerRef,
   NFTRef,
-  setMinedSuccess
+  setMinedSuccess,
 }: {
   state: StateType;
   NFTHover: boolean;
