@@ -18,6 +18,7 @@ import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from "@/assets/imageKit";
 import AnimatedButton from "../AnimatedButton";
 import Link from "next/link";
 import GradientBorder from "../GradientBorder";
+import { useRestPost } from "@/hooks/useRestClient";
 
 function CollectiveLogo() {
   return (
@@ -116,33 +117,33 @@ export default function Leaderboard({
     target: targetRef,
     offset: ["start end", "start start"],
   });
+  const { data: leaderboardData, mutate: mutateLeaderboardData } = useRestPost(
+    ["leaderboard"],
+    "/leaderboard",
+  );
 
   useEffect(() => {
     handleRefresh();
   }, [accountIsConnected]);
 
   const handleRefresh = () => {
-    //randomize only one index
-    fetch("http://3.90.153.171:3000/api/leaderboard", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        walletAddress: account.address ?? "",
-      }),
-    }).then((res) =>
-      res.json().then((data) => {
-        const dataList = data["allTimeLeaderboard"];
-        if(dataList.length < 10) {
-          for(let i = 0; i <= 10 - dataList.length; i++) {
-            dataList.push(null);
-          }
-        }
-        setTableData(dataList);
-      }),
-    );
+    mutateLeaderboardData({
+      walletAddress: account.address ?? "",
+    });
   };
+
+  useEffect(() => {
+    if (leaderboardData) {
+      // @ts-ignore
+      const dataList = leaderboardData["allTimeLeaderboard"];
+      if (dataList.length < 10) {
+        for (let i = 0; i <= 10 - dataList.length; i++) {
+          dataList.push(null);
+        }
+      }
+      setTableData(dataList);
+    }
+  }, [leaderboardData]);
 
   return (
     <div ref={targetRef}>

@@ -18,6 +18,7 @@ import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from "@/assets/imageKit";
 import AnimatedButton from "@/components/AnimatedButton";
 import Link from "next/link";
 import GradientBorder from "@/components/GradientBorder";
+import { useRestPost } from "@/hooks/useRestClient";
 
 function CollectiveLogo() {
   const [hover, setHover] = useState(false);
@@ -126,7 +127,10 @@ export default function Leaderboard({
   typeOfLeaderboard,
 }: {
   accountIsConnected: boolean;
-  typeOfLeaderboard: "allTimeLeaderboard" | "era1Leaderboard" | "era2Leaderboard";
+  typeOfLeaderboard:
+    | "allTimeLeaderboard"
+    | "era1Leaderboard"
+    | "era2Leaderboard";
 }) {
   const [tableData, setTableData] = useState<tableDataType[]>(tableDataStatic);
   const account = useAccount();
@@ -135,6 +139,10 @@ export default function Leaderboard({
     target: targetRef,
     offset: ["start end", "start start"],
   });
+  const { data: leaderboardData, mutate: mutateLeaderboardData } = useRestPost(
+    ["leaderboard"],
+    "/leaderboard",
+  );
 
   const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
 
@@ -143,20 +151,23 @@ export default function Leaderboard({
   }, []);
 
   const handleRefresh = () => {
-    fetch("http://3.90.153.171:3000/api/leaderboard", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        walletAddress: account.address,
-      }),
-    }).then((res) =>
-      res.json().then((data) => {
-        setTableData(data[typeOfLeaderboard]);
-      }),
-    );
+    mutateLeaderboardData({
+      walletAddress: account.address ?? "",
+    });
   };
+
+  useEffect(() => {
+    if (leaderboardData) {
+      // @ts-ignore
+      const dataList = leaderboardData["allTimeLeaderboard"];
+      if (dataList.length < 10) {
+        for (let i = 0; i <= 10 - dataList.length; i++) {
+          dataList.push(null);
+        }
+      }
+      setTableData(dataList);
+    }
+  }, [leaderboardData]);
 
   if (!accountIsConnected) {
     return <div className="h-screen w-screen hidden lg:block"></div>;
