@@ -12,6 +12,7 @@ export default function MiningHero() {
   const [NFTHover, setNFTHover] = useState(false);
   const NFTRef = useRef<HTMLDivElement>(null);
   const NFTContainerRef = useRef<HTMLDivElement>(null);
+  const [minedSuccess, setMinedSuccess] = useState(false);
 
   return (
     <div className="relative w-full min-h-screen h-fit z-0">
@@ -26,12 +27,13 @@ export default function MiningHero() {
               NFTRef={NFTRef}
               NFTHover={NFTHover}
               setNFTHover={setNFTHover}
+              setMinedSuccess={setMinedSuccess}
             />
           )}
         </div>
         <AnimatePresence>
           {NFTHover && (
-            <NFTPopUp NFTContainerRef={NFTContainerRef} NFTRef={NFTRef} />
+            <NFTPopUp NFTContainerRef={NFTContainerRef} NFTRef={NFTRef} minedSuccess={minedSuccess} />
           )}
         </AnimatePresence>
         <Image

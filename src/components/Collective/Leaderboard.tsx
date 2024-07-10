@@ -117,11 +117,9 @@ export default function Leaderboard({
     offset: ["start end", "start start"],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
-
   useEffect(() => {
     handleRefresh();
-  }, []);
+  }, [accountIsConnected]);
 
   const handleRefresh = () => {
     //randomize only one index
@@ -131,18 +129,20 @@ export default function Leaderboard({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        walletAddress: account.address,
+        walletAddress: account.address ?? "",
       }),
     }).then((res) =>
       res.json().then((data) => {
-        setTableData(data["allTimeLeaderboard"]);
+        const dataList = data["allTimeLeaderboard"];
+        if(dataList.length < 10) {
+          for(let i = 0; i <= 10 - dataList.length; i++) {
+            dataList.push(null);
+          }
+        }
+        setTableData(dataList);
       }),
     );
   };
-
-  if (!accountIsConnected) {
-    return <div className="h-screen w-screen hidden lg:block"></div>;
-  }
 
   return (
     <div ref={targetRef}>

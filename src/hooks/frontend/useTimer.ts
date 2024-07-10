@@ -91,7 +91,28 @@ export default function useTimer() {
   const [currentTimeStamps, setCurrentTimeStamps] = useState(timestamps);
 
   useEffect(() => {
-    if (timestamps === null) {
+    if (timestamps === null && localStorage.getItem("timestamps") !== null) {
+      const data = JSON.parse(localStorage.getItem("timestamps") as string);
+      const { era, phase } = getCurrentEraAndPhase(data);
+      const phaseStartKey = `${era}_phase_${phase}_end`;
+      const initialTime = calculateTimeDifference(data[phaseStartKey]);
+      const initialTimer: CountdownType = {
+        era:
+          era === "era_1"
+            ? "wishwell"
+            : era === "era_2"
+              ? "mining"
+              : ("minting" as "wishwell" | "mining" | "minting"),
+        phase: phase as 1 | 2 | 3,
+        ...initialTime,
+      };
+      setTimer(initialTimer);
+      setCurrentTimer(initialTimer);
+      setTimestamps(data);
+      setCurrentTimeStamps(data);
+    }
+
+    if (timestamps === null && localStorage.getItem("timestamps") === null && currentTimeStamps === null) {
       async function fetchData() {
         const response = await fetch(
           "https://hujrbtk3.api.sanity.io/v2024-07-01/data/query/collective_page?query=*%5B_type%3D%3D%22timestamps%22%5D%5B0%5D",
@@ -115,6 +136,7 @@ export default function useTimer() {
         setCurrentTimer(initialTimer);
         setTimestamps(data.result);
         setCurrentTimeStamps(data.result);
+        localStorage.setItem("timestamps", JSON.stringify(data.result));
       }
 
       fetchData();

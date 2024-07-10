@@ -21,12 +21,14 @@ export default function NonContributed({
     setNFTHover,
     NFTContainerRef,
     NFTRef,
+    setMinedSuccess
   }: {
     state: StateType;
     NFTHover: boolean;
     setNFTHover: Dispatch<SetStateAction<boolean>>;
     NFTContainerRef: React.RefObject<HTMLDivElement>;
     NFTRef: React.RefObject<HTMLDivElement>;
+    setMinedSuccess: Dispatch<SetStateAction<boolean>>;
   }) {
     const [value, setValue] = useState(40000);
     const timerState = useTimer();
@@ -119,6 +121,7 @@ export default function NonContributed({
     useEffect(() => {
       if (receipt) {
         setNFTHover(true);
+        setMinedSuccess(true);
       }
     }, [receipt]);
   

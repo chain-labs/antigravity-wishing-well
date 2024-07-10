@@ -103,7 +103,7 @@ function TD({
                 }}
                 transition={{ duration: 0.2, delay: 0.5 }}
                 className={twMerge(
-                  "absolute top-[50%] left-[50%] p-2 -translate-x-1/2 -translate-y-1/2 rounded-[4px] bg-blue text-center text-agwhite z-10",
+                  "absolute top-[50%] left-[50%] p-2 -translate-x-1/2 -translate-y-1/2 rounded-[4px] bg-blue text-center text-agwhite z-10 shadow-[0_0_4px_0_#000]",
                   special && " text-[18px] bg-agyellow text-black ",
                 )}
               >
@@ -195,7 +195,7 @@ function Badge({
   return (
     <div
       className={twMerge(
-        "text-[12px] leading-[12px] relative flex items-center gap-[8px] justify-center font-sans font-extrabold text-agwhite cursor-pointer rounded-full py-[4px] px-[8px] border-2 uppercase tracking-widest w-fit",
+        "text-[12px] leading-[12px] relative flex items-center gap-[8px] justify-center font-sans font-extrabold text-agwhite rounded-full py-[4px] px-[8px] border-2 uppercase tracking-widest w-fit",
         special &&
           "text-[12px] leading-[13.88px] pt-[5px] text-agyellow font-extrabold bg-gradient-to-b from-[#0A1133] to-[#142266] border-none",
       )}

@@ -3,6 +3,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { InstancedMesh, MeshBasicMaterial } from "three";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
+import { Perf } from "r3f-perf";
 
 // Function to get a random position within a range
 const getRandomPos = (
@@ -18,7 +19,7 @@ const getRandomPos = (
 };
 
 // Star Field Props
-interface StarFieldProps {
+interface DarkXProps {
   count: number;
   xRange: number;
   yRange: number;
@@ -28,7 +29,7 @@ interface StarFieldProps {
 }
 
 // Star Field Component
-const StarField: React.FC<StarFieldProps> = ({
+const DarkXField: React.FC<DarkXProps> = ({
   count,
   xRange,
   yRange,
@@ -76,13 +77,13 @@ const StarField: React.FC<StarFieldProps> = ({
 
   return (
     <instancedMesh ref={meshRef} args={[new THREE.BufferGeometry(), material, count]}>
-      <planeGeometry args={[1, 1]} />
+      <planeGeometry args={[2.5, 2.5]} />
     </instancedMesh>
   );
 };
 
 // Canvas Component Props
-interface StarFieldCanvasProps {
+interface DarkXCanvasProps {
   count: number;
   xRange: number;
   yRange: number;
@@ -91,7 +92,7 @@ interface StarFieldCanvasProps {
 }
 
 // Canvas Component
-const StarFieldCanvas: React.FC<StarFieldCanvasProps> = ({
+const DarkXFieldCanvas: React.FC<DarkXCanvasProps> = ({
   count,
   xRange,
   yRange,
@@ -109,7 +110,7 @@ const StarFieldCanvas: React.FC<StarFieldCanvasProps> = ({
     >
       <Suspense fallback={null}>
         <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
-          <StarField
+          <DarkXField
             count={count}
             xRange={xRange}
             yRange={yRange}
@@ -117,10 +118,11 @@ const StarFieldCanvas: React.FC<StarFieldCanvasProps> = ({
             speed={speed}
             texture={texture}
           />
+          {/* <Perf /> */}
         </Canvas>
       </Suspense>
     </div>
   );
 };
 
-export default StarFieldCanvas;
+export default DarkXFieldCanvas;
