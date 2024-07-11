@@ -9,7 +9,7 @@ import NonContributed from "./Hero/NonContributed";
 import ClaimedCard from "./Hero/ClaimedCard";
 
 export default function MiningHero() {
-  const [state, setState] = useState<StateType>("Claimed");
+  const [state, setState] = useState<StateType>("Claiming");
   const [NFTHover, setNFTHover] = useState(false);
   const NFTRef = useRef<HTMLDivElement>(null);
   const NFTContainerRef = useRef<HTMLDivElement>(null);

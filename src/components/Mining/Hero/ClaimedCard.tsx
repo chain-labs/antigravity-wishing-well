@@ -4,7 +4,7 @@ import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import Image from "next/image";
 import { CLAIM_LISTS } from "../constants";
 import useClaim from "@/hooks/sc-fns/useClaim";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { formatUnits } from "viem";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
@@ -79,6 +79,13 @@ export default function ClaimedCard() {
   }, [account.address]);
 
   const { claim, transactionLoading, darkBalance } = useClaim();
+  const [darkTokenBalance, setDarkTokenBalance] = useState(0);
+
+  useEffect(() => {
+    if (darkBalance){
+      console.log(darkBalance);
+    }
+  }, [darkBalance]);
 
   const handleClaim = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
