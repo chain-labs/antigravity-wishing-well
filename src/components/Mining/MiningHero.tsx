@@ -6,9 +6,10 @@ import ContributedHero from "./Hero/ContributedHero";
 import NFTPopUp from "./Hero/NFTPopUp";
 import { StateType } from "./types";
 import NonContributed from "./Hero/NonContributed";
+import ClaimedCard from "./Hero/ClaimedCard";
 
 export default function MiningHero() {
-  const [state, setState] = useState<StateType>("Mining");
+  const [state, setState] = useState<StateType>("Claimed");
   const [NFTHover, setNFTHover] = useState(false);
   const NFTRef = useRef<HTMLDivElement>(null);
   const NFTContainerRef = useRef<HTMLDivElement>(null);
@@ -20,6 +21,8 @@ export default function MiningHero() {
         <div className="flex flex-col justify-center items-center w-full h-fit pt-[30px] md:pt-[100px]">
           {state === "Claiming" ? (
             <ContributedHero />
+          ) : state === "Claimed" ? (
+            <ClaimedCard />
           ) : (
             <NonContributed
               state={state}

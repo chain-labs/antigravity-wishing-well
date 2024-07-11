@@ -163,7 +163,7 @@ export default function ContributedHero() {
         <ContributedCard
           value={darkTokens}
           pillText="DARK"
-          pillIconSrc={IMAGEKIT_ICONS.PILL_DARK_X}
+          pillIconSrc={IMAGEKIT_ICONS.PILL_DARK_X_CLAIMED}
           pillIconAlt="dark x"
         />
         {!account.isConnected ? (
@@ -172,6 +172,14 @@ export default function ContributedHero() {
             iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
             iconAlt="wallet"
             onClick={openConnectModal}
+            variants={{
+              hover: {
+                animationName: "wiggle",
+                animationDuration: "1s",
+                animationFillMode: "forwards",
+                animationTimingFunction: "linear",
+              },
+            }}
           />
         ) : (
           <Button
@@ -181,6 +189,11 @@ export default function ContributedHero() {
             iconSrc={IMAGEKIT_ICONS.CLAIM}
             iconAlt="Claim Now"
             onClick={handleClaim}
+            variants={{
+              hover: {
+                rotate: 15,
+              },
+            }}
           />
         )}
       </div>

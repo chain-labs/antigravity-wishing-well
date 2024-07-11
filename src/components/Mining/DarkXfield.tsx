@@ -89,6 +89,7 @@ interface DarkXCanvasProps {
   yRange: number;
   zRange: number;
   speed: number;
+  icon: string;
 }
 
 // Canvas Component
@@ -98,15 +99,16 @@ const DarkXFieldCanvas: React.FC<DarkXCanvasProps> = ({
   yRange,
   zRange,
   speed,
+  icon
 }) => {
   // Load the star texture
-  const texture = useMemo(() => new THREE.TextureLoader().load(IMAGEKIT_ICONS.PILL_DARK_X), []);
+  const texture = useMemo(() => new THREE.TextureLoader().load(icon), []);
 
   return (
     <div
       id="canvas-container"
       style={{ width: "100%", height: "100vh" }}
-      className="w-full h-[100vh] fixed top-0 left-0 -z-[1]"
+      className="w-full h-[100vh] fixed top-0 left-0 z-[1]"
     >
       <Suspense fallback={null}>
         <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>

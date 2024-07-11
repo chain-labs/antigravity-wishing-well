@@ -23,6 +23,7 @@ export const IMAGEKIT_ICONS = {
   INFO: `${IMAGEKIT_ICONS_URL}/info.svg`,
   LEADERBOARD: `${IMAGEKIT_ICONS_URL}/leaderboard.svg`,
   PILL_DARK_X: `${IMAGEKIT_ICONS_URL}/pill-dark-x.png`,
+  PILL_DARK_X_CLAIMED: `${IMAGEKIT_ICONS_URL}/pill-dark-x-claimed.png`,
   PILL_PLS: `${IMAGEKIT_ICONS_URL}/pill-pls.svg`,
   PILL_POINTS: `${IMAGEKIT_ICONS_URL}/pill-points.svg`,
   PLS: `${IMAGEKIT_ICONS_URL}/pls.svg`,
