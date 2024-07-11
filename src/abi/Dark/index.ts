@@ -15,12 +15,12 @@ const useDarkContract = (): IContract => {
     if (account.chain?.id === baseSepolia.id) {
       // Change the address here
       return {
-        address: "0x8f7d987620C65cffac0d625DDE108525e4d0CEE1",
+        address: "0x53521B27E4cfDbF2a7de2ff6b4D24c168792cB14",
         abi,
       };
     } else if (account.chain?.id === sepolia.id) {
       return {
-        address: "0xB747729CC90281B3da088cf43C9d718e6D7ae16E",
+        address: "0x53521B27E4cfDbF2a7de2ff6b4D24c168792cB14",
         abi,
       };
     }
