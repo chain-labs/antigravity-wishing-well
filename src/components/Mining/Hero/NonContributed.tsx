@@ -35,6 +35,19 @@ export default function NonContributed({
   const [value, setValue] = useState(40000);
   const timerState = useTimer();
 
+  const getEra = (era: string) => {
+    switch (era) {
+      case "wishwell":
+        return 1;
+      case "mining":
+        return 2;
+      case "minting":
+        return 3;
+      default:
+        return 2;
+    }
+  };
+
   const { openConnectModal } = useConnectModal();
 
   useEffect(() => {
@@ -149,18 +162,28 @@ export default function NonContributed({
     }
   }, [account.address, usdValue, value]);
 
+  const [multiplyer, setMultiplyer] = useState(0);
+
+  const calculateMultiplyer = (points: number) => {
+    const multiplyerData = points / (value * (usdValue || 0));
+    setMultiplyer(multiplyerData);
+  };
+
   const predictedPoints = useMemo(() => {
     if (predictedPointsData) {
       // @ts-ignore
-      return predictedPointsData?.points || 0;
+      const currentPoints = predictedPointsData?.points;
+      if (multiplyer === 0) calculateMultiplyer(currentPoints);
+      return currentPoints || 0;
     }
     return 0;
   }, [predictedPointsData, predictedPointsSuccess]);
 
-  const multiplyer = useMemo(() => {
-    const multiplyerData = predictedPoints / (value * (usdValue || 0));
-    return multiplyerData;
-  }, [predictedPoints, value, usdValue]);
+  useEffect(() => {
+    if (usdValue) {
+      calculateMultiplyer(predictedPoints);
+    }
+  }, [account.address, usdValue]);
 
   const handleMine = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -178,16 +201,6 @@ export default function NonContributed({
       await mineToken(proof);
     }
   };
-
-  // TODO: Fetch or set current era here
-  const era = useMemo<1 | 2 | 3>(() => {
-    return 2;
-  }, []);
-
-  // TODO: Fetch or set current phase here
-  const phase = useMemo<1 | 2 | 3>(() => {
-    return 1;
-  }, []);
 
   useEffect(() => {
     if (
@@ -222,8 +235,8 @@ export default function NonContributed({
         points={predictedPoints || 0}
         setValue={setValue}
         conversionRateToUSD={0.245}
-        era={era}
-        phase={phase}
+        era={getEra(timerState.era)}
+        phase={timerState.phase}
         multiplyer={multiplyer}
         inputOptions={
           tokens?.map((token) => ({
