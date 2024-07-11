@@ -41,7 +41,7 @@ const useClaim = () => {
       console.log({ claimError });
       if ((claimError.cause as any)?.code === 4001) {
         errorToast(
-          "You cancelled the mining process. Please Try Again if you wish to mine."
+          "You cancelled the mining process. Please Try Again if you wish to mine.",
         );
       } else if (
         (claimError.cause as any)?.data?.errorName === "AlreadyClaimed"

@@ -35,7 +35,6 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-
 # How to use Storybook with Next.js
 
 This is a basic example of how to use Storybook with Next.js.
@@ -43,11 +42,13 @@ This is a basic example of how to use Storybook with Next.js.
 ## Installation and setup
 
 To get started, run:
+
 ```bash
 npx storybook@latest init
 ```
 
 To update Storybook, run:
+
 ```bash
 npx storybook@latest upgrade
 ```
@@ -56,13 +57,12 @@ npx storybook@latest upgrade
 
 Remove all files and folders from directory `/src/app/stories`:
 
-
 ## Adding Tailwind CSS
 
 Go to `/.storybook/preview.js` and add the following line:
 
 ```js
-import '../src/app/globals.css'; // replace with the name of your tailwind css file
+import "../src/app/globals.css"; // replace with the name of your tailwind css file
 ```
 
 ## Adding first story
@@ -72,10 +72,14 @@ Create a new file in `/src/app/stories` called `Button.tsx` and add the followin
 ```tsx
 "use client";
 
-import React from 'react';
+import React from "react";
 
 export default function Button() {
-  return <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Button</button>;
+  return (
+    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      Button
+    </button>
+  );
 }
 ```
 
@@ -84,11 +88,11 @@ Then, create a new file in `/src/app/stories` called `Button.stories.ts` and add
 ```tsx
 "use client";
 
-import React from 'react';
-import Button from './Button';
+import React from "react";
+import Button from "./Button";
 
 export default {
-  title: 'Button',
+  title: "Button",
   component: Button,
 };
 
@@ -98,6 +102,7 @@ export const Primary = () => <Button />;
 ## Running Storybook
 
 To run Storybook, run:
+
 ```bash
 npm run storybook
 # or

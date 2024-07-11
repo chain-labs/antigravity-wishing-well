@@ -13,6 +13,7 @@ import {
   useTransactionReceipt,
   useWriteContract,
 } from "wagmi";
+import { errorToast, generalToast, successToast } from "../frontend/toast";
 
 type Props = {};
 
@@ -51,8 +52,8 @@ const useWishwell = () => {
     const fromBlockNumber = TEST_NETWORK
       ? process.env.NEXT_PUBLIC_BASE_SEPOLIA_FROM_BLOCK_NUMBER
       : account.chainId == base.id
-      ? process.env.NEXT_PUBLIC_BASE_FROM_BLOCK_NUMBER
-      : process.env.NEXT_PUBLIC_PLS_FROM_BLOCK_NUMBER;
+        ? process.env.NEXT_PUBLIC_BASE_FROM_BLOCK_NUMBER
+        : process.env.NEXT_PUBLIC_PLS_FROM_BLOCK_NUMBER;
 
     if (fromBlockNumber === undefined)
       throw Error("Please set the enviornment variable for Block Number");
@@ -67,14 +68,14 @@ const useWishwell = () => {
       // Calculate the end block for the current chunk
       const endBlock = Math.min(
         parseInt(currentBlock.toString()) + parseInt(chunkSize.toString()),
-        parseInt(latestBlock.toString())
+        parseInt(latestBlock.toString()),
       );
 
       // Create the event filter for the current block range
       const filter = await publicClient.createEventFilter({
         address: AntiGravity?.address,
         event: parseAbiItem(
-          "event Transfer(address indexed from, address indexed to, uint256 indexed id)"
+          "event Transfer(address indexed from, address indexed to, uint256 indexed id)",
         ),
         args: {
           to: account.address,
@@ -106,8 +107,8 @@ const useWishwell = () => {
         // Check contribution in wishwell
         const contributionData = await axios.get(
           `${PROXY_API_ENDPOINT}contribution/${tokenId}?blockchain=${getApiNetwork(
-            Number(account?.chainId)
-          )}`
+            Number(account?.chainId),
+          )}`,
         );
         const contribution = parseFloat(contributionData.data.data.value);
 
@@ -120,7 +121,7 @@ const useWishwell = () => {
           setIsRegistered(true);
         }
       } catch (err) {
-        toast.error("Something went wrong. Try Again!", { duration: 3000 });
+        errorToast("Something went wrong. Try Again!", { duration: 3000 });
         setError(true);
         console.error({ err });
       }
@@ -198,7 +199,7 @@ const useWishwell = () => {
   });
 
   const registerFn = async () => {
-    toast.loading("Getting you registered!", {
+    generalToast("Getting you registered!", {
       duration: 10000,
     });
 
@@ -221,7 +222,7 @@ const useWishwell = () => {
       } else {
         errorMessage = "Something went wrong";
       }
-      toast.error(errorMessage, {
+      errorToast(errorMessage, {
         duration: 3000,
       });
       setIsRegistered(false);
@@ -230,10 +231,10 @@ const useWishwell = () => {
 
   useEffect(() => {
     if (registerFetched) {
-      toast.success("Registered successful", {
+      successToast("Registered successful", {
         duration: 3000,
       });
-      getTokenIds(false)
+      getTokenIds(false);
       setIsRegistered(true);
     }
   }, [registerFetched]);

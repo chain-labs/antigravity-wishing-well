@@ -4,9 +4,71 @@ import { useAccount } from "wagmi";
 import { PiWarningCircle } from "react-icons/pi";
 import { Badge } from "../../../HTML/Badge";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useRestPost } from "@/hooks/useRestClient";
+import useUserData from "@/app/(client)/store";
 
 export const UserConnected: React.FC = () => {
   const account = useAccount();
+  const { mutation: storeUserData, rank } = useUserData();
+
+  interface UserData {
+    rank: string;
+    antigravityTokenId: number; // Add the 'antigravityTokenId' property
+    walletAddress: string; // Add the 'walletAddress' property
+    wishwellTokenId: number; // Add the 'wishwellTokenId' property
+    nftURL: string; // Add the 'nftURL' property
+    wishwellPoints: number; // Add the 'wishwellPoints' property
+    miningPoints: number; // Add the 'miningPoints' property
+    totalPoints: number;
+    // Add other properties if necessary
+  }
+
+  const { data: userData, mutate: mutateUserData } = useRestPost<UserData>(
+    ["user"],
+    "/api/user",
+  );
+
+  const { data: NFTData, mutate: mutateNFTData } = useRestPost<any>(
+    ["generate-nft"],
+    "/api/generate-nft",
+  );
+
+  useEffect(() => {
+    if (account.isConnected) {
+      mutateUserData({
+        walletAddress: account.address?.toLowerCase(),
+      });
+    }
+  }, [account.isConnected]);
+
+  useEffect(() => {
+    if (userData) {
+      storeUserData({
+        walletAddress: userData.walletAddress,
+        rank: userData.rank,
+        antigravityTokenId: userData.antigravityTokenId,
+        wishwellTokenId: userData.wishwellTokenId,
+        wishwellPoints: userData.wishwellPoints,
+        miningPoints: userData.miningPoints,
+        totalPoints: userData.totalPoints,
+      });
+      mutateNFTData({
+        tokenId: userData.antigravityTokenId,
+        era: 2,
+        blockchain: "base",
+      });
+    }
+  }, [userData]);
+
+  useEffect(() => {
+    if (NFTData) {
+      storeUserData({
+        nftURL: NFTData.url,
+      });
+    }
+  }, [NFTData]);
+
   return (
     <div className="flex text-lg">
       <ConnectButton.Custom>
@@ -48,7 +110,7 @@ export const UserConnected: React.FC = () => {
                     >
                       {condenseAddress(`${account.address}`)}
                       <Badge className="text-agwhite border-agwhite pb-[4px] opacity-[66%]">
-                        Special Navigator
+                        {rank}
                       </Badge>
                     </p>
                   </>
