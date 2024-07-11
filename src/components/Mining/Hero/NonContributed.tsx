@@ -149,18 +149,28 @@ export default function NonContributed({
     }
   }, [account.address, usdValue, value]);
 
+  const [multiplyer, setMultiplyer] = useState(0);
+
+  const calculateMultiplyer = (points: number) => {
+    const multiplyerData = points / (value * (usdValue || 0));
+    setMultiplyer(multiplyerData);
+  };
+
   const predictedPoints = useMemo(() => {
     if (predictedPointsData) {
       // @ts-ignore
-      return predictedPointsData?.points || 0;
+      const currentPoints = predictedPointsData?.points;
+      if (multiplyer === 0) calculateMultiplyer(currentPoints);
+      return currentPoints || 0;
     }
     return 0;
   }, [predictedPointsData, predictedPointsSuccess]);
 
-  const multiplyer = useMemo(() => {
-    const multiplyerData = predictedPoints / (value * (usdValue || 0));
-    return multiplyerData;
-  }, [predictedPoints, value, usdValue]);
+  useEffect(() => {
+    if (usdValue) {
+      calculateMultiplyer(predictedPoints);
+    }
+  }, [account.address, usdValue]);
 
   const handleMine = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
