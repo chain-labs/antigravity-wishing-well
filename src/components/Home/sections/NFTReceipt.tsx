@@ -8,9 +8,11 @@ import H1 from "@/components/HTML/H1";
 import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import Link from "next/link";
 import ThreeDHovercardEffect from "@/components/ThreeDHovercardEffect";
+import useUserData from "@/app/(client)/store";
 
 export default function NFTReceipt() {
   const targetRef = useRef<HTMLDivElement>(null);
+  const { nftURL } = useUserData();
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start end", "end start"],
@@ -42,7 +44,7 @@ export default function NFTReceipt() {
       >
         <ThreeDHovercardEffect ROTATION_RANGE={10}>
           <Image
-            src={IMAGEKIT_IMAGES.NFT_RECEIPT}
+            src={nftURL ?? IMAGEKIT_IMAGES.NFT_RECEIPT}
             alt="NFT Receipt"
             width={300}
             height={600}
