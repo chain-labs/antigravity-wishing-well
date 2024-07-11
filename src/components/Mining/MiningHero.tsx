@@ -20,7 +20,7 @@ export default function MiningHero() {
       <div className="bg-gradient-to-b from-[#000] h-fit to-[#0000]">
         <div className="flex flex-col justify-center items-center w-full h-fit pt-[30px] md:pt-[100px]">
           {state === "Claiming" ? (
-            <ContributedHero />
+            <ContributedHero setState={setState} />
           ) : state === "Claimed" ? (
             <ClaimedCard />
           ) : (

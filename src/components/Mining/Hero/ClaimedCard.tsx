@@ -182,13 +182,13 @@ export default function ClaimedCard() {
                 className="w-full"
               >
                 <ContributedCard
-                  value={darkBalance ? 0 : darkBalance as number}
+                  value={0}
                   pillText="DARK"
                   pillIconSrc={IMAGEKIT_ICONS.PILL_DARK_X_CLAIMED}
                   pillIconAlt="dark x"
                   animateNumber
                   from={0}
-                  to={darkBalance ? 0 : darkBalance as number}
+                  to={0}
                 />
               </motion.div>
             )}

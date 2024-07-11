@@ -5,15 +5,20 @@ import P from "@/components/HTML/P";
 import useClaim from "@/hooks/sc-fns/useClaim";
 import { useRestFetch } from "@/hooks/useRestClient";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
-import { useMemo } from "react";
+import { Dispatch, SetStateAction, useMemo } from "react";
 import { formatUnits } from "viem";
 import { useAccount, useReadContract } from "wagmi";
 import ContributedCard from "./ContributedCard";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import Button from "@/components/Button";
 import useClaimMerkleTree from "@/hooks/sc-fns/useMerkleTree.claim";
+import { StateType } from "../types";
 
-export default function ContributedHero() {
+export default function ContributedHero({
+  setState,
+}: {
+  setState: Dispatch<SetStateAction<StateType>>;
+}) {
   const { openConnectModal } = useConnectModal();
   const account = useAccount();
 
@@ -115,6 +120,8 @@ export default function ContributedHero() {
       ERA2_DATA.nonces[accountIndex],
       proof,
     );
+
+    setState("Claimed");
   };
 
   return (
