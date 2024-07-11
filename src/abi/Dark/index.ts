@@ -20,7 +20,7 @@ const useDarkContract = (): IContract => {
       };
     } else if (account.chain?.id === sepolia.id) {
       return {
-        address: "0xB747729CC90281B3da088cf43C9d718e6D7ae16E",
+        address: "0x1F438Dd3650f5C0949EB5Dea522fe315c039b5A3",
         abi,
       };
     }

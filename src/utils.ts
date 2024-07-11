@@ -20,22 +20,6 @@ export const getApiNetwork = (chainId: number) => {
   }
 };
 
-export const checkCorrectNetwork = (chainId: number | undefined) => {
-  if (chainId) {
-    if (TEST_NETWORK) {
-      if (chainId === baseSepolia.id) {
-        return true;
-      } else if (chainId === pulsechain.id) return true;
-      else if (chainId === sepolia.id) return true;
-      else return false;
-    } else {
-      if (chainId === base.id) return true;
-      else if (chainId === pulsechain.id) return true;
-      else return false;
-    }
-  }
-};
-
 export const condenseAddress = (address: string) => {
   const condensed = `${address.slice(0, 4)}...${address.slice(
     address.length - 4,

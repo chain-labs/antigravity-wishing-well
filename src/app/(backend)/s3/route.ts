@@ -1,7 +1,6 @@
 import { TEST_NETWORK } from "@/constants";
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
-import { base, pulsechain, sepolia } from "viem/chains";
 
 export async function GET(request: NextRequest) {
   const baseURL = "https://antigravity-s3.s3.us-east-1.amazonaws.com/static";
