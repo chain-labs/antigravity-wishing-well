@@ -24,7 +24,6 @@ import { warningToast } from "@/hooks/frontend/toast";
 
 export function InputCard({
   inputValue,
-  minValue,
   setCurrentInputValue,
   conversion,
   dropdownOptions,
@@ -32,10 +31,8 @@ export function InputCard({
   setDropDownSelected,
   tokenBalance,
   setSelectedToken,
-  accountConnected,
 }: {
   inputValue: string;
-  minValue: number;
   setCurrentInputValue: Dispatch<SetStateAction<string>>;
   conversion: string;
   dropdownOptions: TokenDropdownTypes[];
@@ -43,7 +40,6 @@ export function InputCard({
   setDropDownSelected: Dispatch<SetStateAction<number>>;
   setSelectedToken: Dispatch<SetStateAction<number>>;
   tokenBalance: string;
-  accountConnected: boolean;
 }) {
   const [outOfFocus, setOutOfFocus] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -61,12 +57,6 @@ export function InputCard({
     };
   }, [conversion]);
 
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.value = tokenBalance;
-    }
-  }, [tokenBalance]);
-
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     let inputCurrentValue = e.target.value;
 
@@ -80,14 +70,10 @@ export function InputCard({
     }
 
     // Handle empty input
-    // if (inputCurrentValue === "") {
-    //   // setCurrentInputValue(String(minValue));
-    //   // if (inputRef.current) inputRef.current.value = String(minValue);
-    //   warningToast(
-    //     "You can't input less than the minimum value which is " + minValue,
-    //   );
-    //   return;
-    // }
+    if (inputCurrentValue === "") {
+      setCurrentInputValue("0");
+      return;
+    }
 
     // Allow input ending with a decimal point
     if (inputCurrentValue.endsWith(".")) {
@@ -97,21 +83,6 @@ export function InputCard({
 
     // Validate the number
     const numberValue = parseFloat(inputCurrentValue);
-
-    if (numberValue < 0.0000001 && accountConnected) {
-      warningToast("You can't input less than the minimum value");
-      // setCurrentInputValue("0.0000001");
-      // if (inputRef.current) inputRef.current.value = "0.0000001";
-    }
-
-    if (numberValue > parseFloat(tokenBalance) && accountConnected) {
-      setCurrentInputValue(tokenBalance);
-      if (inputRef.current) inputRef.current.value = tokenBalance;
-      warningToast(
-        "You can't input more than your balance which is " + tokenBalance,
-      );
-      return;
-    }
 
     if (!isNaN(numberValue) && numberValue >= 0) {
       setCurrentInputValue(inputCurrentValue);
@@ -123,16 +94,6 @@ export function InputCard({
       setSelectedToken(dropDownSelected);
     }
   }, [dropDownSelected]);
-
-  useEffect(() => {
-    if (
-      inputRef.current &&
-      Number(tokenBalance) <= Number(inputRef.current?.value) &&
-      tokenBalance !== "0"
-    ) {
-      if (inputRef.current) inputRef.current.value = tokenBalance;
-    }
-  }, [tokenBalance, inputValue]);
 
   const account = useAccount();
 
@@ -161,8 +122,8 @@ export function InputCard({
             className="text-agwhite font-extrabold font-sans bg-transparent w-full h-full"
             type="number"
             defaultValue={inputValue}
-            max={tokenBalance.toString()}
-            min={0}
+            max={500}
+            min={10}
             onBlur={(e) => {
               setOutOfFocus(true);
             }}
@@ -229,22 +190,9 @@ export function InputCard({
                 if (inputRef.current)
                   inputRef.current.value = tokenBalance.toString();
               }}
-              disabled={
-                (Number(tokenBalance) === 0 ||
-                  (inputRef.current &&
-                    Number(tokenBalance) <= Number(inputRef.current?.value))) ??
-                false
-              }
             >
               <div className="bg-[#0A1133] rounded-full w-fit h-fit">
-                <div
-                  className={twMerge(
-                    `rounded-full text-[16px] leading-[16px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent bg-clip-text`,
-                    inputRef.current &&
-                      Number(tokenBalance) <= Number(inputRef.current?.value) &&
-                      "text-agblack bg-clip-border",
-                  )}
-                >
+                <div className="rounded-full text-[16px] leading-[16px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent bg-clip-text">
                   MAX
                 </div>
               </div>
@@ -319,8 +267,6 @@ export function Card({
     useState<string>(conversion);
   const conversionRef = useRef<HTMLDivElement>(null);
 
-  console.log(currentValue, targetValueRef.current?.textContent);
-
   useEffect(() => {
     // if value is not changed within 300ms, update the value
     const timeout = setTimeout(() => {
@@ -362,9 +308,11 @@ export function Card({
           {targetValueRef.current && (
             <AutomaticIncreamentalNumberCounterWithString
               from={
-                isNaN(parseFloat(String(targetValueRef.current?.textContent)))
-                  ? "0"
-                  : targetValueRef.current?.textContent ?? "0"
+                USFormatToNumber(
+                  targetValueRef.current?.children[0]?.textContent ?? "0",
+                ) < 0.0001
+                  ? "0.0001"
+                  : targetValueRef.current?.children[0]?.textContent ?? "0"
               }
               to={currentValue}
               float={currentValue.includes(".")}
@@ -521,7 +469,6 @@ export default function MiningCalculator({
     <div className="relative flex flex-col gap-[8px] h-fit min-w-[400px] max-w-full">
       <InputCard
         inputValue={currentValue}
-        minValue={0.0001 / multiplyer}
         setCurrentInputValue={setCurrentValue}
         conversion={pointsConverterToUSCommaseparated(USDValue)}
         dropdownOptions={inputOptions}
@@ -529,7 +476,6 @@ export default function MiningCalculator({
         setDropDownSelected={setSelectedOption}
         tokenBalance={tokenBalance}
         setSelectedToken={setSelectedToken}
-        accountConnected={account.isConnected}
       />
       <Multiplyer era={era} phase={phase} multiplyer={multiplyer} />
       <div
