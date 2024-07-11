@@ -168,9 +168,9 @@ export default function PromotionAndNewsletter() {
                       animationTimingFunction: "linear",
                       animationDelay: "0.25s",
                     },
-                    rest:{
-                      animationName: "restflyingPlane"
-                    }
+                    rest: {
+                      animationName: "restflyingPlane",
+                    },
                   }}
                   innerText="Submit"
                   iconSrc={IMAGEKIT_ICONS.SEND}
