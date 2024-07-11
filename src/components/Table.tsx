@@ -5,13 +5,8 @@ import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import H1 from "@/components/HTML/H1";
 import H3 from "@/components/HTML/H3";
-import H2 from "@/components/HTML/H2";
-import P from "@/components/HTML/P";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
-import { shuffle } from "lodash";
-import { duration } from "moment";
 
 function TH({
   icon,
@@ -155,18 +150,17 @@ function TR({
         opacity: 1,
       }}
       initial={{
-        y: "100%",
-        opacity: 0,
+        y: th ? "0%" : "100%",
+        opacity: th ? 1 : 0,
       }}
       exit={{
         y: "100%",
         opacity: 0,
       }}
       transition={{
-        duration: 5,
+        duration: 0.25,
         type: "spring",
-        bounce: 0.25,
-        stiffness: 100,
+        delay: position ? parseFloat((position * 0.1).toFixed(2)) : 0,
       }}
       className={twMerge(
         "relative grid grid-cols-[2fr_1fr] lg:grid-cols-[2fr_1fr_1fr] w-full lg:border-l-2 border-b-2 border-[#414343] lg:border-[#8275A5] z-0",
@@ -276,25 +270,31 @@ type tableHeaderType = {
   className?: string;
 };
 
-export default function Table({ tableData }: { tableData: tableDataType[] }) {
-  // useEffect(() => {
-  //   // detect change in position of data and animate accordingly
-  //   // const newTableData: tableDataType[] = [];
-  //   // currentTableData.forEach((data, idx) => {
-  //   //   if (tableData[idx] !== data) {
-  //   //     newTableData.push(data);
-  //   //   } else {
-  //   //     newTableData.push(null);
-  //   //   }
-  //   // });
-  //   // swap random index data
-  //   setTimeout(() => setTableData(shuffle(tableData)), 1000);
-  // }, [tableData]);
+export default function Table({
+  tableData: currentTableData,
+}: {
+  tableData: tableDataType[];
+}) {
+  const [tableData, setTableData] = useState<tableDataType[]>(currentTableData);
+
+  useEffect(() => {
+    // then null fields are added to the tableData array to make the tableData length 10
+    setTableData([]);
+    const setTableDataTimeout = setTimeout(
+      () => setTableData(currentTableData),
+      2000,
+    );
+
+    return () => {
+      setTableData([]);
+      clearTimeout(setTableDataTimeout);
+    };
+  }, [currentTableData]);
 
   return (
-    <table className="w-full bg-gradient-to-b from-[#0A1133] to-[#142266] h-fit">
+    <table className="w-full bg-gradient-to-b from-[#0A1133] to-[#142266] min-h-[calc(2.5rem*11)] h-fit transition-all duration-300">
       <thead className="w-full">
-        <TR th position={1555}>
+        <TR th>
           {/* {
                         tableHeader.map((header, idx) => (
                             <TH key={idx} icon={header.icon} heading={header.heading} className={header.className} />
@@ -341,59 +341,47 @@ export default function Table({ tableData }: { tableData: tableDataType[] }) {
       <motion.tbody
         layout
         layoutRoot
-        className="text-lg font-medium font-general-sans text-agwhite"
+        className="text-lg font-medium font-general-sans text-agwhite min-h-[clac(2.5rem*10)] w-fit"
       >
-        {tableData.map((data, idx) =>
-          data !== null ? (
-            <motion.tr
-              layout
-              transition={{ type: "spring", duration: 2 }}
-              key={idx}
-            >
-              <AnimatePresence>
-                <TR
-                  key={idx}
+        <AnimatePresence>
+          {tableData.map((data, idx) =>
+            data !== null ? (
+              <TR
+                key={idx}
+                special={data.special ?? false}
+                position={data.rank}
+              >
+                <Rank
+                  rank={data.rank}
+                  wallet={data.wallet}
                   special={data.special ?? false}
-                  position={data.rank}
+                  badge={data.badge}
+                />
+                <TD truncate special={data.special ?? false}>
+                  {data.wallet}
+                </TD>
+                <TD
+                  special={data.special ?? false}
+                  className={
+                    data.special
+                      ? "text-[22px] leading-[28.6px] md:text-[18px] md:leading-[23.6px]"
+                      : "md:text-[14px] md:leading-[18.2px] text-[18px] leading-[23.6px]"
+                  }
                 >
-                  <Rank
-                    rank={data.rank}
-                    wallet={data.wallet}
-                    special={data.special ?? false}
-                    badge={data.badge}
-                  />
-                  <TD truncate special={data.special ?? false}>
-                    {data.wallet}
-                  </TD>
-                  <TD
-                    special={data.special ?? false}
-                    className={
-                      data.special
-                        ? "text-[22px] leading-[28.6px] md:text-[18px] md:leading-[23.6px]"
-                        : "md:text-[14px] md:leading-[18.2px] text-[18px] leading-[23.6px]"
-                    }
-                  >
-                    {pointsConverterToUSCommaseparated(
-                      String(data.points).includes(".")
-                        ? parseFloat(data.points.toFixed(4))
-                        : data.points,
-                    )}
-                  </TD>
-                </TR>
-              </AnimatePresence>
-            </motion.tr>
-          ) : (
-            <motion.tr
-              layout
-              transition={{ type: "spring", duration: 2 }}
-              key={idx}
-            >
+                  {pointsConverterToUSCommaseparated(
+                    String(data.points).includes(".")
+                      ? parseFloat(data.points.toFixed(4))
+                      : data.points,
+                  )}
+                </TD>
+              </TR>
+            ) : (
               <TR key={idx} className="h-[2.5rem]" empty>
                 <></>
               </TR>
-            </motion.tr>
-          ),
-        )}
+            ),
+          )}
+        </AnimatePresence>
       </motion.tbody>
     </table>
   );

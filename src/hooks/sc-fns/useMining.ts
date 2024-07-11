@@ -6,7 +6,6 @@ import {
   useAccount,
   useReadContract,
   useReadContracts,
-  useSwitchChain,
   useWaitForTransactionReceipt,
   useWriteContract,
 } from "wagmi";
@@ -39,23 +38,12 @@ const useMining = (
   const MiningContract = useMiningContract();
   const DarkXContract = useDarkXContract();
   const account = useAccount();
-  const { switchChain } = useSwitchChain();
 
   // Single out currently selected token
   const token = useMemo<IToken>(() => {
     // @ts-ignore
     return tokens?.[tokenSelected];
   }, [tokens, tokenSelected]);
-
-  // switch to the chain that is currently valid and correct on load
-  useEffect(() => {
-    if (account.chainId) {
-      const chainId = account.chainId;
-      if (chainId !== sepolia.id) {
-        switchChain({ chainId: sepolia.id });
-      }
-    }
-  }, [account.chainId]);
 
   // calculate points depending on multiplier change or amount change
   const points = useMemo(() => {
@@ -81,6 +69,7 @@ const useMining = (
       abi: erc20ABI,
       functionName: "balanceOf",
       args: [`${account.address}`],
+      chainId: token.chainId,
     })),
   });
 

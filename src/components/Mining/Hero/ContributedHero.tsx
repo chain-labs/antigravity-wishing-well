@@ -4,7 +4,7 @@ import H1 from "@/components/HTML/H1";
 import P from "@/components/HTML/P";
 import useClaim from "@/hooks/sc-fns/useClaim";
 import { useRestFetch } from "@/hooks/useRestClient";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { useChainModal, useConnectModal } from "@rainbow-me/rainbowkit";
 import { useMemo } from "react";
 import { formatUnits } from "viem";
 import { useAccount, useReadContract } from "wagmi";
@@ -12,10 +12,12 @@ import ContributedCard from "./ContributedCard";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import Button from "@/components/Button";
 import useClaimMerkleTree from "@/hooks/sc-fns/useMerkleTree.claim";
+import { checkCorrectNetwork } from "@/components/RainbowKit";
 
 export default function ContributedHero() {
   const { openConnectModal } = useConnectModal();
   const account = useAccount();
+  const { openChainModal } = useChainModal();
 
   const { data: era2Data } = useRestFetch(["s3"], `/s3?file=era2`, {
     proxy: true,
@@ -91,8 +93,12 @@ export default function ContributedHero() {
     console.log({ dark_total_points, dark_MAX_SUPPLY, points });
     if (points && dark_MAX_SUPPLY) {
       const MAX_SUPPLY = Number(formatUnits(dark_MAX_SUPPLY as bigint, 18));
-      const totalPoints = Number(formatUnits(dark_total_points as bigint, 18));
-      const dark = (((points * MAX_SUPPLY) / totalPoints) * 10) / 100;
+      const total_points = Number(formatUnits(dark_total_points as bigint, 18));
+
+      const darkRatio = MAX_SUPPLY / total_points;
+      // (dark_MAX_SUPPLY as bigint) / (dark_total_points as bigint);
+      const dark = darkRatio * points * 0.1;
+
       return dark;
     }
     return 0;
@@ -114,7 +120,7 @@ export default function ContributedHero() {
   };
 
   return (
-    <div className="relative flex flex-col justify-center items-center gap-[24px] -mt-[50px]">
+    <div className="relative flex flex-col justify-center items-center gap-[24px] mt-[50px]">
       <div className="flex flex-col justify-center items-center gap-[8px]">
         <H1 className="text-[64px] leading-[64px] md:text-[64px] md:leading-[64px]">
           Claim $DARK
@@ -169,7 +175,7 @@ export default function ContributedHero() {
             iconAlt="wallet"
             onClick={openConnectModal}
           />
-        ) : (
+        ) : checkCorrectNetwork(account.chainId) ? (
           <Button
             innerText={transactionLoading ? "Claiming..." : "Claim Now"}
             loading={transactionLoading}
@@ -177,6 +183,14 @@ export default function ContributedHero() {
             iconSrc={IMAGEKIT_ICONS.CLAIM}
             iconAlt="Claim Now"
             onClick={handleClaim}
+          />
+        ) : (
+          <Button
+            innerText="Switch Network"
+            iconSrc={IMAGEKIT_ICONS.ERROR}
+            onClick={openChainModal}
+            iconAlt="network error"
+            iconPosition="start"
           />
         )}
       </div>

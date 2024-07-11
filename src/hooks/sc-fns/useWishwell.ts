@@ -1,6 +1,6 @@
 import useContract from "@/abi/wishwell";
 import { POLL_TIME, PROXY_API_ENDPOINT, TEST_NETWORK } from "@/constants";
-import { checkCorrectNetwork, getApiNetwork } from "@/utils";
+import { getApiNetwork } from "@/utils";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -14,6 +14,7 @@ import {
   useWriteContract,
 } from "wagmi";
 import { errorToast, generalToast, successToast } from "../frontend/toast";
+import { checkCorrectNetwork } from "@/components/RainbowKit";
 
 type Props = {};
 

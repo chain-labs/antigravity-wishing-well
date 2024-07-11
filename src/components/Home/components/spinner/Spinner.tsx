@@ -8,6 +8,7 @@ import DynamicNumberCounter from "./DynamicNumberCounter";
 import AutomaticIncreamentalNumberCounter from "./AutomaticIncreamentalNumberCounter";
 import useTimer from "@/hooks/frontend/useTimer";
 import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
+import { useRestPost } from "@/hooks/useRestClient";
 
 let globalDelay = 1.5;
 
@@ -544,6 +545,11 @@ export default function Spinner({
     secs: 20,
   });
 
+  const { data, mutate } = useRestPost(
+    ["predict-points"],
+    "/api/predict-points",
+  );
+
   useEffect(() => {
     // decreade the timer every second
     const timer = setInterval(() => {
@@ -595,7 +601,23 @@ export default function Spinner({
     setTimeout(() => {
       globalDelay = 0;
     }, 2000);
+    mutate({
+      walletAddress: "",
+      amount: "1",
+    });
   }, []);
+
+  useEffect(() => {
+    if (data) {
+      setActiveState((prev) => {
+        return {
+          ...prev,
+          // @ts-ignore
+          bonus: data.points,
+        };
+      });
+    }
+  }, [data]);
 
   return (
     <motion.div

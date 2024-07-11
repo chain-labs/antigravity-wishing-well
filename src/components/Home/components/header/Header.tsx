@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoMenu, IoCloseCircleOutline } from "react-icons/io5";
 import { UserConnected } from "./UserConnected";
 import { motion, AnimatePresence } from "framer-motion";
@@ -13,6 +13,7 @@ import Button from "@/components/Button";
 import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from "@/assets/imageKit";
 import Link from "next/link";
 import useLoading from "@/hooks/frontend/useLoading";
+import { client } from "../../../../../sanity/lib/client";
 
 // Use a function to get the latest block number
 async function getLatestBlockNumber(publicClient: PublicClient) {
@@ -27,6 +28,23 @@ const Header = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   // const [currentChain, setCurrentChain] = useState("");
+
+  const [externalLinks, setExternalLinks] = useState<{
+    darkpaper: string;
+    darkerpaper: string;
+  }>();
+
+  useEffect(() => {
+    client
+      .fetch(
+        `*[_type=="external_links"][0]{
+          darkpaper, darkerpaper
+        }`,
+      )
+      .then((externalLinks) => {
+        setExternalLinks(externalLinks);
+      });
+  }, []);
 
   const account = useAccount();
 
@@ -169,7 +187,8 @@ const Header = () => {
                       >
                         <a
                           target="_blank"
-                          href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}
+                          href={externalLinks?.darkpaper || "/"}
+                          rel="noreferrer"
                         >
                           <P
                             uppercase
@@ -183,7 +202,8 @@ const Header = () => {
                         </a>
                         <a
                           target="_blank"
-                          href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}
+                          href={externalLinks?.darkerpaper || "/"}
+                          rel="noreferrer"
                         >
                           <P
                             uppercase

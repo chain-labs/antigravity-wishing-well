@@ -11,14 +11,16 @@ export type CountdownType = {
   secs: number;
 };
 
-const DEFAULT: CountdownType = {
-  era: "mining",
-  phase: 2,
-  days: 0,
-  hours: 0,
-  mins: 0,
-  secs: 0,
-};
+const DEFAULT: CountdownType = localStorage.getItem("current-timestamp")
+  ? JSON.parse(localStorage.getItem("current-timestamp") as string)
+  : {
+      era: "mining",
+      phase: 2,
+      days: 0,
+      hours: 0,
+      mins: 0,
+      secs: 0,
+    };
 
 let timer: CountdownType = { ...DEFAULT };
 
@@ -116,6 +118,7 @@ export default function useTimer() {
         setTimestamps(data.result);
         setCurrentTimeStamps(data.result);
         localStorage.setItem("timestamps", JSON.stringify(data.result));
+        localStorage.setItem("current-timestamp", JSON.stringify(initialTimer));
       }
 
       fetchData();

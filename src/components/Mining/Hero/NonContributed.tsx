@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { IToken, StateType } from "../types";
 import useTimer from "@/hooks/frontend/useTimer";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { useChainModal, useConnectModal } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 import { useRestFetch, useRestPost } from "@/hooks/useRestClient";
 import useMerkleTree from "@/hooks/sc-fns/useMerkleTree.mine";
@@ -15,6 +15,7 @@ import Button from "@/components/Button";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import CountdownTimer from "@/components/CountdownTimer";
 import { TEST_NETWORK } from "@/constants";
+import { checkCorrectNetwork } from "@/components/RainbowKit";
 
 export default function NonContributed({
   state,
@@ -22,7 +23,7 @@ export default function NonContributed({
   setNFTHover,
   NFTContainerRef,
   NFTRef,
-  setMinedSuccess
+  setMinedSuccess,
 }: {
   state: StateType;
   NFTHover: boolean;
@@ -58,11 +59,12 @@ export default function NonContributed({
   const [selectedToken, setSelectedToken] = useState(0);
 
   const account = useAccount();
+  const { openChainModal } = useChainModal();
 
   const { data: s3Data } = useRestFetch(["s3"], `/s3`, { proxy: true });
 
   const tokens: IToken[] = useMemo(() => {
-    if (!account.isConnected) {
+    if (!account.isConnected || !checkCorrectNetwork(account.chainId)) {
       return (s3Data as any)?.data?.tokens;
     }
     if (s3Data) {
@@ -117,8 +119,10 @@ export default function NonContributed({
   );
 
   const usdValue = useMemo(() => {
+    console.log({ tokenPrice });
     return tokenPrice?.price;
   }, [tokenPrice]);
+
   useEffect(() => {
     if (receipt) {
       setNFTHover(true);
@@ -236,13 +240,21 @@ export default function NonContributed({
           iconAlt="wallet"
           onClick={openConnectModal}
         />
-      ) : (
+      ) : checkCorrectNetwork(account.chainId) ? (
         <Button
           loading={transactionLoading}
           innerText={transactionLoading ? "Processing" : "Mine Now"}
           iconSrc={IMAGEKIT_ICONS.HAMMER}
           iconAlt="hammer"
           onClick={handleMine}
+        />
+      ) : (
+        <Button
+          innerText="Switch Network"
+          iconSrc={IMAGEKIT_ICONS.ERROR}
+          onClick={openChainModal}
+          iconAlt="network error"
+          iconPosition="start"
         />
       )}
       <div className="p-[8px] rounded-[6px] bg-[#030404A8]">
