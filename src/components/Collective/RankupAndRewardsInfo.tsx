@@ -38,7 +38,7 @@ export default function RankupAndRewardsInfo() {
         alt="Mining Background"
         width={1920}
         height={1080}
-        className="absolute inset-0 w-[800px] md:w-full h-[250px] md:h-[800px] z-[-2] origin-top md:origin-center scale-[1.8] md:scale-[1.3] md:translate-y-[10%] object-fill sm:object-cover"
+        className="absolute inset-0 w-[800px] md:w-full h-[250px] md:h-auto z-[-2] origin-top md:origin-center scale-[1.8] md:scale-[1.3] md:translate-y-[10%] object-fill sm:object-cover"
       />
     </div>
   );
