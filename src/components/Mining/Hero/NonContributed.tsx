@@ -35,6 +35,19 @@ export default function NonContributed({
   const [value, setValue] = useState(40000);
   const timerState = useTimer();
 
+  const getEra = (era: string) => {
+    switch (era) {
+      case "wishwell":
+        return 1;
+      case "mining":
+        return 2;
+      case "minting":
+        return 3;
+      default:
+        return 2;
+    }
+  };
+
   const { openConnectModal } = useConnectModal();
 
   useEffect(() => {
@@ -189,16 +202,6 @@ export default function NonContributed({
     }
   };
 
-  // TODO: Fetch or set current era here
-  const era = useMemo<1 | 2 | 3>(() => {
-    return 2;
-  }, []);
-
-  // TODO: Fetch or set current phase here
-  const phase = useMemo<1 | 2 | 3>(() => {
-    return 1;
-  }, []);
-
   useEffect(() => {
     if (
       (darkXBalance as bigint) > 0 &&
@@ -232,8 +235,8 @@ export default function NonContributed({
         points={predictedPoints || 0}
         setValue={setValue}
         conversionRateToUSD={0.245}
-        era={era}
-        phase={phase}
+        era={getEra(timerState.era)}
+        phase={timerState.phase}
         multiplyer={multiplyer}
         inputOptions={
           tokens?.map((token) => ({
