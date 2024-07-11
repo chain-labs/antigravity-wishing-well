@@ -29,7 +29,12 @@ export default function ContributedCard({
     >
       {animateNumber ? (
         <H1 className="text-[32px] leading-[32px] md:text-[32px] md:leading-[32px]">
-          <AutomaticIncreamentalNumberCounter from={from} to={to} />
+          <AutomaticIncreamentalNumberCounter
+            from={from}
+            to={to}
+            float={String(to).includes(".")}
+            floatingPoint={String(to).split(".")[1]?.length}
+          />
         </H1>
       ) : (
         <H1 className="text-[32px] leading-[32px] md:text-[32px] md:leading-[32px]">

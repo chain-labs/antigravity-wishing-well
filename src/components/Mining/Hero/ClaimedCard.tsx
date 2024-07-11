@@ -36,6 +36,11 @@ export default function ClaimedCard() {
     setPointsConversionAnimationComplete(false);
   }
 
+  function handlePointsConversionAnimationStart() {
+    setPointsConversionAnimationComplete(true);
+    setStarfieldAnimationComplete(false);
+  }
+
   const points = useMemo(() => {
     if (account.address) {
       const accountIndex = CLAIM_LISTS.accounts.findIndex(
@@ -73,7 +78,7 @@ export default function ClaimedCard() {
     return [];
   }, [account.address]);
 
-  const { claim, transactionLoading } = useClaim();
+  const { claim, transactionLoading, darkBalance } = useClaim();
 
   const handleClaim = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -98,7 +103,7 @@ export default function ClaimedCard() {
                 opacity: 0,
               }}
               initial={{ opacity: 1 }}
-              className="absolute inset-0 h-full w-full bg-agblack"
+              className="absolute inset-0 h-full w-full bg-[#00000043] backdrop-blur-lg z-0"
             >
               <DarkXFieldCanvas
                 count={100}
@@ -152,7 +157,7 @@ export default function ClaimedCard() {
           <AnimatePresence>
             {pointsConversionAnimationComplete ? (
               <motion.div
-                initial={{ scale: 1 }}
+                initial={{ scale: 2 }}
                 whileInView={{ scale: 0 }}
                 transition={{ duration: 3 }}
                 onAnimationComplete={handlePointsConversionAnimationComplete}
@@ -160,12 +165,12 @@ export default function ClaimedCard() {
               >
                 <ContributedCard
                   value={points}
-                  pillText="DARK"
+                  pillText="Points"
                   pillIconSrc={IMAGEKIT_ICONS.PILL_POINTS}
-                  pillIconAlt="dark x"
+                  pillIconAlt="Points"
                   animateNumber
-                  from={100}
-                  to={points}
+                  from={points}
+                  to={0}
                 />
               </motion.div>
             ) : (
@@ -177,13 +182,13 @@ export default function ClaimedCard() {
                 className="w-full"
               >
                 <ContributedCard
-                  value={points}
+                  value={darkBalance ? 0 : darkBalance as number}
                   pillText="DARK"
                   pillIconSrc={IMAGEKIT_ICONS.PILL_DARK_X_CLAIMED}
                   pillIconAlt="dark x"
                   animateNumber
                   from={0}
-                  to={100}
+                  to={darkBalance ? 0 : darkBalance as number}
                 />
               </motion.div>
             )}
@@ -201,7 +206,7 @@ export default function ClaimedCard() {
                 animationTimingFunction: "linear",
               },
             }}
-            onClick={handlePointsConversionAnimationComplete}
+            onClick={handlePointsConversionAnimationStart}
           />
         </div>
       </div>
