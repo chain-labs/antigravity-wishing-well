@@ -9,6 +9,7 @@ export type CountdownType = {
   hours: number;
   mins: number;
   secs: number;
+  claimStarted: boolean;
 };
 
 const DEFAULT: CountdownType = localStorage.getItem("current-timestamp")
@@ -20,6 +21,7 @@ const DEFAULT: CountdownType = localStorage.getItem("current-timestamp")
       hours: 0,
       mins: 0,
       secs: 0,
+      claimStarted: false,
     };
 
 let timer: CountdownType = { ...DEFAULT };
@@ -60,6 +62,16 @@ function calculateTimeDifference(endTime: string) {
 
 function getCurrentEraAndPhase(timestamps: any) {
   const now = new Date().getTime();
+  const claimStarts = new Date(timestamps.claim_starts).getTime();
+  const claimEnds = new Date(timestamps.claim_ends).getTime();
+
+  if (now >= claimStarts && now < claimEnds) {
+    return {
+      era: "mining", // Assuming 'mining' is the default era during claim period
+      phase: 1,
+      claimStarted: true,
+    };
+  }
 
   // Check each phase start and end time to determine the current era and phase
   for (let era = 1; era <= 3; era++) {
@@ -74,13 +86,18 @@ function getCurrentEraAndPhase(timestamps: any) {
         return {
           era: `era_${era}` as "era_1" | "era_2" | "era_3",
           phase: phase as 1 | 2 | 3,
+          claimStarted: false,
         };
       }
     }
   }
 
   // If no phase is active, default to the first phase of the first era
-  return { era: "era_1" as "era_1" | "era_2" | "era_3", phase: 1 };
+  return {
+    era: "era_1" as "era_1" | "era_2" | "era_3",
+    phase: 1,
+    claimStarted: false,
+  };
 }
 
 let timestamps: any = null;
@@ -100,18 +117,22 @@ export default function useTimer() {
         );
         const data = await response.json();
 
-        const { era, phase } = getCurrentEraAndPhase(data.result);
-        const phaseStartKey = `${era}_phase_${phase}_end`;
-        const initialTime = calculateTimeDifference(data.result[phaseStartKey]);
+        const { era, phase, claimStarted } = getCurrentEraAndPhase(data.result);
+        const phaseEndKey = claimStarted
+          ? "claim_ends"
+          : `${era}_phase_${phase}_end`;
+        const initialTime = calculateTimeDifference(data.result[phaseEndKey]);
         const initialTimer: CountdownType = {
-          era:
-            era === "era_1"
+          era: claimStarted
+            ? "mining" // Assuming 'mining' is the default era during claim period
+            : era === "era_1"
               ? "wishwell"
               : era === "era_2"
                 ? "mining"
                 : ("minting" as "wishwell" | "mining" | "minting"),
           phase: phase as 1 | 2 | 3,
           ...initialTime,
+          claimStarted,
         };
         setTimer(initialTimer);
         setCurrentTimer(initialTimer);
@@ -128,7 +149,7 @@ export default function useTimer() {
     const interval = setInterval(() => {
       setCurrentTimer((prevTimer) => {
         if (!prevTimer) return prevTimer;
-        let { days, hours, mins, secs, phase, era } = prevTimer;
+        let { days, hours, mins, secs, phase, era, claimStarted } = prevTimer;
 
         if (secs > 0) {
           secs -= 1;
@@ -147,11 +168,21 @@ export default function useTimer() {
             secs = 59;
           } else {
             // Time's up, move to the next phase or era
-            era = getNextEra(era);
-            phase = phase === 3 ? 1 : ((phase + 1) as 1 | 2 | 3);
+            if (claimStarted) {
+              // End of claim period
+              const nextPhase = getCurrentEraAndPhase(timestamps);
+              era = nextPhase.era as "wishwell" | "mining" | "minting";
+              phase = nextPhase.phase as 1 | 2 | 3;
+              claimStarted = nextPhase.claimStarted;
+            } else {
+              era = getNextEra(era);
+              phase = phase === 3 ? 1 : ((phase + 1) as 1 | 2 | 3);
+            }
 
-            const phaseStartKey = `era_${era === "wishwell" ? 1 : era === "mining" ? 2 : 3}_phase_${phase}_end`;
-            const newTime = calculateTimeDifference(timestamps[phaseStartKey]);
+            const phaseEndKey = claimStarted
+              ? "claim_ends"
+              : `era_${era === "wishwell" ? 1 : era === "mining" ? 2 : 3}_phase_${phase}_end`;
+            const newTime = calculateTimeDifference(timestamps[phaseEndKey]);
 
             days = newTime.days;
             hours = newTime.hours;
@@ -167,6 +198,7 @@ export default function useTimer() {
           hours,
           mins,
           secs,
+          claimStarted,
         };
 
         setTimer(newTimer); // Update the global timer variable
