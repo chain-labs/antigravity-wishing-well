@@ -102,7 +102,7 @@ export default function CollectiveHero() {
         alt="Collective Hero Background"
         height={1080}
         width={1920}
-        className="absolute inset-0 -z-[1] w-[1920px] h-full lg:h-screen object-[70%_10%] object-none lg:object-cover"
+        className="absolute inset-0 -z-[1] w-[100vw] h-full lg:h-screen object-[70%_10%] object-none lg:object-cover"
       />
     </div>
   );
