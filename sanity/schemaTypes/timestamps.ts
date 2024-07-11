@@ -102,6 +102,22 @@ export const timestampType = defineType({
       },
     }),
     defineField({
+      name: "claim_starts",
+      title: "Claim Starts",
+      type: "datetime",
+      options: {
+        timeFormat: "HH:mm:ss",
+      },
+    }),
+    defineField({
+      name: "claim_ends",
+      title: "Claim Ends",
+      type: "datetime",
+      options: {
+        timeFormat: "HH:mm:ss",
+      },
+    }),
+    defineField({
       name: "era_3_phase_1_start",
       title: "Era 3 Phase 1 Start Time",
       type: "datetime",
