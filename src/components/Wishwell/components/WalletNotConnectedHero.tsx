@@ -6,10 +6,12 @@ import Button from "@/components/Button";
 import Image from "next/image";
 import { Dispatch, useEffect, useRef, useState } from "react";
 import { PublicClient } from "viem";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { useChainModal, useConnectModal } from "@rainbow-me/rainbowkit";
 import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import { AnimatePresence, motion } from "framer-motion";
 import { client } from "../../../../sanity/lib/client";
+import { checkCorrectNetwork } from "@/components/RainbowKit";
+import { useAccount } from "wagmi";
 
 // Use a function to get the latest block number
 async function getLatestBlockNumber(publicClient: PublicClient) {
@@ -57,6 +59,9 @@ export default function WalletNotConnectedHero({
     }
   };
 
+  const account = useAccount();
+  const { openChainModal } = useChainModal();
+
   const {
     loading,
     error,
@@ -91,15 +96,25 @@ export default function WalletNotConnectedHero({
             </P>
           </div>
           <div className="flex flex-col md:flex-row justify-start items-start gap-[16px]">
-            <RegisterButton
-              loading={loading}
-              error={error}
-              setError={setError}
-              handleRegister={handleRegister}
-              isRegistered={isRegistered}
-              registerIdle={registerIdle}
-              handleLogin={handleLogin}
-            />
+            {checkCorrectNetwork(account.chainId) ? (
+              <RegisterButton
+                loading={loading}
+                error={error}
+                setError={setError}
+                handleRegister={handleRegister}
+                isRegistered={isRegistered}
+                registerIdle={registerIdle}
+                handleLogin={handleLogin}
+              />
+            ) : (
+              <Button
+                innerText="Switch Network"
+                iconSrc={IMAGEKIT_ICONS.ERROR}
+                onClick={openChainModal}
+                iconAlt="network error"
+                iconPosition="start"
+              />
+            )}
             <Button
               className="bg-[#030404A8] border-"
               innerText="How to Contribute?"
