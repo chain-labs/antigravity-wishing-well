@@ -133,7 +133,7 @@ export default function Leaderboard({
     | "era1Leaderboard"
     | "era2Leaderboard";
 }) {
-  const [tableData, setTableData] = useState<tableDataType[]>(tableDataStatic);
+  const [tableData, setTableData] = useState<tableDataType[]>([]);
   const account = useAccount();
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
