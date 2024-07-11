@@ -5,7 +5,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { PublicClient, parseAbiItem } from "viem";
-import { base } from "viem/chains";
+import { base, baseSepolia } from "viem/chains";
 import {
   useAccount,
   usePublicClient,
@@ -50,9 +50,8 @@ const useWishwell = () => {
     //   transport: http("https://base-sepolia.g.alchemy.com/v2/Ck1jBlebtn6A92-eXG1tnievZs0kfS9F"),
     // });
 
-    const fromBlockNumber = TEST_NETWORK
-      ? process.env.NEXT_PUBLIC_BASE_SEPOLIA_FROM_BLOCK_NUMBER
-      : account.chainId == base.id
+    const fromBlockNumber =
+      account.chainId == base.id || account.chainId === baseSepolia.id
         ? process.env.NEXT_PUBLIC_BASE_FROM_BLOCK_NUMBER
         : process.env.NEXT_PUBLIC_PLS_FROM_BLOCK_NUMBER;
 
@@ -101,7 +100,6 @@ const useWishwell = () => {
       latestBlock = await getLatestBlockNumber(publicClient);
       // console.log({ filter, logs, tokenId, latestBlock });
     }
-
     setTokenId(tokenId ?? BigInt(0));
     if (tokenId) {
       try {
@@ -231,14 +229,14 @@ const useWishwell = () => {
   }, [registerError]);
 
   useEffect(() => {
-    if (registerFetched) {
+    if (registerFetched && registerReceipt) {
       successToast("Registered successful", {
         duration: 3000,
       });
       getTokenIds(false);
       setIsRegistered(true);
     }
-  }, [registerFetched]);
+  }, [registerFetched, registerReceipt]);
 
   return {
     tokenId,
