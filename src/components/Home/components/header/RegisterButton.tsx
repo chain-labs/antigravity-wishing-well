@@ -1,13 +1,6 @@
 import Button from "@/components/Button";
-import { TEST_NETWORK } from "@/constants";
-import { checkCorrectNetwork } from "@/utils";
-import Image from "next/image";
-import { FiLoader } from "react-icons/fi";
-import { baseSepolia, pulsechain } from "viem/chains";
-import { useAccount, useSwitchChain } from "wagmi";
-import IMAGEKIT from "../../../../app/(client)/home/images";
+import { useAccount } from "wagmi";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
-import { useEffect } from "react";
 
 interface RegisterButtonProps {
   loading: boolean;
@@ -29,7 +22,6 @@ export const RegisterButton: React.FC<RegisterButtonProps> = ({
   isRegistered,
 }) => {
   const account = useAccount();
-  const switchChain = useSwitchChain();
 
   return (
     <>
@@ -38,12 +30,7 @@ export const RegisterButton: React.FC<RegisterButtonProps> = ({
         onClick={
           !loading
             ? account.isConnected
-              ? checkCorrectNetwork(Number(account.chainId))
-                ? handleRegister
-                : () =>
-                    switchChain.switchChain({
-                      chainId: TEST_NETWORK ? baseSepolia.id : pulsechain.id,
-                    })
+              ? handleRegister
               : handleLogin
             : !account.isConnected
               ? handleLogin
@@ -55,24 +42,18 @@ export const RegisterButton: React.FC<RegisterButtonProps> = ({
         }
         innerText={
           account.isConnected
-            ? checkCorrectNetwork(Number(account.chainId))
-              ? loading
-                ? !error
-                  ? "Checking your Registration"
-                  : "Recheck"
-                : !isRegistered
-                  ? registerIdle
-                    ? "REGISTER NOW"
-                    : "Registering..."
-                  : ""
-              : "Change Network"
+            ? loading
+              ? !error
+                ? "Checking your Registration"
+                : "Recheck"
+              : !isRegistered
+                ? registerIdle
+                  ? "REGISTER NOW"
+                  : "Registering..."
+                : ""
             : "CONNECT WALLET"
         }
-        loading={
-          account.isConnected &&
-          checkCorrectNetwork(Number(account.chainId)) &&
-          loading
-        }
+        loading={account.isConnected && loading}
         iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
         iconPosition="start"
         variants={
@@ -87,12 +68,7 @@ export const RegisterButton: React.FC<RegisterButtonProps> = ({
               }
             : {}
         }
-      />
-      {/* {(account.address && loading && !error) || !registerIdle ? (
-				<div className="animate-[spin_2s_ease-out_infinite]">
-					<FiLoader />
-				</div>
-			) */}
+      />{" "}
     </>
   );
 };
