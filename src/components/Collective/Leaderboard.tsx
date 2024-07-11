@@ -111,7 +111,7 @@ export default function Leaderboard({
   accountIsConnected: boolean;
 }) {
   const account = useAccount();
-  const [tableData, setTableData] = useState<tableDataType[]>(tableDataStatic);
+  const [tableData, setTableData] = useState<tableDataType[]>([]);
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
