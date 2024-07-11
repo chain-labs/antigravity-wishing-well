@@ -292,7 +292,6 @@ export function Card({
       clearTimeout(timeout);
     };
   }, [conversion]);
-
   return (
     <div className="flex justify-between gap-[16px] bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-full min-w-full border-[1px] border-agyellow">
       <div className="flex flex-col justify-start items-start gap-[8px] w-full">
@@ -305,7 +304,7 @@ export function Card({
           className={` text-agwhite font-extrabold font-sans`}
         >
           {USFormatToNumber(value) < 0.0001 && "<"}
-          {targetValueRef.current && (
+          {targetValueRef.current?.children[0] && (
             <AutomaticIncreamentalNumberCounterWithString
               from={
                 USFormatToNumber(
