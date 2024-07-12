@@ -28,6 +28,8 @@ export const Default: Story = {
       secs: 4,
       phase: 3,
       era: "minting",
+      claimStarted: false,
+      claimTransition: false,
     },
   },
 };
