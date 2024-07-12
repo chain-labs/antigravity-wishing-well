@@ -91,7 +91,7 @@ export default function Dropdown({
           padding: isOpen ? "12px 16px" : "0px 16px",
           opacity: isOpen ? 1 : 0,
         }}
-        className="absolute top-[calc(100%+8px)] right-0 rounded-[6px] shadow-[0_4px_0_#414343] z-10 text-agwhite transition-all duration-300 ease-in-out bg-gradient-to-b from-[#030404] to-[#131A1A] border-[1px] border-[#414343]"
+        className="absolute top-[calc(100%+8px)] left-0 rounded-[6px] shadow-[0_4px_0_#414343] z-10 text-agwhite transition-all duration-300 ease-in-out bg-gradient-to-b from-[#030404] to-[#131A1A] border-[1px] border-[#414343]"
       >
         <div
           style={{
