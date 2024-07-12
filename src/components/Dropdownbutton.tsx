@@ -52,7 +52,14 @@ export default function Dropdown({
       className="uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-extrabold text-agwhite cursor-pointer text-nowrap rounded-[4px] px-[10px] py-[6px] shadow-[0_4px_0_#414343] hover:translate-y-1 hover:shadow-none transition-[all_150ms] hover:shadow-none z-50 border-[1px] border-[#414343] bg-agblack active:bg-[#414343] box-border"
     >
       <div className="cursor-pointer grid grid-cols-[24px_auto_16px] place-items-center gap-[8px]">
-        <Image src={icon} alt={"icon"} width={24} height={24} />
+        <motion.div
+          whileHover={{
+            animation: "wiggle 1s linear forwards",
+          }}
+        >
+          <Image src={icon} alt={"icon"} width={24} height={24} />
+        </motion.div>
+
         <select
           name=""
           className="bg-transparent outline-none sr-only"
@@ -68,22 +75,17 @@ export default function Dropdown({
         {options.map(
           (option, idx) => selected === option.value && option.label,
         )}
-        <motion.div
-          whileHover={{
-            animation: "wiggle 1s linear forwards",
+
+        <Image
+          src={IMAGEKIT_ICONS.DOWN}
+          alt="Dropdown"
+          width={16}
+          height={16}
+          style={{
+            transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
           }}
-        >
-          <Image
-            src={IMAGEKIT_ICONS.DOWN}
-            alt="Dropdown"
-            width={16}
-            height={16}
-            style={{
-              transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-            }}
-            className="origin-center transition-all duration-300 ease-in-out transform rotate-0 cursor-pointer invert"
-          />
-        </motion.div>
+          className="origin-center transition-all duration-300 ease-in-out transform rotate-0 cursor-pointer invert"
+        />
       </div>
       <motion.div
         style={{
