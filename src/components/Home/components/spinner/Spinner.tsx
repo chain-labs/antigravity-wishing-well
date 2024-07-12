@@ -514,9 +514,11 @@ function Timer() {
         </div>
       </div>
       <div className="font-sans text-agyellow text-2xl font-bold text-center uppercase tracking-widest">
-        {timer.claimStarted
-          ? "Claming ends in"
-          : `Till Phase ${(timer.phase + 1) % 4 ? timer.phase + 1 : 1}`}
+        {timer.claimTransition
+          ? "Claiming starts in"
+          : timer.claimStarted
+            ? "Claming ends in"
+            : `Till Phase ${(timer.phase + 1) % 4 ? timer.phase + 1 : 1}`}
       </div>
     </div>
   );

@@ -27,6 +27,7 @@ export default function CountdownTimer({
     phase: 1 | 2 | 3;
     era: "wishwell" | "mining" | "minting";
     claimStarted: boolean;
+    claimTransition: boolean;
   };
   containerClassName?: string;
   counterSubtitleClassName?: string;
@@ -59,9 +60,11 @@ export default function CountdownTimer({
           containerClassName,
         )}
       >
-        {!state.claimStarted
-          ? `ETA for era ${era} phase ${phase}`
-          : "Claiming ends in"}
+        {state.claimTransition
+          ? "Claiming starts in"
+          : state.claimStarted
+            ? "Claming ends in"
+            : `ETA for era ${era} phase ${phase}`}
       </div>
       <div className="relative flex gap-2 md:gap-3 text-agyellow font-sans">
         <div className="flex items-center justify-center flex-col">
