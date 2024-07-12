@@ -7,7 +7,7 @@ export default function ClaimTransitionWait() {
   const timer = useTimer();
   return (
     <div className="h-screen px-[16px] flex flex-col justify-center items-center gap-[24px]">
-      <div className="flex flex-col justify-center md:items-center gap-[8px] mt-auto">
+      <div className="flex flex-col justify-center md:items-center gap-[8px] mt-auto md:mt-0">
         <H1 className="text-[64px] leading-[64px] md:text-[64px] md:leading-[64px] text-agwhite">
           Claiming will start soon.
         </H1>
