@@ -20,6 +20,7 @@ import Link from "next/link";
 import GradientBorder from "@/components/GradientBorder";
 import { useRestPost } from "@/hooks/useRestClient";
 import { client } from "../../../../sanity/lib/client";
+import Dropdownbutton from "@/components/Dropdownbutton";
 
 function CollectiveLogo() {
   const [hover, setHover] = useState(false);
@@ -125,17 +126,15 @@ const tableDataStatic: tableDataType[] = [
 
 export default function Leaderboard({
   accountIsConnected,
-  typeOfLeaderboard,
 }: {
   accountIsConnected: boolean;
-  typeOfLeaderboard:
-    | "allTimeLeaderboard"
-    | "era1Leaderboard"
-    | "era2Leaderboard";
 }) {
   const [tableData, setTableData] = useState<tableDataType[]>([]);
   const account = useAccount();
   const targetRef = useRef<HTMLDivElement>(null);
+  const [selectedLeaderboard, setSelectedLeaderboard] = useState<
+    "allTimeLeaderboard" | "era1Leaderboard" | "era2Leaderboard" | string
+  >("allTimeLeaderboard");
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start end", "start start"],
@@ -177,7 +176,7 @@ export default function Leaderboard({
   useEffect(() => {
     if (leaderboardData) {
       // @ts-ignore
-      const dataList = leaderboardData["allTimeLeaderboard"];
+      const dataList = leaderboardData[selectedLeaderboard];
       if (dataList.length < 10) {
         for (let i = 0; i <= 10 - dataList.length; i++) {
           dataList.push(null);
@@ -185,7 +184,7 @@ export default function Leaderboard({
       }
       setTableData(dataList);
     }
-  }, [leaderboardData]);
+  }, [leaderboardData, selectedLeaderboard]);
 
   if (!accountIsConnected) {
     return <div className="h-screen w-screen hidden lg:block"></div>;
@@ -206,8 +205,18 @@ export default function Leaderboard({
         }
       >
         <div className="flex flex-col gap-[16px] w-full">
-          <div className="flex flex-wrap justify-start items-center gap-[16px]">
+          <div className="flex flex-wrap justify-start items-center gap-[16px] z-50">
             <H1>Leaderboard</H1>
+            <Dropdownbutton
+              icon={IMAGEKIT_ICONS.CALENDAR}
+              options={[
+                { label: "All Time", value: "allTimeLeaderboard" },
+                { label: "Era 1", value: "era1Leaderboard" },
+                { label: "Era 2", value: "era2Leaderboard" },
+              ]}
+              selected={selectedLeaderboard}
+              setSelected={setSelectedLeaderboard}
+            />
             <AnimatedButton
               innerText="Refresh"
               iconSrc={IMAGEKIT_ICONS.REFRESH}

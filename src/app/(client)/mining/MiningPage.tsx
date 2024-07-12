@@ -39,7 +39,7 @@ export default function MiningPage() {
   return (
     <>
       <MiningHero />
-      {account.isConnected && <Leaderboard accountIsConnected typeOfLeaderboard="era2Leaderboard" />}
+      {account.isConnected && <Leaderboard accountIsConnected />}
       <Newsletter />
       <Footer />
     </>
