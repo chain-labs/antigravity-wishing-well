@@ -54,8 +54,8 @@ export default function NFTReceipt() {
       </motion.div>
       <Link target="_blank" href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}>
         <Button
-          innerText="Claim collective rewards"
-          iconSrc={IMAGEKIT_ICONS.HAMMER}
+          innerText="Collective rewards 101"
+          iconSrc={IMAGEKIT_ICONS.BOOK}
           iconAlt="hammer icon"
           variants={{
             hover: {
