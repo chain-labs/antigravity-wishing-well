@@ -139,13 +139,7 @@ export default function Leaderboard({
   useEffect(() => {
     if (leaderboardData) {
       // @ts-ignore
-      const dataList = leaderboardData[selectedLeaderboard];
-      if (dataList.length < 10) {
-        for (let i = 0; i <= 10 - dataList.length; i++) {
-          dataList.push(null);
-        }
-      }
-      setTableData(dataList);
+      setTableData(leaderboardData[selectedLeaderboard]);
     }
   }, [leaderboardData, selectedLeaderboard]);
 
