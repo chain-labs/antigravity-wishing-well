@@ -16,6 +16,7 @@ import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import CountdownTimer from "@/components/CountdownTimer";
 import { TEST_NETWORK } from "@/constants";
 import { checkCorrectNetwork } from "@/components/RainbowKit";
+import { pulsechain, sepolia } from "viem/chains";
 
 export default function NonContributed({
   state,
@@ -78,7 +79,13 @@ export default function NonContributed({
 
   const tokens: IToken[] = useMemo(() => {
     if (!account.isConnected || !checkCorrectNetwork(account.chainId)) {
-      return (s3Data as any)?.data?.tokens;
+      const tokensData = (s3Data as any)?.data?.tokens?.filter(
+        (token: IToken) => {
+          const defaultNetwork = TEST_NETWORK ? sepolia.id : pulsechain.id;
+          return defaultNetwork === token.chainId;
+        },
+      );
+      return tokensData;
     }
     if (s3Data) {
       const tokensData = (s3Data as any)?.data?.tokens?.filter(
@@ -110,6 +117,8 @@ export default function NonContributed({
   const {
     mineToken,
     transactionLoading,
+    isApprovalNeeded,
+    approveReceipt,
     darkXBalance,
     tokenBalances,
     receipt,
@@ -119,12 +128,6 @@ export default function NonContributed({
     value,
     proof.length > 0 ? MULTIPLIER * 2 : MULTIPLIER,
   );
-  // useEffect(() => {
-  //   if (tokenBalances) {
-  //     console.log({ selectedToken });
-  //   }
-  // }, [tokenBalances]);
-
   const { data: tokenPrice } = useRestFetch<{ price: number }>(
     ["token_price", tokens?.[selectedToken]?.address],
     `/be/coinPrices?token=${tokens?.[selectedToken]?.address}&pool=${tokens?.[selectedToken]?.pool}&network=${tokens?.[selectedToken]?.chainId}`,
@@ -132,7 +135,6 @@ export default function NonContributed({
   );
 
   const usdValue = useMemo(() => {
-    console.log({ tokenPrice });
     return tokenPrice?.price;
   }, [tokenPrice]);
 
@@ -147,43 +149,36 @@ export default function NonContributed({
     data: predictedPointsData,
     isSuccess: predictedPointsSuccess,
     mutate: predictPointsFn,
-  } = useRestPost(
-    ["token_price", tokens?.[selectedToken]?.address],
-    TEST_NETWORK ? "/api/predict-points" : "/api/predict-points",
-    // { enabled: !!usdValue },
+  } = useRestPost<{ points: number }>(
+    ["get-multiplyer"],
+    "/api/predict-points",
   );
 
   useEffect(() => {
-    if (usdValue && account.isConnected) {
-      predictPointsFn({
-        walletAddress: account.address,
-        amount: value * usdValue || 0,
-      });
-    }
-  }, [account.address, usdValue, value]);
+    predictPointsFn({
+      walletAddress: account.isConnected ? account.address : "",
+      amount: 1,
+    });
+  }, [account.address, timerState.era, timerState.phase]);
 
-  const [multiplyer, setMultiplyer] = useState(0);
+  const [multiplyer, setMultiplyer] = useState(1);
 
-  const calculateMultiplyer = (points: number) => {
-    const multiplyerData = points / (value * (usdValue || 0));
-    setMultiplyer(multiplyerData);
+  const calculateMultiplyer = () => {
+    const multiplyerData = predictedPointsData?.points || 0;
+    if (multiplyerData) setMultiplyer(multiplyerData as number);
   };
 
   const predictedPoints = useMemo(() => {
-    if (predictedPointsData) {
-      // @ts-ignore
-      const currentPoints = predictedPointsData?.points;
-      if (multiplyer === 0) calculateMultiplyer(currentPoints);
-      return currentPoints || 0;
+    if (usdValue && multiplyer && value) {
+      return value * usdValue * multiplyer;
     }
     return 0;
-  }, [predictedPointsData, predictedPointsSuccess]);
+  }, [multiplyer, value, usdValue]);
 
   useEffect(() => {
-    if (usdValue) {
-      calculateMultiplyer(predictedPoints);
-    }
-  }, [account.address, usdValue]);
+    calculateMultiplyer();
+    console.log({ predictedPointsData });
+  }, [predictedPointsData]);
 
   const handleMine = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -256,7 +251,22 @@ export default function NonContributed({
       ) : checkCorrectNetwork(account.chainId) ? (
         <Button
           loading={transactionLoading}
-          innerText={transactionLoading ? "Processing" : "Mine Now"}
+          innerText={
+            value <= Number(tokenBalances?.[selectedToken])
+              ? transactionLoading
+                ? isApprovalNeeded
+                  ? !approveReceipt
+                    ? "Approving..."
+                    : "Mining..."
+                  : "Mining..."
+                : isApprovalNeeded
+                  ? "Approve & Mine"
+                  : "Mine Now"
+              : "Insufficient Funds"
+          }
+          disabled={
+            value > Number(tokenBalances?.[selectedToken]) || transactionLoading
+          }
           iconSrc={IMAGEKIT_ICONS.HAMMER}
           iconAlt="hammer"
           onClick={handleMine}

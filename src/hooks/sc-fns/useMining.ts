@@ -146,6 +146,7 @@ const useMining = (
       }
       setTransactionLoading(false);
     }
+
     if (approveError) {
       console.log({ approveError });
       if ((approveError.cause as any).code === 4001) {
@@ -165,6 +166,17 @@ const useMining = (
       console.log({ receipt });
     }
   }, [mineError, receipt, approveError]);
+
+  useEffect(() => {
+    if (token && allowance && amountToInvest) {
+      const allowed = formatUnits(allowance as bigint, token.decimals);
+      if (Number(allowed) < amountToInvest) {
+        setIsApprovalNeeded(true);
+      } else {
+        setIsApprovalNeeded(false);
+      }
+    }
+  }, [allowance, amountToInvest, token]);
 
   const mineToken = (merkleProof: string[]) => {
     if (token.address && amountToInvest && merkleProof) {
@@ -194,8 +206,9 @@ const useMining = (
   };
 
   useEffect(() => {
-    if (approveReceipt)
+    if (approveReceipt) {
       console.log({ approveReceipt, approveIsLoading, isApprovalNeeded });
+    }
     if (isApprovalNeeded && !approveIsLoading && approveReceipt) {
       console.log("mining", { merkleProofState });
 
@@ -214,11 +227,13 @@ const useMining = (
   return {
     mineToken,
     receipt,
+    approveReceipt,
     receiptError,
     mineError,
     isLoading,
     isPending,
     transactionLoading,
+    isApprovalNeeded,
     darkXBalance,
     tokenBalances: tokenBalance?.map(
       (tokenBalance: any, index: number) =>

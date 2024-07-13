@@ -20,7 +20,7 @@ const useMiningContract = (): IContract => {
       };
     } else if (account.chain?.id === sepolia.id) {
       return {
-        address: "0x1Bf87A5970478dD5052D0f26E7FB62C6Cb3D2EC0",
+        address: "0xdcBeDF395384582369F6035c62bEf1A73e14d938",
         abi,
       };
     }

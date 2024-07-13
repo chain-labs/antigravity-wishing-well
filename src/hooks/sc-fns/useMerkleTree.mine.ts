@@ -42,6 +42,7 @@ const useMerkleTree = (list: Array<string>) => {
    * @returns {*}
    */
   const generateProof = (candidate: string) => {
+    if (candidate === "" || candidate === undefined) return [];
     const queryAccount = list.find(
       (acc) => acc.toLowerCase() === candidate.toLowerCase(),
     );

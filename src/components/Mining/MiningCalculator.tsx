@@ -382,7 +382,7 @@ function Multiplyer({
 }
 
 export function pointsConverterToUSCommaseparated(points: number): string {
-  const [integerPart, decimalPart] = points.toString().split(".");
+  const [integerPart, decimalPart] = points?.toString().split(".");
   const formattedIntegerPart = integerPart.replace(
     /\B(?=(\d{3})+(?!\d))/g,
     ",",
