@@ -125,7 +125,7 @@ export default function ClaimedCard() {
         </AnimatePresence>
       </div>
       <div className="relative flex flex-col justify-center items-center gap-[24px] mt-[50px]">
-        <div className="flex flex-col justify-center items-center gap-[8px] border-[1px] border-agyellow rounded-[0.375rem] overflow-hidden">
+        <div className="relative flex flex-col justify-center items-center gap-[8px] border-[1px] border-agyellow rounded-[0.375rem] overflow-hidden z-0 w-fit h-fit">
           <Image
             src={IMAGEKIT_IMAGES.MINING_TOKENS_CLAIMED}
             height={300}
@@ -133,6 +133,9 @@ export default function ClaimedCard() {
             alt="mining tokens claimed"
             className="object-cover w-[25rem] h-[14.011rem]"
           />
+          <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-[#00000080] via-[#00000000] to-[#00000080] z-1 flex justify-center items-center">
+            <p className="text-[32px] leading-[32px] text-agwhite font-sans font-extrabold h-fit">All Claimed!</p>
+          </div>
         </div>
         <div className="flex flex-col justify-center items-center gap-[8px] w-full">
           <div

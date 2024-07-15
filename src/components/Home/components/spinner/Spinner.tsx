@@ -515,19 +515,22 @@ function Timer() {
       </div>
       <div
         style={{
-          fontSize: timer.claimTransition
-            ? "1rem"
-            : timer.claimStarted
+          fontSize:
+            timer.claimTransition ||
+            (timer.era === "mining" && timer.phase === 3) ||
+            timer.claimStarted
               ? "1rem"
               : "1.5rem",
         }}
         className="font-sans text-agyellow text-2xl font-bold text-center uppercase tracking-widest"
       >
-        {timer.claimTransition
-          ? "Claiming starts in"
-          : timer.claimStarted
-            ? "Claming ends in"
-            : `Till Phase ${(timer.phase + 1) % 4 ? timer.phase + 1 : 1}`}
+        {timer.era === "mining" && timer.phase === 3 && !timer.claimTransition && !timer.claimStarted
+          ? "Mining ends in"
+          : timer.claimTransition
+            ? "Claiming starts in"
+            : timer.claimStarted
+              ? "Claming ends in"
+              : `Till Phase ${(timer.phase + 1) % 4 ? timer.phase + 1 : 1}`}
       </div>
     </div>
   );

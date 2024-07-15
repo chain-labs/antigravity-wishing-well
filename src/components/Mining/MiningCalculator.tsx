@@ -17,7 +17,7 @@ import Badge from "@/components/Badge";
 import Pill from "@/components/Pill";
 import { TokenDropdownTypes } from "./types";
 import Image from "next/image";
-import AutomaticIncreamentalNumberCounterWithString from "./AutomaticIncreamentalNumberCounterWithString";
+import AutomaticIncreamentalNumberCounterWithString, { USFormatToNumber } from "./AutomaticIncreamentalNumberCounterWithString";
 import { TOKEN_OPTIONS } from "./constants";
 import { useAccount } from "wagmi";
 
@@ -304,6 +304,9 @@ export function Card({
           }}
           className={` text-agwhite font-extrabold font-sans`}
         >
+          {
+            USFormatToNumber(currentValue) < 0.0001 
+          }
           {targetValueRef.current && (
             <AutomaticIncreamentalNumberCounterWithString
               from={targetValueRef.current?.textContent ?? "0"}
