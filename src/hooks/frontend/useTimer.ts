@@ -94,7 +94,7 @@ function setTimestamps(newTimestamps: any) {
 
 function createDummyTimestamps() {
   const now = new Date().getTime();
-  const timegap = 5000; // 5 seconds
+  const timegap = 500000; // 5 seconds
   const dummyTimestamps: any = {
     era_1_phase_1_start: new Date(now).toISOString(),
     era_1_phase_1_end: new Date(now + timegap).toISOString(),
@@ -212,7 +212,6 @@ export default function useTimer() {
         const claimEnd = new Date(timestamps["claim_ends"]).getTime();
 
         if (now >= era2End && now < claimStart) {
-          console.log("transition phase");
           const claimTime = calculateTimeDifference(timestamps["claim_starts"]);
           return {
             era: "mining",

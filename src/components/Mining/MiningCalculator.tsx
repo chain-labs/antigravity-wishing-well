@@ -17,7 +17,9 @@ import Badge from "@/components/Badge";
 import Pill from "@/components/Pill";
 import { TokenDropdownTypes } from "./types";
 import Image from "next/image";
-import AutomaticIncreamentalNumberCounterWithString, { USFormatToNumber } from "./AutomaticIncreamentalNumberCounterWithString";
+import AutomaticIncreamentalNumberCounterWithString, {
+  USFormatToNumber,
+} from "./AutomaticIncreamentalNumberCounterWithString";
 import { TOKEN_OPTIONS } from "./constants";
 import { useAccount } from "wagmi";
 
@@ -212,7 +214,14 @@ export function InputCard({
               }}
             >
               <div className="bg-[#0A1133] rounded-full w-fit h-fit">
-                <div className="uppercase text-nowrap rounded-full text-[12px] leading-[12px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent bg-clip-text">
+                <div
+                  className={twMerge(
+                    "uppercase text-nowrap rounded-full text-[12px] leading-[12px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent",
+                    USFormatToNumber(inputValue) <= Number(tokenBalance)
+                      ? "bg-clip-text text-transparent"
+                      : "text-agblack",
+                  )}
+                >
                   MAX
                 </div>
               </div>
@@ -304,16 +313,16 @@ export function Card({
           }}
           className={` text-agwhite font-extrabold font-sans`}
         >
-          {
-            USFormatToNumber(currentValue) < 0.0001 
-          }
-          {targetValueRef.current && (
-            <AutomaticIncreamentalNumberCounterWithString
-              from={targetValueRef.current?.textContent ?? "0"}
-              to={currentValue}
-              float={currentValue.includes(".")}
-            />
-          )}
+          {USFormatToNumber(currentValue) < 0.0001 &&
+          USFormatToNumber(currentValue) !== 0
+            ? "< 0.0001"
+            : targetValueRef.current && (
+                <AutomaticIncreamentalNumberCounterWithString
+                  from={targetValueRef.current?.textContent ?? "0"}
+                  to={currentValue}
+                  float={currentValue.includes(".")}
+                />
+              )}
         </div>
         {onlyValue ? null : (
           <div className="flex justify-center items-center opacity-75 gap-[8px]">

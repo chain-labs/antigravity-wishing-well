@@ -32,7 +32,7 @@ export function pointsConverterToUSCommaseparated(points: number): string {
 }
 
 export function USFormatToNumber(value: string): number {
-  return Number(value.replace(/[$,]/g, ""));
+  return Number(value.replace(/[$,< ]/g, ""));
 }
 
 export default function AutomaticIncreamentalNumberCounterWithString(
