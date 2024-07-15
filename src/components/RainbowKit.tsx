@@ -50,16 +50,15 @@ const RainbowKitContext = ({ children }: Props) => {
 
 export default RainbowKitContext;
 
-export const checkCorrectNetwork = (chainId: number | undefined) => {
+export const checkCorrectNetwork = (
+  chainId: number | undefined,
+  chains: number[] = TEST_NETWORK
+    ? [sepolia.id, baseSepolia.id]
+    : [pulsechain.id, base.id],
+) => {
   if (chainId === undefined) return true;
-  if (TEST_NETWORK) {
-    if (chainId === sepolia.id || chainId === baseSepolia.id) {
-      return true;
-    }
-  } else {
-    if (chainId === pulseChain.id || chainId === base.id) {
-      return true;
-    }
+  if (chains.find((chain) => chain === chainId)) {
+    return true;
   }
 
   return false;

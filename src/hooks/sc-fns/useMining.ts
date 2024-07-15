@@ -212,7 +212,10 @@ const useMining = (
           abi: MiningContract?.abi,
           functionName: "mine",
           args: [token.address, investAmount, merkleProof],
-          value: token.address === nativeToken ? investAmount : BigInt(0),
+          value:
+            token.address.toLowerCase() === nativeToken.toLowerCase()
+              ? investAmount
+              : BigInt(0),
         });
       }
     }

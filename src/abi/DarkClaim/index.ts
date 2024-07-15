@@ -9,29 +9,23 @@ interface IContract {
 
 import abi from "./abi.json";
 
+const contracts: Record<number, { address: `0x${string}`; abi: any }> = {
+  [sepolia.id]: {
+    address: "0x441dc2f7e3D11B738133144144aB20Cb556df14B",
+    abi,
+  },
+  [pulsechain.id]: {
+    address: "0x441dc2f7e3D11B738133144144aB20Cb556df14B",
+    abi,
+  },
+};
+
 const useDarkClaimContract = (): IContract => {
   const account = useAccount();
   if (TEST_NETWORK) {
-    if (account.chain?.id === baseSepolia.id) {
-      // Change the address here
-      return {
-        address: "0x441dc2f7e3D11B738133144144aB20Cb556df14B",
-        abi,
-      };
-    } else if (account.chain?.id === sepolia.id) {
-      return {
-        address: "0x441dc2f7e3D11B738133144144aB20Cb556df14B",
-        abi,
-      };
-    }
+    return contracts[sepolia.id];
   } else {
-    if (account.chain?.id === pulsechain.id) {
-      // Change the address here
-      return {
-        address: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-        abi,
-      };
-    }
+    return contracts[pulsechain.id];
   }
 
   return {};

@@ -7,12 +7,14 @@ import { useRestFetch } from "@/hooks/useRestClient";
 import { useChainModal, useConnectModal } from "@rainbow-me/rainbowkit";
 import { useMemo } from "react";
 import { formatUnits } from "viem";
-import { useAccount, useReadContract } from "wagmi";
+import { useAccount, useReadContract, useSwitchChain } from "wagmi";
 import ContributedCard from "./ContributedCard";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import Button from "@/components/Button";
 import useClaimMerkleTree from "@/hooks/sc-fns/useMerkleTree.claim";
 import { checkCorrectNetwork } from "@/components/RainbowKit";
+import { TEST_NETWORK } from "@/constants";
+import { pulsechain, sepolia } from "viem/chains";
 
 export default function ContributedHero() {
   const { openConnectModal } = useConnectModal();
@@ -119,6 +121,8 @@ export default function ContributedHero() {
     );
   };
 
+  const { switchChain } = useSwitchChain();
+
   return (
     <div className="relative flex flex-col justify-center items-center gap-[24px] mt-[50px]">
       <div className="flex flex-col justify-center items-center gap-[8px]">
@@ -175,7 +179,10 @@ export default function ContributedHero() {
             iconAlt="wallet"
             onClick={openConnectModal}
           />
-        ) : checkCorrectNetwork(account.chainId) ? (
+        ) : checkCorrectNetwork(
+            account.chainId,
+            TEST_NETWORK ? [sepolia.id] : [pulsechain.id],
+          ) ? (
           <Button
             innerText={transactionLoading ? "Claiming..." : "Claim Now"}
             loading={transactionLoading}
@@ -188,7 +195,13 @@ export default function ContributedHero() {
           <Button
             innerText="Switch Network"
             iconSrc={IMAGEKIT_ICONS.ERROR}
-            onClick={openChainModal}
+            onClick={() => {
+              if (TEST_NETWORK) {
+                switchChain({ chainId: sepolia.id });
+              } else {
+                switchChain({ chainId: pulsechain.id });
+              }
+            }}
             iconAlt="network error"
             iconPosition="start"
           />
