@@ -89,7 +89,7 @@ const Header = () => {
             >
               <Link
                 href={
-                  timer.era === "mining"
+                  timer.era != "wishwell"
                     ? "#"
                     : location.pathname === "/wishwell"
                       ? "/wishwell#"
@@ -109,7 +109,7 @@ const Header = () => {
                   extrabold
                   className="font-sans font-extrabold"
                   style={{
-                    opacity: timer.era === "mining" ? 0.66 : 1,
+                    opacity: timer.era !== "wishwell" ? 0.66 : 1,
                   }}
                 >
                   Wishwell
@@ -322,7 +322,7 @@ const Header = () => {
               {account.isConnected && <UserConnected />}
               <Link
                 href={
-                  timer.era === "mining"
+                  timer.era !== "wishwell"
                     ? "#"
                     : location.pathname === "/wishwell"
                       ? "/wishwell#"
@@ -342,7 +342,7 @@ const Header = () => {
                   extrabold
                   className="font-sans font-extrabold"
                   style={{
-                    opacity: timer.era === "mining" ? 0.66 : 1,
+                    opacity: timer.era !== "wishwell" ? 0.66 : 1,
                   }}
                 >
                   Wishwell
