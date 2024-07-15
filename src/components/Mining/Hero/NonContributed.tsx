@@ -249,6 +249,14 @@ export default function NonContributed({
           iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
           iconAlt="wallet"
           onClick={openConnectModal}
+          variants={{
+            hover: {
+              animationName: "wiggle",
+              animationDuration: "1s",
+              animationFillMode: "forwards",
+              animationTimingFunction: "linear",
+            },
+          }}
         />
       ) : checkCorrectNetwork(account.chainId) ? (
         <Button
@@ -257,6 +265,16 @@ export default function NonContributed({
           iconSrc={IMAGEKIT_ICONS.HAMMER}
           iconAlt="hammer"
           onClick={handleMine}
+          variants={{
+            hover: {
+              scale: !transactionLoading ? 1.35 : 1,
+              rotate: !transactionLoading ? 390 : 0,
+              transition: {
+                duration: 1,
+                type: "spring",
+              },
+            },
+          }}
         />
       ) : (
         <Button
@@ -265,6 +283,14 @@ export default function NonContributed({
           onClick={openChainModal}
           iconAlt="network error"
           iconPosition="start"
+          variants={{
+            hover: {
+              animationName: "wiggle",
+              animationDuration: "1s",
+              animationFillMode: "forwards",
+              animationTimingFunction: "linear",
+            },
+          }}
         />
       )}
       <div className="p-[8px] rounded-[6px] bg-[#030404A8]">
