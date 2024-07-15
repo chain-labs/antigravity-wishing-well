@@ -130,10 +130,10 @@ export default function useTimer() {
         const response = await fetch(
           "https://hujrbtk3.api.sanity.io/v2024-07-01/data/query/collective_page?query=*%5B_type%3D%3D%22timestamps%22%5D%5B0%5D",
         );
-        // const data = await response.json();
-        const data = {
-          result: createDummyTimestamps(),
-        }
+        const data = await response.json();
+        // const data = {
+        //   result: createDummyTimestamps(),
+        // }
 
         const now = new Date().getTime();
         const era2End = new Date(data.result["era_2_phase_3_end"]).getTime();
