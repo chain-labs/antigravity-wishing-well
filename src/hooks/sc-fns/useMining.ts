@@ -12,8 +12,6 @@ import {
 } from "wagmi";
 import { IToken } from "@/components/Mining/types";
 import { errorToast, successToast } from "../frontend/toast";
-import { watchContractEvent } from "viem/actions";
-import { sepolia } from "viem/chains";
 import useDarkXContract from "@/abi/DarkX";
 
 /**

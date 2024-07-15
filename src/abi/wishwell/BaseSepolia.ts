@@ -1,6 +1,6 @@
 import ABI from "./abi.json";
 const abi = ABI;
-const address: `0x${string}` = "0x07847E2Eb386eee397815D8aC9f01f3344d07EB0";
+const address: `0x${string}` = "0x37F347A3aD2DF321330ca7D3Ad293B097b20A698";
 
 const BaseSepoliaAG = { abi, address };
 

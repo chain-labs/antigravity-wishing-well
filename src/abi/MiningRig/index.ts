@@ -11,11 +11,11 @@ import abi from "./abi.json";
 
 const contracts: Record<number, { address: `0x${string}`; abi: any }> = {
   [sepolia.id]: {
-    address: "0xdcBeDF395384582369F6035c62bEf1A73e14d938",
+    address: "0x4D06Dc6ACB64194E417658BF0e610de463EC091e",
     abi,
   },
   [baseSepolia.id]: {
-    address: "0x968fd3e3f1Ebc136A79BE36201346BEc26331608",
+    address: "0xa2A6b9507eB9bFFCCBdAf853ED98047CdEb154F7",
     abi,
   },
   [base.id]: {
