@@ -68,7 +68,7 @@ export default function CountdownTimer({
           : state.claimTransition
             ? "Claiming starts in"
             : state.claimStarted
-              ? "Claming ends in"
+              ? "Claiming ends in"
               : `ETA for era ${era} phase ${phase}`}
       </div>
       <div className="relative flex gap-2 md:gap-3 text-agyellow font-sans">
