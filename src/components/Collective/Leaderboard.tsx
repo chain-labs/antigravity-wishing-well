@@ -19,6 +19,7 @@ import AnimatedButton from "../AnimatedButton";
 import Link from "next/link";
 import GradientBorder from "../GradientBorder";
 import { useRestPost } from "@/hooks/useRestClient";
+import Dropdownbutton from "../Dropdownbutton";
 
 function CollectiveLogo() {
   return (
@@ -113,6 +114,9 @@ export default function Leaderboard({
   const account = useAccount();
   const [tableData, setTableData] = useState<tableDataType[]>([]);
   const targetRef = useRef<HTMLDivElement>(null);
+  const [selectedLeaderboard, setSelectedLeaderboard] = useState<
+    "allTimeLeaderboard" | "era1Leaderboard" | "era2Leaderboard" | string
+  >("allTimeLeaderboard");
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start end", "start start"],
@@ -135,15 +139,9 @@ export default function Leaderboard({
   useEffect(() => {
     if (leaderboardData) {
       // @ts-ignore
-      const dataList = leaderboardData["allTimeLeaderboard"];
-      if (dataList.length < 10) {
-        for (let i = 0; i <= 10 - dataList.length; i++) {
-          dataList.push(null);
-        }
-      }
-      setTableData(dataList);
+      setTableData(leaderboardData[selectedLeaderboard]);
     }
-  }, [leaderboardData]);
+  }, [leaderboardData, selectedLeaderboard]);
 
   return (
     <div ref={targetRef}>
@@ -161,6 +159,16 @@ export default function Leaderboard({
         <div className="flex flex-col gap-[16px] w-full">
           <div className="flex flex-col md:flex-row flex-wrap justify-start items-start md:items-center gap-[16px]">
             <H1>Leaderboard</H1>
+            <Dropdownbutton
+              icon={IMAGEKIT_ICONS.CALENDAR}
+              options={[
+                { label: "All Time", value: "allTimeLeaderboard" },
+                { label: "Era 1", value: "era1Leaderboard" },
+                { label: "Era 2", value: "era2Leaderboard" },
+              ]}
+              selected={selectedLeaderboard}
+              setSelected={setSelectedLeaderboard}
+            />
             <AnimatedButton
               innerText="Refresh"
               iconSrc={IMAGEKIT_ICONS.REFRESH}

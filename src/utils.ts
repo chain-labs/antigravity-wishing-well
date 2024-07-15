@@ -15,7 +15,7 @@ export const toBoolean = (query: string | undefined) => {
 export const getApiNetwork = (chainId: number) => {
   if (chainId === base.id || chainId === baseSepolia.id) {
     return "ethereum";
-  } else if (chainId === pulsechain.id || chainId === pulsechainV4.id) {
+  } else if (chainId === pulsechain.id || chainId === sepolia.id) {
     return "pulsechain";
   }
 };
