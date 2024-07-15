@@ -5,6 +5,7 @@ export type TokenDropdownTypes = {
   USDvalue?: number;
   address: string;
   logoURI: string | StaticImport;
+  buyLink: string;
 };
 
 export type IToken = TokenDropdownTypes & {
@@ -14,4 +15,4 @@ export type IToken = TokenDropdownTypes & {
   pool: string;
 };
 
-export type StateType = "Mining" | "Claiming";
+export type StateType = "Mining" | "Claiming" | "Claimed";

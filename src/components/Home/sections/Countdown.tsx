@@ -178,7 +178,6 @@ export default function Countdown() {
       <div className="flex justify-start items-start flex-col gap-4">
         <CountdownTimer state={state} />
       </div>
-
       <div className="relative flex lg:hidden flex-col rounded bg-gradient-to-b from-[#5730BF] to-[#15004C] p-4 z-0 overflow-hidden">
         <div className="grid grid-cols-1 gap-4">
           <div className="relative h-full flex flex-col gap-2 p-2">

@@ -44,7 +44,7 @@ export default function NFTReceipt() {
       >
         <ThreeDHovercardEffect ROTATION_RANGE={10}>
           <Image
-            src={nftURL ?? IMAGEKIT_IMAGES.NFT_RECEIPT}
+            src={nftURL != "" ? nftURL : IMAGEKIT_IMAGES.NFT_RECEIPT}
             alt="NFT Receipt"
             width={300}
             height={600}
@@ -54,13 +54,12 @@ export default function NFTReceipt() {
       </motion.div>
       <Link target="_blank" href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}>
         <Button
-          innerText="Claim collective rewards"
-          iconSrc={IMAGEKIT_ICONS.HAMMER}
+          innerText="Collective rewards 101"
+          iconSrc={IMAGEKIT_ICONS.BOOK}
           iconAlt="hammer icon"
           variants={{
             hover: {
-              scale: 1.35,
-              rotate: 390,
+              scale: 1.25,
               transition: {
                 duration: 1,
                 type: "spring",

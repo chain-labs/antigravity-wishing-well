@@ -5,7 +5,7 @@ import P from "@/components/HTML/P";
 import useClaim from "@/hooks/sc-fns/useClaim";
 import { useRestFetch } from "@/hooks/useRestClient";
 import { useChainModal, useConnectModal } from "@rainbow-me/rainbowkit";
-import { useMemo } from "react";
+import { Dispatch, SetStateAction, useEffect, useMemo } from "react";
 import { formatUnits } from "viem";
 import { useAccount, useReadContract } from "wagmi";
 import ContributedCard from "./ContributedCard";
@@ -13,8 +13,13 @@ import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import Button from "@/components/Button";
 import useClaimMerkleTree from "@/hooks/sc-fns/useMerkleTree.claim";
 import { checkCorrectNetwork } from "@/components/RainbowKit";
+import { StateType } from "../types";
 
-export default function ContributedHero() {
+export default function ContributedHero({
+  setState,
+}: {
+  setState: Dispatch<SetStateAction<StateType>>;
+}) {
   const { openConnectModal } = useConnectModal();
   const account = useAccount();
   const { openChainModal } = useChainModal();
@@ -104,7 +109,7 @@ export default function ContributedHero() {
     return 0;
   }, [points, dark_MAX_SUPPLY, dark_total_points]);
 
-  const { claim, transactionLoading } = useClaim();
+  const { claim, transactionLoading, darkBalance } = useClaim();
 
   const handleClaim = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -117,7 +122,16 @@ export default function ContributedHero() {
       ERA2_DATA.nonces[accountIndex],
       proof,
     );
+
+    setState("Claimed");
   };
+
+  useEffect(() => {
+    if (darkBalance as bigint > 0) {
+      console.log('darkBalance', darkBalance);
+      setState("Claimed");
+    }
+  }, [darkBalance]);
 
   return (
     <div className="relative flex flex-col justify-center items-center gap-[24px] mt-[50px]">
@@ -165,7 +179,7 @@ export default function ContributedHero() {
         <ContributedCard
           value={darkTokens}
           pillText="DARK"
-          pillIconSrc={IMAGEKIT_ICONS.PILL_DARK_X}
+          pillIconSrc={IMAGEKIT_ICONS.PILL_DARK_X_CLAIMED}
           pillIconAlt="dark x"
         />
         {!account.isConnected ? (
@@ -174,6 +188,14 @@ export default function ContributedHero() {
             iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
             iconAlt="wallet"
             onClick={openConnectModal}
+            variants={{
+              hover: {
+                animationName: "wiggle",
+                animationDuration: "1s",
+                animationFillMode: "forwards",
+                animationTimingFunction: "linear",
+              },
+            }}
           />
         ) : checkCorrectNetwork(account.chainId) ? (
           <Button
@@ -191,6 +213,14 @@ export default function ContributedHero() {
             onClick={openChainModal}
             iconAlt="network error"
             iconPosition="start"
+            variants={{
+              hover: {
+                animationName: "wiggle",
+                animationDuration: "1s",
+                animationFillMode: "forwards",
+                animationTimingFunction: "linear",
+              },
+            }}
           />
         )}
       </div>
