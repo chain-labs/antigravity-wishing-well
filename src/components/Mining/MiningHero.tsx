@@ -36,10 +36,12 @@ export default function MiningHero() {
         <div className="flex flex-col justify-center items-center w-full h-fit pt-[30px] md:pt-[100px]">
           {timer.claimTransition ? (
             <ClaimTransitionWait />
-          ) : (timer.claimStarted || timer.era === "minting") && state !== "Claimed" ? (
+          ) : (timer.claimStarted || timer.era === "minting") &&
+            state !== "Claimed" ? (
             <ContributedHero setState={setState} />
-          ) : (timer.claimStarted || timer.era === "minting") && state === "Claimed" ? (
-            <ClaimedCard />
+          ) : (timer.claimStarted || timer.era === "minting") &&
+            state === "Claimed" ? (
+            <ClaimedCard setState={setState} />
           ) : (
             <NonContributed
               state={state}
