@@ -11,6 +11,7 @@ export const TOKEN_OPTIONS: IToken[] = [
     logoURI: IMAGEKIT_ICONS.USDC_COLOR,
     chainId: 11155111,
     decimals: 6,
+    buyLink: "",
   },
   {
     symbol: "MEME1",
@@ -21,6 +22,7 @@ export const TOKEN_OPTIONS: IToken[] = [
     logoURI: IMAGEKIT_ICONS.MEME_COLOR,
     chainId: 11155111,
     decimals: 18,
+    buyLink: "",
   },
   {
     symbol: "MEME2",
@@ -31,6 +33,7 @@ export const TOKEN_OPTIONS: IToken[] = [
     logoURI: IMAGEKIT_ICONS.MEME_COLOR,
     chainId: 11155111,
     decimals: 18,
+    buyLink: "",
   },
   {
     symbol: "WETH",
@@ -41,6 +44,7 @@ export const TOKEN_OPTIONS: IToken[] = [
     logoURI: IMAGEKIT_ICONS.WETH_COLOR,
     chainId: 11155111,
     decimals: 18,
+    buyLink: "",
   },
 ];
 

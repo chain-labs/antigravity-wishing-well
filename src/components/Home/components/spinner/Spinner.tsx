@@ -9,8 +9,9 @@ import AutomaticIncreamentalNumberCounter from "./AutomaticIncreamentalNumberCou
 import useTimer from "@/hooks/frontend/useTimer";
 import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import { useRestPost } from "@/hooks/useRestClient";
+import P from "@/components/HTML/P";
 
-let globalDelay = 1.5;
+let globalDelay = 0;
 
 type SpinnerProps = {
   era: "wishwell" | "mining" | "minting";
@@ -512,18 +513,51 @@ function Timer() {
           <div className={styles["timer-styles"].label}>Secs</div>
         </div>
       </div>
-      <div className="font-sans text-agyellow text-2xl font-bold text-center uppercase tracking-widest">
-        Till Phase {(timer.phase + 1) % 4 ? timer.phase + 1 : 1}
+      <div
+        style={{
+          fontSize:
+            timer.claimTransition ||
+            (timer.era === "mining" && timer.phase === 3) ||
+            timer.claimStarted
+              ? "1rem"
+              : "1.5rem",
+        }}
+        className="font-sans text-agyellow text-2xl font-bold text-center uppercase tracking-widest"
+      >
+        {timer.era === "mining" && timer.phase === 3 && !timer.claimTransition && !timer.claimStarted
+          ? "Mining ends in"
+          : timer.claimTransition
+            ? "Claiming starts in"
+            : timer.claimStarted
+              ? "Claming ends in"
+              : `Till Phase ${(timer.phase + 1) % 4 ? timer.phase + 1 : 1}`}
       </div>
     </div>
   );
 }
 
-function Bonus({ activeState }: { activeState: SpinnerProps }) {
+function Bonus() {
+  const { data = 0, mutate } = useRestPost(
+    ["predict-points"],
+    "/api/predict-points",
+  );
+  const [bonus, setBonus] = useState(0);
+  useEffect(() => {
+    mutate({
+      walletAddress: "",
+      amount: "1",
+    });
+  }, []);
+  useEffect(() => {
+    if (data) {
+      // @ts-ignore
+      setBonus(data?.points as number);
+    }
+  }, [data]);
   return (
     <>
       <h1 className="font-sans font-black text-4xl">
-        <AutomaticIncreamentalNumberCounter from={0} to={activeState.bonus} />x
+        <AutomaticIncreamentalNumberCounter from={0} to={bonus} />x
       </h1>
       <div className="uppercase text-sm font-sans font-bold">Bonus</div>
     </>
@@ -535,89 +569,14 @@ export default function Spinner({
 }: {
   scrollYProgress: MotionValue<number>;
 }) {
-  const [activeState, setActiveState] = useState<SpinnerProps>({
-    era: "mining",
-    stage: 1,
-    bonus: 22,
-    days: 4,
-    hours: 14,
-    mins: 48,
-    secs: 20,
-  });
-
-  const { data, mutate } = useRestPost(
-    ["predict-points"],
-    "/api/predict-points",
-  );
-
-  useEffect(() => {
-    // decreade the timer every second
-    const timer = setInterval(() => {
-      setActiveState((prev) => {
-        if (prev.secs === 0) {
-          if (prev.mins === 0) {
-            if (prev.hours === 0) {
-              if (prev.days === 0) {
-                return prev;
-              } else {
-                return {
-                  ...prev,
-                  days: prev.days - 1,
-                  hours: 23,
-                  mins: 59,
-                  secs: 59,
-                };
-              }
-            } else {
-              return {
-                ...prev,
-                hours: prev.hours - 1,
-                mins: 59,
-                secs: 59,
-              };
-            }
-          } else {
-            return {
-              ...prev,
-              mins: prev.mins - 1,
-              secs: 59,
-            };
-          }
-        } else {
-          return {
-            ...prev,
-            secs: prev.secs - 1,
-          };
-        }
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
+  const timer = useTimer();
   const opacity = useTransform(scrollYProgress, [1, 0], [0, 1]);
 
   useEffect(() => {
     setTimeout(() => {
       globalDelay = 0;
     }, 2000);
-    mutate({
-      walletAddress: "",
-      amount: "1",
-    });
   }, []);
-
-  useEffect(() => {
-    if (data) {
-      setActiveState((prev) => {
-        return {
-          ...prev,
-          // @ts-ignore
-          bonus: data.points,
-        };
-      });
-    }
-  }, [data]);
 
   return (
     <motion.div
@@ -644,12 +603,11 @@ export default function Spinner({
             <div className="relative w-[100px] h-[100px] bg-agyellow rounded-full flex justify-center items-center">
               <div className="flex flex-col justify-center items-center">
                 <Pointer />
-                <Bonus activeState={activeState} />
+                <Bonus />
               </div>
             </div>
           </div>
         </div>
-
         <Timer />
       </div>
     </motion.div>

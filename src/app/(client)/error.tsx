@@ -17,16 +17,18 @@ export default function Error() {
       className={`fixed left-0 h-screen w-screen overflow-hidden bg-gradient-to-b from-[#030404] to-[#131A1A] z-[10000] `}
     >
       <div className="absolute top-0 left-0 flex justify-center items-center gap-[16px] px-[16px] py-[32px] md:py-[48px] md:px-[96px] w-full md:w-fit">
-        <Image
-          src={IMAGEKIT_LOGOS.LOGO}
-          alt="logo"
-          width={45.19}
-          height={45.19}
-          className="w-[53.51px] h-[53.51px] md:w-[45.19px] md:h-[45.19px]"
-        />
-        <H1 className="uppercase text-[24px] leading-[24px] md:text-[19px]">
-          Antigravity
-        </H1>
+        <Link href="/">
+          <Image
+            src={IMAGEKIT_LOGOS.LOGO}
+            alt="logo"
+            width={45.19}
+            height={45.19}
+            className="w-[53.51px] h-[53.51px] md:w-[45.19px] md:h-[45.19px]"
+          />
+          <H1 className="uppercase text-[24px] leading-[24px] md:text-[19px]">
+            Antigravity
+          </H1>
+        </Link>
       </div>
 
       <div className="absolute bottom-0 left-0 flex flex-col justify-start items-start gap-[8px] p-[16px] md:py-[48px] md:px-[96px]">

@@ -17,7 +17,9 @@ import Badge from "@/components/Badge";
 import Pill from "@/components/Pill";
 import { TokenDropdownTypes } from "./types";
 import Image from "next/image";
-import AutomaticIncreamentalNumberCounterWithString from "./AutomaticIncreamentalNumberCounterWithString";
+import AutomaticIncreamentalNumberCounterWithString, {
+  USFormatToNumber,
+} from "./AutomaticIncreamentalNumberCounterWithString";
 import { TOKEN_OPTIONS } from "./constants";
 import { useAccount } from "wagmi";
 
@@ -98,7 +100,7 @@ export function InputCard({
 
   return (
     <div className="flex justify-between gap-[8px] bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-fit min-w-full border-[1px] border-agyellow">
-      <div className="flex flex-col justify-start items-start gap-[8px] w-full">
+      <div className="flex flex-col justify-center items-start gap-[8px] w-full">
         <form
           onBlur={(e) => {
             setOutOfFocus(true);
@@ -163,7 +165,7 @@ export function InputCard({
             lineHeight: 16 + "px",
           }}
           extrabold
-          className="opacity-75 h-full flex justify-start items-center w-fit"
+          className="opacity-75 h-fit flex justify-start items-center w-fit"
         >
           {"$"}
           {conversionRef.current && (
@@ -175,28 +177,12 @@ export function InputCard({
           )}
         </P>
       </div>
-      <div className="flex flex-col gap-[8px]">
+      <div className="flex flex-col justify-end items-center gap-[8px]">
         <div
           className={twMerge(
-            "flex justify-center items-center gap-[8px] h-full w-fit",
+            "flex justify-center items-center gap-[8px] h-full w-fit ml-auto",
           )}
         >
-          {account.isConnected && (
-            <button
-              className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
-              onClick={() => {
-                setCurrentInputValue(tokenBalance.toString());
-                if (inputRef.current)
-                  inputRef.current.value = tokenBalance.toString();
-              }}
-            >
-              <div className="bg-[#0A1133] rounded-full w-fit h-fit">
-                <div className="rounded-full text-[16px] leading-[16px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent bg-clip-text">
-                  MAX
-                </div>
-              </div>
-            </button>
-          )}
           <Dropdown
             options={dropdownOptions ?? []}
             selected={dropDownSelected}
@@ -205,7 +191,7 @@ export function InputCard({
         </div>
         {account.isConnected && (
           <div
-            className={`flex gap-[4px] justify-end items-center text-[16px] leading-[16px] text-agwhite opacity-75 font-general-sans font-semibold`}
+            className={`flex gap-[4px] justify-end items-center text-[16px] leading-[16px] text-agwhite opacity-75 font-general-sans font-semibold text-nowrap`}
           >
             <Image
               src={IMAGEKIT_ICONS.WALLET_WHITE}
@@ -215,6 +201,41 @@ export function InputCard({
               className={twMerge("object-cover")}
             />
             {`${parseFloat(tokenBalance).toLocaleString()} ${dropdownOptions?.[dropDownSelected]?.symbol}`}
+          </div>
+        )}
+        {account.isConnected && (
+          <div className="flex justify-center items-center gap-[4px]">
+            <button
+              className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
+              onClick={() => {
+                setCurrentInputValue(tokenBalance.toString());
+                if (inputRef.current)
+                  inputRef.current.value = tokenBalance.toString();
+              }}
+            >
+              <div className="bg-[#0A1133] rounded-full w-fit h-fit">
+                <div
+                  className={twMerge(
+                    "uppercase text-nowrap rounded-full text-[12px] leading-[12px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent",
+                    USFormatToNumber(inputValue) <= Number(tokenBalance)
+                      ? "bg-clip-text text-transparent"
+                      : "text-agblack",
+                  )}
+                >
+                  MAX
+                </div>
+              </div>
+            </button>
+            <a
+              href={dropdownOptions[dropDownSelected]?.buyLink ?? ""}
+              className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
+            >
+              <div className="bg-[#0A1133] rounded-full w-fit h-fit">
+                <div className="uppercase text-nowrap rounded-full text-[12px] leading-[12px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent bg-clip-text">
+                  Buy More
+                </div>
+              </div>
+            </a>
           </div>
         )}
       </div>
@@ -292,13 +313,16 @@ export function Card({
           }}
           className={` text-agwhite font-extrabold font-sans`}
         >
-          {targetValueRef.current && (
-            <AutomaticIncreamentalNumberCounterWithString
-              from={targetValueRef.current?.textContent ?? "0"}
-              to={currentValue}
-              float={currentValue.includes(".")}
-            />
-          )}
+          {USFormatToNumber(currentValue) < 0.0001 &&
+          USFormatToNumber(currentValue) !== 0
+            ? "< 0.0001"
+            : targetValueRef.current && (
+                <AutomaticIncreamentalNumberCounterWithString
+                  from={targetValueRef.current?.textContent ?? "0"}
+                  to={currentValue}
+                  float={currentValue.includes(".")}
+                />
+              )}
         </div>
         {onlyValue ? null : (
           <div className="flex justify-center items-center opacity-75 gap-[8px]">
@@ -442,7 +466,7 @@ export default function MiningCalculator({
   }, [value]);
 
   return (
-    <div className="relative flex flex-col gap-[8px] h-fit min-w-[400px] max-w-full">
+    <div className="relative flex flex-col gap-[8px] h-fit min-w-[400px] max-w-full scale-[0.9] md:scale-100">
       <InputCard
         inputValue={currentValue}
         setCurrentInputValue={setCurrentValue}

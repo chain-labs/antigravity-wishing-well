@@ -1,8 +1,10 @@
 "use client";
 import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import HeroItemCard from "@/components/HeroItemCard";
+import useTimer from "@/hooks/frontend/useTimer";
 
 export default function Eras() {
+  const timer = useTimer();
   return (
     <div className="relative grid grid-cols-1 grid-rows-3 w-full h-[180vh] md:h-[100vh] z-0 my-32">
       <HeroItemCard
@@ -11,7 +13,13 @@ export default function Eras() {
         backgroundImage={IMAGEKIT_IMAGES.WISHWELL}
         animateFrom="left"
         className="object-[50%_55%]"
-        cardExternalLink="/wishwell"
+        cardExternalLink={
+          timer.era != "wishwell"
+            ? "#"
+            : location.pathname === "/wishwell"
+              ? "/wishwell#"
+              : "/wishwell"
+        }
       />
       <HeroItemCard
         title="Mining"

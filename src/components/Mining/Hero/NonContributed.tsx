@@ -18,6 +18,7 @@ import { TEST_NETWORK } from "@/constants";
 import { checkCorrectNetwork } from "@/components/RainbowKit";
 import { pulsechain, sepolia } from "viem/chains";
 import useMiningContract from "@/abi/MiningRig";
+import useUserData from "@/app/(client)/store";
 
 export default function NonContributed({
   state,
@@ -242,17 +243,16 @@ export default function NonContributed({
     }
   }, [darkXBalance]);
 
+  const { nftURL } = useUserData();
+
   return (
-    <div className="relative flex flex-col justify-center items-center gap-[8px] mt-[50px]">
-      {state !== "Claiming" ? (
-        (darkXBalance as bigint) > 0 ? (
-          <NFTHero NFTHover={NFTHover} setNFTHover={setNFTHover} />
-        ) : (
-          <NoNFTHero />
-        )
+    <div className="max-w-full relative flex flex-col justify-center items-center gap-[8px] mt-[50px]">
+      {(darkXBalance as bigint) > 0 && nftURL !== "" ? (
+        <NFTHero NFTHover={NFTHover} setNFTHover={setNFTHover} />
       ) : (
-        <></>
+        <NoNFTHero />
       )}
+
       <MiningCalculator
         tokenBalance={tokenBalances?.[selectedToken] || "0"}
         value={value}
@@ -277,6 +277,14 @@ export default function NonContributed({
           iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
           iconAlt="wallet"
           onClick={openConnectModal}
+          variants={{
+            hover: {
+              animationName: "wiggle",
+              animationDuration: "1s",
+              animationFillMode: "forwards",
+              animationTimingFunction: "linear",
+            },
+          }}
         />
       ) : checkCorrectNetwork(account.chainId) ? (
         <Button
@@ -295,11 +303,23 @@ export default function NonContributed({
               : "Insufficient Funds"
           }
           disabled={
-            value > Number(tokenBalances?.[selectedToken]) || transactionLoading
+            value === 0 ||
+            value > Number(tokenBalances?.[selectedToken]) ||
+            transactionLoading
           }
           iconSrc={IMAGEKIT_ICONS.HAMMER}
           iconAlt="hammer"
           onClick={handleMine}
+          variants={{
+            hover: {
+              scale: !transactionLoading ? 1.35 : 1,
+              rotate: !transactionLoading ? 390 : 0,
+              transition: {
+                duration: 1,
+                type: "spring",
+              },
+            },
+          }}
         />
       ) : (
         <Button
@@ -308,6 +328,14 @@ export default function NonContributed({
           onClick={openChainModal}
           iconAlt="network error"
           iconPosition="start"
+          variants={{
+            hover: {
+              animationName: "wiggle",
+              animationDuration: "1s",
+              animationFillMode: "forwards",
+              animationTimingFunction: "linear",
+            },
+          }}
         />
       )}
       <div className="p-[8px] rounded-[6px] bg-[#030404A8]">
