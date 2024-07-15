@@ -275,6 +275,9 @@ export default function NonContributed({
               },
             },
           }}
+          disabled={
+            value === 0 || value > Number(tokenBalances?.[selectedToken])
+          }
         />
       ) : (
         <Button
