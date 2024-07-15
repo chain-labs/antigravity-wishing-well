@@ -23,6 +23,7 @@ export const IMAGEKIT_ICONS = {
   INFO: `${IMAGEKIT_ICONS_URL}/info.svg`,
   LEADERBOARD: `${IMAGEKIT_ICONS_URL}/leaderboard.svg`,
   PILL_DARK_X: `${IMAGEKIT_ICONS_URL}/pill-dark-x.png`,
+  PILL_DARK_X_CLAIMED: `${IMAGEKIT_ICONS_URL}/pill-dark-x-claimed.png`,
   PILL_PLS: `${IMAGEKIT_ICONS_URL}/pill-pls.svg`,
   PILL_POINTS: `${IMAGEKIT_ICONS_URL}/pill-points.svg`,
   PLS: `${IMAGEKIT_ICONS_URL}/pls.svg`,
@@ -86,6 +87,7 @@ export const IMAGEKIT_IMAGES = {
   BOOK_COVER_ART: `${IMAGEKIT}/book-cover-art.png`,
   COLLECTIVE_POINTS_AND_MULTIPLIER_INFO_BG: `${IMAGEKIT}/collective-points-and-multiplier-info-bg.png`,
   COLLECTIVE_RANKUP_AND_REWARDS_INFO_BG: `${IMAGEKIT}/collective-rankup-and-rewards-info-bg.png?updatedAt=1719221781752`,
+	MINING_TOKENS_CLAIMED: `${IMAGEKIT}/mining-tokens-claimed.png`,
   NEBULA_BG: `${IMAGEKIT}/nebula-bg.jpg`,
 };
 

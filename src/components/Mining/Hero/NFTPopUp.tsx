@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import DarkXFieldCanvas from "@/components/Mining/DarkXfield";
 import ThreeDHovercardEffect from "@/components/ThreeDHovercardEffect";
 import Image from "next/image";
-import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
+import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import H1 from "@/components/HTML/H1";
 import P from "@/components/HTML/P";
 import AutomaticIncreamentalNumberCounter from "@/components/Home/components/spinner/AutomaticIncreamentalNumberCounter";
@@ -106,6 +106,7 @@ export default function NFTPopUp({
               yRange={100}
               zRange={100}
               speed={0.75}
+              icon={IMAGEKIT_ICONS.PILL_DARK_X}
             />
           </motion.div>
         )}

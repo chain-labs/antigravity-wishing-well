@@ -6,11 +6,12 @@ import ContributedHero from "./Hero/ContributedHero";
 import NFTPopUp from "./Hero/NFTPopUp";
 import { StateType } from "./types";
 import NonContributed from "./Hero/NonContributed";
+import ClaimedCard from "./Hero/ClaimedCard";
 import useTimer from "@/hooks/frontend/useTimer";
 import ClaimTransitionWait from "./Hero/ClaimingTransitionWait";
 
 export default function MiningHero() {
-  const [state, setState] = useState<StateType>("Mining");
+  const [state, setState] = useState<StateType>("Claiming");
   const [NFTHover, setNFTHover] = useState(false);
   const NFTRef = useRef<HTMLDivElement>(null);
   const NFTContainerRef = useRef<HTMLDivElement>(null);
@@ -35,7 +36,9 @@ export default function MiningHero() {
           {timer.claimTransition ? (
             <ClaimTransitionWait />
           ) : timer.claimStarted ? (
-            <ContributedHero />
+            <ContributedHero setState={setState} />
+          ) : timer.claimStarted && state === "Claimed" ? (
+            <ClaimedCard />
           ) : (
             <NonContributed
               state={state}

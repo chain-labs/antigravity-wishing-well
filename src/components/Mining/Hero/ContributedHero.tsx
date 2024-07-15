@@ -14,7 +14,11 @@ import Button from "@/components/Button";
 import useClaimMerkleTree from "@/hooks/sc-fns/useMerkleTree.claim";
 import { checkCorrectNetwork } from "@/components/RainbowKit";
 
-export default function ContributedHero() {
+export default function ContributedHero({
+  setState,
+}: {
+  setState: Dispatch<SetStateAction<StateType>>;
+}) {
   const { openConnectModal } = useConnectModal();
   const account = useAccount();
   const { openChainModal } = useChainModal();
@@ -117,6 +121,8 @@ export default function ContributedHero() {
       ERA2_DATA.nonces[accountIndex],
       proof,
     );
+
+    setState("Claimed");
   };
 
   return (
@@ -165,7 +171,7 @@ export default function ContributedHero() {
         <ContributedCard
           value={darkTokens}
           pillText="DARK"
-          pillIconSrc={IMAGEKIT_ICONS.PILL_DARK_X}
+          pillIconSrc={IMAGEKIT_ICONS.PILL_DARK_X_CLAIMED}
           pillIconAlt="dark x"
         />
         {!account.isConnected ? (
@@ -174,6 +180,14 @@ export default function ContributedHero() {
             iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
             iconAlt="wallet"
             onClick={openConnectModal}
+            variants={{
+              hover: {
+                animationName: "wiggle",
+                animationDuration: "1s",
+                animationFillMode: "forwards",
+                animationTimingFunction: "linear",
+              },
+            }}
           />
         ) : checkCorrectNetwork(account.chainId) ? (
           <Button

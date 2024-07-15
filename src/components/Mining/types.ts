@@ -14,4 +14,4 @@ export type IToken = TokenDropdownTypes & {
   pool: string;
 };
 
-export type StateType = "Mining" | "Claiming";
+export type StateType = "Mining" | "Claiming" | "Claimed";
