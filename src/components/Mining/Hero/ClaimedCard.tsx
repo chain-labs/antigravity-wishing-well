@@ -11,11 +11,12 @@ import { useAccount } from "wagmi";
 import useClaimMerkleTree from "@/hooks/sc-fns/useMerkleTree.claim";
 import { AnimatePresence, motion } from "framer-motion";
 import DarkXFieldCanvas from "../DarkXfield";
+import { StateType } from "../types";
 
 export default function ClaimedCard({
   setState,
 }: {
-  setState: Dispatch<SetStateAction<string>>;
+  setState: Dispatch<SetStateAction<StateType>>;
 }) {
   const { openConnectModal } = useConnectModal();
   const [starfieldAnimationComplete, setStarfieldAnimationComplete] =
