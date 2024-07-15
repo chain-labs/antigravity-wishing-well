@@ -219,7 +219,7 @@ export default function NonContributed({
   }, [darkXBalance]);
 
   return (
-    <div className="relative flex flex-col justify-center items-center gap-[8px] mt-[50px]">
+    <div className="max-w-full relative flex flex-col justify-center items-center gap-[8px] mt-[50px]">
       {(darkXBalance as bigint) > 0 ? (
         <NFTHero NFTHover={NFTHover} setNFTHover={setNFTHover} />
       ) : (

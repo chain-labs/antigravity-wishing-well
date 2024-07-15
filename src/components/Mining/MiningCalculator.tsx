@@ -448,7 +448,7 @@ export default function MiningCalculator({
   }, [value]);
 
   return (
-    <div className="relative flex flex-col gap-[8px] h-fit min-w-[400px] max-w-full">
+    <div className="relative flex flex-col gap-[8px] h-fit min-w-[400px] max-w-full scale-[0.9] md:scale-100">
       <InputCard
         inputValue={currentValue}
         setCurrentInputValue={setCurrentValue}
