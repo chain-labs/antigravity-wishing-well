@@ -77,7 +77,7 @@ const DarkXField: React.FC<DarkXProps> = ({
 
   return (
     <instancedMesh ref={meshRef} args={[new THREE.BufferGeometry(), material, count]}>
-      <planeGeometry args={[2.5, 2.5]} />
+      <circleGeometry args={[1.25, 32]} />
     </instancedMesh>
   );
 };
@@ -102,7 +102,7 @@ const DarkXFieldCanvas: React.FC<DarkXCanvasProps> = ({
   icon
 }) => {
   // Load the star texture
-  const texture = useMemo(() => new THREE.TextureLoader().load(icon), []);
+  const texture = useMemo(() => new THREE.TextureLoader().load(icon), [icon]);
 
   return (
     <div

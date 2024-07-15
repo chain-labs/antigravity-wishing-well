@@ -118,7 +118,7 @@ export default function ClaimedCard() {
                 yRange={100}
                 zRange={100}
                 speed={0.75}
-                icon={IMAGEKIT_ICONS.PILL_DARK_X_CLAIMED}
+                icon={IMAGEKIT_ICONS.PILL_DARK_X_CLAIMED_WHITE}
               />
             </motion.div>
           )}
