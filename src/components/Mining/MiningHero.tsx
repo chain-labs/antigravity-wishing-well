@@ -34,7 +34,7 @@ export default function MiningHero() {
         <div className="flex flex-col justify-center items-center w-full h-fit pt-[30px] md:pt-[100px]">
           {timer.claimTransition ? (
             <ClaimTransitionWait />
-          ) : state === "Claiming" ? (
+          ) : timer.claimStarted ? (
             <ContributedHero />
           ) : (
             <NonContributed

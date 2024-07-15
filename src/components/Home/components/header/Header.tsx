@@ -97,10 +97,10 @@ const Header = () => {
                 }
                 className="relative"
                 onMouseEnter={() =>
-                  timer.era === "mining" ? setTooltipOpen(true) : null
+                  timer.era !== "wishwell" ? setTooltipOpen(true) : null
                 }
                 onMouseLeave={() =>
-                  timer.era === "mining" ? setTooltipOpen(false) : null
+                  timer.era !== "wishwell" ? setTooltipOpen(false) : null
                 }
               >
                 <P
@@ -322,7 +322,18 @@ const Header = () => {
               {account.isConnected && <UserConnected />}
               <Link
                 href={
-                  location.pathname === "/wishwell" ? "/wishwell#" : "/wishwell"
+                  timer.era === "mining"
+                    ? "#"
+                    : location.pathname === "/wishwell"
+                      ? "/wishwell#"
+                      : "/wishwell"
+                }
+                className="relative"
+                onMouseEnter={() =>
+                  timer.era !== "wishwell" ? setTooltipOpen(true) : null
+                }
+                onMouseLeave={() =>
+                  timer.era !== "wishwell" ? setTooltipOpen(false) : null
                 }
               >
                 <P
@@ -330,9 +341,35 @@ const Header = () => {
                   gradient
                   extrabold
                   className="font-sans font-extrabold"
+                  style={{
+                    opacity: timer.era === "mining" ? 0.66 : 1,
+                  }}
                 >
                   Wishwell
                 </P>
+                <AnimatePresence>
+                  {tooltipOpen && (
+                    <motion.div
+                      initial={{
+                        height: 0,
+                        opacity: 0,
+                      }}
+                      animate={{
+                        height: "fit-content",
+                        opacity: 1,
+                      }}
+                      exit={{
+                        height: 0,
+                        opacity: 0,
+                      }}
+                      className="absolute top-[calc(100%+32px)] left-1/2 -translate-x-1/2 flex text-agwhite w-fit rounded-[4px] bg-gradient-to-tr from-brred to-blue p-[1px]"
+                    >
+                      <div className="w-fit h-fit bg-gradient-to-b from-[#030404] to-[#131A1A] flex items-center justify-between rounded-[inherit] gap-6 px-[16px] py-[8px] text-[16px] text-nowrap">
+                        Currently by invitation only.
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </Link>
               <Link
                 href={location.pathname === "/mining" ? "/mining#" : "/mining"}
