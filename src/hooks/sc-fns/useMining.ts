@@ -4,6 +4,7 @@ import { formatUnits, parseUnits, zeroAddress } from "viem";
 import erc20ABI from "erc-20-abi";
 import {
   useAccount,
+  useBalance,
   useReadContract,
   useReadContracts,
   useWaitForTransactionReceipt,
@@ -21,6 +22,7 @@ import useDarkXContract from "@/abi/DarkX";
  * @param {IToken} tokenSelected
  * @param {number} amountToInvest
  * @param {number} multiplier
+ * @param {string} nativeToken
  * @returns {{ mineToken: (merkleProof: {}) => void; receipt: any; receiptError: any; mineError: any; isLoading: any; isPending: any; transactionLoading: boolean; darkXBalance: BigInt; tokenBalance: BigInt }}
  */
 const useMining = (
@@ -28,6 +30,7 @@ const useMining = (
   tokens: IToken[],
   amountToInvest: number,
   multiplier: number,
+  nativeToken: string,
 ) => {
   const [isApprovalNeeded, setIsApprovalNeeded] = useState(false);
   const [merkleProofState, setMerkleProofState] = useState<string[] | null>(
@@ -35,9 +38,25 @@ const useMining = (
   );
   const [transactionLoading, setTransactionLoading] = useState<boolean>(false);
 
+  const account = useAccount();
+  const { data: nativeBalanceData } = useBalance({
+    address: account.address,
+    chainId: account.chainId,
+  });
+
   const MiningContract = useMiningContract();
   const DarkXContract = useDarkXContract();
-  const account = useAccount();
+
+  const balance = useMemo(() => {
+    if (nativeBalanceData) {
+      const response = formatUnits(
+        nativeBalanceData.value,
+        nativeBalanceData.decimals,
+      );
+      return response;
+    }
+    return 0;
+  }, [nativeBalanceData]);
 
   // Single out currently selected token
   const token = useMemo<IToken>(() => {
@@ -114,12 +133,6 @@ const useMining = (
     return BigInt(0);
   }, [amountToInvest]);
 
-  const { data: nativeToken } = useReadContract({
-    address: MiningContract?.address as `0x${string}`,
-    abi: MiningContract?.abi,
-    functionName: "NATIVE_TOKEN",
-  });
-
   const { data: allowance } = useReadContract({
     address: tokens?.[tokenSelected]?.address as `0x${string}`,
     abi: erc20ABI,
@@ -146,6 +159,7 @@ const useMining = (
       }
       setTransactionLoading(false);
     }
+
     if (approveError) {
       console.log({ approveError });
       if ((approveError.cause as any).code === 4001) {
@@ -165,6 +179,17 @@ const useMining = (
       console.log({ receipt });
     }
   }, [mineError, receipt, approveError]);
+
+  useEffect(() => {
+    if (token && allowance && amountToInvest) {
+      const allowed = formatUnits(allowance as bigint, token.decimals);
+      if (Number(allowed) < amountToInvest) {
+        setIsApprovalNeeded(true);
+      } else {
+        setIsApprovalNeeded(false);
+      }
+    }
+  }, [allowance, amountToInvest, token]);
 
   const mineToken = (merkleProof: string[]) => {
     if (token.address && amountToInvest && merkleProof) {
@@ -187,15 +212,19 @@ const useMining = (
           abi: MiningContract?.abi,
           functionName: "mine",
           args: [token.address, investAmount, merkleProof],
-          value: token.address === nativeToken ? investAmount : BigInt(0),
+          value:
+            token.address.toLowerCase() === nativeToken.toLowerCase()
+              ? investAmount
+              : BigInt(0),
         });
       }
     }
   };
 
   useEffect(() => {
-    if (approveReceipt)
+    if (approveReceipt) {
       console.log({ approveReceipt, approveIsLoading, isApprovalNeeded });
+    }
     if (isApprovalNeeded && !approveIsLoading && approveReceipt) {
       console.log("mining", { merkleProofState });
 
@@ -214,19 +243,24 @@ const useMining = (
   return {
     mineToken,
     receipt,
+    approveReceipt,
     receiptError,
     mineError,
     isLoading,
     isPending,
     transactionLoading,
+    isApprovalNeeded,
     darkXBalance,
-    tokenBalances: tokenBalance?.map(
-      (tokenBalance: any, index: number) =>
+    tokenBalances: tokenBalance?.map((tokenBalance: any, index: number) => {
+      if (tokens[index].address?.toLowerCase() === nativeToken?.toLowerCase())
+        return balance;
+      return (
         formatUnits(
           (tokenBalance.result as bigint) || BigInt(0),
           tokens?.[index].decimals,
-        ) || "0",
-    ),
+        ) || "0"
+      );
+    }),
   };
 };
 

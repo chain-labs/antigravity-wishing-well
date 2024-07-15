@@ -34,5 +34,6 @@ export const Default: Story = {
     multiplyer: 33,
     inputOptions: TOKEN_OPTIONS,
     setSelectedToken: () => {}, // Add a dummy setSelectedToken function
+    selectedToken: 0,
   },
 };

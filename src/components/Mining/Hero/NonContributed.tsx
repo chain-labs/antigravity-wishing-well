@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { IToken, StateType } from "../types";
 import useTimer from "@/hooks/frontend/useTimer";
 import { useChainModal, useConnectModal } from "@rainbow-me/rainbowkit";
-import { useAccount } from "wagmi";
+import { useAccount, useReadContract } from "wagmi";
 import { useRestFetch, useRestPost } from "@/hooks/useRestClient";
 import useMerkleTree from "@/hooks/sc-fns/useMerkleTree.mine";
 import useMining from "@/hooks/sc-fns/useMining";
@@ -16,6 +16,8 @@ import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import CountdownTimer from "@/components/CountdownTimer";
 import { TEST_NETWORK } from "@/constants";
 import { checkCorrectNetwork } from "@/components/RainbowKit";
+import { pulsechain, sepolia } from "viem/chains";
+import useMiningContract from "@/abi/MiningRig";
 import useUserData from "@/app/(client)/store";
 
 export default function NonContributed({
@@ -35,6 +37,8 @@ export default function NonContributed({
 }) {
   const [value, setValue] = useState(40000);
   const timerState = useTimer();
+
+  const MiningContract = useMiningContract();
 
   const getEra = (era: string) => {
     switch (era) {
@@ -77,9 +81,23 @@ export default function NonContributed({
 
   const { data: s3Data } = useRestFetch(["s3"], `/s3`, { proxy: true });
 
+  const { data: nativeToken } = useReadContract({
+    address: MiningContract?.address as `0x${string}`,
+    abi: MiningContract?.abi,
+    functionName: "NATIVE_TOKEN",
+    chainId: account.chainId || (TEST_NETWORK ? sepolia.id : pulsechain.id),
+  });
+
   const tokens: IToken[] = useMemo(() => {
-    if (!account.isConnected || !checkCorrectNetwork(account.chainId)) {
-      return (s3Data as any)?.data?.tokens;
+    if (!account.chainId || !checkCorrectNetwork(account.chainId)) {
+      const tokensData = (s3Data as any)?.data?.tokens?.filter(
+        (token: IToken) => {
+          const defaultNetwork = TEST_NETWORK ? sepolia.id : pulsechain.id;
+          return defaultNetwork === token.chainId;
+        },
+      );
+
+      return tokensData;
     }
     if (s3Data) {
       const tokensData = (s3Data as any)?.data?.tokens?.filter(
@@ -89,6 +107,17 @@ export default function NonContributed({
     }
     return [];
   }, [s3Data, account.chainId]);
+
+  useEffect(() => {
+    if (tokens && nativeToken) {
+      const nativeTokenIndex = tokens.findIndex(
+        (token) =>
+          (nativeToken as string).toLowerCase() === token.address.toLowerCase(),
+      );
+
+      if (nativeTokenIndex !== -1) setSelectedToken(nativeTokenIndex);
+    }
+  }, [account.chainId, nativeToken, tokens]);
 
   const ERA1_ADDRESSES: string[] = useMemo(() => {
     if (s3Data) {
@@ -108,9 +137,19 @@ export default function NonContributed({
     } else return [];
   }, [account.address, ERA1_ADDRESSES]);
 
+  const isNativeToken = useMemo(() => {
+    const currentToken = tokens?.[selectedToken]?.address || "";
+    const currentNativeToken: string = (nativeToken as string) || "";
+    const response =
+      currentToken.toLowerCase() === currentNativeToken.toLowerCase();
+    return response;
+  }, [tokens, selectedToken, nativeToken]);
+
   const {
     mineToken,
     transactionLoading,
+    isApprovalNeeded,
+    approveReceipt,
     darkXBalance,
     tokenBalances,
     receipt,
@@ -119,21 +158,15 @@ export default function NonContributed({
     tokens,
     value,
     proof.length > 0 ? MULTIPLIER * 2 : MULTIPLIER,
+    nativeToken as string,
   );
-  // useEffect(() => {
-  //   if (tokenBalances) {
-  //     console.log({ selectedToken });
-  //   }
-  // }, [tokenBalances]);
-
   const { data: tokenPrice } = useRestFetch<{ price: number }>(
     ["token_price", tokens?.[selectedToken]?.address],
-    `/be/coinPrices?token=${tokens?.[selectedToken]?.address}&pool=${tokens?.[selectedToken]?.pool}&network=${tokens?.[selectedToken]?.chainId}`,
+    `/be/coinPrices?token=${tokens?.[selectedToken]?.address}&pool=${tokens?.[selectedToken]?.pool}&network=${tokens?.[selectedToken]?.chainId}&native=${isNativeToken}`,
     { proxy: true, enabled: !!tokens?.[selectedToken]?.address },
   );
 
   const usdValue = useMemo(() => {
-    console.log({ tokenPrice });
     return tokenPrice?.price;
   }, [tokenPrice]);
 
@@ -148,43 +181,35 @@ export default function NonContributed({
     data: predictedPointsData,
     isSuccess: predictedPointsSuccess,
     mutate: predictPointsFn,
-  } = useRestPost(
-    ["token_price", tokens?.[selectedToken]?.address],
-    TEST_NETWORK ? "/api/predict-points" : "/api/predict-points",
-    // { enabled: !!usdValue },
+  } = useRestPost<{ points: number }>(
+    ["get-multiplyer"],
+    "/api/predict-points",
   );
 
   useEffect(() => {
-    if (usdValue && account.isConnected) {
-      predictPointsFn({
-        walletAddress: account.address,
-        amount: value * usdValue || 0,
-      });
-    }
-  }, [account.address, usdValue, value]);
+    predictPointsFn({
+      walletAddress: account.isConnected ? account.address : "",
+      amount: 1,
+    });
+  }, [account.address, timerState.era, timerState.phase]);
 
-  const [multiplyer, setMultiplyer] = useState(0);
+  const [multiplyer, setMultiplyer] = useState(1);
 
-  const calculateMultiplyer = (points: number) => {
-    const multiplyerData = points / (value * (usdValue || 0));
-    setMultiplyer(multiplyerData);
+  const calculateMultiplyer = () => {
+    const multiplyerData = predictedPointsData?.points || 0;
+    if (multiplyerData) setMultiplyer(multiplyerData as number);
   };
 
   const predictedPoints = useMemo(() => {
-    if (predictedPointsData) {
-      // @ts-ignore
-      const currentPoints = predictedPointsData?.points;
-      if (multiplyer === 0) calculateMultiplyer(currentPoints);
-      return currentPoints || 0;
+    if (usdValue && multiplyer && value) {
+      return value * usdValue * multiplyer;
     }
     return 0;
-  }, [predictedPointsData, predictedPointsSuccess]);
+  }, [multiplyer, value, usdValue]);
 
   useEffect(() => {
-    if (usdValue) {
-      calculateMultiplyer(predictedPoints);
-    }
-  }, [account.address, usdValue]);
+    calculateMultiplyer();
+  }, [predictedPointsData]);
 
   const handleMine = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -214,7 +239,6 @@ export default function NonContributed({
     }
 
     if ((darkXBalance as bigint) <= 0) {
-      console.log("here");
       localStorage.setItem("nft-reveal-first-time", "false");
     }
   }, [darkXBalance]);
@@ -245,6 +269,7 @@ export default function NonContributed({
           })) || []
         }
         setSelectedToken={setSelectedToken}
+        selectedToken={selectedToken}
       />
       {!account.isConnected ? (
         <Button
@@ -264,7 +289,24 @@ export default function NonContributed({
       ) : checkCorrectNetwork(account.chainId) ? (
         <Button
           loading={transactionLoading}
-          innerText={transactionLoading ? "Processing" : "Mine Now"}
+          innerText={
+            value <= Number(tokenBalances?.[selectedToken])
+              ? transactionLoading
+                ? isApprovalNeeded
+                  ? !approveReceipt
+                    ? "Approving..."
+                    : "Mining..."
+                  : "Mining..."
+                : isApprovalNeeded
+                  ? "Approve & Mine"
+                  : "Mine Now"
+              : "Insufficient Funds"
+          }
+          disabled={
+            value === 0 ||
+            value > Number(tokenBalances?.[selectedToken]) ||
+            transactionLoading
+          }
           iconSrc={IMAGEKIT_ICONS.HAMMER}
           iconAlt="hammer"
           onClick={handleMine}
@@ -278,9 +320,6 @@ export default function NonContributed({
               },
             },
           }}
-          disabled={
-            value === 0 || value > Number(tokenBalances?.[selectedToken])
-          }
         />
       ) : (
         <Button

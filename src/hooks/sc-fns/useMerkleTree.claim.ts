@@ -57,7 +57,6 @@ const useMerkleTree = (
    * @returns {*}
    */
   const generateProof = (account: string, point: string, nonce: string) => {
-    console.log({ account, point, nonce });
     if (!point && !nonce) {
       return [];
     }
