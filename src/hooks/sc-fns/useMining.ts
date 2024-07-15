@@ -15,6 +15,8 @@ import { errorToast, successToast } from "../frontend/toast";
 import { watchContractEvent } from "viem/actions";
 import { sepolia } from "viem/chains";
 import useDarkXContract from "@/abi/DarkX";
+import { useRestPost } from "../useRestClient";
+import { verify } from "crypto";
 
 /**
  *  Primary utility hook for everything related to the mining phase
@@ -39,6 +41,7 @@ const useMining = (
   const [transactionLoading, setTransactionLoading] = useState<boolean>(false);
 
   const account = useAccount();
+
   const { data: nativeBalanceData } = useBalance({
     address: account.address,
     chainId: account.chainId,
@@ -140,6 +143,11 @@ const useMining = (
     args: [account.address, MiningContract?.address],
   });
 
+  const { data, mutateAsync: verifyAsync } = useRestPost(
+    ["verify-mine"],
+    `/api/verify-mining`,
+  );
+
   useEffect(() => {
     if (mineError) {
       console.log({ mineError });
@@ -174,9 +182,11 @@ const useMining = (
       setTransactionLoading(false);
     }
     if (receipt) {
-      successToast(`Succesfully mined ${points} $DarkX tokens!`);
-      setTransactionLoading(false);
-      console.log({ receipt });
+      verifyAsync({ walletAddress: account.address }).then((response) => {
+        successToast(`Succesfully mined ${points} $DarkX tokens!`);
+        setTransactionLoading(false);
+        console.log({ receipt });
+      });
     }
   }, [mineError, receipt, approveError]);
 
