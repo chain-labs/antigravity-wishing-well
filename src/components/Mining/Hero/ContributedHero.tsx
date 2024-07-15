@@ -88,12 +88,14 @@ export default function ContributedHero({
     address: DarkContract.address as `0x${string}`,
     abi: DarkContract.abi,
     functionName: "MAX_SUPPLY",
+    chainId: TEST_NETWORK ? sepolia.id : pulsechain.id,
   });
 
   const { data: dark_total_points } = useReadContract({
     address: DarkClaimContract.address as `0x${string}`,
     abi: DarkClaimContract.abi,
     functionName: "totalPoints",
+    chainId: TEST_NETWORK ? sepolia.id : pulsechain.id,
   });
 
   const darkTokens = useMemo(() => {

@@ -21,14 +21,11 @@ const contracts: Record<number, { address: `0x${string}`; abi: any }> = {
 };
 
 const useDarkClaimContract = (): IContract => {
-  const account = useAccount();
   if (TEST_NETWORK) {
     return contracts[sepolia.id];
   } else {
     return contracts[pulsechain.id];
   }
-
-  return {};
 };
 
 export default useDarkClaimContract;
