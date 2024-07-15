@@ -171,12 +171,12 @@ export default function ClaimedCard() {
                 className="w-full"
               >
                 <ContributedCard
-                  value={points}
+                  value={Number(points)}
                   pillText="Points"
                   pillIconSrc={IMAGEKIT_ICONS.PILL_POINTS}
                   pillIconAlt="Points"
                   animateNumber
-                  from={points}
+                  from={Number(points)}
                   to={0}
                 />
               </motion.div>
@@ -189,13 +189,13 @@ export default function ClaimedCard() {
                 className="w-full"
               >
                 <ContributedCard
-                  value={0}
+                  value={Number(darkBalance)}
                   pillText="DARK"
                   pillIconSrc={IMAGEKIT_ICONS.PILL_DARK_X_CLAIMED}
                   pillIconAlt="dark x"
                   animateNumber
                   from={0}
-                  to={0}
+                  to={Number(darkBalance)}
                 />
               </motion.div>
             )}

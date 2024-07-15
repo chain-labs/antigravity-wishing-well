@@ -94,7 +94,7 @@ function setTimestamps(newTimestamps: any) {
 
 function createDummyTimestamps() {
   const now = new Date().getTime();
-  const timegap = 5000; // 5 seconds
+  const timegap = 500000; // 5 seconds
   const dummyTimestamps: any = {
     era_1_phase_1_start: new Date(now).toISOString(),
     era_1_phase_1_end: new Date(now + timegap).toISOString(),
@@ -131,6 +131,9 @@ export default function useTimer() {
           "https://hujrbtk3.api.sanity.io/v2024-07-01/data/query/collective_page?query=*%5B_type%3D%3D%22timestamps%22%5D%5B0%5D",
         );
         const data = await response.json();
+        // const data = {
+        //   result: createDummyTimestamps(),
+        // }
 
         const now = new Date().getTime();
         const era2End = new Date(data.result["era_2_phase_3_end"]).getTime();

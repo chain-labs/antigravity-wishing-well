@@ -9,6 +9,7 @@ import NonContributed from "./Hero/NonContributed";
 import ClaimedCard from "./Hero/ClaimedCard";
 import useTimer from "@/hooks/frontend/useTimer";
 import ClaimTransitionWait from "./Hero/ClaimingTransitionWait";
+import useClaim from "@/hooks/sc-fns/useClaim";
 
 export default function MiningHero() {
   const [state, setState] = useState<StateType>("Claiming");
@@ -35,7 +36,7 @@ export default function MiningHero() {
         <div className="flex flex-col justify-center items-center w-full h-fit pt-[30px] md:pt-[100px]">
           {timer.claimTransition ? (
             <ClaimTransitionWait />
-          ) : timer.claimStarted ? (
+          ) : timer.claimStarted && state !== "Claimed" ? (
             <ContributedHero setState={setState} />
           ) : timer.claimStarted && state === "Claimed" ? (
             <ClaimedCard />

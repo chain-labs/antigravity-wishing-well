@@ -14,7 +14,7 @@ export default function Eras() {
         animateFrom="left"
         className="object-[50%_55%]"
         cardExternalLink={
-          timer.era === "mining"
+          timer.era != "wishwell"
             ? "#"
             : location.pathname === "/wishwell"
               ? "/wishwell#"

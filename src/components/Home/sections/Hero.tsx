@@ -38,7 +38,7 @@ export default function Hero() {
           backgroundImage={IMAGEKIT_IMAGES.WISHWELL}
           animateFrom="left"
           cardExternalLink={
-            timer.era === "mining"
+            timer.era != "wishwell"
               ? "#"
               : location.pathname === "/wishwell"
                 ? "/wishwell#"

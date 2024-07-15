@@ -513,7 +513,16 @@ function Timer() {
           <div className={styles["timer-styles"].label}>Secs</div>
         </div>
       </div>
-      <div className="font-sans text-agyellow text-2xl font-bold text-center uppercase tracking-widest">
+      <div
+        style={{
+          fontSize: timer.claimTransition
+            ? "1rem"
+            : timer.claimStarted
+              ? "1rem"
+              : "1.5rem",
+        }}
+        className="font-sans text-agyellow text-2xl font-bold text-center uppercase tracking-widest"
+      >
         {timer.claimTransition
           ? "Claiming starts in"
           : timer.claimStarted
