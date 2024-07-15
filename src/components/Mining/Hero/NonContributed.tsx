@@ -16,6 +16,7 @@ import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import CountdownTimer from "@/components/CountdownTimer";
 import { TEST_NETWORK } from "@/constants";
 import { checkCorrectNetwork } from "@/components/RainbowKit";
+import useUserData from "@/app/(client)/store";
 
 export default function NonContributed({
   state,
@@ -218,9 +219,11 @@ export default function NonContributed({
     }
   }, [darkXBalance]);
 
+  const { nftURL } = useUserData();
+
   return (
     <div className="max-w-full relative flex flex-col justify-center items-center gap-[8px] mt-[50px]">
-      {(darkXBalance as bigint) > 0 ? (
+      {(darkXBalance as bigint) > 0 && nftURL !== "" ? (
         <NFTHero NFTHover={NFTHover} setNFTHover={setNFTHover} />
       ) : (
         <NoNFTHero />
