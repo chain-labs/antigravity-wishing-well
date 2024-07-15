@@ -194,10 +194,16 @@ const useMining = (
   const mineToken = (merkleProof: string[]) => {
     if (token.address && amountToInvest && merkleProof) {
       setTransactionLoading(true);
-      const allowed = formatUnits(allowance as bigint, token.decimals);
+      const allowed = formatUnits(
+        (allowance as bigint) || BigInt(0),
+        token.decimals,
+      );
       const amount = formatUnits(investAmount, token.decimals);
 
-      if (Number(allowed) < Number(amount)) {
+      if (
+        !(nativeToken.toLowerCase() === token.address.toLowerCase()) &&
+        Number(allowed) < Number(amount)
+      ) {
         setIsApprovalNeeded(true);
         setMerkleProofState(merkleProof);
         approve({
