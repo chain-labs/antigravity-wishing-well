@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { IToken, StateType } from "../types";
 import useTimer from "@/hooks/frontend/useTimer";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { useChainModal, useConnectModal } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 import { useRestFetch, useRestPost } from "@/hooks/useRestClient";
 import useMerkleTree from "@/hooks/sc-fns/useMerkleTree.mine";
@@ -15,6 +15,7 @@ import Button from "@/components/Button";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import CountdownTimer from "@/components/CountdownTimer";
 import { TEST_NETWORK } from "@/constants";
+import { checkCorrectNetwork } from "@/components/RainbowKit";
 
 export default function NonContributed({
   state,
@@ -33,6 +34,19 @@ export default function NonContributed({
 }) {
   const [value, setValue] = useState(40000);
   const timerState = useTimer();
+
+  const getEra = (era: string) => {
+    switch (era) {
+      case "wishwell":
+        return 1;
+      case "mining":
+        return 2;
+      case "minting":
+        return 3;
+      default:
+        return 2;
+    }
+  };
 
   const { openConnectModal } = useConnectModal();
 
@@ -58,11 +72,12 @@ export default function NonContributed({
   const [selectedToken, setSelectedToken] = useState(0);
 
   const account = useAccount();
+  const { openChainModal } = useChainModal();
 
   const { data: s3Data } = useRestFetch(["s3"], `/s3`, { proxy: true });
 
   const tokens: IToken[] = useMemo(() => {
-    if (!account.isConnected) {
+    if (!account.isConnected || !checkCorrectNetwork(account.chainId)) {
       return (s3Data as any)?.data?.tokens;
     }
     if (s3Data) {
@@ -117,8 +132,10 @@ export default function NonContributed({
   );
 
   const usdValue = useMemo(() => {
+    console.log({ tokenPrice });
     return tokenPrice?.price;
   }, [tokenPrice]);
+
   useEffect(() => {
     if (receipt) {
       setNFTHover(true);
@@ -145,18 +162,28 @@ export default function NonContributed({
     }
   }, [account.address, usdValue, value]);
 
+  const [multiplyer, setMultiplyer] = useState(0);
+
+  const calculateMultiplyer = (points: number) => {
+    const multiplyerData = points / (value * (usdValue || 0));
+    setMultiplyer(multiplyerData);
+  };
+
   const predictedPoints = useMemo(() => {
     if (predictedPointsData) {
       // @ts-ignore
-      return predictedPointsData?.points || 0;
+      const currentPoints = predictedPointsData?.points;
+      if (multiplyer === 0) calculateMultiplyer(currentPoints);
+      return currentPoints || 0;
     }
     return 0;
   }, [predictedPointsData, predictedPointsSuccess]);
 
-  const multiplyer = useMemo(() => {
-    const multiplyerData = predictedPoints / (value * (usdValue || 0));
-    return multiplyerData;
-  }, [predictedPoints, value, usdValue]);
+  useEffect(() => {
+    if (usdValue) {
+      calculateMultiplyer(predictedPoints);
+    }
+  }, [account.address, usdValue]);
 
   const handleMine = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -174,16 +201,6 @@ export default function NonContributed({
       await mineToken(proof);
     }
   };
-
-  // TODO: Fetch or set current era here
-  const era = useMemo<1 | 2 | 3>(() => {
-    return 2;
-  }, []);
-
-  // TODO: Fetch or set current phase here
-  const phase = useMemo<1 | 2 | 3>(() => {
-    return 1;
-  }, []);
 
   useEffect(() => {
     if (
@@ -218,8 +235,8 @@ export default function NonContributed({
         points={predictedPoints || 0}
         setValue={setValue}
         conversionRateToUSD={0.245}
-        era={era}
-        phase={phase}
+        era={getEra(timerState.era)}
+        phase={timerState.phase}
         multiplyer={multiplyer}
         inputOptions={
           tokens?.map((token) => ({
@@ -236,13 +253,21 @@ export default function NonContributed({
           iconAlt="wallet"
           onClick={openConnectModal}
         />
-      ) : (
+      ) : checkCorrectNetwork(account.chainId) ? (
         <Button
           loading={transactionLoading}
           innerText={transactionLoading ? "Processing" : "Mine Now"}
           iconSrc={IMAGEKIT_ICONS.HAMMER}
           iconAlt="hammer"
           onClick={handleMine}
+        />
+      ) : (
+        <Button
+          innerText="Switch Network"
+          iconSrc={IMAGEKIT_ICONS.ERROR}
+          onClick={openChainModal}
+          iconAlt="network error"
+          iconPosition="start"
         />
       )}
       <div className="p-[8px] rounded-[6px] bg-[#030404A8]">

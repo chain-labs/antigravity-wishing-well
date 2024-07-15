@@ -15,12 +15,12 @@ const useMiningContract = (): IContract => {
     if (account.chain?.id === baseSepolia.id) {
       // Change the address here
       return {
-        address: "0x8f7d987620C65cffac0d625DDE108525e4d0CEE1",
+        address: "0x06749876B59acD1758264ae09BC84B82afFC7e21",
         abi,
       };
     } else if (account.chain?.id === sepolia.id) {
       return {
-        address: "0xe3bc1f22f1e3a35a5a6d133913203c9990d7553c",
+        address: "0x1Bf87A5970478dD5052D0f26E7FB62C6Cb3D2EC0",
         abi,
       };
     }

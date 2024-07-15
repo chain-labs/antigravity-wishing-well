@@ -14,9 +14,7 @@ const pulseChain = {
 const config = getDefaultConfig({
   appName: "AntiGravity",
   projectId: "da0885f4ccb13b9f676544fd97528d14",
-  chains: TEST_NETWORK
-    ? [sepolia, baseSepolia, pulseChain]
-    : [pulseChain, base],
+  chains: TEST_NETWORK ? [sepolia, baseSepolia] : [pulseChain, base],
   transports: TEST_NETWORK
     ? {
         [baseSepolia.id]: http(
@@ -25,7 +23,6 @@ const config = getDefaultConfig({
         [sepolia.id]: http(
           `https://eth-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`,
         ),
-        [pulsechain.id]: http(),
       }
     : {
         [base.id]: http(
@@ -52,3 +49,18 @@ const RainbowKitContext = ({ children }: Props) => {
 };
 
 export default RainbowKitContext;
+
+export const checkCorrectNetwork = (chainId: number | undefined) => {
+  if (chainId === undefined) return true;
+  if (TEST_NETWORK) {
+    if (chainId === sepolia.id || chainId === baseSepolia.id) {
+      return true;
+    }
+  } else {
+    if (chainId === pulseChain.id || chainId === base.id) {
+      return true;
+    }
+  }
+
+  return false;
+};

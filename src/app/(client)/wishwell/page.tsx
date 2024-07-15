@@ -1,10 +1,7 @@
 "use client";
 
-import { useAccount, useSwitchChain } from "wagmi";
+import { useAccount } from "wagmi";
 import "@rainbow-me/rainbowkit/styles.css";
-import { useEffect } from "react";
-import { TEST_NETWORK } from "@/constants";
-import { base, pulsechain, baseSepolia, sepolia } from "viem/chains";
 import useWishwell from "@/hooks/sc-fns/useWishwell";
 import Footer from "@/components/Home/sections/Footer";
 import Newsletter from "@/components/Home/sections/Newsletter";
@@ -15,7 +12,6 @@ import ContributedHero from "@/components/Wishwell/components/ContributedHero";
 
 export default function Wishwell() {
   const account = useAccount();
-  const switchChain = useSwitchChain();
   const {
     isRegistered,
     isSuccess,
@@ -25,22 +21,6 @@ export default function Wishwell() {
     tokenId,
     loading,
   } = useWishwell();
-
-  useEffect(() => {
-    if (account.chainId) {
-      const chainId = account.chainId;
-
-      if (TEST_NETWORK) {
-        if (chainId !== baseSepolia.id && chainId !== pulsechain.id) {
-          switchChain.switchChain({ chainId: sepolia.id });
-        }
-      } else {
-        if (chainId !== base.id && chainId !== pulsechain.id) {
-          switchChain.switchChain({ chainId: pulsechain.id });
-        }
-      }
-    }
-  }, [account.chainId]);
 
   return (
     <>
@@ -75,7 +55,7 @@ export default function Wishwell() {
           }}
         />
       )}
-      {account.isConnected && <Leaderboard accountIsConnected typeOfLeaderboard="allTimeLeaderboard" />}
+      {account.isConnected && <Leaderboard accountIsConnected />}
       <Newsletter />
       <Footer />
     </>

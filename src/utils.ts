@@ -15,24 +15,8 @@ export const toBoolean = (query: string | undefined) => {
 export const getApiNetwork = (chainId: number) => {
   if (chainId === base.id || chainId === baseSepolia.id) {
     return "ethereum";
-  } else if (chainId === pulsechain.id || chainId === pulsechainV4.id) {
+  } else if (chainId === pulsechain.id || chainId === sepolia.id) {
     return "pulsechain";
-  }
-};
-
-export const checkCorrectNetwork = (chainId: number | undefined) => {
-  if (chainId) {
-    if (TEST_NETWORK) {
-      if (chainId === baseSepolia.id) {
-        return true;
-      } else if (chainId === pulsechain.id) return true;
-      else if (chainId === sepolia.id) return true;
-      else return false;
-    } else {
-      if (chainId === base.id) return true;
-      else if (chainId === pulsechain.id) return true;
-      else return false;
-    }
   }
 };
 

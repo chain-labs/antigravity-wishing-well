@@ -1,34 +1,11 @@
 "use client";
 
-import {
-  Environment,
-  Html,
-  Line,
-  OrbitControls,
-  PerspectiveCamera,
-  Sphere,
-  useProgress,
-} from "@react-three/drei";
+import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { Saturn } from "./Saturn";
 import { scroll } from "framer-motion";
-import { Bloom, EffectComposer } from "@react-three/postprocessing";
-import { Gradient, LayerMaterial } from "lamina";
 import { useFrame } from "@react-three/fiber";
-
-const Loader = () => {
-  const { progress } = useProgress();
-  return (
-    <Html center>
-      <div className="fixed top-0 left-0 w-full h-full bg-black flex items-center justify-center">
-        <h1 className="text-agwhite text-4xl">
-          {progress.toFixed(1)}% Loading...
-        </h1>
-      </div>
-    </Html>
-  );
-};
 
 const LINE_NB_POINTS = 4000;
 
@@ -124,7 +101,7 @@ export default function Experience() {
 
         {/* <Line points={linePoints} color="white" /> */}
         <group ref={saturn}>
-          <Suspense fallback={<Loader />}>
+          <Suspense fallback={<></>}>
             {/* <Sphere scale={[100, 100, 100]}>
 							<LayerMaterial
 								lighting="physical"

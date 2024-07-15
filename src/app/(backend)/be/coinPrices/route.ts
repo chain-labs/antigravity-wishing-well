@@ -1,7 +1,7 @@
 import { API_ENDPOINT, TEST_NETWORK } from "@/constants";
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
-import { base, pulsechain, sepolia } from "viem/chains";
+import { base, baseSepolia, pulsechain, sepolia } from "viem/chains";
 
 const chainToCGNetwork = (chainId: number) => {
   switch (chainId) {
@@ -11,6 +11,8 @@ const chainToCGNetwork = (chainId: number) => {
       return "base";
     case pulsechain.id:
       return "pulsechain";
+    case baseSepolia.id:
+      return "sepolia_base";
   }
 };
 
@@ -35,18 +37,22 @@ export async function GET(request: NextRequest) {
   } catch (err) {
     console.log({ err });
     switch (token) {
-      case "0xfC7A9aa6C62e92e01A379223291656718803896b": {
+      case "0xd8653339bff4A18108e9BFC2d5d15C90a4F04eA5":
+      case "0xaBA9FaCcf99C36D61A7C855ED77a58FC49151d5A": {
         price = 1;
         break;
       }
-      case "0x49A8741a46C4b4b99525FFB88123E1Ea59CA5925": {
+      case "0xaBA9FaCcf99C36D61A7C855ED77a58FC49151d5A":
+      case "0x95C835EE2B7560E7e5116d533795548Ea6367313": {
         price = 0.0195;
         break;
       }
-      case "0x5CD3f6f083e51F2fe3477D8fFB828eb36702c5Cd": {
+      case "0x11334A36427C607Aa07bd607DbBB27fcDa6db6AB":
+      case "0x3256e547407F63C862EC0732272028534B6676d2": {
         price = 0.000000000029;
         break;
       }
+      case "0x4200000000000000000000000000000000000006":
       case "0xfff9976782d46cc05630d1f6ebab18b2324d6b14": {
         price = 2.3;
         break;

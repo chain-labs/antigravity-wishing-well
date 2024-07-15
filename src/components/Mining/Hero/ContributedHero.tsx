@@ -4,15 +4,15 @@ import H1 from "@/components/HTML/H1";
 import P from "@/components/HTML/P";
 import useClaim from "@/hooks/sc-fns/useClaim";
 import { useRestFetch } from "@/hooks/useRestClient";
-import { useConnectModal } from "@rainbow-me/rainbowkit";
-import { Dispatch, SetStateAction, useMemo } from "react";
+import { useChainModal, useConnectModal } from "@rainbow-me/rainbowkit";
+import { useMemo } from "react";
 import { formatUnits } from "viem";
 import { useAccount, useReadContract } from "wagmi";
 import ContributedCard from "./ContributedCard";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import Button from "@/components/Button";
 import useClaimMerkleTree from "@/hooks/sc-fns/useMerkleTree.claim";
-import { StateType } from "../types";
+import { checkCorrectNetwork } from "@/components/RainbowKit";
 
 export default function ContributedHero({
   setState,
@@ -21,6 +21,7 @@ export default function ContributedHero({
 }) {
   const { openConnectModal } = useConnectModal();
   const account = useAccount();
+  const { openChainModal } = useChainModal();
 
   const { data: era2Data } = useRestFetch(["s3"], `/s3?file=era2`, {
     proxy: true,
@@ -188,7 +189,7 @@ export default function ContributedHero({
               },
             }}
           />
-        ) : (
+        ) : checkCorrectNetwork(account.chainId) ? (
           <Button
             innerText={transactionLoading ? "Claiming..." : "Claim Now"}
             loading={transactionLoading}
@@ -196,11 +197,14 @@ export default function ContributedHero({
             iconSrc={IMAGEKIT_ICONS.CLAIM}
             iconAlt="Claim Now"
             onClick={handleClaim}
-            variants={{
-              hover: {
-                rotate: 15,
-              },
-            }}
+          />
+        ) : (
+          <Button
+            innerText="Switch Network"
+            iconSrc={IMAGEKIT_ICONS.ERROR}
+            onClick={openChainModal}
+            iconAlt="network error"
+            iconPosition="start"
           />
         )}
       </div>

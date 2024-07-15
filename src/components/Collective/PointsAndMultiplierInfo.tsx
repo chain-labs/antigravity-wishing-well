@@ -105,7 +105,7 @@ export default function PointsAndMultiplierInfo() {
         alt="Points and multiplier Background"
         width={1920}
         height={1080}
-        className="absolute inset-0 w-full  h-full md:h-[700px] z-[-2] md:translate-y-[-18%] object-none md:object-fill object[10%_30%] sm:object-cover"
+        className="absolute inset-0 w-full h-auto z-[-2] md:translate-y-[-18%] object-none md:object-fill object[10%_30%] sm:object-cover"
       />
     </div>
   );
