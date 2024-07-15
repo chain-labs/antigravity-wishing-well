@@ -6,6 +6,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import HeroItemCard from "@/components/HeroItemCard";
 import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import useTimer from "@/hooks/frontend/useTimer";
+import useClaim from "@/hooks/sc-fns/useClaim";
 
 export default function Hero() {
   const targetRef = useRef<HTMLDivElement>(null);
@@ -21,6 +22,7 @@ export default function Hero() {
     [-150, 0],
   );
   const timer = useTimer();
+  const { darkBalance } = useClaim();
   return (
     <div ref={targetRef} className="w-full h-full">
       <motion.div
@@ -47,7 +49,11 @@ export default function Hero() {
         />
         <HeroItemCard
           title="Mining"
-          description="Start mining with supported tokens to get points + $DARKX tokens + the new Antigravity NFT."
+          description={
+            timer.claimStarted && (darkBalance as bigint) > 0
+              ? "Surprise! You can now claim your $DARK tokens based on the points you've earned. "
+              : "Start mining with supported tokens to get points + $DARKX tokens + the new Antigravity NFT."
+          }
           backgroundImage={IMAGEKIT_IMAGES.MINING}
           animateFrom="bottom"
           cardExternalLink="/mining"
