@@ -220,15 +220,12 @@ export default function NonContributed({
 
   return (
     <div className="relative flex flex-col justify-center items-center gap-[8px] mt-[50px]">
-      {state !== "Claiming" ? (
-        (darkXBalance as bigint) > 0 ? (
-          <NFTHero NFTHover={NFTHover} setNFTHover={setNFTHover} />
-        ) : (
-          <NoNFTHero />
-        )
+      {(darkXBalance as bigint) > 0 ? (
+        <NFTHero NFTHover={NFTHover} setNFTHover={setNFTHover} />
       ) : (
-        <></>
+        <NoNFTHero />
       )}
+
       <MiningCalculator
         tokenBalance={tokenBalances?.[selectedToken] || "0"}
         value={value}

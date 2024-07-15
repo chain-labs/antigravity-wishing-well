@@ -5,6 +5,7 @@ export type TokenDropdownTypes = {
   USDvalue?: number;
   address: string;
   logoURI: string | StaticImport;
+  buyLink: string;
 };
 
 export type IToken = TokenDropdownTypes & {
