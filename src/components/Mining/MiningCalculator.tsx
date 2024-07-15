@@ -404,6 +404,7 @@ export default function MiningCalculator({
   inputOptions,
   setSelectedToken,
   tokenBalance,
+  selectedToken,
 }: {
   value: number;
   setValue: Dispatch<SetStateAction<number>>;
@@ -415,12 +416,17 @@ export default function MiningCalculator({
   inputOptions: TokenDropdownTypes[];
   setSelectedToken: Dispatch<SetStateAction<number>>;
   tokenBalance: string;
+  selectedToken: number;
 }) {
   const [currentValue, setCurrentValue] = useState<string>(value + "");
-  const [selectedOption, setSelectedOption] = useState<number>(0);
+  const [selectedOption, setSelectedOption] = useState<number>(selectedToken);
   const [USDValue, setUSDValue] = useState(
     value * (inputOptions[0]?.USDvalue || 0),
   );
+
+  useEffect(() => {
+    setSelectedOption(selectedToken);
+  }, [selectedToken]);
 
   useEffect(() => {
     const value = Number(currentValue.replace(/,/g, ""));

@@ -43,7 +43,7 @@ export const useRestPost = <T>(
     mutationFn: (payload: Record<string, any>) => mutate<T>(url, payload),
     onError: (error: any) => {
       console.error(error);
-      errorToast(`Error: ${error.message}. Try again please.`);
+      // errorToast(`Error: ${error.message}. Try again please.`);
 
       // TODO: Add Sentry logs here as well
     },

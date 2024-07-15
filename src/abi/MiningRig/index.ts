@@ -1,5 +1,5 @@
 import { TEST_NETWORK } from "@/constants";
-import { baseSepolia, pulsechain, sepolia } from "viem/chains";
+import { base, baseSepolia, pulsechain, sepolia } from "viem/chains";
 import { useAccount } from "wagmi";
 
 interface IContract {
@@ -9,29 +9,44 @@ interface IContract {
 
 import abi from "./abi.json";
 
+const contracts: Record<number, { address: `0x${string}`; abi: any }> = {
+  [sepolia.id]: {
+    address: "0xdcBeDF395384582369F6035c62bEf1A73e14d938",
+    abi,
+  },
+  [baseSepolia.id]: {
+    address: "0x968fd3e3f1Ebc136A79BE36201346BEc26331608",
+    abi,
+  },
+  [base.id]: {
+    address: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+    abi,
+  },
+  [pulsechain.id]: {
+    address: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+    abi,
+  },
+};
+
 const useMiningContract = (): IContract => {
   const account = useAccount();
   if (TEST_NETWORK) {
     if (account.chain?.id === baseSepolia.id) {
       // Change the address here
-      return {
-        address: "0x06749876B59acD1758264ae09BC84B82afFC7e21",
-        abi,
-      };
+      return contracts[baseSepolia.id];
     } else if (account.chain?.id === sepolia.id) {
-      return {
-        address: "0xdcBeDF395384582369F6035c62bEf1A73e14d938",
-        abi,
-      };
+      return contracts[sepolia.id];
     }
+
+    return contracts[sepolia.id];
   } else {
     if (account.chain?.id === pulsechain.id) {
-      // Change the address here
-      return {
-        address: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-        abi,
-      };
+      return contracts[pulsechain.id];
+    } else if (account.chain?.id === base.id) {
+      return contracts[base.id];
     }
+
+    return contracts[pulsechain.id];
   }
 
   return {};
