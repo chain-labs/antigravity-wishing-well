@@ -23,6 +23,23 @@ export const RegisterButton: React.FC<RegisterButtonProps> = ({
 }) => {
   const account = useAccount();
 
+  const getButtonText = () => {
+    if (account.isConnected) {
+      if (loading) {
+        if (!error) {
+          return "Checking you Registration";
+        } else return "Recheck";
+      } else {
+        if (!isRegistered) {
+          if (registerIdle) {
+            return "REGISTER NOW";
+          } else return "Registering...";
+        }
+        return "Already Registered";
+      }
+    } else return "CONNECT WALLET";
+  };
+
   return (
     <>
       <Button
@@ -40,20 +57,8 @@ export const RegisterButton: React.FC<RegisterButtonProps> = ({
                   }
                 : () => {}
         }
-        innerText={
-          account.isConnected
-            ? loading
-              ? !error
-                ? "Checking your Registration"
-                : "Recheck"
-              : !isRegistered
-                ? registerIdle
-                  ? "REGISTER NOW"
-                  : "Registering..."
-                : ""
-            : "CONNECT WALLET"
-        }
-        loading={account.isConnected && loading}
+        innerText={getButtonText()}
+        loading={(account.isConnected && loading) || !registerIdle}
         iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
         iconPosition="start"
         variants={

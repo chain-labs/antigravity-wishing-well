@@ -61,12 +61,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // useEffect(() => {
-  //   console.log({ router });
-  // }, [router]);
-  // if (router === "/cms") {
-  //   return <html lang="en">{children}</html>;
-  // }
   return (
     <html lang="en">
       <GoogleAnalytics />

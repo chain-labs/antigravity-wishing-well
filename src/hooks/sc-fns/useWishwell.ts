@@ -5,7 +5,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { PublicClient, parseAbiItem } from "viem";
-import { base, baseSepolia } from "viem/chains";
+import { base, baseSepolia, pulsechain } from "viem/chains";
 import {
   useAccount,
   usePublicClient,
@@ -15,12 +15,15 @@ import {
 } from "wagmi";
 import { errorToast, generalToast, successToast } from "../frontend/toast";
 import { checkCorrectNetwork } from "@/components/RainbowKit";
+import { gqlFetcher } from "@/api/graphqlClient";
+import { gql } from "graphql-request";
 
 type Props = {};
 
 const useWishwell = () => {
   const [isRegistered, setIsRegistered] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
+  const [registering, setIsRegistering] = useState<boolean>(false);
   // const [payableAmount, setPayableAmount] = useState(0);
   const [tokenId, setTokenId] = useState<BigInt>(BigInt(0));
   const [loading, setLoading] = useState<boolean>(true);
@@ -38,72 +41,30 @@ const useWishwell = () => {
 
   const getTokenIds = async (poll?: boolean) => {
     if (!account.isConnected) return;
-    if (publicClient === undefined) return;
-    if (!poll && checkCorrectNetwork(Number(account.chainId))) {
+    if (!poll && checkCorrectNetwork(account.chainId)) {
       setLoading(true);
       setIsRegistered(false);
       setIsSuccess(false);
     }
-    // note: using the public client which is already set to ensure another conditional logic is not needed to set the http transport.
-    // const publicClient =  createPublicClient({
-    //   chain: account.chain,
-    //   transport: http("https://base-sepolia.g.alchemy.com/v2/Ck1jBlebtn6A92-eXG1tnievZs0kfS9F"),
-    // });
 
-    const fromBlockNumber =
-      account.chainId == base.id || account.chainId === baseSepolia.id
-        ? process.env.NEXT_PUBLIC_BASE_FROM_BLOCK_NUMBER
-        : process.env.NEXT_PUBLIC_PLS_FROM_BLOCK_NUMBER;
-
-    if (fromBlockNumber === undefined)
-      throw Error("Please set the enviornment variable for Block Number");
-
-    const chunkSize = 50000; // Define the chunk size as per the RPC limit
-    let currentBlock = BigInt(fromBlockNumber); // Start from this block number
-    let latestBlock; // Variable to store the latest block number
-    let tokenId; // Variable to store tokenId when found
-
-    latestBlock = await getLatestBlockNumber(publicClient); // Initialize the latest block
-    while (currentBlock <= latestBlock) {
-      // Calculate the end block for the current chunk
-      const endBlock = Math.min(
-        parseInt(currentBlock.toString()) + parseInt(chunkSize.toString()),
-        parseInt(latestBlock.toString()),
+    try {
+      const tokensResponse = await gqlFetcher<any>(
+        gql`
+          query TokenIds($address: Bytes) {
+            users(where: { address_contains: $address }, first: 1) {
+              address
+              wishwellId {
+                tokenId
+              }
+            }
+          }
+        `,
+        { address: account.address },
+        account.chainId || pulsechain.id,
       );
 
-      // Create the event filter for the current block range
-      const filter = await publicClient.createEventFilter({
-        address: AntiGravity?.address,
-        event: parseAbiItem(
-          "event Transfer(address indexed from, address indexed to, uint256 indexed id)",
-        ),
-        args: {
-          to: account.address,
-        },
-        fromBlock: BigInt(currentBlock),
-        toBlock: BigInt(endBlock),
-      });
-
-      // Fetch logs using the filter
-      const logs = await publicClient.getFilterLogs({ filter });
-
-      if (logs.length > 0) {
-        tokenId = logs[0]?.args.id;
-        if (tokenId) {
-          break; // Exit the loop if tokenId is found
-        }
-      }
-      // Update currentBlock for the next iteration
-      currentBlock = BigInt((endBlock + 1).toString());
-
-      // Refresh latest block number to ensure it includes recent blocks
-      latestBlock = await getLatestBlockNumber(publicClient);
-      // console.log({ filter, logs, tokenId, latestBlock });
-    }
-    setTokenId(tokenId ?? BigInt(0));
-    if (tokenId) {
-      try {
-        // Check contribution in wishwell
+      if (tokensResponse.users[0]?.wishwellId?.tokenId) {
+        setIsRegistered(true);
         const contributionData = await axios.get(
           `${PROXY_API_ENDPOINT}contribution/${tokenId}?blockchain=${getApiNetwork(
             Number(account?.chainId),
@@ -111,24 +72,20 @@ const useWishwell = () => {
         );
         const contribution = parseFloat(contributionData.data.data.value);
 
-        // console.log({ contribution });
-
-        setLoading(false);
         if (contribution > 0) {
           setIsSuccess(true);
-        } else {
-          setIsRegistered(true);
-        }
-      } catch (err) {
-        errorToast("Something went wrong. Try Again!", { duration: 3000 });
-        setError(true);
-        console.error({ err });
+        } else setIsSuccess(false);
+      } else {
+        setIsRegistered(false);
+        setIsSuccess(false);
       }
-    } else {
-      setLoading(false);
-      setIsSuccess(false);
+    } catch (err) {
+      errorToast("Unable to check your registration now! Try Again");
+      setError(true);
       setIsRegistered(false);
+      setIsSuccess(false);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -198,6 +155,7 @@ const useWishwell = () => {
   });
 
   const registerFn = async () => {
+    setIsRegistering(true);
     generalToast("Getting you registered!", {
       duration: 10000,
     });
@@ -207,7 +165,6 @@ const useWishwell = () => {
       address: AntiGravity?.address,
       abi: AntiGravity?.abi,
       functionName: "register",
-      // args: [`${payableAmount}`],
     });
   };
 
@@ -224,19 +181,21 @@ const useWishwell = () => {
       errorToast(errorMessage, {
         duration: 3000,
       });
+      setIsRegistering(false);
       setIsRegistered(false);
     }
   }, [registerError]);
 
   useEffect(() => {
-    if (registerFetched && registerReceipt) {
+    if (registerReceipt) {
       successToast("Registered successful", {
         duration: 3000,
       });
       getTokenIds(false);
       setIsRegistered(true);
+      setIsRegistering(false);
     }
-  }, [registerFetched, registerReceipt]);
+  }, [registerReceipt]);
 
   return {
     tokenId,
@@ -251,7 +210,7 @@ const useWishwell = () => {
       registerFn,
       registerError,
       register,
-      registerIdle,
+      registerIdle: !registering,
       registerFetched,
     },
   };
