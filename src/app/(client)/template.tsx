@@ -22,6 +22,7 @@ const Footer = dynamic(() => import("@/components/Home/sections/Footer"), {
 
 export default function Template({ children }: { children: React.ReactNode }) {
   const { loading, strictNoLoading } = useLoading();
+  console.log('loading', loading);
   return (
     <ReactLenis root>
       <main className="min-h-screen">
@@ -34,7 +35,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
           </div>
           <AnimatePresence>
             <motion.div
-              initial={{ opacity: 0 }}
+              initial={{ opacity: strictNoLoading ? 1 : 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 2 }}
