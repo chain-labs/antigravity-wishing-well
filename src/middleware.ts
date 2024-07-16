@@ -19,6 +19,9 @@ export async function middleware(request: NextRequest) {
   ) {
     return NextResponse.redirect(new URL("/blocked", request.url));
   }
+  else if ( request.url.includes("/blocked") ) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
 }
 
 // GUM, USA, VIR, PRI
