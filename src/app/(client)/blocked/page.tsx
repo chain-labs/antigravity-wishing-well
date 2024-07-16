@@ -33,7 +33,7 @@ export default function GeoBlocked() {
       className={`fixed left-0 h-screen w-screen overflow-hidden bg-gradient-to-b from-[#030404] to-[#131A1A] z-[10000] `}
     >
       <div className="absolute top-0 left-0 flex justify-center items-center gap-[16px] px-[16px] py-[32px] md:py-[48px] md:px-[96px] w-full md:w-fit">
-        <Link href="/">
+        <Link href="/" className="flex justify-center items-center">
           <Image
             src={IMAGEKIT_LOGOS.LOGO}
             alt="logo"
