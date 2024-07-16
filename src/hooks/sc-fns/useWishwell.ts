@@ -2,10 +2,9 @@ import useContract from "@/abi/wishwell";
 import { POLL_TIME, PROXY_API_ENDPOINT, TEST_NETWORK } from "@/constants";
 import { getApiNetwork } from "@/utils";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import { PublicClient, parseAbiItem } from "viem";
-import { base, baseSepolia, pulsechain } from "viem/chains";
+import { useEffect, useState } from "react";
+import { PublicClient } from "viem";
+import { pulsechain } from "viem/chains";
 import {
   useAccount,
   usePublicClient,
@@ -70,8 +69,10 @@ const useWishwell = () => {
             Number(account?.chainId),
           )}`,
         );
+
         const contribution = parseFloat(contributionData.data.data.value);
 
+        // console.log({ contribution });
         if (contribution > 0) {
           setIsSuccess(true);
         } else setIsSuccess(false);
@@ -141,18 +142,12 @@ const useWishwell = () => {
     data: registerHash,
     error: registerError,
     writeContract: register,
-    isIdle: registerIdle,
-    isPending: registerPending,
   } = useWriteContract();
 
-  const {
-    data: registerReceipt,
-    isFetching: registerFetching,
-    isLoading: registerLoading,
-    isFetched: registerFetched,
-  } = useTransactionReceipt({
-    hash: registerHash,
-  });
+  const { data: registerReceipt, isFetched: registerFetched } =
+    useTransactionReceipt({
+      hash: registerHash,
+    });
 
   const registerFn = async () => {
     setIsRegistering(true);

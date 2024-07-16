@@ -8,10 +8,10 @@ import {
   IMAGEKIT_IMAGES,
   IMAGEKIT_LOGOS,
 } from "@/assets/imageKit";
-import SepoliaAG from "@/abi/wishwell/Sepolia"
-import BaseSepoliaAG from "@/abi/wishwell/BaseSepolia"
-import PulsechainAG from "@/abi/wishwell/Pulsechain"
-import BaseAG from "@/abi/wishwell/Base"
+import SepoliaAG from "@/abi/wishwell/Sepolia";
+import BaseSepoliaAG from "@/abi/wishwell/BaseSepolia";
+import PulsechainAG from "@/abi/wishwell/Pulsechain";
+import BaseAG from "@/abi/wishwell/Base";
 import { successToast } from "@/hooks/frontend/toast";
 
 export default function RegisteredHero() {
@@ -40,7 +40,11 @@ export default function RegisteredHero() {
               iconAlt="info icon"
               iconPosition="end"
               hallmarkIconSrc={IMAGEKIT_ICONS.ETH}
-              onClick={() => copyToClipboard(TEST_NETWORK ? SepoliaAG.address : PulsechainAG.address)}
+              onClick={() =>
+                copyToClipboard(
+                  TEST_NETWORK ? SepoliaAG.address : PulsechainAG.address,
+                )
+              }
             />
             <Button
               innerText="Wishwell.pls"
@@ -48,7 +52,11 @@ export default function RegisteredHero() {
               iconAlt="info icon"
               iconPosition="end"
               hallmarkIconSrc={IMAGEKIT_ICONS.PLS}
-              onClick={() => copyToClipboard(TEST_NETWORK ? BaseSepoliaAG.address : BaseAG.address))}
+              onClick={() =>
+                copyToClipboard(
+                  TEST_NETWORK ? BaseSepoliaAG.address : BaseAG.address,
+                )
+              }
             />
           </div>
 
