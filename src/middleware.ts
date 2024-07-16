@@ -13,7 +13,7 @@ export async function middleware(request: NextRequest) {
 
 	const restrictedCountryCodes = ["GUM", "USA", "VIR", "PRI"];
 
-	if (restrictedCountryCodes.includes(apiResponse.country_3)) {
+	if (restrictedCountryCodes.includes(apiResponse.country_3) && request.url !== "/blocked") {
 		return NextResponse.redirect(new URL('/blocked', request.url));
 	}
 }
