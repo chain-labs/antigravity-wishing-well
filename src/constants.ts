@@ -3,7 +3,7 @@ import { toBoolean } from "./utils";
 export const TEST_NETWORK = toBoolean(process.env.NEXT_PUBLIC_TEST);
 export const PROJECT_ID = process.env.NEXT_PUBLIC_WALLET_CONNECT_PID;
 
-export const PROXY_API_ENDPOINT = TEST_NETWORK ? "/test/api/" : "/api/";
+export const PROXY_API_ENDPOINT = "/api/";
 
 export const API_ENDPOINT = TEST_NETWORK
   ? process.env.NEXT_PUBLIC_TEST_BACKEND
@@ -29,3 +29,5 @@ export const YOUTUBE =
 export const HOW_TO = process.env.NEXT_PUBLIC_HOW_TO_URL;
 
 export const POLL_TIME = parseInt(`${process.env.NEXT_PUBLIC_POLL_TIME}`);
+
+export const IMAGEKIT = "https://ik.imagekit.io/qvs5pk2dl/Antigravity";
