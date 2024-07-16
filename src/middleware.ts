@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
 
-export async function middleware() {
+export async function middleware(request: NextRequest) {
 	const forwardedFor = headers().get("x-forwarded-for");
 	const realIp = headers().get("x-real-ip");
 
@@ -14,7 +14,7 @@ export async function middleware() {
 	const restrictedCountryCodes = ["GUM", "USA", "VIR", "PRI"];
 
 	if (restrictedCountryCodes.includes(apiResponse.country_3)) {
-		return NextResponse.redirect("/blocked");
+		return NextResponse.redirect(new URL('/blocked', request.url));
 	}
 }
 
