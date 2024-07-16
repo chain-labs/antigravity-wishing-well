@@ -11,9 +11,11 @@ export async function middleware() {
 		)
 	).json();
 
-	return NextResponse.json({
-		realIp,
-		forwardedFor,
-		apiResponse,
-	});
+	const restrictedCountryCodes = ["GUM", "USA", "VIR", "PRI"];
+
+	if (restrictedCountryCodes.includes(apiResponse.country_3)) {
+		return NextResponse.redirect("/blocked");
+	}
 }
+
+// GUM, USA, VIR, PRI
