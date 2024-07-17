@@ -1,10 +1,15 @@
 import useContract from "@/abi/wishwell";
-import { POLL_TIME, PROXY_API_ENDPOINT, TEST_NETWORK } from "@/constants";
+import {
+  API_ENDPOINT,
+  POLL_TIME,
+  PROXY_API_ENDPOINT,
+  TEST_NETWORK,
+} from "@/constants";
 import { getApiNetwork } from "@/utils";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { PublicClient } from "viem";
-import { pulsechain } from "viem/chains";
+import { base, baseSepolia, pulsechain, sepolia } from "viem/chains";
 import {
   useAccount,
   usePublicClient,
@@ -16,6 +21,9 @@ import { errorToast, generalToast, successToast } from "../frontend/toast";
 import { checkCorrectNetwork } from "@/components/RainbowKit";
 import { gqlFetcher } from "@/api/graphqlClient";
 import { gql } from "graphql-request";
+import { useRestPost } from "../useRestClient";
+import { UserData } from "@/components/Home/components/header/UserConnected";
+import useUserData from "@/app/(client)/store";
 
 type Props = {};
 
@@ -28,15 +36,73 @@ const useWishwell = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
   const [poll, setPoll] = useState<boolean>(true);
+  const [nftURI, setNftURI] = useState("");
   const account = useAccount();
   const AntiGravity = useContract();
-  const publicClient = usePublicClient();
 
   // Use a function to get the latest block number
   async function getLatestBlockNumber(publicClient: PublicClient) {
     const block = await publicClient.getBlockNumber();
     return block;
   }
+
+  const { data: userData, mutate: mutateUserData } = useRestPost<UserData>(
+    ["user"],
+    "/api/user",
+  );
+
+  const {
+    mutation: storeUserData,
+    wishwellBaseTokenId,
+    wishwellPulsechainTokenId,
+    wishwellPoints,
+  } = useUserData();
+
+  const { data: NFTData, mutate: mutateNFTData } = useRestPost<any>(
+    ["generate-nft"],
+    "/api/generate-nft",
+  );
+
+  useEffect(() => {
+    if (userData) {
+      storeUserData({
+        walletAddress: userData.walletAddress,
+        rank: userData.rank,
+        wishwellPulsechainTokenId: userData.wishwellPulsechainTokenId,
+        wishwellBaseTokenId: userData.wishwellBaseTokenId,
+        antigravityBaseTokenId: userData.antigravityBaseTokenId,
+        antigravityPulsechainTokenId: userData.antigravityPulsechainTokenId,
+        wishwellPoints: userData.wishwellPoints,
+        miningPoints: userData.miningPoints,
+        totalPoints: userData.totalPoints,
+      });
+      let tokenId = "0";
+      let blockchain = "pulsechain";
+
+      if (TEST_NETWORK) {
+        if (account.chainId === sepolia.id) {
+          tokenId = userData.wishwellPulsechainTokenId;
+          blockchain = "pulsechain";
+        } else if (account.chainId === baseSepolia.id) {
+          tokenId = userData.wishwellBaseTokenId;
+          blockchain = "base";
+        }
+      } else {
+        if (account.chainId === pulsechain.id) {
+          tokenId = userData.wishwellPulsechainTokenId;
+          blockchain = "pulsechain";
+        } else if (account.chainId === base.id) {
+          tokenId = userData.wishwellBaseTokenId;
+          blockchain = "base";
+        }
+      }
+      mutateNFTData({
+        tokenId: Number(tokenId),
+        era: 1,
+        blockchain,
+      });
+    }
+  }, [userData]);
 
   const getTokenIds = async (poll?: boolean) => {
     if (!account.isConnected) return;
@@ -64,18 +130,37 @@ const useWishwell = () => {
 
       if (tokensResponse.users[0]?.wishwellId?.tokenId) {
         setIsRegistered(true);
-        const contributionData = await axios.get(
-          `${PROXY_API_ENDPOINT}contribution/${tokenId}?blockchain=${getApiNetwork(
-            Number(account?.chainId),
-          )}`,
-        );
+        mutateUserData({ walletAddress: account.address?.toLowerCase() });
+        if (wishwellPoints) {
+          let tokenId = "0";
+          let blockchain = "pulsechain";
 
-        const contribution = parseFloat(contributionData.data.data.value);
+          if (TEST_NETWORK) {
+            if (account.chainId === sepolia.id) {
+              tokenId = wishwellPulsechainTokenId;
+              blockchain = "pulsechain";
+            } else if (account.chainId === baseSepolia.id) {
+              tokenId = wishwellBaseTokenId;
+              blockchain = "base";
+            }
+          } else {
+            if (account.chainId === pulsechain.id) {
+              tokenId = wishwellPulsechainTokenId;
+              blockchain = "pulsechain";
+            } else if (account.chainId === base.id) {
+              tokenId = wishwellBaseTokenId;
+              blockchain = "base";
+            }
+          }
+          mutateNFTData({
+            tokenId: Number(tokenId),
+            era: 1,
+            blockchain,
+          });
+          setIsSuccess;
+        }
 
-        // console.log({ contribution });
-        if (contribution > 0) {
-          setIsSuccess(true);
-        } else setIsSuccess(false);
+        // const contribution = parseFloat(contributionData.data.data.value);
       } else {
         setIsRegistered(false);
         setIsSuccess(false);
@@ -90,6 +175,17 @@ const useWishwell = () => {
   };
 
   useEffect(() => {
+    if (userData) {
+      const contribution = userData?.wishwellPoints;
+
+      // console.log({ contribution });
+      if (Number(contribution) > 0) {
+        setIsSuccess(true);
+      } else setIsSuccess(false);
+    }
+  }, [userData]);
+
+  useEffect(() => {
     if (account.address && checkCorrectNetwork(account.chain?.id) && !error) {
       getTokenIds(false);
     } else {
@@ -97,6 +193,12 @@ const useWishwell = () => {
       setIsSuccess(false);
     }
   }, [account.address, account.chainId, error]);
+
+  useEffect(() => {
+    if (NFTData) {
+      setNftURI(NFTData.url);
+    }
+  }, NFTData);
 
   useEffect(() => {
     if (account) {
@@ -199,6 +301,7 @@ const useWishwell = () => {
     isSuccess,
     loading,
     error,
+    nftURI,
     setError,
     poll,
     registerKit: {

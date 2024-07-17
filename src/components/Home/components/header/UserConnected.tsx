@@ -7,22 +7,26 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRestPost } from "@/hooks/useRestClient";
 import useUserData from "@/app/(client)/store";
+import { TEST_NETWORK } from "@/constants";
+import { base, baseSepolia, pulsechain, sepolia } from "viem/chains";
+export interface UserData {
+  rank: string;
+  walletAddress: string; // Add the 'walletAddress' property
+  nftURL: string; // Add the 'nftURL' property
+  wishwellPoints: number; // Add the 'wishwellPoints' property
+  miningPoints: number; // Add the 'miningPoints' property
+  totalPoints: number;
+  wishwellPulsechainTokenId: string;
+  wishwellBaseTokenId: string;
+  antigravityBaseTokenId: string;
+  antigravityPulsechainTokenId: string;
+  // Add other properties if necessary
+}
 
 export const UserConnected: React.FC = () => {
   const account = useAccount();
   const { mutation: storeUserData, rank } = useUserData();
-
-  interface UserData {
-    rank: string;
-    antigravityTokenId: number; // Add the 'antigravityTokenId' property
-    walletAddress: string; // Add the 'walletAddress' property
-    wishwellTokenId: number; // Add the 'wishwellTokenId' property
-    nftURL: string; // Add the 'nftURL' property
-    wishwellPoints: number; // Add the 'wishwellPoints' property
-    miningPoints: number; // Add the 'miningPoints' property
-    totalPoints: number;
-    // Add other properties if necessary
-  }
+  const [tokenId, setTokenId] = useState(0);
 
   const { data: userData, mutate: mutateUserData } = useRestPost<UserData>(
     ["user"],
@@ -47,16 +51,38 @@ export const UserConnected: React.FC = () => {
       storeUserData({
         walletAddress: userData.walletAddress,
         rank: userData.rank,
-        antigravityTokenId: userData.antigravityTokenId,
-        wishwellTokenId: userData.wishwellTokenId,
+        wishwellPulsechainTokenId: userData.wishwellPulsechainTokenId,
+        wishwellBaseTokenId: userData.wishwellBaseTokenId,
+        antigravityBaseTokenId: userData.antigravityBaseTokenId,
+        antigravityPulsechainTokenId: userData.antigravityPulsechainTokenId,
         wishwellPoints: userData.wishwellPoints,
         miningPoints: userData.miningPoints,
         totalPoints: userData.totalPoints,
       });
+      let tokenId = "0";
+      let blockchain = "pulsechain";
+
+      if (TEST_NETWORK) {
+        if (account.chainId === sepolia.id) {
+          tokenId = userData.antigravityPulsechainTokenId;
+          blockchain = "pulsechain";
+        } else if (account.chainId === baseSepolia.id) {
+          tokenId = userData.antigravityBaseTokenId;
+          blockchain = "base";
+        }
+      } else {
+        if (account.chainId === pulsechain.id) {
+          tokenId = userData.antigravityPulsechainTokenId;
+          blockchain = "pulsechain";
+        } else if (account.chainId === base.id) {
+          tokenId = userData.antigravityBaseTokenId;
+          blockchain = "base";
+        }
+      }
       mutateNFTData({
-        tokenId: userData.antigravityTokenId,
+        tokenId: Number(tokenId),
         era: 2,
-        blockchain: "base",
+        blockchain,
       });
     }
   }, [userData]);
