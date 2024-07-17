@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
 
 export async function middleware(request: NextRequest) {
-  const forwardedFor = headers().get("x-forwarded-for");
   const realIp = headers().get("x-real-ip");
 
   const apiResponse = await (
@@ -16,12 +15,11 @@ export async function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
   const pathname = url.pathname;
 
-  // Check if the request is for a static asset or API endpoint
-  const isPageAsset = pathname.startsWith("/_next/static/chunks/app/(client)");
-  console.log();
-  if (isPageAsset) {
+  console.log(url);
+
+  if (!pathname.includes("/blocked")) {
     if (restrictedCountryCodes.includes(apiResponse.country_3) || true) {
-      return NextResponse.redirect(url.origin + "/blocked?blocked=true");
+      return NextResponse.redirect(url.origin + "/blocked");
     }
   }
   if (pathname.includes("/blocked")) {
@@ -29,4 +27,12 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(url.origin + "/");
     }
   }
+  return NextResponse.next();
 }
+
+export const config = {
+  matcher: [
+    // match all routes except static files and APIs
+    "/((?!api|_next/static|_next/image|favicon.ico|models).*)",
+  ],
+};

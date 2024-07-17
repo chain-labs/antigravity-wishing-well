@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import ReactLenis from "lenis/react";
 import useLoading from "@/hooks/frontend/useLoading";
+import { usePathname } from 'next/navigation'
 
 const LoadingPage = dynamic(() => import("@/app/(client)/LoadingPage"), {
   ssr: false,
@@ -22,7 +23,6 @@ const Footer = dynamic(() => import("@/components/Home/sections/Footer"), {
 
 export default function Template({ children }: { children: React.ReactNode }) {
   const { loading, strictNoLoading } = useLoading();
-  console.log('loading', loading);
   return (
     <ReactLenis root>
       <main className="min-h-screen">

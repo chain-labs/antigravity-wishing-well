@@ -80,7 +80,6 @@ export default function GeoBlocked() {
         alt="blocked background"
         height={1080}
         width={1920}
-        layout="fixed"
         className="absolute top-0 left-0 -z-[2] w-[110vw] h-screen object-[50%_50%] object-none md:object-cover"
       />
 
