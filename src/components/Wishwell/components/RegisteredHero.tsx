@@ -42,7 +42,7 @@ export default function RegisteredHero() {
               hallmarkIconSrc={IMAGEKIT_ICONS.ETH}
               onClick={() =>
                 copyToClipboard(
-                  TEST_NETWORK ? SepoliaAG.address : PulsechainAG.address,
+                  TEST_NETWORK ? BaseSepoliaAG.address : BaseAG.address,
                 )
               }
             />
@@ -54,7 +54,7 @@ export default function RegisteredHero() {
               hallmarkIconSrc={IMAGEKIT_ICONS.PLS}
               onClick={() =>
                 copyToClipboard(
-                  TEST_NETWORK ? BaseSepoliaAG.address : BaseAG.address,
+                  TEST_NETWORK ? SepoliaAG.address : PulsechainAG.address,
                 )
               }
             />

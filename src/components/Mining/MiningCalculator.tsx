@@ -228,6 +228,7 @@ export function InputCard({
             </button>
             <a
               href={dropdownOptions[dropDownSelected]?.buyLink ?? ""}
+              target="_blank"
               className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
             >
               <div className="bg-[#0A1133] rounded-full w-fit h-fit">
