@@ -18,12 +18,11 @@ export async function middleware(request: NextRequest) {
 
   // Check if the request is for a static asset or API endpoint
   const isPageAsset = pathname.startsWith("/_next/static/chunks/app/(client)");
-  console.log(request.nextUrl);
-  if (
-    restrictedCountryCodes.includes(apiResponse.country_3) &&
-    request.nextUrl.searchParams.get("blocked") !== "true"
-  ) {
-    return NextResponse.redirect(url.origin + "/blocked?blocked=true");
+  console.log();
+  if (isPageAsset) {
+    if (restrictedCountryCodes.includes(apiResponse.country_3) || true) {
+      return NextResponse.redirect(url.origin + "/blocked?blocked=true");
+    }
   }
   if (pathname.includes("/blocked")) {
     if (!restrictedCountryCodes.includes(apiResponse.country_3)) {
