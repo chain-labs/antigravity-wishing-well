@@ -45,23 +45,23 @@ export async function GET(request: NextRequest) {
       }
     } else {
       switch (token) {
-        case "0xd8653339bff4A18108e9BFC2d5d15C90a4F04eA5":
-        case "0xaBA9FaCcf99C36D61A7C855ED77a58FC49151d5A": {
+        case "0xFeC8b2A0442D7f6bA2716C736fd0A10A8a13fc15":
+        case "0x54E87718fa5db681c3767e6B5fBA1A94B5466e2a": {
           price = 1;
           break;
         }
-        case "0xe27BF9eC399883DD26Cc1CF02f3e34b6b83d7EBf":
-        case "0x95C835EE2B7560E7e5116d533795548Ea6367313": {
+        case "0x2bbB0B6040A3c5b6b0Ec74283447024034cfc743":
+        case "0x1Fd12116fF1C3d2bA9D48Ab3b3f37b21a1e2a550": {
           price = 0.0195;
           break;
         }
-        case "0x11334A36427C607Aa07bd607DbBB27fcDa6db6AB":
-        case "0x3256e547407F63C862EC0732272028534B6676d2": {
+        case "0x5801e12dc55040b8614af131DcF91b89A957301d":
+        case "0xc16FE9952eCA4336895b80fAd917041F38356CaF": {
           price = 0.000000000029;
           break;
         }
-        case "0x4200000000000000000000000000000000000006":
-        case "0xfff9976782d46cc05630d1f6ebab18b2324d6b14": {
+        case "0xfff9976782d46cc05630d1f6ebab18b2324d6b14":
+        case "0x4200000000000000000000000000000000000006": {
           price = 2.3;
           break;
         }
