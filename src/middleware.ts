@@ -13,15 +13,19 @@ export async function middleware(request: NextRequest) {
 
   const restrictedCountryCodes = ["GUM", "USA", "VIR", "PRI"];
 
-  if (
-    restrictedCountryCodes.includes(apiResponse.country_3) &&
-    !request.url.includes("/blocked")
-  ) {
-    return NextResponse.redirect(new URL("/blocked", request.url));
-  }
-  else if ( request.url.includes("/blocked") ) {
-    return NextResponse.redirect(new URL("/", request.url));
-  }
-}
+  const url = request.nextUrl.clone();
+  const pathname = url.pathname;
 
-// GUM, USA, VIR, PRI
+  // Check if the request is for a static asset or API endpoint
+  const isStaticAsset = pathname.startsWith("/_next") || pathname.startsWith("/static") || pathname.startsWith("/api");
+
+  if (!isStaticAsset) {
+    if (restrictedCountryCodes.includes(apiResponse.country_3) && !pathname.includes("/blocked")) {
+      return NextResponse.redirect(new URL("/blocked", request.url));
+    } else if (pathname.includes("/blocked")) {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
+  }
+
+  return NextResponse.next();
+}
