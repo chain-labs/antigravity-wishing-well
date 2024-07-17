@@ -188,7 +188,7 @@ export default function Button({
           )
         )}
       </motion.div>
-      <div className="text-nowrap">{innerText}</div>
+      <div className="text-nowrap select-none">{innerText}</div>
     </motion.button>
   );
 }

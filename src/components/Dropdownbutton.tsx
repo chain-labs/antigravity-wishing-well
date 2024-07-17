@@ -51,7 +51,7 @@ export default function Dropdown({
       onClick={toggleOptions}
       className="uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-extrabold text-agwhite cursor-pointer text-nowrap rounded-[4px] px-[10px] py-[6px] shadow-[0_4px_0_#414343] hover:translate-y-1 hover:shadow-none transition-[all_150ms] hover:shadow-none z-50 border-[1px] border-[#414343] bg-agblack active:bg-[#414343] box-border"
     >
-      <div className="cursor-pointer grid grid-cols-[24px_auto_16px] place-items-center gap-[8px]">
+      <div className="cursor-pointer grid grid-cols-[24px_auto_16px] place-items-center gap-[8px] select-none">
         <motion.div
           whileHover={{
             animation: "wiggle 1s linear forwards",
@@ -99,7 +99,7 @@ export default function Dropdown({
           style={{
             display: isOpen ? "flex" : "none",
           }}
-          className="flex flex-col justify-center items-center gap-[24px]"
+          className="flex flex-col justify-center items-center gap-[24px] select-none"
         >
           {options.map(
             (option, idx) =>
@@ -108,7 +108,7 @@ export default function Dropdown({
                   <div
                     onClick={() => setSelected(option.value)}
                     key={option.value}
-                    className="flex gap-[8px] items-center justify-start w-full cursor-pointer min-w-[120px]"
+                    className="flex gap-[8px] items-center justify-start w-full cursor-pointer min-w-[120px] select-none"
                   >
                     {option.label}
                   </div>
