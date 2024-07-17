@@ -124,6 +124,43 @@ const tableDataStatic: tableDataType[] = [
   },
 ];
 
+function getUpperRankPoints(currentPoints: number) {
+  switch (true) {
+    case currentPoints < 3333: // informant
+      return 3333;
+    case currentPoints < 6666:
+      return 6666;
+    case currentPoints < 9999: // lead operator
+      return 9999;
+    case currentPoints < 33333:
+      return 33333;
+    case currentPoints < 66666:
+      return 66666;
+    case currentPoints < 99999: // lead technician
+      return 99999;
+    case currentPoints < 333333:
+      return 333333;
+    case currentPoints < 666666:
+      return 666666;
+    case currentPoints < 999999: // special agent
+      return 999999;
+    case currentPoints < 3333333:
+      return 3333333;
+    case currentPoints < 6666666:
+      return 6666666;
+    case currentPoints < 9999999: // cheif navigator
+      return 9999999;
+    case currentPoints < 33333333:
+      return 33333333;
+    case currentPoints < 66666666:
+      return 66666666;
+    case currentPoints < 99999999: // General admiral
+      return 99999999;
+    default:
+      return currentPoints + 1;
+  }
+}
+
 export default function Leaderboard({
   accountIsConnected,
 }: {
@@ -139,6 +176,7 @@ export default function Leaderboard({
     target: targetRef,
     offset: ["start end", "start start"],
   });
+  const [rankUpPointsNeeded, setRankUpPointsNeeded] = useState<number>(0);
 
   const [externalLinks, setExternalLinks] = useState<{
     best_way_to_rank_up: string;
@@ -156,10 +194,9 @@ export default function Leaderboard({
       });
   }, []);
 
-  const { data: leaderboardData, mutate: mutateLeaderboardData } = useRestPost(
-    ["leaderboard"],
-    "/api/leaderboard",
-  );
+  const { data: leaderboardData, mutate: mutateLeaderboardData } = useRestPost<{
+    [key: string]: tableDataType[];
+  }>(["leaderboard"], "/api/leaderboard");
 
   const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
 
@@ -177,6 +214,27 @@ export default function Leaderboard({
     if (leaderboardData) {
       // @ts-ignore
       setTableData(leaderboardData[selectedLeaderboard]);
+    }
+    if (leaderboardData && account.address) {
+      const selectedLeaderboardData = leaderboardData[
+        selectedLeaderboard
+      ] as tableDataType[];
+      const userRank = selectedLeaderboardData.find(
+        (user: tableDataType) => user?.special,
+      )?.rank as number;
+      const userPoints = selectedLeaderboardData.find(
+        (user: tableDataType) => user?.special,
+      )?.points as number;
+
+      if (userRank === 1) {
+        setRankUpPointsNeeded(getUpperRankPoints(userPoints) - userPoints);
+      } else {
+        const prevRankPoints = selectedLeaderboardData.find(
+          (user: tableDataType) => user?.rank === userRank - 1,
+        )?.points as number;
+
+        setRankUpPointsNeeded(Math.ceil(prevRankPoints - userPoints));
+      }
     }
   }, [leaderboardData, selectedLeaderboard]);
 
@@ -270,8 +328,8 @@ export default function Leaderboard({
                 </motion.div>
 
                 <P className="font-medium">
-                  You&apos;re only 1,500 points away from leveling up. Mine now
-                  to rank up!
+                  You&apos;re only {rankUpPointsNeeded} points away from
+                  leveling up. Mine now to rank up!
                 </P>
                 <Link href="/mining">
                   <Button
