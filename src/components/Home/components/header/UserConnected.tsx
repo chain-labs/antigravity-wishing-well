@@ -39,12 +39,12 @@ export const UserConnected: React.FC = () => {
   );
 
   useEffect(() => {
-    if (account.isConnected) {
+    if (account.address) {
       mutateUserData({
         walletAddress: account.address?.toLowerCase(),
       });
     }
-  }, [account.isConnected]);
+  }, [account.address]);
 
   useEffect(() => {
     if (userData) {
@@ -136,7 +136,7 @@ export const UserConnected: React.FC = () => {
                     >
                       {condenseAddress(`${account.address}`)}
                       <Badge className="text-agwhite border-agwhite pb-[4px] opacity-[66%]">
-                        {rank}
+                        {rank || "LOADING..."}
                       </Badge>
                     </p>
                   </>
