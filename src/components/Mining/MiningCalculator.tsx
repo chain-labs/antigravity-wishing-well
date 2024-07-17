@@ -87,6 +87,9 @@ export function InputCard({
 
     if (!isNaN(numberValue) && numberValue >= 0) {
       setCurrentInputValue(inputCurrentValue);
+      if(inputRef.current) {
+        inputRef.current.value = inputCurrentValue;
+      }
     }
   }
 
@@ -123,8 +126,8 @@ export function InputCard({
             className="text-agwhite font-extrabold font-sans bg-transparent w-full h-full"
             type="number"
             defaultValue={inputValue}
-            max={500}
-            min={10}
+            max={Math.floor(Number(tokenBalance))}
+            min={0}
             onBlur={(e) => {
               setOutOfFocus(true);
             }}
@@ -217,11 +220,12 @@ export function InputCard({
                 <div
                   className={twMerge(
                     "uppercase text-nowrap rounded-full text-[12px] leading-[12px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent",
-                    USFormatToNumber(inputValue) <= Number(tokenBalance)
+                    USFormatToNumber(inputValue) < Number(tokenBalance)
                       ? "bg-clip-text text-transparent"
                       : "text-agblack",
                   )}
                 >
+                  {USFormatToNumber(inputValue) <= Number(tokenBalance) && "y"}
                   MAX
                 </div>
               </div>
