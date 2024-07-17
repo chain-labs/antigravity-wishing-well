@@ -17,9 +17,10 @@ export async function middleware(request: NextRequest) {
   const pathname = url.pathname;
 
   // Check if the request is for a static asset or API endpoint
-  const isStaticAsset = pathname.startsWith("/_next") || pathname.startsWith("/static") || pathname.startsWith("/api");
+  const isPageAsset = pathname.startsWith("/_next/static/chunks/app/(client)");
 
-  if (!isStaticAsset) {
+  if (isPageAsset) {
+    console.log("url", pathname );
     if (restrictedCountryCodes.includes(apiResponse.country_3) && !pathname.includes("/blocked")) {
       return NextResponse.redirect(new URL("/blocked", request.url));
     } else if (pathname.includes("/blocked")) {
