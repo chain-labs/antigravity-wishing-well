@@ -18,7 +18,7 @@ export async function middleware(request: NextRequest) {
   console.log(url);
 
   if (!pathname.includes("/blocked")) {
-    if (restrictedCountryCodes.includes(apiResponse.country_3) || true) {
+    if (restrictedCountryCodes.includes(apiResponse.country_3)) {
       return NextResponse.redirect(url.origin + "/blocked");
     }
   }
