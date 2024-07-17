@@ -48,7 +48,7 @@ export default function Dropdown({
       onClick={toggleOptions}
       className="relative py-[4px] px-[8px] rounded-full bg-gradient-to-b from-[#B4EBF8] to-[#789DFA] tex-agblack font-general-sans font-semibold text-[16px] leading-[16px] h-fit w-full text-nowrap"
     >
-      <div className="cursor-pointer grid grid-cols-[24px_auto_16px] place-items-center gap-[4px]">
+      <div className="cursor-pointer grid grid-cols-[24px_auto_16px] place-items-center gap-[4px] select-none">
         <Image
           src={options[selected]?.logoURI}
           alt={options[selected]?.symbol}
@@ -94,7 +94,7 @@ export default function Dropdown({
           style={{
             display: isOpen ? "flex" : "none",
           }}
-          className="flex flex-col justify-center items-center gap-[8px]"
+          className="flex flex-col justify-center items-center gap-[8px] select-none"
         >
           {options.map(
             (option, idx) =>
@@ -103,7 +103,7 @@ export default function Dropdown({
                   <div
                     onClick={() => setSelected(idx)}
                     key={option?.symbol}
-                    className="flex gap-[8px] items-center justify-start w-full cursor-pointer min-w-[120px]"
+                    className="flex gap-[8px] items-center justify-start w-full cursor-pointer min-w-[120px] select-none"
                   >
                     <Image
                       src={option.logoURI}
