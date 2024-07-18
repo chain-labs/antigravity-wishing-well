@@ -63,10 +63,8 @@ const useMerkleTree = (
     const queryAccount = accounts.find(
       (acc) => acc.toLowerCase() === account.toLowerCase(),
     );
-    console.log({ queryAccount });
     const leaf = buf2hex(generateLeaf(queryAccount || account, point, nonce));
     const proof = tree.getProof(leaf).map((x) => buf2hex(x.data));
-    console.log({ root });
 
     return proof;
   };

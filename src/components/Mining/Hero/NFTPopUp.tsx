@@ -35,15 +35,14 @@ export default function NFTPopUp({
     total: number;
     conversion: number;
     badge: string;
-    wishwellTokenId: number;
-    antigravityTokenId: number;
     nftURL: string;
   }>(null);
   const [completeAnimationComplete, setCompleteAnimationComplete] =
     useState(false);
   const [starfieldAnimationComplete, setStarfieldAnimationComplete] =
     useState(false);
-  const { nftURL, wishwellPoints, miningPoints, totalPoints, rank, wishwellTokenId, antigravityTokenId} = useUserData();
+  const { nftURL, wishwellPoints, miningPoints, totalPoints, rank } =
+    useUserData();
 
   useEffect(() => {
     if (account.address && localStorage.getItem("user-data")) {
@@ -53,8 +52,6 @@ export default function NFTPopUp({
         total: totalPoints,
         conversion: 10,
         badge: rank,
-        wishwellTokenId: wishwellTokenId,
-        antigravityTokenId: antigravityTokenId,
         nftURL: nftURL,
       });
     }

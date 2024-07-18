@@ -282,7 +282,7 @@ export default function Table({
     setTableData([]);
     const setTableDataTimeout = setTimeout(
       () => setTableData(currentTableData),
-      2000,
+      200 * currentTableData.length,
     );
 
     return () => {

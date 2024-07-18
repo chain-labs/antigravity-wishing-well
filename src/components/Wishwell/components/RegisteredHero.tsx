@@ -2,11 +2,16 @@ import H1 from "@/components/HTML/H1";
 import P from "@/components/HTML/P";
 import Button from "@/components/Button";
 import Image from "next/image";
+import { TEST_NETWORK } from "@/constants";
 import {
   IMAGEKIT_ICONS,
   IMAGEKIT_IMAGES,
   IMAGEKIT_LOGOS,
 } from "@/assets/imageKit";
+import SepoliaAG from "@/abi/wishwell/Sepolia";
+import BaseSepoliaAG from "@/abi/wishwell/BaseSepolia";
+import PulsechainAG from "@/abi/wishwell/Pulsechain";
+import BaseAG from "@/abi/wishwell/Base";
 import { successToast } from "@/hooks/frontend/toast";
 
 export default function RegisteredHero() {
@@ -35,7 +40,11 @@ export default function RegisteredHero() {
               iconAlt="info icon"
               iconPosition="end"
               hallmarkIconSrc={IMAGEKIT_ICONS.ETH}
-              onClick={() => copyToClipboard("Wishwell.eth")}
+              onClick={() =>
+                copyToClipboard(
+                  TEST_NETWORK ? BaseSepoliaAG.address : BaseAG.address,
+                )
+              }
             />
             <Button
               innerText="Wishwell.pls"
@@ -43,7 +52,11 @@ export default function RegisteredHero() {
               iconAlt="info icon"
               iconPosition="end"
               hallmarkIconSrc={IMAGEKIT_ICONS.PLS}
-              onClick={() => copyToClipboard("Wishwell.pls")}
+              onClick={() =>
+                copyToClipboard(
+                  TEST_NETWORK ? SepoliaAG.address : PulsechainAG.address,
+                )
+              }
             />
           </div>
 

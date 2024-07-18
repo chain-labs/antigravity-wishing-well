@@ -1,11 +1,15 @@
 import useContract from "@/abi/wishwell";
-import { POLL_TIME, PROXY_API_ENDPOINT, TEST_NETWORK } from "@/constants";
+import {
+  API_ENDPOINT,
+  POLL_TIME,
+  PROXY_API_ENDPOINT,
+  TEST_NETWORK,
+} from "@/constants";
 import { getApiNetwork } from "@/utils";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import { PublicClient, parseAbiItem } from "viem";
-import { base, baseSepolia } from "viem/chains";
+import { useEffect, useState } from "react";
+import { PublicClient } from "viem";
+import { base, baseSepolia, pulsechain, sepolia } from "viem/chains";
 import {
   useAccount,
   usePublicClient,
@@ -15,139 +19,166 @@ import {
 } from "wagmi";
 import { errorToast, generalToast, successToast } from "../frontend/toast";
 import { checkCorrectNetwork } from "@/components/RainbowKit";
+import { gqlFetcher } from "@/api/graphqlClient";
+import { gql } from "graphql-request";
+import { useRestPost } from "../useRestClient";
+import { UserData } from "@/components/Home/components/header/UserConnected";
+import useUserData from "@/app/(client)/store";
+import { useGQLFetch } from "../useGraphQLClient";
 
 type Props = {};
 
 const useWishwell = () => {
   const [isRegistered, setIsRegistered] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
+  const [registering, setIsRegistering] = useState<boolean>(false);
   // const [payableAmount, setPayableAmount] = useState(0);
-  const [tokenId, setTokenId] = useState<BigInt>(BigInt(0));
+  const [tokenId, setTokenId] = useState<string>("0");
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
-  const [poll, setPoll] = useState<boolean>(true);
+  const [poll, setPoll] = useState<boolean>(false);
+  const [nftURI, setNftURI] = useState("");
   const account = useAccount();
   const AntiGravity = useContract();
-  const publicClient = usePublicClient();
 
-  // Use a function to get the latest block number
-  async function getLatestBlockNumber(publicClient: PublicClient) {
-    const block = await publicClient.getBlockNumber();
-    return block;
-  }
-
-  const getTokenIds = async (poll?: boolean) => {
-    if (!account.isConnected) return;
-    if (publicClient === undefined) return;
-    if (!poll && checkCorrectNetwork(Number(account.chainId))) {
+  useEffect(() => {
+    if (account.address && account.chainId) {
       setLoading(true);
       setIsRegistered(false);
       setIsSuccess(false);
+      setPoll(false);
     }
-    // note: using the public client which is already set to ensure another conditional logic is not needed to set the http transport.
-    // const publicClient =  createPublicClient({
-    //   chain: account.chain,
-    //   transport: http("https://base-sepolia.g.alchemy.com/v2/Ck1jBlebtn6A92-eXG1tnievZs0kfS9F"),
-    // });
+  }, [account.address, account.chainId]);
 
-    const fromBlockNumber =
-      account.chainId == base.id || account.chainId === baseSepolia.id
-        ? process.env.NEXT_PUBLIC_BASE_FROM_BLOCK_NUMBER
-        : process.env.NEXT_PUBLIC_PLS_FROM_BLOCK_NUMBER;
+  const { data: userData, mutate: mutateUserData } = useRestPost<UserData>(
+    ["user"],
+    "/api/user",
+  );
 
-    if (fromBlockNumber === undefined)
-      throw Error("Please set the enviornment variable for Block Number");
+  const {
+    mutation: storeUserData,
+    wishwellBaseTokenId,
+    wishwellPulsechainTokenId,
+    wishwellPoints,
+  } = useUserData();
 
-    const chunkSize = 50000; // Define the chunk size as per the RPC limit
-    let currentBlock = BigInt(fromBlockNumber); // Start from this block number
-    let latestBlock; // Variable to store the latest block number
-    let tokenId; // Variable to store tokenId when found
+  const { data: NFTData, mutate: mutateNFTData } = useRestPost<any>(
+    ["generate-nft"],
+    "/api/generate-nft",
+  );
 
-    latestBlock = await getLatestBlockNumber(publicClient); // Initialize the latest block
-    while (currentBlock <= latestBlock) {
-      // Calculate the end block for the current chunk
-      const endBlock = Math.min(
-        parseInt(currentBlock.toString()) + parseInt(chunkSize.toString()),
-        parseInt(latestBlock.toString()),
-      );
-
-      // Create the event filter for the current block range
-      const filter = await publicClient.createEventFilter({
-        address: AntiGravity?.address,
-        event: parseAbiItem(
-          "event Transfer(address indexed from, address indexed to, uint256 indexed id)",
-        ),
-        args: {
-          to: account.address,
-        },
-        fromBlock: BigInt(currentBlock),
-        toBlock: BigInt(endBlock),
-      });
-
-      // Fetch logs using the filter
-      const logs = await publicClient.getFilterLogs({ filter });
-
-      if (logs.length > 0) {
-        tokenId = logs[0]?.args.id;
-        if (tokenId) {
-          break; // Exit the loop if tokenId is found
+  const { data: tokenData, isError } = useGQLFetch<{
+    users: { address: string; wishwellId: { tokenId: string } }[];
+  }>(
+    ["tokenIDs", account.address as string],
+    gql`
+      query TokenIds($address: Bytes) {
+        users(where: { address_contains: $address }, first: 1) {
+          address
+          wishwellId {
+            tokenId
+          }
         }
       }
-      // Update currentBlock for the next iteration
-      currentBlock = BigInt((endBlock + 1).toString());
+    `,
+    account.chainId || (TEST_NETWORK ? sepolia.id : pulsechain.id),
+    { address: account.address },
+    {
+      enabled:
+        account.isConnected && !error && checkCorrectNetwork(account.chainId),
+    },
+  );
 
-      // Refresh latest block number to ensure it includes recent blocks
-      latestBlock = await getLatestBlockNumber(publicClient);
-      // console.log({ filter, logs, tokenId, latestBlock });
-    }
-    setTokenId(tokenId ?? BigInt(0));
-    if (tokenId) {
-      try {
-        // Check contribution in wishwell
-        const contributionData = await axios.get(
-          `${PROXY_API_ENDPOINT}contribution/${tokenId}?blockchain=${getApiNetwork(
-            Number(account?.chainId),
-          )}`,
-        );
-        const contribution = parseFloat(contributionData.data.data.value);
-
-        // console.log({ contribution });
-
+  useEffect(() => {
+    if (tokenData) {
+      const tokenId = tokenData?.users?.[0]?.wishwellId?.tokenId;
+      if (tokenId) {
+        setTokenId(tokenId);
+        setIsRegistered(true);
+        setPoll(true);
+      } else {
+        setIsRegistered(false);
         setLoading(false);
-        if (contribution > 0) {
-          setIsSuccess(true);
-        } else {
-          setIsRegistered(true);
-        }
-      } catch (err) {
-        errorToast("Something went wrong. Try Again!", { duration: 3000 });
-        setError(true);
-        console.error({ err });
       }
     } else {
-      setLoading(false);
-      setIsSuccess(false);
       setIsRegistered(false);
+      setLoading(false);
+    }
+    if (isError) {
+      console.log("Error in Fetching token IDs from Subgraph");
+      setError(true);
+    }
+  }, [tokenData, isError]);
+
+  useEffect(() => {
+    if (Number(tokenId) > 0) {
+      setIsRegistered(true);
+    }
+  }, [tokenId]);
+
+  const getNFTURI = () => {
+    let tokenIdTemp = Number(tokenId) || 0;
+    let blockchain = "pulsechain";
+    if (!tokenIdTemp) {
+      if (TEST_NETWORK) {
+        if (account.chainId === sepolia.id) {
+          tokenIdTemp = Number(wishwellPulsechainTokenId);
+          blockchain = "pulsechain";
+        } else if (account.chainId === baseSepolia.id) {
+          tokenIdTemp = Number(wishwellBaseTokenId);
+          blockchain = "base";
+        }
+      } else {
+        if (account.chainId === pulsechain.id) {
+          tokenIdTemp = Number(wishwellPulsechainTokenId);
+          blockchain = "pulsechain";
+        } else if (account.chainId === base.id) {
+          tokenIdTemp = Number(wishwellBaseTokenId);
+          blockchain = "base";
+        }
+      }
+    }
+    if (tokenIdTemp) {
+      mutateNFTData({
+        tokenId: tokenIdTemp,
+        era: 1,
+        blockchain,
+      });
+      setIsSuccess(true);
+      setIsRegistered(true);
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (account.address && checkCorrectNetwork(account.chain?.id) && !error) {
-      getTokenIds(false);
-    } else {
-      setIsRegistered(false);
-      setIsSuccess(false);
+    if (userData) {
+      console.log("updating user data");
+      storeUserData({
+        walletAddress: userData.walletAddress,
+        rank: userData.rank,
+        wishwellPulsechainTokenId: userData.wishwellPulsechainTokenId,
+        wishwellBaseTokenId: userData.wishwellBaseTokenId,
+        antigravityBaseTokenId: userData.antigravityBaseTokenId,
+        antigravityPulsechainTokenId: userData.antigravityPulsechainTokenId,
+        wishwellPoints: userData.wishwellPoints,
+        miningPoints: userData.miningPoints,
+        totalPoints: userData.totalPoints,
+      });
+      console.log({ wishwellPoints: userData.wishwellPoints });
+
+      if (userData.wishwellPoints > 0) {
+        getNFTURI();
+      }
     }
-  }, [account.address, account.chainId, error]);
+  }, [userData]);
 
   useEffect(() => {
-    if (account) {
+    if (isRegistered) {
       let timer: any;
       if (poll) {
-        getTokenIds(true);
-
+        hydrateData(true);
         timer = setInterval(() => {
-          getTokenIds(true);
+          hydrateData(true);
         }, POLL_TIME ?? 30000);
       }
 
@@ -157,47 +188,48 @@ const useWishwell = () => {
         }
       };
     }
-  }, [poll, account]);
+  }, [poll, isRegistered]);
 
-  const balance = useReadContract({
-    ...AntiGravity,
-    functionName: "balanceOf",
-    args: [account.address as `0x${string}`],
-    query: {
-      enabled: account.isConnected,
-    },
-  });
+  const hydrateData = async (poll?: boolean) => {
+    if (!account.isConnected) return;
+    if (!poll && checkCorrectNetwork(account.chainId)) {
+      console.log("setting false");
+      setLoading(true);
+      setIsRegistered(false);
+      setIsSuccess(false);
+    }
+    if (isSuccess) {
+      setPoll(false);
+      return;
+    }
+    console.log("polling");
+    if (wishwellPoints > 0) {
+      setLoading(false);
+      getNFTURI();
+    } else {
+      mutateUserData({ walletAddress: account.address });
+    }
+  };
 
   useEffect(() => {
-    if (balance.isFetched) {
-      if ((balance.data as number) > 0) {
-        if (!loading) {
-          setIsRegistered(true);
-          return;
-        }
-      }
+    if (NFTData) {
+      setNftURI(NFTData.url);
     }
-    setIsRegistered(false);
-  }, [balance.isFetched, balance.data, loading]);
+  }, [NFTData]);
 
   const {
     data: registerHash,
     error: registerError,
     writeContract: register,
-    isIdle: registerIdle,
-    isPending: registerPending,
   } = useWriteContract();
 
-  const {
-    data: registerReceipt,
-    isFetching: registerFetching,
-    isLoading: registerLoading,
-    isFetched: registerFetched,
-  } = useTransactionReceipt({
-    hash: registerHash,
-  });
+  const { data: registerReceipt, isFetched: registerFetched } =
+    useTransactionReceipt({
+      hash: registerHash,
+    });
 
   const registerFn = async () => {
+    setIsRegistering(true);
     generalToast("Getting you registered!", {
       duration: 10000,
     });
@@ -207,7 +239,6 @@ const useWishwell = () => {
       address: AntiGravity?.address,
       abi: AntiGravity?.abi,
       functionName: "register",
-      // args: [`${payableAmount}`],
     });
   };
 
@@ -224,34 +255,37 @@ const useWishwell = () => {
       errorToast(errorMessage, {
         duration: 3000,
       });
+      setIsRegistering(false);
       setIsRegistered(false);
     }
   }, [registerError]);
 
   useEffect(() => {
-    if (registerFetched && registerReceipt) {
+    if (registerReceipt) {
       successToast("Registered successful", {
         duration: 3000,
       });
-      getTokenIds(false);
+      hydrateData(false);
       setIsRegistered(true);
+      setIsRegistering(false);
     }
-  }, [registerFetched, registerReceipt]);
+  }, [registerReceipt]);
 
   return {
     tokenId,
-    getTokenIds,
+    hydrateData,
     isRegistered,
     isSuccess,
     loading,
     error,
+    nftURI,
     setError,
     poll,
     registerKit: {
       registerFn,
       registerError,
       register,
-      registerIdle,
+      registerIdle: !registering,
       registerFetched,
     },
   };

@@ -7,28 +7,23 @@ import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import { successToast } from "@/hooks/frontend/toast";
 import { useState } from "react";
 import { useAccount } from "wagmi";
-import { PROXY_API_ENDPOINT } from "@/constants";
+import { API_ENDPOINT, PROXY_API_ENDPOINT, TEST_NETWORK } from "@/constants";
 import { getApiNetwork } from "@/utils";
+import axios from "axios";
+import useUserData from "@/app/(client)/store";
+import BaseSepoliaAG from "@/abi/wishwell/BaseSepolia";
+import BaseAG from "@/abi/wishwell/Base";
+import SepoliaAG from "@/abi/wishwell/Sepolia";
+import PulsechainAG from "@/abi/wishwell/Pulsechain";
 
-export default function ContributedHero({ tokenId }: { tokenId: string }) {
+export default function ContributedHero({ nftUri }: { nftUri: string }) {
   const [imageLoading, setImageLoading] = useState(true);
-
-  const [uri, seturi] = useState("");
-  const account = useAccount();
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
     successToast("Copied to clipboard!");
   };
 
-  const fetchImage = async () => {
-    setImageLoading(true);
-    seturi(
-      `${PROXY_API_ENDPOINT}svg/${tokenId}?blockchain=${getApiNetwork(
-        Number(account.chainId),
-      )}`,
-    );
-  };
   return (
     <div className="relative w-full min-h-screen overflow-hidden z-0">
       <div className="relative bg-gradient-to-b from-[#0000] h-fit to-[#000] overflow-hidden">
@@ -39,13 +34,15 @@ export default function ContributedHero({ tokenId }: { tokenId: string }) {
             </H1>
             <P>Here&apos;s your NFT:</P>
           </div>
-          <Image
-            src={IMAGEKIT_IMAGES.NFT_RECEIPT}
-            alt="nft"
-            width={294.76}
-            height={500}
-            className="max-w-[349px] max-h-[592px] w-full h-auto md:max-w-[500px] md:w-full md:h-auto"
-          />
+          <div className="relative h-[500px] w-[294.76px]">
+            <Image
+              src={nftUri}
+              alt="nft"
+              layout="fill"
+              className="max-w-[349px] max-h-[592px] w-full h-auto md:max-w-[500px] md:w-full md:h-auto"
+              objectFit="contain"
+            />
+          </div>
         </div>
         <div className="flex flex-col md:flex-row justify-center items-start gap-[64px] px-[16px] py-[32px] md:py-[64px] md:px-[32px] z-0 h-fit">
           <div className="flex flex-col justify-start items-start gap-[8px]">
@@ -59,7 +56,11 @@ export default function ContributedHero({ tokenId }: { tokenId: string }) {
                 iconAlt="info icon"
                 iconPosition="end"
                 hallmarkIconSrc={IMAGEKIT_ICONS.ETH}
-                onClick={() => copyToClipboard("Wishwell.eth")}
+                onClick={() =>
+                  copyToClipboard(
+                    TEST_NETWORK ? BaseSepoliaAG.address : BaseAG.address,
+                  )
+                }
               />
               <Button
                 innerText="Wishwell.pls"
@@ -67,7 +68,11 @@ export default function ContributedHero({ tokenId }: { tokenId: string }) {
                 iconAlt="info icon"
                 iconPosition="end"
                 hallmarkIconSrc={IMAGEKIT_ICONS.PLS}
-                onClick={() => copyToClipboard("Wishwell.pls")}
+                onClick={() =>
+                  copyToClipboard(
+                    TEST_NETWORK ? SepoliaAG.address : PulsechainAG.address,
+                  )
+                }
               />
             </div>
           </div>
