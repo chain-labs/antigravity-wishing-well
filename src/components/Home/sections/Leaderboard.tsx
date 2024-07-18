@@ -257,36 +257,37 @@ export default function Leaderboard({
         }
       >
         <div className="flex flex-col gap-[16px] w-full">
-          <div className="flex flex-wrap justify-start items-center gap-[16px] z-50">
-            <H1>Leaderboard</H1>
-            <Dropdownbutton
-              icon={IMAGEKIT_ICONS.CALENDAR}
-              options={[
-                { label: "All Time", value: "allTimeLeaderboard" },
-                { label: "Era 1", value: "era1Leaderboard" },
-                { label: "Era 2", value: "era2Leaderboard" },
-              ]}
-              selected={selectedLeaderboard}
-              setSelected={setSelectedLeaderboard}
-            />
-            <AnimatedButton
-              innerText="Refresh"
-              iconSrc={IMAGEKIT_ICONS.REFRESH}
-              iconAlt="refresh icon"
-              secondary
-              disableSparkels
-              onClick={handleRefresh}
-              variants={{
-                hover: {
-                  animation: "spin 1s linear infinite forwards",
-                },
-              }}
-            />
-          </div>
-
           <div className="grid grid-cols-1 lg:grid-cols-3 w-full max-w-[100%]">
-            <div className="col-span-2 w-full rounded-[4px] border-[2px] border-[#414343] lg:border-none">
-              <Table tableData={tableData} />
+            <div className="flex flex-col gap-[16px] col-span-2 w-full">
+              <div className="flex flex-wrap justify-start items-center gap-x-[16px] gap-y-[8px] z-50 max-w-full">
+                <H1>Leaderboard</H1>
+                <Dropdownbutton
+                  icon={IMAGEKIT_ICONS.CALENDAR}
+                  options={[
+                    { label: "All Time", value: "allTimeLeaderboard" },
+                    { label: "Era 1", value: "era1Leaderboard" },
+                    { label: "Era 2", value: "era2Leaderboard" },
+                  ]}
+                  selected={selectedLeaderboard}
+                  setSelected={setSelectedLeaderboard}
+                />
+                <AnimatedButton
+                  innerText="Refresh"
+                  iconSrc={IMAGEKIT_ICONS.REFRESH}
+                  iconAlt="refresh icon"
+                  secondary
+                  disableSparkels
+                  onClick={handleRefresh}
+                  variants={{
+                    hover: {
+                      animation: "spin 1s linear infinite forwards",
+                    },
+                  }}
+                />
+              </div>
+              <div className="rounded-[4px] border-[2px] border-[#414343] lg:border-none">
+                <Table tableData={tableData} />
+              </div>
             </div>
 
             <div className="relative flex flex-col w-full gap-4 lg:pl-6 place-self-end">

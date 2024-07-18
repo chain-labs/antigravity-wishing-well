@@ -189,7 +189,7 @@ function Badge({
   return (
     <div
       className={twMerge(
-        "text-[12px] leading-[12px] relative flex items-center gap-[8px] justify-center font-sans font-extrabold text-agwhite rounded-full py-[4px] px-[8px] border-2 uppercase tracking-widest w-fit",
+        "text-[12px] leading-[12px] relative flex items-center gap-[8px] justify-center font-sans font-extrabold text-agwhite rounded-full py-[4px] px-[8px] border-2 uppercase tracking-widest w-fit text-nowrap",
         special &&
           "text-[12px] leading-[13.88px] pt-[5px] text-agyellow font-extrabold bg-gradient-to-b from-[#0A1133] to-[#142266] border-none",
       )}
@@ -212,7 +212,7 @@ function Rank({
 }) {
   const iconLink = `@/assets/icons/${special ? "wallet-black.svg" : "wallet.svg"}`;
   return (
-    <TD special={special} border>
+    <TD special={special} border className="w-full">
       #{rank} <Badge special={special}>{badge}</Badge>
       <div
         className={`flex gap-[4px] justify-start items-center lg:hidden ${
@@ -364,8 +364,8 @@ export default function Table({
                   special={data.special ?? false}
                   className={
                     data.special
-                      ? "text-[22px] leading-[28.6px] md:text-[18px] md:leading-[23.6px]"
-                      : "md:text-[14px] md:leading-[18.2px] text-[18px] leading-[23.6px]"
+                      ? "text-[22px] leading-[28.6px] md:text-[18px] md:leading-[23.6px] [word-wrap:break-word] overflow-hidden"
+                      : "md:text-[14px] md:leading-[18.2px] text-[18px] leading-[23.6px] [word-wrap:break-word] max-w-full overflow-hidden"
                   }
                 >
                   {pointsConverterToUSCommaseparated(
