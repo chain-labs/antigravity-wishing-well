@@ -17,11 +17,11 @@ import Badge from "@/components/Badge";
 import Pill from "@/components/Pill";
 import { TokenDropdownTypes } from "./types";
 import Image from "next/image";
-import AutomaticIncreamentalNumberCounterWithString, {
-  USFormatToNumber,
-} from "./AutomaticIncreamentalNumberCounterWithString";
+import AutomaticIncreamentalNumberCounterWithString from "./AutomaticIncreamentalNumberCounterWithString";
 import { TOKEN_OPTIONS } from "./constants";
 import { useAccount } from "wagmi";
+import pointsConverterToUSCommaseparated from "../pointsConverterToUSCommaseparated";
+import USFormatToNumber from "../USFormatToNumber";
 
 export function InputCard({
   inputValue,
@@ -225,7 +225,6 @@ export function InputCard({
                       : "text-agblack",
                   )}
                 >
-                  {USFormatToNumber(inputValue) <= Number(tokenBalance) && "y"}
                   MAX
                 </div>
               </div>
@@ -408,18 +407,6 @@ function Multiplyer({
       </div>
     </div>
   );
-}
-
-export function pointsConverterToUSCommaseparated(points: number): string {
-  const [integerPart, decimalPart] = points?.toString().split(".");
-  const formattedIntegerPart = integerPart.replace(
-    /\B(?=(\d{3})+(?!\d))/g,
-    ",",
-  );
-
-  return decimalPart
-    ? `${formattedIntegerPart}.${decimalPart}`
-    : formattedIntegerPart;
 }
 
 export default function MiningCalculator({

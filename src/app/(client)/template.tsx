@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import ReactLenis from "lenis/react";
 import useLoading from "@/hooks/frontend/useLoading";
+import { usePathname } from 'next/navigation'
 
 const LoadingPage = dynamic(() => import("@/app/(client)/LoadingPage"), {
   ssr: false,
@@ -34,7 +35,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
           </div>
           <AnimatePresence>
             <motion.div
-              initial={{ opacity: 0 }}
+              initial={{ opacity: strictNoLoading ? 1 : 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 2 }}

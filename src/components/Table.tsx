@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import H3 from "@/components/HTML/H3";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
+import pointsConverterToUSCommaseparated from "./pointsConverterToUSCommaseparated";
 
 function TH({
   icon,
@@ -189,7 +190,7 @@ function Badge({
   return (
     <div
       className={twMerge(
-        "text-[12px] leading-[12px] relative flex items-center gap-[8px] justify-center font-sans font-extrabold text-agwhite rounded-full py-[4px] px-[8px] border-2 uppercase tracking-widest w-fit",
+        "text-[12px] leading-[12px] relative flex items-center gap-[8px] justify-center font-sans font-extrabold text-agwhite rounded-full py-[4px] px-[8px] border-2 uppercase tracking-widest w-fit text-nowrap",
         special &&
           "text-[12px] leading-[13.88px] pt-[5px] text-agyellow font-extrabold bg-gradient-to-b from-[#0A1133] to-[#142266] border-none",
       )}
@@ -212,7 +213,7 @@ function Rank({
 }) {
   const iconLink = `@/assets/icons/${special ? "wallet-black.svg" : "wallet.svg"}`;
   return (
-    <TD special={special} border>
+    <TD special={special} border className="w-full">
       #{rank} <Badge special={special}>{badge}</Badge>
       <div
         className={`flex gap-[4px] justify-start items-center lg:hidden ${
@@ -242,18 +243,6 @@ function Rank({
       </div>
     </TD>
   );
-}
-
-function pointsConverterToUSCommaseparated(points: number) {
-  const [integerPart, decimalPart] = points.toString().split(".");
-  const formattedIntegerPart = integerPart.replace(
-    /\B(?=(\d{3})+(?!\d))/g,
-    ",",
-  );
-
-  return decimalPart
-    ? `${formattedIntegerPart}.${decimalPart}`
-    : formattedIntegerPart;
 }
 
 type tableDataType = {
@@ -362,17 +351,32 @@ export default function Table({
                 </TD>
                 <TD
                   special={data.special ?? false}
-                  className={
+                  className={twMerge(
                     data.special
                       ? "text-[22px] leading-[28.6px] md:text-[18px] md:leading-[23.6px]"
-                      : "md:text-[14px] md:leading-[18.2px] text-[18px] leading-[23.6px]"
-                  }
-                >
-                  {pointsConverterToUSCommaseparated(
-                    String(data.points).includes(".")
-                      ? parseFloat(data.points.toFixed(4))
-                      : data.points,
+                      : "md:text-[14px] md:leading-[18.2px] text-[18px] leading-[23.6px]",
+                    "md:pl-[auto_!important] lg:pl-[auto_!important] pl-[auto_!important] relative max-w-full w-full [word-wrap:break-word] overflow-hidden gap-0 lg:gap-0 align-baseline",
                   )}
+                >
+                  <span className="ml-auto [word-wrap:break-word] max-w-full w-fit text-right">
+                    {String(data.points).includes(".") ? (
+                      <>
+                        {pointsConverterToUSCommaseparated(
+                          Number(data.points.toString().split(".")[0]),
+                        )}
+                        <span
+                          className={twMerge(
+                            "text-[0.6em] opacity-[0.66]",
+                            data.special ? "pt-[0.4em]" : "pt-[0.5em]",
+                          )}
+                        >
+                          .{data.points.toFixed(4).toString().split(".")[1]}
+                        </span>
+                      </>
+                    ) : (
+                      pointsConverterToUSCommaseparated(data.points)
+                    )}
+                  </span>
                 </TD>
               </TR>
             ) : (
