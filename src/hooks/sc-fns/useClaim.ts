@@ -61,7 +61,12 @@ const useClaim = () => {
     }
   }, [claimError, receipt]);
 
-  const claim = (points: string, nonce: string, proof: string[]) => {
+  const claim = (
+    addresses: string[],
+    points: string[],
+    nonces: string[],
+    proofs: string[][],
+  ) => {
     console.log("Claiming...");
     setTransactionLoading(true);
     if (account.address) {
@@ -69,11 +74,11 @@ const useClaim = () => {
         address: DarkClaimContract.address as `0x${string}`,
         abi: DarkClaimContract.abi,
         functionName: "claim",
-        args: [[account.address], [points], [nonce], [proof]],
+        args: [addresses, points, nonces, proofs],
       });
     }
   };
-  return { transactionLoading, claim, darkBalance };
+  return { transactionLoading, claim, darkBalance, receipt };
 };
 
 export default useClaim;
