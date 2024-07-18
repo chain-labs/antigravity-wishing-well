@@ -74,12 +74,23 @@ const useMining = (
   }, [multiplier, amountToInvest]);
 
   // Fetching darkX token Balance
-  const { data: darkXBalance } = useReadContract({
-    address: DarkXContract?.address as `0x${string}`,
-    abi: DarkXContract?.abi,
-    functionName: "balanceOf",
-    args: [`${account.address}`],
-  });
+  const { data: darkXBalanceData }: { data?: { result: BigInt } } =
+    useReadContract({
+      address: DarkXContract?.address as `0x${string}`,
+      abi: DarkXContract?.abi,
+      functionName: "balanceOf",
+      args: [`${account.address}`],
+    });
+
+  const [darkXBalance, setDarkXBalance] = useState<BigInt>(BigInt(0));
+
+  useEffect(() => {
+    if (darkXBalanceData) {
+      if (darkXBalanceData.result) {
+        setDarkXBalance(darkXBalanceData.result);
+      }
+    }
+  }, [darkXBalanceData]);
 
   // Fetching current selected token Balance
   const { data: tokenBalance } = useReadContracts({
@@ -187,6 +198,15 @@ const useMining = (
       });
     }
   }, [mineError, receipt, approveError]);
+
+  // check if the mining is sucess and receipt is available update darkX balance
+  useEffect(() => {
+    if (receipt) {
+      if ((darkXBalance as bigint) <= 0) {
+        setDarkXBalance(BigInt(1));
+      }
+    }
+  }, [receipt]);
 
   useEffect(() => {
     if (token && allowance && amountToInvest) {

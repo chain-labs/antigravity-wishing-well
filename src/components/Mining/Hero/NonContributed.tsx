@@ -175,7 +175,7 @@ export default function NonContributed({
       setNFTHover(true);
       setMinedSuccess(true);
     }
-  }, [receipt]);
+  }, [darkXBalance, receipt]);
 
   const {
     data: predictedPointsData,
