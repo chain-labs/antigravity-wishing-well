@@ -191,12 +191,12 @@ export default function ContributedHero({
   }, [darkBalance]);
 
   return (
-    <div className="relative flex flex-col justify-center items-center gap-[24px] mt-[50px]">
+    <div className="relative flex flex-col justify-center items-center gap-[24px] mt-[50px] px-[16px] w-full md:w-fit max-w-full">
       <div className="flex flex-col justify-center items-center gap-[8px]">
         <H1 className="text-[64px] leading-[64px] md:text-[64px] md:leading-[64px]">
           Claim $DARK
         </H1>
-        <P className="text-[14px] leading-[20.3px]">
+        <P className="text-[14px] leading-[20.3px] mr-auto md:mx-auto">
           You can now get your $DARK tokens.
         </P>
       </div>
@@ -206,6 +206,9 @@ export default function ContributedHero({
           pillText="Points"
           pillIconSrc={IMAGEKIT_ICONS.PILL_POINTS}
           pillIconAlt="points"
+          animateNumber
+          from={0}
+          to={points}
         />
         <div
           style={{
@@ -238,6 +241,9 @@ export default function ContributedHero({
           pillText="DARK"
           pillIconSrc={IMAGEKIT_ICONS.PILL_DARK_X_CLAIMED}
           pillIconAlt="dark x"
+          animateNumber
+          from={0}
+          to={darkTokens}
         />
         {!account.isConnected ? (
           <Button
