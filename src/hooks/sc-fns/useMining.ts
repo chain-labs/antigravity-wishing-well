@@ -132,7 +132,7 @@ const useMining = (
       return parseUnits(`${amountToInvest}`, tokens?.[tokenSelected]?.decimals);
     }
     return BigInt(0);
-  }, [amountToInvest]);
+  }, [amountToInvest, tokens, tokenSelected]);
 
   const { data: allowance } = useReadContract({
     address: tokens?.[tokenSelected]?.address as `0x${string}`,

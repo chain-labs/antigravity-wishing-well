@@ -87,7 +87,7 @@ export function InputCard({
 
     if (!isNaN(numberValue) && numberValue >= 0) {
       setCurrentInputValue(inputCurrentValue);
-      if(inputRef.current) {
+      if (inputRef.current) {
         inputRef.current.value = inputCurrentValue;
       }
     }
@@ -225,7 +225,7 @@ export function InputCard({
                       : "text-agblack",
                   )}
                 >
-                  {USFormatToNumber(inputValue) <= Number(tokenBalance) && "y"}
+                  {USFormatToNumber(inputValue) <= Number(tokenBalance)}
                   MAX
                 </div>
               </div>
