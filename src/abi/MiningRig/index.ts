@@ -8,22 +8,23 @@ interface IContract {
 }
 
 import abi from "./abi.json";
+import { CONTRACTS } from "../config";
 
 const contracts: Record<number, { address: `0x${string}`; abi: any }> = {
   [sepolia.id]: {
-    address: "0xbe0EC9Ea1dd76c0B4f4b613Cd63f8d53c39eD20b",
+    address: CONTRACTS[sepolia.id].miningRig,
     abi,
   },
   [baseSepolia.id]: {
-    address: "0xdfaB742eCe2F558F2234f24d4E08c3e5f53EEb67",
+    address: CONTRACTS[baseSepolia.id].miningRig,
     abi,
   },
   [base.id]: {
-    address: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+    address: CONTRACTS[pulsechain.id].miningRig,
     abi,
   },
   [pulsechain.id]: {
-    address: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+    address: CONTRACTS[base.id].miningRig,
     abi,
   },
 };
