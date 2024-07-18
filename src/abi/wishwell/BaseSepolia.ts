@@ -1,6 +1,8 @@
+import { baseSepolia } from "viem/chains";
 import ABI from "./abi.json";
+import { CONTRACTS } from "../config";
 const abi = ABI;
-const address: `0x${string}` = "0x8d4b5AD077540Df22C7e717239dB3f49C6BB02C2";
+const address: `0x${string}` = CONTRACTS[baseSepolia.id].wishwell;
 
 const BaseSepoliaAG = { abi, address };
 
