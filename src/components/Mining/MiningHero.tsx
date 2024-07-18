@@ -20,7 +20,7 @@ export default function MiningHero() {
   const timer = useTimer();
 
   return (
-    <div className="relative w-full min-h-screen h-fit z-0">
+    <div className="relative w-full min-h-screen h-fit z-0 overflow-hidden">
       <Image
         src={IMAGEKIT_IMAGES.MINING_BG}
         height={1080}
@@ -33,7 +33,7 @@ export default function MiningHero() {
             "
       />
       <div className="bg-gradient-to-b from-[#000] h-fit to-[#0000]">
-        <div className="flex flex-col justify-center items-center w-full h-fit pt-[30px] md:pt-[100px]">
+        <div className="flex flex-col justify-center items-center w-full h-fit py-[30px] md:pt-[100px]">
           {timer.claimTransition ? (
             <ClaimTransitionWait />
           ) : (timer.claimStarted || timer.era === "minting") &&

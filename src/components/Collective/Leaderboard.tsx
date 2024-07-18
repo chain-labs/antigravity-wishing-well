@@ -29,7 +29,7 @@ function CollectiveLogo() {
         alt="leaderboard background"
         width={294}
         height={382}
-        className="object-fit opacity-25 lg:opacity-50 w-[100px] lg:w-[294px] h-[100px] lg:h-[342px]"
+        className="object-fit opacity-25 lg:opacity-50 w-[100px] lg:w-[294px] h-[100px] lg:h-[300px]"
       />
     </div>
   );
@@ -189,7 +189,7 @@ export default function Leaderboard({
               <Table tableData={tableData} />
             </div>
 
-            <div className="relative flex flex-col w-full gap-4 lg:pl-6 place-self-end">
+            <div className="relative flex flex-col w-full gap-4 lg:pl-6 place-self-end pt-[24px] md:pt-0">
               <CollectiveLogo />
               <div className="relative flex flex-col gap-[8px] p-4 rounded-xl overflow-hidden w-full z-0">
                 <div className="bg-[#3C00DC] absolute inset-0 -z-10 opacity-[25%]"></div>

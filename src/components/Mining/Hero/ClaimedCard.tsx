@@ -84,7 +84,7 @@ export default function ClaimedCard({
           )}
         </AnimatePresence>
       </div>
-      <div className="relative flex flex-col justify-center items-center gap-[24px] mt-[50px]">
+      <div className="relative flex flex-col justify-center items-center gap-[24px] mt-[50px] px-[16px]">
         <div className="relative flex flex-col justify-center items-center gap-[8px] border-[1px] border-agyellow rounded-[0.375rem] overflow-hidden z-0 w-fit h-fit">
           <Image
             src={IMAGEKIT_IMAGES.MINING_TOKENS_CLAIMED}
@@ -115,7 +115,7 @@ export default function ClaimedCard({
               <motion.div
                 initial={{ scale: 2 }}
                 whileInView={{ scale: 0 }}
-                transition={{ duration: 3 }}
+                transition={{ duration: 1.5 }}
                 onAnimationComplete={handlePointsConversionAnimationComplete}
                 className="w-full"
               >
@@ -133,7 +133,7 @@ export default function ClaimedCard({
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
-                transition={{ duration: 2, type: "spring" }}
+                transition={{ duration: 1.5, type: "spring" }}
                 onAnimationComplete={handlePointsConversionAnimationComplete}
                 className="w-full"
               >

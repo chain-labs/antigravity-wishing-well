@@ -12,10 +12,12 @@ export default function LoadingPage({
 }) {
   const [progress, setProgress] = useState(0);
   const [slideUpProgress, setSlideUpProgress] = useState(0);
-  const { setLoadingComplete } = useLoading();
+  const { setLoadingComplete, loading, strictNoLoading } = useLoading();
+
+  console.log('loading', loading, strictNoLoading);
 
   useEffect(() => {
-    if (contentLoaded) {
+    if (contentLoaded || !loading) {
       const interval = setInterval(() => {
         setProgress((prev) => {
           if (prev < 100) {
@@ -36,10 +38,12 @@ export default function LoadingPage({
       }, 50);
       return () => clearInterval(interval);
     }
-  }, [contentLoaded]);
+  }, [contentLoaded, loading]);
 
   useEffect(() => {
     if (slideUpProgress > 150) return;
+    if (progress === 95) {
+    }
     if (progress === 100) {
       const interval = setInterval(() => {
         setSlideUpProgress((prev) => {
@@ -51,7 +55,9 @@ export default function LoadingPage({
           return prev + 100;
         });
       }, 1);
-      return () => clearInterval(interval);
+      return () => {
+        clearInterval(interval);
+      };
     }
   }, [progress, contentLoaded]);
 
