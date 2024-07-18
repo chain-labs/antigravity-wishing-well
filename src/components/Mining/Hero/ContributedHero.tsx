@@ -208,7 +208,7 @@ export default function ContributedHero({
           pillIconAlt="points"
           animateNumber
           from={0}
-          to={points}
+          to={pointsToDisplay}
         />
         <div
           style={{
