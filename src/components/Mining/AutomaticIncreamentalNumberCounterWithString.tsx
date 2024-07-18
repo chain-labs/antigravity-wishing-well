@@ -8,6 +8,8 @@ import {
 } from "framer-motion";
 import { Dispatch, SetStateAction, useRef } from "react";
 import { twMerge } from "tailwind-merge";
+import pointsConverterToUSCommaseparated from "../pointsConverterToUSCommaseparated";
+import USFormatToNumber from "../USFormatToNumber";
 
 type NumberCounterProps = {
   from: string;
@@ -18,22 +20,6 @@ type NumberCounterProps = {
   setCurrentCount?: Dispatch<SetStateAction<string>>;
   classNames?: string;
 };
-
-export function pointsConverterToUSCommaseparated(points: number): string {
-  const [integerPart, decimalPart] = points.toString().split(".");
-  const formattedIntegerPart = integerPart.replace(
-    /\B(?=(\d{3})+(?!\d))/g,
-    ",",
-  );
-
-  return decimalPart
-    ? `${formattedIntegerPart}.${decimalPart}`
-    : formattedIntegerPart;
-}
-
-export function USFormatToNumber(value: string): number {
-  return Number(value.replace(/[$,< ]/g, ""));
-}
 
 export default function AutomaticIncreamentalNumberCounterWithString(
   props: NumberCounterProps,
@@ -54,11 +40,9 @@ export default function AutomaticIncreamentalNumberCounterWithString(
         ease: "easeInOut",
         ...props.animationOptions,
         onUpdate(value) {
-          element.textContent = String(
-            props.float
-              ? pointsConverterToUSCommaseparated(value)
-              : pointsConverterToUSCommaseparated(Math.floor(value)),
-          );
+          element.innerHTML = props.float
+            ? `${pointsConverterToUSCommaseparated(Number(value.toString().split(".")[0]))}<span class="text-[0.6em] text-agwhite opacity-[0.66] pt-[0.4em]">.${Number(value.toString().split(".")[1])}</span>`
+            : `${pointsConverterToUSCommaseparated(Math.floor(Number(value.toString().split(".")[0])))}`;
         },
         onComplete() {
           if (props.setCurrentCount) {

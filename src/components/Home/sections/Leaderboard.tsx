@@ -21,6 +21,7 @@ import GradientBorder from "@/components/GradientBorder";
 import { useRestPost } from "@/hooks/useRestClient";
 import { client } from "../../../../sanity/lib/client";
 import Dropdownbutton from "@/components/Dropdownbutton";
+import pointsConverterToUSCommaseparated from "@/components/pointsConverterToUSCommaseparated";
 
 function CollectiveLogo() {
   const [hover, setHover] = useState(false);
@@ -329,8 +330,9 @@ export default function Leaderboard({
                 </motion.div>
 
                 <P className="font-medium">
-                  You&apos;re only {rankUpPointsNeeded} points away from
-                  leveling up. Mine now to rank up!
+                  You&apos;re only{" "}
+                  {pointsConverterToUSCommaseparated(rankUpPointsNeeded)} points
+                  away from leveling up. Mine now to rank up!
                 </P>
                 <Link href="/mining">
                   <Button
