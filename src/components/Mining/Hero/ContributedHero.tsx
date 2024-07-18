@@ -143,7 +143,7 @@ export default function ContributedHero({
   });
 
   const darkTokens = useMemo(() => {
-    if (points && dark_MAX_SUPPLY) {
+    if (pointsToDisplay && dark_MAX_SUPPLY) {
       const MAX_SUPPLY = Number(formatUnits(dark_MAX_SUPPLY as bigint, 18));
       const total_points = Number(formatUnits(dark_total_points as bigint, 18));
 
@@ -153,7 +153,7 @@ export default function ContributedHero({
       return dark;
     }
     return 0;
-  }, [points, dark_MAX_SUPPLY, dark_total_points]);
+  }, [dark_MAX_SUPPLY, dark_total_points, pointsToDisplay]);
 
   const { claim, transactionLoading, darkBalance, receipt } = useClaim();
 
