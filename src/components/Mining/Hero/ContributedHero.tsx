@@ -16,6 +16,8 @@ import { checkCorrectNetwork } from "@/components/RainbowKit";
 import { TEST_NETWORK } from "@/constants";
 import { pulsechain, sepolia } from "viem/chains";
 import { StateType } from "../types";
+import toast from "react-hot-toast";
+import { errorToast } from "@/hooks/frontend/toast";
 
 export default function ContributedHero({
   setState,
@@ -46,37 +48,79 @@ export default function ContributedHero({
     ERA2_DATA.nonces,
   );
 
-  const points = useMemo(() => {
+  const addresses = useMemo(() => {
+    return ERA2_DATA.accounts.filter(
+      (address) => account?.address?.toLowerCase() === address.toLowerCase(),
+    );
+  }, [ERA2_DATA, account.address]);
+
+  const points: string[] = useMemo(() => {
+    return ERA2_DATA.points.filter(
+      (_, index) =>
+        account?.address?.toLowerCase() ===
+        ERA2_DATA.accounts[index].toLowerCase(),
+    );
+  }, [ERA2_DATA, account.address]);
+
+  const pointsToDisplay = useMemo(() => {
     if (account.address) {
-      const accountIndex = ERA2_DATA.accounts.findIndex(
-        (x) => x.toLowerCase() === account.address?.toLowerCase(),
-      );
+      if (points.length) {
+        const response = points.reduce((acc, point) => {
+          const formattedPoint = formatUnits(BigInt(point), 18);
+          return acc + Number(formattedPoint);
+        }, 0);
 
-      if (accountIndex > 0) {
-        const foundPoints = ERA2_DATA.points[accountIndex];
+        return response;
+      }
+      // const accountIndex = ERA2_DATA.accounts.findIndex(
+      //   (x) => x.toLowerCase() === account.address?.toLowerCase(),
+      // );
 
-        const formattedPoints = formatUnits(BigInt(foundPoints), 18);
-        return Number(formattedPoints);
-      } else return 0;
+      // if (accountIndex > 0) {
+      //   const foundPoints = ERA2_DATA.points[accountIndex];
+
+      //   const formattedPoints = formatUnits(BigInt(foundPoints), 18);
+      //   return Number(formattedPoints);
+      // } else return 0;
     }
 
-    return 40000;
+    return 30000;
   }, [account.address, era2Data]);
 
-  const proof: string[] = useMemo(() => {
+  const nonces = useMemo(() => {
+    return ERA2_DATA.nonces.filter(
+      (_, index) =>
+        account?.address?.toLowerCase() ===
+        ERA2_DATA.accounts[index].toLowerCase(),
+    );
+  }, [ERA2_DATA, account.address]);
+
+  const proofs: string[][] = useMemo(() => {
     if (account.address && ERA2_DATA) {
-      const accountIndex = ERA2_DATA.accounts.findIndex(
-        (x) => x.toLowerCase() === account.address?.toLowerCase(),
+      const addresses = ERA2_DATA.accounts.filter(
+        (address) => account?.address?.toLowerCase() === address.toLowerCase(),
       );
 
-      const generatedProof = generateProof(
-        account.address,
-        ERA2_DATA.points[accountIndex],
-        ERA2_DATA.nonces[accountIndex],
+      const points = ERA2_DATA.points.filter(
+        (point, index) =>
+          ERA2_DATA.accounts[index].toLowerCase() ===
+          account.address?.toLowerCase(),
       );
 
-      console.log({ generatedProof });
-      return generatedProof || [];
+      const nonces = ERA2_DATA.nonces.filter(
+        (point, index) =>
+          ERA2_DATA.accounts[index].toLowerCase() ===
+          account.address?.toLowerCase(),
+      );
+
+      const response: string[][] = [];
+
+      addresses.forEach((address, index) => {
+        const proof = generateProof(address, points[index], nonces[index]);
+        response.push(proof);
+      });
+
+      return response || [];
     }
     return [];
   }, [account.address, era2Data]);
@@ -99,36 +143,43 @@ export default function ContributedHero({
   });
 
   const darkTokens = useMemo(() => {
-    console.log({ dark_total_points, dark_MAX_SUPPLY, points });
     if (points && dark_MAX_SUPPLY) {
       const MAX_SUPPLY = Number(formatUnits(dark_MAX_SUPPLY as bigint, 18));
       const total_points = Number(formatUnits(dark_total_points as bigint, 18));
 
       const darkRatio = MAX_SUPPLY / total_points;
       // (dark_MAX_SUPPLY as bigint) / (dark_total_points as bigint);
-      const dark = darkRatio * points * 0.1;
-
+      const dark = darkRatio * pointsToDisplay * 0.1;
       return dark;
     }
     return 0;
   }, [points, dark_MAX_SUPPLY, dark_total_points]);
 
-  const { claim, transactionLoading, darkBalance } = useClaim();
+  const { claim, transactionLoading, darkBalance, receipt } = useClaim();
 
   const handleClaim = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const accountIndex = ERA2_DATA.accounts.findIndex(
-      (x) => x.toLowerCase() === account.address?.toLowerCase(),
-    );
 
-    claim(
-      ERA2_DATA.points[accountIndex],
-      ERA2_DATA.nonces[accountIndex],
-      proof,
-    );
-
-    setState("Claimed");
+    if (
+      addresses.length > 0 &&
+      addresses.length === points.length &&
+      points.length === nonces.length &&
+      nonces.length === proofs.length
+    )
+      claim(addresses, points, nonces, proofs);
+    else {
+      errorToast("Something went Wrong with verifying your data");
+      console.log(
+        "ErrorInfo: Something happened while generating the proofs for the user",
+      );
+    }
   };
+
+  useEffect(() => {
+    if (receipt) {
+      setState("Claimed");
+    }
+  }, [receipt]);
 
   const { switchChain } = useSwitchChain();
 
@@ -151,7 +202,7 @@ export default function ContributedHero({
       </div>
       <div className="flex flex-col justify-center items-center gap-[8px] w-full">
         <ContributedCard
-          value={points}
+          value={pointsToDisplay}
           pillText="Points"
           pillIconSrc={IMAGEKIT_ICONS.PILL_POINTS}
           pillIconAlt="points"
@@ -216,7 +267,7 @@ export default function ContributedHero({
           <Button
             innerText={transactionLoading ? "Claiming..." : "Claim Now"}
             loading={transactionLoading}
-            disabled={points === 0}
+            disabled={pointsToDisplay === 0}
             iconSrc={IMAGEKIT_ICONS.CLAIM}
             iconAlt="Claim Now"
             onClick={handleClaim}
