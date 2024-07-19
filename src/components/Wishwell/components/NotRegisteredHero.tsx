@@ -13,12 +13,6 @@ import { client } from "../../../../sanity/lib/client";
 import { checkCorrectNetwork } from "@/components/RainbowKit";
 import { useAccount } from "wagmi";
 
-// Use a function to get the latest block number
-async function getLatestBlockNumber(publicClient: PublicClient) {
-  const block = await publicClient.getBlockNumber();
-  return block;
-}
-
 export default function NotRegisteredHero({
   registrationKit,
 }: {

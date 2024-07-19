@@ -22,9 +22,9 @@ const DEFAULT: CountdownType = {
   secs: 0,
   claimStarted: false,
   claimTransition: false,
-  ...(localStorage.getItem("current-timestamp")
-    ? JSON.parse(localStorage.getItem("current-timestamp")!)
-    : {}),
+  // ...(localStorage.getItem("current-timestamp")
+  //   ? JSON.parse(localStorage.getItem("current-timestamp")!)
+  //   : {}),
 };
 
 let timer: CountdownType = { ...DEFAULT };
