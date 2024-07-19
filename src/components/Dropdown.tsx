@@ -1,5 +1,5 @@
 "use client";
-import { IMAGEKIT_ICONS } from "@/assets/imageKit";
+import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from "@/assets/imageKit";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
@@ -50,7 +50,7 @@ export default function Dropdown({
     >
       <div className="cursor-pointer grid grid-cols-[24px_auto_16px] place-items-center gap-[4px] select-none">
         <Image
-          src={options[selected]?.logoURI}
+          src={options[selected]?.logoURI ?? IMAGEKIT_LOGOS.LOGO}
           alt={options[selected]?.symbol}
           width={24}
           height={24}
@@ -68,7 +68,7 @@ export default function Dropdown({
           ))}
         </select>
 
-        {options[selected] && options[selected].symbol}
+        {options[selected] ? options[selected].symbol : "Select Token"}
         <Image
           src={IMAGEKIT_ICONS.DOWN}
           alt="Dropdown"
