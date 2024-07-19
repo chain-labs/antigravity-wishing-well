@@ -55,7 +55,7 @@ export const UserConnected: React.FC = () => {
         })
         .catch((err) => console.log({ err }));
     }
-  }, [account.address]);
+  }, [account.address, account.chainId]);
 
   return (
     <div className="flex text-lg">

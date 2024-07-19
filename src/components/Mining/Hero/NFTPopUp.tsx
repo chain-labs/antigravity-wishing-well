@@ -45,7 +45,9 @@ export default function NFTPopUp({
     useUserData();
 
   useEffect(() => {
-    if (account.address && localStorage.getItem("user-data")) {
+    if (account.address) {
+      console.log({ nftURLera2 });
+
       setPoints({
         wishwell: wishwellPoints,
         mining: miningPoints,
@@ -55,7 +57,7 @@ export default function NFTPopUp({
         nftURL: nftURLera2,
       });
     }
-  }, []);
+  }, [nftURLera2, wishwellPoints, miningPoints, totalPoints, rank]);
 
   useEffect(() => {
     setTimeout(() => {
