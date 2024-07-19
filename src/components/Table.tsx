@@ -289,7 +289,12 @@ export default function Table({
   }, [currentTableData]);
 
   return (
-    <table className="w-full bg-gradient-to-b from-[#0A1133] to-[#142266] min-h-[calc(2.5rem*11)] h-fit transition-all duration-300">
+    <table
+      style={{
+        minHeight: tableData.length === 0 ? "calc(2.5rem*11)" : "auto",
+      }}
+      className="w-full bg-gradient-to-b from-[#0A1133] to-[#142266] min-h-[calc(2.5rem*11)] h-fit transition-all duration-300"
+    >
       <thead className="w-full">
         <TR th>
           {/* {
