@@ -8,7 +8,7 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import Image from "next/image";
-import { use, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import H1 from "@/components/HTML/H1";
 import H2 from "@/components/HTML/H2";
 import P from "@/components/HTML/P";
