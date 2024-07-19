@@ -41,7 +41,7 @@ export default function AutomaticIncreamentalNumberCounterWithString(
         ...props.animationOptions,
         onUpdate(value) {
           element.innerHTML = props.float
-            ? `${pointsConverterToUSCommaseparated(Number(value.toString().split(".")[0]))}<span class="text-[0.6em] text-agwhite opacity-[0.66] pt-[0.4em]">.${Number(value.toString().split(".")[1])}</span>`
+            ? `${pointsConverterToUSCommaseparated(isNaN(Number(value.toString().split(".")[0])) ? 0 : Number(value.toString().split(".")[0]))}<span class="text-[0.6em] text-agwhite opacity-[0.66] pt-[0.4em]">.${isNaN(Number(value.toString().split(".")[1])) ? 0 : value.toString().split(".")[1]}</span>`
             : `${pointsConverterToUSCommaseparated(Math.floor(Number(value.toString().split(".")[0])))}`;
         },
         onComplete() {

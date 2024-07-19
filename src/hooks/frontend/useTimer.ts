@@ -22,9 +22,9 @@ const DEFAULT: CountdownType = {
   secs: 0,
   claimStarted: false,
   claimTransition: false,
-  // ...(localStorage.getItem("current-timestamp")
-  //   ? JSON.parse(localStorage.getItem("current-timestamp")!)
-  //   : {}),
+  ...(localStorage.getItem("current-timestamp")
+    ? JSON.parse(localStorage.getItem("current-timestamp")!)
+    : {}),
 };
 
 let timer: CountdownType = { ...DEFAULT };
@@ -172,33 +172,29 @@ export default function useTimer() {
             data.result?.[phaseEndKey],
           );
 
-            initialTimer = {
-              era:
-                era === "era_1"
-                  ? "wishwell"
-                  : era === "era_2"
-                    ? "mining"
-                    : ("minting" as "wishwell" | "mining" | "minting"),
-              phase: phase as 1 | 2 | 3,
-              ...initialTime,
-              claimStarted: false,
-              claimTransition: false,
-            };
-          }
-
-          setTimer(initialTimer);
-          setCurrentTimer(initialTimer);
-          setTimestamps(data.result);
-          localStorage?.setItem("timestamps", JSON.stringify(data.result));
-          localStorage?.setItem(
-            "current-timestamp",
-            JSON.stringify(initialTimer),
-          );
-        } catch (e: any) {
-          console.log(e);
+          initialTimer = {
+            era:
+              era === "era_1"
+                ? "wishwell"
+                : era === "era_2"
+                  ? "mining"
+                  : ("minting" as "wishwell" | "mining" | "minting"),
+            phase: phase as 1 | 2 | 3,
+            ...initialTime,
+            claimStarted: false,
+            claimTransition: false,
+          };
         }
-      }
 
+        setTimer(initialTimer);
+        setCurrentTimer(initialTimer);
+        setTimestamps(data.result);
+        localStorage?.setItem("timestamps", JSON.stringify(data.result));
+        localStorage?.setItem(
+          "current-timestamp",
+          JSON.stringify(initialTimer),
+        );
+      }
       fetchData();
     }
 
