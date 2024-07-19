@@ -61,7 +61,7 @@ export default function CollectiveHero() {
 
   return (
     <div className="relative flex flex-col justify-start items-center w-full h-fit lg:h-screen  gap-[24px] p-[16px] pt-[100px] lg:pt-[200px] z-0">
-      <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-[#000000A8] to-[#00000000]  "></div>
+      <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-[#000000A8] to-[#00000000] z-0"></div>
       <div className="flex flex-col justify-center items-center gap-[16px] z-[1]">
         <H1
           className="text-agwhite text-[56px] leading-[53.76px] md:text-[64px] md:leading-[64px]"
@@ -94,7 +94,7 @@ export default function CollectiveHero() {
         animate={{ y: 0 }}
         initial={{ y: "100vh" }}
         transition={{ duration: 1, type: "spring", bounce: 0.25, delay: 1.5 }}
-        className="hidden lg:block w-full h-fit max-w-[1200px]"
+        className="hidden md:block w-full h-fit max-w-[1200px]"
       >
         <Leaderboard accountIsConnected={account.isConnected} />
       </motion.div>
@@ -103,7 +103,7 @@ export default function CollectiveHero() {
         alt="Collective Hero Background"
         height={1080}
         width={1920}
-        className="absolute inset-0 -z-[1] w-[100vw] h-full lg:h-screen object-[70%_10%] object-none lg:object-cover"
+        className="absolute inset-0 -z-[1] w-[100vw] h-full md:h-screen object-[70%_10%] object-none lg:object-cover"
       />
     </div>
   );
