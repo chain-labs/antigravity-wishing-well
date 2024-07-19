@@ -281,11 +281,11 @@ export default function NFTPopUp({
             )}
           </AnimatePresence>
         )}
-        {nftURLera2 && !minedSuccess && (
+        {points && !minedSuccess && (
           <ThreeDHovercardEffect ROTATION_RANGE={10}>
             <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
               <Image
-                src={nftURLera2}
+                src={points.nftURL}
                 alt="nft card"
                 width={265}
                 height={400}
