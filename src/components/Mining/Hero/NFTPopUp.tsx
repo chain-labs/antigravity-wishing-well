@@ -9,6 +9,7 @@ import H1 from "@/components/HTML/H1";
 import P from "@/components/HTML/P";
 import AutomaticIncreamentalNumberCounter from "@/components/Home/components/spinner/AutomaticIncreamentalNumberCounter";
 import useUserData from "@/app/(client)/store";
+import imageKitLoader from "@/components/imageKitLoader";
 
 export default function NFTPopUp({
   NFTContainerRef,
@@ -275,6 +276,7 @@ export default function NFTPopUp({
                     width={265}
                     height={400}
                     className="w-[265px] h-auto object-cover z-[-1]"
+                    loader={imageKitLoader}
                   />
                 </motion.div>
               </ThreeDHovercardEffect>
@@ -290,6 +292,7 @@ export default function NFTPopUp({
                 width={265}
                 height={400}
                 className="w-[265px] h-auto object-cover z-[-1]"
+                loader={imageKitLoader}
               />
             </motion.div>
           </ThreeDHovercardEffect>

@@ -13,13 +13,7 @@ import { client } from "../../../../sanity/lib/client";
 import { checkCorrectNetwork } from "@/components/RainbowKit";
 import { useAccount } from "wagmi";
 
-// Use a function to get the latest block number
-async function getLatestBlockNumber(publicClient: PublicClient) {
-  const block = await publicClient.getBlockNumber();
-  return block;
-}
-
-export default function WalletNotConnectedHero({
+export default function NotRegisteredHero({
   registrationKit,
 }: {
   registrationKit: {
@@ -93,6 +87,8 @@ export default function WalletNotConnectedHero({
               Get points + the WishWell NFT in your wallet.
               <br />
               Earn more points while the bonus is still in play!
+              <br/>
+              We wait for 120 blocks confirmation
             </P>
           </div>
           <div className="flex flex-col md:flex-row justify-start items-start gap-[16px]">
@@ -113,6 +109,14 @@ export default function WalletNotConnectedHero({
                 onClick={openChainModal}
                 iconAlt="network error"
                 iconPosition="start"
+                variants={{
+                  hover: {
+                    animationName: "wiggle",
+                    animationDuration: "1s",
+                    animationFillMode: "forwards",
+                    animationTimingFunction: "linear",
+                  },
+                }}
               />
             )}
             <Button

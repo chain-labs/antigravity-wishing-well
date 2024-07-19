@@ -6,7 +6,7 @@ import useWishwell from "@/hooks/sc-fns/useWishwell";
 import Footer from "@/components/Home/sections/Footer";
 import Newsletter from "@/components/Home/sections/Newsletter";
 import Leaderboard from "@/components/Home/sections/Leaderboard";
-import WalletNotConnectedHero from "@/components/Wishwell/components/WalletNotConnectedHero";
+import NotRegisteredHero from "@/components/Wishwell/components/NotRegisteredHero";
 import RegisteredHero from "@/components/Wishwell/components/RegisteredHero";
 import ContributedHero from "@/components/Wishwell/components/ContributedHero";
 
@@ -33,7 +33,7 @@ export default function Wishwell() {
             <RegisteredHero />
           )
         ) : (
-          <WalletNotConnectedHero
+          <NotRegisteredHero
             registrationKit={{
               error,
               loading,
@@ -45,7 +45,7 @@ export default function Wishwell() {
           />
         )
       ) : (
-        <WalletNotConnectedHero
+        <NotRegisteredHero
           registrationKit={{
             error,
             loading,

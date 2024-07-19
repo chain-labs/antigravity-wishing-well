@@ -15,8 +15,6 @@ export async function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
   const pathname = url.pathname;
 
-  console.log(url);
-
   if (!pathname.includes("/blocked")) {
     if (restrictedCountryCodes.includes(apiResponse.country_3)) {
       return NextResponse.redirect(url.origin + "/blocked");

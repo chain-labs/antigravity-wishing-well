@@ -1,3 +1,5 @@
+"use client";
+
 import H1 from "@/components/HTML/H1";
 import H2 from "@/components/HTML/H2";
 import P from "@/components/HTML/P";
@@ -6,15 +8,12 @@ import Image from "next/image";
 import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import { successToast } from "@/hooks/frontend/toast";
 import { useState } from "react";
-import { useAccount } from "wagmi";
-import { API_ENDPOINT, PROXY_API_ENDPOINT, TEST_NETWORK } from "@/constants";
-import { getApiNetwork } from "@/utils";
-import axios from "axios";
-import useUserData from "@/app/(client)/store";
 import BaseSepoliaAG from "@/abi/wishwell/BaseSepolia";
 import BaseAG from "@/abi/wishwell/Base";
 import SepoliaAG from "@/abi/wishwell/Sepolia";
 import PulsechainAG from "@/abi/wishwell/Pulsechain";
+import ThreeDHovercardEffect from "@/components/ThreeDHovercardEffect";
+import { TEST_NETWORK } from "@/constants";
 
 export default function ContributedHero({ nftUri }: { nftUri: string }) {
   const [imageLoading, setImageLoading] = useState(true);
@@ -34,14 +33,16 @@ export default function ContributedHero({ nftUri }: { nftUri: string }) {
             </H1>
             <P>Here&apos;s your NFT:</P>
           </div>
-          <div className="relative h-[500px] w-[294.76px]">
-            <Image
-              src={nftUri}
-              alt="nft"
-              layout="fill"
-              className="max-w-[349px] max-h-[592px] w-full h-auto md:max-w-[500px] md:w-full md:h-auto"
-              objectFit="contain"
-            />
+          <div className="relative max-h-[500px] h-fit w-[294.76px]">
+            <ThreeDHovercardEffect ROTATION_RANGE={10}>
+              <Image
+                src={nftUri}
+                alt="nft"
+                layout="fill"
+                className="max-w-[349px] max-h-[592px] w-full h-auto md:max-w-[500px] md:w-full md:h-auto"
+                objectFit="contain"
+              />
+            </ThreeDHovercardEffect>
           </div>
         </div>
         <div className="flex flex-col md:flex-row justify-center items-start gap-[64px] px-[16px] py-[32px] md:py-[64px] md:px-[32px] z-0 h-fit">

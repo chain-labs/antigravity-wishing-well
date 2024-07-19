@@ -8,7 +8,7 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import Image from "next/image";
-import { use, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import H1 from "@/components/HTML/H1";
 import H2 from "@/components/HTML/H2";
 import P from "@/components/HTML/P";
@@ -22,9 +22,29 @@ import { useRestPost } from "@/hooks/useRestClient";
 import { client } from "../../../../sanity/lib/client";
 import Dropdownbutton from "@/components/Dropdownbutton";
 import pointsConverterToUSCommaseparated from "@/components/pointsConverterToUSCommaseparated";
+import useTimer from "@/hooks/frontend/useTimer";
+import useMining from "@/hooks/sc-fns/useMining";
+import useUserData from "@/app/(client)/store";
 
 function CollectiveLogo() {
   const [hover, setHover] = useState(false);
+  const [reveal, setReveal] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (hover) {
+        setReveal(true);
+      }
+      else{
+        setReveal(false);
+      }
+    }, 500);
+
+    return () => {
+      clearTimeout(timeout);
+      setReveal(false);
+    };
+  }, [hover]);
   return (
     <AnimatePresence>
       <a
@@ -43,8 +63,8 @@ function CollectiveLogo() {
 
         <motion.div
           animate={{
-            width: hover ? "fit-content" : 0,
-            padding: hover ? "8px 16px 8px 16px" : "8px 0px 8px 0px",
+            width: reveal ? "fit-content" : 0,
+            padding: reveal ? "8px 16px 8px 16px" : "8px 0px 8px 0px",
           }}
           initial={{
             width: "0%",
@@ -71,59 +91,6 @@ type tableDataType = {
   points: number;
   special?: boolean;
 } | null;
-
-const tableDataStatic: tableDataType[] = [
-  {
-    rank: 1,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-  },
-  {
-    rank: 2,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-  },
-  {
-    rank: 3,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-  },
-  {
-    rank: 4,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-  },
-  {
-    rank: 5,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-  },
-  null,
-  {
-    rank: 1234566,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-  },
-  {
-    rank: 1234567,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-    special: true,
-  },
-  {
-    rank: 1234568,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-  },
-];
 
 function getUpperRankPoints(currentPoints: number) {
   switch (true) {
@@ -167,6 +134,7 @@ export default function Leaderboard({
 }: {
   accountIsConnected: boolean;
 }) {
+  const timer = useTimer();
   const [tableData, setTableData] = useState<tableDataType[]>([]);
   const account = useAccount();
   const targetRef = useRef<HTMLDivElement>(null);
@@ -207,9 +175,11 @@ export default function Leaderboard({
     });
   };
 
+  const userdata = useUserData();
+
   useEffect(() => {
     handleRefresh();
-  }, [account.address, account.chainId]);
+  }, [userdata]);
 
   useEffect(() => {
     if (leaderboardData) {
@@ -254,11 +224,11 @@ export default function Leaderboard({
             direction: "bl",
             borderSize: 4,
           }) +
-          "relative max-w-[1200px] p-[16px] lg:p-8 border-t-4 border-b-4 lg:border-4 my-32 lg:mx-auto md:translate-x-0 md:w-4/5 md:mx-auto bg-[#0A0025] rounded-none lg:rounded-xl flex flex-col lg:flex-row justify-between gap-[16px] lg:gap-32"
+          "relative max-w-[1200px] min-h-[574px] p-[16px] lg:p-8 border-t-4 border-b-4 lg:border-4 my-32 lg:mx-auto md:translate-x-0 md:w-4/5 md:mx-auto bg-[#0A0025] rounded-none lg:rounded-xl flex flex-col lg:flex-row justify-between gap-[16px] lg:gap-32"
         }
       >
         <div className="flex flex-col gap-[16px] w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-3 w-full max-w-[100%]">
+          <div className="grid grid-cols-1 lg:grid-cols-3 w-full max-w-[100%] min-h-full">
             <div className="flex flex-col gap-[16px] col-span-2 w-full">
               <div className="flex flex-wrap justify-start items-center gap-x-[16px] gap-y-[8px] z-50 max-w-full">
                 <H1>Leaderboard</H1>
@@ -287,7 +257,16 @@ export default function Leaderboard({
                 />
               </div>
               <div className="rounded-[4px] border-[2px] border-[#414343] lg:border-none">
-                <Table tableData={tableData} />
+                <Table
+                  tableData={tableData}
+                  era={
+                    selectedLeaderboard === "allTimeLeaderboard"
+                      ? 0
+                      : selectedLeaderboard === "era1Leaderboard"
+                        ? 1
+                        : 2
+                  }
+                />
               </div>
             </div>
 
@@ -331,26 +310,33 @@ export default function Leaderboard({
 
                 <P className="font-medium">
                   You&apos;re only{" "}
-                  {pointsConverterToUSCommaseparated(rankUpPointsNeeded)} points
-                  away from leveling up. Mine now to rank up!
+                  {pointsConverterToUSCommaseparated(rankUpPointsNeeded) ===
+                  "NaN"
+                    ? 1
+                    : pointsConverterToUSCommaseparated(
+                        rankUpPointsNeeded,
+                      )}{" "}
+                  points away from leveling up. Mine now to rank up!
                 </P>
-                <Link href="/mining">
-                  <Button
-                    innerText="Start mining"
-                    iconSrc={IMAGEKIT_ICONS.HAMMER}
-                    iconAlt="hammer icon"
-                    variants={{
-                      hover: {
-                        scale: 1.35,
-                        rotate: 390,
-                        transition: {
-                          duration: 1,
-                          type: "spring",
+                {timer.era !== "minting" && (
+                  <Link href={"/mining"}>
+                    <Button
+                      innerText="Start mining"
+                      iconSrc={IMAGEKIT_ICONS.HAMMER}
+                      iconAlt="hammer icon"
+                      variants={{
+                        hover: {
+                          scale: 1.35,
+                          rotate: 390,
+                          transition: {
+                            duration: 1,
+                            type: "spring",
+                          },
                         },
-                      },
-                    }}
-                  />
-                </Link>
+                      }}
+                    />
+                  </Link>
+                )}
                 <a
                   href={externalLinks?.best_way_to_rank_up}
                   target="_blank"

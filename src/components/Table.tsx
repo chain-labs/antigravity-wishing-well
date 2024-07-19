@@ -6,8 +6,14 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import H3 from "@/components/HTML/H3";
-import { IMAGEKIT_ICONS } from "@/assets/imageKit";
+import {
+  IMAGEKIT_ICONS,
+  IMAGEKIT_IMAGES,
+  IMAGEKIT_LOGOS,
+} from "@/assets/imageKit";
 import pointsConverterToUSCommaseparated from "./pointsConverterToUSCommaseparated";
+import H1 from "./HTML/H1";
+import P from "./HTML/P";
 
 function TH({
   icon,
@@ -261,8 +267,10 @@ type tableHeaderType = {
 
 export default function Table({
   tableData: currentTableData,
+  era,
 }: {
   tableData: tableDataType[];
+  era: number;
 }) {
   const [tableData, setTableData] = useState<tableDataType[]>(currentTableData);
 
@@ -281,7 +289,12 @@ export default function Table({
   }, [currentTableData]);
 
   return (
-    <table className="w-full bg-gradient-to-b from-[#0A1133] to-[#142266] min-h-[calc(2.5rem*11)] h-fit transition-all duration-300">
+    <table
+      style={{
+        minHeight: tableData.length === 0 ? "calc(2.5rem*11)" : "auto",
+      }}
+      className="w-full bg-gradient-to-b from-[#0A1133] to-[#142266] min-h-[calc(2.5rem*11)] h-fit transition-all duration-300"
+    >
       <thead className="w-full">
         <TR th>
           {/* {
@@ -333,57 +346,95 @@ export default function Table({
         className="text-lg font-medium font-general-sans text-agwhite min-h-[clac(2.5rem*10)] w-fit"
       >
         <AnimatePresence>
-          {tableData.map((data, idx) =>
-            data !== null ? (
-              <TR
-                key={idx}
-                special={data.special ?? false}
-                position={data.rank}
-              >
-                <Rank
-                  rank={data.rank}
-                  wallet={data.wallet}
-                  special={data.special ?? false}
-                  badge={data.badge}
-                />
-                <TD truncate special={data.special ?? false}>
-                  {data.wallet}
-                </TD>
-                <TD
-                  special={data.special ?? false}
-                  className={twMerge(
-                    data.special
-                      ? "text-[22px] leading-[28.6px] md:text-[18px] md:leading-[23.6px]"
-                      : "md:text-[14px] md:leading-[18.2px] text-[18px] leading-[23.6px]",
-                    "md:pl-[auto_!important] lg:pl-[auto_!important] pl-[auto_!important] relative max-w-full w-full [word-wrap:break-word] overflow-hidden gap-0 lg:gap-0 align-baseline",
-                  )}
-                >
-                  <span className="ml-auto [word-wrap:break-word] max-w-full w-fit text-right">
-                    {String(data.points).includes(".") ? (
-                      <>
-                        {pointsConverterToUSCommaseparated(
-                          Number(data.points.toString().split(".")[0]),
+          {tableData.length !== 0 ? (
+            <AnimatePresence>
+              {tableData.map((data, idx) =>
+                data !== null ? (
+                  <TR
+                    key={idx}
+                    special={data.special ?? false}
+                    position={data.rank}
+                  >
+                    <Rank
+                      rank={data.rank}
+                      wallet={data.wallet}
+                      special={data.special ?? false}
+                      badge={data.badge}
+                    />
+                    <TD truncate special={data.special ?? false}>
+                      {data.wallet}
+                    </TD>
+                    <TD
+                      special={data.special ?? false}
+                      className={twMerge(
+                        data.special
+                          ? "text-[22px] leading-[28.6px] md:text-[18px] md:leading-[23.6px]"
+                          : "md:text-[14px] md:leading-[18.2px] text-[18px] leading-[23.6px]",
+                        "md:pl-[auto_!important] lg:pl-[auto_!important] pl-[auto_!important] relative max-w-full w-full [word-wrap:break-word] overflow-hidden gap-0 lg:gap-0 align-baseline",
+                      )}
+                    >
+                      <span className="ml-auto [word-wrap:break-word] max-w-full w-fit text-right">
+                        {String(data.points).includes(".") ? (
+                          <>
+                            {pointsConverterToUSCommaseparated(
+                              Number(data.points.toString().split(".")[0]),
+                            )}
+                            <span
+                              className={twMerge(
+                                "text-[0.6em] opacity-[0.66]",
+                                data.special ? "pt-[0.4em]" : "pt-[0.5em]",
+                              )}
+                            >
+                              .{data.points.toFixed(4).toString().split(".")[1]}
+                            </span>
+                          </>
+                        ) : (
+                          pointsConverterToUSCommaseparated(data.points)
                         )}
-                        <span
-                          className={twMerge(
-                            "text-[0.6em] opacity-[0.66]",
-                            data.special ? "pt-[0.4em]" : "pt-[0.5em]",
-                          )}
-                        >
-                          .{data.points.toFixed(4).toString().split(".")[1]}
-                        </span>
-                      </>
-                    ) : (
-                      pointsConverterToUSCommaseparated(data.points)
-                    )}
-                  </span>
-                </TD>
-              </TR>
-            ) : (
-              <TR key={idx} className="h-[2.5rem]" empty>
-                <></>
-              </TR>
-            ),
+                      </span>
+                    </TD>
+                  </TR>
+                ) : (
+                  <TR key={idx} className="h-[2.5rem]" empty>
+                    <></>
+                  </TR>
+                ),
+              )}
+            </AnimatePresence>
+          ) : (
+            <motion.div
+              initial={{
+                opacity: 0,
+              }}
+              animate={{
+                opacity: 1,
+              }}
+              exit={{
+                opacity: 0,
+              }}
+              className="m-auto w-full h-full flex flex-col justify-center items-center gap-[16px] max-w-[304px]"
+            >
+              <div className="flex justify-center items-center">
+                <Image
+                  src={IMAGEKIT_LOGOS.LOGO}
+                  height={45}
+                  width={45}
+                  className="w-[45px] h-[45px]"
+                  alt="antigravity logo"
+                />
+                <H1 className="uppercase text-[24px] leading-[24px] md:text-[24px]">
+                  Antigravity
+                </H1>
+              </div>
+              <P className="text-center text-[14px]">
+                We’re currently processing{" "}
+                {era === 0 ? "" : era == 1 ? "Era 1" : "Era 2"} participants’
+                contributions for the Leaderboard.
+              </P>
+              <P className="text-center text-[14px]">
+                Please check back in after a short while.
+              </P>
+            </motion.div>
           )}
         </AnimatePresence>
       </motion.tbody>

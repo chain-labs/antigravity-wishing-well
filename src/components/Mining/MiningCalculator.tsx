@@ -338,11 +338,16 @@ export function Card({
               }}
               extrabold
             >
+              {USFormatToNumber(currentConversion) < 0.0001 && "< "}
               {"$"}
               {conversionRef.current && (
                 <AutomaticIncreamentalNumberCounterWithString
                   from={conversionRef.current?.textContent ?? "0"}
-                  to={currentConversion}
+                  to={
+                    USFormatToNumber(currentConversion) < 0.0001
+                      ? "0.001"
+                      : currentConversion
+                  }
                   float={currentConversion.includes(".")}
                 />
               )}

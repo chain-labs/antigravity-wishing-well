@@ -20,6 +20,7 @@ import Link from "next/link";
 import GradientBorder from "../GradientBorder";
 import { useRestPost } from "@/hooks/useRestClient";
 import Dropdownbutton from "../Dropdownbutton";
+import useTimer from "@/hooks/frontend/useTimer";
 
 function CollectiveLogo() {
   return (
@@ -111,6 +112,7 @@ export default function Leaderboard({
 }: {
   accountIsConnected: boolean;
 }) {
+  const timer = useTimer();
   const account = useAccount();
   const [tableData, setTableData] = useState<tableDataType[]>([]);
   const targetRef = useRef<HTMLDivElement>(null);
@@ -153,40 +155,50 @@ export default function Leaderboard({
             direction: "bl",
             borderSize: 4,
           }) +
-          "relative w-full max-w-[1200px] border-t-4 border-b-4 md:border-4 p-[16px] md:p-[32px] bg-agblack md:rounded-xl z-0"
+          "relative w-full max-w-[1200px] min-h-[574px] border-t-4 border-b-4 md:border-4 p-[16px] md:p-[32px] bg-agblack md:rounded-xl z-0"
         }
       >
-        <div className="flex flex-col gap-[16px] w-full">
-          <div className="flex flex-col md:flex-row flex-wrap justify-start items-start md:items-center gap-[16px]">
-            <H1>Leaderboard</H1>
-            <Dropdownbutton
-              icon={IMAGEKIT_ICONS.CALENDAR}
-              options={[
-                { label: "All Time", value: "allTimeLeaderboard" },
-                { label: "Era 1", value: "era1Leaderboard" },
-                { label: "Era 2", value: "era2Leaderboard" },
-              ]}
-              selected={selectedLeaderboard}
-              setSelected={setSelectedLeaderboard}
-            />
-            <AnimatedButton
-              innerText="Refresh"
-              iconSrc={IMAGEKIT_ICONS.REFRESH}
-              iconAlt="refresh icon"
-              secondary
-              disableSparkels
-              variants={{
-                hover: {
-                  animation: "spin 1s linear infinite forwards",
-                },
-              }}
-              onClick={handleRefresh}
-            />
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 w-full max-w-[100%]">
-            <div className="col-span-2 w-full rounded-[4px] border-[2px] border-[#414343] lg:border-none">
-              <Table tableData={tableData} />
+        <div className="flex flex-col gap-[16px] w-full min-h-full">
+          <div className="grid grid-cols-1 lg:grid-cols-3 w-full max-w-[100%] min-h-full">
+            <div className="flex flex-col gap-[16px] col-span-2 w-full">
+              <div className="flex flex-wrap justify-start items-center gap-x-[16px] gap-y-[8px] z-50 max-w-full">
+                <H1>Leaderboard</H1>
+                <Dropdownbutton
+                  icon={IMAGEKIT_ICONS.CALENDAR}
+                  options={[
+                    { label: "All Time", value: "allTimeLeaderboard" },
+                    { label: "Era 1", value: "era1Leaderboard" },
+                    { label: "Era 2", value: "era2Leaderboard" },
+                  ]}
+                  selected={selectedLeaderboard}
+                  setSelected={setSelectedLeaderboard}
+                />
+                <AnimatedButton
+                  innerText="Refresh"
+                  iconSrc={IMAGEKIT_ICONS.REFRESH}
+                  iconAlt="refresh icon"
+                  secondary
+                  disableSparkels
+                  onClick={handleRefresh}
+                  variants={{
+                    hover: {
+                      animation: "spin 1s linear infinite forwards",
+                    },
+                  }}
+                />
+              </div>
+              <div className="rounded-[4px] min-h-[434px] border-[2px] border-[#414343] lg:border-none">
+                <Table
+                  tableData={tableData}
+                  era={
+                    selectedLeaderboard === "allTimeLeaderboard"
+                      ? 0
+                      : selectedLeaderboard === "era1Leaderboard"
+                        ? 1
+                        : 2
+                  }
+                />
+              </div>
             </div>
 
             <div className="relative flex flex-col w-full gap-4 lg:pl-6 place-self-end pt-[24px] md:pt-0">
@@ -215,23 +227,25 @@ export default function Leaderboard({
                 </motion.div>
 
                 <P className="font-medium">Mine now to rank up!</P>
-                <Link href={"/mining"}>
-                  <Button
-                    innerText="Start mining"
-                    iconSrc={IMAGEKIT_ICONS.HAMMER}
-                    iconAlt="hammer icon"
-                    variants={{
-                      hover: {
-                        scale: 1.35,
-                        rotate: 390,
-                        transition: {
-                          duration: 1,
-                          type: "spring",
+                {timer.era !== "minting" && (
+                  <Link href={"/mining"}>
+                    <Button
+                      innerText="Start mining"
+                      iconSrc={IMAGEKIT_ICONS.HAMMER}
+                      iconAlt="hammer icon"
+                      variants={{
+                        hover: {
+                          scale: 1.35,
+                          rotate: 390,
+                          transition: {
+                            duration: 1,
+                            type: "spring",
+                          },
                         },
-                      },
-                    }}
-                  />
-                </Link>
+                      }}
+                    />
+                  </Link>
+                )}
                 <a href="/" className="text-agwhite underline">
                   <P>Best ways to rank up →</P>
                 </a>

@@ -87,57 +87,69 @@ const Header = () => {
             <div
               className={`relative flex justify-center items-center font-extrabold text-lg font-sans gap-[16px] oveflow-hidden`}
             >
-              <Link
-                href={
-                  timer.era != "wishwell"
-                    ? "#"
-                    : location.pathname === "/wishwell"
-                      ? "/wishwell#"
-                      : "/wishwell"
-                }
-                className="relative"
-                onMouseEnter={() =>
-                  timer.era !== "wishwell" ? setTooltipOpen(true) : null
-                }
-                onMouseLeave={() =>
-                  timer.era !== "wishwell" ? setTooltipOpen(false) : null
-                }
-              >
-                <P
-                  uppercase
-                  gradient
-                  extrabold
-                  className="font-sans font-extrabold"
-                  style={{
-                    opacity: timer.era !== "wishwell" ? 0.66 : 1,
-                  }}
-                >
-                  Wishwell
-                </P>
-                <AnimatePresence>
-                  {tooltipOpen && (
-                    <motion.div
-                      initial={{
-                        height: 0,
-                        opacity: 0,
-                      }}
-                      animate={{
-                        height: "fit-content",
-                        opacity: 1,
-                      }}
-                      exit={{
-                        height: 0,
-                        opacity: 0,
-                      }}
-                      className="absolute top-[calc(100%+32px)] left-1/2 -translate-x-1/2 flex text-agwhite w-fit rounded-[4px] bg-gradient-to-tr from-brred to-blue p-[1px]"
+              <>
+                {timer.era === "wishwell" ? (
+                  <Link
+                    href={
+                      location.pathname === "/wishwell"
+                        ? "/wishwell#"
+                        : "/wishwell"
+                    }
+                    className="relative"
+                  >
+                    <P
+                      uppercase
+                      gradient
+                      extrabold
+                      className="font-sans font-extrabold"
                     >
-                      <div className="w-fit h-fit bg-gradient-to-b from-[#030404] to-[#131A1A] flex items-center justify-between rounded-[inherit] gap-6 px-[16px] py-[8px] text-[16px] text-nowrap">
-                        Currently by invitation only.
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </Link>
+                      Wishwell
+                    </P>
+                  </Link>
+                ) : (
+                  <div
+                    onMouseEnter={() =>
+                      timer.era !== "wishwell" ? setTooltipOpen(true) : null
+                    }
+                    onMouseLeave={() =>
+                      timer.era !== "wishwell" ? setTooltipOpen(false) : null
+                    }
+                    className="select-none relative"
+                  >
+                    <P
+                      uppercase
+                      gradient
+                      extrabold
+                      className="font-sans font-extrabold opacity-[0.66]"
+                    >
+                      Wishwell
+                    </P>
+                    <AnimatePresence>
+                      {tooltipOpen && (
+                        <motion.div
+                          initial={{
+                            height: 0,
+                            opacity: 0,
+                          }}
+                          animate={{
+                            height: "fit-content",
+                            opacity: 1,
+                          }}
+                          exit={{
+                            height: 0,
+                            opacity: 0,
+                          }}
+                          className="absolute top-[calc(100%+32px)] left-1/2 -translate-x-1/2 flex text-agwhite w-fit rounded-[4px] bg-gradient-to-tr from-brred to-blue p-[1px]"
+                        >
+                          <div className="w-fit h-fit bg-gradient-to-b from-[#030404] to-[#131A1A] flex items-center justify-between rounded-[inherit] gap-6 px-[16px] py-[8px] text-[16px] text-nowrap">
+                            Currently by invitation only.
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                )}
+              </>
               <Link
                 href={location.pathname === "/mining" ? "/mining#" : "/mining"}
               >
@@ -320,57 +332,69 @@ const Header = () => {
           <div className="flex text-agwhite w-full xl:h-16 rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px] overflow-hidden">
             <div className="w-full h-full bg-agblack px-8 flex flex-col items-center justify-center rounded-lg gap-6 py-4">
               {account.isConnected && <UserConnected />}
-              <Link
-                href={
-                  timer.era !== "wishwell"
-                    ? "#"
-                    : location.pathname === "/wishwell"
-                      ? "/wishwell#"
-                      : "/wishwell"
-                }
-                className="relative"
-                onMouseEnter={() =>
-                  timer.era !== "wishwell" ? setTooltipOpen(true) : null
-                }
-                onMouseLeave={() =>
-                  timer.era !== "wishwell" ? setTooltipOpen(false) : null
-                }
-              >
-                <P
-                  uppercase
-                  gradient
-                  extrabold
-                  className="font-sans font-extrabold"
-                  style={{
-                    opacity: timer.era !== "wishwell" ? 0.66 : 1,
-                  }}
-                >
-                  Wishwell
-                </P>
-                <AnimatePresence>
-                  {tooltipOpen && (
-                    <motion.div
-                      initial={{
-                        height: 0,
-                        opacity: 0,
-                      }}
-                      animate={{
-                        height: "fit-content",
-                        opacity: 1,
-                      }}
-                      exit={{
-                        height: 0,
-                        opacity: 0,
-                      }}
-                      className="absolute top-[calc(100%+32px)] left-1/2 -translate-x-1/2 flex text-agwhite w-fit rounded-[4px] bg-gradient-to-tr from-brred to-blue p-[1px]"
+              <>
+                {timer.era === "wishwell" ? (
+                  <Link
+                    href={
+                      location.pathname === "/wishwell"
+                        ? "/wishwell#"
+                        : "/wishwell"
+                    }
+                    className="relative"
+                  >
+                    <P
+                      uppercase
+                      gradient
+                      extrabold
+                      className="font-sans font-extrabold"
                     >
-                      <div className="w-fit h-fit bg-gradient-to-b from-[#030404] to-[#131A1A] flex items-center justify-between rounded-[inherit] gap-6 px-[16px] py-[8px] text-[16px] text-nowrap">
-                        Currently by invitation only.
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </Link>
+                      Wishwell
+                    </P>
+                  </Link>
+                ) : (
+                  <div
+                    onMouseEnter={() =>
+                      timer.era !== "wishwell" ? setTooltipOpen(true) : null
+                    }
+                    onMouseLeave={() =>
+                      timer.era !== "wishwell" ? setTooltipOpen(false) : null
+                    }
+                    className="select-none relative"
+                  >
+                    <P
+                      uppercase
+                      gradient
+                      extrabold
+                      className="font-sans font-extrabold opacity-[0.66]"
+                    >
+                      Wishwell
+                    </P>
+                    <AnimatePresence>
+                      {tooltipOpen && (
+                        <motion.div
+                          initial={{
+                            height: 0,
+                            opacity: 0,
+                          }}
+                          animate={{
+                            height: "fit-content",
+                            opacity: 1,
+                          }}
+                          exit={{
+                            height: 0,
+                            opacity: 0,
+                          }}
+                          className="absolute top-[calc(100%+32px)] left-1/2 -translate-x-1/2 flex text-agwhite w-fit rounded-[4px] bg-gradient-to-tr from-brred to-blue p-[1px]"
+                        >
+                          <div className="w-fit h-fit bg-gradient-to-b from-[#030404] to-[#131A1A] flex items-center justify-between rounded-[inherit] gap-6 px-[16px] py-[8px] text-[16px] text-nowrap">
+                            Currently by invitation only.
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                )}
+              </>
               <Link
                 href={location.pathname === "/mining" ? "/mining#" : "/mining"}
               >

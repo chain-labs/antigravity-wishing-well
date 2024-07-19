@@ -36,11 +36,15 @@ export default function Hero() {
         <Spinner scrollYProgress={scrollYProgress} />
         <HeroItemCard
           title="WishWell"
-          description="Contribute to our WishWell to get the WishWell NFT + points."
+          description={
+            timer.era !== "wishwell"
+              ? "Currently you can access wishwell by invitation only."
+              : "Contribute to our WishWell to get the WishWell NFT + points."
+          }
           backgroundImage={IMAGEKIT_IMAGES.WISHWELL}
           animateFrom="left"
           cardExternalLink={
-            timer.era != "wishwell"
+            timer.era !== "wishwell"
               ? "#"
               : location.pathname === "/wishwell"
                 ? "/wishwell#"
