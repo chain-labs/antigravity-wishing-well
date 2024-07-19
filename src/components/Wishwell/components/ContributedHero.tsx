@@ -15,6 +15,7 @@ import BaseSepoliaAG from "@/abi/wishwell/BaseSepolia";
 import BaseAG from "@/abi/wishwell/Base";
 import SepoliaAG from "@/abi/wishwell/Sepolia";
 import PulsechainAG from "@/abi/wishwell/Pulsechain";
+import imageKitLoader from "@/components/imageKitLoader";
 
 export default function ContributedHero({ nftUri }: { nftUri: string }) {
   const [imageLoading, setImageLoading] = useState(true);
@@ -41,6 +42,7 @@ export default function ContributedHero({ nftUri }: { nftUri: string }) {
               layout="fill"
               className="max-w-[349px] max-h-[592px] w-full h-auto md:max-w-[500px] md:w-full md:h-auto"
               objectFit="contain"
+              loader={imageKitLoader}
             />
           </div>
         </div>

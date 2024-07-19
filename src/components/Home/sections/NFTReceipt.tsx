@@ -9,6 +9,7 @@ import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import Link from "next/link";
 import ThreeDHovercardEffect from "@/components/ThreeDHovercardEffect";
 import useUserData from "@/app/(client)/store";
+import imageKitLoader from "@/components/imageKitLoader";
 
 export default function NFTReceipt() {
   const targetRef = useRef<HTMLDivElement>(null);
@@ -49,6 +50,7 @@ export default function NFTReceipt() {
             width={300}
             height={600}
             className="rounded-lg"
+            loader={imageKitLoader}
           />
         </ThreeDHovercardEffect>
       </motion.div>

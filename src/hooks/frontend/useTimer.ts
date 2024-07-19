@@ -135,57 +135,67 @@ export default function useTimer() {
         //   result: createDummyTimestamps(),
         // }
 
-        const now = new Date().getTime();
-        const era2End = new Date(data.result["era_2_phase_3_end"]).getTime();
-        const claimStart = new Date(data.result["claim_starts"]).getTime();
-        const claimEnd = new Date(data.result["claim_ends"]).getTime();
+        try {
+          const now = new Date().getTime();
+          const era2End = new Date(data.result["era_2_phase_3_end"]).getTime();
+          const claimStart = new Date(data.result["claim_starts"]).getTime();
+          const claimEnd = new Date(data.result["claim_ends"]).getTime();
+          let initialTimer: CountdownType;
 
-        let initialTimer: CountdownType;
+          if (now >= era2End && now < claimStart) {
+            const claimTime = calculateTimeDifference(
+              data.result["claim_starts"],
+            );
+            initialTimer = {
+              era: "mining",
+              phase: 3,
+              ...claimTime,
+              claimStarted: false,
+              claimTransition: true,
+            };
+          } else if (now >= claimStart && now <= claimEnd) {
+            const claimTime = calculateTimeDifference(
+              data.result["claim_ends"],
+            );
+            initialTimer = {
+              era: "mining",
+              phase: 3,
+              ...claimTime,
+              claimStarted: true,
+              claimTransition: false,
+            };
+          } else {
+            const { era, phase } = getCurrentEraAndPhase(data.result);
+            const phaseEndKey = `${era}_phase_${phase}_end`;
+            const initialTime = calculateTimeDifference(
+              data.result[phaseEndKey],
+            );
 
-        if (now >= era2End && now < claimStart) {
-          const claimTime = calculateTimeDifference(
-            data.result["claim_starts"],
+            initialTimer = {
+              era:
+                era === "era_1"
+                  ? "wishwell"
+                  : era === "era_2"
+                    ? "mining"
+                    : ("minting" as "wishwell" | "mining" | "minting"),
+              phase: phase as 1 | 2 | 3,
+              ...initialTime,
+              claimStarted: false,
+              claimTransition: false,
+            };
+          }
+
+          setTimer(initialTimer);
+          setCurrentTimer(initialTimer);
+          setTimestamps(data.result);
+          localStorage.setItem("timestamps", JSON.stringify(data.result));
+          localStorage.setItem(
+            "current-timestamp",
+            JSON.stringify(initialTimer),
           );
-          initialTimer = {
-            era: "mining",
-            phase: 3,
-            ...claimTime,
-            claimStarted: false,
-            claimTransition: true,
-          };
-        } else if (now >= claimStart && now <= claimEnd) {
-          const claimTime = calculateTimeDifference(data.result["claim_ends"]);
-          initialTimer = {
-            era: "mining",
-            phase: 3,
-            ...claimTime,
-            claimStarted: true,
-            claimTransition: false,
-          };
-        } else {
-          const { era, phase } = getCurrentEraAndPhase(data.result);
-          const phaseEndKey = `${era}_phase_${phase}_end`;
-          const initialTime = calculateTimeDifference(data.result[phaseEndKey]);
-
-          initialTimer = {
-            era:
-              era === "era_1"
-                ? "wishwell"
-                : era === "era_2"
-                  ? "mining"
-                  : ("minting" as "wishwell" | "mining" | "minting"),
-            phase: phase as 1 | 2 | 3,
-            ...initialTime,
-            claimStarted: false,
-            claimTransition: false,
-          };
+        } catch (e: any) {
+          console.log(e);
         }
-
-        setTimer(initialTimer);
-        setCurrentTimer(initialTimer);
-        setTimestamps(data.result);
-        localStorage.setItem("timestamps", JSON.stringify(data.result));
-        localStorage.setItem("current-timestamp", JSON.stringify(initialTimer));
       }
 
       fetchData();

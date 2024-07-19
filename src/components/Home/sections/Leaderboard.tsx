@@ -22,6 +22,7 @@ import { useRestPost } from "@/hooks/useRestClient";
 import { client } from "../../../../sanity/lib/client";
 import Dropdownbutton from "@/components/Dropdownbutton";
 import pointsConverterToUSCommaseparated from "@/components/pointsConverterToUSCommaseparated";
+import useTimer from "@/hooks/frontend/useTimer";
 
 function CollectiveLogo() {
   const [hover, setHover] = useState(false);
@@ -167,6 +168,7 @@ export default function Leaderboard({
 }: {
   accountIsConnected: boolean;
 }) {
+  const timer = useTimer();
   const [tableData, setTableData] = useState<tableDataType[]>([]);
   const account = useAccount();
   const targetRef = useRef<HTMLDivElement>(null);
@@ -287,7 +289,16 @@ export default function Leaderboard({
                 />
               </div>
               <div className="rounded-[4px] border-[2px] border-[#414343] lg:border-none">
-                <Table tableData={tableData} />
+                <Table
+                  tableData={tableData}
+                  era={
+                    selectedLeaderboard === "allTimeLeaderboard"
+                      ? 0
+                      : selectedLeaderboard === "era1Leaderboard"
+                        ? 1
+                        : 2
+                  }
+                />
               </div>
             </div>
 
@@ -331,26 +342,32 @@ export default function Leaderboard({
 
                 <P className="font-medium">
                   You&apos;re only{" "}
-                  {pointsConverterToUSCommaseparated(rankUpPointsNeeded)} points
-                  away from leveling up. Mine now to rank up!
+                  {pointsConverterToUSCommaseparated(rankUpPointsNeeded) === "NaN"
+                    ? 1
+                    : pointsConverterToUSCommaseparated(
+                        rankUpPointsNeeded,
+                      )}{" "}
+                  points away from leveling up. Mine now to rank up!
                 </P>
-                <Link href="/mining">
-                  <Button
-                    innerText="Start mining"
-                    iconSrc={IMAGEKIT_ICONS.HAMMER}
-                    iconAlt="hammer icon"
-                    variants={{
-                      hover: {
-                        scale: 1.35,
-                        rotate: 390,
-                        transition: {
-                          duration: 1,
-                          type: "spring",
+                {timer.era !== "minting" && (
+                  <Link href={"/mining"}>
+                    <Button
+                      innerText="Start mining"
+                      iconSrc={IMAGEKIT_ICONS.HAMMER}
+                      iconAlt="hammer icon"
+                      variants={{
+                        hover: {
+                          scale: 1.35,
+                          rotate: 390,
+                          transition: {
+                            duration: 1,
+                            type: "spring",
+                          },
                         },
-                      },
-                    }}
-                  />
-                </Link>
+                      }}
+                    />
+                  </Link>
+                )}
                 <a
                   href={externalLinks?.best_way_to_rank_up}
                   target="_blank"

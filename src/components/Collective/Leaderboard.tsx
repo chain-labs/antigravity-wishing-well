@@ -20,6 +20,7 @@ import Link from "next/link";
 import GradientBorder from "../GradientBorder";
 import { useRestPost } from "@/hooks/useRestClient";
 import Dropdownbutton from "../Dropdownbutton";
+import useTimer from "@/hooks/frontend/useTimer";
 
 function CollectiveLogo() {
   return (
@@ -111,6 +112,7 @@ export default function Leaderboard({
 }: {
   accountIsConnected: boolean;
 }) {
+  const timer = useTimer();
   const account = useAccount();
   const [tableData, setTableData] = useState<tableDataType[]>([]);
   const targetRef = useRef<HTMLDivElement>(null);
@@ -186,7 +188,16 @@ export default function Leaderboard({
 
           <div className="grid grid-cols-1 lg:grid-cols-3 w-full max-w-[100%]">
             <div className="col-span-2 w-full rounded-[4px] border-[2px] border-[#414343] lg:border-none">
-              <Table tableData={tableData} />
+              <Table
+                tableData={tableData}
+                era={
+                  selectedLeaderboard === "allTimeLeaderboard"
+                    ? 0
+                    : selectedLeaderboard === "era1Leaderboard"
+                      ? 1
+                      : 2
+                }
+              />
             </div>
 
             <div className="relative flex flex-col w-full gap-4 lg:pl-6 place-self-end pt-[24px] md:pt-0">
@@ -215,23 +226,25 @@ export default function Leaderboard({
                 </motion.div>
 
                 <P className="font-medium">Mine now to rank up!</P>
-                <Link href={"/mining"}>
-                  <Button
-                    innerText="Start mining"
-                    iconSrc={IMAGEKIT_ICONS.HAMMER}
-                    iconAlt="hammer icon"
-                    variants={{
-                      hover: {
-                        scale: 1.35,
-                        rotate: 390,
-                        transition: {
-                          duration: 1,
-                          type: "spring",
+                {timer.era !== "minting" && (
+                  <Link href={"/mining"}>
+                    <Button
+                      innerText="Start mining"
+                      iconSrc={IMAGEKIT_ICONS.HAMMER}
+                      iconAlt="hammer icon"
+                      variants={{
+                        hover: {
+                          scale: 1.35,
+                          rotate: 390,
+                          transition: {
+                            duration: 1,
+                            type: "spring",
+                          },
                         },
-                      },
-                    }}
-                  />
-                </Link>
+                      }}
+                    />
+                  </Link>
+                )}
                 <a href="/" className="text-agwhite underline">
                   <P>Best ways to rank up →</P>
                 </a>
