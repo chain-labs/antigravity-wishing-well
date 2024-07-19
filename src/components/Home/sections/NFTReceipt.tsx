@@ -12,7 +12,7 @@ import useUserData from "@/app/(client)/store";
 
 export default function NFTReceipt() {
   const targetRef = useRef<HTMLDivElement>(null);
-  const { nftURL } = useUserData();
+  const { nftURLera2 } = useUserData();
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start end", "end start"],
@@ -44,7 +44,7 @@ export default function NFTReceipt() {
       >
         <ThreeDHovercardEffect ROTATION_RANGE={10}>
           <Image
-            src={nftURL != "" ? nftURL : IMAGEKIT_IMAGES.NFT_RECEIPT}
+            src={nftURLera2 != "" ? nftURLera2 : IMAGEKIT_IMAGES.NFT_RECEIPT}
             alt="NFT Receipt"
             width={300}
             height={600}

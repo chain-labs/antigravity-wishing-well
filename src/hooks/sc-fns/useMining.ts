@@ -1,5 +1,5 @@
 import useMiningContract from "@/abi/MiningRig";
-import { useEffect, useMemo, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { formatUnits, parseUnits, zeroAddress } from "viem";
 import erc20ABI from "erc-20-abi";
 import {
@@ -15,6 +15,9 @@ import { errorToast, successToast } from "../frontend/toast";
 import useDarkXContract from "@/abi/DarkX";
 import { useRestPost } from "../useRestClient";
 import { verify } from "crypto";
+import useUserData from "@/app/(client)/store";
+import { UserData } from "@/components/Home/components/header/UserConnected";
+import { hydrateUserAndNFT } from "@/components/Home/components/header/utils";
 
 /**
  *  Primary utility hook for everything related to the mining phase
@@ -31,6 +34,8 @@ const useMining = (
   amountToInvest: number,
   multiplier: number,
   nativeToken: string,
+  setNFTHover: Dispatch<SetStateAction<boolean>>,
+  setMinedSuccess: Dispatch<SetStateAction<boolean>>,
 ) => {
   const [isApprovalNeeded, setIsApprovalNeeded] = useState(false);
   const [merkleProofState, setMerkleProofState] = useState<string[] | null>(
@@ -43,6 +48,9 @@ const useMining = (
   const { data: nativeBalanceData } = useBalance({
     address: account.address,
     chainId: account.chainId,
+    query: {
+      enabled: !transactionLoading,
+    },
   });
 
   const MiningContract = useMiningContract();
@@ -74,12 +82,26 @@ const useMining = (
   }, [multiplier, amountToInvest]);
 
   // Fetching darkX token Balance
-  const { data: darkXBalance } = useReadContract({
-    address: DarkXContract?.address as `0x${string}`,
-    abi: DarkXContract?.abi,
-    functionName: "balanceOf",
-    args: [`${account.address}`],
-  });
+  const { data: darkXBalanceData }: { data?: { result: BigInt } } =
+    useReadContract({
+      address: DarkXContract?.address as `0x${string}`,
+      abi: DarkXContract?.abi,
+      functionName: "balanceOf",
+      args: [`${account.address}`],
+      query: {
+        enabled: !transactionLoading,
+      },
+    });
+
+  const [darkXBalance, setDarkXBalance] = useState<BigInt>(BigInt(0));
+
+  useEffect(() => {
+    if (darkXBalanceData) {
+      if (darkXBalanceData.result) {
+        setDarkXBalance(darkXBalanceData.result);
+      }
+    }
+  }, [darkXBalanceData]);
 
   // Fetching current selected token Balance
   const { data: tokenBalance } = useReadContracts({
@@ -91,6 +113,9 @@ const useMining = (
       args: [`${account.address}`],
       chainId: token.chainId,
     })),
+    query: {
+      enabled: !transactionLoading,
+    },
   });
 
   /* Approval Contract Function Declaration */
@@ -132,7 +157,7 @@ const useMining = (
       return parseUnits(`${amountToInvest}`, tokens?.[tokenSelected]?.decimals);
     }
     return BigInt(0);
-  }, [amountToInvest]);
+  }, [amountToInvest, tokens, tokenSelected]);
 
   const { data: allowance } = useReadContract({
     address: tokens?.[tokenSelected]?.address as `0x${string}`,
@@ -141,10 +166,27 @@ const useMining = (
     args: [account.address, MiningContract?.address],
   });
 
-  const { data, mutateAsync: verifyAsync } = useRestPost(
+  const { mutateAsync: verifyAsync } = useRestPost(
     ["verify-mine"],
     `/api/verify-mining`,
   );
+
+  const { mutateAsync: fetchUserFn } = useRestPost<UserData>(
+    ["get-user"],
+    "/api/user",
+  );
+
+  const { mutateAsync: mutateNFTData1 } = useRestPost<any>(
+    ["generate-nft-era1"],
+    "/api/generate-nft",
+  );
+
+  const { mutateAsync: mutateNFTData2 } = useRestPost<any>(
+    ["generate-nft-era2"],
+    "/api/generate-nft",
+  );
+
+  const { mutation: mutateUser } = useUserData();
 
   useEffect(() => {
     if (mineError) {
@@ -163,6 +205,15 @@ const useMining = (
       } else {
         errorToast("Couldn't mine your $DarkX token.");
       }
+      hydrateUserAndNFT(
+        account,
+        fetchUserFn,
+        mutateNFTData1,
+        mutateNFTData2,
+        mutateUser,
+      ).then(() => {
+        console.log("Hydrated User Data");
+      });
       setTransactionLoading(false);
     }
 
@@ -183,6 +234,18 @@ const useMining = (
       verifyAsync({ walletAddress: account.address }).then((response) => {
         successToast(`Succesfully mined ${points} $DarkX tokens!`);
         setTransactionLoading(false);
+        // setDarkXBalance(BigInt(Number(darkXBalance) + 1));
+        hydrateUserAndNFT(
+          account,
+          fetchUserFn,
+          mutateNFTData1,
+          mutateNFTData2,
+          mutateUser,
+        ).then(() => {
+          console.log("Hydrated User Data");
+          setNFTHover(true);
+          setMinedSuccess(true);
+        });
         console.log({ receipt });
       });
     }

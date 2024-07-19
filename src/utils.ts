@@ -6,6 +6,7 @@ import {
   sepolia,
 } from "viem/chains";
 import { TEST_NETWORK } from "./constants";
+import { UserData } from "./components/Home/components/header/UserConnected";
 
 export const toBoolean = (query: string | undefined) => {
   if (query?.toLowerCase() === "true") return true;
@@ -26,4 +27,38 @@ export const condenseAddress = (address: string) => {
   )}`;
 
   return condensed;
+};
+
+export const getTokenIds = (userData: UserData, chainId: number) => {
+  let wishwellTokenId = "0";
+  let miningTokenId = "0";
+  let blockchain = "pulsechain";
+
+  if (TEST_NETWORK) {
+    if (chainId === sepolia.id) {
+      miningTokenId = userData.antigravityPulsechainTokenId;
+      wishwellTokenId = userData.wishwellPulsechainTokenId;
+      blockchain = "pulsechain";
+    } else if (chainId === baseSepolia.id) {
+      miningTokenId = userData.antigravityBaseTokenId;
+      wishwellTokenId = userData.wishwellBaseTokenId;
+      blockchain = "base";
+    }
+  } else {
+    if (chainId === pulsechain.id) {
+      miningTokenId = userData.antigravityPulsechainTokenId;
+      wishwellTokenId = userData.wishwellPulsechainTokenId;
+      blockchain = "pulsechain";
+    } else if (chainId === base.id) {
+      miningTokenId = userData.antigravityBaseTokenId;
+      wishwellTokenId = userData.wishwellBaseTokenId;
+      blockchain = "base";
+    }
+  }
+
+  return {
+    wishwellTokenId: Number(wishwellTokenId),
+    miningTokenId: Number(miningTokenId),
+    blockchain,
+  };
 };

@@ -41,7 +41,7 @@ export default function NFTPopUp({
     useState(false);
   const [starfieldAnimationComplete, setStarfieldAnimationComplete] =
     useState(false);
-  const { nftURL, wishwellPoints, miningPoints, totalPoints, rank } =
+  const { nftURLera2, wishwellPoints, miningPoints, totalPoints, rank } =
     useUserData();
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export default function NFTPopUp({
         total: totalPoints,
         conversion: 10,
         badge: rank,
-        nftURL: nftURL,
+        nftURL: nftURLera2,
       });
     }
   }, []);
