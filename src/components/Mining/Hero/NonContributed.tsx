@@ -231,15 +231,15 @@ export default function NonContributed({
   useEffect(() => {
     if (
       (darkXBalance as bigint) > 0 &&
-      localStorage.getItem("nft-reveal-first-time") === "false"
+      localStorage?.getItem("nft-reveal-first-time") === "false"
     ) {
-      localStorage.setItem("nft-reveal-first-time", "true");
+      localStorage?.setItem("nft-reveal-first-time", "true");
       setNFTHover(true);
       return;
     }
 
     if ((darkXBalance as bigint) <= 0) {
-      localStorage.setItem("nft-reveal-first-time", "false");
+      localStorage?.setItem("nft-reveal-first-time", "false");
     }
   }, [darkXBalance]);
 

@@ -13,7 +13,7 @@ export type CountdownType = {
   claimTransition: boolean;
 };
 
-const DEFAULT: CountdownType = localStorage.getItem("current-timestamp")
+const DEFAULT: CountdownType = localStorage?.getItem("current-timestamp")
   ? JSON.parse(localStorage.getItem("current-timestamp") as string)
   : {
       era: "mining",
@@ -188,8 +188,8 @@ export default function useTimer() {
           setTimer(initialTimer);
           setCurrentTimer(initialTimer);
           setTimestamps(data.result);
-          localStorage.setItem("timestamps", JSON.stringify(data.result));
-          localStorage.setItem(
+          localStorage?.setItem("timestamps", JSON.stringify(data.result));
+          localStorage?.setItem(
             "current-timestamp",
             JSON.stringify(initialTimer),
           );
