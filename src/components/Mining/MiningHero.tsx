@@ -1,6 +1,6 @@
 import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import Image from "next/image";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import ContributedHero from "./Hero/ContributedHero";
 import NFTPopUp from "./Hero/NFTPopUp";
@@ -14,10 +14,26 @@ import useClaim from "@/hooks/sc-fns/useClaim";
 export default function MiningHero() {
   const [state, setState] = useState<StateType>("Claiming");
   const [NFTHover, setNFTHover] = useState(false);
+  const [NFTReveal, setNFTReveal] = useState(false);
   const NFTRef = useRef<HTMLDivElement>(null);
   const NFTContainerRef = useRef<HTMLDivElement>(null);
   const [minedSuccess, setMinedSuccess] = useState(false);
   const timer = useTimer();
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (NFTHover) {
+        setNFTReveal(true);
+      } else {
+        setNFTReveal(false);
+      }
+    }, 500);
+
+    return () => {
+      clearTimeout(timeout);
+      setNFTReveal(false);
+    };
+  }, [NFTHover]);
 
   return (
     <div className="relative w-full min-h-screen h-fit z-0 overflow-hidden">
@@ -32,8 +48,8 @@ export default function MiningHero() {
               after:content-[''] after:absolute after:top-0 after:left-0 after:w-full after:h-full after:bg-red-500 after:from-[#000000BF] after:to-[#00000000] after:z-[10]
             "
       />
-      <div className="bg-gradient-to-b from-[#000] h-fit to-[#0000]">
-        <div className="flex flex-col justify-center items-center w-full h-fit py-[30px] md:pt-[100px]">
+      <div className="bg-gradient-to-b from-[#000] h-fit to-[#0000] z-0">
+        <div className="flex flex-col justify-center items-center w-full h-fit py-[30px] md:pt-[100px] z-0">
           {timer.claimTransition ? (
             <ClaimTransitionWait />
           ) : (timer.claimStarted || timer.era === "minting") &&
@@ -54,7 +70,7 @@ export default function MiningHero() {
           )}
         </div>
         <AnimatePresence>
-          {NFTHover && (
+          {NFTReveal && (
             <NFTPopUp
               NFTContainerRef={NFTContainerRef}
               NFTRef={NFTRef}

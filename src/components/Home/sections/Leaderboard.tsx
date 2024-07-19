@@ -28,6 +28,23 @@ import useUserData from "@/app/(client)/store";
 
 function CollectiveLogo() {
   const [hover, setHover] = useState(false);
+  const [reveal, setReveal] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (hover) {
+        setReveal(true);
+      }
+      else{
+        setReveal(false);
+      }
+    }, 500);
+
+    return () => {
+      clearTimeout(timeout);
+      setReveal(false);
+    };
+  }, [hover]);
   return (
     <AnimatePresence>
       <a
@@ -46,8 +63,8 @@ function CollectiveLogo() {
 
         <motion.div
           animate={{
-            width: hover ? "fit-content" : 0,
-            padding: hover ? "8px 16px 8px 16px" : "8px 0px 8px 0px",
+            width: reveal ? "fit-content" : 0,
+            padding: reveal ? "8px 16px 8px 16px" : "8px 0px 8px 0px",
           }}
           initial={{
             width: "0%",
@@ -74,59 +91,6 @@ type tableDataType = {
   points: number;
   special?: boolean;
 } | null;
-
-const tableDataStatic: tableDataType[] = [
-  {
-    rank: 1,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-  },
-  {
-    rank: 2,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-  },
-  {
-    rank: 3,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-  },
-  {
-    rank: 4,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-  },
-  {
-    rank: 5,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-  },
-  null,
-  {
-    rank: 1234566,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-  },
-  {
-    rank: 1234567,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-    special: true,
-  },
-  {
-    rank: 1234568,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-  },
-];
 
 function getUpperRankPoints(currentPoints: number) {
   switch (true) {
