@@ -44,7 +44,7 @@ export default function NFTReceipt() {
       >
         <ThreeDHovercardEffect ROTATION_RANGE={10}>
           <Image
-            src={nftURLera2 != "" ? nftURLera2 : IMAGEKIT_IMAGES.NFT_RECEIPT}
+            src={nftURLera2 ? nftURLera2 : IMAGEKIT_IMAGES.NFT_RECEIPT}
             alt="NFT Receipt"
             width={300}
             height={600}
