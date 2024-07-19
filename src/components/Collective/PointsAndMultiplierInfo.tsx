@@ -16,7 +16,7 @@ export default function PointsAndMultiplierInfo() {
         <P>(our intern forgot to add this)</P>
         <H1>How do Points & Multipliers Work?</H1>
         <P>Earn Points by participating in the 3 launch Eras:</P>
-        <div className="flex gap-[8px]">
+        <div className="flex flex-wrap gap-[8px]">
           <>
             {timer.era === "wishwell" ? (
               <Link href="/wishwell">
@@ -169,7 +169,7 @@ export default function PointsAndMultiplierInfo() {
         alt="Points and multiplier Background"
         width={1920}
         height={1080}
-        className="absolute inset-0 w-full h-auto z-[-2] md:translate-y-[-18%] object-none md:object-fill object[10%_30%] sm:object-cover"
+        className="absolute inset-0 w-full h-full md:h-auto z-[-2] md:translate-y-[-18%] object-none md:object-fill object[10%_30%] sm:object-cover"
       />
     </div>
   );

@@ -63,7 +63,7 @@ export default function PromotionAndNewsletter() {
                     before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-bl before:from-[#3C00DC] before:to-[#FF5001] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
                     after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-agblack after:rounded-[inherit] after:overflow-hidden"
     >
-      <div className="flex flex-col w-full md:flex-row justify-between items-center gap-[16px]">
+      <div className="flex flex-col w-full lg:flex-row justify-between items-center gap-[16px]">
         <div className="flex flex-col gap-[16px]">
           <div className="overflow-hidden">
             <motion.div
@@ -111,7 +111,7 @@ export default function PromotionAndNewsletter() {
             alt="Book"
             width={523.81}
             height={275}
-            className="w-full md:w-[524px] h-auto md:h-[275px] aspect-video rounded-[12px] object-cover"
+            className="w-full lg:w-[524px] h-auto lg:h-[275px] aspect-video rounded-[12px] object-cover"
           />
         )}
       </div>
