@@ -23,6 +23,8 @@ import { client } from "../../../../sanity/lib/client";
 import Dropdownbutton from "@/components/Dropdownbutton";
 import pointsConverterToUSCommaseparated from "@/components/pointsConverterToUSCommaseparated";
 import useTimer from "@/hooks/frontend/useTimer";
+import useMining from "@/hooks/sc-fns/useMining";
+import useUserData from "@/app/(client)/store";
 
 function CollectiveLogo() {
   const [hover, setHover] = useState(false);
@@ -209,9 +211,11 @@ export default function Leaderboard({
     });
   };
 
+  const userdata = useUserData();
+
   useEffect(() => {
     handleRefresh();
-  }, [account.address, account.chainId]);
+  }, [account.address, account.chainId, userdata]);
 
   useEffect(() => {
     if (leaderboardData) {
@@ -342,7 +346,8 @@ export default function Leaderboard({
 
                 <P className="font-medium">
                   You&apos;re only{" "}
-                  {pointsConverterToUSCommaseparated(rankUpPointsNeeded) === "NaN"
+                  {pointsConverterToUSCommaseparated(rankUpPointsNeeded) ===
+                  "NaN"
                     ? 1
                     : pointsConverterToUSCommaseparated(
                         rankUpPointsNeeded,
