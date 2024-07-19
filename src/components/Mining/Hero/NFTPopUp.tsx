@@ -45,7 +45,7 @@ export default function NFTPopUp({
     useUserData();
 
   useEffect(() => {
-    if (account.address && localStorage.getItem("user-data")) {
+    if (account.address) {
       setPoints({
         wishwell: wishwellPoints,
         mining: miningPoints,
