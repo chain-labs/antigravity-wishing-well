@@ -57,7 +57,7 @@ export default function NFTPopUp({
         nftURL: nftURLera2,
       });
     }
-  }, []);
+  }, [nftURLera2, wishwellPoints, miningPoints, totalPoints, rank]);
 
   useEffect(() => {
     setTimeout(() => {
