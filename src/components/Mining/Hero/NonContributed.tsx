@@ -240,7 +240,6 @@ export default function NonContributed({
     }
   }, [darkXBalance]);
 
-
   return (
     <div className="max-w-full relative flex flex-col justify-center items-center gap-[8px] mt-[50px]">
       {nftURLera2 ? (

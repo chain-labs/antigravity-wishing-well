@@ -164,6 +164,9 @@ const useMining = (
     abi: erc20ABI,
     functionName: "allowance",
     args: [account.address, MiningContract?.address],
+    query: {
+      enabled: !transactionLoading,
+    },
   });
 
   const { mutateAsync: verifyAsync } = useRestPost(
