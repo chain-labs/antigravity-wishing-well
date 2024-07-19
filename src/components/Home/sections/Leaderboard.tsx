@@ -215,7 +215,7 @@ export default function Leaderboard({
 
   useEffect(() => {
     handleRefresh();
-  }, [account.address, account.chainId, userdata]);
+  }, [userdata]);
 
   useEffect(() => {
     if (leaderboardData) {
