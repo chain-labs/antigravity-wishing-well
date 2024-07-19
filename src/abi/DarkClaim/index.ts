@@ -15,11 +15,11 @@ const contracts: Record<
   { address: `0x${string}` | undefined; abi: any }
 > = {
   [sepolia.id]: {
-    address: CONTRACTS[sepolia.id].darkClaim,
+    address: CONTRACTS[sepolia.id].darkClaims,
     abi,
   },
   [pulsechain.id]: {
-    address: CONTRACTS[pulsechain.id].darkClaim,
+    address: CONTRACTS[pulsechain.id].darkClaims,
     abi,
   },
 };
