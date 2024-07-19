@@ -76,5 +76,6 @@ const tableData = [
 export const Default: Story = {
   args: {
     tableData: tableData,
+    era: 1
   },
 };
