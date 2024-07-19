@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
     } else {
       switch (token) {
         case "0xd66b2C730227d69919Ad6e68010b17dcA8f3900c":
-        case "0x41A2e1C53b1d543C9F05465304A41c69eC38FF7E": {
+        case "0xd56f872fDC361E583263Da18c307d8962f82561B": {
           price = 1;
           break;
         }

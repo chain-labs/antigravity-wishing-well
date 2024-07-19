@@ -1,0 +1,4 @@
+function main() {
+// copy below line 
+switch(token) {case "0xd66b2C730227d69919Ad6e68010b17dcA8f3900c":case "0xd56f872fDC361E583263Da18c307d8962f82561B":{price = 1; break;}case "0x515D3C2d0c50c7a1728c662e36E52081da1eA333":case "0xeb81E76Ce632efbC6Bfc41dA22cB354aE11Ae62e":{price = 0.0195; break;}case "0x59feb853d25Fc32C75575d65b1eFcBd68376d282":case "0x7493c860192d9a64E192BcF6d9178De6E73FE4f4":{price = 0.000000000029; break;}case "0xfff9976782d46cc05630d1f6ebab18b2324d6b14":case "0x4200000000000000000000000000000000000006":{price = 2.3; break;}}
+}
