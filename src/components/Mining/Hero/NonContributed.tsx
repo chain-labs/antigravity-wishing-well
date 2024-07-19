@@ -159,6 +159,8 @@ export default function NonContributed({
     value,
     proof.length > 0 ? MULTIPLIER * 2 : MULTIPLIER,
     nativeToken as string,
+    setNFTHover,
+    setMinedSuccess,
   );
   const { data: tokenPrice } = useRestFetch<{ price: number }>(
     ["token_price", tokens?.[selectedToken]?.address],
@@ -169,13 +171,6 @@ export default function NonContributed({
   const usdValue = useMemo(() => {
     return tokenPrice?.price;
   }, [tokenPrice]);
-
-  useEffect(() => {
-    if (receipt) {
-      setNFTHover(true);
-      setMinedSuccess(true);
-    }
-  }, [darkXBalance, receipt]);
 
   const {
     data: predictedPointsData,
@@ -228,6 +223,8 @@ export default function NonContributed({
     }
   };
 
+  const { nftURLera2 } = useUserData();
+
   useEffect(() => {
     if (
       (darkXBalance as bigint) > 0 &&
@@ -243,11 +240,10 @@ export default function NonContributed({
     }
   }, [darkXBalance]);
 
-  const { nftURL } = useUserData();
 
   return (
     <div className="max-w-full relative flex flex-col justify-center items-center gap-[8px] mt-[50px]">
-      {(darkXBalance as bigint) > 0 && nftURL !== "" ? (
+      {nftURLera2 ? (
         <NFTHero NFTHover={NFTHover} setNFTHover={setNFTHover} />
       ) : (
         <NoNFTHero />
