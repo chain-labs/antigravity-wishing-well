@@ -203,15 +203,15 @@ export default function Leaderboard({
 
   const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
 
-  useEffect(() => {
-    handleRefresh();
-  }, []);
-
   const handleRefresh = () => {
     mutateLeaderboardData({
       walletAddress: account.address ?? "",
     });
   };
+
+  useEffect(() => {
+    handleRefresh();
+  }, [account.address, account.chainId]);
 
   useEffect(() => {
     if (leaderboardData) {

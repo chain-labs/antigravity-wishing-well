@@ -128,15 +128,15 @@ export default function Leaderboard({
     "/api/leaderboard",
   );
 
-  useEffect(() => {
-    handleRefresh();
-  }, [accountIsConnected]);
-
   const handleRefresh = () => {
     mutateLeaderboardData({
       walletAddress: account.address ?? "",
     });
   };
+
+  useEffect(() => {
+    handleRefresh();
+  }, [account.address, account.chainId]);
 
   useEffect(() => {
     if (leaderboardData) {

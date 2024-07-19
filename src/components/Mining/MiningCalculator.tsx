@@ -87,7 +87,7 @@ export function InputCard({
 
     if (!isNaN(numberValue) && numberValue >= 0) {
       setCurrentInputValue(inputCurrentValue);
-      if(inputRef.current) {
+      if (inputRef.current) {
         inputRef.current.value = inputCurrentValue;
       }
     }

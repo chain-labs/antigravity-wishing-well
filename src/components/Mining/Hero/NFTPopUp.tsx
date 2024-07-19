@@ -42,21 +42,23 @@ export default function NFTPopUp({
     useState(false);
   const [starfieldAnimationComplete, setStarfieldAnimationComplete] =
     useState(false);
-  const { nftURL, wishwellPoints, miningPoints, totalPoints, rank } =
+  const { nftURLera2, wishwellPoints, miningPoints, totalPoints, rank } =
     useUserData();
 
   useEffect(() => {
-    if (account.address && localStorage?.getItem("user-data")) {
+    if (account.address) {
+      console.log({ nftURLera2 });
+
       setPoints({
         wishwell: wishwellPoints,
         mining: miningPoints,
         total: totalPoints,
         conversion: 10,
         badge: rank,
-        nftURL: nftURL,
+        nftURL: nftURLera2,
       });
     }
-  }, []);
+  }, [nftURLera2, wishwellPoints, miningPoints, totalPoints, rank]);
 
   useEffect(() => {
     setTimeout(() => {

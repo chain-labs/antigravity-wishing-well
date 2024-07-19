@@ -2,17 +2,14 @@ import { condenseAddress } from "@/utils";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 import { PiWarningCircle } from "react-icons/pi";
-import { Badge } from "../../../HTML/Badge";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRestPost } from "@/hooks/useRestClient";
 import useUserData from "@/app/(client)/store";
-import { TEST_NETWORK } from "@/constants";
-import { base, baseSepolia, pulsechain, sepolia } from "viem/chains";
+import { hydrateUserAndNFT } from "./utils";
+import { Badge } from "@/components/HTML/Badge";
 export interface UserData {
   rank: string;
   walletAddress: string; // Add the 'walletAddress' property
-  nftURL: string; // Add the 'nftURL' property
   wishwellPoints: number; // Add the 'wishwellPoints' property
   miningPoints: number; // Add the 'miningPoints' property
   totalPoints: number;
@@ -26,74 +23,39 @@ export interface UserData {
 export const UserConnected: React.FC = () => {
   const account = useAccount();
   const { mutation: storeUserData, rank } = useUserData();
-  const [tokenId, setTokenId] = useState(0);
 
-  const { data: userData, mutate: mutateUserData } = useRestPost<UserData>(
+  const { mutateAsync: mutateUserData } = useRestPost<UserData>(
     ["user"],
     "/api/user",
   );
 
-  const { data: NFTData, mutate: mutateNFTData } = useRestPost<any>(
+  const { mutateAsync: mutateNFTData1 } = useRestPost<any>(
     ["generate-nft"],
     "/api/generate-nft",
   );
 
+  const { mutateAsync: mutateNFTData2 } = useRestPost<any>(
+    ["generate-nft"],
+    "/api/generate-nft",
+  );
+
+  const { nftURLera1, nftURLera2 } = useUserData();
+
   useEffect(() => {
     if (account.address) {
-      mutateUserData({
-        walletAddress: account.address?.toLowerCase(),
-      });
+      hydrateUserAndNFT(
+        account,
+        mutateUserData,
+        mutateNFTData1,
+        mutateNFTData2,
+        storeUserData,
+      )
+        .then(() => {
+          console.log("User Data Updated");
+        })
+        .catch((err) => console.log({ err }));
     }
-  }, [account.address]);
-
-  useEffect(() => {
-    if (userData) {
-      storeUserData({
-        walletAddress: userData.walletAddress,
-        rank: userData.rank,
-        wishwellPulsechainTokenId: userData.wishwellPulsechainTokenId,
-        wishwellBaseTokenId: userData.wishwellBaseTokenId,
-        antigravityBaseTokenId: userData.antigravityBaseTokenId,
-        antigravityPulsechainTokenId: userData.antigravityPulsechainTokenId,
-        wishwellPoints: userData.wishwellPoints,
-        miningPoints: userData.miningPoints,
-        totalPoints: userData.totalPoints,
-      });
-      let tokenId = "0";
-      let blockchain = "pulsechain";
-
-      if (TEST_NETWORK) {
-        if (account.chainId === sepolia.id) {
-          tokenId = userData.antigravityPulsechainTokenId;
-          blockchain = "pulsechain";
-        } else if (account.chainId === baseSepolia.id) {
-          tokenId = userData.antigravityBaseTokenId;
-          blockchain = "base";
-        }
-      } else {
-        if (account.chainId === pulsechain.id) {
-          tokenId = userData.antigravityPulsechainTokenId;
-          blockchain = "pulsechain";
-        } else if (account.chainId === base.id) {
-          tokenId = userData.antigravityBaseTokenId;
-          blockchain = "base";
-        }
-      }
-      mutateNFTData({
-        tokenId: Number(tokenId),
-        era: 2,
-        blockchain,
-      });
-    }
-  }, [userData]);
-
-  useEffect(() => {
-    if (NFTData) {
-      storeUserData({
-        nftURL: NFTData.url,
-      });
-    }
-  }, [NFTData]);
+  }, [account.address, account.chainId]);
 
   return (
     <div className="flex text-lg">
