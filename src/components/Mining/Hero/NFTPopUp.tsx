@@ -46,6 +46,8 @@ export default function NFTPopUp({
 
   useEffect(() => {
     if (account.address) {
+      console.log({ nftURLera2 });
+
       setPoints({
         wishwell: wishwellPoints,
         mining: miningPoints,
