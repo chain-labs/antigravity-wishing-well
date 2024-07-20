@@ -39,7 +39,7 @@ export default function ContributedHero({ nftUri }: { nftUri: string }) {
                 src={nftUri}
                 alt="nft"
                 layout="fill"
-                className="max-w-[349px] max-h-[592px] w-full h-auto md:max-w-[500px] md:w-full md:h-auto"
+                className="max-w-[349px] max-h-[592px] min-h-[400px] w-full h-auto md:max-w-[500px] md:w-full md:h-auto"
                 objectFit="contain"
               />
             </ThreeDHovercardEffect>

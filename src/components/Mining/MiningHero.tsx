@@ -35,8 +35,13 @@ export default function MiningHero() {
     };
   }, [NFTHover]);
 
+  function handleNFTClose() {
+    setNFTReveal(false);
+    setNFTHover(false);
+  }
+
   return (
-    <div className="relative w-full min-h-screen h-fit z-0 overflow-hidden">
+    <div className="relative w-full min-h-screen h-fit z-10 overflow-hidden">
       <Image
         src={IMAGEKIT_IMAGES.MINING_BG}
         height={1080}
@@ -76,6 +81,7 @@ export default function MiningHero() {
               NFTRef={NFTRef}
               minedSuccess={minedSuccess}
               setMinedSuccess={setMinedSuccess}
+              handleNFTClose={handleNFTClose}
             />
           )}
         </AnimatePresence>
