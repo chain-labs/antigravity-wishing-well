@@ -14,29 +14,10 @@ import useClaim from "@/hooks/sc-fns/useClaim";
 export default function MiningHero() {
   const [state, setState] = useState<StateType>("Claiming");
   const [NFTHover, setNFTHover] = useState(false);
-  const [NFTReveal, setNFTReveal] = useState(false);
-  const NFTRef = useRef<HTMLDivElement>(null);
-  const NFTContainerRef = useRef<HTMLDivElement>(null);
   const [minedSuccess, setMinedSuccess] = useState(false);
   const timer = useTimer();
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (NFTHover) {
-        setNFTReveal(true);
-      } else {
-        setNFTReveal(false);
-      }
-    }, 500);
-
-    return () => {
-      clearTimeout(timeout);
-      setNFTReveal(false);
-    };
-  }, [NFTHover]);
-
   function handleNFTClose() {
-    setNFTReveal(false);
     setNFTHover(false);
   }
 
@@ -66,19 +47,14 @@ export default function MiningHero() {
           ) : (
             <NonContributed
               state={state}
-              NFTContainerRef={NFTContainerRef}
-              NFTRef={NFTRef}
-              NFTHover={NFTHover}
               setNFTHover={setNFTHover}
               setMinedSuccess={setMinedSuccess}
             />
           )}
         </div>
         <AnimatePresence>
-          {NFTReveal && (
+          {NFTHover && (
             <NFTPopUp
-              NFTContainerRef={NFTContainerRef}
-              NFTRef={NFTRef}
               minedSuccess={minedSuccess}
               setMinedSuccess={setMinedSuccess}
               handleNFTClose={handleNFTClose}
