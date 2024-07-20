@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from "react";
 import KECCAK256 from "keccak256";
 import { MerkleTree } from "merkletreejs";
-import { encodeAbiParameters } from "viem";
+import { encodeAbiParameters, zeroAddress } from "viem";
 
 type Props = {};
 
@@ -16,7 +16,7 @@ const useMerkleTree = (addresses: Array<string>) => {
 
   const list = useMemo(() => {
     if (addresses.length === 1) {
-      return [addresses[0], addresses[0]];
+      return [zeroAddress, addresses[0]];
     } else {
       return addresses;
     }
@@ -59,6 +59,7 @@ const useMerkleTree = (addresses: Array<string>) => {
     );
 
     const proof = tree.getProof(leaf).map((x) => buf2hex(x.data));
+    console.log({ proof });
 
     return proof;
   };
