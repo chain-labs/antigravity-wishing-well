@@ -31,6 +31,7 @@ export default function NonContributed({
 }) {
   const [value, setValue] = useState(40000);
   const timerState = useTimer();
+  const [multiplyer, setMultiplyer] = useState(1);
 
   const MiningContract = useMiningContract();
 
@@ -132,7 +133,7 @@ export default function NonContributed({
     selectedToken,
     tokens,
     value,
-    proof.length > 0 ? MULTIPLIER * 2 : MULTIPLIER,
+    multiplyer,
     nativeToken as string,
     setNFTHover,
     setMinedSuccess,
@@ -162,8 +163,6 @@ export default function NonContributed({
       amount: 1,
     });
   }, [account.address, timerState.era, timerState.phase]);
-
-  const [multiplyer, setMultiplyer] = useState(1);
 
   const calculateMultiplyer = () => {
     const multiplyerData = predictedPointsData?.points || 0;

@@ -233,6 +233,9 @@ const useMining = (
       }
       setTransactionLoading(false);
     }
+  }, [mineError, approveError]);
+
+  useEffect(() => {
     if (receipt) {
       verifyAsync({ walletAddress: account.address }).then((response) => {
         // setDarkXBalance(BigInt(Number(darkXBalance) + 1));
@@ -246,13 +249,13 @@ const useMining = (
           console.log("Hydrated User Data");
           setTransactionLoading(false);
           successToast(`Succesfully mined ${points} $DarkX tokens!`);
-          // setNFTHover(true);
+          setNFTHover(true);
           setMinedSuccess(true);
         });
         console.log({ receipt });
       });
     }
-  }, [mineError, receipt, approveError]);
+  }, [receipt]);
 
   useEffect(() => {
     if (token && amountToInvest && allowance !== undefined) {
@@ -284,12 +287,11 @@ const useMining = (
       // !(nativeToken.toLowerCase() === token.address.toLowerCase()) &&
       // Number(allowed) < Number(amount)
       if (isApprovalNeeded) {
-        const requiredAmount = BigInt(Number(amount) - Number(allowed));
         approve({
           address: token.address as `0x${string}`,
           abi: erc20ABI,
           functionName: "approve",
-          args: [MiningContract.address, requiredAmount],
+          args: [MiningContract.address, investAmount],
         });
       } else {
         mine({
@@ -307,20 +309,22 @@ const useMining = (
   };
 
   useEffect(() => {
-    if (approveReceipt) {
-      console.log({ approveReceipt, approveIsLoading, isApprovalNeeded });
-    }
-    if (isApprovalNeeded && !approveIsLoading && approveReceipt) {
-      console.log("mining", { merkleProofState });
+    if (transactionLoading) {
+      if (approveReceipt) {
+        console.log({ approveReceipt, approveIsLoading, isApprovalNeeded });
+      }
+      if (isApprovalNeeded && !approveIsLoading && approveReceipt) {
+        console.log("mining", { merkleProofState });
 
-      mine({
-        address: MiningContract?.address as `0x${string}`,
-        abi: MiningContract?.abi,
-        functionName: "mine",
-        args: [token.address, investAmount, merkleProofState || []],
-        value: token.address === nativeToken ? investAmount : BigInt(0),
-      });
-      setMerkleProofState(null);
+        mine({
+          address: MiningContract?.address as `0x${string}`,
+          abi: MiningContract?.abi,
+          functionName: "mine",
+          args: [token.address, investAmount, merkleProofState || []],
+          value: token.address === nativeToken ? investAmount : BigInt(0),
+        });
+        setMerkleProofState(null);
+      }
     }
   }, [isApprovalNeeded, approveIsLoading, approveReceipt]);
 
