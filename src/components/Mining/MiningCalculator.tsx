@@ -203,7 +203,7 @@ export function InputCard({
               height={24}
               className={twMerge("object-cover")}
             />
-            {`${parseFloat(tokenBalance).toLocaleString()} ${dropdownOptions?.[dropDownSelected]?.symbol}`}
+            {`${parseFloat(tokenBalance).toLocaleString()} ${dropdownOptions?.[dropDownSelected]?.symbol ?? "Symbol"}`}
           </div>
         )}
         {account.isConnected && (
