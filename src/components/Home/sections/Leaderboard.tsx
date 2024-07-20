@@ -50,7 +50,7 @@ function CollectiveLogo() {
       <a
         onMouseLeave={() => setHover(false)}
         href="/collective"
-        className="flex justify-start items-center gap-2 absolute bottom-0 right-0 lg:left-[10%] lg:top-0 z-[100] lg:translate-y-[-100%] h-fit w-fit"
+        className="flex justify-start items-center gap-2 absolute lg:relative bottom-0 right-0 z-[100] h-fit w-fit"
       >
         <Image
           onMouseEnter={() => setHover(true)}
