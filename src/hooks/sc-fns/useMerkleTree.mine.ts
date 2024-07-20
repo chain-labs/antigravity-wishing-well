@@ -11,8 +11,16 @@ type Props = {};
  * @param {Array<string>} addresses
  * @returns {{ tree: any; root: any; generateProof: (candidate: string) => any; }}
  */
-const useMerkleTree = (list: Array<string>) => {
+const useMerkleTree = (addresses: Array<string>) => {
   const buf2hex = (x: any) => "0x" + x.toString("hex");
+
+  const list = useMemo(() => {
+    if (addresses.length === 1) {
+      return [addresses[0], addresses[0]];
+    } else {
+      return addresses;
+    }
+  }, [addresses]);
 
   /**
    * Util Function to generate leaf for an item provided
