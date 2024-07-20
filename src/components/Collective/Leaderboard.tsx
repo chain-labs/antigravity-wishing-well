@@ -24,7 +24,7 @@ import useTimer from "@/hooks/frontend/useTimer";
 
 function CollectiveLogo() {
   return (
-    <div className="flex justify-start items-center gap-2 absolute bottom-0 right-0 lg:left-[10%] lg:top-[-10%] z-[100] lg:translate-y-[-100%] h-fit w-fit">
+    <div className="flex justify-start items-center gap-2 absolute lg:relative bottom-0 right-0 z-[100] h-fit w-fit">
       <Image
         src={IMAGEKIT_LOGOS.COLLECTIVE_COLOR_LOGO}
         alt="leaderboard background"
@@ -44,74 +44,7 @@ type tableDataType = {
   special?: boolean;
 } | null;
 
-const tableDataStatic: tableDataType[] = [
-  {
-    rank: 1,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-  },
-  {
-    rank: 2,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-  },
-  {
-    rank: 3,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-  },
-  {
-    rank: 4,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-  },
-  {
-    rank: 5,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-  },
-  {
-    rank: 6,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-  },
-  {
-    rank: 7,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-  },
-  {
-    rank: 8,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-  },
-  {
-    rank: 9,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-  },
-  {
-    rank: 10,
-    badge: "Specialist Technician",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 90000,
-  },
-];
-
-export default function Leaderboard({
-  accountIsConnected,
-}: {
-  accountIsConnected: boolean;
-}) {
+export default function Leaderboard() {
   const timer = useTimer();
   const account = useAccount();
   const [tableData, setTableData] = useState<tableDataType[]>([]);
@@ -119,10 +52,6 @@ export default function Leaderboard({
   const [selectedLeaderboard, setSelectedLeaderboard] = useState<
     "allTimeLeaderboard" | "era1Leaderboard" | "era2Leaderboard" | string
   >("allTimeLeaderboard");
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ["start end", "start start"],
-  });
   const { data: leaderboardData, mutate: mutateLeaderboardData } = useRestPost(
     ["leaderboard"],
     "/api/leaderboard",
@@ -159,7 +88,7 @@ export default function Leaderboard({
         }
       >
         <div className="flex flex-col gap-[16px] w-full min-h-full">
-          <div className="grid grid-cols-1 lg:grid-cols-3 w-full max-w-[100%] min-h-full">
+          <div className="grid grid-cols-1 lg:grid-cols-3 w-full max-w-[100%] min-h-full gap-[16px]">
             <div className="flex flex-col gap-[16px] col-span-2 w-full">
               <div className="flex flex-wrap justify-start items-center gap-x-[16px] gap-y-[8px] z-50 max-w-full">
                 <H1>Leaderboard</H1>
@@ -230,7 +159,9 @@ export default function Leaderboard({
                 {timer.era !== "minting" && (
                   <Link href={"/mining"}>
                     <Button
-                      innerText="Start mining"
+                      innerText={
+                        timer.claimStarted ? "Start Claiming" : "Start mining"
+                      }
                       iconSrc={IMAGEKIT_ICONS.HAMMER}
                       iconAlt="hammer icon"
                       variants={{

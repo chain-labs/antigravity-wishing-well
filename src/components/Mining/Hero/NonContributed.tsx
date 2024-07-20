@@ -22,17 +22,11 @@ import useUserData from "@/app/(client)/store";
 
 export default function NonContributed({
   state,
-  NFTHover,
   setNFTHover,
-  NFTContainerRef,
-  NFTRef,
   setMinedSuccess,
 }: {
   state: StateType;
-  NFTHover: boolean;
   setNFTHover: Dispatch<SetStateAction<boolean>>;
-  NFTContainerRef: React.RefObject<HTMLDivElement>;
-  NFTRef: React.RefObject<HTMLDivElement>;
   setMinedSuccess: Dispatch<SetStateAction<boolean>>;
 }) {
   const [value, setValue] = useState(40000);
@@ -54,25 +48,6 @@ export default function NonContributed({
   };
 
   const { openConnectModal } = useConnectModal();
-
-  useEffect(() => {
-    if (!NFTHover) return;
-    if (!NFTContainerRef.current) return;
-    NFTContainerRef.current.addEventListener("click", (e) => {
-      // if e.currentTarget is not the NFTRef and button
-      if (NFTRef.current && !NFTRef.current.contains(e.target as Node)) {
-        setNFTHover(false);
-      }
-    });
-
-    return () => {
-      document.removeEventListener("click", () => {});
-    };
-  }, [NFTHover, NFTContainerRef, NFTRef]);
-
-  useEffect(() => {
-    document.body.style.overflow = NFTHover ? "hidden" : "auto";
-  }, [NFTHover]);
 
   const [selectedToken, setSelectedToken] = useState(0);
 
@@ -242,11 +217,7 @@ export default function NonContributed({
 
   return (
     <div className="max-w-full relative flex flex-col justify-center items-center gap-[8px] mt-[50px]">
-      {nftURLera2 ? (
-        <NFTHero NFTHover={NFTHover} setNFTHover={setNFTHover} />
-      ) : (
-        <NoNFTHero />
-      )}
+      {nftURLera2 ? <NFTHero setNFTHover={setNFTHover} /> : <NoNFTHero />}
 
       <MiningCalculator
         tokenBalance={tokenBalances?.[selectedToken] || "0"}

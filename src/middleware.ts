@@ -3,25 +3,35 @@ import { headers } from "next/headers";
 
 export async function middleware(request: NextRequest) {
   const realIp = headers().get("x-real-ip");
+  const geo = request.geo?.country
 
-  const apiResponse = await (
-    await fetch(
-      `https://get.geojs.io/v1/ip/country/${realIp ?? "0.0.0.0"}.json`,
-    )
-  ).json();
+  try{
+    const apiResponse = await (
+      await fetch(
+        `https://get.geojs.io/v1/ip/country/${realIp ?? "0.0.0.0"}.json`,
+      )
+    ).json();
+  
+    console.log('apiResponse', apiResponse);
+    
+  }
+  catch(e){
+    console.log('error', e);
+  }
 
-  const restrictedCountryCodes = ["GUM", "USA", "VIR", "PRI"];
+
+  const restrictedCountryCodes = ["GU", "US", "VI", "PR"];
 
   const url = request.nextUrl.clone();
   const pathname = url.pathname;
 
   if (!pathname.includes("/blocked")) {
-    if (restrictedCountryCodes.includes(apiResponse.country_3)) {
+    if (restrictedCountryCodes.includes(geo ?? "")) {
       return NextResponse.redirect(url.origin + "/blocked");
     }
   }
   if (pathname.includes("/blocked")) {
-    if (!restrictedCountryCodes.includes(apiResponse.country_3)) {
+    if (!restrictedCountryCodes.includes(geo ?? "")) {
       return NextResponse.redirect(url.origin + "/");
     }
   }

@@ -96,7 +96,7 @@ export default function CollectiveHero() {
         transition={{ duration: 1, type: "spring", bounce: 0.25, delay: 1.5 }}
         className="hidden md:block w-full h-fit max-w-[1200px]"
       >
-        <Leaderboard accountIsConnected={account.isConnected} />
+        <Leaderboard />
       </motion.div>
       <Image
         src={IMAGEKIT_IMAGES.COLLECTIVE_HERO_BG}
