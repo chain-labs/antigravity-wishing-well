@@ -16,7 +16,7 @@ const useMerkleTree = (addresses: Array<string>) => {
 
   const list = useMemo(() => {
     if (addresses.length === 1) {
-      return [addresses[0], addresses[0]];
+      return [zeroAddress, addresses[0]];
     } else {
       return addresses;
     }
