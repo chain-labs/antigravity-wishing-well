@@ -34,8 +34,7 @@ function CollectiveLogo() {
     const timeout = setTimeout(() => {
       if (hover) {
         setReveal(true);
-      }
-      else{
+      } else {
         setReveal(false);
       }
     }, 500);
@@ -321,7 +320,9 @@ export default function Leaderboard({
                 {timer.era !== "minting" && (
                   <Link href={"/mining"}>
                     <Button
-                      innerText="Start mining"
+                      innerText={
+                        timer.claimStarted ? "Start Claiming" : "Start mining"
+                      }
                       iconSrc={IMAGEKIT_ICONS.HAMMER}
                       iconAlt="hammer icon"
                       variants={{

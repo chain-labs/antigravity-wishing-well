@@ -18,7 +18,7 @@ export default function CollectivePage() {
       <CollectiveHero />
       <div className="md:h-[50vh]" />
       <div className="block md:hidden">
-        <Leaderboard accountIsConnected={account.isConnected} />
+        <Leaderboard />
       </div>
       <Event />
       <CollectiveRotatingCarousel />
