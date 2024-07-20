@@ -14,8 +14,6 @@ export default function LoadingPage({
   const [slideUpProgress, setSlideUpProgress] = useState(0);
   const { setLoadingComplete, loading, strictNoLoading } = useLoading();
 
-  console.log('loading', loading, strictNoLoading);
-
   useEffect(() => {
     if (contentLoaded || !loading) {
       const interval = setInterval(() => {

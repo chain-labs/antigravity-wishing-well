@@ -12,15 +12,13 @@ import useUserData from "@/app/(client)/store";
 import imageKitLoader from "@/components/imageKitLoader";
 
 export default function NFTPopUp({
-  NFTContainerRef,
-  NFTRef,
   minedSuccess = false,
   setMinedSuccess,
+  handleNFTClose,
 }: {
-  NFTContainerRef: React.RefObject<HTMLDivElement>;
-  NFTRef: React.RefObject<HTMLDivElement>;
   minedSuccess?: boolean;
   setMinedSuccess: Dispatch<SetStateAction<boolean>>;
+  handleNFTClose: () => void;
 }) {
   // const points = {
   //   wishwell: 41415.65,
@@ -81,9 +79,12 @@ export default function NFTPopUp({
       transition={{
         duration: 0.5,
       }}
-      ref={NFTContainerRef}
       className="fixed top-0 left-0 w-screen h-screen bg-[#0000001f] flex justify-center items-center z-10 backdrop-blur-lg cursor-not-allowed"
     >
+      <div
+        className="absolute inset-0 top-0 left-0 h-full w-full z-[-1]"
+        onMouseDown={handleNFTClose}
+      ></div>
       <AnimatePresence>
         {!starfieldAnimationComplete && (
           <motion.div
@@ -99,6 +100,7 @@ export default function NFTPopUp({
             }}
             onAnimationComplete={() => setStarfieldAnimationComplete(true)}
             className="absolute inset-0 h-full w-full"
+            onMouseDown={handleNFTClose}
           >
             <DarkXFieldCanvas
               count={100}
@@ -125,7 +127,6 @@ export default function NFTPopUp({
           duration: 0.5,
           type: "spring",
         }}
-        ref={NFTRef}
         className="z-0 cursor-pointer"
       >
         {points && minedSuccess && (
