@@ -130,7 +130,7 @@ const useMining = (
   const {
     data: approveReceipt,
     isLoading: approveIsLoading,
-  } = useWaitForTransactionReceipt({ hash: approveHash, confirmations: 3 });
+  } = useWaitForTransactionReceipt({ hash: approveHash, confirmations: 2 });
 
   /* <--------END----------> */
 
