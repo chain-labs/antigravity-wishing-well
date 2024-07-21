@@ -45,18 +45,18 @@ export async function GET(request: NextRequest) {
       }
     } else {
       switch (token) {
-        case "0xdE233753Dc215f6F0a66ad44Ec48Fa7807b59230":
-        case "0x16d5C98Dc59170c2a92FD00F1E1533389AD935FF": {
+        case "0xa9e33497946010a7c9d7D022A296Fae5A90C5c27":
+        case "0xBf0c21235cDC15394D55CE79866000791E5C4a71": {
           price = 1;
           break;
         }
-        case "0x8D199DF61b9FfdCde53b192e1B9CFA5d2Ca27a2b":
-        case "0x2827B8EBF24c58e0F21e5aEfF4F2971d1b18a5a2": {
+        case "0x0260757620E17E1F572098B9DDc79bF8a638Ed12":
+        case "0x74346fB89D22d15bEf618500A8D9CaCCAaB60d70": {
           price = 0.0195;
           break;
         }
-        case "0x08B1a5956784F184469d3b05d76a8B1cDf76904f":
-        case "0x5e1e2F03762a751cC9DD4e9f434616D479a7f4C6": {
+        case "0xfa07bEd1f88C2850F41A714EB4fD3604edE73249":
+        case "0xE1CC481eA34a692af4ad0014a951c92e77F424F0": {
           price = 0.000000000029;
           break;
         }
