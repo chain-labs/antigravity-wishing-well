@@ -101,47 +101,82 @@ export default function Youtube() {
           Join us on <br className="hidden lg:block" /> our journey.
         </H1>
         <div className="flex flex-col gap-[16px]">
-          <a href={externalLinks?.darkpaper} target="_blank" rel="noreferrer">
-            <Button
-              innerText="Read DarkPaper"
-              iconSrc={IMAGEKIT_ICONS.DOCUMENT}
-              iconAlt="Dark Paper"
-              className="w-full lg:w-fit"
-              variants={{
-                hover: {
-                  scale: 1.5,
-                  rotate: -11,
-                  transition: {
-                    duration: 0.5,
-                    type: "spring",
-                  },
-                },
-              }}
-            />
-          </a>
-          <div className="flex flex-wrap md:flex-nowrap gap-[8px] w-full">
-            <a href={externalLinks?.telegram} target="_blank" rel="noreferrer" className="w-full lg:w-fit">
+          {externalLinks?.darkpaper ? (
+            <a href={externalLinks?.darkpaper} target="_blank" rel="noreferrer">
               <Button
+                innerText="Read DarkPaper"
+                iconSrc={IMAGEKIT_ICONS.DOCUMENT}
+                iconAlt="Dark Paper"
+                className="w-full lg:w-fit"
                 variants={{
                   hover: {
-                    animationName: "flyingPlane",
-                    animationDuration: "0.5s",
-                    animationFillMode: "forwards",
-                    animationTimingFunction: "linear",
-                    animationDelay: "0.25s",
-                  },
-                  rest: {
-                    animationName: "restflyingPlane",
+                    scale: 1.5,
+                    rotate: -11,
+                    transition: {
+                      duration: 0.5,
+                      type: "spring",
+                    },
                   },
                 }}
-                innerText="Telegram"
-                iconSrc={IMAGEKIT_ICONS.TELEGRAM}
-                iconAlt="Telegram"
-                secondary
-                className="bg-transparent origin-center border-[#FEFFFF40] shadow-[0_4px_0px_#FEFFFF40_!important] hover:shadow-[0_0px_0px_#FEFFFF40_!important] px-[10px] py-[6px] w-full lg:w-fit"
               />
             </a>
-            <a href={externalLinks?.discord} target="_blank" rel="noreferrer" className="w-full lg:w-fit">
+          ) : null}
+          <div className="flex flex-wrap md:flex-nowrap gap-[8px] w-full">
+            {externalLinks?.telegram ? (
+              <a
+                href={externalLinks?.telegram}
+                target="_blank"
+                rel="noreferrer"
+                className="w-full lg:w-fit"
+              >
+                <Button
+                  variants={{
+                    hover: {
+                      animationName: "flyingPlane",
+                      animationDuration: "0.5s",
+                      animationFillMode: "forwards",
+                      animationTimingFunction: "linear",
+                      animationDelay: "0.25s",
+                    },
+                    rest: {
+                      animationName: "restflyingPlane",
+                    },
+                  }}
+                  innerText="Telegram"
+                  iconSrc={IMAGEKIT_ICONS.TELEGRAM}
+                  iconAlt="Telegram"
+                  secondary
+                  className="bg-transparent origin-center border-[#FEFFFF40] shadow-[0_4px_0px_#FEFFFF40_!important] hover:shadow-[0_0px_0px_#FEFFFF40_!important] px-[10px] py-[6px] w-full lg:w-fit"
+                />
+              </a>
+            ) : null}
+            {externalLinks?.discord ? (
+              <a
+                href={externalLinks?.discord}
+                target="_blank"
+                rel="noreferrer"
+                className="w-full lg:w-fit"
+              >
+                <Button
+                  variants={{
+                    hover: {
+                      animationName: "wiggle",
+                      animationDuration: "1s",
+                      animationFillMode: "forwards",
+                      animationTimingFunction: "linear",
+                    },
+                  }}
+                  innerText="Discord"
+                  iconSrc={IMAGEKIT_ICONS.DISCORD}
+                  iconAlt="Discord"
+                  secondary
+                  className="bg-transparent origin-bottom border-[#FEFFFF40] shadow-[0_4px_0px_#FEFFFF40_!important] hover:shadow-[0_0px_0px_#FEFFFF40_!important] px-[10px] py-[6px] w-full lg:w-fit"
+                />
+              </a>
+            ) : null}
+          </div>
+          {externalLinks?.twitter ? (
+            <a href={externalLinks?.twitter} target="_blank" rel="noreferrer">
               <Button
                 variants={{
                   hover: {
@@ -151,31 +186,14 @@ export default function Youtube() {
                     animationTimingFunction: "linear",
                   },
                 }}
-                innerText="Discord"
-                iconSrc={IMAGEKIT_ICONS.DISCORD}
+                innerText="Twitter"
+                iconSrc={IMAGEKIT_ICONS.TWITTER}
                 iconAlt="Discord"
                 secondary
-                className="bg-transparent origin-bottom border-[#FEFFFF40] shadow-[0_4px_0px_#FEFFFF40_!important] hover:shadow-[0_0px_0px_#FEFFFF40_!important] px-[10px] py-[6px] w-full lg:w-fit"
+                className="w-full bg-transparent origin-bottom border-[#FEFFFF40] shadow-[0_4px_0px_#FEFFFF40_!important] hover:shadow-[0_0px_0px_#FEFFFF40_!important] px-[10px] py-[6px]"
               />
             </a>
-          </div>
-          <a href={externalLinks?.twitter} target="_blank" rel="noreferrer">
-            <Button
-              variants={{
-                hover: {
-                  animationName: "wiggle",
-                  animationDuration: "1s",
-                  animationFillMode: "forwards",
-                  animationTimingFunction: "linear",
-                },
-              }}
-              innerText="Twitter"
-              iconSrc={IMAGEKIT_ICONS.TWITTER}
-              iconAlt="Discord"
-              secondary
-              className="w-full bg-transparent origin-bottom border-[#FEFFFF40] shadow-[0_4px_0px_#FEFFFF40_!important] hover:shadow-[0_0px_0px_#FEFFFF40_!important] px-[10px] py-[6px]"
-            />
-          </a>
+          ) : null}
         </div>
       </div>
     </motion.div>
