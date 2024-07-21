@@ -1,18 +1,26 @@
 import React, { useEffect, useMemo } from "react";
 import KECCAK256 from "keccak256";
 import { MerkleTree } from "merkletreejs";
-import { encodeAbiParameters } from "viem";
+import { encodeAbiParameters, zeroAddress } from "viem";
 
 type Props = {};
 
 /**
  * Hook to utilize a merkle tree as a utility for mining functionality of $DarkX tokens
  *
- * @param {Array<string>} list
+ * @param {Array<string>} addresses
  * @returns {{ tree: any; root: any; generateProof: (candidate: string) => any; }}
  */
-const useMerkleTree = (list: Array<string>) => {
+const useMerkleTree = (addresses: Array<string>) => {
   const buf2hex = (x: any) => "0x" + x.toString("hex");
+
+  const list = useMemo(() => {
+    if (addresses.length === 1) {
+      return [zeroAddress, addresses[0]];
+    } else {
+      return addresses;
+    }
+  }, [addresses]);
 
   /**
    * Util Function to generate leaf for an item provided
@@ -49,7 +57,9 @@ const useMerkleTree = (list: Array<string>) => {
     const leaf = buf2hex(
       generateLeaf((queryAccount || candidate) as `0x${string}`),
     );
+
     const proof = tree.getProof(leaf).map((x) => buf2hex(x.data));
+    console.log({ proof });
 
     return proof;
   };
