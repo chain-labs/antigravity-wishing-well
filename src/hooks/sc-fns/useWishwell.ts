@@ -25,6 +25,7 @@ import { useRestPost } from "../useRestClient";
 import { UserData } from "@/components/Home/components/header/UserConnected";
 import useUserData from "@/app/(client)/store";
 import { useGQLFetch } from "../useGraphQLClient";
+import { hydrateUserAndNFT } from "@/components/Home/components/header/utils";
 
 type Props = {};
 
@@ -50,22 +51,22 @@ const useWishwell = () => {
     }
   }, [account.address, account.chainId]);
 
-  const { data: userData, mutate: mutateUserData } = useRestPost<UserData>(
+  const { mutateAsync: mutateUserData } = useRestPost<UserData>(
     ["user"],
     "/api/user",
   );
 
-  const {
-    mutation: storeUserData,
-    wishwellBaseTokenId,
-    wishwellPulsechainTokenId,
-    wishwellPoints,
-  } = useUserData();
-
-  const { data: NFTData, mutate: mutateNFTData } = useRestPost<any>(
-    ["generate-nft"],
+  const { mutateAsync: mutateNFTData1 } = useRestPost<any>(
+    ["generate-nft-era1"],
     "/api/generate-nft",
   );
+
+  const { mutateAsync: mutateNFTData2 } = useRestPost<any>(
+    ["generate-nft-era2"],
+    "/api/generate-nft",
+  );
+
+  const { nftURLera1, wishwellPoints, mutation: storeUser } = useUserData();
 
   const { data: tokenData, isError } = useGQLFetch<{
     users: { address: string; wishwellId: { tokenId: string } }[];
@@ -94,8 +95,6 @@ const useWishwell = () => {
       const tokenId = tokenData?.users?.[0]?.wishwellId?.tokenId;
       if (tokenId) {
         setTokenId(tokenId);
-        setIsRegistered(true);
-        setPoll(true);
       } else {
         setIsRegistered(false);
         setLoading(false);
@@ -111,74 +110,36 @@ const useWishwell = () => {
   }, [tokenData, isError]);
 
   useEffect(() => {
+    console.log({ tokenId });
     if (Number(tokenId) > 0) {
       setIsRegistered(true);
-    }
-  }, [tokenId]);
-
-  const getNFTURI = () => {
-    let tokenIdTemp = Number(tokenId) || 0;
-    let blockchain = "pulsechain";
-    if (!tokenIdTemp) {
-      if (TEST_NETWORK) {
-        if (account.chainId === sepolia.id) {
-          tokenIdTemp = Number(wishwellPulsechainTokenId);
-          blockchain = "pulsechain";
-        } else if (account.chainId === baseSepolia.id) {
-          tokenIdTemp = Number(wishwellBaseTokenId);
-          blockchain = "base";
-        }
-      } else {
-        if (account.chainId === pulsechain.id) {
-          tokenIdTemp = Number(wishwellPulsechainTokenId);
-          blockchain = "pulsechain";
-        } else if (account.chainId === base.id) {
-          tokenIdTemp = Number(wishwellBaseTokenId);
-          blockchain = "base";
-        }
+      setPoll(true);
+      console.log({ nftURLera1 });
+      if (nftURLera1) {
+        setIsSuccess(true);
       }
     }
-    if (tokenIdTemp) {
-      mutateNFTData({
-        tokenId: tokenIdTemp,
-        era: 1,
-        blockchain,
-      });
-      setIsSuccess(true);
-      setIsRegistered(true);
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (userData) {
-      console.log("updating user data");
-      storeUserData({
-        walletAddress: userData.walletAddress,
-        rank: userData.rank,
-        wishwellPulsechainTokenId: userData.wishwellPulsechainTokenId,
-        wishwellBaseTokenId: userData.wishwellBaseTokenId,
-        antigravityBaseTokenId: userData.antigravityBaseTokenId,
-        antigravityPulsechainTokenId: userData.antigravityPulsechainTokenId,
-        wishwellPoints: userData.wishwellPoints,
-        miningPoints: userData.miningPoints,
-        totalPoints: userData.totalPoints,
-      });
-      console.log({ wishwellPoints: userData.wishwellPoints });
-
-      if (userData.wishwellPoints > 0) {
-        getNFTURI();
-      }
-    }
-  }, [userData]);
+  }, [tokenId, nftURLera1]);
 
   useEffect(() => {
     if (isRegistered) {
       let timer: any;
+      hydrateUserAndNFT(
+        account,
+        mutateUserData,
+        mutateNFTData1,
+        mutateNFTData2,
+        storeUser,
+      );
       if (poll) {
-        hydrateData(true);
         timer = setInterval(() => {
-          hydrateData(true);
+          hydrateUserAndNFT(
+            account,
+            mutateUserData,
+            mutateNFTData1,
+            mutateNFTData2,
+            storeUser,
+          );
         }, POLL_TIME ?? 30000);
       }
 
@@ -190,32 +151,24 @@ const useWishwell = () => {
     }
   }, [poll, isRegistered]);
 
-  const hydrateData = async (poll?: boolean) => {
-    if (!account.isConnected) return;
-    if (!poll && checkCorrectNetwork(account.chainId)) {
-      console.log("setting false");
-      setLoading(true);
-      setIsRegistered(false);
-      setIsSuccess(false);
-    }
-    if (isSuccess) {
-      setPoll(false);
-      return;
-    }
-    console.log("polling");
-    if (wishwellPoints > 0) {
-      setLoading(false);
-      getNFTURI();
-    } else {
-      mutateUserData({ walletAddress: account.address });
-    }
-  };
-
-  useEffect(() => {
-    if (NFTData) {
-      setNftURI(NFTData.url);
-    }
-  }, [NFTData]);
+  // const hydrateData = async (poll?: boolean) => {
+  //   if (!account.isConnected) return;
+  //   if (!poll && checkCorrectNetwork(account.chainId)) {
+  //     setLoading(true);
+  //     setIsRegistered(false);
+  //     setIsSuccess(false);
+  //   }
+  //   if (isSuccess) {
+  //     setPoll(false);
+  //     return;
+  //   }
+  //   console.log("polling for wishwell contributions");
+  //   if (wishwellPoints > 0) {
+  //     setLoading(false);
+  //   } else {
+  //     mutateUserData({ walletAddress: account.address });
+  //   }
+  // };
 
   const {
     data: registerHash,
@@ -265,7 +218,13 @@ const useWishwell = () => {
       successToast("Registered successful", {
         duration: 3000,
       });
-      hydrateData(false);
+      hydrateUserAndNFT(
+        account,
+        mutateUserData,
+        mutateNFTData1,
+        mutateNFTData2,
+        storeUser,
+      );
       setIsRegistered(true);
       setIsRegistering(false);
     }
@@ -273,7 +232,6 @@ const useWishwell = () => {
 
   return {
     tokenId,
-    hydrateData,
     isRegistered,
     isSuccess,
     loading,

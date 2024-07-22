@@ -19,7 +19,6 @@ export default function Wishwell() {
     error,
     nftURI,
     setError,
-    tokenId,
     loading,
   } = useWishwell();
 
@@ -28,7 +27,7 @@ export default function Wishwell() {
       {account.status === "connected" ? (
         isRegistered ? (
           isSuccess ? (
-            <ContributedHero nftUri={nftURI} />
+            <ContributedHero />
           ) : (
             <RegisteredHero />
           )
