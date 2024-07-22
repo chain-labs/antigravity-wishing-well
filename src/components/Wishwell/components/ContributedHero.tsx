@@ -15,6 +15,7 @@ import PulsechainAG from "@/abi/wishwell/Pulsechain";
 import ThreeDHovercardEffect from "@/components/ThreeDHovercardEffect";
 import { TEST_NETWORK } from "@/constants";
 import useUserData from "@/app/(client)/store";
+import imageKitLoader from "@/components/imageKitLoader";
 
 export default function ContributedHero() {
   const copyToClipboard = (text: string) => {
@@ -23,6 +24,8 @@ export default function ContributedHero() {
   };
 
   const { nftURLera1 } = useUserData();
+
+  console.log('nftURLera1', nftURLera1);
 
   return (
     <div className="relative w-full min-h-screen overflow-hidden z-0">
@@ -34,14 +37,15 @@ export default function ContributedHero() {
             </H1>
             <P>Here&apos;s your NFT:</P>
           </div>
-          <div className="relative h-[500px] w-[294.76px]">
+          <div className="relative max-h-[500px] h-fit w-[294.76px]">
             <ThreeDHovercardEffect ROTATION_RANGE={10}>
               <Image
-                src={nftURLera1}
+                src={IMAGEKIT_IMAGES.NFT_RECEIPT}
                 alt="nft"
-                layout="fill"
-                className="max-w-[349px] max-h-[592px] min-h-[400px] w-full h-auto md:max-w-[500px] md:w-full md:h-auto"
-                objectFit="contain"
+                width={500}
+                height={592}
+                className="max-w-[349px] max-h-[592px] min-h-[400px] w-full h-auto md:max-w-[500px] md:w-full md:h-auto object-contain"
+                loader={imageKitLoader}
               />
             </ThreeDHovercardEffect>
           </div>
