@@ -129,9 +129,8 @@ const useMining = (
 
   const {
     data: approveReceipt,
-    error: approveReceiptError,
     isLoading: approveIsLoading,
-  } = useWaitForTransactionReceipt({ hash: approveHash });
+  } = useWaitForTransactionReceipt({ hash: approveHash, confirmations: 2 });
 
   /* <--------END----------> */
 
@@ -160,7 +159,7 @@ const useMining = (
   }, [amountToInvest, tokens, tokenSelected]);
 
   const { data: allowance } = useReadContract({
-    address: tokens?.[tokenSelected]?.address as `0x${string}`,
+    address: token?.address as `0x${string}`,
     abi: erc20ABI,
     functionName: "allowance",
     args: [account.address, MiningContract?.address],
@@ -233,10 +232,11 @@ const useMining = (
       }
       setTransactionLoading(false);
     }
+  }, [mineError, approveError]);
+
+  useEffect(() => {
     if (receipt) {
       verifyAsync({ walletAddress: account.address }).then((response) => {
-        successToast(`Succesfully mined ${points} $DarkX tokens!`);
-        setTransactionLoading(false);
         // setDarkXBalance(BigInt(Number(darkXBalance) + 1));
         hydrateUserAndNFT(
           account,
@@ -246,21 +246,28 @@ const useMining = (
           mutateUser,
         ).then(() => {
           console.log("Hydrated User Data");
+          setTransactionLoading(false);
+          successToast(`Succesfully mined ${points} $DarkX tokens!`);
           setNFTHover(true);
           setMinedSuccess(true);
         });
         console.log({ receipt });
       });
     }
-  }, [mineError, receipt, approveError]);
+  }, [receipt]);
 
   useEffect(() => {
-    if (token && allowance && amountToInvest) {
-      const allowed = formatUnits(allowance as bigint, token.decimals);
-      if (Number(allowed) < amountToInvest) {
+    if (token && amountToInvest && allowance !== undefined) {
+      if (allowance === BigInt(0)) {
         setIsApprovalNeeded(true);
       } else {
-        setIsApprovalNeeded(false);
+        const allowed =
+          Number(formatUnits(allowance as bigint, token.decimals)) || 0;
+        if (allowed < amountToInvest) {
+          setIsApprovalNeeded(true);
+        } else {
+          setIsApprovalNeeded(false);
+        }
       }
     }
   }, [allowance, amountToInvest, token]);
@@ -273,13 +280,12 @@ const useMining = (
         token.decimals,
       );
       const amount = formatUnits(investAmount, token.decimals);
+      setMerkleProofState(merkleProof);
+      console.log({ merkleProof });
 
-      if (
-        !(nativeToken.toLowerCase() === token.address.toLowerCase()) &&
-        Number(allowed) < Number(amount)
-      ) {
-        setIsApprovalNeeded(true);
-        setMerkleProofState(merkleProof);
+      // !(nativeToken.toLowerCase() === token.address.toLowerCase()) &&
+      // Number(allowed) < Number(amount)
+      if (isApprovalNeeded) {
         approve({
           address: token.address as `0x${string}`,
           abi: erc20ABI,
@@ -302,21 +308,22 @@ const useMining = (
   };
 
   useEffect(() => {
-    if (approveReceipt) {
-      console.log({ approveReceipt, approveIsLoading, isApprovalNeeded });
-    }
-    if (isApprovalNeeded && !approveIsLoading && approveReceipt) {
-      console.log("mining", { merkleProofState });
+    if (transactionLoading) {
+      if (approveReceipt) {
+        console.log({ approveReceipt, approveIsLoading, isApprovalNeeded });
+      }
+      if (isApprovalNeeded && !approveIsLoading && approveReceipt) {
+        console.log("mining", { merkleProofState });
 
-      mine({
-        address: MiningContract?.address as `0x${string}`,
-        abi: MiningContract?.abi,
-        functionName: "mine",
-        args: [token.address, investAmount, merkleProofState || []],
-        value: token.address === nativeToken ? investAmount : BigInt(0),
-      });
-      setIsApprovalNeeded(false);
-      setMerkleProofState(null);
+        mine({
+          address: MiningContract?.address as `0x${string}`,
+          abi: MiningContract?.abi,
+          functionName: "mine",
+          args: [token.address, investAmount, merkleProofState || []],
+          value: token.address === nativeToken ? investAmount : BigInt(0),
+        });
+        setMerkleProofState(null);
+      }
     }
   }, [isApprovalNeeded, approveIsLoading, approveReceipt]);
 
