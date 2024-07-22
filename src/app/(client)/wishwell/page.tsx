@@ -24,11 +24,11 @@ export default function Wishwell() {
 
   return (
     <>
-      {account.status === "connected" ? (
+      {/* {account.status === "connected" ? (
         isRegistered ? (
-          isSuccess ? (
+          isSuccess ? ( */}
             <ContributedHero />
-          ) : (
+          {/* ) : (
             <RegisteredHero />
           )
         ) : (
@@ -54,7 +54,7 @@ export default function Wishwell() {
             registerIdle: registerKit.registerIdle,
           }}
         />
-      )}
+      )} */}
       {account.isConnected && <Leaderboard accountIsConnected />}
       <Newsletter />
       <Footer />
