@@ -14,18 +14,20 @@ import SepoliaAG from "@/abi/wishwell/Sepolia";
 import PulsechainAG from "@/abi/wishwell/Pulsechain";
 import ThreeDHovercardEffect from "@/components/ThreeDHovercardEffect";
 import { TEST_NETWORK } from "@/constants";
+import useUserData from "@/app/(client)/store";
+import imageKitLoader from "@/components/imageKitLoader";
 
-export default function ContributedHero({ nftUri }: { nftUri: string }) {
-  const [imageLoading, setImageLoading] = useState(true);
-
+export default function ContributedHero() {
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
     successToast("Copied to clipboard!");
   };
 
+  const { nftURLera1 } = useUserData();
+
   return (
     <div className="relative w-full min-h-screen overflow-hidden z-0">
-      <div className="relative bg-gradient-to-b from-[#0000] h-fit to-[#000] overflow-hidden">
+      <div className="relative bg-gradient-to-b from-[#0000] to-[#000] overflow-hidden min-h-screen h-fit flex flex-col md:justify-between">
         <div className="flex flex-col justify-center items-center gap-[32px] mx-[16px] pt-[108px] md:pt-[164px] h-fit ">
           <div className="flex flex-col gap-[8px] justify-center items-center">
             <H1 className="text-[52px] leading-[53.76px] md:text-[72px] md:leading-[69.12px] text-agwhite">
@@ -36,11 +38,12 @@ export default function ContributedHero({ nftUri }: { nftUri: string }) {
           <div className="relative max-h-[500px] h-fit w-[294.76px]">
             <ThreeDHovercardEffect ROTATION_RANGE={10}>
               <Image
-                src={nftUri}
+                src={nftURLera1}
                 alt="nft"
-                layout="fill"
-                className="max-w-[349px] max-h-[592px] min-h-[400px] w-full h-auto md:max-w-[500px] md:w-full md:h-auto"
-                objectFit="contain"
+                width={500}
+                height={592}
+                className="max-w-[349px] max-h-[592px] min-h-[400px] w-full h-auto md:max-w-[500px] md:w-full md:h-auto object-contain"
+                loader={imageKitLoader}
               />
             </ThreeDHovercardEffect>
           </div>
