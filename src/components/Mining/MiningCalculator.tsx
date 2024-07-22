@@ -338,7 +338,7 @@ export function Card({
               }}
               extrabold
             >
-              {USFormatToNumber(currentConversion) < 0.0001 && "< "}
+              {USFormatToNumber(currentConversion) < 0.0001 && USFormatToNumber(currentConversion) === 0 &&  "< "}
               {"$"}
               {conversionRef.current && (
                 <AutomaticIncreamentalNumberCounterWithString

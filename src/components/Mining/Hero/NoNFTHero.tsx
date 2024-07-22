@@ -15,6 +15,9 @@ export default function NoNFTHero() {
           tokens.
           <br />
           <br />
+          High traffic may cause a 120-second delay in data indexing. Please refresh the leaderboard after 120 seconds if points are incorrect.
+          <br />
+          <br />
           Try the interactive demo! ➡️
         </P>
       </div>

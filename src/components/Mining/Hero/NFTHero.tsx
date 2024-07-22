@@ -34,6 +34,9 @@ export default function NFTHero({
           <br />
           Start mining with the recommended tokens and get Points and $DARKX
           tokens.
+          <br />
+          <br />
+          High traffic may cause a 120-second delay in data indexing. Please refresh the leaderboard after 120 seconds if points are incorrect.
         </P>
         <div className="flex justify-center items-center gap-[16px] z-50">
           <div className="hidden md:block">
