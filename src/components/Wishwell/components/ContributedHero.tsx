@@ -25,8 +25,6 @@ export default function ContributedHero() {
 
   const { nftURLera1 } = useUserData();
 
-  console.log('nftURLera1', nftURLera1);
-
   return (
     <div className="relative w-full min-h-screen overflow-hidden z-0">
       <div className="relative bg-gradient-to-b from-[#0000] to-[#000] overflow-hidden min-h-screen h-fit flex flex-col md:justify-between">
