@@ -38,7 +38,7 @@ export default function ContributedHero() {
           <div className="relative max-h-[500px] h-fit w-[294.76px]">
             <ThreeDHovercardEffect ROTATION_RANGE={10}>
               <Image
-                src={IMAGEKIT_IMAGES.NFT_RECEIPT}
+                src={nftURLera1}
                 alt="nft"
                 width={500}
                 height={592}
