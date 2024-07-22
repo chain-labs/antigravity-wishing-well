@@ -89,7 +89,6 @@ export const bookFields = [
     title: "Book URL",
     type: "url",
     group: "book",
-    validation: (rule) => rule.required(),
   }),
   defineField({
     name: "book_image",
