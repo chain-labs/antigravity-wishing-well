@@ -276,7 +276,7 @@ export default function NFTPopUp({
                     alt="nft card"
                     width={265}
                     height={400}
-                    className="w-[265px] h-auto object-cover z-[-1]"
+                    className="w-[265px] h-auto object-cover z-[-1] rounded-[12px]"
                     loader={imageKitLoader}
                   />
                 </motion.div>
@@ -293,7 +293,7 @@ export default function NFTPopUp({
                 width={265}
                 height={400}
                 onLoadingComplete={() => console.log('image loaded')}
-                className="w-[265px] h-auto object-cover z-[-1]"
+                className="w-[265px] h-auto object-cover z-[-1] rounded-[12px]"
                 loader={imageKitLoader}
               />
             </motion.div>

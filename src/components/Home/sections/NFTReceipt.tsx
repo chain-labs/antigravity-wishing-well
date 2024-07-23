@@ -49,7 +49,7 @@ export default function NFTReceipt() {
             alt="NFT Receipt"
             width={300}
             height={600}
-            className="rounded-lg"
+            className="rounded-[12px]"
             loader={imageKitLoader}
           />
         </ThreeDHovercardEffect>
