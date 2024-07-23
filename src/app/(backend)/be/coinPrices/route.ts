@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
       tokenAddress: token,
       poolAddress: pool,
       network: chainToCGNetwork(Number(network)),
-      isNativeToken: native,
+      isNativeToken: native === "true",
     });
 
     price = priceData.data.price;

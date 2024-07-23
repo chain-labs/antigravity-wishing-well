@@ -18,8 +18,8 @@ export async function GET(request: NextRequest) {
       // TODO: change ERA1 prod route
       URL = [
         TEST_NETWORK
-          ? `${baseURL}/ERA1/output.test.json`
-          : `${baseURL}/ERA1/output.test.json`,
+          ? `${baseURL}/ERA1/output.prod.json`
+          : `${baseURL}/ERA1/output.prod.json`,
       ];
       break;
     }
@@ -27,8 +27,8 @@ export async function GET(request: NextRequest) {
       // TODO: change ERA2 prod route
       URL = [
         TEST_NETWORK
-          ? `${baseURL}/ERA2/output.test.json`
-          : `${baseURL}/ERA2/output.test.json`,
+          ? `${baseURL}/ERA2/output.prod.json`
+          : `${baseURL}/ERA2/output.prod.json`,
       ];
       break;
     }
@@ -36,11 +36,11 @@ export async function GET(request: NextRequest) {
       URL = [
         `${baseURL}/mining_tokenlist.json`,
         TEST_NETWORK
-          ? `${baseURL}/ERA1/output.test.json`
-          : `${baseURL}/ERA1/output.test.json`,
+          ? `${baseURL}/ERA1/output.prod.json`
+          : `${baseURL}/ERA1/output.prod.json`,
         TEST_NETWORK
-          ? `${baseURL}/ERA2/output.test.json`
-          : `${baseURL}/ERA2/output.test.json`,
+          ? `${baseURL}/ERA2/output.prod.json`
+          : `${baseURL}/ERA2/output.prod.json`,
       ];
     }
   }
