@@ -3,13 +3,14 @@
 import Button from "@/components/Button";
 import { useScroll, useTransform, motion } from "framer-motion";
 import Image from "next/image";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import H1 from "@/components/HTML/H1";
 import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import Link from "next/link";
 import ThreeDHovercardEffect from "@/components/ThreeDHovercardEffect";
 import useUserData from "@/app/(client)/store";
 import imageKitLoader from "@/components/imageKitLoader";
+import { client } from "../../../../sanity/lib/client";
 
 export default function NFTReceipt() {
   const targetRef = useRef<HTMLDivElement>(null);
@@ -18,6 +19,22 @@ export default function NFTReceipt() {
     target: targetRef,
     offset: ["start end", "end start"],
   });
+
+  const [external_links, setExternalLinks] = useState({
+    collective_rewards_101: "",
+  });
+
+  useEffect(() => {
+    client
+      .fetch(
+        `*[_type=="external_links"][0]{
+          collective_rewards_101
+        }`,
+      )
+      .then((externalLinks) => {
+        setExternalLinks(externalLinks);
+      });
+  }, []);
 
   // const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
   const y = useTransform(scrollYProgress, [0, 0.25], [150, 0]);
@@ -54,7 +71,7 @@ export default function NFTReceipt() {
           />
         </ThreeDHovercardEffect>
       </motion.div>
-      <Link target="_blank" href={process.env.NEXT_PUBLIC_WHITEPAPER || "/"}>
+      <Link target="_blank" href={external_links.collective_rewards_101 || ""}>
         <Button
           innerText="Collective rewards 101"
           iconSrc={IMAGEKIT_ICONS.BOOK}
