@@ -42,7 +42,7 @@ export default function ContributedHero() {
                 alt="nft"
                 width={500}
                 height={592}
-                className="max-w-[349px] max-h-[592px] min-h-[400px] w-full h-auto md:max-w-[500px] md:w-full md:h-auto object-contain"
+                className="max-w-[349px] max-h-[592px] min-h-[400px] w-full h-auto md:max-w-[500px] md:w-full md:h-auto object-contain rounded-[12px]"
                 loader={imageKitLoader}
               />
             </ThreeDHovercardEffect>
