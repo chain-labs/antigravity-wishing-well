@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import H1 from "@/components/HTML/H1";
 import TesimonialCard from "@/components/TestimonialCard";
+import { client as cmsClient } from "../../../../sanity/lib/client";
 
 type TestimonialType = {
   name: string;
@@ -14,7 +15,7 @@ type TestimonialType = {
   externalLink: string;
 };
 
-const testimonials: TestimonialType[] = [
+const testimonialsStatic: TestimonialType[] = [
   {
     name: "RogerPulseBets",
     shortDescription: "is excited by the potential",
@@ -99,6 +100,16 @@ export default function Testimonials() {
     [0, smallerViewPort ? 0 : 0.25],
     ["2rem", "0.5rem"],
   );
+
+  const [testimonials, setTestimonials] = useState<TestimonialType[]>([]);
+
+  useEffect(() => {
+    cmsClient.fetch(`*[_type=="testimonials"]|order(position,_createdAt)`).then((testimonialData) => {
+      setTestimonials(testimonialData);
+      console.log('testimonialData', testimonialData);
+    });
+  }, []);
+
   return (
     <div
       ref={targetRef}
@@ -116,9 +127,9 @@ export default function Testimonials() {
             <TesimonialCard
               key={index}
               externalLink={testimonial.externalLink}
-              name={testimonial.name}
-              shortDescription={testimonial.shortDescription}
-              fullDescription={testimonial.fullDescription}
+              name={testimonial.name.trim()}
+              shortDescription={testimonial.shortDescription.trim()}
+              fullDescription={testimonial.fullDescription.trim()}
               imageUrl={testimonial.imageUrl}
               marginTestimonial={marginTestimonial}
             />
