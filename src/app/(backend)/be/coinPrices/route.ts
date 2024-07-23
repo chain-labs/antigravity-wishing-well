@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
       tokenAddress: token,
       poolAddress: pool,
       network: chainToCGNetwork(Number(network)),
-      isNativeToken: native,
+      isNativeToken: native === "true",
     });
 
     price = priceData.data.price;
@@ -45,18 +45,18 @@ export async function GET(request: NextRequest) {
       }
     } else {
       switch (token) {
-        case "0xb21145202372CC4F92621c5C41A3791755c0919b":
-        case "0xBf0c21235cDC15394D55CE79866000791E5C4a71": {
+        case "0x2263Cc09b146d153AFf22841471201618bD628B5":
+        case "0x2321C1A41e42F3582c4bcAaf95A081a224B929a9": {
           price = 1;
           break;
         }
-        case "0x229d7C4EbD6468c9890E3FfD8fB9aFaDBF76C167":
-        case "0x7d246F0843cd8811BF946A6105fCac2a2fB993E2": {
+        case "0xDC6ba85E08c7e94244865cCdF993c2e852181716":
+        case "0x6484A6Ae44Cfa051a1158C918446D08D12fC4168": {
           price = 0.0195;
           break;
         }
-        case "0x2B745c328Aa8FB34A2415C75bA75af23dD5A86Cc":
-        case "0xbB9DEf92d95ef204146f572f4494FCd9C82513DE": {
+        case "0x06413454185660d32C12D7217DBe79030Fe44527":
+        case "0x12861ab30Dbb50dC3e9b449DD33F9DA693120cF1": {
           price = 0.000000000029;
           break;
         }

@@ -13,17 +13,17 @@ export const CONTRACTS: Record<
   }
 > = {
   [sepolia.id]: {
-    "miningRig": "0x6633475079efAC0179EEc0d68cd94A82862cc16a",
-    "darkX": "0xD81063553A7389449b8E3de549408781173d2390",
-    "darkClaims": "0xA54bb930769D07Eefa84531Eb5f0deF434eD212b",
-    "dark": "0x030030F2ac87768203e68EbcdAA9E0d620101420",
-    "wishWell": "0x43F4cdC343f39EDD323C66492E9fdf3D72Df0eC0"
-},
+    miningRig: "0xCC66A215a78a1ad3CCCaBf47957284FED064d1fA",
+    darkX: "0xE4C8B8c8BDD62c0F5B7820E6feE5164Ed6e4d739",
+    darkClaims: "0xc2c5e952eA6a02A8c965C7df5E2b4DbFE2696Cc1",
+    dark: "0x9e8a3B0E0bf7A39bd2c886f4e13b3B82148beE7a",
+    wishWell: "0x43F4cdC343f39EDD323C66492E9fdf3D72Df0eC0",
+  },
   [baseSepolia.id]: {
-    "miningRig": "0x84EbE4eC2B9AcB5c8fb48da9A118F3917E5e8717",
-    "darkX": "0x38c6eA91B34b17Df5468Acd5De4750791c3ed366",
-    "wishWell": "0xC8A96A9163C2D11e2002C589a5DC7Ee4267499e2"
-},
+    miningRig: "0x16d70b9255A60eC97B1Fd3fA5BE4E1561f22d18E",
+    darkX: "0xc9141B6EC981CC1cb1C84d983f63DEAB3cb940E6",
+    wishWell: "0xC8A96A9163C2D11e2002C589a5DC7Ee4267499e2",
+  },
   [pulsechain.id]: {
     wishWell: "0x332211A407489F497cD58bac7Db3F10Da5da47Ff",
     miningRig: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",

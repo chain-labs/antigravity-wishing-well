@@ -30,7 +30,6 @@ export const eventFields = [
     title: "Event",
     group: "event",
     to: [{ type: "event" }],
-    validation: (rule) => rule.required(),
   }),
 ];
 
