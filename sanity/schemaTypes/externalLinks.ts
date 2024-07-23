@@ -16,6 +16,11 @@ export const externalLinksType = defineType({
       type: "url",
     }),
     defineField({
+      name: "collective_rewards_101",
+      title: "Collective Rewards 101",
+      type: "url",
+    }),
+    defineField({
       name: "twitter",
       title: "Antigravity Twitter",
       type: "url",
