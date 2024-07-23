@@ -93,7 +93,7 @@ export default function PromotionAndNewsletter() {
           </div>
           <a href={metadata?.book_url} target="_blank" rel="noreferrer">
             <Button
-              innerText={metadata?.book_url ? "Get Book" : "Comming Soon"}
+              innerText={metadata?.book_url ? "Get Book" : "Coming Soon"}
               iconSrc={IMAGEKIT_ICONS.BOOK}
               iconAlt="Get Book"
               disabled={!metadata?.book_url}
