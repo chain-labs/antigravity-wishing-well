@@ -127,10 +127,8 @@ const useMining = (
     isPending: approveIsPending,
   } = useWriteContract();
 
-  const {
-    data: approveReceipt,
-    isLoading: approveIsLoading,
-  } = useWaitForTransactionReceipt({ hash: approveHash, confirmations: 2 });
+  const { data: approveReceipt, isLoading: approveIsLoading } =
+    useWaitForTransactionReceipt({ hash: approveHash, confirmations: 2 });
 
   /* <--------END----------> */
 
@@ -257,7 +255,12 @@ const useMining = (
   }, [receipt]);
 
   useEffect(() => {
-    if (token && amountToInvest && allowance !== undefined) {
+    if (
+      token &&
+      amountToInvest &&
+      allowance !== undefined &&
+      nativeToken?.toLowerCase() !== token?.address?.toLowerCase()
+    ) {
       if (allowance === BigInt(0)) {
         setIsApprovalNeeded(true);
       } else {
@@ -269,8 +272,10 @@ const useMining = (
           setIsApprovalNeeded(false);
         }
       }
+    } else {
+      setIsApprovalNeeded(false);
     }
-  }, [allowance, amountToInvest, token]);
+  }, [allowance, amountToInvest, token, nativeToken]);
 
   const mineToken = (merkleProof: string[]) => {
     if (token.address && amountToInvest && merkleProof) {
