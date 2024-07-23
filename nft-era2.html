@@ -69,7 +69,7 @@
         grid-template-columns: 1fr;
         gap: 8px;
         padding: 16px;
-        border-radius: 12px;
+        border-radius: 0px;
         background-color: black;
         border: 6px solid;
         z-index: 0;
@@ -83,17 +83,18 @@
         content: "";
         position: absolute;
         inset: 0;
-        border-radius: inherit;
         overflow: hidden;
       }
-
+      
       .container::before {
+        border-radius: 0px;
         z-index: -10;
         background: linear-gradient(to top right, #3c00dc, #ff5001);
         margin: -6px;
       }
-
+      
       .container::after {
+        border-radius: 12px;
         z-index: -2;
         background-color: black;
       }
