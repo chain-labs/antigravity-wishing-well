@@ -37,6 +37,9 @@ export default function Event() {
       });
   }, []);
   const ImageLink = IMAGEKIT_IMAGES.COLLECTIVE_EVENT;
+
+  if (!event.name || !event.register_url) return null;
+  
   return (
     <div className=" my-[50px] md:my-0 h-fit w-full flex justify-center items-center">
       <ThreeDHovercardEffect ROTATION_RANGE={5}>

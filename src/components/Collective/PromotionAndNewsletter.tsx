@@ -93,9 +93,10 @@ export default function PromotionAndNewsletter() {
           </div>
           <a href={metadata?.book_url} target="_blank" rel="noreferrer">
             <Button
-              innerText="Get Book"
+              innerText={metadata?.book_url ? "Get Book" : "Coming Soon"}
               iconSrc={IMAGEKIT_ICONS.BOOK}
               iconAlt="Get Book"
+              disabled={!metadata?.book_url}
               variants={{
                 hover: {
                   scale: 1.35,
