@@ -163,7 +163,7 @@ export default function Countdown() {
 
   return (
     <div
-      className="relative w-[calc(100%+3px)] border-t-4 border-b-4 max-w-[1200px] lg:translate-x-0 lg:w-full 2xl:w-4/5 md:mx-auto bg-[#0A0025] lg:rounded-xl p-[8px] lg:p-8 border-transparent bg-clip-padding flex flex-col lg:flex-row justify-between gap-10 z-0
+      className="relative w-[calc(100%+3px)] border-t-4 border-b-4 max-w-[1200px] lg:translate-x-0 lg:w-full 2xl:w-4/5 md:mx-auto bg-[#0A0025] lg:rounded-xl p-[16px] lg:p-8 border-transparent bg-clip-padding flex flex-col lg:flex-row justify-between gap-10 z-0
             before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-bl before:from-[#5537A5] before:to-[#BF6841] before:rounded-[inherit] before:overflow-hidden before:m-[-1.5px]
 			after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-[#0A0025] after:rounded-[inherit] after:overflow-hidden
         "
@@ -178,7 +178,8 @@ export default function Countdown() {
       <div className="flex justify-start items-start flex-col gap-4">
         <CountdownTimer state={state} />
       </div>
-      <div className="relative flex lg:hidden flex-col rounded bg-gradient-to-b from-[#5730BF] to-[#15004C] p-4 z-0 overflow-hidden">
+      {/* Mobile View */}
+      <div className="relative flex sm:hidden flex-col rounded bg-gradient-to-b from-[#5730BF] to-[#15004C] p-4 z-0 overflow-hidden">
         <div className="grid grid-cols-1 gap-4">
           <div className="relative h-full flex flex-col gap-2 p-2">
             <motion.div
@@ -287,7 +288,8 @@ export default function Countdown() {
         </div>
       </div>
 
-      <div className="hidden relative lg:flex flex-col rounded-[5px] bg-gradient-to-b from-[#5730BF] to-[#15004C] px-[12px] py-[8px] z-0 overflow-hidden">
+      {/* Desktop View */}
+      <div className="hidden relative sm:flex flex-col rounded-[5px] bg-gradient-to-b from-[#5730BF] to-[#15004C] px-[12px] py-[8px] z-0 overflow-hidden">
         <div className="grid grid-cols-3 gap-14">
           <div className="h-full flex flex-col gap-2">
             <div

@@ -38,9 +38,9 @@ export default function Newsletter() {
   };
   return (
     <div
-      className="relative flex flex-col lg:flex-row items-start justify-center md:w-fit mx-[16px] px-[8px] py-[32px] lg:p-[32px_48px] rounded-[12px] md:mx-auto gap-4 md:gap-16 my-32 md:my-64 z-0
-		before:content-[''] before:absolute before:inset-0 before:z-[-10] md:before:bg-gradient-to-bl before:from-[#5537A5] before:to-[#BF6841] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
-			after:content-[''] after:absolute after:inset-0 after:z-[-2] md:after:bg-agblack after:rounded-[inherit] after:overflow-hidden"
+      className="relative flex flex-col md:flex-row items-start justify-center lg:w-fit px-[16px] py-[32px] lg:p-[32px_48px] lg:rounded-[12px] lg:mx-auto gap-4 md:gap-16 my-32 md:my-64 z-0
+		before:content-[''] before:absolute before:inset-0 before:z-[-10] sm:before:bg-gradient-to-bl before:from-[#5537A5] before:to-[#BF6841] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
+			after:content-[''] after:absolute after:inset-0 after:z-[-2] sm:after:bg-agblack after:rounded-[inherit] after:overflow-hidden"
     >
       <AnimatePresence>
         {success === false ? (
@@ -53,14 +53,14 @@ export default function Newsletter() {
             </div>
             <form
               onSubmit={handleSubmit}
-              className="flex flex-col gap-4 w-full md:w-fit"
+              className="flex flex-col gap-4 w-full lg:w-fit"
             >
               <input
                 type="text"
                 name="name"
                 id="name"
                 placeholder="Your Name"
-                className="text-agblack p-3 rounded-[8px] w-full md:w-[30em] font-sans font-semibold text-lg"
+                className="text-agblack p-3 rounded-[8px] w-full lg:w-[30em] font-sans font-semibold text-lg"
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -70,7 +70,7 @@ export default function Newsletter() {
                 name="email"
                 id="email"
                 placeholder="your@email.com"
-                className="text-agblack p-3 rounded-[8px] w-full md:w-[30em] font-sans font-semibold text-lg"
+                className="text-agblack p-3 rounded-[8px] w-full lg:w-[30em] font-sans font-semibold text-lg"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required

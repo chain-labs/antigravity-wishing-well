@@ -223,7 +223,7 @@ export default function Leaderboard({
             direction: "bl",
             borderSize: 4,
           }) +
-          "relative max-w-[1200px] min-h-[574px] p-[16px] lg:p-8 border-t-4 border-b-4 lg:border-4 my-32 lg:mx-auto md:translate-x-0 md:w-4/5 md:mx-auto bg-[#0A0025] rounded-none lg:rounded-xl flex flex-col lg:flex-row justify-between gap-[16px] lg:gap-32"
+          "relative max-w-[1200px] min-h-[574px] p-[16px] lg:p-8 border-t-4 border-b-4 lg:border-4 my-32 lg:mx-auto md:translate-x-0 xl:mx-auto bg-[#0A0025] rounded-none lg:rounded-xl flex flex-col lg:flex-row justify-between gap-[16px] lg:gap-32"
         }
       >
         <div className="flex flex-col gap-[16px] w-full">
@@ -255,7 +255,7 @@ export default function Leaderboard({
                   }}
                 />
               </div>
-              <div className="rounded-[4px] border-[2px] border-[#414343] lg:border-none">
+              <div className="rounded-[4px] border-[2px] border-[#414343] md:border-none">
                 <Table
                   tableData={tableData}
                   era={
