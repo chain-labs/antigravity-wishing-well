@@ -114,7 +114,7 @@ export function InputCard({
   }, [tokenBalance, account.isConnected]);
 
   return (
-    <div className="flex justify-between gap-[8px] bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-fit min-w-full border-[1px] border-agyellow">
+    <div className="flex justify-between gap-[8px] bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-fit min-w-full border-[1px] border-agyellow z-10">
       <div className="flex flex-col justify-center items-start gap-[8px] w-full">
         <form
           onBlur={(e) => {
@@ -192,7 +192,7 @@ export function InputCard({
           )}
         </P>
       </div>
-      <div className="flex flex-col justify-end items-center gap-[8px]">
+      <div className="flex flex-col justify-end items-end gap-[8px]">
         <div
           className={twMerge(
             "flex justify-center items-center gap-[8px] h-full w-fit ml-auto",
@@ -219,7 +219,7 @@ export function InputCard({
           </div>
         )}
         {account.isConnected && (
-          <div className="flex justify-center items-center gap-[4px]">
+          <div className="flex justify-e items-center gap-[4px]">
             <button
               className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
               onClick={() => {
@@ -514,7 +514,7 @@ export default function MiningCalculator({
   }, [tokenBalance, account.isConnected]);
 
   return (
-    <div className="relative flex flex-col gap-[8px] h-fit min-w-[400px] max-w-full scale-[0.9] md:scale-100">
+    <div className="relative flex flex-col gap-[8px] h-fit min-w-[400px] max-w-full scale-[0.9] md:scale-100 z-10">
       <InputCard
         inputValue={currentValue}
         setCurrentInputValue={setCurrentValue}
