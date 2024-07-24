@@ -3,7 +3,8 @@ import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
-  const baseURL = "https://antigravity-s3.s3.us-east-1.amazonaws.com/static";
+  const baseURL =
+    "https://antigravity-s3-production.s3.us-east-1.amazonaws.com/static";
   let URL = [""];
 
   const file = request.nextUrl.searchParams.get("file");
