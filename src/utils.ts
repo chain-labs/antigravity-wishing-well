@@ -62,3 +62,17 @@ export const getTokenIds = (userData: UserData, chainId: number) => {
     blockchain,
   };
 };
+
+
+export const getEra = (era: string) => {
+  switch (era) {
+    case "wishwell":
+      return 1;
+    case "mining":
+      return 2;
+    case "minting":
+      return 3;
+    default:
+      return 2;
+  }
+};
