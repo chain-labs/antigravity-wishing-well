@@ -192,7 +192,7 @@ export function InputCard({
           )}
         </P>
       </div>
-      <div className="flex flex-col justify-end items-center gap-[8px]">
+      <div className="flex flex-col justify-end items-end gap-[8px]">
         <div
           className={twMerge(
             "flex justify-center items-center gap-[8px] h-full w-fit ml-auto",
