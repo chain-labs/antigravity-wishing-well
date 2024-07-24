@@ -42,6 +42,8 @@ export default function Dropdown({
     };
   }, []);
 
+  console.log('options', options);
+
   return (
     <div
       ref={targetRef}
@@ -92,17 +94,17 @@ export default function Dropdown({
       >
         <div
           style={{
-            display: isOpen ? "flex" : "none",
+            display: isOpen ? "grid" : "none",
           }}
-          className="relative flex flex-col justify-start items-center gap-[8px] max-h-[500px] overflow-y-auto"
+          className="relative grid grid-cols-1 justify-start items-center gap-[8px] max-h-[300px] overflow-y-visible w-fit min-w-[140px] overflow-x-hidden"
         >
           {options.map(
             (option, idx) =>
               idx !== selected && (
-                <div key={option?.symbol} className="flex flex-col gap-[8px]">
+                <>
                   <div
                     onClick={() => setSelected(idx)}
-                    
+                    key={option.symbol}
                     className="flex gap-[8px] items-center justify-start w-full cursor-pointer min-w-[120px] select-none"
                   >
                     <Image
@@ -120,7 +122,7 @@ export default function Dropdown({
                     : idx !== options.length - 1 && (
                         <div className="w-full h-[1px] bg-gradient-to-bl from-[#5537A5] via-[#5537A5] to-[#BF6841]" />
                       )}
-                </div>
+                </>
               ),
           )}
         </div>
