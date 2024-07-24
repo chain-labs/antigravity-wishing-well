@@ -85,6 +85,18 @@ export default function Form({
               iconSrc={IMAGEKIT_ICONS.SEND}
               iconAlt="send"
               type="submit"
+              variants={{
+                hover: {
+                  animationName: "flyingPlane",
+                  animationDuration: "0.5s",
+                  animationFillMode: "forwards",
+                  animationTimingFunction: "linear",
+                  animationDelay: "0.25s",
+                },
+                rest:{
+                  animationName: "restflyingPlane"
+                }
+              }}
             />
           </form>
         </>

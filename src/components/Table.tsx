@@ -39,13 +39,13 @@ function TH({
       )}
     >
       <H3>
-        <motion.div animate={hover ? "hover" : ""} variants={variants}>
+        <motion.div animate={hover ? "hover" : ""} variants={variants} className="w-[25px] h-[25px]">
           <Image
             src={icon}
             alt={`${heading} icon`}
             width={25}
             height={25}
-            className="object-cover"
+            className="object-cover w-[25px] h-[25px]"
           />
         </motion.div>
         {heading}
@@ -89,7 +89,7 @@ function TD({
           onMouseEnter={truncateHoverTrue}
           onMouseLeave={truncateHoverFalse}
           className={twMerge(
-            "text-[14px] relative border-r-2 border-[#414343] lg:border-[#8275A5] bg-clip-padding hidden lg:flex flex-col lg:flex-row justify-start items-center z-10 px-[12px] py-[6px] w-full truncate hover:overflow-visible",
+            "text-[14px] relative border-r-2 border-[#414343] md:border-[#8275A5] bg-clip-padding hidden md:flex flex-col md:flex-row justify-start items-center z-10 px-[12px] py-[6px] w-full truncate hover:overflow-visible",
             special && "text-[18px]",
             className,
           )}
@@ -123,7 +123,7 @@ function TD({
   return (
     <td
       className={twMerge(
-        "text-[14px] relative border-r-2 border-[#414343] lg:border-[#8275A5] bg-clip-padding flex flex-col justify-center lg:justify-start lg:items-center gap-[4px] lg:gap-4 lg:flex-row z-0 p-[8px] lg:px-[12px] lg:py-[6px]",
+        "text-[14px] relative border-r-2 border-[#414343] md:border-[#8275A5] bg-clip-padding flex flex-col justify-center md:justify-start md:items-center gap-[4px] md:gap-4 md:flex-row z-0 p-[8px] md:px-[12px] md:py-[6px]",
         special && !border && "border-none text-[18px] py-[10px]",
         border && special && "border-r-2 text-[18px] py-[10px]",
         className,
@@ -170,7 +170,7 @@ function TR({
         delay: position ? parseFloat((position * 0.1).toFixed(2)) : 0,
       }}
       className={twMerge(
-        "relative grid grid-cols-[2fr_1fr] lg:grid-cols-[2fr_1fr_1fr] w-full lg:border-l-2 border-b-2 border-[#414343] lg:border-[#8275A5] z-0",
+        "relative grid grid-cols-[2fr_1fr] md:grid-cols-[2fr_1fr_1fr] w-full md:border-l-2 border-b-2 border-[#414343] md:border-[#8275A5] z-0",
         special && " text-black font-extrabold  border-none",
         empty &&
           "bg-gradient-to-b from-[#142266] via-[#0A1133] to-[#142266] border-r-2",
@@ -222,7 +222,7 @@ function Rank({
     <TD special={special} border className="w-full">
       #{rank} <Badge special={special}>{badge}</Badge>
       <div
-        className={`flex gap-[4px] justify-start items-center lg:hidden ${
+        className={`flex gap-[4px] justify-start items-center md:hidden ${
           special
             ? "text-[22px] leading-[28.6px] md:text-[18px] md:leading-[23.6px]"
             : "text-[18px] leading-[23.4px]"
@@ -298,10 +298,10 @@ export default function Table({
       <thead className="w-full">
         <TR th>
           {/* {
-                        tableHeader.map((header, idx) => (
-                            <TH key={idx} icon={header.icon} heading={header.heading} className={header.className} />
-                        ))
-                    } */}
+              tableHeader.map((header, idx) => (
+                  <TH key={idx} icon={header.icon} heading={header.heading} className={header.className} />
+              ))
+          } */}
           <TH
             icon={IMAGEKIT_ICONS.LEADERBOARD}
             heading="Rank"
@@ -318,7 +318,7 @@ export default function Table({
           <TH
             icon={IMAGEKIT_ICONS.WALLET_WHITE}
             heading="Wallet"
-            className="hidden lg:flex"
+            className="hidden md:flex"
             variants={{
               hover: {
                 animationName: "wiggle",

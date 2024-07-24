@@ -271,6 +271,15 @@ export default function ContributedHero({
             iconSrc={IMAGEKIT_ICONS.CLAIM}
             iconAlt="Claim Now"
             onClick={handleClaim}
+            variants={{
+              hover: {
+                rotate: 15,
+                transition:{
+                  duration: 0.5,
+                  type: "spring", 
+                }
+              },
+            }}
           />
         ) : (
           <Button

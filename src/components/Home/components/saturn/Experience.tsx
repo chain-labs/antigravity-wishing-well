@@ -8,6 +8,7 @@ import { scroll } from "framer-motion";
 import { useFrame } from "@react-three/fiber";
 
 const LINE_NB_POINTS = 4000;
+const SMALLER_VIEWPORT = 768;
 
 export default function Experience() {
   const curve = useMemo(() => {
@@ -39,7 +40,7 @@ export default function Experience() {
     if (window === undefined) return;
 
     window.addEventListener("resize", () => {
-      if (window.innerWidth < 1200) {
+      if (window.innerWidth < SMALLER_VIEWPORT) {
         setSmallerViewPort(true);
         setProgress(0);
       } else {
@@ -47,7 +48,7 @@ export default function Experience() {
       }
     });
 
-    window.innerWidth < 1200 && setSmallerViewPort(true);
+    window.innerWidth < SMALLER_VIEWPORT && setSmallerViewPort(true);
 
     return () => {
       window.removeEventListener("resize", () => {});

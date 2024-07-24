@@ -65,6 +65,11 @@ export default function ContributedHero() {
                     TEST_NETWORK ? BaseSepoliaAG.address : BaseAG.address,
                   )
                 }
+                variants={{
+                  hover: {
+                    scale: 1.1,
+                  },
+                }}
               />
               <Button
                 innerText="Wishwell.pls"
@@ -77,6 +82,11 @@ export default function ContributedHero() {
                     TEST_NETWORK ? SepoliaAG.address : PulsechainAG.address,
                   )
                 }
+                variants={{
+                  hover: {
+                    scale: 1.1,
+                  },
+                }}
               />
             </div>
           </div>

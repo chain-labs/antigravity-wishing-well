@@ -101,6 +101,18 @@ export function InputCard({
 
   const account = useAccount();
 
+  useEffect(() => {
+    if (!account.isConnected) {
+      if (inputRef.current) {
+        inputRef.current.value = "40000";
+      }
+    } else {
+      if (inputRef.current) {
+        inputRef.current.value = tokenBalance;
+      }
+    }
+  }, [tokenBalance, account.isConnected]);
+
   return (
     <div className="flex justify-between gap-[8px] bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-fit min-w-full border-[1px] border-agyellow">
       <div className="flex flex-col justify-center items-start gap-[8px] w-full">
@@ -312,40 +324,64 @@ export function Card({
         <div
           ref={targetValueRef}
           style={{
-            fontSize: fontsizeClamping(value, 7, 16, 32) + "px",
+            fontSize:
+              fontsizeClamping(
+                USFormatToNumber(currentValue) < 0.0001
+                  ? "0.0001"
+                  : currentValue,
+                7,
+                16,
+                32,
+              ) + "px",
             lineHeight: 32 + "px",
           }}
           className={` text-agwhite font-extrabold font-sans`}
         >
           {USFormatToNumber(currentValue) < 0.0001 &&
-          USFormatToNumber(currentValue) !== 0
-            ? "< 0.0001"
-            : targetValueRef.current && (
-                <AutomaticIncreamentalNumberCounterWithString
-                  from={targetValueRef.current?.textContent ?? "0"}
-                  to={currentValue}
-                  float={currentValue.includes(".")}
-                />
-              )}
+            USFormatToNumber(currentValue) !== 0 &&
+            "< "}
+          {targetValueRef.current && (
+            <AutomaticIncreamentalNumberCounterWithString
+              from={targetValueRef.current?.textContent ?? "0"}
+              to={
+                USFormatToNumber(currentValue) < 0.0001 &&
+                USFormatToNumber(currentValue) !== 0
+                  ? "0.0001"
+                  : currentValue
+              }
+              float={currentValue.includes(".")}
+            />
+          )}
         </div>
         {onlyValue ? null : (
           <div className="flex justify-center items-center opacity-75 gap-[8px]">
             <P
               ref={conversionRef}
               style={{
-                fontSize: fontsizeClamping(conversion, 7, 10, 16) + "px",
+                fontSize:
+                  fontsizeClamping(
+                    USFormatToNumber(currentConversion) < 0.0001
+                      ? "0.0001"
+                      : currentConversion,
+                    7,
+                    10,
+                    16,
+                  ) + "px",
                 lineHeight: 16 + "px",
               }}
               extrabold
             >
-              {USFormatToNumber(currentConversion) < 0.0001 && USFormatToNumber(currentConversion) === 0 &&  "< "}
+              {USFormatToNumber(currentConversion) < 0.0001 &&
+                USFormatToNumber(currentConversion) !== 0 &&
+                "< "}
               {"$"}
               {conversionRef.current && (
                 <AutomaticIncreamentalNumberCounterWithString
                   from={conversionRef.current?.textContent ?? "0"}
                   to={
-                    USFormatToNumber(currentConversion) < 0.0001
-                      ? "0.001"
+                    USFormatToNumber(currentConversion) < 0.0001 &&
+                    USFormatToNumber(currentConversion) !== 0
+                      ? "0.0001"
                       : currentConversion
                   }
                   float={currentConversion.includes(".")}
@@ -444,6 +480,7 @@ export default function MiningCalculator({
   const [USDValue, setUSDValue] = useState(
     value * (inputOptions[0]?.USDvalue || 0),
   );
+  const account = useAccount();
 
   useEffect(() => {
     setSelectedOption(selectedToken);
@@ -456,11 +493,25 @@ export default function MiningCalculator({
       setUSDValue(Number(usdValue));
       setValue(value);
     }
-  }, [currentValue, conversionRateToUSD, selectedOption, inputOptions]);
+  }, [
+    currentValue,
+    conversionRateToUSD,
+    selectedOption,
+    inputOptions,
+    tokenBalance,
+  ]);
 
   useEffect(() => {
     setCurrentValue(pointsConverterToUSCommaseparated(value));
   }, [value]);
+
+  useEffect(() => {
+    if (!account.isConnected) {
+      setCurrentValue("40000");
+    } else {
+      setCurrentValue(tokenBalance);
+    }
+  }, [tokenBalance, account.isConnected]);
 
   return (
     <div className="relative flex flex-col gap-[8px] h-fit min-w-[400px] max-w-full scale-[0.9] md:scale-100">
