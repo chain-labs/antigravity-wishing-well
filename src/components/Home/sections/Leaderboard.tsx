@@ -310,7 +310,7 @@ export default function Leaderboard({
                 <P className="font-medium">
                   You&apos;re only{" "}
                   {pointsConverterToUSCommaseparated(rankUpPointsNeeded) ===
-                  "NaN"
+                  "NaN" || rankUpPointsNeeded === 0
                     ? 1
                     : pointsConverterToUSCommaseparated(
                         rankUpPointsNeeded,

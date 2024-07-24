@@ -41,10 +41,10 @@ export default function Event() {
   if (!event.name || !event.register_url) return null;
   
   return (
-    <div className=" my-[50px] md:my-0 h-fit w-full flex justify-center items-center">
+    <div className="my-[50px] md:my-0 h-fit w-full flex justify-center items-center">
       <ThreeDHovercardEffect ROTATION_RANGE={5}>
-        <div className="relative flex w-screen max-w-[992px] h-[523px] z-0">
-          <div className="flex flex-col md:flex-row justify-end md:justify-between items-end gap-[8px] overflow-hidden h-full w-full md:rounded-[12px] bg-gradient-to-t from-[#000000BF] to-[#00000000] p-[16px]">
+        <div className="relative flex w-full sm:w-screen  max-w-[992px] h-[523px] z-0">
+          <div className="flex flex-col md:flex-row justify-end md:justify-between items-start md:items-end gap-[8px] overflow-hidden h-full w-full md:rounded-[12px] bg-gradient-to-t from-[#000000BF] to-[#00000000] p-[16px]">
             <div className="flex flex-col gap-[8px]">
               <div className="overflow-hidden">
                 <motion.div
@@ -104,7 +104,7 @@ export default function Event() {
                 ))}
               </div>
             </div>
-            <a href={event.register_url} target="_blank" rel="noreferrer">
+            <a href={event.register_url} target="_blank" rel="noreferrer" className="w-full md:w-fit h-fit">
               <Button
                 innerText="Register For Event"
                 iconSrc={IMAGEKIT_ICONS.ROCKET}

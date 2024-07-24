@@ -428,7 +428,7 @@ export default function Table({
               </div>
               <P className="text-center text-[14px]">
                 We’re currently processing{" "}
-                {era === 0 ? "" : era == 1 ? "Era 1" : "Era 2"} participants’
+                {era === 1 ? "Era 1" : era == 2 ? "Era 2" : ""} participants’
                 contributions for the Leaderboard.
               </P>
               <P className="text-center text-[14px]">
