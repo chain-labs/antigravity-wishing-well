@@ -12,6 +12,7 @@ import useClaimMerkleTree from "@/hooks/sc-fns/useMerkleTree.claim";
 import { AnimatePresence, motion } from "framer-motion";
 import DarkXFieldCanvas from "../DarkXfield";
 import { StateType } from "../types";
+import { useRestFetch } from "@/hooks/useRestClient";
 
 export default function ClaimedCard({
   setState,
@@ -59,6 +60,43 @@ export default function ClaimedCard({
       setState("Claiming");
     }
   }, [darkBalance]);
+
+  const { data: era2Data } = useRestFetch(["s3"], `/s3?file=era2`, {
+    proxy: true,
+  });
+
+  const ERA2_DATA: { accounts: string[]; points: string[]; nonces: string[] } =
+    useMemo(() => {
+      if (era2Data) {
+        // @ts-ignore
+        const era2DataStream = era2Data?.data?.era2;
+        return era2DataStream;
+      }
+      return { accounts: [], points: [], nonces: [] };
+    }, [era2Data]);
+
+  const points: string[] = useMemo(() => {
+    return ERA2_DATA.points.filter(
+      (_, index) =>
+        account?.address?.toLowerCase() ===
+        ERA2_DATA.accounts[index].toLowerCase(),
+    );
+  }, [ERA2_DATA, account.address]);
+
+  const pointsToDisplay = useMemo(() => {
+    if (account.address) {
+      if (points.length) {
+        const response = points.reduce((acc, point) => {
+          const formattedPoint = formatUnits(BigInt(point), 18);
+          return acc + Number(formattedPoint);
+        }, 0);
+
+        return response;
+      }
+    }
+
+    return 30000;
+  }, [account.address, era2Data]);
 
   return (
     <>
@@ -120,12 +158,12 @@ export default function ClaimedCard({
                 className="w-full"
               >
                 <ContributedCard
-                  value={darkBalance}
+                  value={pointsToDisplay}
                   pillText="Points"
                   pillIconSrc={IMAGEKIT_ICONS.PILL_POINTS}
                   pillIconAlt="Points"
                   animateNumber
-                  from={darkBalance}
+                  from={pointsToDisplay}
                   to={0}
                 />
               </motion.div>

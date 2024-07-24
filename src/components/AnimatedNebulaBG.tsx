@@ -14,7 +14,7 @@ export default function AnimatedNebulaBG() {
       alt="nebula"
       height={1080}
       width={1920}
-      className="absolute inset-0 w-[200vw] h-[200vh] object-none z-[-1] mix-blend-multiply opacity-30"
+      className="absolute inset-0 top-0 left-0 w-[200vw] h-[200vh] object-none z-[-1] mix-blend-multiply opacity-30"
     />
   );
 }
