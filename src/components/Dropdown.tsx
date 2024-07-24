@@ -42,8 +42,6 @@ export default function Dropdown({
     };
   }, []);
 
-  console.log('options', options);
-
   return (
     <div
       ref={targetRef}
@@ -96,7 +94,7 @@ export default function Dropdown({
           style={{
             display: isOpen ? "grid" : "none",
           }}
-          className="relative grid grid-cols-1 justify-start items-center gap-[8px] max-h-[300px] overflow-y-visible w-fit min-w-[140px] overflow-x-hidden"
+          className="relative grid grid-cols-1 gap-[8px] max-h-[300px] overflow-y-visible w-fit min-w-[140px] overflow-x-hidden"
         >
           {options.map(
             (option, idx) =>
