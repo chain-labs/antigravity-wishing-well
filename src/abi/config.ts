@@ -30,8 +30,8 @@ export const CONTRACTS: Record<
     wishWell: "0x332211A407489F497cD58bac7Db3F10Da5da47Ff",
   },
   [base.id]: {
-    miningRig: "0x1Eca1A64E18E72c46971a80D91F015a569FE9FBd",
-    darkX: "0xCC18F40724971Be55AB5508607d8024Ee9Bf8796",
+    miningRig: "0x698Ae58B7AB13ad232A84d684e8111D2c6A6d904",
+    darkX: "0xb070db7dCad8F5081c3e9033633782258fCa811c",
     wishWell: "0x332211A407489F497cD58bac7Db3F10Da5da47Ff",
   },
 };
