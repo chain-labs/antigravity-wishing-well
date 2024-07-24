@@ -1,0 +1,6 @@
+{
+  "components": ["../src/app/model/**/*.tsx"],
+  "files": ["../src/app/model/**/*.tsx"],
+  "publicDir": "../public",
+  "assetsDir": "models"
+}

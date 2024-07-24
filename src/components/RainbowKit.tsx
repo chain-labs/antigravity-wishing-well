@@ -1,9 +1,9 @@
 "use client";
 
-import { TEST_NETWORK } from "@/constants";
+import { PROJECT_ID, TEST_NETWORK } from "@/constants";
 import { RainbowKitProvider, getDefaultConfig } from "@rainbow-me/rainbowkit";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { pulsechain, baseSepolia, base } from "viem/chains";
+import { pulsechain, baseSepolia, base, sepolia } from "viem/chains";
 import { WagmiProvider, http } from "wagmi";
 const pulseChain = {
   ...pulsechain,
@@ -13,18 +13,20 @@ const pulseChain = {
 
 const config = getDefaultConfig({
   appName: "AntiGravity",
-  projectId: "da0885f4ccb13b9f676544fd97528d14",
-  chains: TEST_NETWORK ? [pulseChain, baseSepolia] : [pulseChain, base],
+  projectId: `${PROJECT_ID}`,
+  chains: TEST_NETWORK ? [sepolia, baseSepolia] : [pulseChain, base],
   transports: TEST_NETWORK
     ? {
         [baseSepolia.id]: http(
-          `https://base-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`
+          `https://base-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`,
         ),
-        [pulsechain.id]: http(),
+        [sepolia.id]: http(
+          `https://eth-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`,
+        ),
       }
     : {
         [base.id]: http(
-          `https://base-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`
+          `https://base-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`,
         ),
         [pulsechain.id]: http("https://pulsechain-rpc.publicnode.com"),
       },
@@ -32,14 +34,13 @@ const config = getDefaultConfig({
 });
 
 const client = new QueryClient();
-
 interface Props {
   children: React.ReactNode;
 }
 
 const RainbowKitContext = ({ children }: Props) => {
   return (
-    <WagmiProvider config={config}>
+    <WagmiProvider config={config} reconnectOnMount={true}>
       <QueryClientProvider client={client}>
         <RainbowKitProvider>{children}</RainbowKitProvider>
       </QueryClientProvider>
@@ -48,3 +49,17 @@ const RainbowKitContext = ({ children }: Props) => {
 };
 
 export default RainbowKitContext;
+
+export const checkCorrectNetwork = (
+  chainId: number | undefined,
+  chains: number[] = TEST_NETWORK
+    ? [sepolia.id, baseSepolia.id]
+    : [pulsechain.id, base.id],
+) => {
+  if (chainId === undefined) return true;
+  if (chains.find((chain) => chain === chainId)) {
+    return true;
+  }
+
+  return false;
+};
