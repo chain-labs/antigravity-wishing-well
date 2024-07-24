@@ -219,7 +219,7 @@ export function InputCard({
           </div>
         )}
         {account.isConnected && (
-          <div className="flex justify-center items-center gap-[4px]">
+          <div className="flex justify-end items-end gap-[4px]">
             <button
               className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
               onClick={() => {
