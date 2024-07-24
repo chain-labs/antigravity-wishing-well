@@ -60,12 +60,12 @@ export default function Experience() {
 
     const scrollOffset = Number(progress.toFixed(2));
     const curIndex = Math.min(
-      Math.round(scrollOffset * linePoints.length),
+      Math.round(scrollOffset * linePoints?.length),
       linePoints.length - 1,
     );
     const curPoint = linePoints[curIndex];
     const pointAhead =
-      linePoints[Math.min(curIndex + 1, linePoints.length - 1)];
+      linePoints[Math.min(curIndex + 1, linePoints?.length - 1)];
     const xDisplacement = (pointAhead.x - curPoint.x) * 80;
     // MATH.PI / 2 -> left
     // -MATH.PI / 2 -> right

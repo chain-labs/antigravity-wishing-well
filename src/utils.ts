@@ -23,7 +23,7 @@ export const getApiNetwork = (chainId: number) => {
 
 export const condenseAddress = (address: string) => {
   const condensed = `${address.slice(0, 4)}...${address.slice(
-    address.length - 4,
+    address?.length - 4,
   )}`;
 
   return condensed;

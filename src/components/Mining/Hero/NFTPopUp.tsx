@@ -45,8 +45,6 @@ export default function NFTPopUp({
 
   useEffect(() => {
     if (account.address) {
-      console.log({ nftURLera2 });
-
       setPoints({
         wishwell: wishwellPoints,
         mining: miningPoints,
@@ -207,7 +205,7 @@ export default function NFTPopUp({
                         float={true}
                         floatingPoint={
                           points.wishwell
-                            ? String(points.wishwell).split(".")[1].length
+                            ? String(points.wishwell).split(".")?.[1]?.length
                             : 0
                         }
                       />
@@ -230,7 +228,7 @@ export default function NFTPopUp({
                         float={true}
                         floatingPoint={
                           points.mining
-                            ? String(points.mining).split(".")[1].length
+                            ? String(points.mining).split(".")?.[1]?.length
                             : 0
                         }
                       />
@@ -253,7 +251,7 @@ export default function NFTPopUp({
                         float={true}
                         floatingPoint={
                           points.total
-                            ? String(points.total).split(".")[1].length
+                            ? String(points.total).split(".")?.[1]?.length
                             : 0
                         }
                       />

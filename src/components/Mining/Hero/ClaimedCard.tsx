@@ -60,7 +60,7 @@ export default function ClaimedCard({
       setState("Claiming");
     }
   }, [darkBalance]);
-
+  
   const { data: era2Data } = useRestFetch(["s3"], `/s3?file=era2`, {
     proxy: true,
   });
@@ -85,7 +85,7 @@ export default function ClaimedCard({
 
   const pointsToDisplay = useMemo(() => {
     if (account.address) {
-      if (points.length) {
+      if (points?.length) {
         const response = points.reduce((acc, point) => {
           const formattedPoint = formatUnits(BigInt(point), 18);
           return acc + Number(formattedPoint);
@@ -96,7 +96,7 @@ export default function ClaimedCard({
     }
 
     return 30000;
-  }, [account.address, era2Data]);
+  }, [account.address, points]);
 
   return (
     <>

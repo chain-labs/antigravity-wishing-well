@@ -129,7 +129,7 @@ export default function useTimer() {
     if (timestamps === null) {
       async function fetchData() {
         const response = await fetch(
-          "https://hujrbtk3.api.sanity.io/v2024-07-01/data/query/collective_page?query=*%5B_type%3D%3D%22timestamps%22%5D%5B0%5D",
+          "https://3d3jg1oy.api.sanity.io/v2024-07-01/data/query/agproject?query=*%5B_type%3D%3D%22timestamps%22%5D%5B0%5D",
         );
         const data = await response.json();
         // const data = {

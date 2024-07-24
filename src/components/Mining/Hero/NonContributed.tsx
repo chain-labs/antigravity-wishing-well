@@ -98,7 +98,7 @@ export default function NonContributed({
   const ERA1_ADDRESSES: string[] = useMemo(() => {
     if (s3Data) {
       const era1Data = (s3Data as any)?.data?.era1?.accounts;
-      return era1Data;
+      return era1Data || [];
     }
     return [];
   }, [s3Data]);
