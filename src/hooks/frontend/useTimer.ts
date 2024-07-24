@@ -66,6 +66,7 @@ function calculateTimeDifference(endTime: string) {
 
 function getCurrentEraAndPhase(timestamps: any) {
   const now = new Date().getTime();
+  console.log({ timestamps });
 
   // Check each phase start and end time to determine the current era and phase
   for (let era = 1; era <= 3; era++) {
@@ -125,28 +126,28 @@ function createDummyTimestamps() {
 
 export default function useTimer() {
   const [currentTimer, setCurrentTimer] = useState<CountdownType>(timer);
-  const [timeData, setTimeData] = useState({
-    claim_ends: "",
-    claim_starts: "",
-    era_1_phase_1_end: "",
-    era_1_phase_1_start: "",
-    era_1_phase_2_end: "",
-    era_1_phase_2_start: "",
-    era_1_phase_3_end: "",
-    era_1_phase_3_start: "",
-    era_2_phase_1_end: "",
-    era_2_phase_1_start: "",
-    era_2_phase_2_end: "",
-    era_2_phase_2_start: "",
-    era_2_phase_3_end: "",
-    era_2_phase_3_start: "",
-    era_3_phase_1_end: "",
-    era_3_phase_1_start: "",
-    era_3_phase_2_end: "",
-    era_3_phase_2_start: "",
-    era_3_phase_3_end: "",
-    era_3_phase_3_start: "",
-  });
+  const [timeData, setTimeData] = useState<{
+    claim_ends: string;
+    claim_starts: string;
+    era_1_phase_1_end: string;
+    era_1_phase_1_start: string;
+    era_1_phase_2_end: string;
+    era_1_phase_2_start: string;
+    era_1_phase_3_end: string;
+    era_1_phase_3_start: string;
+    era_2_phase_1_end: string;
+    era_2_phase_1_start: string;
+    era_2_phase_2_end: string;
+    era_2_phase_2_start: string;
+    era_2_phase_3_end: string;
+    era_2_phase_3_start: string;
+    era_3_phase_1_end: string;
+    era_3_phase_1_start: string;
+    era_3_phase_2_end: string;
+    era_3_phase_2_start: string;
+    era_3_phase_3_end: string;
+    era_3_phase_3_start: string;
+  }>();
 
   useEffect(() => {
     client.fetch(`*[_type=="timestamps"][0]`).then((metadata) => {
@@ -159,14 +160,20 @@ export default function useTimer() {
       if (timeData) {
         async function fetchData() {
           const now = new Date().getTime();
-          const era2End = new Date(timeData?.["era_2_phase_3_end"]).getTime();
-          const claimStart = new Date(timeData?.["claim_starts"]).getTime();
-          const claimEnd = new Date(timeData?.["claim_ends"]).getTime();
+          const era2End = new Date(
+            timeData?.["era_2_phase_3_end"] || "",
+          ).getTime();
+          const claimStart = new Date(
+            timeData?.["claim_starts"] || "",
+          ).getTime();
+          const claimEnd = new Date(timeData?.["claim_ends"] || "").getTime();
 
           let initialTimer: CountdownType;
 
           if (now >= era2End && now < claimStart) {
-            const claimTime = calculateTimeDifference(timeData["claim_starts"]);
+            const claimTime = calculateTimeDifference(
+              timeData?.["claim_starts"] || "",
+            );
             initialTimer = {
               era: "mining",
               phase: 3,
@@ -175,7 +182,9 @@ export default function useTimer() {
               claimTransition: true,
             };
           } else if (now >= claimStart && now <= claimEnd) {
-            const claimTime = calculateTimeDifference(timeData["claim_ends"]);
+            const claimTime = calculateTimeDifference(
+              timeData?.["claim_ends"] || "",
+            );
             initialTimer = {
               era: "mining",
               phase: 3,
@@ -352,7 +361,7 @@ export default function useTimer() {
 
       return () => clearInterval(interval);
     }
-  }, [timeData]);
+  }, [timeData, timestamps]);
 
   return currentTimer;
 }
