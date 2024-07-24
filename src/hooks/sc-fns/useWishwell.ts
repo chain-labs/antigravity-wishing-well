@@ -22,10 +22,10 @@ import { checkCorrectNetwork } from "@/components/RainbowKit";
 import { gqlFetcher } from "@/api/graphqlClient";
 import { gql } from "graphql-request";
 import { useRestPost } from "../useRestClient";
-import { UserData } from "@/components/Home/components/header/UserConnected";
+import { UserData } from "@/components/header/UserConnected";
 import useUserData from "@/app/(client)/store";
 import { useGQLFetch } from "../useGraphQLClient";
-import { hydrateUserAndNFT } from "@/components/Home/components/header/utils";
+import { hydrateUserAndNFT } from "@/components/header/utils";
 
 type Props = {};
 

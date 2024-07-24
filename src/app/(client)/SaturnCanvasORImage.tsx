@@ -1,7 +1,7 @@
 "use client";
 
 import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
-import CanvasRendering from "@/components/Home/components/saturn/CanvasRendering";
+import CanvasRendering from "@/components/saturn/CanvasRendering";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 

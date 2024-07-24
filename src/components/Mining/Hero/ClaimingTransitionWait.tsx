@@ -1,3 +1,5 @@
+"use client";
+
 import CountdownTimer from "@/components/CountdownTimer";
 import H1 from "@/components/HTML/H1";
 import P from "@/components/HTML/P";

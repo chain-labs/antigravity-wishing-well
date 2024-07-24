@@ -8,7 +8,6 @@ import { TEST_NETWORK } from "@/constants";
 import {
   IMAGEKIT_ICONS,
   IMAGEKIT_IMAGES,
-  IMAGEKIT_LOGOS,
 } from "@/assets/imageKit";
 import SepoliaAG from "@/abi/wishwell/Sepolia";
 import BaseSepoliaAG from "@/abi/wishwell/BaseSepolia";

@@ -1,3 +1,5 @@
+"use client";
+
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import { AnimatePresence, motion } from "framer-motion";
@@ -7,9 +9,9 @@ import Image from "next/image";
 import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import H1 from "@/components/HTML/H1";
 import P from "@/components/HTML/P";
-import AutomaticIncreamentalNumberCounter from "@/components/Home/components/spinner/AutomaticIncreamentalNumberCounter";
 import useUserData from "@/app/(client)/store";
 import imageKitLoader from "@/components/imageKitLoader";
+import AutomaticIncreamentalNumberCounter from "@/components/AutomaticIncreamentalNumberCounter";
 
 export default function NFTPopUp({
   minedSuccess = false,

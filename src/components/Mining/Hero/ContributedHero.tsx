@@ -1,3 +1,5 @@
+"use client";
+
 import useDarkContract from "@/abi/Dark";
 import useDarkClaimContract from "@/abi/DarkClaim";
 import H1 from "@/components/HTML/H1";
@@ -16,7 +18,6 @@ import { checkCorrectNetwork } from "@/components/RainbowKit";
 import { TEST_NETWORK } from "@/constants";
 import { pulsechain, sepolia } from "viem/chains";
 import { StateType } from "../types";
-import toast from "react-hot-toast";
 import { errorToast } from "@/hooks/frontend/toast";
 
 export default function ContributedHero({

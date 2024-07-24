@@ -1,6 +1,8 @@
+"use client";
+
 import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import ContributedHero from "./Hero/ContributedHero";
 import NFTPopUp from "./Hero/NFTPopUp";

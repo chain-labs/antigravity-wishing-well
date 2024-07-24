@@ -1,7 +1,7 @@
-import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
+"use client";
+import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import H1 from "../HTML/H1";
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { client } from "../../../sanity/lib/client";

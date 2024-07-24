@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import H1 from "../HTML/H1";
 import P from "../HTML/P";

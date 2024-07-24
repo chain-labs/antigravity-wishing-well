@@ -1,9 +1,11 @@
+"use client";
+
 import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import Image from "next/image";
 import H1 from "../HTML/H1";
 import P from "../HTML/P";
 import Button from "../Button";
-import { animate, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { client as cmsClient } from "../../../sanity/lib/client";
 import moment from "moment";

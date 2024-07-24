@@ -16,8 +16,8 @@ import useDarkXContract from "@/abi/DarkX";
 import { useRestPost } from "../useRestClient";
 import { verify } from "crypto";
 import useUserData from "@/app/(client)/store";
-import { UserData } from "@/components/Home/components/header/UserConnected";
-import { hydrateUserAndNFT } from "@/components/Home/components/header/utils";
+import { UserData } from "@/components/header/UserConnected";
+import { hydrateUserAndNFT } from "@/components/header/utils";
 
 /**
  *  Primary utility hook for everything related to the mining phase

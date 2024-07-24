@@ -1,7 +1,8 @@
+"use client";
+
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import H1 from "@/components/HTML/H1";
 import Pill from "@/components/Pill";
-import AutomaticIncreamentalNumberCounter from "@/components/Home/components/spinner/AutomaticIncreamentalNumberCounter";
 import AutomaticIncreamentalNumberCounterWithString from "../AutomaticIncreamentalNumberCounterWithString";
 import { AnimatePresence } from "framer-motion";
 import pointsConverterToUSCommaseparated from "@/components/pointsConverterToUSCommaseparated";

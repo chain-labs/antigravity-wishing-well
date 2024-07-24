@@ -1,6 +1,5 @@
 "use client";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
 
 type LIST_OF_BAGES_TYPE =
   | "Informant"

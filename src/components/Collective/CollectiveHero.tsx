@@ -1,4 +1,5 @@
 "use client";
+
 import H1 from "@/components/HTML/H1";
 import P from "@/components/HTML/P";
 import Button from "@/components/Button";

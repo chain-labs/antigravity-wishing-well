@@ -1,4 +1,5 @@
 "use client";
+
 import Leaderboard from "@/components/Collective/Leaderboard";
 import CollectiveHero from "@/components/Collective/CollectiveHero";
 import Event from "@/components/Collective/Event";
@@ -8,11 +9,9 @@ import PointsAndMultiplierInfo from "@/components/Collective/PointsAndMultiplier
 import RankupAndRewardsInfo from "@/components/Collective/RankupAndRewardsInfo";
 import Team from "@/components/Collective/Team";
 import PromotionAndNewsletter from "@/components/Collective/PromotionAndNewsletter";
-import Footer from "@/components/Home/sections/Footer";
-import { useAccount } from "wagmi";
+import Footer from "@/components/Footer";
 
 export default function CollectivePage() {
-  const account = useAccount();
   return (
     <>
       <CollectiveHero />

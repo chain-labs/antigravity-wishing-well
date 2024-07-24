@@ -5,19 +5,18 @@ import { AnimatePresence, motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import ReactLenis from "lenis/react";
 import useLoading from "@/hooks/frontend/useLoading";
-import { usePathname } from 'next/navigation'
 
 const LoadingPage = dynamic(() => import("@/app/(client)/LoadingPage"), {
   ssr: false,
 });
 
 const Header = dynamic(
-  () => import("@/components/Home/components/header/Header"),
+  () => import("@/components/header/Header"),
   {
     ssr: false,
   },
 );
-const Footer = dynamic(() => import("@/components/Home/sections/Footer"), {
+const Footer = dynamic(() => import("@/components/Footer"), {
   ssr: false,
 });
 
