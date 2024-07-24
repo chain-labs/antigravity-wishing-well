@@ -94,15 +94,15 @@ export default function Dropdown({
           style={{
             display: isOpen ? "flex" : "none",
           }}
-          className="flex flex-col justify-center items-center gap-[8px] select-none"
+          className="relative flex flex-col justify-start items-center gap-[8px] max-h-[500px] overflow-y-auto"
         >
           {options.map(
             (option, idx) =>
               idx !== selected && (
-                <>
+                <div key={option?.symbol} className="flex flex-col gap-[8px]">
                   <div
                     onClick={() => setSelected(idx)}
-                    key={option?.symbol}
+                    
                     className="flex gap-[8px] items-center justify-start w-full cursor-pointer min-w-[120px] select-none"
                   >
                     <Image
@@ -120,7 +120,7 @@ export default function Dropdown({
                     : idx !== options.length - 1 && (
                         <div className="w-full h-[1px] bg-gradient-to-bl from-[#5537A5] via-[#5537A5] to-[#BF6841]" />
                       )}
-                </>
+                </div>
               ),
           )}
         </div>
