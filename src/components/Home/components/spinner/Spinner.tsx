@@ -10,6 +10,7 @@ import useTimer from "@/hooks/frontend/useTimer";
 import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import { useRestPost } from "@/hooks/useRestClient";
 import P from "@/components/HTML/P";
+import { getEra } from "@/utils";
 
 let globalDelay = 0;
 
@@ -524,7 +525,10 @@ function Timer() {
         }}
         className="font-sans text-agyellow text-2xl font-bold text-center uppercase tracking-widest"
       >
-        {timer.era === "mining" && timer.phase === 3 && !timer.claimTransition && !timer.claimStarted
+        {timer.era === "mining" &&
+        timer.phase === 3 &&
+        !timer.claimTransition &&
+        !timer.claimStarted
           ? "Mining ends in"
           : timer.claimTransition
             ? "Claiming starts in"
@@ -536,25 +540,27 @@ function Timer() {
   );
 }
 
-function Bonus() {
-  // todo: add new endpoint
+function Bonus({ era }: { era: string }) {
   const { data = 0, mutate } = useRestPost(
-    ["predict-points"],
-    "/api/predict-points",
+    ["predict-multiplier"],
+    "/api/predict-multiplier",
   );
   const [bonus, setBonus] = useState(0);
   useEffect(() => {
     mutate({
       walletAddress: "",
-      amount: "1",
+      era: getEra(era),
     });
-  }, []);
+  }, [era]);
+
   useEffect(() => {
     if (data) {
+      console.log({ data });
       // @ts-ignore
-      setBonus(data?.points as number);
+      setBonus(data?.multiplier as number);
     }
   }, [data]);
+
   return (
     <>
       <h1 className="font-sans font-black text-4xl">
@@ -604,7 +610,7 @@ export default function Spinner({
             <div className="relative w-[100px] h-[100px] bg-agyellow rounded-full flex justify-center items-center">
               <div className="flex flex-col justify-center items-center">
                 <Pointer />
-                <Bonus />
+                <Bonus era={timer.era} />
               </div>
             </div>
           </div>

@@ -149,23 +149,23 @@ export default function NonContributed({
   }, [tokenPrice]);
 
   const {
-    data: predictedPointsData,
-    isSuccess: predictedPointsSuccess,
-    mutate: predictPointsFn,
-  } = useRestPost<{ points: number }>(
-    ["get-multiplyer"],
-    "/api/predict-points",
+    data: predictedMultiplierData,
+    isSuccess: predictedMultiplierSuccess,
+    mutate: predictMultiplierFn,
+  } = useRestPost<{ multiplier: number }>(
+    ["get-multiplier"],
+    "/api/predict-multiplier",
   );
 
   useEffect(() => {
-    predictPointsFn({
+    predictMultiplierFn({
       walletAddress: account.isConnected ? account.address : "",
-      amount: 1,
+      era: 2,
     });
   }, [account.address, timerState.era, timerState.phase]);
 
   const calculateMultiplyer = () => {
-    const multiplyerData = predictedPointsData?.points || 0;
+    const multiplyerData = predictedMultiplierData?.multiplier || 0;
     if (multiplyerData) setMultiplyer(multiplyerData as number);
   };
 
@@ -178,7 +178,7 @@ export default function NonContributed({
 
   useEffect(() => {
     calculateMultiplyer();
-  }, [predictedPointsData]);
+  }, [predictedMultiplierData]);
 
   const handleMine = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
