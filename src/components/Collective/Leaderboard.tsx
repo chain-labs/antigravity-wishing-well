@@ -36,21 +36,6 @@ function CollectiveLogo() {
   );
 }
 
-const dummyData = [
-  {
-    rank: 1,
-    badge: "🏆",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 1234567890,
-  },
-  {
-    rank: 2,
-    badge: "🥈",
-    wallet: "0x1234567890abcdef1234567890abcdef12345678",
-    points: 1234567890,
-  },
-] as tableDataType[];
-
 type tableDataType = {
   rank: number;
   badge: string;
@@ -62,7 +47,7 @@ type tableDataType = {
 export default function Leaderboard() {
   const timer = useTimer();
   const account = useAccount();
-  const [tableData, setTableData] = useState<tableDataType[]>(dummyData);
+  const [tableData, setTableData] = useState<tableDataType[]>([]);
   const targetRef = useRef<HTMLDivElement>(null);
   const [selectedLeaderboard, setSelectedLeaderboard] = useState<
     "allTimeLeaderboard" | "era1Leaderboard" | "era2Leaderboard" | string
