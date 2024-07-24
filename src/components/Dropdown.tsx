@@ -111,11 +111,11 @@ export default function Dropdown({
                     />
                     {option?.symbol}
                   </div>
-                  {selected === options.length - 1
-                    ? idx !== options.length - 2 && (
+                  {selected === options?.length - 1
+                    ? idx !== options?.length - 2 && (
                         <div className="w-full h-[1px] bg-gradient-to-bl from-[#5537A5] via-[#5537A5] to-[#BF6841]" />
                       )
-                    : idx !== options.length - 1 && (
+                    : idx !== options?.length - 1 && (
                         <div className="w-full h-[1px] bg-gradient-to-bl from-[#5537A5] via-[#5537A5] to-[#BF6841]" />
                       )}
                 </>

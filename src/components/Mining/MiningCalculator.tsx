@@ -66,7 +66,7 @@ export function InputCard({
 
     // Ensure only one decimal point
     const parts = inputCurrentValue.split(".");
-    if (parts.length > 2) {
+    if (parts?.length > 2) {
       inputCurrentValue = parts[0] + "." + parts.slice(1).join("");
     }
 
@@ -265,9 +265,9 @@ function fontsizeClamping(
   minFontSize: number,
   maxFontSize: number,
 ) {
-  return value.length >= maxLengthForClamping
-    ? maxFontSize - (value.length - maxLengthForClamping) >= minFontSize
-      ? maxFontSize - (value.length - maxLengthForClamping)
+  return value?.length >= maxLengthForClamping
+    ? maxFontSize - (value?.length - maxLengthForClamping) >= minFontSize
+      ? maxFontSize - (value?.length - maxLengthForClamping)
       : minFontSize
     : maxFontSize;
 }

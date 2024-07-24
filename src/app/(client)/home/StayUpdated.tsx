@@ -18,8 +18,6 @@ const StayUpdated = () => {
     e.preventDefault();
 
     if (name && email) {
-      console.log({ name, email });
-
       setSubmit(true);
       mutate({ name, email });
     }

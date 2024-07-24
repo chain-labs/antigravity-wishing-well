@@ -38,7 +38,6 @@ export default function ContributedCard({
               to={to + ""}
               float={String(to).includes(".")}
               classNames="[word-wrap:break-word] max-w-full"
-              // floatingPoint={String(to).split(".")[1]?.length}
             />
           </AnimatePresence>
         </H1>

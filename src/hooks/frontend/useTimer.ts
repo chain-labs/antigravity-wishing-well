@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { client } from "../../../sanity/lib/client";
 
 export type CountdownType = {
   era: "wishwell" | "mining" | "minting";
@@ -125,27 +126,24 @@ function createDummyTimestamps() {
 export default function useTimer() {
   const [currentTimer, setCurrentTimer] = useState<CountdownType>(timer);
 
+  useEffect(() => {}, []);
+
   useEffect(() => {
     if (timestamps === null) {
       async function fetchData() {
-        const response = await fetch(
-          "https://hujrbtk3.api.sanity.io/v2024-07-01/data/query/collective_page?query=*%5B_type%3D%3D%22timestamps%22%5D%5B0%5D",
-        );
-        const data = await response.json();
-        // const data = {
-        //   result: createDummyTimestamps(),
-        // }
-
+        const timeData = await client.fetch(`*[_type=="timestamps"][0]`);
         const now = new Date().getTime();
-        const era2End = new Date(data.result?.["era_2_phase_3_end"]).getTime();
-        const claimStart = new Date(data.result?.["claim_starts"]).getTime();
-        const claimEnd = new Date(data.result?.["claim_ends"]).getTime();
+        const era2End = new Date(
+          timeData?.["era_2_phase_3_end"] || "",
+        ).getTime();
+        const claimStart = new Date(timeData?.["claim_starts"] || "").getTime();
+        const claimEnd = new Date(timeData?.["claim_ends"] || "").getTime();
 
         let initialTimer: CountdownType;
 
         if (now >= era2End && now < claimStart) {
           const claimTime = calculateTimeDifference(
-            data.result?.["claim_starts"],
+            timeData?.["claim_starts"] || "",
           );
           initialTimer = {
             era: "mining",
@@ -156,7 +154,7 @@ export default function useTimer() {
           };
         } else if (now >= claimStart && now <= claimEnd) {
           const claimTime = calculateTimeDifference(
-            data.result?.["claim_ends"],
+            timeData?.["claim_ends"] || "",
           );
           initialTimer = {
             era: "mining",
@@ -166,11 +164,11 @@ export default function useTimer() {
             claimTransition: false,
           };
         } else {
-          const { era, phase } = getCurrentEraAndPhase(data.result);
+          const { era, phase } = getCurrentEraAndPhase(timeData);
           const phaseEndKey = `${era}_phase_${phase}_end`;
-          const initialTime = calculateTimeDifference(
-            data.result?.[phaseEndKey],
-          );
+          // @ts-ignore
+          const endTime = timeData[phaseEndKey];
+          const initialTime = calculateTimeDifference(endTime);
 
           initialTimer = {
             era:
@@ -188,8 +186,8 @@ export default function useTimer() {
 
         setTimer(initialTimer);
         setCurrentTimer(initialTimer);
-        setTimestamps(data.result);
-        localStorage?.setItem("timestamps", JSON.stringify(data.result));
+        setTimestamps(timeData);
+        localStorage?.setItem("timestamps", JSON.stringify(timeData));
         localStorage?.setItem(
           "current-timestamp",
           JSON.stringify(initialTimer),

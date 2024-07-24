@@ -182,7 +182,7 @@ export default function AnimatedButton({
           { y: -letterSize[size] },
           {
             duration: 0.2,
-            delay: stagger(0.2 / innerTextStringArray.length),
+            delay: stagger(0.2 / innerTextStringArray?.length),
           },
         ],
         [".letter", { y: 0 }, { duration: 0.000001, at: 0.5 }],
@@ -197,7 +197,7 @@ export default function AnimatedButton({
           { y: -letterSize[size] },
           {
             duration: 0.2,
-            delay: stagger(0.2 / innerTextStringArray.length),
+            delay: stagger(0.2 / innerTextStringArray?.length),
           },
         ],
         ...sparklesAnimation,

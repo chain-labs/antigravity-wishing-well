@@ -52,7 +52,7 @@ function StackOfCounters({
 }) {
   return (
     <motion.span
-      animate={{ y: selected ? 0 : -((LIST_OF_BAGES.length - idx) * 24) }}
+      animate={{ y: selected ? 0 : -((LIST_OF_BAGES?.length - idx) * 24) }}
       initial={{ y: idx * 24 }}
       transition={{ duration: 0.5 }}
       className="absolute text-agwhite"
