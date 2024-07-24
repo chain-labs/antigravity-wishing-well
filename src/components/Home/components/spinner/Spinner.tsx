@@ -537,6 +537,7 @@ function Timer() {
 }
 
 function Bonus() {
+  // todo: add new endpoint
   const { data = 0, mutate } = useRestPost(
     ["predict-points"],
     "/api/predict-points",

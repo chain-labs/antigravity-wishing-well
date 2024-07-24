@@ -158,23 +158,38 @@ export default function Leaderboard() {
                 <P className="font-medium">Mine now to rank up!</P>
                 {timer.era !== "minting" && (
                   <Link href={"/mining"}>
-                    <Button
-                      innerText={
-                        timer.claimStarted ? "Start Claiming" : "Start mining"
-                      }
-                      iconSrc={IMAGEKIT_ICONS.HAMMER}
-                      iconAlt="hammer icon"
-                      variants={{
-                        hover: {
-                          scale: 1.35,
-                          rotate: 390,
-                          transition: {
-                            duration: 1,
-                            type: "spring",
+                    {timer.claimStarted ? (
+                      <Button
+                        innerText={"Start Claiming"}
+                        iconSrc={IMAGEKIT_ICONS.CLAIM}
+                        iconAlt="claim icon"
+                        variants={{
+                          hover: {
+                            rotate: 15,
+                            transition: {
+                              duration: 0.25,
+                              type: "spring",
+                            },
                           },
-                        },
-                      }}
-                    />
+                        }}
+                      />
+                    ) : (
+                      <Button
+                        innerText={"Start mining"}
+                        iconSrc={IMAGEKIT_ICONS.HAMMER}
+                        iconAlt="hammer icon"
+                        variants={{
+                          hover: {
+                            scale: 1.35,
+                            rotate: 390,
+                            transition: {
+                              duration: 1,
+                              type: "spring",
+                            },
+                          },
+                        }}
+                      />
+                    )}
                   </Link>
                 )}
                 <a href="/" className="text-agwhite underline">

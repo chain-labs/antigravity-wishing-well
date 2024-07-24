@@ -1,40 +1,42 @@
 import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
 
+// temporary removing vpn login
+
 export async function middleware(request: NextRequest) {
-  const realIp = headers().get("x-real-ip");
-  const geo = request.geo?.country
+  // const realIp = headers().get("x-real-ip");
+  // const geo = request.geo?.country
 
-  try{
-    const apiResponse = await (
-      await fetch(
-        `https://get.geojs.io/v1/ip/country/${realIp ?? "0.0.0.0"}.json`,
-      )
-    ).json();
+  // try{
+  //   const apiResponse = await (
+  //     await fetch(
+  //       `https://get.geojs.io/v1/ip/country/${realIp ?? "0.0.0.0"}.json`,
+  //     )
+  //   ).json();
   
-    console.log('apiResponse', apiResponse);
+  //   console.log('apiResponse', apiResponse);
     
-  }
-  catch(e){
-    console.log('error', e);
-  }
+  // }
+  // catch(e){
+  //   console.log('error', e);
+  // }
 
 
-  const restrictedCountryCodes = ["GU", "US", "VI", "PR"];
+  // const restrictedCountryCodes = ["GU", "US", "VI", "PR"];
 
-  const url = request.nextUrl.clone();
-  const pathname = url.pathname;
+  // const url = request.nextUrl.clone();
+  // const pathname = url.pathname;
 
-  if (!pathname.includes("/blocked")) {
-    if (restrictedCountryCodes.includes(geo ?? "")) {
-      return NextResponse.redirect(url.origin + "/blocked");
-    }
-  }
-  if (pathname.includes("/blocked")) {
-    if (!restrictedCountryCodes.includes(geo ?? "")) {
-      return NextResponse.redirect(url.origin + "/");
-    }
-  }
+  // if (!pathname.includes("/blocked")) {
+  //   if (restrictedCountryCodes.includes(geo ?? "")) {
+  //     return NextResponse.redirect(url.origin + "/blocked");
+  //   }
+  // }
+  // if (pathname.includes("/blocked")) {
+  //   if (!restrictedCountryCodes.includes(geo ?? "")) {
+  //     return NextResponse.redirect(url.origin + "/");
+  //   }
+  // }
   return NextResponse.next();
 }
 

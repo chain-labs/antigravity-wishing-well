@@ -36,7 +36,7 @@ export default function MiningHero() {
       />
       <div className="bg-gradient-to-b from-[#000] h-fit to-[#0000] z-0">
         <div className="flex flex-col justify-center items-center w-full h-fit py-[30px] md:pt-[100px] z-0">
-          {/* {timer.claimTransition ? (
+          {timer.claimTransition ? (
             <ClaimTransitionWait />
           ) : (timer.claimStarted || timer.era === "minting") &&
             state !== "Claimed" ? (
@@ -44,13 +44,13 @@ export default function MiningHero() {
           ) : (timer.claimStarted || timer.era === "minting") &&
             state === "Claimed" ? (
             <ClaimedCard setState={setState} />
-          ) : ( */}
+          ) : (
             <NonContributed
               state={state}
               setNFTHover={setNFTHover}
               setMinedSuccess={setMinedSuccess}
             />
-          {/* )} */}
+          )}
         </div>
         <AnimatePresence>
           {NFTHover && (

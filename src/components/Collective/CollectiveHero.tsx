@@ -87,6 +87,14 @@ export default function CollectiveHero() {
             iconPosition="start"
             innerText="Connect Wallet"
             onClick={handleLogin}
+            variants={{
+              hover: {
+                animationName: "wiggle",
+                animationDuration: "1s",
+                animationFillMode: "forwards",
+                animationTimingFunction: "linear",
+              }
+            }}
           />
         )}
       </div>
