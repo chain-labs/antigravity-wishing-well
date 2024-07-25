@@ -15,7 +15,7 @@ export default function CollectivePage() {
   return (
     <>
       <CollectiveHero />
-      <div className="md:h-[50vh] max-h-[500px]" />
+      <div className="md:h-[50vh] max-h-[500px] lg:max-h-[100px]" />
       <div className="block md:hidden">
         <Leaderboard />
       </div>
