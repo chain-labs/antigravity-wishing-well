@@ -55,7 +55,7 @@ export default function PointsAndMultiplierInfo() {
                 className="select-none relative z-10"
               >
                 <div
-                  className={`relative flex justify-center items-center gap-[8px] rounded-[6px] bg-gradient-to-b from-[#0A1133] to-[#142266] px-[16px] py-[8px] border-1 border-transparent bg-clip-padding z-0
+                  className={`relative flex justify-center items-center gap-[8px] rounded-[6px] bg-gradient-to-b from-[#0A1133] to-[#142266] px-[16px] py-[8px] border-1 border-transparent bg-clip-padding z-0 saturate-0
                     before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-b before:from-[#B4EBF8] before:to-[#789DFA] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
                               after:content-[''] after:absolute after:inset-0 after:z-[-2]  after:bg-gradient-to-b after:from-[#0A1133] after:to-[#142266] after:rounded-[inherit] after:overflow-hidden`}
                 >
@@ -90,7 +90,7 @@ export default function PointsAndMultiplierInfo() {
                         height: 0,
                         opacity: 0,
                       }}
-                      className="absolute top-[calc(100%+16px)] left-1/2 -translate-x-1/2 flex text-agwhite w-fit rounded-[4px] bg-gradient-to-tr from-brred to-blue p-[1px]"
+                      className="absolute top-[calc(100%+16px)] left-0 flex text-agwhite w-fit rounded-[4px] bg-gradient-to-tr from-brred to-blue p-[1px]"
                     >
                       <div className="w-fit h-fit bg-gradient-to-b from-[#030404] to-[#131A1A] flex items-center justify-between rounded-[inherit] gap-6 px-[16px] py-[8px] text-[16px] text-nowrap">
                         Currently by invitation only.
