@@ -1,6 +1,6 @@
 "use client";
 
-import { TEST_NETWORK } from "@/constants";
+import { PROJECT_ID, TEST_NETWORK } from "@/constants";
 import { RainbowKitProvider, getDefaultConfig } from "@rainbow-me/rainbowkit";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { pulsechain, baseSepolia, base, sepolia } from "viem/chains";
@@ -13,7 +13,7 @@ const pulseChain = {
 
 const config = getDefaultConfig({
   appName: "AntiGravity",
-  projectId: "da0885f4ccb13b9f676544fd97528d14",
+  projectId: `${PROJECT_ID}`,
   chains: TEST_NETWORK ? [sepolia, baseSepolia] : [pulseChain, base],
   transports: TEST_NETWORK
     ? {

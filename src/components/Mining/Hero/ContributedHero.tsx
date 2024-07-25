@@ -65,7 +65,7 @@ export default function ContributedHero({
 
   const pointsToDisplay = useMemo(() => {
     if (account.address) {
-      if (points.length) {
+      if (points?.length) {
         const response = points.reduce((acc, point) => {
           const formattedPoint = formatUnits(BigInt(point), 18);
           return acc + Number(formattedPoint);
@@ -162,10 +162,10 @@ export default function ContributedHero({
     e.preventDefault();
 
     if (
-      addresses.length > 0 &&
-      addresses.length === points.length &&
-      points.length === nonces.length &&
-      nonces.length === proofs.length
+      addresses?.length > 0 &&
+      addresses?.length === points?.length &&
+      points?.length === nonces?.length &&
+      nonces?.length === proofs?.length
     )
       claim(addresses, points, nonces, proofs);
     else {

@@ -106,7 +106,6 @@ export default function Testimonials() {
   useEffect(() => {
     cmsClient.fetch(`*[_type=="testimonials"]|order(position,_createdAt)`).then((testimonialData) => {
       setTestimonials(testimonialData);
-      console.log('testimonialData', testimonialData);
     });
   }, []);
 

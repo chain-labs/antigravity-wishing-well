@@ -554,7 +554,6 @@ function Bonus({ era }: { era: string }) {
 
   useEffect(() => {
     if (data) {
-      console.log({ data });
       // @ts-ignore
       setBonus(data?.multiplier as number);
     }

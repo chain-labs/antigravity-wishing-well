@@ -41,7 +41,6 @@ export default function Youtube() {
 		}`,
       )
       .then((metadata) => {
-        console.log({ metadata });
         setMetadata(metadata);
       });
   }, []);

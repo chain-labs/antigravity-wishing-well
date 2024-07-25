@@ -39,7 +39,11 @@ function TH({
       )}
     >
       <H3>
-        <motion.div animate={hover ? "hover" : ""} variants={variants} className="w-[25px] h-[25px]">
+        <motion.div
+          animate={hover ? "hover" : ""}
+          variants={variants}
+          className="w-[25px] h-[25px]"
+        >
           <Image
             src={icon}
             alt={`${heading} icon`}
@@ -56,7 +60,7 @@ function TH({
 
 function truncatinator(str: string) {
   return (
-    str.substring(0, 6) + "..." + str.substring(str.length - 4, str.length)
+    str?.substring(0, 6) + "..." + str?.substring(str?.length - 4, str?.length)
   );
 }
 
@@ -279,7 +283,7 @@ export default function Table({
     setTableData([]);
     const setTableDataTimeout = setTimeout(
       () => setTableData(currentTableData),
-      200 * currentTableData.length,
+      200 * currentTableData?.length,
     );
 
     return () => {
@@ -291,7 +295,7 @@ export default function Table({
   return (
     <table
       style={{
-        minHeight: tableData.length === 0 ? "calc(2.5rem*11)" : "auto",
+        minHeight: tableData?.length === 0 ? "calc(2.5rem*11)" : "auto",
       }}
       className="w-full bg-gradient-to-b from-[#0A1133] to-[#142266] min-h-[calc(2.5rem*11)] h-fit transition-all duration-300"
     >
@@ -346,7 +350,7 @@ export default function Table({
         className="text-lg font-medium font-general-sans text-agwhite min-h-[clac(2.5rem*10)] w-fit"
       >
         <AnimatePresence>
-          {tableData.length !== 0 ? (
+          {tableData?.length !== 0 ? (
             <AnimatePresence>
               {tableData.map((data, idx) =>
                 data !== null ? (

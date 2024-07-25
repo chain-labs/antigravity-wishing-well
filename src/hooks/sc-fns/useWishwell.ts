@@ -110,11 +110,9 @@ const useWishwell = () => {
   }, [tokenData, isError]);
 
   useEffect(() => {
-    console.log({ tokenId });
     if (Number(tokenId) > 0) {
       setIsRegistered(true);
       setPoll(true);
-      console.log({ nftURLera1 });
       if (nftURLera1) {
         setIsSuccess(true);
       }
@@ -197,7 +195,6 @@ const useWishwell = () => {
 
   useEffect(() => {
     if (registerError) {
-      console.log({ registerError });
       let errorMessage = "";
       // @ts-ignore
       if (registerError.cause.code === 4001) {

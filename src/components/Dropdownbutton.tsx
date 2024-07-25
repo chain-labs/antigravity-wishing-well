@@ -48,7 +48,7 @@ export default function Dropdown({
     <div
       ref={targetRef}
       onClick={toggleOptions}
-      className="uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-extrabold text-agwhite cursor-pointer text-nowrap rounded-[4px] px-[10px] py-[6px] shadow-[0_4px_0_#414343] hover:translate-y-1 hover:shadow-none transition-[all_150ms] hover:shadow-none z-50 border-[1px] border-[#414343] bg-agblack active:bg-[#414343] box-border"
+      className="uppercase tracking-widest w-fit relative flex items-center gap-x-2 justify-center font-sans font-extrabold text-agwhite cursor-pointer text-nowrap rounded-[4px] px-[10px] py-[6px] shadow-[0_4px_0_#414343] hover:translate-y-1 hover:shadow-none transition-[all_150ms] z-50 border-[1px] border-[#414343] bg-agblack active:bg-[#414343] box-border"
     >
       <div className="cursor-pointer grid grid-cols-[24px_auto_16px] place-items-center gap-[8px] select-none">
         <motion.div
@@ -111,13 +111,6 @@ export default function Dropdown({
                   >
                     {option.label}
                   </div>
-                  {/* {selected === option.value && idx === options.length - 1
-                    ? idx !== options.length - 2 && (
-                        <div className="w-full h-[1px] bg-gradient-to-bl from-[#5537A5] via-[#5537A5] to-[#BF6841]" />
-                      )
-                    : idx !== options.length - 1 && (
-                        <div className="w-full h-[1px] bg-gradient-to-bl from-[#5537A5] via-[#5537A5] to-[#BF6841]" />
-                      )} */}
                 </>
               ),
           )}

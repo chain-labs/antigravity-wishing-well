@@ -81,19 +81,17 @@ export default function Dropdown({
       </div>
       <motion.div
         style={{
-          height: isOpen ? `fit-content` : "0px",
-          padding: isOpen ? "8px 8px" : "0px 8px",
+          height: isOpen ? `auto` : "0px",
+          padding: isOpen ? "2px 2px" : "0px 2px",
           opacity: isOpen ? 1 : 0,
         }}
-        className="absolute top-[calc(100%+8px)] right-0 rounded-[6px] z-10 text-agwhite transition-all duration-300 ease-in-out bg-agblack
-			before:content-[''] before:absolute before:inset-0 before:z-[-10] md:before:bg-gradient-to-bl before:from-[#5537A5] before:to-[#BF6841] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
-			after:content-[''] after:absolute after:inset-0 after:z-[-2] md:after:bg-gradient-to-b after:from-[#030404] after:to-[#131A1A] after:rounded-[inherit] after:overflow-hidden"
+        className="absolute top-[calc(100%+8px)] right-0 rounded-[6px] z-10 text-agwhite transition-all duration-300 ease-in-out bg-gradient-to-bl from-[#5537A5] to-[#BF6841]"
       >
         <div
           style={{
-            display: isOpen ? "flex" : "none",
+            display: isOpen ? "grid" : "none",
           }}
-          className="flex flex-col justify-center items-center gap-[8px] select-none"
+          className="relative grid grid-cols-1 gap-[8px] w-fit min-w-[140px] overflow-x-hidden bg-gradient-to-b from-[#030404] to-[#131A1A] rounded-[6px] p-[8px] max-h-[300px] overflow-y-scroll"
         >
           {options.map(
             (option, idx) =>
@@ -101,7 +99,7 @@ export default function Dropdown({
                 <>
                   <div
                     onClick={() => setSelected(idx)}
-                    key={option?.symbol}
+                    key={option.symbol}
                     className="flex gap-[8px] items-center justify-start w-full cursor-pointer min-w-[120px] select-none"
                   >
                     <Image
@@ -112,11 +110,11 @@ export default function Dropdown({
                     />
                     {option?.symbol}
                   </div>
-                  {selected === options.length - 1
-                    ? idx !== options.length - 2 && (
+                  {selected === options?.length - 1
+                    ? idx !== options?.length - 2 && (
                         <div className="w-full h-[1px] bg-gradient-to-bl from-[#5537A5] via-[#5537A5] to-[#BF6841]" />
                       )
-                    : idx !== options.length - 1 && (
+                    : idx !== options?.length - 1 && (
                         <div className="w-full h-[1px] bg-gradient-to-bl from-[#5537A5] via-[#5537A5] to-[#BF6841]" />
                       )}
                 </>

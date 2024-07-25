@@ -31,7 +31,6 @@ export default function Team() {
 		}`,
       )
       .then((metadata) => {
-        console.log({ metadata });
         setMetadata(metadata);
       });
   }, []);

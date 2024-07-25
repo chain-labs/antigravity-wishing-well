@@ -66,7 +66,7 @@ export function InputCard({
 
     // Ensure only one decimal point
     const parts = inputCurrentValue.split(".");
-    if (parts.length > 2) {
+    if (parts?.length > 2) {
       inputCurrentValue = parts[0] + "." + parts.slice(1).join("");
     }
 
@@ -114,7 +114,7 @@ export function InputCard({
   }, [tokenBalance, account.isConnected]);
 
   return (
-    <div className="flex justify-between gap-[8px] bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-fit min-w-full border-[1px] border-agyellow">
+    <div className="flex justify-between gap-[8px] bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-fit min-w-full border-[1px] border-agyellow z-10">
       <div className="flex flex-col justify-center items-start gap-[8px] w-full">
         <form
           onBlur={(e) => {
@@ -265,9 +265,9 @@ function fontsizeClamping(
   minFontSize: number,
   maxFontSize: number,
 ) {
-  return value.length >= maxLengthForClamping
-    ? maxFontSize - (value.length - maxLengthForClamping) >= minFontSize
-      ? maxFontSize - (value.length - maxLengthForClamping)
+  return value?.length >= maxLengthForClamping
+    ? maxFontSize - (value?.length - maxLengthForClamping) >= minFontSize
+      ? maxFontSize - (value?.length - maxLengthForClamping)
       : minFontSize
     : maxFontSize;
 }
@@ -514,7 +514,7 @@ export default function MiningCalculator({
   }, [tokenBalance, account.isConnected]);
 
   return (
-    <div className="relative flex flex-col gap-[8px] h-fit min-w-[400px] max-w-full scale-[0.9] md:scale-100">
+    <div className="relative flex flex-col gap-[8px] h-fit min-w-[400px] max-w-full scale-[0.9] md:scale-100 z-10">
       <InputCard
         inputValue={currentValue}
         setCurrentInputValue={setCurrentValue}

@@ -15,11 +15,7 @@ const useMerkleTree = (addresses: Array<string>) => {
   const buf2hex = (x: any) => "0x" + x.toString("hex");
 
   const list = useMemo(() => {
-    if (addresses.length === 1) {
-      return [zeroAddress, addresses[0]];
-    } else {
-      return addresses;
-    }
+    return addresses;
   }, [addresses]);
 
   /**
@@ -35,8 +31,8 @@ const useMerkleTree = (addresses: Array<string>) => {
   }
 
   const tree = useMemo(() => {
-    const leaves = list.map((item) => generateLeaf(item));
-    return new MerkleTree(leaves, KECCAK256, { sortPairs: true });
+    const leaves = list?.map((item) => generateLeaf(item));
+    return new MerkleTree(leaves || [], KECCAK256, { sortPairs: true });
   }, [list]);
 
   const root = useMemo(() => {
@@ -58,7 +54,6 @@ const useMerkleTree = (addresses: Array<string>) => {
       generateLeaf((queryAccount || candidate) as `0x${string}`),
     );
     const proof = tree.getProof(leaf).map((x) => buf2hex(x.data));
-    console.log({ proof });
     return proof;
   };
 

@@ -158,7 +158,6 @@ export default function CollectiveRotatingCarousel() {
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    console.log({ IMAGEKIT_COLLECTIVE });
     client
       .fetch(
         `*[_type=="collective"][0]{

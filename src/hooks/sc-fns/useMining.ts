@@ -1,6 +1,6 @@
 import useMiningContract from "@/abi/MiningRig";
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
-import { formatUnits, parseUnits, zeroAddress } from "viem";
+import { formatUnits, parseUnits } from "viem";
 import erc20ABI from "erc-20-abi";
 import {
   useAccount,
@@ -14,7 +14,6 @@ import { IToken } from "@/components/Mining/types";
 import { errorToast, successToast } from "../frontend/toast";
 import useDarkXContract from "@/abi/DarkX";
 import { useRestPost } from "../useRestClient";
-import { verify } from "crypto";
 import useUserData from "@/app/(client)/store";
 import { UserData } from "@/components/header/UserConnected";
 import { hydrateUserAndNFT } from "@/components/header/utils";
@@ -59,8 +58,8 @@ const useMining = (
   const balance = useMemo(() => {
     if (nativeBalanceData) {
       const response = formatUnits(
-        nativeBalanceData.value,
-        nativeBalanceData.decimals,
+        nativeBalanceData?.value,
+        nativeBalanceData?.decimals,
       );
       return response;
     }
@@ -124,7 +123,6 @@ const useMining = (
     writeContract: approve,
     data: approveHash,
     error: approveError,
-    isPending: approveIsPending,
   } = useWriteContract();
 
   const { data: approveReceipt, isLoading: approveIsLoading } =
@@ -286,7 +284,6 @@ const useMining = (
       );
       const amount = formatUnits(investAmount, token.decimals);
       setMerkleProofState(merkleProof);
-      console.log({ merkleProof });
 
       // !(nativeToken.toLowerCase() === token.address.toLowerCase()) &&
       // Number(allowed) < Number(amount)

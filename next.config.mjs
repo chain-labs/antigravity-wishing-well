@@ -33,7 +33,11 @@ const nextConfig = {
       },
       {
         hostname: "coin-images.coingecko.com",
-        protocol: "https",
+        protocol: "https"
+      },
+      {
+        hostname: "assets.geckoterminal.com",
+        protocol: "https"
       }
     ],
     dangerouslyAllowSVG: true,
