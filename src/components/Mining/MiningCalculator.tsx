@@ -23,6 +23,8 @@ import { useAccount } from "wagmi";
 import pointsConverterToUSCommaseparated from "../pointsConverterToUSCommaseparated";
 import USFormatToNumber from "../USFormatToNumber";
 
+const MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION = 0.000001;
+
 export function InputCard({
   inputValue,
   setCurrentInputValue,
@@ -182,11 +184,19 @@ export function InputCard({
           extrabold
           className="opacity-75 h-fit flex justify-start items-center w-fit"
         >
+          {USFormatToNumber(currentConversion) < MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION &&
+            USFormatToNumber(currentConversion) !== 0 &&
+            "< "}
           {"$"}
           {conversionRef.current && (
             <AutomaticIncreamentalNumberCounterWithString
               from={conversionRef.current?.textContent ?? "0"}
-              to={currentConversion}
+              to={
+                USFormatToNumber(currentConversion) < MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION &&
+                USFormatToNumber(currentConversion) !== 0
+                  ? `${MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION}`
+                  : currentConversion
+              }
               float={currentConversion.includes(".")}
             />
           )}
@@ -326,8 +336,8 @@ export function Card({
           style={{
             fontSize:
               fontsizeClamping(
-                USFormatToNumber(currentValue) < 0.0001
-                  ? "0.0001"
+                USFormatToNumber(currentValue) < MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION
+                  ? `${MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION}`
                   : currentValue,
                 7,
                 16,
@@ -337,16 +347,16 @@ export function Card({
           }}
           className={` text-agwhite font-extrabold font-sans`}
         >
-          {USFormatToNumber(currentValue) < 0.0001 &&
+          {USFormatToNumber(currentValue) < MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION &&
             USFormatToNumber(currentValue) !== 0 &&
             "< "}
           {targetValueRef.current && (
             <AutomaticIncreamentalNumberCounterWithString
               from={targetValueRef.current?.textContent ?? "0"}
               to={
-                USFormatToNumber(currentValue) < 0.0001 &&
+                USFormatToNumber(currentValue) < MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION &&
                 USFormatToNumber(currentValue) !== 0
-                  ? "0.0001"
+                  ?  `${MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION}`
                   : currentValue
               }
               float={currentValue.includes(".")}
@@ -360,8 +370,8 @@ export function Card({
               style={{
                 fontSize:
                   fontsizeClamping(
-                    USFormatToNumber(currentConversion) < 0.0001
-                      ? "0.0001"
+                    USFormatToNumber(currentConversion) < MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION
+                      ? `${MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION}`
                       : currentConversion,
                     7,
                     10,
@@ -371,7 +381,7 @@ export function Card({
               }}
               extrabold
             >
-              {USFormatToNumber(currentConversion) < 0.0001 &&
+              {USFormatToNumber(currentConversion) < MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION &&
                 USFormatToNumber(currentConversion) !== 0 &&
                 "< "}
               {"$"}
@@ -379,9 +389,9 @@ export function Card({
                 <AutomaticIncreamentalNumberCounterWithString
                   from={conversionRef.current?.textContent ?? "0"}
                   to={
-                    USFormatToNumber(currentConversion) < 0.0001 &&
+                    USFormatToNumber(currentConversion) < MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION &&
                     USFormatToNumber(currentConversion) !== 0
-                      ? "0.0001"
+                      ? `${MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION}`
                       : currentConversion
                   }
                   float={currentConversion.includes(".")}
