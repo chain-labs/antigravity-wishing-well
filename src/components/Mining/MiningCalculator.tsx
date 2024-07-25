@@ -18,7 +18,6 @@ import Pill from "@/components/Pill";
 import { TokenDropdownTypes } from "./types";
 import Image from "next/image";
 import AutomaticIncreamentalNumberCounterWithString from "./AutomaticIncreamentalNumberCounterWithString";
-import { TOKEN_OPTIONS } from "./constants";
 import { useAccount } from "wagmi";
 import pointsConverterToUSCommaseparated from "../pointsConverterToUSCommaseparated";
 import USFormatToNumber from "../USFormatToNumber";
@@ -184,7 +183,8 @@ export function InputCard({
           extrabold
           className="opacity-75 h-fit flex justify-start items-center w-fit"
         >
-          {USFormatToNumber(currentConversion) < MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION &&
+          {USFormatToNumber(currentConversion) <
+            MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION &&
             USFormatToNumber(currentConversion) !== 0 &&
             "< "}
           {"$"}
@@ -192,7 +192,8 @@ export function InputCard({
             <AutomaticIncreamentalNumberCounterWithString
               from={conversionRef.current?.textContent ?? "0"}
               to={
-                USFormatToNumber(currentConversion) < MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION &&
+                USFormatToNumber(currentConversion) <
+                  MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION &&
                 USFormatToNumber(currentConversion) !== 0
                   ? `${MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION}`
                   : currentConversion
@@ -238,7 +239,7 @@ export function InputCard({
                   inputRef.current.value = tokenBalance.toString();
               }}
             >
-              <div className="bg-[#0A1133] rounded-full w-fit h-fit">
+              <div className="bg-[#142266] rounded-full w-fit h-fit">
                 <div
                   className={twMerge(
                     "uppercase text-nowrap rounded-full text-[12px] leading-[12px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent",
@@ -256,7 +257,7 @@ export function InputCard({
               target="_blank"
               className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
             >
-              <div className="bg-[#0A1133] rounded-full w-fit h-fit">
+              <div className="bg-[#142266] rounded-full w-fit h-fit">
                 <div className="uppercase text-nowrap rounded-full text-[12px] leading-[12px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent bg-clip-text">
                   Buy More
                 </div>
@@ -290,6 +291,7 @@ export function Card({
   pillText,
   pillIconAlt,
   onlyValue = false,
+  addToWalletLink,
 }: {
   isEditable?: boolean;
   value: string;
@@ -300,6 +302,7 @@ export function Card({
   dropDownSelected?: number;
   pillIconAlt: string;
   onlyValue?: boolean;
+  addToWalletLink?: string;
 }) {
   const [currentValue, setCurrentValue] = useState<string>(value);
   const targetValueRef = useRef<HTMLDivElement>(null);
@@ -336,7 +339,8 @@ export function Card({
           style={{
             fontSize:
               fontsizeClamping(
-                USFormatToNumber(currentValue) < MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION
+                USFormatToNumber(currentValue) <
+                  MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION
                   ? `${MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION}`
                   : currentValue,
                 7,
@@ -347,16 +351,18 @@ export function Card({
           }}
           className={` text-agwhite font-extrabold font-sans`}
         >
-          {USFormatToNumber(currentValue) < MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION &&
+          {USFormatToNumber(currentValue) <
+            MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION &&
             USFormatToNumber(currentValue) !== 0 &&
             "< "}
           {targetValueRef.current && (
             <AutomaticIncreamentalNumberCounterWithString
               from={targetValueRef.current?.textContent ?? "0"}
               to={
-                USFormatToNumber(currentValue) < MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION &&
+                USFormatToNumber(currentValue) <
+                  MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION &&
                 USFormatToNumber(currentValue) !== 0
-                  ?  `${MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION}`
+                  ? `${MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION}`
                   : currentValue
               }
               float={currentValue.includes(".")}
@@ -370,7 +376,8 @@ export function Card({
               style={{
                 fontSize:
                   fontsizeClamping(
-                    USFormatToNumber(currentConversion) < MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION
+                    USFormatToNumber(currentConversion) <
+                      MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION
                       ? `${MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION}`
                       : currentConversion,
                     7,
@@ -381,7 +388,8 @@ export function Card({
               }}
               extrabold
             >
-              {USFormatToNumber(currentConversion) < MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION &&
+              {USFormatToNumber(currentConversion) <
+                MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION &&
                 USFormatToNumber(currentConversion) !== 0 &&
                 "< "}
               {"$"}
@@ -389,7 +397,8 @@ export function Card({
                 <AutomaticIncreamentalNumberCounterWithString
                   from={conversionRef.current?.textContent ?? "0"}
                   to={
-                    USFormatToNumber(currentConversion) < MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION &&
+                    USFormatToNumber(currentConversion) <
+                      MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION &&
                     USFormatToNumber(currentConversion) !== 0
                       ? `${MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION}`
                       : currentConversion
@@ -404,12 +413,25 @@ export function Card({
           </div>
         )}
       </div>
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col gap-[8px] justify-end items-end my-auto h-fit">
         <Pill
           text={String(pillText)}
           iconSrc={pillIconSrc}
           iconAlt={pillIconAlt}
         />
+        {addToWalletLink && (
+          <a
+            href={addToWalletLink}
+            target="_blank"
+            className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
+          >
+            <div className="bg-[#142266] rounded-full w-fit h-fit">
+              <div className="uppercase text-nowrap rounded-full text-[12px] leading-[12px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent bg-clip-text">
+                Add to wallet
+              </div>
+            </div>
+          </a>
+        )}
       </div>
     </div>
   );
@@ -577,6 +599,9 @@ export default function MiningCalculator({
         pillIconAlt="dark x"
         pillIconSrc={IMAGEKIT_ICONS.PILL_DARK_X}
         pillText="DARKX"
+        
+        // add real link
+        addToWalletLink="https://app.uniswap.org/#/swap?outputCurrency=0x0Ae055097C6d159879521C384F1D2123D1f195e6"
       />
     </div>
   );

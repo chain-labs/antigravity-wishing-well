@@ -183,6 +183,9 @@ export default function ClaimedCard({
                   animateNumber
                   from={0}
                   to={darkBalance}
+
+                  // add real link
+                  addToWalletLink="https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0x0e121961dd741c9d49c9a04379da944a9d2fa7f0"
                 />
               </motion.div>
             )}

@@ -43,16 +43,16 @@ export default function MiningHero() {
           ) : (timer?.claimStarted || timer?.era === "minting") &&
             state !== "Claimed" ? (
             <ContributedHero setState={setState} />
-          ) : (timer?.claimStarted || timer?.era === "minting") &&
+           ) : (timer?.claimStarted || timer?.era === "minting") &&
             state === "Claimed" ? (
             <ClaimedCard setState={setState} />
-          ) : (
-            <NonContributed
-              state={state}
-              setNFTHover={setNFTHover}
-              setMinedSuccess={setMinedSuccess}
-            />
-          )}
+           ) : (
+             <NonContributed
+               state={state}
+               setNFTHover={setNFTHover}
+               setMinedSuccess={setMinedSuccess}
+             />
+           )} 
         </div>
         <AnimatePresence>
           {NFTHover && (
