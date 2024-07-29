@@ -21,8 +21,17 @@ import AutomaticIncreamentalNumberCounterWithString from "./AutomaticIncreamenta
 import { useAccount } from "wagmi";
 import pointsConverterToUSCommaseparated from "../pointsConverterToUSCommaseparated";
 import USFormatToNumber from "../USFormatToNumber";
+import { errorToast } from "@/hooks/frontend/toast";
 
 const MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION = 0.000001;
+
+function debounce(func: Function, wait: number) {
+  let timeout: NodeJS.Timeout;
+  return function (...args: any[]) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+}
 
 export function InputCard({
   inputValue,
@@ -52,12 +61,19 @@ export function InputCard({
     // if value is not changed withing 300ms, update the value
     const timeout = setTimeout(() => {
       setCurrentConversion(conversion);
-    }, 300);
+    }, 500);
 
     return () => {
       clearTimeout(timeout);
     };
   }, [conversion]);
+
+  const debouncedHandleInputChange = debounce((inputCurrentValue: string) => {
+    setCurrentInputValue(inputCurrentValue);
+    // if (inputRef.current) {
+    //   inputRef.current.value = inputCurrentValue;
+    // }
+  }, 500);
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     let inputCurrentValue = e.target.value;
@@ -86,11 +102,16 @@ export function InputCard({
     // Validate the number
     const numberValue = parseFloat(inputCurrentValue);
 
-    if (!isNaN(numberValue) && numberValue >= 0) {
-      setCurrentInputValue(inputCurrentValue);
-      if (inputRef.current) {
-        inputRef.current.value = inputCurrentValue;
+    if (numberValue < 0.000001 && numberValue !== 0) {
+      errorToast("Value must be greater than 0.000001");
+      if(inputRef.current) {
+        inputRef.current.value = "0.000001";
       }
+      return;
+    }
+
+    if (!isNaN(numberValue) && numberValue >= 0) {
+      debouncedHandleInputChange(inputCurrentValue);
     }
   }
 
@@ -314,7 +335,7 @@ export function Card({
     // if value is not changed withing 300ms, update the value
     const timeout = setTimeout(() => {
       setCurrentValue(value);
-    }, 300);
+    }, 500);
 
     return () => {
       clearTimeout(timeout);
@@ -324,7 +345,7 @@ export function Card({
     // if value is not changed withing 300ms, update the value
     const timeout = setTimeout(() => {
       setCurrentConversion(conversion);
-    }, 300);
+    }, 500);
 
     return () => {
       clearTimeout(timeout);
