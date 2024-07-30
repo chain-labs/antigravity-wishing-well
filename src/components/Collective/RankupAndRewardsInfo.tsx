@@ -1,7 +1,8 @@
-import Link from "next/link";
+"use client";
+
 import H1 from "../HTML/H1";
 import P from "../HTML/P";
-import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
+import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import Image from "next/image";
 import { motion } from "framer-motion";
 

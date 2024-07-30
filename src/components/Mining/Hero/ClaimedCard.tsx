@@ -1,14 +1,14 @@
+"use client";
+
 import Button from "@/components/Button";
 import ContributedCard from "./ContributedCard";
 import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import Image from "next/image";
-import { CLAIM_LISTS } from "../constants";
 import useClaim from "@/hooks/sc-fns/useClaim";
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { formatUnits } from "viem";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
-import useClaimMerkleTree from "@/hooks/sc-fns/useMerkleTree.claim";
 import { AnimatePresence, motion } from "framer-motion";
 import DarkXFieldCanvas from "../DarkXfield";
 import { StateType } from "../types";
@@ -183,6 +183,9 @@ export default function ClaimedCard({
                   animateNumber
                   from={0}
                   to={darkBalance}
+
+                  // add real link
+                  addToWalletLink="https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0x0e121961dd741c9d49c9a04379da944a9d2fa7f0"
                 />
               </motion.div>
             )}

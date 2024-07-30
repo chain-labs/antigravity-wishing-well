@@ -1,8 +1,8 @@
 "use client";
 
+import HeroItemCard from "@/components/Home/components/HeroItemCard";
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
-import HeroItemCard from "@/components/HeroItemCard";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {

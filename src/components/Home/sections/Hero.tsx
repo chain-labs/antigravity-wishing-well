@@ -1,9 +1,9 @@
 "use client";
 
-import Spinner from "../components/spinner/Spinner";
-import { useEffect, useRef } from "react";
+import Spinner from "@/components/Home/components/Spinner";
+import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import HeroItemCard from "@/components/HeroItemCard";
+import HeroItemCard from "@/components/Home/components/HeroItemCard";
 import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import useTimer from "@/hooks/frontend/useTimer";
 import useClaim from "@/hooks/sc-fns/useClaim";

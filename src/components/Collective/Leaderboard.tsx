@@ -1,16 +1,10 @@
 "use client";
 
 import Button from "@/components/Button";
-import {
-  useScroll,
-  useTransform,
-  motion,
-  AnimatePresence,
-} from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import H1 from "@/components/HTML/H1";
-import H2 from "@/components/HTML/H2";
 import P from "@/components/HTML/P";
 import Table from "@/components/Table";
 import { useAccount } from "wagmi";
@@ -120,11 +114,11 @@ export default function Leaderboard() {
                 <Table
                   tableData={tableData}
                   era={
-                    selectedLeaderboard === "allTimeLeaderboard"
-                      ? 0
-                      : selectedLeaderboard === "era1Leaderboard"
-                        ? 1
-                        : 2
+                    selectedLeaderboard === "era1Leaderboard"
+                      ? 1
+                      : selectedLeaderboard === "era2Leaderboard"
+                        ? 2
+                        : 0
                   }
                 />
               </div>

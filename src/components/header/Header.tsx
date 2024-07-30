@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { IoMenu, IoCloseCircleOutline } from "react-icons/io5";
 import { UserConnected } from "./UserConnected";
 import { motion, AnimatePresence } from "framer-motion";
-import P from "../../../HTML/P";
+import P from "../HTML/P";
 import { PublicClient } from "viem";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
@@ -13,7 +13,7 @@ import Button from "@/components/Button";
 import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from "@/assets/imageKit";
 import Link from "next/link";
 import useLoading from "@/hooks/frontend/useLoading";
-import { client } from "../../../../../sanity/lib/client";
+import { client } from "../../../sanity/lib/client";
 import useTimer from "@/hooks/frontend/useTimer";
 
 // Use a function to get the latest block number
@@ -66,8 +66,8 @@ const Header = () => {
   };
   return (
     <motion.header
-      whileInView={{ y: 0 }}
-      initial={{ y: strictNoLoading ? 0 : -50 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      initial={{ y: strictNoLoading ? 0 : -50, opacity: strictNoLoading ? 1 : 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: 1.5 }}
       className="flex flex-col h-full w-full max-[1200px] items-center justify-center gap-3 z-50 font-extrabold"

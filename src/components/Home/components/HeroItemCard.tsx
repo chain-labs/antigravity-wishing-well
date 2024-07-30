@@ -6,7 +6,7 @@ import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import Link from "next/link";
-import H1 from "./HTML/H1";
+import H1 from "../../HTML/H1";
 
 /**
  * Primary UI component for user interaction

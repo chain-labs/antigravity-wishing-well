@@ -19,11 +19,10 @@ import AnimatedButton from "@/components/AnimatedButton";
 import Link from "next/link";
 import GradientBorder from "@/components/GradientBorder";
 import { useRestPost } from "@/hooks/useRestClient";
-import { client } from "../../../../sanity/lib/client";
+import { client } from "../../sanity/lib/client";
 import Dropdownbutton from "@/components/Dropdownbutton";
 import pointsConverterToUSCommaseparated from "@/components/pointsConverterToUSCommaseparated";
 import useTimer from "@/hooks/frontend/useTimer";
-import useMining from "@/hooks/sc-fns/useMining";
 import useUserData from "@/app/(client)/store";
 
 function CollectiveLogo() {
@@ -259,11 +258,11 @@ export default function Leaderboard({
                 <Table
                   tableData={tableData}
                   era={
-                    selectedLeaderboard === "allTimeLeaderboard"
-                      ? 0
-                      : selectedLeaderboard === "era1Leaderboard"
-                        ? 1
-                        : 2
+                    selectedLeaderboard === "era1Leaderboard"
+                      ? 1
+                      : selectedLeaderboard === "era2Leaderboard"
+                        ? 2
+                        : 0
                   }
                 />
               </div>
@@ -310,7 +309,7 @@ export default function Leaderboard({
                 <P className="font-medium">
                   You&apos;re only{" "}
                   {pointsConverterToUSCommaseparated(rankUpPointsNeeded) ===
-                  "NaN"
+                  "NaN" || rankUpPointsNeeded === 0
                     ? 1
                     : pointsConverterToUSCommaseparated(
                         rankUpPointsNeeded,

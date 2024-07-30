@@ -2,8 +2,6 @@
 
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
-
-import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import MiningCalculator from "@/components/Mining/MiningCalculator";
 import { TOKEN_OPTIONS } from "@/components/Mining/constants";
 

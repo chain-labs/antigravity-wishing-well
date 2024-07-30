@@ -1,10 +1,10 @@
 "use client";
 
-import Newsletter from "@/components/Home/sections/Newsletter";
-import Leaderboard from "@/components/Home/sections/Leaderboard";
+import Newsletter from "@/components/Newsletter";
+import Leaderboard from "@/components/Leaderboard";
 import MiningHero from "@/components/Mining/MiningHero";
 import { useAccount } from "wagmi";
-import Footer from "@/components/Home/sections/Footer";
+import Footer from "@/components/Footer";
 
 export default function MiningPage() {
   const account = useAccount();

@@ -1,4 +1,6 @@
-import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
+"use client";
+
+import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import Button from "../Button";
 import H1 from "../HTML/H1";
 import P from "../HTML/P";

@@ -1,8 +1,8 @@
 "use client";
 
-import DynamicNumberCounter from "@/components/Home/components/spinner/DynamicNumberCounter";
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
+import DynamicNumberCounter from "./DynamicNumberCounter";
 
 const eraToNumber = {
   wishwell: 1,

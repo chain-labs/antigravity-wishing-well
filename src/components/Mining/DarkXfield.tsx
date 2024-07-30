@@ -2,7 +2,6 @@ import React, { Suspense, useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { InstancedMesh, MeshBasicMaterial } from "three";
-import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import { Perf } from "r3f-perf";
 
 // Function to get a random position within a range

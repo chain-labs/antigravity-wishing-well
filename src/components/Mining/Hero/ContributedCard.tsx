@@ -1,7 +1,8 @@
+"use client";
+
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import H1 from "@/components/HTML/H1";
 import Pill from "@/components/Pill";
-import AutomaticIncreamentalNumberCounter from "@/components/Home/components/spinner/AutomaticIncreamentalNumberCounter";
 import AutomaticIncreamentalNumberCounterWithString from "../AutomaticIncreamentalNumberCounterWithString";
 import { AnimatePresence } from "framer-motion";
 import pointsConverterToUSCommaseparated from "@/components/pointsConverterToUSCommaseparated";
@@ -15,6 +16,7 @@ export default function ContributedCard({
   animateNumber = false,
   from = 0,
   to = 0,
+  addToWalletLink,
 }: {
   value: number;
   pillText: string;
@@ -23,12 +25,11 @@ export default function ContributedCard({
   animateNumber?: boolean;
   from?: number;
   to?: number;
+  addToWalletLink?: string;
 }) {
   return (
     <div
-      className="relative flex justify-between flex-wrap gap-[4px] z-0 text-agwhite transition-all duration-300 ease-in-out bg-agblack rounded-[6px] px-[12px] py-[16px] w-full max-full border-[1px] border-agyellow
-          before:content-[''] before:absolute before:inset-0 before:z-[-10] md:before:bg-gradient-to-bl before:from-[#5537A5] before:to-[#BF6841] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
-          after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-gradient-to-b after:from-[#0A1133] after:to-[#142266] after:rounded-[inherit] after:overflow-hidden"
+      className="relative flex justify-between items-center flex-wrap gap-[4px] z-0 text-agwhite transition-all duration-300 ease-in-out bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-full max-full border-[1px] border-agyellow"
     >
       {animateNumber ? (
         <H1 className="text-[32px] leading-[32px] md:text-[32px] md:leading-[32px] [word-wrap:break-word] max-w-full">
@@ -57,8 +58,21 @@ export default function ContributedCard({
           )}
         </H1>
       )}
-      <div className="flex flex-col justify-center items-center w-fit">
+      <div className="flex flex-col justify-end gap-[8px] items-end w-fit h-fit my-auto">
         <Pill text={pillText} iconSrc={pillIconSrc} iconAlt={pillIconAlt} />
+        {addToWalletLink && (
+          <a
+            href={addToWalletLink}
+            target="_blank"
+            className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
+          >
+            <div className="bg-[#142266] rounded-full w-fit h-fit">
+              <div className="uppercase text-nowrap rounded-full text-[12px] leading-[12px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent bg-clip-text">
+                Add to wallet
+              </div>
+            </div>
+          </a>
+        )}
       </div>
     </div>
   );

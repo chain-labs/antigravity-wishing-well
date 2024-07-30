@@ -1,6 +1,5 @@
 "use client";
 import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from "@/assets/imageKit";
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
@@ -92,7 +91,7 @@ export default function Dropdown({
           style={{
             display: isOpen ? "grid" : "none",
           }}
-          className="relative grid grid-cols-1 gap-[8px] w-fit min-w-[140px] overflow-x-hidden bg-gradient-to-b from-[#030404] to-[#131A1A] rounded-[6px] p-[8px] max-h-[300px] overflow-y-scroll"
+          className="relative grid grid-cols-1 gap-[8px] w-fit min-w-[140px] overflow-x-hidden bg-gradient-to-b from-[#030404] to-[#131A1A] rounded-[6px] p-[8px] max-h-[300px] overflow-y-auto"
         >
           {options.map(
             (option, idx) =>

@@ -1,13 +1,10 @@
 "use client";
 
 import { useRestPost } from "@/hooks/useRestClient";
-import { useQueryClient } from "@tanstack/react-query";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import H1 from "@/components/HTML/H1";
 import P from "@/components/HTML/P";
 import Button from "@/components/Button";
-import toast from "react-hot-toast";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import { AnimatePresence, motion } from "framer-motion";
 import { successToast } from "@/hooks/frontend/toast";
