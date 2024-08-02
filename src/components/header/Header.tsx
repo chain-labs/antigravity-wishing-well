@@ -67,91 +67,73 @@ const Header = () => {
   return (
     <motion.header
       whileInView={{ y: 0, opacity: 1 }}
-      initial={{ y: strictNoLoading ? 0 : -50, opacity: strictNoLoading ? 1 : 0 }}
+      initial={{
+        y: strictNoLoading ? 0 : -50,
+        opacity: strictNoLoading ? 1 : 0,
+      }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: 1.5 }}
-      className="flex flex-col h-full w-full max-[1200px] items-center justify-center gap-3 z-50 font-extrabold"
+      className="flex flex-col items-center justify-center h-full w-full lg:w-fit max-[1200px] z-50 font-extrabold mx-auto"
     >
-      <div className="flex text-agwhite w-full xl:w-3/4 max-w-[800px] xl:max-w-full h-14 xl:h-[72px] rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px]">
-        <div className="w-full h-full bg-agblack flex items-center justify-between rounded-lg gap-6 px-4">
+      <div className="relative hidden lg:flex w-fit rounded-t-lg bg-gradient-to-tr from-brred to-blue p-[2px] pb-0 mx-[10px]">
+        <div className="px-[16px] py-[8px] rounded-[inherit] bg-gradient-to-b from-agblack to-[#131A1A]">
+          <div className="grid grid-flow-col place-items-center gap-[16px] opacity-[0.66] font-sans text-agwhite text-[16px] leading-[16px] uppercase tracking-widest">
+            <p className="flex justify-center items-center gap-[8px]">
+              <Image
+                src={IMAGEKIT_ICONS.BOOK}
+                alt="Clock"
+                width={24}
+                height={24}
+                className="w-[24px] h-[24px]"
+              />
+              <span>Treasury $DARK:</span>
+              <span>500,000</span>
+            </p>
+            <div className="w-[1px] h-full bg-gradient-to-b from-white via-[#999999] to-[#999999] rounded-full" />
+            <p className="flex justify-center items-center gap-[8px]">
+              <Image
+                src={IMAGEKIT_ICONS.ROCKET}
+                alt="Clock"
+                width={24}
+                height={24}
+                className="w-[24px] h-[24px]"
+              />
+              <span>Journey:</span>
+              <span>1</span>
+            </p>
+            <div className="w-[1px] h-full bg-gradient-to-b from-white via-[#999999] to-[#999999] rounded-full" />
+            <p className="flex justify-center items-center gap-[8px]">
+              <Image
+                src={IMAGEKIT_ICONS.WALLET_WHITE}
+                alt="Clock"
+                width={24}
+                height={24}
+                className="w-[24px] h-[24px]"
+              />
+              <span>User $DARK:</span>
+              <span>1,000,000.123456</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="flex text-agwhite w-full xl:min-w-fit xl:w-full rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px]">
+        <div className="w-full h-full bg-agblack flex items-center justify-between rounded-lg gap-[40px] px-[12px] py-[8px]">
           {/* Desktop View */}
-          <div className="hidden xl:flex xl:flex-grow xl:items-center h-full xl:justify-between xl:gap-x-6">
+          <div className="hidden xl:flex xl:flex-grow xl:items-center h-fit xl:justify-between xl:gap-x-[40px]">
             <Link className="flex items-center cursor-pointer" href="/">
-              <div className="w-[37px] h-[37px] xl:w-[45px] xl:h-[45px] relative">
+              <div className="relative w-[42px] h-[42px]">
                 <Image src={IMAGEKIT_LOGOS.LOGO} alt="icon" fill />
               </div>
-              <p className="from-white to-[#999999] pl-2 font-sans font-black sm:text-2xl bg-gradient-to-b text-transparent bg-clip-text">
+              <p className="from-white to-[#999999] pl-[8px] font-sans font-black text-[14px] leading-[14px] bg-gradient-to-b text-transparent bg-clip-text">
                 ANTIGRAVITY
               </p>
             </Link>
             <div
               className={`relative flex justify-center items-center font-extrabold text-lg font-sans gap-[16px] oveflow-hidden`}
             >
-              <>
-                {timer.era === "wishwell" ? (
-                  <Link
-                    href={
-                      location.pathname === "/wishwell"
-                        ? "/wishwell#"
-                        : "/wishwell"
-                    }
-                    className="relative"
-                  >
-                    <P
-                      uppercase
-                      gradient
-                      extrabold
-                      className="font-sans font-extrabold"
-                    >
-                      Wishwell
-                    </P>
-                  </Link>
-                ) : (
-                  <div
-                    onMouseEnter={() =>
-                      timer.era !== "wishwell" ? setTooltipOpen(true) : null
-                    }
-                    onMouseLeave={() =>
-                      timer.era !== "wishwell" ? setTooltipOpen(false) : null
-                    }
-                    className="select-none relative"
-                  >
-                    <P
-                      uppercase
-                      gradient
-                      extrabold
-                      className="font-sans font-extrabold opacity-[0.66]"
-                    >
-                      Wishwell
-                    </P>
-                    <AnimatePresence>
-                      {tooltipOpen && (
-                        <motion.div
-                          initial={{
-                            height: 0,
-                            opacity: 0,
-                          }}
-                          animate={{
-                            height: "fit-content",
-                            opacity: 1,
-                          }}
-                          exit={{
-                            height: 0,
-                            opacity: 0,
-                          }}
-                          className="absolute top-[calc(100%+32px)] left-1/2 -translate-x-1/2 flex text-agwhite w-fit rounded-[4px] bg-gradient-to-tr from-brred to-blue p-[1px]"
-                        >
-                          <div className="w-fit h-fit bg-gradient-to-b from-[#030404] to-[#131A1A] flex items-center justify-between rounded-[inherit] gap-6 px-[16px] py-[8px] text-[16px] text-nowrap">
-                            Currently by invitation only.
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                )}
-              </>
               <Link
                 href={location.pathname === "/mining" ? "/mining#" : "/mining"}
+                className="p-[8px]"
               >
                 <P
                   uppercase
@@ -168,6 +150,7 @@ const Header = () => {
                     ? "/collective#"
                     : "/collective"
                 }
+                className="p-[8px]"
               >
                 <P
                   uppercase
@@ -183,7 +166,7 @@ const Header = () => {
                 uppercase
                 gradient
                 extrabold
-                className="relative font-sans font-extrabold flex justify-center items-center cursor-pointer"
+                className="relative font-sans font-extrabold flex justify-center items-center cursor-pointer p-[8px]"
               >
                 About{" "}
                 <Image
@@ -272,29 +255,29 @@ const Header = () => {
                   )}
                 </AnimatePresence>
               </P>
-              {account.isConnected ? (
-                <>
-                  <div className="w-[2px] h-[2.5rem] bg-gradient-to-b from-white via-[#999999] to-[#999999] rounded-full" />
-                  <UserConnected />
-                </>
-              ) : (
-                <Button
-                  onClick={handleLogin}
-                  iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
-                  iconAlt="wallet"
-                  iconPosition="start"
-                  innerText="Connect Wallet"
-                  variants={{
-                    hover: {
-                      animationName: "wiggle",
-                      animationDuration: "1s",
-                      animationFillMode: "forwards",
-                      animationTimingFunction: "linear",
-                    },
-                  }}
-                />
-              )}
             </div>
+            {account.isConnected ? (
+              <>
+                <div className="w-[2px] h-[2.5rem] bg-gradient-to-b from-white via-[#999999] to-[#999999] rounded-full" />
+                <UserConnected />
+              </>
+            ) : (
+              <Button
+                onClick={handleLogin}
+                iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
+                iconAlt="wallet"
+                iconPosition="start"
+                innerText="Connect Wallet"
+                variants={{
+                  hover: {
+                    animationName: "wiggle",
+                    animationDuration: "1s",
+                    animationFillMode: "forwards",
+                    animationTimingFunction: "linear",
+                  },
+                }}
+              />
+            )}
           </div>
           {/* Mobile View */}
           <Link
@@ -331,70 +314,26 @@ const Header = () => {
         <div className="flex xl:hidden w-full max-w-[900px] justify-center">
           <div className="flex text-agwhite w-full xl:h-16 rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px] overflow-hidden">
             <div className="w-full h-full bg-agblack px-8 flex flex-col items-center justify-center rounded-lg gap-6 py-4">
-              {account.isConnected && <UserConnected />}
-              <>
-                {timer.era === "wishwell" ? (
-                  <Link
-                    href={
-                      location.pathname === "/wishwell"
-                        ? "/wishwell#"
-                        : "/wishwell"
-                    }
-                    className="relative"
-                  >
-                    <P
-                      uppercase
-                      gradient
-                      extrabold
-                      className="font-sans font-extrabold"
-                    >
-                      Wishwell
-                    </P>
-                  </Link>
-                ) : (
-                  <div
-                    onMouseEnter={() =>
-                      timer.era !== "wishwell" ? setTooltipOpen(true) : null
-                    }
-                    onMouseLeave={() =>
-                      timer.era !== "wishwell" ? setTooltipOpen(false) : null
-                    }
-                    className="select-none relative"
-                  >
-                    <P
-                      uppercase
-                      gradient
-                      extrabold
-                      className="font-sans font-extrabold opacity-[0.66]"
-                    >
-                      Wishwell
-                    </P>
-                    <AnimatePresence>
-                      {tooltipOpen && (
-                        <motion.div
-                          initial={{
-                            height: 0,
-                            opacity: 0,
-                          }}
-                          animate={{
-                            height: "fit-content",
-                            opacity: 1,
-                          }}
-                          exit={{
-                            height: 0,
-                            opacity: 0,
-                          }}
-                          className="absolute top-[calc(100%+32px)] left-1/2 -translate-x-1/2 flex text-agwhite w-fit rounded-[4px] bg-gradient-to-tr from-brred to-blue p-[1px]"
-                        >
-                          <div className="w-fit h-fit bg-gradient-to-b from-[#030404] to-[#131A1A] flex items-center justify-between rounded-[inherit] gap-6 px-[16px] py-[8px] text-[16px] text-nowrap">
-                            Currently by invitation only.
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                )}
-              </>
+              {account.isConnected ? (
+                <UserConnected />
+              ) : (
+                <Button
+                  onClick={handleLogin}
+                  iconSrc={IMAGEKIT_ICONS.WALLET_WHITE}
+                  iconAlt="wallet"
+                  iconPosition="start"
+                  innerText="Connect Wallet"
+                  variants={{
+                    hover: {
+                      animationName: "wiggle",
+                      animationDuration: "1s",
+                      animationFillMode: "forwards",
+                      animationTimingFunction: "linear",
+                    },
+                  }}
+                />
+              )}
+              <div className="w-full h-[1px] bg-gradient-to-l from-white via-[#999999] to-[#999999] rounded-full" />
               <Link
                 href={location.pathname === "/mining" ? "/mining#" : "/mining"}
               >
