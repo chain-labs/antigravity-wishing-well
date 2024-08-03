@@ -255,7 +255,7 @@ export default function NonContributed({
         <Button
           loading={transactionLoading}
           innerText={
-            value <= Number(tokenBalances?.[selectedToken])
+            value > Number(tokenBalances?.[selectedToken].toLocaleString())
               ? transactionLoading
                 ? isApprovalNeeded
                   ? !approveReceipt
@@ -269,7 +269,7 @@ export default function NonContributed({
           }
           disabled={
             value === 0 ||
-            value > Number(tokenBalances?.[selectedToken]) ||
+            value > Number(tokenBalances?.[selectedToken].toLocaleString()) ||
             transactionLoading ||
             timerState.era !== "mining"
           }
