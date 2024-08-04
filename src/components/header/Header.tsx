@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, Fragment } from "react";
 import { IoMenu, IoCloseCircleOutline } from "react-icons/io5";
 import { UserConnected } from "./UserConnected";
 import { motion, AnimatePresence } from "framer-motion";
@@ -105,18 +105,22 @@ const Header = () => {
               <span>Journey:</span>
               <LoaderSpan data={journey} />
             </p>
-            <div className="w-[1px] h-full bg-gradient-to-b from-white via-[#999999] to-[#999999] rounded-full" />
-            <p className="flex justify-center items-center gap-[8px]">
-              <Image
-                src={IMAGEKIT_ICONS.WALLET_WHITE}
-                alt="Clock"
-                width={24}
-                height={24}
-                className="w-[24px] h-[24px]"
-              />
-              <span>User $DARK:</span>
-              <LoaderSpan data={darkBalance} />
-            </p>
+            {account.isConnected ? (
+              <Fragment>
+                <div className="w-[1px] h-full bg-gradient-to-b from-white via-[#999999] to-[#999999] rounded-full" />
+                <p className="flex justify-center items-center gap-[8px]">
+                  <Image
+                    src={IMAGEKIT_ICONS.WALLET_WHITE}
+                    alt="Clock"
+                    width={24}
+                    height={24}
+                    className="w-[24px] h-[24px]"
+                  />
+                  <span>User $DARK:</span>
+                  <LoaderSpan data={darkBalance} />
+                </p>
+              </Fragment>
+            ) : null}
           </div>
         </div>
       </div>
