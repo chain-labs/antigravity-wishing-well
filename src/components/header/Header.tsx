@@ -16,6 +16,7 @@ import useLoading from "@/hooks/frontend/useLoading";
 import { client } from "../../../sanity/lib/client";
 import useTimer from "@/hooks/frontend/useTimer";
 import useHeaderStats from "./useHeaderStats";
+import { checkCorrectNetwork } from "../RainbowKit";
 
 // Use a function to get the latest block number
 async function getLatestBlockNumber(publicClient: PublicClient) {
@@ -105,7 +106,7 @@ const Header = () => {
               <span>Journey:</span>
               <LoaderSpan data={journey} />
             </p>
-            {account.isConnected ? (
+            {account.isConnected && checkCorrectNetwork(account.chainId) ? (
               <Fragment>
                 <div className="w-[1px] h-full bg-gradient-to-b from-white via-[#999999] to-[#999999] rounded-full" />
                 <p className="flex justify-center items-center gap-[8px]">

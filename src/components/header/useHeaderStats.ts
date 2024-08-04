@@ -5,6 +5,8 @@ import { formatUnits, zeroAddress } from "viem";
 import { useAccount, useConfig } from "wagmi";
 import { readContract } from "@wagmi/core";
 import useJPMContract from "@/abi/JourneyPhaseManager";
+import { TEST_NETWORK } from "@/constants";
+import { pulsechain, sepolia } from "viem/chains";
 
 const useHeaderStats = () => {
   const config = useConfig();
@@ -28,12 +30,14 @@ const useHeaderStats = () => {
           abi: LCC_Contract.abi,
           address: LCC_Contract.address as `0x${string}`,
           functionName: "treasury",
+          chainId: TEST_NETWORK ? sepolia.id : pulsechain.id,
           args: [],
         }).then((treasury) => {
           readContract(config, {
             abi: DarkContract.abi,
             address: DarkContract.address as `0x${string}`,
             functionName: "balanceOf",
+            chainId: TEST_NETWORK ? sepolia.id : pulsechain.id,
             args: [treasury],
           }).then((treasuryBalance) => {
             setTreasuryBalance(formatUnits(treasuryBalance as bigint, 18));
@@ -57,6 +61,7 @@ const useHeaderStats = () => {
           abi: JPM_Contract.abi,
           address: JPM_Contract.address as `0x${string}`,
           functionName: "currentJourney",
+          chainId: TEST_NETWORK ? sepolia.id : pulsechain.id,
           args: [],
         }).then((journey) => {
           setJourney((journey as bigint).toString());
@@ -79,6 +84,7 @@ const useHeaderStats = () => {
           abi: DarkContract.abi,
           address: DarkContract.address as `0x${string}`,
           functionName: "balanceOf",
+          chainId: TEST_NETWORK ? sepolia.id : pulsechain.id,
           args: [account.address as `0x${string}`],
         }).then((data) => {
           const balance = formatUnits(data as bigint, 18);
