@@ -1,6 +1,5 @@
 import { TEST_NETWORK } from "@/constants";
-import { baseSepolia, pulsechain, sepolia } from "viem/chains";
-import { useAccount } from "wagmi";
+import { pulsechain, sepolia } from "viem/chains";
 
 interface IContract {
   address?: `0x${string}`;
@@ -9,24 +8,24 @@ interface IContract {
 
 import abi from "./abi.json";
 import { CONTRACTS } from "../config";
-import { useEffect, useState } from "react";
 import { zeroAddress } from "viem";
+import { useEffect, useState } from "react";
 
 const contracts: Record<
   number,
   { address: `0x${string}` | undefined; abi: any }
 > = {
   [sepolia.id]: {
-    address: CONTRACTS[sepolia.id].dark,
+    address: CONTRACTS[sepolia.id].journeyPhaseManager,
     abi,
   },
   [pulsechain.id]: {
-    address: CONTRACTS[pulsechain.id].dark,
+    address: CONTRACTS[pulsechain.id].journeyPhaseManager,
     abi,
   },
 };
 
-const useDarkContract = (): IContract => {
+const useJPMContract = (): IContract => {
   const [contract, setContract] = useState<IContract>({
     abi: {},
     address: zeroAddress,
@@ -42,4 +41,4 @@ const useDarkContract = (): IContract => {
   return contract;
 };
 
-export default useDarkContract;
+export default useJPMContract;

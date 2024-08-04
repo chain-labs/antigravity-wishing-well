@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { IoMenu, IoCloseCircleOutline } from "react-icons/io5";
 import { UserConnected } from "./UserConnected";
 import { motion, AnimatePresence } from "framer-motion";
@@ -15,6 +15,7 @@ import Link from "next/link";
 import useLoading from "@/hooks/frontend/useLoading";
 import { client } from "../../../sanity/lib/client";
 import useTimer from "@/hooks/frontend/useTimer";
+import useHeaderStats from "./useHeaderStats";
 
 // Use a function to get the latest block number
 async function getLatestBlockNumber(publicClient: PublicClient) {
@@ -64,6 +65,9 @@ const Header = () => {
       openConnectModal();
     }
   };
+
+  const { journey, darkBalance, treasuryBalance } = useHeaderStats();
+
   return (
     <motion.header
       whileInView={{ y: 0, opacity: 1 }}
@@ -87,7 +91,7 @@ const Header = () => {
                 className="w-[24px] h-[24px]"
               />
               <span>Treasury $DARK:</span>
-              <span>500,000</span>
+              <LoaderSpan data={treasuryBalance} />
             </p>
             <div className="w-[1px] h-full bg-gradient-to-b from-white via-[#999999] to-[#999999] rounded-full" />
             <p className="flex justify-center items-center gap-[8px]">
@@ -99,7 +103,7 @@ const Header = () => {
                 className="w-[24px] h-[24px]"
               />
               <span>Journey:</span>
-              <span>1</span>
+              <LoaderSpan data={journey} />
             </p>
             <div className="w-[1px] h-full bg-gradient-to-b from-white via-[#999999] to-[#999999] rounded-full" />
             <p className="flex justify-center items-center gap-[8px]">
@@ -111,7 +115,7 @@ const Header = () => {
                 className="w-[24px] h-[24px]"
               />
               <span>User $DARK:</span>
-              <span>1,000,000.123456</span>
+              <LoaderSpan data={darkBalance} />
             </p>
           </div>
         </div>
@@ -464,3 +468,21 @@ const Header = () => {
 };
 
 export default Header;
+
+const LoaderSpan = ({ data }: { data?: string }) => {
+  return (
+    <span>
+      {data ? (
+        Number(data).toLocaleString()
+      ) : (
+        <Image
+          src={IMAGEKIT_ICONS.REFRESH}
+          alt={"loading..."}
+          width={14}
+          height={14}
+          className="object-cover animate-spin"
+        />
+      )}
+    </span>
+  );
+};
