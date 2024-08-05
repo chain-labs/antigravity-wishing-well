@@ -114,10 +114,10 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div className="flex text-agwhite w-full xl:min-w-fit xl:w-full rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px]">
+      <div className="flex text-agwhite w-full lg:min-w-fit lg:w-full rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px]">
         <div className="w-full h-full bg-agblack flex items-center justify-between rounded-lg gap-[40px] px-[12px] py-[8px]">
           {/* Desktop View */}
-          <div className="hidden xl:flex xl:flex-grow xl:items-center h-fit xl:justify-between xl:gap-x-[40px]">
+          <div className="hidden lg:flex lg:flex-grow lg:items-center h-fit lg:justify-between lg:gap-x-[40px]">
             <Link className="flex items-center cursor-pointer" href="/">
               <div className="relative w-[42px] h-[42px]">
                 <Image src={IMAGEKIT_LOGOS.LOGO} alt="icon" fill />
@@ -279,17 +279,17 @@ const Header = () => {
           </div>
           {/* Mobile View */}
           <Link
-            className="flex max-w-[500px] xl:hidden items-center cursor-pointer"
+            className="flex max-w-[500px] lg:hidden items-center cursor-pointer"
             href="/"
           >
-            <div className="w-[37px] h-[37px] xl:w-[45px] xl:h-[45px] relative">
+            <div className="w-[37px] h-[37px] lg:w-[45px] lg:h-[45px] relative">
               <Image src={IMAGEKIT_LOGOS.LOGO} alt="icon" fill />
             </div>
             <p className="from-white to-[#999999] pl-2 font-sans font-extrabold sm:text-2xl bg-gradient-to-b text-transparent bg-clip-text">
               ANTIGRAVITY
             </p>
           </Link>
-          <div className="flex xl:hidden">
+          <div className="flex lg:hidden">
             {isOpen ? (
               <IoCloseCircleOutline
                 className="cursor-pointer"
@@ -309,8 +309,8 @@ const Header = () => {
         </div>
       </div>
       {isOpen ? (
-        <div className="flex xl:hidden w-full max-w-[900px] justify-center">
-          <div className="flex text-agwhite w-full xl:h-16 rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px] overflow-hidden">
+        <div className="flex lg:hidden w-full max-w-[900px] justify-center">
+          <div className="flex text-agwhite w-full lg:h-16 rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px] overflow-hidden">
             <div className="w-full h-full bg-agblack px-8 flex flex-col items-center justify-center rounded-lg gap-6 py-4">
               {account.isConnected ? (
                 <UserConnected />
