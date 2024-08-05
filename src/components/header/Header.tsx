@@ -17,6 +17,7 @@ import { client } from "../../../sanity/lib/client";
 import useTimer from "@/hooks/frontend/useTimer";
 import useHeaderStats from "./useHeaderStats";
 import { checkCorrectNetwork } from "../RainbowKit";
+import { PiRocketLaunchDuotone, PiTreasureChestDuotone } from "react-icons/pi";
 
 // Use a function to get the latest block number
 async function getLatestBlockNumber(publicClient: PublicClient) {
@@ -84,25 +85,13 @@ const Header = () => {
         <div className="px-[16px] py-[8px] rounded-[inherit] bg-gradient-to-b from-agblack to-[#131A1A]">
           <div className="grid grid-flow-col place-items-center gap-[16px] opacity-[0.66] font-sans text-agwhite text-[16px] leading-[16px] uppercase tracking-widest">
             <p className="flex justify-center items-center gap-[8px]">
-              <Image
-                src={IMAGEKIT_ICONS.BOOK}
-                alt="Clock"
-                width={24}
-                height={24}
-                className="w-[24px] h-[24px]"
-              />
+              <PiTreasureChestDuotone className="text-[24px] leading-[24px] text-agwhite" />
               <span>Treasury $DARK:</span>
               <LoaderSpan data={treasuryBalance} />
             </p>
             <div className="w-[1px] h-full bg-gradient-to-b from-white via-[#999999] to-[#999999] rounded-full" />
             <p className="flex justify-center items-center gap-[8px]">
-              <Image
-                src={IMAGEKIT_ICONS.ROCKET}
-                alt="Clock"
-                width={24}
-                height={24}
-                className="w-[24px] h-[24px]"
-              />
+              <PiRocketLaunchDuotone className="text-[24px] leading-[24px] text-agwhite" />
               <span>Journey:</span>
               <LoaderSpan data={journey} />
             </p>

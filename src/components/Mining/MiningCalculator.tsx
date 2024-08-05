@@ -104,7 +104,7 @@ export function InputCard({
 
     if (numberValue < 0.000001 && numberValue !== 0) {
       errorToast("Value must be greater than 0.000001");
-      if(inputRef.current) {
+      if (inputRef.current) {
         inputRef.current.value = "0.000001";
       }
       return;
@@ -136,157 +136,129 @@ export function InputCard({
   }, [tokenBalance, account.isConnected]);
 
   return (
-    <div className="flex justify-between gap-[8px] bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-fit min-w-full border-[1px] border-agyellow z-10">
-      <div className="flex flex-col justify-center items-start gap-[8px] w-full">
-        <form
-          onBlur={(e) => {
-            setOutOfFocus(true);
-          }}
-          onFocus={(e) => {
-            setOutOfFocus(false);
-          }}
-          onClick={() => {
-            setOutOfFocus(false);
-            inputRef.current?.focus();
-          }}
-          style={{
-            fontSize: fontsizeClamping(inputValue, 7, 16, 32) + "px",
-            lineHeight: 32 + "px",
-          }}
-          className="relative text-agwhite font-extrabold font-sans bg-transparent w-full h-fit flex justify-start items-center min-w-[8ch]"
-        >
-          <input
-            ref={inputRef}
-            className="text-agwhite font-extrabold font-sans bg-transparent w-full h-full"
-            type="number"
-            defaultValue={inputValue}
-            max={Math.floor(Number(tokenBalance))}
-            min={0}
+    <div className="flex flex-col gap-[8px] bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-fit min-w-full border-[1px] border-agyellow z-10">
+      <div className="flex justify-center items-center gap-[8px] w-full">
+        <div className="flex flex-col justify-center items-start gap-[8px] w-full">
+          <form
             onBlur={(e) => {
               setOutOfFocus(true);
             }}
             onFocus={(e) => {
               setOutOfFocus(false);
             }}
-            style={{
-              opacity: outOfFocus ? 0 : 1,
-              width: outOfFocus ? "0" : "100%",
-              height: outOfFocus ? "0" : "fit-content",
-              zIndex: outOfFocus ? 1 : 0,
+            onClick={() => {
+              setOutOfFocus(false);
+              inputRef.current?.focus();
             }}
-            onChange={handleInputChange}
-            autoFocus
-          />
-
-          <div
             style={{
-              opacity: outOfFocus ? 1 : 0,
-              width: outOfFocus ? "100%" : "0",
-              height: outOfFocus ? "100%" : "0",
-              zIndex: outOfFocus ? 0 : 1,
+              fontSize: fontsizeClamping(inputValue, 7, 16, 32) + "px",
+              lineHeight: 32 + "px",
             }}
-            className="flex justify-start items-center"
+            className="relative text-agwhite font-extrabold font-sans bg-transparent w-full h-fit flex justify-start items-center min-w-[8ch]"
           >
-            {inputRef &&
-              pointsConverterToUSCommaseparated(
-                Number(inputRef.current?.value),
-              )}
-          </div>
-        </form>
-
-        <P
-          ref={conversionRef}
-          style={{
-            // fontSize: fontsizeClamping(inputValue, 7, 8, 16) + "px",
-            fontSize: 16 + "px",
-            lineHeight: 16 + "px",
-          }}
-          extrabold
-          className="opacity-75 h-fit flex justify-start items-center w-fit"
-        >
-          {USFormatToNumber(currentConversion) <
-            MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION &&
-            USFormatToNumber(currentConversion) !== 0 &&
-            "< "}
-          {"$"}
-          {conversionRef.current && (
-            <AutomaticIncreamentalNumberCounterWithString
-              from={conversionRef.current?.textContent ?? "0"}
-              to={
-                USFormatToNumber(currentConversion) <
-                  MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION &&
-                USFormatToNumber(currentConversion) !== 0
-                  ? `${MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION}`
-                  : currentConversion
-              }
-              float={currentConversion.includes(".")}
-            />
-          )}
-        </P>
-      </div>
-      <div className="flex flex-col justify-end items-end gap-[8px]">
-        <div
-          className={twMerge(
-            "flex justify-center items-center gap-[8px] h-full w-fit ml-auto",
-          )}
-        >
-          <Dropdown
-            options={dropdownOptions ?? []}
-            selected={dropDownSelected}
-            setSelected={setDropDownSelected}
-          />
-        </div>
-        {account.isConnected && (
-          <div
-            className={`flex gap-[4px] justify-end items-center text-[16px] leading-[16px] text-agwhite opacity-75 font-general-sans font-semibold text-nowrap`}
-          >
-            <Image
-              src={IMAGEKIT_ICONS.WALLET_WHITE}
-              alt="hammer icon"
-              width={24}
-              height={24}
-              className={twMerge("object-cover")}
-            />
-            {`${parseFloat(tokenBalance).toLocaleString()} ${dropdownOptions?.[dropDownSelected]?.symbol ?? "Symbol"}`}
-          </div>
-        )}
-        {account.isConnected && (
-          <div className="flex justify-end items-end gap-[4px]">
-            <button
-              className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
-              onClick={() => {
-                setCurrentInputValue(tokenBalance.toString());
-                if (inputRef.current)
-                  inputRef.current.value = tokenBalance.toString();
+            <input
+              ref={inputRef}
+              className="text-agwhite font-extrabold font-sans bg-transparent w-full h-full"
+              type="number"
+              defaultValue={inputValue}
+              max={Math.floor(Number(tokenBalance))}
+              min={0}
+              onBlur={(e) => {
+                setOutOfFocus(true);
               }}
+              onFocus={(e) => {
+                setOutOfFocus(false);
+              }}
+              style={{
+                opacity: outOfFocus ? 0 : 1,
+                width: outOfFocus ? "0" : "100%",
+                height: outOfFocus ? "0" : "fit-content",
+                zIndex: outOfFocus ? 1 : 0,
+              }}
+              onChange={handleInputChange}
+              autoFocus
+            />
+
+            <div
+              style={{
+                opacity: outOfFocus ? 1 : 0,
+                width: outOfFocus ? "100%" : "0",
+                height: outOfFocus ? "100%" : "0",
+                zIndex: outOfFocus ? 0 : 1,
+              }}
+              className="flex justify-start items-center"
             >
-              <div className="bg-[#142266] rounded-full w-fit h-fit">
-                <div
-                  className={twMerge(
-                    "uppercase text-nowrap rounded-full text-[12px] leading-[12px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent",
-                    USFormatToNumber(inputValue) < Number(tokenBalance)
-                      ? "bg-clip-text text-transparent"
-                      : "text-agblack",
-                  )}
-                >
-                  MAX
-                </div>
-              </div>
-            </button>
-            <a
-              href={dropdownOptions[dropDownSelected]?.buyLink ?? ""}
-              target="_blank"
-              className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
-            >
-              <div className="bg-[#142266] rounded-full w-fit h-fit">
-                <div className="uppercase text-nowrap rounded-full text-[12px] leading-[12px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent bg-clip-text">
-                  Buy More
-                </div>
-              </div>
-            </a>
+              {inputRef &&
+                pointsConverterToUSCommaseparated(
+                  Number(inputRef.current?.value),
+                )}
+            </div>
+          </form>
+        </div>
+        <div className="flex flex-col justify-end items-end gap-[8px]">
+          <div
+            className={twMerge(
+              "flex justify-center items-center gap-[8px] h-full w-fit ml-auto",
+            )}
+          >
+            <Pill
+              text={"Dark"}
+              iconSrc={IMAGEKIT_ICONS.PILL_DARK_X_CLAIMED}
+              iconAlt={"dark"}
+            />
           </div>
-        )}
+          {account.isConnected && (
+            <div className="flex justify-end items-end gap-[4px]">
+              <button
+                className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
+                onClick={() => {
+                  setCurrentInputValue(tokenBalance.toString());
+                  if (inputRef.current)
+                    inputRef.current.value = tokenBalance.toString();
+                }}
+              >
+                <div className="bg-[#142266] rounded-full w-fit h-fit">
+                  <div
+                    className={twMerge(
+                      "uppercase text-nowrap rounded-full text-[12px] leading-[12px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent",
+                      USFormatToNumber(inputValue) < Number(tokenBalance)
+                        ? "bg-clip-text text-transparent"
+                        : "text-agblack",
+                    )}
+                  >
+                    MAX
+                  </div>
+                </div>
+              </button>
+              <a
+                href={dropdownOptions[dropDownSelected]?.buyLink ?? ""}
+                target="_blank"
+                className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
+              >
+                <div className="bg-[#142266] rounded-full w-fit h-fit">
+                  <div className="uppercase text-nowrap rounded-full text-[12px] leading-[12px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent bg-clip-text">
+                    Buy More
+                  </div>
+                </div>
+              </a>
+            </div>
+          )}
+        </div>
       </div>
+      {account.isConnected && (
+        <div
+          className={`flex gap-[4px] justify-end items-center text-[16px] leading-[16px] text-agwhite opacity-75 font-general-sans font-semibold text-nowrap`}
+        >
+          <Image
+            src={IMAGEKIT_ICONS.WALLET_WHITE}
+            alt="hammer icon"
+            width={24}
+            height={24}
+            className={twMerge("object-cover")}
+          />
+          {`${parseFloat(tokenBalance).toLocaleString()} ${dropdownOptions?.[dropDownSelected]?.symbol ?? "Symbol"}`}
+        </div>
+      )}
     </div>
   );
 }
@@ -390,49 +362,6 @@ export function Card({
             />
           )}
         </div>
-        {onlyValue ? null : (
-          <div className="flex justify-center items-center opacity-75 gap-[8px]">
-            <P
-              ref={conversionRef}
-              style={{
-                fontSize:
-                  fontsizeClamping(
-                    USFormatToNumber(currentConversion) <
-                      MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION
-                      ? `${MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION}`
-                      : currentConversion,
-                    7,
-                    10,
-                    16,
-                  ) + "px",
-                lineHeight: 16 + "px",
-              }}
-              extrabold
-            >
-              {USFormatToNumber(currentConversion) <
-                MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION &&
-                USFormatToNumber(currentConversion) !== 0 &&
-                "< "}
-              {"$"}
-              {conversionRef.current && (
-                <AutomaticIncreamentalNumberCounterWithString
-                  from={conversionRef.current?.textContent ?? "0"}
-                  to={
-                    USFormatToNumber(currentConversion) <
-                      MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION &&
-                    USFormatToNumber(currentConversion) !== 0
-                      ? `${MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION}`
-                      : currentConversion
-                  }
-                  float={currentConversion.includes(".")}
-                />
-              )}
-            </P>
-            <P extrabold>x</P>
-            <P extrabold>{multiplyer}</P>
-            <Badge>Multiplied!</Badge>
-          </div>
-        )}
       </div>
       <div className="flex flex-col gap-[8px] justify-end items-end my-auto h-fit">
         <Pill
@@ -453,51 +382,6 @@ export function Card({
             </div>
           </a>
         )}
-      </div>
-    </div>
-  );
-}
-
-function Multiplyer({
-  era = 2,
-  phase = 1,
-  multiplyer = 33,
-}: {
-  era: 1 | 2 | 3;
-  phase: 1 | 2 | 3;
-  multiplyer: number;
-}) {
-  return (
-    <div className="flex justify-center items-center gap-[8px]">
-      <div className="relative flex flex-col justify-start items-start p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit min-w-[80px] z-0">
-        <div className="absolute inset-0 opacity-[0.66] bg-agblack -z-[1]"></div>
-        <div className="text-[16px] leading-[19.2px] text-agwhite font-extrabold font-sans">
-          Era
-        </div>
-        <div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
-          {era}
-        </div>
-      </div>
-      <div className="relative flex flex-col justify-start items-start p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit min-w-[80px] z-0">
-        <div className="absolute inset-0 opacity-[0.66] bg-agblack -z-[1]"></div>
-        <div className="text-[16px] leading-[19.2px] text-agwhite font-extrabold font-sans">
-          Phase
-        </div>
-        <div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
-          {phase}
-        </div>
-      </div>
-      <div className="flex flex-col justify-start items-start p-[8px] overflow-hidden text-agwhite text-[16px] font-semibold font-general-sans">
-        =
-      </div>
-      <div className="relative flex flex-col justify-start items-start p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-[80%] z-0">
-        <div className="absolute inset-0 opacity-[0.66] bg-agblack -z-[1]"></div>
-        <div className="text-[16px] leading-[19.2px] text-agwhite font-extrabold font-sans">
-          Current Multiplier
-        </div>
-        <div className="text-[32px] leading-[32px] text-agyellow font-extrabold font-sans">
-          {multiplyer}x
-        </div>
       </div>
     </div>
   );
@@ -578,7 +462,6 @@ export default function MiningCalculator({
         tokenBalance={tokenBalance}
         setSelectedToken={setSelectedToken}
       />
-      <Multiplyer era={era} phase={phase} multiplyer={multiplyer} />
       <div
         style={{
           gap: "11px",
@@ -593,8 +476,8 @@ export default function MiningCalculator({
             borderRadius: "100px",
           }}
         ></div>
-        <div className="text-agwhite uppercase tracking-wider text-nowrap font-bold">
-          So you get both:
+        <div className="text-agblack uppercase tracking-wider text-nowrap font-bold font-generalsans">
+          So you get:
         </div>
         <div
           style={{
@@ -609,20 +492,9 @@ export default function MiningCalculator({
         value={pointsConverterToUSCommaseparated(Number(points.toFixed(20)))}
         conversion={pointsConverterToUSCommaseparated(USDValue)}
         multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
-        pillIconAlt="points"
-        pillIconSrc={IMAGEKIT_ICONS.PILL_POINTS}
-        pillText="Points"
-      />
-      <Card
-        value={pointsConverterToUSCommaseparated(Number(points.toFixed(20)))}
-        conversion={pointsConverterToUSCommaseparated(USDValue)}
-        multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
-        pillIconAlt="dark x"
-        pillIconSrc={IMAGEKIT_ICONS.PILL_DARK_X}
-        pillText="DARKX"
-        
-        // add real link
-        addToWalletLink="https://app.uniswap.org/#/swap?outputCurrency=0x0Ae055097C6d159879521C384F1D2123D1f195e6"
+        pillIconAlt="fuel cells"
+        pillIconSrc={IMAGEKIT_ICONS.FUEL_CELL}
+        pillText="Fuel Cells"
       />
     </div>
   );
