@@ -2,7 +2,7 @@
 
 import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import ContributedHero from "./Hero/ContributedHero";
 import NFTPopUp from "./Hero/NFTPopUp";
@@ -12,6 +12,7 @@ import ClaimedCard from "./Hero/ClaimedCard";
 import useTimer from "@/hooks/frontend/useTimer";
 import ClaimTransitionWait from "./Hero/ClaimingTransitionWait";
 import useClaim from "@/hooks/sc-fns/useClaim";
+import { generalToast } from "@/hooks/frontend/toast";
 
 export default function MiningHero() {
   const [state, setState] = useState<StateType>("Claiming");
@@ -23,12 +24,15 @@ export default function MiningHero() {
     setNFTHover(false);
   }
 
+  
+
   return (
     <div
-   style={{
-      backgroundImage: `url(${IMAGEKIT_IMAGES.MINING_PAGE_ERA_3})`,
-   }} 
-    className="relative w-full min-h-screen h-fit z-10 overflow-hidden bg-auto bg-[40%_50%] md:bg-cover ">
+      style={{
+        backgroundImage: `url(${IMAGEKIT_IMAGES.MINING_PAGE_ERA_3})`,
+      }}
+      className="relative w-full min-h-screen h-fit z-10 overflow-hidden bg-auto bg-[40%_50%] md:bg-cover "
+    >
       {/* <Image
         src={IMAGEKIT_IMAGES.MINING_PAGE_ERA_3}
         height={1080}
@@ -40,23 +44,13 @@ export default function MiningHero() {
               after:content-[''] after:absolute after:top-0 after:left-0 after:w-full after:h-full after:bg-red-500 after:from-[#000000BF] after:to-[#00000000] after:z-[10]
             "
       /> */}
-      <div className="h-fit z-0">
+      <div className="h-fit z-0 ">
         <div className="flex flex-col justify-center items-center w-full h-fit py-[30px] md:pt-[100px] z-0">
-          {timer?.claimTransition ? (
-            <ClaimTransitionWait />
-          ) : (timer?.claimStarted || timer?.era === "minting") &&
-            state !== "Claimed" ? (
-            <ContributedHero setState={setState} />
-           ) : (timer?.claimStarted || timer?.era === "minting") &&
-            state === "Claimed" ? (
-            <ClaimedCard setState={setState} />
-           ) : (
-             <NonContributed
-               state={state}
-               setNFTHover={setNFTHover}
-               setMinedSuccess={setMinedSuccess}
-             />
-           )} 
+          <NonContributed
+            state={state}
+            setNFTHover={setNFTHover}
+            setMinedSuccess={setMinedSuccess}
+          />
         </div>
         <AnimatePresence>
           {NFTHover && (

@@ -1,6 +1,14 @@
 "use client";
 
-import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  use,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { IToken, StateType } from "../types";
 import useTimer from "@/hooks/frontend/useTimer";
 import { useChainModal, useConnectModal } from "@rainbow-me/rainbowkit";
@@ -19,7 +27,7 @@ import { checkCorrectNetwork } from "@/components/RainbowKit";
 import { pulsechain, sepolia } from "viem/chains";
 import useMiningContract from "@/abi/MiningRig";
 import useUserData from "@/app/(client)/store";
-import { errorToast } from "@/hooks/frontend/toast";
+import { errorToast, generalToast, miningNotif } from "@/hooks/frontend/toast";
 import ProgressingStates from "@/components/ProgressingStates";
 
 export default function NonContributed({
@@ -216,9 +224,30 @@ export default function NonContributed({
     }
   }, [darkXBalance]);
 
+  const heroRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    setInterval(() => {
+      if (heroRef.current) {
+        miningNotif(
+          "0x...5678 just mined 2,000 DarkX tokens!",
+          {
+            position: "bottom-left",
+          },
+          heroRef.current.offsetLeft,
+        );
+      }
+    }, 5000);
+  }, [heroRef.current]);
   return (
-    <div className="max-w-full relative flex flex-col lg:flex-row justify-start items-center lg:items-start gap-[24px] lg:gap-[16px] mt-[80px] px-[16px] h-fit">
-      {nftURLera2 || true ? <NFTHero setNFTHover={setNFTHover} /> : <NoNFTHero />}
+    <div
+      ref={heroRef}
+      className="max-w-full relative flex flex-col lg:flex-row justify-start items-center lg:items-start gap-[24px] lg:gap-[16px] mt-[80px] px-[16px] h-fit"
+    >
+      {nftURLera2 || true ? (
+        <NFTHero setNFTHover={setNFTHover} />
+      ) : (
+        <NoNFTHero />
+      )}
       <div className="flex flex-col justify-center items-center gap-[8px]">
         <MiningCalculator
           tokenBalance={tokenBalances?.[selectedToken] || "0"}
