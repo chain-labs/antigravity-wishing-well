@@ -52,7 +52,7 @@ export default function MiningHero() {
             setMinedSuccess={setMinedSuccess}
           />
         </div>
-        <AnimatePresence>
+        {/* <AnimatePresence>
           {NFTHover && (
             <NFTPopUp
               minedSuccess={minedSuccess}
@@ -60,7 +60,7 @@ export default function MiningHero() {
               handleNFTClose={handleNFTClose}
             />
           )}
-        </AnimatePresence>
+        </AnimatePresence> */}
       </div>
     </div>
   );

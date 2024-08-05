@@ -1,33 +1,11 @@
 "use client";
 
-import {
-  IMAGEKIT_ICONS,
-  IMAGEKIT_IMAGES,
-  IMAGEKIT_LOGOS,
-} from "@/assets/imageKit";
-import Button from "@/components/Button";
+import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import H1 from "@/components/HTML/H1";
 import P from "@/components/HTML/P";
 import Image from "next/image";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
-export default function NFTHero({
-  setNFTHover,
-}: {
-  setNFTHover: Dispatch<SetStateAction<boolean>>;
-}) {
-  const [mouseHover, setMouseHover] = useState(false);
-  useEffect(() => {
-    if (mouseHover) {
-      const timeout = setTimeout(() => {
-        setNFTHover(true);
-      }, 500);
-
-      return () => {
-        clearTimeout(timeout);
-      };
-    }
-  }, [mouseHover]);
+export default function NFTHero() {
   return (
     <div className="flex flex-col justify-between items-start gap-[16px] w-fit h-full md:max-w-[451px]">
       <div className="flex flex-col justify-start items-start gap-[16px] w-fit sm:max-w-[451px] p-[16px] bg-[#FFFFFF4D]">

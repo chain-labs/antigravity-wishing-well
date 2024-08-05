@@ -28,7 +28,7 @@ import { pulsechain, sepolia } from "viem/chains";
 import useMiningContract from "@/abi/MiningRig";
 import useUserData from "@/app/(client)/store";
 import { errorToast, generalToast, miningNotif } from "@/hooks/frontend/toast";
-import ProgressingStates from "@/components/ProgressingStates";
+import ProgressingStates, { states } from "@/components/ProgressingStates";
 
 export default function NonContributed({
   state,
@@ -238,13 +238,50 @@ export default function NonContributed({
       }
     }, 5000);
   }, [heroRef.current]);
+
+  const [miningState, setMiningState] = useState<{
+    Approve: states;
+    Mint: states;
+    Success: states;
+  }>({
+    Approve: "progress",
+    Mint: "pending",
+    Success: "pending",
+  });
+
+  useEffect(() => {
+    setTimeout(() => {
+      setMiningState({
+        ...miningState,
+        Approve: "success",
+        Mint: "progress",
+      });
+    }, 10000);
+    setTimeout(() => {
+      setMiningState({
+        ...miningState,
+        Approve: "success",
+        Mint: "success",
+        Success: "progress",
+      });
+    }, 15000);
+    setTimeout(() => {
+      setMiningState({
+        ...miningState,
+        Approve: "success",
+        Mint: "success",
+        Success: "success",
+      });
+    }, 20000);
+  }, []);
+
   return (
     <div
       ref={heroRef}
       className="max-w-full relative flex flex-col lg:flex-row justify-start items-center lg:items-start gap-[24px] lg:gap-[16px] mt-[80px] px-[16px] h-fit"
     >
-      {nftURLera2 || true ? (
-        <NFTHero setNFTHover={setNFTHover} />
+      {nftURLera2 ? (
+        <NFTHero />
       ) : (
         <NoNFTHero />
       )}
@@ -336,13 +373,7 @@ export default function NonContributed({
           />
         )}
         <div className="p-[8px] rounded-[6px] bg-[#030404A8] w-full max-w-[350px] md:max-w-[400px]">
-          <ProgressingStates
-            states={{
-              Approve: "progress",
-              Mint: "pending",
-              Success: "pending",
-            }}
-          />
+          <ProgressingStates states={miningState} />
         </div>
         <div className="p-[8px] rounded-[6px] bg-[#030404A8] w-full max-w-[350px] md:max-w-[400px]">
           <CountdownTimer state={timerState} fontDesktopSize={56} />
