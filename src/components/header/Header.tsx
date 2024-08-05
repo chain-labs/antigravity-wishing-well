@@ -130,7 +130,7 @@ const Header = () => {
               className={`relative flex justify-center items-center font-extrabold text-lg font-sans gap-[16px] oveflow-hidden`}
             >
               <Link
-                href={location.pathname === "/mining" ? "/mining#" : "/mining"}
+                href={location.pathname === "/minting" ? "/minting#" : "/minting"}
                 className="p-[8px]"
               >
                 <P
@@ -139,7 +139,7 @@ const Header = () => {
                   extrabold
                   className="font-sans font-extrabold"
                 >
-                  Mining
+                  minting
                 </P>
               </Link>
               <Link
@@ -333,7 +333,7 @@ const Header = () => {
               )}
               <div className="w-full h-[1px] bg-gradient-to-l from-white via-[#999999] to-[#999999] rounded-full" />
               <Link
-                href={location.pathname === "/mining" ? "/mining#" : "/mining"}
+                href={location.pathname === "/minting" ? "/minting#" : "/minting"}
               >
                 <P
                   uppercase
@@ -341,7 +341,7 @@ const Header = () => {
                   extrabold
                   className="font-sans font-extrabold"
                 >
-                  Mining
+                  minting
                 </P>
               </Link>
               <Link
