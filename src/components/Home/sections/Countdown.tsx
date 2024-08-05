@@ -210,10 +210,10 @@ export default function Countdown() {
                 state.era === "wishwell" && "text-agyellow",
               )}
             >
-              Wishwell
+              Journey 1
             </div>
             <div className="tracking-widest uppercase text-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
-              Phase
+              Lottery
             </div>
             <div className="flex justify-center items-center gap-2 relative z-0 px-auto">
               <MobilePhase activeState={state} era="wishwell" phase={1} />
@@ -231,10 +231,10 @@ export default function Countdown() {
                 state.era === "mining" && "text-agyellow",
               )}
             >
-              Mining
+              Journey 2
             </div>
             <div className="tracking-widest uppercase text-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
-              Phase
+              Lottery
             </div>
             <div className="flex justify-center items-center gap-2 relative z-0 px-auto">
               <MobilePhase activeState={state} era="mining" phase={1} />
@@ -272,10 +272,10 @@ export default function Countdown() {
                 "text-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text",
               )}
             >
-              Minting
+              Journey 3
             </div>
             <div className="tracking-widest uppercase text-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
-              Phase
+              Lottery
             </div>
             <div className="flex justify-center items-center gap-2 relative z-0 px-auto">
               <MobilePhase activeState={state} era="minting" phase={1} />
@@ -296,10 +296,10 @@ export default function Countdown() {
               }}
               className="text-[36px] leading-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text"
             >
-              Wishwell
+              Journey 1
             </div>
             <div className="tracking-widest uppercase text-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
-              Phase
+              Lottery
             </div>
           </div>
           <div className="flex flex-col gap-2">
@@ -309,10 +309,10 @@ export default function Countdown() {
               }}
               className="text-[36px] leading-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text"
             >
-              Mining
+              Journey 2
             </div>
             <div className="tracking-widest uppercase text-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
-              Phase
+              Lottery
             </div>
           </div>
           <div className="flex flex-col gap-2">
@@ -322,10 +322,10 @@ export default function Countdown() {
               }}
               className="text-[36px] leading-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text"
             >
-              Minting
+              Journey 3
             </div>
             <div className="tracking-widest uppercase text-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
-              Phase
+              Lottery
             </div>
           </div>
         </div>
