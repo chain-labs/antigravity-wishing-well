@@ -17,6 +17,7 @@ import { client } from "../../../sanity/lib/client";
 import useTimer from "@/hooks/frontend/useTimer";
 import useHeaderStats from "./useHeaderStats";
 import { checkCorrectNetwork } from "../RainbowKit";
+import { PiRocketLaunchDuotone, PiTreasureChestDuotone } from "react-icons/pi";
 
 // Use a function to get the latest block number
 async function getLatestBlockNumber(publicClient: PublicClient) {
@@ -84,25 +85,13 @@ const Header = () => {
         <div className="px-[16px] py-[8px] rounded-[inherit] bg-gradient-to-b from-agblack to-[#131A1A]">
           <div className="grid grid-flow-col place-items-center gap-[16px] opacity-[0.66] font-sans text-agwhite text-[16px] leading-[16px] uppercase tracking-widest">
             <p className="flex justify-center items-center gap-[8px]">
-              <Image
-                src={IMAGEKIT_ICONS.BOOK}
-                alt="Clock"
-                width={24}
-                height={24}
-                className="w-[24px] h-[24px]"
-              />
+              <PiTreasureChestDuotone className="text-[24px] leading-[24px] text-agwhite" />
               <span>Treasury $DARK:</span>
               <LoaderSpan data={treasuryBalance} />
             </p>
             <div className="w-[1px] h-full bg-gradient-to-b from-white via-[#999999] to-[#999999] rounded-full" />
             <p className="flex justify-center items-center gap-[8px]">
-              <Image
-                src={IMAGEKIT_ICONS.ROCKET}
-                alt="Clock"
-                width={24}
-                height={24}
-                className="w-[24px] h-[24px]"
-              />
+              <PiRocketLaunchDuotone className="text-[24px] leading-[24px] text-agwhite" />
               <span>Journey:</span>
               <LoaderSpan data={journey} />
             </p>
@@ -125,10 +114,10 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div className="flex text-agwhite w-full xl:min-w-fit xl:w-full rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px]">
+      <div className="flex text-agwhite w-full lg:min-w-fit lg:w-full rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px]">
         <div className="w-full h-full bg-agblack flex items-center justify-between rounded-lg gap-[40px] px-[12px] py-[8px]">
           {/* Desktop View */}
-          <div className="hidden xl:flex xl:flex-grow xl:items-center h-fit xl:justify-between xl:gap-x-[40px]">
+          <div className="hidden lg:flex lg:flex-grow lg:items-center h-fit lg:justify-between lg:gap-x-[40px]">
             <Link className="flex items-center cursor-pointer" href="/">
               <div className="relative w-[42px] h-[42px]">
                 <Image src={IMAGEKIT_LOGOS.LOGO} alt="icon" fill />
@@ -141,7 +130,7 @@ const Header = () => {
               className={`relative flex justify-center items-center font-extrabold text-lg font-sans gap-[16px] oveflow-hidden`}
             >
               <Link
-                href={location.pathname === "/mining" ? "/mining#" : "/mining"}
+                href={location.pathname === "/minting" ? "/minting#" : "/minting"}
                 className="p-[8px]"
               >
                 <P
@@ -150,7 +139,7 @@ const Header = () => {
                   extrabold
                   className="font-sans font-extrabold"
                 >
-                  Mining
+                  minting
                 </P>
               </Link>
               <Link
@@ -290,17 +279,17 @@ const Header = () => {
           </div>
           {/* Mobile View */}
           <Link
-            className="flex max-w-[500px] xl:hidden items-center cursor-pointer"
+            className="flex max-w-[500px] lg:hidden items-center cursor-pointer"
             href="/"
           >
-            <div className="w-[37px] h-[37px] xl:w-[45px] xl:h-[45px] relative">
+            <div className="w-[37px] h-[37px] lg:w-[45px] lg:h-[45px] relative">
               <Image src={IMAGEKIT_LOGOS.LOGO} alt="icon" fill />
             </div>
             <p className="from-white to-[#999999] pl-2 font-sans font-extrabold sm:text-2xl bg-gradient-to-b text-transparent bg-clip-text">
               ANTIGRAVITY
             </p>
           </Link>
-          <div className="flex xl:hidden">
+          <div className="flex lg:hidden">
             {isOpen ? (
               <IoCloseCircleOutline
                 className="cursor-pointer"
@@ -320,8 +309,8 @@ const Header = () => {
         </div>
       </div>
       {isOpen ? (
-        <div className="flex xl:hidden w-full max-w-[900px] justify-center">
-          <div className="flex text-agwhite w-full xl:h-16 rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px] overflow-hidden">
+        <div className="flex lg:hidden w-full max-w-[900px] justify-center">
+          <div className="flex text-agwhite w-full lg:h-16 rounded-lg bg-gradient-to-tr from-brred to-blue p-[2px] overflow-hidden">
             <div className="w-full h-full bg-agblack px-8 flex flex-col items-center justify-center rounded-lg gap-6 py-4">
               {account.isConnected ? (
                 <UserConnected />
@@ -344,7 +333,7 @@ const Header = () => {
               )}
               <div className="w-full h-[1px] bg-gradient-to-l from-white via-[#999999] to-[#999999] rounded-full" />
               <Link
-                href={location.pathname === "/mining" ? "/mining#" : "/mining"}
+                href={location.pathname === "/minting" ? "/minting#" : "/minting"}
               >
                 <P
                   uppercase
@@ -352,7 +341,7 @@ const Header = () => {
                   extrabold
                   className="font-sans font-extrabold"
                 >
-                  Mining
+                  minting
                 </P>
               </Link>
               <Link
@@ -480,13 +469,62 @@ const LoaderSpan = ({ data }: { data?: string }) => {
       {data ? (
         Number(data).toLocaleString()
       ) : (
-        <Image
-          src={IMAGEKIT_ICONS.REFRESH}
-          alt={"loading..."}
-          width={14}
-          height={14}
-          className="object-cover animate-spin"
-        />
+        <div className="flex justify-center items-center gap-[4px]">
+          <motion.span
+            animate={{
+              y: "10%",
+            }}
+            initial={{
+              y: "0%",
+            }}
+            transition={{
+              duration: 0.25,
+              repeat: Infinity,
+              repeatType: "reverse",
+              type: "spring",
+              bounce: 0.5,
+              delay: 0,
+            }}
+          >
+            .
+          </motion.span>
+          <motion.span
+            animate={{
+              y: "10%",
+            }}
+            initial={{
+              y: "0%",
+            }}
+            transition={{
+              duration: 0.25,
+              repeat: Infinity,
+              repeatType: "reverse",
+              type: "spring",
+              bounce: 0.5,
+              delay: 0.1,
+            }}
+          >
+            .
+          </motion.span>
+          <motion.span
+            animate={{
+              y: "10%",
+            }}
+            initial={{
+              y: "0%",
+            }}
+            transition={{
+              duration: 0.25,
+              repeat: Infinity,
+              repeatType: "reverse",
+              type: "spring",
+              bounce: 0.5,
+              delay: 0.2,
+            }}
+          >
+            .
+          </motion.span>
+        </div>
       )}
     </span>
   );

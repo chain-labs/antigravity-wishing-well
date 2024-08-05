@@ -85,7 +85,7 @@ export const UserConnected: React.FC = () => {
             return (
               <>
                 {/* desktop */}
-                <div className="hidden xl:flex w-full h-full bg-agblack gap-2 items-center rounded-lg cursor-pointer focus:outline-none">
+                <div className="hidden lg:flex w-full h-full bg-agblack gap-2 items-center rounded-lg cursor-pointer focus:outline-none">
                   {chain.hasIcon ? (
                     <>
                       <img
@@ -107,10 +107,10 @@ export const UserConnected: React.FC = () => {
                   ) : null}
                 </div>
                 {/* mobile */}
-                <div className="flex flex-col xl:hidden w-full h-full bg-agblack gap-2 items-center rounded-lg cursor-pointer focus:outline-none">
+                <div className="flex flex-col lg:hidden w-full h-full bg-agblack gap-2 items-center rounded-lg cursor-pointer focus:outline-none">
                   {chain.hasIcon ? (
                     <>
-                      <Badge className="text-agwhite border-agwhite pb-[4px] opacity-[66%] flex xl:hidden">
+                      <Badge className="text-agwhite border-agwhite pb-[4px] opacity-[66%] flex lg:hidden">
                         {rank || "LOADING..."}
                       </Badge>
                       <div className="flex justify-center items-center gap-2">
@@ -125,7 +125,7 @@ export const UserConnected: React.FC = () => {
                           onClick={openAccountModal}
                         >
                           {condenseAddress(`${account.address}`)}
-                          <Badge className="text-agwhite border-agwhite pb-[4px] opacity-[66%] hidden xl:flex">
+                          <Badge className="text-agwhite border-agwhite pb-[4px] opacity-[66%] hidden lg:flex">
                             {rank || "LOADING..."}
                           </Badge>
                         </p>
