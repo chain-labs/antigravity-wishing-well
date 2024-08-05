@@ -365,6 +365,7 @@ export function Card({
           text={String(pillText)}
           iconSrc={pillIconSrc}
           iconAlt={pillIconAlt}
+          imageClassName="mix-blend-multiply"
         />
         {addToWalletLink && (
           <a
@@ -473,8 +474,8 @@ export default function MiningCalculator({
             borderRadius: "100px",
           }}
         ></div>
-        <div className="text-agblack uppercase tracking-wider text-nowrap font-bold font-generalsans">
-          So you get:
+        <div className="text-agblack uppercase tracking-wider text-nowrap font-bold font-general-sans rounded-[6px] backdrop-blur-[4px] bg-[#FEFFFF26] px-[8px] py-[4px]">
+          you get:
         </div>
         <div
           style={{
