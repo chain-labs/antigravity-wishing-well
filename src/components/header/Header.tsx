@@ -469,13 +469,62 @@ const LoaderSpan = ({ data }: { data?: string }) => {
       {data ? (
         Number(data).toLocaleString()
       ) : (
-        <Image
-          src={IMAGEKIT_ICONS.REFRESH}
-          alt={"loading..."}
-          width={14}
-          height={14}
-          className="object-cover animate-spin"
-        />
+        <div className="flex justify-center items-center gap-[4px]">
+          <motion.span
+            animate={{
+              y: "10%",
+            }}
+            initial={{
+              y: "0%",
+            }}
+            transition={{
+              duration: 0.25,
+              repeat: Infinity,
+              repeatType: "reverse",
+              type: "spring",
+              bounce: 0.5,
+              delay: 0,
+            }}
+          >
+            .
+          </motion.span>
+          <motion.span
+            animate={{
+              y: "10%",
+            }}
+            initial={{
+              y: "0%",
+            }}
+            transition={{
+              duration: 0.25,
+              repeat: Infinity,
+              repeatType: "reverse",
+              type: "spring",
+              bounce: 0.5,
+              delay: 0.1,
+            }}
+          >
+            .
+          </motion.span>
+          <motion.span
+            animate={{
+              y: "10%",
+            }}
+            initial={{
+              y: "0%",
+            }}
+            transition={{
+              duration: 0.25,
+              repeat: Infinity,
+              repeatType: "reverse",
+              type: "spring",
+              bounce: 0.5,
+              delay: 0.2,
+            }}
+          >
+            .
+          </motion.span>
+        </div>
       )}
     </span>
   );
