@@ -21,12 +21,13 @@ import { checkCorrectNetwork } from "../RainbowKit";
 import { TEST_NETWORK } from "@/constants";
 import { pulsechain, sepolia } from "viem/chains";
 import { errorToast } from "@/hooks/frontend/toast";
-import { MINTING_STATES } from "./MintingHero.dev";
-
+import { MINTING_STATES } from "./MintingHero";
+import { MintError } from "./types";
 const useMinting = (
   darkInput: number,
-  setMintStep: Dispatch<SetStateAction<string>>,
+  setMintStep: Dispatch<SetStateAction<keyof typeof MINTING_STATES>>,
   setTxLoading: Dispatch<SetStateAction<boolean>>,
+  setTxError: Dispatch<SetStateAction<MintError>>,
 ) => {
   const { darkBalance } = useUserData();
   const account = useAccount();
@@ -119,6 +120,7 @@ const useMinting = (
   }, [DarkContract, LCC_Contract, darkInput, approve, setMintStep]);
 
   const mintLogic = useCallback(() => {
+    setTxError({ is: false, value: undefined });
     if (
       darkInput > 0 &&
       checkCorrectNetwork(account.chainId, [
@@ -140,6 +142,7 @@ const useMinting = (
       )
         errorToast("You are connected to a wrong network!");
       else if (darkInput < darkBalance) {
+        console.log({ darkInput, darkBalance });
         errorToast("Insufficient Dark Balance!");
       }
     }
@@ -151,6 +154,7 @@ const useMinting = (
     darkBalance,
     account.chainId,
     setTxLoading,
+    setTxError,
   ]);
 
   useEffect(() => {
@@ -168,11 +172,14 @@ const useMinting = (
   }, [mintReceipt, setMintStep]);
   useEffect(() => {
     if (approveError) {
+      setTxError({ is: true, value: "Approve" });
       console.log({ approveError });
     }
   }, [approveError]);
+
   useEffect(() => {
     if (mintError) {
+      setTxError({ is: true, value: "Mint" });
       console.log({ mintError });
     }
   }, [mintError]);
@@ -182,7 +189,7 @@ const useMinting = (
     if (allowance.allowed) {
       setMintStep(MINTING_STATES.MINT);
     } else {
-        setMintStep(MINTING_STATES.INITIAL)
+      setMintStep(MINTING_STATES.INITIAL);
     }
   }, [allowance, setMintStep]);
 

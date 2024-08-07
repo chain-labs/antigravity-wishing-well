@@ -39,6 +39,7 @@ export function InputCard({
   setDropDownSelected,
   tokenBalance,
   setSelectedToken,
+  customSymbol,
 }: {
   inputValue: string;
   setCurrentInputValue: Dispatch<SetStateAction<string>>;
@@ -48,11 +49,13 @@ export function InputCard({
   setDropDownSelected: Dispatch<SetStateAction<number>>;
   setSelectedToken: Dispatch<SetStateAction<number>>;
   tokenBalance: string;
+  customSymbol?: string;
 }) {
   const [outOfFocus, setOutOfFocus] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const [currentConversion, setCurrentConversion] = useState<string>("");
   const conversionRef = useRef<HTMLDivElement>(null);
+  const [isInitial, setIsInitial] = useState(true);
 
   useEffect(() => {
     // if value is not changed withing 300ms, update the value
@@ -121,14 +124,19 @@ export function InputCard({
   const account = useAccount();
 
   useEffect(() => {
-    if (!account.isConnected) {
-      if (inputRef.current) {
-        inputRef.current.value = "40000";
+    if (isInitial) {
+      if (!account.isConnected) {
+        if (inputRef.current) {
+          inputRef.current.value = "40000";
+        }
       }
-    } else {
-      if (inputRef.current) {
-        inputRef.current.value = tokenBalance;
-      }
+      // else {
+      //   if (inputRef.current && Number(tokenBalance)) {
+      //     inputRef.current.value = tokenBalance;
+      //     setCurrentInputValue(tokenBalance);
+      //     setIsInitial(false);
+      //   }
+      // }
     }
   }, [tokenBalance, account.isConnected]);
 
@@ -253,7 +261,7 @@ export function InputCard({
             height={24}
             className={twMerge("object-cover")}
           />
-          {`${parseFloat(tokenBalance).toLocaleString()} ${dropdownOptions?.[dropDownSelected]?.symbol ?? "Symbol"}`}
+          {`${parseFloat(tokenBalance).toLocaleString()} ${customSymbol ?? dropdownOptions?.[dropDownSelected]?.symbol ?? "TOKEN"}`}
         </div>
       )}
     </div>
@@ -396,7 +404,9 @@ export default function MiningCalculator({
   inputOptions,
   setSelectedToken,
   tokenBalance,
+  customSymbol,
   selectedToken,
+  txLoading,
 }: {
   value: number;
   setValue: Dispatch<SetStateAction<number>>;
@@ -408,9 +418,12 @@ export default function MiningCalculator({
   inputOptions: TokenDropdownTypes[];
   setSelectedToken: Dispatch<SetStateAction<number>>;
   tokenBalance: string;
+  customSymbol?: string;
   selectedToken: number;
+  txLoading?: boolean;
 }) {
-  const [currentValue, setCurrentValue] = useState<string>(value + "");
+  const [isInitialBalance, setIsInitialBalance] = useState(true);
+  const [currentValue, setCurrentValue] = useState<string>("1");
   const [selectedOption, setSelectedOption] = useState<number>(selectedToken);
   const [USDValue, setUSDValue] = useState(
     value * (inputOptions[0]?.USDvalue || 0),
@@ -441,12 +454,20 @@ export default function MiningCalculator({
   }, [value]);
 
   useEffect(() => {
-    if (!account.isConnected) {
-      setCurrentValue("40000");
-    } else {
-      setCurrentValue(tokenBalance);
+    if (isInitialBalance) {
+      if (!account.isConnected) {
+        setCurrentValue("40000");
+      } else {
+        setCurrentValue(tokenBalance);
+        setValue(Number(tokenBalance));
+        setIsInitialBalance(false);
+      }
     }
-  }, [tokenBalance, account.isConnected]);
+  }, [tokenBalance, account.isConnected, isInitialBalance]);
+
+  useEffect(() => {
+    console.log({ value, currentValue });
+  }, [value, currentValue]);
 
   return (
     <div className="relative flex flex-col gap-[8px] h-fit min-w-[400px] max-w-full scale-[0.9] md:scale-100 z-10">
@@ -458,6 +479,7 @@ export default function MiningCalculator({
         dropDownSelected={selectedOption}
         setDropDownSelected={setSelectedOption}
         tokenBalance={tokenBalance}
+        customSymbol={customSymbol}
         setSelectedToken={setSelectedToken}
       />
       <div
@@ -487,7 +509,9 @@ export default function MiningCalculator({
         ></div>
       </div>
       <Card
-        value={pointsConverterToUSCommaseparated(Number(points.toFixed(20)))}
+        value={pointsConverterToUSCommaseparated(
+          Number(Number(currentValue).toFixed(20)),
+        )}
         conversion={pointsConverterToUSCommaseparated(USDValue)}
         multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
         pillIconAlt="fuel cells"

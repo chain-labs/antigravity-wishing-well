@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import { CSSProperties } from "styled-components";
 import { twMerge } from "tailwind-merge";
 import { AnimatePresence, motion } from "framer-motion";
-
-export type states = "pending" | "progress" | "success" | "failed";
+import { states } from "./Minting/types";
 
 const statesColors: { [key in states]: string } = {
   pending: "#FEFFFFA8",
@@ -171,7 +170,7 @@ function RandomSparkels() {
     <>
       {sparkelsPositions.map((sparkel, idx) => (
         <motion.div
-          key={idx}
+          key={2 * idx}
           initial={{
             position: "absolute",
             top: `50%`,
@@ -208,7 +207,7 @@ function RandomSparkels() {
 }
 
 export default function ProgressingStates({
-  states: previeousStates,
+  states: previousStates,
 }: {
   states: { [key in string]: states };
 }) {
@@ -221,10 +220,10 @@ export default function ProgressingStates({
   });
 
   useEffect(() => {
-    if (previeousStates) {
-      setStates(previeousStates);
+    if (previousStates) {
+      setStates(previousStates);
     }
-  }, [previeousStates]);
+  }, [previousStates]);
 
   return (
     <div className="flex flex-col place-items-center gap-y-[8px] text-[16px] leading-[19.84px] tracking-widest font-extrabold font-sans uppercase w-full">
@@ -244,7 +243,7 @@ export default function ProgressingStates({
                     type: "spring",
                     bounce: 0.25,
                   }}
-                  key={idx}
+                  key={3 * idx}
                   style={{
                     // gridColumn: `${idx * 2 + 1}`,
                     // gridRow: "1",
@@ -300,7 +299,7 @@ export default function ProgressingStates({
         {typeof states === "object" &&
           Object.keys(states).map((userState: string, idx: number) => (
             <p
-              key={idx}
+              key={1 * idx}
               style={{
                 color: statesColors[states[userState]],
                 gridColumn: `${idx * 2 + 1}`,

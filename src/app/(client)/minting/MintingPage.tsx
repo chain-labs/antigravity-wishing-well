@@ -4,7 +4,7 @@ import Newsletter from "@/components/Newsletter";
 import Leaderboard from "@/components/Leaderboard";
 import { useAccount } from "wagmi";
 import Footer from "@/components/Footer";
-import MintingHero from "@/components/Minting/MinitingHero";
+import MintingHero from "@/components/Minting/MintingHero";
 
 export default function MiningPage() {
   const account = useAccount();
