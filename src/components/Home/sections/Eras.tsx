@@ -28,15 +28,13 @@ export default function Eras() {
         }
       />
       <HeroItemCard
-        title="Mining"
+        title="Minting"
         description={
-          timer.claimStarted && (darkBalance as bigint) > 0
-            ? "Surprise! You can now claim your $DARK tokens based on the points you've earned. "
-            : "Start mining with supported tokens to get points + $DARKX tokens + the new Antigravity NFT."
+          "Here is a one or two line short description about this. Here is a one or two line short description about this."
         }
-        backgroundImage={IMAGEKIT_IMAGES.MINING}
+        backgroundImage={IMAGEKIT_IMAGES.MINING_PAGE_ERA_3}
         animateFrom="right"
-        cardExternalLink="/mining"
+        cardExternalLink="/minting"
       />
       <HeroItemCard
         title="The Collective"

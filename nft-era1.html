@@ -271,5 +271,17 @@
         </p>
       </div>
     </div>
+    <script defer>
+      function USAbasedNumbering(number) {
+        return number.toLocaleString('en-US');
+      }
+
+      const totalAmount = USAbasedNumbering(totalAmount);
+      const totalPoints = USAbasedNumbering(totalPoints);
+
+      document.querySelector('.total').innerText = totalPoints;
+      document.querySelector('.points').innerText = totalAmount;
+
+    </script>
   </body>
 </html>
