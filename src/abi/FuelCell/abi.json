@@ -1,33 +1,7 @@
 [
     {
         "type": "constructor",
-        "inputs": [
-            {
-                "name": "_launchControlCenter",
-                "type": "address",
-                "internalType": "address"
-            },
-            {
-                "name": "_initialOwner",
-                "type": "address",
-                "internalType": "address"
-            },
-            {
-                "name": "_journeyPhaseManager",
-                "type": "address",
-                "internalType": "address"
-            },
-            {
-                "name": "_initalBaseUri",
-                "type": "string",
-                "internalType": "string"
-            },
-            {
-                "name": "_initialSuffix",
-                "type": "string",
-                "internalType": "string"
-            }
-        ],
+        "inputs": [],
         "stateMutability": "nonpayable"
     },
     {
@@ -88,6 +62,11 @@
                 "name": "tokenId",
                 "type": "uint256",
                 "internalType": "uint256"
+            },
+            {
+                "name": "journeyId",
+                "type": "uint256",
+                "internalType": "uint256"
             }
         ],
         "outputs": [],
@@ -111,6 +90,44 @@
             }
         ],
         "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "initialize",
+        "inputs": [
+            {
+                "name": "_launchControlCenter",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "_initialOwner",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "_treasury",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "_journeyPhaseManager",
+                "type": "address",
+                "internalType": "contract JourneyPhaseManager"
+            },
+            {
+                "name": "_initalBaseUri",
+                "type": "string",
+                "internalType": "string"
+            },
+            {
+                "name": "_initialSuffix",
+                "type": "string",
+                "internalType": "string"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
     },
     {
         "type": "function",
@@ -221,6 +238,19 @@
                 "name": "",
                 "type": "address",
                 "internalType": "address"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "proxiableUUID",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bytes32",
+                "internalType": "bytes32"
             }
         ],
         "stateMutability": "view"
@@ -435,6 +465,19 @@
     },
     {
         "type": "function",
+        "name": "treasury",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
         "name": "updateLauncherAddress",
         "inputs": [
             {
@@ -445,6 +488,56 @@
         ],
         "outputs": [],
         "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "upgradeTo",
+        "inputs": [
+            {
+                "name": "newImplementation",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "upgradeToAndCall",
+        "inputs": [
+            {
+                "name": "newImplementation",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "data",
+                "type": "bytes",
+                "internalType": "bytes"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "payable"
+    },
+    {
+        "type": "event",
+        "name": "AdminChanged",
+        "inputs": [
+            {
+                "name": "previousAdmin",
+                "type": "address",
+                "indexed": false,
+                "internalType": "address"
+            },
+            {
+                "name": "newAdmin",
+                "type": "address",
+                "indexed": false,
+                "internalType": "address"
+            }
+        ],
+        "anonymous": false
     },
     {
         "type": "event",
@@ -498,6 +591,19 @@
     },
     {
         "type": "event",
+        "name": "BeaconUpgraded",
+        "inputs": [
+            {
+                "name": "beacon",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
         "name": "ConsecutiveTransfer",
         "inputs": [
             {
@@ -523,6 +629,19 @@
                 "type": "address",
                 "indexed": true,
                 "internalType": "address"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "Initialized",
+        "inputs": [
+            {
+                "name": "version",
+                "type": "uint8",
+                "indexed": false,
+                "internalType": "uint8"
             }
         ],
         "anonymous": false
@@ -567,6 +686,19 @@
                 "type": "uint256",
                 "indexed": true,
                 "internalType": "uint256"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "Upgraded",
+        "inputs": [
+            {
+                "name": "implementation",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
             }
         ],
         "anonymous": false
@@ -634,6 +766,11 @@
     {
         "type": "error",
         "name": "NotOwner",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "NotTreasury",
         "inputs": []
     },
     {

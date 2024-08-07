@@ -7,6 +7,7 @@ import { readContract } from "@wagmi/core";
 import useJPMContract from "@/abi/JourneyPhaseManager";
 import { TEST_NETWORK } from "@/constants";
 import { pulsechain, sepolia } from "viem/chains";
+import useUserData from "@/app/(client)/store";
 
 const useHeaderStats = () => {
   const config = useConfig();
@@ -14,6 +15,7 @@ const useHeaderStats = () => {
   const JPM_Contract = useJPMContract();
   const DarkContract = useDarkContract();
   const account = useAccount();
+  const { mutation } = useUserData();
 
   const [darkBalance, setDarkBalance] = useState<string>();
   const [treasuryBalance, setTreasuryBalance] = useState<string>();
@@ -88,6 +90,7 @@ const useHeaderStats = () => {
           args: [account.address as `0x${string}`],
         }).then((data) => {
           const balance = formatUnits(data as bigint, 18);
+          mutation({ darkBalance: Number(balance) });
           setDarkBalance(balance);
         });
       }, 4000);

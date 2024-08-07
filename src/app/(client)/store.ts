@@ -13,6 +13,7 @@ export type StoreUserData = {
   wishwellPoints: number;
   miningPoints: number;
   totalPoints: number;
+  darkBalance: number;
   mutation: (state: Partial<StoreUserData>) => void;
 };
 
@@ -28,6 +29,7 @@ const useUserData = create<StoreUserData>((set) => ({
   wishwellPoints: 0,
   miningPoints: 0,
   totalPoints: 0,
+  darkBalance: 0,
   mutation: (state: Partial<StoreUserData>) =>
     set((prevState) => ({ ...prevState, ...state })),
 }));
