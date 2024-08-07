@@ -99,7 +99,7 @@ function MobilePhase({
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 1 }}
         className={twMerge(
-          "relative text-[36px] font-sans font-extrabold text-center bg-agyellow rounded-lg p-4 px-8",
+            "relative text-[35.82px] leading-[35.82px] font-sans font-extrabold text-center bg-agyellow rounded-lg p-2 px-4",
         )}
       >
         {phase}
@@ -118,9 +118,9 @@ function MobilePhase({
           <Image
             src={IMAGEKIT_IMAGES.TIMER_POINTER}
             alt="timer-pointer"
-            width={20}
-            height={20}
-            className="mx-[8px]"
+            width={13.05}
+            height={11.54}
+            className="mx-[8px] w-[13.05px] h-[11.54px]"
           />
         </motion.div>
       </motion.div>
@@ -134,7 +134,7 @@ function MobilePhase({
       }}
       className={twMerge(
         "text-5xl font-sans font-extrabold text-center",
-        "from-white to-[#999999] bg-gradient-to-b text-transparent bg-clip-text rounded-lg p-4 px-8",
+        "from-white to-[#999999] bg-gradient-to-b text-transparent bg-clip-text rounded-lg p-2 px-4",
       )}
     >
       {phase}
@@ -177,9 +177,9 @@ export default function Countdown() {
         <CountdownTimer state={state} />
       </div>
       {/* Mobile View */}
-      <div className="relative flex sm:hidden flex-col rounded bg-gradient-to-b from-[#5730BF] to-[#15004C] p-4 z-0 overflow-hidden">
-        <div className="grid grid-cols-1 gap-4">
-          <div className="relative h-full flex flex-col gap-2 p-2">
+      <div className="relative flex sm:hidden flex-col rounded bg-gradient-to-b from-[#5730BF] to-[#15004C] p-[7.46px,12.69px,7.46px,12.69px] z-0 overflow-hidden">
+        <div className="grid grid-cols-1 gap-[16px]">
+          <div className="relative h-full flex flex-col gap-[2.98px] p-2">
             <motion.div
               whileInView={{
                 height:
@@ -199,20 +199,20 @@ export default function Countdown() {
               }}
               transition={{ duration: 1 }}
               viewport={{ once: true }}
-              className="absolute top-0 left-0 bg-gradient-to-b from-[#03040430] to-[#131A1A30] rounded-xl -z-10"
+              className="absolute top-0 left-0 bg-gradient-to-b from-[#03040430] to-[#131A1A30] rounded-[6px] -z-10"
             ></motion.div>
             <div
               style={{
                 color: state.era === "wishwell" ? "#f5eb00" : "transparent",
               }}
               className={twMerge(
-                "text-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text",
+                "text-[36px] leading-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text",
                 state.era === "wishwell" && "text-agyellow",
               )}
             >
               Journey 1
             </div>
-            <div className="tracking-widest uppercase text-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
+            <div className="tracking-widest uppercase text-[14px] leading-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
               Lottery
             </div>
             <div className="flex justify-center items-center gap-2 relative z-0 px-auto">
@@ -221,19 +221,19 @@ export default function Countdown() {
               <MobilePhase activeState={state} era="wishwell" phase={3} />
             </div>
           </div>
-          <div className="flex flex-col gap-2 p-2">
+          <div className="flex flex-col gap-[2.98px] p-2">
             <div
               style={{
                 color: state.era === "mining" ? "#f5eb00" : "transparent",
               }}
               className={twMerge(
-                "text-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text",
+                "text-[36px] leading-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text",
                 state.era === "mining" && "text-agyellow",
               )}
             >
               Journey 2
             </div>
-            <div className="tracking-widest uppercase text-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
+            <div className="tracking-widest uppercase text-[14px] leading-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
               Lottery
             </div>
             <div className="flex justify-center items-center gap-2 relative z-0 px-auto">
@@ -242,7 +242,7 @@ export default function Countdown() {
               <MobilePhase activeState={state} era="mining" phase={3} />
             </div>
           </div>
-          <div className="relative flex flex-col gap-2 p-2">
+          <div className="relative flex flex-col gap-[2.98px] p-2">
             <motion.div
               whileInView={{
                 height:
@@ -262,19 +262,19 @@ export default function Countdown() {
               }}
               transition={{ duration: 1 }}
               viewport={{ once: true }}
-              className="absolute bottom-0 right-0 bg-gradient-to-b from-[#03040430] to-[#131A1A30] rounded-xl -z-10"
+              className="absolute bottom-0 right-0 bg-gradient-to-b from-[#03040430] to-[#131A1A30] rounded-[6px] -z-10"
             ></motion.div>
             <div
               style={{
                 color: state.era === "minting" ? "#f5eb00" : "transparent",
               }}
               className={twMerge(
-                "text-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text",
+                "text-[36px] leadding-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text",
               )}
             >
               Journey 3
             </div>
-            <div className="tracking-widest uppercase text-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
+            <div className="tracking-widest uppercase text-[14px] leading-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
               Lottery
             </div>
             <div className="flex justify-center items-center gap-2 relative z-0 px-auto">
