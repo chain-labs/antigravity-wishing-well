@@ -35,20 +35,20 @@ export function InputCard({
   setCurrentInputValue,
   tokenBalance,
 }: {
-  inputValue: string;
-  setCurrentInputValue: Dispatch<SetStateAction<string>>;
-  tokenBalance: string;
+  inputValue: bigint;
+  setCurrentInputValue: Dispatch<SetStateAction<bigint>>;
+  tokenBalance: bigint;
 }) {
   const [outOfFocus, setOutOfFocus] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const [isInitial, setIsInitial] = useState(true);
 
-  const debouncedHandleInputChange = debounce((inputCurrentValue: string) => {
+  const debouncedHandleInputChange = debounce((inputCurrentValue: bigint) => {
     setCurrentInputValue(inputCurrentValue);
-    // if (inputRef.current) {
-    //   inputRef.current.value = inputCurrentValue;
-    // }
-  }, 500);
+    if (inputRef.current) {
+      inputRef.current.value = String(inputCurrentValue);
+    }
+  }, 100);
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     let inputCurrentValue = e.target.value;
@@ -56,36 +56,30 @@ export function InputCard({
     // Remove any non-numeric characters except the decimal point
     inputCurrentValue = inputCurrentValue.replace(/[^0-9.]/g, "");
 
-    // Ensure only one decimal point
-    const parts = inputCurrentValue.split(".");
-    if (parts?.length > 2) {
-      inputCurrentValue = parts[0] + "." + parts.slice(1).join("");
-    }
-
     // Handle empty input
     if (inputCurrentValue === "") {
-      setCurrentInputValue("0");
+      setCurrentInputValue(BigInt(1));
       return;
     }
 
-    // Allow input ending with a decimal point
-    if (inputCurrentValue.endsWith(".")) {
-      setCurrentInputValue(inputCurrentValue);
+    // Do not allow decimal value
+    if (inputCurrentValue.includes(".")) {
+      errorToast("Value must be an integer");
       return;
     }
 
-    // Validate the number
-    const numberValue = parseFloat(inputCurrentValue);
+    // Validate the number with integer
+    const numberValue = parseInt(inputCurrentValue);
 
-    if (numberValue < 0.000001 && numberValue !== 0) {
-      errorToast("Value must be greater than 0.000001");
+    if (numberValue < BigInt(1) && numberValue !== 0) {
+      errorToast("Value must be greater than or equal to 1");
       if (inputRef.current) {
-        inputRef.current.value = "0.000001";
+        inputRef.current.value = "1";
       }
       return;
     }
 
-    if (!isNaN(numberValue) && numberValue >= 0) {
+    if (!isNaN(numberValue) && numberValue >= BigInt(1)) {
       debouncedHandleInputChange(inputCurrentValue);
     }
   }
@@ -96,27 +90,34 @@ export function InputCard({
     if (isInitial) {
       if (!account.isConnected) {
         if (inputRef.current) {
-          inputRef.current.value = "40000";
+          inputRef.current.value = "1";
+        }
+      } else {
+        if (inputRef.current && BigInt(tokenBalance)) {
+          inputRef.current.value = String(tokenBalance);
+          setCurrentInputValue(tokenBalance);
+          setIsInitial(false);
         }
       }
-      // else {
-      //   if (inputRef.current && Number(tokenBalance)) {
-      //     inputRef.current.value = tokenBalance;
-      //     setCurrentInputValue(tokenBalance);
-      //     setIsInitial(false);
-      //   }
-      // }
     }
   }, [tokenBalance, account.isConnected]);
+
+  function handleInputOutOfFocus() {
+    if (inputRef.current) {
+      if (inputRef.current.value === "") {
+        inputRef.current.value = "1";
+        setCurrentInputValue(BigInt(1));
+      }
+    }
+    setOutOfFocus(true);
+  }
 
   return (
     <div className="flex flex-col gap-[8px] bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-fit min-w-full border-[1px] border-agyellow z-10">
       <div className="flex justify-center items-center gap-[8px] w-full">
         <div className="flex flex-col justify-center items-start gap-[8px] w-full">
           <form
-            onBlur={(e) => {
-              setOutOfFocus(true);
-            }}
+            onBlur={handleInputOutOfFocus}
             onFocus={(e) => {
               setOutOfFocus(false);
             }}
@@ -125,7 +126,7 @@ export function InputCard({
               inputRef.current?.focus();
             }}
             style={{
-              fontSize: fontsizeClamping(inputValue, 7, 16, 32) + "px",
+              fontSize: fontsizeClamping(String(inputValue), 7, 16, 32) + "px",
               lineHeight: 32 + "px",
             }}
             className="relative text-agwhite font-extrabold font-sans bg-transparent w-full h-fit flex justify-start items-center min-w-[8ch]"
@@ -134,8 +135,8 @@ export function InputCard({
               ref={inputRef}
               className="text-agwhite font-extrabold font-sans bg-transparent w-full h-full"
               type="number"
-              defaultValue={inputValue}
-              max={Math.floor(Number(tokenBalance))}
+              defaultValue={String(inputValue)}
+              max={String(tokenBalance)}
               min={0}
               onBlur={(e) => {
                 setOutOfFocus(true);
@@ -186,7 +187,7 @@ export function InputCard({
               <button
                 className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
                 onClick={() => {
-                  setCurrentInputValue(tokenBalance.toString());
+                  setCurrentInputValue(tokenBalance);
                   if (inputRef.current)
                     inputRef.current.value = tokenBalance.toString();
                 }}
@@ -195,7 +196,8 @@ export function InputCard({
                   <div
                     className={twMerge(
                       "uppercase text-nowrap rounded-full text-[12px] leading-[12px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent",
-                      USFormatToNumber(inputValue) < Number(tokenBalance)
+                      USFormatToNumber(String(inputValue)) <
+                        Number(tokenBalance)
                         ? "bg-clip-text text-transparent"
                         : "text-agblack",
                     )}
@@ -230,7 +232,7 @@ export function InputCard({
             height={24}
             className={twMerge("object-cover")}
           />
-          {tokenBalance} $DARK
+          {String(tokenBalance)} $DARK
         </div>
       )}
     </div>
@@ -260,7 +262,7 @@ export function Card({
   addToWalletLink,
 }: {
   isEditable?: boolean;
-  value: string;
+  value: bigint;
   multiplyer?: string;
   pillIconSrc: string | StaticImport;
   pillText: string;
@@ -269,7 +271,7 @@ export function Card({
   onlyValue?: boolean;
   addToWalletLink?: string;
 }) {
-  const [currentValue, setCurrentValue] = useState<string>(value);
+  const [currentValue, setCurrentValue] = useState<bigint>(value);
   const targetValueRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -291,10 +293,7 @@ export function Card({
           style={{
             fontSize:
               fontsizeClamping(
-                USFormatToNumber(currentValue) <
-                  MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION
-                  ? `${MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION}`
-                  : currentValue,
+                String(USFormatToNumber(String(currentValue))),
                 7,
                 16,
                 32,
@@ -303,21 +302,12 @@ export function Card({
           }}
           className={` text-agwhite font-extrabold font-sans`}
         >
-          {USFormatToNumber(currentValue) <
-            MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION &&
-            USFormatToNumber(currentValue) !== 0 &&
-            "< "}
           {targetValueRef.current && (
             <AutomaticIncreamentalNumberCounterWithString
               from={targetValueRef.current?.textContent ?? "0"}
-              to={
-                USFormatToNumber(currentValue) <
-                  MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION &&
-                USFormatToNumber(currentValue) !== 0
-                  ? `${MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION}`
-                  : currentValue
-              }
-              float={currentValue.includes(".")}
+              // to={USFormatToNumber(currentValue.toString())}
+              to={String(currentValue)}
+              float={String(currentValue).includes(".")}
             />
           )}
         </div>
@@ -401,57 +391,26 @@ function Multiplyer({
 export default function MiningCalculator({
   value,
   setValue,
-  era,
-  phase,
   multiplyer,
   tokenBalance,
+  bonus,
+  journey,
 }: {
-  value: number;
-  setValue: Dispatch<SetStateAction<number>>;
-  era: 1 | 2 | 3;
-  phase: 1 | 2 | 3;
+  value: bigint;
+  setValue: Dispatch<SetStateAction<bigint>>;
+  journey: 1 | 2 | 3;
   multiplyer: number;
-  tokenBalance: string;
+  tokenBalance: bigint;
+  bonus: number;
 }) {
-  const [isInitialBalance, setIsInitialBalance] = useState(true);
-  const [currentValue, setCurrentValue] = useState<string>("40000");
-  const account = useAccount();
-
-  useEffect(() => {
-    const value = Number(currentValue.replace(/,/g, ""));
-    if (!isNaN(value) && value >= 0) {
-      setValue(value);
-    }
-  }, [currentValue, tokenBalance]);
-
-  useEffect(() => {
-    setCurrentValue(pointsConverterToUSCommaseparated(value));
-  }, [value]);
-
-  useEffect(() => {
-    if (isInitialBalance) {
-      if (!account.isConnected) {
-        setCurrentValue("40000");
-      } else {
-        setCurrentValue(tokenBalance);
-        setValue(Number(tokenBalance));
-        setIsInitialBalance(false);
-      }
-    }
-  }, [tokenBalance, account.isConnected, isInitialBalance]);
-
-  useEffect(() => {
-    console.log({ value, currentValue });
-  }, [value, currentValue]);
-
   return (
     <div className="relative flex flex-col gap-[8px] h-fit min-w-[400px] max-w-full scale-[0.9] md:scale-100 z-10">
       <InputCard
-        inputValue={currentValue}
-        setCurrentInputValue={setCurrentValue}
+        inputValue={value}
+        setCurrentInputValue={setValue}
         tokenBalance={tokenBalance}
       />
-      <Multiplyer journey={2} bonus={44} multiplyer={multiplyer} />
+      <Multiplyer journey={journey} bonus={bonus} multiplyer={multiplyer} />
       <div
         style={{
           gap: "11px",
@@ -479,18 +438,14 @@ export default function MiningCalculator({
         ></div>
       </div>
       <Card
-        value={pointsConverterToUSCommaseparated(
-          Number(Number(currentValue).toFixed(20)),
-        )}
+        value={BigInt(value)}
         multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
         pillIconAlt="fuel cells"
         pillIconSrc={IMAGEKIT_ICONS.FUEL_CELL}
         pillText="Fuel Cells"
       />
       <Card
-        value={pointsConverterToUSCommaseparated(
-          Number(Number(currentValue).toFixed(20)),
-        )}
+        value={BigInt(value)}
         multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
         pillIconAlt="points"
         pillIconSrc={IMAGEKIT_ICONS.PILL_POINTS}

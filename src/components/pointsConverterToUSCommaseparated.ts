@@ -1,4 +1,4 @@
-export default function pointsConverterToUSCommaseparated(points: number) {
+export default function pointsConverterToUSCommaseparated(points: number | bigint) {
     const [integerPart, decimalPart] = points.toString().split(".");
     const formattedIntegerPart = integerPart.replace(
       /\B(?=(\d{3})+(?!\d))/g,

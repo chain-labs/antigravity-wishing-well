@@ -38,7 +38,7 @@ export default function MintingHero() {
     value: undefined,
     is: false,
   });
-  const [darkInput, setDarkInput] = useState(1);
+  const [darkInput, setDarkInput] = useState<bigint>(BigInt(1));
   const [currentState, setCurrentState] = useState<keyof typeof MINTING_STATES>(
     MINTING_STATES.INITIAL,
   );
@@ -191,12 +191,12 @@ export default function MintingHero() {
             {nftAvailable ? <NFTHero /> : <NoNFTHero />}
             <div className="flex flex-col justify-center items-center gap-[8px]">
               <MintingCalculator
-                tokenBalance={`${darkBalance || 0}`}
+                tokenBalance={BigInt(darkBalance || 0)}
                 value={darkInput}
                 setValue={setDarkInput}
-                era={2}
-                phase={timerState.phase}
+                journey={2}
                 multiplyer={11}
+                bonus={44}
               />
               {account.isConnected ? (
                 checkCorrectNetwork(account.chainId, [

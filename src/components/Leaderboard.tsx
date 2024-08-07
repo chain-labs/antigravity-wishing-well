@@ -177,7 +177,7 @@ export default function Leaderboard({
 
   useEffect(() => {
     handleRefresh();
-  }, [userdata]);
+  }, [userdata.totalPoints, userdata.walletAddress]);
 
   useEffect(() => {
     if (leaderboardData) {
@@ -309,7 +309,7 @@ export default function Leaderboard({
                 <P className="font-medium">
                   You&apos;re only{" "}
                   {pointsConverterToUSCommaseparated(rankUpPointsNeeded) ===
-                  "NaN" || rankUpPointsNeeded === 0
+                    "NaN" || rankUpPointsNeeded === 0
                     ? 1
                     : pointsConverterToUSCommaseparated(
                         rankUpPointsNeeded,

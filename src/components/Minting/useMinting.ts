@@ -24,7 +24,7 @@ import { errorToast } from "@/hooks/frontend/toast";
 import { MINTING_STATES } from "./MintingHero";
 import { MintError } from "./types";
 const useMinting = (
-  darkInput: number,
+  darkInput: bigint,
   setMintStep: Dispatch<SetStateAction<keyof typeof MINTING_STATES>>,
   setTxLoading: Dispatch<SetStateAction<boolean>>,
   setTxError: Dispatch<SetStateAction<MintError>>,
