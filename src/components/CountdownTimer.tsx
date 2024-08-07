@@ -16,6 +16,7 @@ export default function CountdownTimer({
   fontMobileSize = 48,
   containerClassName,
   counterSubtitleClassName,
+  counterClassName,
 }: {
   fontDesktopSize?: number;
   fontMobileSize?: number;
@@ -31,6 +32,7 @@ export default function CountdownTimer({
   };
   containerClassName?: string;
   counterSubtitleClassName?: string;
+  counterClassName?: string;
 }) {
   const [phase, setPhase] = useState(1);
   const [era, setEra] = useState(1);
@@ -71,8 +73,13 @@ export default function CountdownTimer({
               ? "Claiming ends in"
               : `ETA for era ${era} phase ${phase}`}
       </div>
-      <div className="relative flex gap-2 md:gap-3 text-agyellow font-sans">
-        <div className="flex items-center justify-center flex-col">
+      <div
+        className={twMerge(
+          "relative grid grid-flow-col gap-[6px] md:gap-[6px] text-agyellow font-sans",
+          counterClassName,
+        )}
+      >
+        <div className="flex items-center justify-center flex-col w-fit mx-auto">
           <h1
             style={{ fontSize: fontDesktopSize }}
             className="hidden md:flex font-extrabold"
@@ -104,8 +111,8 @@ export default function CountdownTimer({
             Days
           </p>
         </div>
-        <div className="bg-agyellow h-[clac(60px_1.5rem)] lg:full w-[1px]"></div>
-        <div className="flex items-center justify-center flex-col">
+        <div className="bg-[currentColor] h-[clac(60px_1.5rem)] lg:full w-[1px] mx-auto"></div>
+        <div className="flex items-center justify-center flex-col w-fit mx-auto">
           <h1
             style={{ fontSize: fontDesktopSize }}
             className="hidden md:flex font-extrabold"
@@ -137,8 +144,8 @@ export default function CountdownTimer({
             Hours
           </p>
         </div>
-        <div className="bg-agyellow h-[clac(60px_1.5rem)] lg:full w-[1px]"></div>
-        <div className="flex items-center justify-center flex-col">
+        <div className="bg-[currentColor] h-[clac(60px_1.5rem)] lg:full w-[1px] mx-auto"></div>
+        <div className="flex items-center justify-center flex-col w-fit mx-auto">
           <h1
             style={{ fontSize: fontDesktopSize }}
             className="hidden md:flex font-extrabold"
@@ -170,8 +177,8 @@ export default function CountdownTimer({
             Mins
           </p>
         </div>
-        <div className="bg-agyellow h-[clac(60px_1.5rem)] lg:full w-[1px]"></div>
-        <div className="flex items-center justify-center flex-col">
+        <div className="bg-[currentColor] h-[clac(60px_1.5rem)] lg:full w-[1px] mx-auto"></div>
+        <div className="flex items-center justify-center flex-col w-fit mx-auto">
           <h1
             style={{ fontSize: fontDesktopSize }}
             className="hidden md:flex font-extrabold"

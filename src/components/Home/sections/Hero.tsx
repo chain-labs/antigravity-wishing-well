@@ -50,6 +50,8 @@ export default function Hero() {
                 ? "/wishwell#"
                 : "/wishwell"
           }
+          defaultImageOpacity={0.5}
+          hoverImageOpacity={0.35}
         />
         <HeroItemCard
           title="Minting"
@@ -60,14 +62,18 @@ export default function Hero() {
           className="lg:object-none object-[20%_55%]"
           animateFrom="bottom"
           cardExternalLink="/minting"
-        />
+          defaultImageOpacity={0.35}
+          hoverImageOpacity={0.35}
+          />
         <HeroItemCard
           title="The Collective"
           description="Learn how to leverage points, rank up & earn exciting rewards. Join The Collective!"
           backgroundImage={IMAGEKIT_IMAGES.MINTING}
           animateFrom="right"
           cardExternalLink="/collective"
-        />
+          defaultImageOpacity={0.5}
+          hoverImageOpacity={0.35}
+          />
       </motion.div>
     </div>
   );

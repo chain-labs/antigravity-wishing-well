@@ -192,18 +192,11 @@ export default function MintingHero() {
             <div className="flex flex-col justify-center items-center gap-[8px]">
               <MintingCalculator
                 tokenBalance={`${darkBalance || 0}`}
-                customSymbol="$DARK"
                 value={darkInput}
-                points={0}
                 setValue={setDarkInput}
-                conversionRateToUSD={0.245}
                 era={2}
                 phase={timerState.phase}
                 multiplyer={11}
-                inputOptions={[]}
-                setSelectedToken={() => {}}
-                selectedToken={1}
-                txLoading={txLoading}
               />
               {account.isConnected ? (
                 checkCorrectNetwork(account.chainId, [
@@ -255,11 +248,18 @@ export default function MintingHero() {
                 />
               )}
 
-              <div className="p-[8px] rounded-[6px] bg-[#030404A8] w-full max-w-[350px] md:max-w-[400px]">
+              <div className="p-[8px] rounded-[6px] bg-[#030404A8] w-full max-w-[350px] md:max-w-[400px] mt-[16px]">
                 <ProgressingStates states={mintState} />
               </div>
               <div className="p-[8px] rounded-[6px] bg-[#030404A8] w-full max-w-[350px] md:max-w-[400px]">
-                <CountdownTimer state={timerState} fontDesktopSize={56} />
+                <CountdownTimer
+                  state={timerState}
+                  fontDesktopSize={40}
+                  fontMobileSize={48}
+                  counterClassName="text-agwhite w-fit mx-auto"
+                  counterSubtitleClassName="text-[14px] leading-[17.36px] px-[8px]"
+                  containerClassName="text-agwhite text-[14px] leading-[17.36px] pb-[8px]"
+                />
               </div>
             </div>
           </div>

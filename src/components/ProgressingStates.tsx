@@ -20,6 +20,8 @@ const statesCircleCSS: { [key in states]: CSSProperties } = {
   progress: {
     backgroundColor: "#F5EB00",
     boxShadow: "none",
+    width: "32px",
+    height: "32px",
   },
   success: {
     backgroundColor: "#00B031",
@@ -28,6 +30,8 @@ const statesCircleCSS: { [key in states]: CSSProperties } = {
     boxShadow: "none",
   },
   failed: {
+    width: "32px",
+    height: "32px",
     backgroundColor: "red",
     boxShadow: "none",
   },
@@ -247,16 +251,10 @@ export default function ProgressingStates({
                   style={{
                     // gridColumn: `${idx * 2 + 1}`,
                     // gridRow: "1",
-                    marginTop:
-                      states[userState] === "success" || idx === 0
-                        ? "0"
-                        : "8px",
-                    marginBottom:
-                      states[userState] === "success" || idx === 0
-                        ? "0"
-                        : "8px",
-                    width: idx === 0 ? "32px" : "16px",
-                    height: idx === 0 ? "32px" : "16px",
+                    marginTop: states[userState] !== "pending" ? "0" : "8px",
+                    marginBottom: states[userState] !== "pending" ? "0" : "8px",
+                    width: "16px",
+                    height: "16px",
                     ...statesCircleCSS[states[userState]],
                   }}
                   className="relative w-[16px] h-[16px] rounded-full py-[8px] mx-auto transition-all duration-300 z-0"

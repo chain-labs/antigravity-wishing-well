@@ -7,7 +7,7 @@ import Image from "next/image";
 
 export default function NFTHero() {
   return (
-    <div className="flex flex-col justify-between items-start gap-[16px] w-fit h-full md:max-w-[451px]">
+    <div className="flex flex-col justify-between items-start gap-[16px] w-fit h-full md:max-w-[451px] rounded-[6px]">
       <div className="flex flex-col justify-start items-start gap-[16px] w-fit sm:max-w-[451px] p-[16px] bg-[#FFFFFF4D]">
         <H1 className="text-agblack text-[56px] leading-[53.76px] md:text-[64px] md:leading-[64px] sm:text-nowrap text-wrap font-black">
           Mint Fuel Cells

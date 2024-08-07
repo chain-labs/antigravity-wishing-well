@@ -33,40 +33,15 @@ function debounce(func: Function, wait: number) {
 export function InputCard({
   inputValue,
   setCurrentInputValue,
-  conversion,
-  dropdownOptions,
-  dropDownSelected,
-  setDropDownSelected,
   tokenBalance,
-  setSelectedToken,
-  customSymbol,
 }: {
   inputValue: string;
   setCurrentInputValue: Dispatch<SetStateAction<string>>;
-  conversion: string;
-  dropdownOptions: TokenDropdownTypes[];
-  dropDownSelected: number;
-  setDropDownSelected: Dispatch<SetStateAction<number>>;
-  setSelectedToken: Dispatch<SetStateAction<number>>;
   tokenBalance: string;
-  customSymbol?: string;
 }) {
   const [outOfFocus, setOutOfFocus] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [currentConversion, setCurrentConversion] = useState<string>("");
-  const conversionRef = useRef<HTMLDivElement>(null);
   const [isInitial, setIsInitial] = useState(true);
-
-  useEffect(() => {
-    // if value is not changed withing 300ms, update the value
-    const timeout = setTimeout(() => {
-      setCurrentConversion(conversion);
-    }, 500);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [conversion]);
 
   const debouncedHandleInputChange = debounce((inputCurrentValue: string) => {
     setCurrentInputValue(inputCurrentValue);
@@ -114,12 +89,6 @@ export function InputCard({
       debouncedHandleInputChange(inputCurrentValue);
     }
   }
-
-  useEffect(() => {
-    if (dropDownSelected >= 0) {
-      setSelectedToken(dropDownSelected);
-    }
-  }, [dropDownSelected]);
 
   const account = useAccount();
 
@@ -236,7 +205,7 @@ export function InputCard({
                 </div>
               </button>
               <a
-                href={dropdownOptions[dropDownSelected]?.buyLink ?? ""}
+                href={"/"}
                 target="_blank"
                 className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
               >
@@ -261,7 +230,7 @@ export function InputCard({
             height={24}
             className={twMerge("object-cover")}
           />
-          {`${parseFloat(tokenBalance).toLocaleString()} ${customSymbol ?? dropdownOptions?.[dropDownSelected]?.symbol ?? "TOKEN"}`}
+          {tokenBalance} $DARK
         </div>
       )}
     </div>
@@ -283,7 +252,6 @@ function fontsizeClamping(
 
 export function Card({
   value,
-  conversion,
   multiplyer,
   pillIconSrc,
   pillText,
@@ -293,7 +261,6 @@ export function Card({
 }: {
   isEditable?: boolean;
   value: string;
-  conversion: string;
   multiplyer?: string;
   pillIconSrc: string | StaticImport;
   pillText: string;
@@ -304,9 +271,6 @@ export function Card({
 }) {
   const [currentValue, setCurrentValue] = useState<string>(value);
   const targetValueRef = useRef<HTMLDivElement>(null);
-  const [currentConversion, setCurrentConversion] =
-    useState<string>(conversion);
-  const conversionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // if value is not changed withing 300ms, update the value
@@ -318,16 +282,6 @@ export function Card({
       clearTimeout(timeout);
     };
   }, [value]);
-  useEffect(() => {
-    // if value is not changed withing 300ms, update the value
-    const timeout = setTimeout(() => {
-      setCurrentConversion(conversion);
-    }, 500);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [conversion]);
 
   return (
     <div className="flex justify-between gap-[16px] bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-full min-w-full border-[1px] border-agyellow">
@@ -393,61 +347,82 @@ export function Card({
   );
 }
 
+function Multiplyer({
+  journey = 2,
+  multiplyer = 33,
+  bonus = 1,
+}: {
+  journey: 1 | 2 | 3;
+  bonus: number;
+  multiplyer: number;
+}) {
+  return (
+    <div className="grid grid-flow-col place-items-center gap-[8px] mx-auto">
+      <div className="relative flex flex-col justify-center items-center p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit z-0 h-full">
+        <div className="absolute inset-0 opacity-[0.66] bg-agblack -z-[1]"></div>
+        <div className="text-[16px] leading-[19.2px] text-agwhite font-extrabold font-sans">
+          Minting
+        </div>
+      </div>
+      <div className="relative flex flex-col justify-center items-center p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit z-0">
+        <div className="absolute inset-0 opacity-[0.66] bg-agblack -z-[1]"></div>
+        <div className="text-[16px] leading-[19.2px] text-agwhite font-extrabold font-sans">
+          Journey
+        </div>
+        <div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
+          {journey}
+        </div>
+      </div>
+      <div className="relative flex flex-col justify-center items-center p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit z-0">
+        <div className="absolute inset-0 opacity-[0.66] bg-agblack -z-[1]"></div>
+        <div className="text-[16px] leading-[19.2px] text-agwhite font-extrabold font-sans">
+          Multiplier
+        </div>
+        <div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
+          {multiplyer}X
+        </div>
+      </div>
+      <div className="flex flex-col justify-center items-center p-[8px] overflow-hidden text-agwhite text-[16px] font-semibold font-general-sans w-fit">
+        =
+      </div>
+      <div className="relative flex flex-col justify-center items-center p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit z-0">
+        <div className="absolute inset-0 opacity-[0.66] bg-agblack -z-[1]"></div>
+        <div className="text-[16px] leading-[19.2px] text-agwhite font-extrabold font-sans">
+          Bonus
+        </div>
+        <div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
+          {bonus}X
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function MiningCalculator({
   value,
   setValue,
-  conversionRateToUSD,
-  points,
   era,
   phase,
   multiplyer,
-  inputOptions,
-  setSelectedToken,
   tokenBalance,
-  customSymbol,
-  selectedToken,
-  txLoading,
 }: {
   value: number;
   setValue: Dispatch<SetStateAction<number>>;
-  conversionRateToUSD: number;
-  points: number;
   era: 1 | 2 | 3;
   phase: 1 | 2 | 3;
   multiplyer: number;
-  inputOptions: TokenDropdownTypes[];
-  setSelectedToken: Dispatch<SetStateAction<number>>;
   tokenBalance: string;
-  customSymbol?: string;
-  selectedToken: number;
-  txLoading?: boolean;
 }) {
   const [isInitialBalance, setIsInitialBalance] = useState(true);
-  const [currentValue, setCurrentValue] = useState<string>("1");
-  const [selectedOption, setSelectedOption] = useState<number>(selectedToken);
-  const [USDValue, setUSDValue] = useState(
-    value * (inputOptions[0]?.USDvalue || 0),
-  );
+  const [currentValue, setCurrentValue] = useState<string>("40000");
   const account = useAccount();
-
-  useEffect(() => {
-    setSelectedOption(selectedToken);
-  }, [selectedToken]);
 
   useEffect(() => {
     const value = Number(currentValue.replace(/,/g, ""));
     if (!isNaN(value) && value >= 0) {
-      const usdValue = value * (inputOptions[selectedOption]?.USDvalue || 0);
-      setUSDValue(Number(usdValue));
       setValue(value);
     }
-  }, [
-    currentValue,
-    conversionRateToUSD,
-    selectedOption,
-    inputOptions,
-    tokenBalance,
-  ]);
+  }, [currentValue, tokenBalance]);
 
   useEffect(() => {
     setCurrentValue(pointsConverterToUSCommaseparated(value));
@@ -474,14 +449,9 @@ export default function MiningCalculator({
       <InputCard
         inputValue={currentValue}
         setCurrentInputValue={setCurrentValue}
-        conversion={pointsConverterToUSCommaseparated(USDValue)}
-        dropdownOptions={inputOptions}
-        dropDownSelected={selectedOption}
-        setDropDownSelected={setSelectedOption}
         tokenBalance={tokenBalance}
-        customSymbol={customSymbol}
-        setSelectedToken={setSelectedToken}
       />
+      <Multiplyer journey={2} bonus={44} multiplyer={multiplyer} />
       <div
         style={{
           gap: "11px",
@@ -512,11 +482,19 @@ export default function MiningCalculator({
         value={pointsConverterToUSCommaseparated(
           Number(Number(currentValue).toFixed(20)),
         )}
-        conversion={pointsConverterToUSCommaseparated(USDValue)}
         multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
         pillIconAlt="fuel cells"
         pillIconSrc={IMAGEKIT_ICONS.FUEL_CELL}
         pillText="Fuel Cells"
+      />
+      <Card
+        value={pointsConverterToUSCommaseparated(
+          Number(Number(currentValue).toFixed(20)),
+        )}
+        multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
+        pillIconAlt="points"
+        pillIconSrc={IMAGEKIT_ICONS.PILL_POINTS}
+        pillText="Points"
       />
     </div>
   );

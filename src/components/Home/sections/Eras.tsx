@@ -26,6 +26,8 @@ export default function Eras() {
               ? "/wishwell#"
               : "/wishwell"
         }
+        defaultImageOpacity={0.5}
+        hoverImageOpacity={0.35}
       />
       <HeroItemCard
         title="Minting"
@@ -35,6 +37,8 @@ export default function Eras() {
         backgroundImage={IMAGEKIT_IMAGES.MINING_PAGE_ERA_3}
         animateFrom="right"
         cardExternalLink="/minting"
+        defaultImageOpacity={0.35}
+        hoverImageOpacity={0.35}
       />
       <HeroItemCard
         title="The Collective"
@@ -43,6 +47,8 @@ export default function Eras() {
         animateFrom="left"
         className="object-[0px_25%]"
         cardExternalLink="/collective"
+        defaultImageOpacity={0.5}
+        hoverImageOpacity={0.35}
       />
     </div>
   );
