@@ -14,7 +14,7 @@ import { IToken } from "@/components/Mining/types";
 import { errorToast, successToast } from "../frontend/toast";
 import useDarkXContract from "@/abi/DarkX";
 import { useRestPost } from "../useRestClient";
-import useUserData from "@/app/(client)/store";
+import { useUserData } from "@/app/(client)/store";
 import { UserData } from "@/components/header/UserConnected";
 import { hydrateUserAndNFT } from "@/components/header/utils";
 

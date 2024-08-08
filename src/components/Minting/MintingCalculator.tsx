@@ -350,7 +350,7 @@ function Multiplyer({
   multiplyer = 33,
   bonus = 1,
 }: {
-  journey: 1 | 2 | 3;
+  journey: number;
   bonus: number;
   multiplyer: number;
 }) {
@@ -406,7 +406,7 @@ export default function MiningCalculator({
 }: {
   value: bigint;
   setValue: Dispatch<SetStateAction<bigint>>;
-  journey: 1 | 2 | 3;
+  journey: number;
   multiplyer: number;
   tokenBalance: bigint;
   bonus: number;

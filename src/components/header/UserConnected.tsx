@@ -4,7 +4,7 @@ import { useAccount } from "wagmi";
 import { PiWarningCircle } from "react-icons/pi";
 import { useEffect, useState } from "react";
 import { useRestPost } from "@/hooks/useRestClient";
-import useUserData from "@/app/(client)/store";
+import { useUserData } from "@/app/(client)/store";
 import { hydrateUserAndNFT } from "./utils";
 import { Badge } from "@/components/HTML/Badge";
 export interface UserData {

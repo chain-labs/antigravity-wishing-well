@@ -1,12 +1,11 @@
 import useDarkContract from "@/abi/Dark";
 import useLCC_Contract from "@/abi/LaunchControlCenter";
-import useUserData from "@/app/(client)/store";
-import React, {
+
+import {
   Dispatch,
   SetStateAction,
   useCallback,
   useEffect,
-  useMemo,
   useState,
 } from "react";
 import { formatUnits, parseUnits } from "viem";
@@ -24,6 +23,7 @@ import { errorToast, generalToast, miningNotif } from "@/hooks/frontend/toast";
 import { MINTING_STATES } from "./MintingHero";
 import { MintError } from "./types";
 import { ToastPosition } from "react-hot-toast";
+import { useUserData } from "@/app/(client)/store";
 const useMinting = (
   darkInput: bigint,
   setMintStep: Dispatch<SetStateAction<keyof typeof MINTING_STATES>>,

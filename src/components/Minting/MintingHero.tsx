@@ -21,6 +21,7 @@ import P from "../HTML/P";
 import H1 from "../HTML/H1";
 import { motion } from "framer-motion";
 import { getButtonCofigs, setCurrentMintState } from "./utils";
+import { useJourneyData } from "@/app/(client)/store";
 
 export const MINTING_STATES = {
   INITIAL: "INITIAL",
@@ -46,6 +47,7 @@ export default function MintingHero() {
   const [currentState, setCurrentState] = useState<keyof typeof MINTING_STATES>(
     MINTING_STATES.INITIAL,
   );
+  const { journey, phase } = useJourneyData();
   const [mintState, setMintState] = useState<STEPPERS>({
     Approve: "pending",
     Mint: "pending",
@@ -65,6 +67,16 @@ export default function MintingHero() {
     },
   );
 
+  const multiplier = useMemo(() => {
+    if (journey === 1) {
+      return 33;
+    } else if (journey === 2) {
+      return 22;
+    } else if (journey === 3) {
+      return 11;
+    } else return 1;
+  }, [journey]);
+
   const handleMintButton = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (currentState !== MINTING_STATES.SUCCESS) {
@@ -73,8 +85,16 @@ export default function MintingHero() {
   };
 
   const [nftNotifReveal, setNftNotifReveal] = useState<boolean>(false);
+  const [nftNotifData, setNftNotifData] = useState<{
+    fuelCells: number;
+    points: number;
+  }>({ fuelCells: 0, points: 0 });
 
   const handleNFTNotificationReveal = () => {
+    setNftNotifData({
+      fuelCells: Number(darkInput),
+      points: multiplier * Number(darkInput),
+    });
     setNftNotifReveal(true);
     setTimeout(() => {
       setNftNotifReveal(false);
@@ -156,7 +176,7 @@ export default function MintingHero() {
                         Minted
                       </p>
                       <div className="p-[8px] rounded-[6px] bg-agyellow text-agblack font-sans font-extrabold text-[24px] leading-[24px]">
-                        200,000
+                        {nftNotifData.fuelCells.toLocaleString()}
                       </div>
                       <p className="font-general-sans text-agwhite leadign-[14px] text-[14px]">
                         Fuel Cells!
@@ -168,7 +188,7 @@ export default function MintingHero() {
                         Earned
                       </p>
                       <div className="p-[8px] rounded-[6px] bg-agyellow text-agblack font-sans font-extrabold text-[24px] leading-[24px]">
-                        50,000
+                        {nftNotifData.points.toLocaleString()}
                       </div>
                       <p className="font-general-sans text-agwhite leadign-[14px] text-[14px]">
                         Points!
@@ -186,7 +206,7 @@ export default function MintingHero() {
                       }}
                       className="place-self-start font-general-sans text-agwhite leadign-[14px] text-[14px] my-auto"
                     >
-                      Journey 1
+                      {`Journey ${journey}`}
                     </p>
                   </div>
                 </div>
@@ -197,9 +217,9 @@ export default function MintingHero() {
                 tokenBalance={BigInt(darkBalance || 0)}
                 value={darkInput}
                 setValue={setDarkInput}
-                journey={2}
-                multiplyer={11}
-                bonus={44}
+                journey={journey}
+                multiplyer={multiplier}
+                bonus={1 * multiplier}
               />
               {account.isConnected ? (
                 checkCorrectNetwork(account.chainId, [
