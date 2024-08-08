@@ -3,6 +3,7 @@
 import { twMerge } from "tailwind-merge";
 import {
   Dispatch,
+  ReactNode,
   SetStateAction,
   use,
   useEffect,
@@ -20,6 +21,7 @@ import pointsConverterToUSCommaseparated from "../pointsConverterToUSCommasepara
 import USFormatToNumber from "../USFormatToNumber";
 import { errorToast } from "@/hooks/frontend/toast";
 import { motion } from "framer-motion";
+import { TEST_NETWORK } from "@/constants";
 
 const MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION = 0.000001;
 
@@ -36,11 +38,13 @@ export function InputCard({
   setCurrentInputValue,
   tokenBalance,
   buymoreHighlight,
+  buyMoreFn,
 }: {
   inputValue: bigint;
   setCurrentInputValue: Dispatch<SetStateAction<bigint>>;
   tokenBalance: bigint;
   buymoreHighlight?: boolean;
+  buyMoreFn: (address: string) => void;
 }) {
   const [outOfFocus, setOutOfFocus] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -254,11 +258,7 @@ export function InputCard({
                   </div>
                 </div>
               </motion.button>
-              <a
-                href={"/"}
-                target="_blank"
-                className="relative flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
-              >
+              <BuyMoreButtonWrapper buyMoreFn={buyMoreFn}>
                 <div className="bg-[#142266] rounded-full w-fit h-fit">
                   <div className="uppercase text-nowrap rounded-full text-[12px] leading-[12px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent bg-clip-text">
                     Buy More
@@ -289,7 +289,7 @@ export function InputCard({
                     <div className="absolute top-0 left-0 h-full w-full bg-gradient-to-tr from-brred to-blue blur-lg z-[-1]"></div>
                   </motion.div>
                 )}
-              </a>
+              </BuyMoreButtonWrapper>
             </div>
           )}
         </div>
@@ -317,6 +317,34 @@ export function InputCard({
     </div>
   );
 }
+
+const BuyMoreButtonWrapper = ({
+  buyMoreFn,
+  children,
+}: {
+  buyMoreFn: (address: string) => void;
+  children: ReactNode;
+}) => {
+  const account = useAccount();
+  if (TEST_NETWORK) {
+    return (
+      <div
+        onClick={() => buyMoreFn(`${account.address}`)}
+        className="relative flex cursor-pointer justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
+      >
+        {children}
+      </div>
+    );
+  } else {
+    <a
+      href={"/"}
+      target="_blank"
+      className="relative flex cursor-pointer justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
+    >
+      {children}
+    </a>;
+  }
+};
 
 function fontsizeClamping(
   value: string,
@@ -529,6 +557,7 @@ export default function MiningCalculator({
   bonus,
   journey,
   buymoreHighlight,
+  buyMoreFn,
 }: {
   value: bigint;
   setValue: Dispatch<SetStateAction<bigint>>;
@@ -537,6 +566,7 @@ export default function MiningCalculator({
   tokenBalance: bigint;
   bonus: number;
   buymoreHighlight?: boolean;
+  buyMoreFn: (address: string) => void;
 }) {
   return (
     <div className="relative flex flex-col gap-[8px] h-fit min-w-[400px] max-w-full scale-[0.9] md:scale-100 z-10">
@@ -545,6 +575,7 @@ export default function MiningCalculator({
         setCurrentInputValue={setValue}
         tokenBalance={tokenBalance}
         buymoreHighlight={buymoreHighlight}
+        buyMoreFn={buyMoreFn}
       />
       <Multiplyer
         journey={journey}

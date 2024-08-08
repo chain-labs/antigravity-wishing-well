@@ -24,6 +24,7 @@ import { MINTING_STATES } from "./MintingHero";
 import { MintError } from "./types";
 import { ToastPosition } from "react-hot-toast";
 import { useUserData } from "@/app/(client)/store";
+import useDarkFaucetContract from "@/abi/DarkFaucet";
 const useMinting = (
   darkInput: bigint,
   setMintStep: Dispatch<SetStateAction<keyof typeof MINTING_STATES>>,
@@ -254,7 +255,29 @@ const useMinting = (
     }
   }, [allowance, setMintStep]);
 
-  return { darkBalance, allowance, mintLogic };
+  // <====================DARK FAUCET=================>
+  const DarkFaucetContract = useDarkFaucetContract();
+  const {
+    writeContractAsync: faucetOpen,
+    data: faucetHash,
+    error: faucetError,
+  } = useWriteContract();
+  const { data: faucetReceipt } = useWaitForTransactionReceipt({
+    hash: faucetHash,
+  });
+
+  const faucetCall = useCallback((address: string) => {
+    faucetOpen({
+      address: DarkFaucetContract.address as `0x${string}`,
+      abi: DarkFaucetContract.abi,
+      args: [address],
+      functionName: "drip",
+    }).catch((err) => {
+      console.log({ err });
+    });
+  }, []);
+
+  return { darkBalance, allowance, mintLogic, faucetCall };
 };
 
 export default useMinting;

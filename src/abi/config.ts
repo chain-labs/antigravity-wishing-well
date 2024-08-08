@@ -13,6 +13,7 @@ export const CONTRACTS: Record<
     launchControlCenter?: Address;
     fuelCell?: Address;
     journeyPhaseManager?: Address;
+    darkFaucet?: Address;
   }
 > = {
   [sepolia.id]: {
@@ -24,6 +25,7 @@ export const CONTRACTS: Record<
     fuelCell: "0x2112BF237bC033e2C0a9318c00A2c33639051F24",
     journeyPhaseManager: "0x390E7AF57779A6a672054533beEd7b0dF7eD0bD9",
     launchControlCenter: "0x7D1a660C0F6385D12A74356fc361613344A1B135",
+    darkFaucet: "0xd790fE4955C6F3C895e5a9a4849779D84d40cC2f",
   },
   [baseSepolia.id]: {
     miningRig: "0x8Dea737AE483153c69934ff8a5c7E3D448c2DB4C",

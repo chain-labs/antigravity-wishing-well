@@ -54,7 +54,7 @@ export default function MintingHero() {
     Success: "pending",
   });
 
-  const { darkBalance, mintLogic, allowance } = useMinting(
+  const { darkBalance, mintLogic, allowance, faucetCall } = useMinting(
     darkInput,
     setCurrentState,
     setTxLoading,
@@ -139,7 +139,9 @@ export default function MintingHero() {
           backgroundImage: `url(${IMAGEKIT_IMAGES.MINING_PAGE_ERA_3})`,
         }}
         animate={{
-          filter: buymoreHighlight ? "saturate(0) brightness(0.3)" : "saturate(1) brightness(1)",
+          filter: buymoreHighlight
+            ? "saturate(0) brightness(0.3)"
+            : "saturate(1) brightness(1)",
         }}
         transition={{
           duration: 3,
@@ -235,6 +237,7 @@ export default function MintingHero() {
                 multiplyer={multiplier}
                 bonus={1 * multiplier}
                 buymoreHighlight={buymoreHighlight}
+                buyMoreFn={faucetCall}
               />
               {account.isConnected ? (
                 checkCorrectNetwork(account.chainId, [
@@ -289,7 +292,9 @@ export default function MintingHero() {
 
               <motion.div
                 animate={{
-                  filter: buymoreHighlight ? "saturate(0) brightness(.5)" : "saturate(1) brightness(1)",
+                  filter: buymoreHighlight
+                    ? "saturate(0) brightness(.5)"
+                    : "saturate(1) brightness(1)",
                 }}
                 transition={{
                   duration: 1,
@@ -300,7 +305,9 @@ export default function MintingHero() {
               </motion.div>
               <motion.div
                 animate={{
-                  filter: buymoreHighlight ? "saturate(0) brightness(.5)" : "saturate(1) brightness(1)",
+                  filter: buymoreHighlight
+                    ? "saturate(0) brightness(.5)"
+                    : "saturate(1) brightness(1)",
                 }}
                 transition={{
                   duration: 1,
