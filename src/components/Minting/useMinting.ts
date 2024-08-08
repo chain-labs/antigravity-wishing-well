@@ -20,7 +20,7 @@ import {
 import { checkCorrectNetwork } from "../RainbowKit";
 import { TEST_NETWORK } from "@/constants";
 import { pulsechain, sepolia } from "viem/chains";
-import { errorToast } from "@/hooks/frontend/toast";
+import { errorToast, generalToast, miningNotif } from "@/hooks/frontend/toast";
 import { MINTING_STATES } from "./MintingHero";
 import { MintError } from "./types";
 import { ToastPosition } from "react-hot-toast";
@@ -100,22 +100,25 @@ const useMinting = (
     }
   }, [darkInput, account.address, DarkContract, LCC_Contract, config]);
 
-  const mintFn = useCallback(() => {
-    setMintStep(MINTING_STATES.MINT);
-    mint({
-      address: LCC_Contract.address as `0x${string}`,
-      abi: LCC_Contract.abi,
-      functionName: "mintFuelCell",
-      args: [darkInput],
-    })
-      .then((tx) => {
-        console.log({ tx });
-        setMintStep(MINTING_STATES.RECEIPT);
+  const mintFn = useCallback(
+    (darkInput: bigint) => {
+      setMintStep(MINTING_STATES.MINT);
+      mint({
+        address: LCC_Contract.address as `0x${string}`,
+        abi: LCC_Contract.abi,
+        functionName: "mintFuelCell",
+        args: [darkInput],
       })
-      .catch((err) => {
-        console.log({ err });
-      });
-  }, [LCC_Contract, darkInput, mint, setMintStep]);
+        .then((tx) => {
+          console.log({ tx });
+          setMintStep(MINTING_STATES.RECEIPT);
+        })
+        .catch((err) => {
+          console.log({ err });
+        });
+    },
+    [LCC_Contract, mint, setMintStep],
+  );
 
   const approveFn = useCallback(() => {
     setMintStep(MINTING_STATES.APPROVAL);
@@ -146,7 +149,7 @@ const useMinting = (
     ) {
       setTxLoading(true);
       if (allowance.allowed) {
-        mintFn();
+        mintFn(darkInput);
       } else {
         approveFn();
       }
@@ -159,7 +162,6 @@ const useMinting = (
       )
         errorToast("You are connected to a wrong network!");
       else if (darkInput < darkBalance) {
-        console.log({ darkInput, darkBalance });
         errorToast("Insufficient Dark Balance!");
       }
     }
@@ -176,7 +178,14 @@ const useMinting = (
 
   useEffect(() => {
     if (approveReceipt) {
-      mintFn();
+      mintFn(darkInput);
+      generalToast(
+        `${Number(darkInput)} $DARK tokens approved for minting.`,
+        {
+          position: options?.toastOption?.position,
+        },
+        options?.toastOption?.referencePositionX,
+      );
       console.log({ approveReceipt });
     }
   }, [approveReceipt, mintFn]);
@@ -184,9 +193,7 @@ const useMinting = (
   useEffect(() => {
     if (mintReceipt) {
       setMintStep(MINTING_STATES.SUCCESS);
-      setTimeout(() => {
-        setMintStep(MINTING_STATES.INITIAL);
-      }, 4000);
+
       console.log({ mintReceipt });
     }
   }, [mintReceipt, setMintStep]);
