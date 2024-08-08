@@ -35,7 +35,7 @@ export const useUserData = create<StoreUserData>((set) => ({
   wishwellPoints: 0,
   miningPoints: 0,
   totalPoints: 0,
-  darkBalance: 0,
+  darkBalance: -1,
   mutation: (state: Partial<StoreJourneyData>) =>
     set((prevState) => ({ ...prevState, ...state })),
 }));

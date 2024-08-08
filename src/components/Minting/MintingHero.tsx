@@ -126,6 +126,7 @@ export default function MintingHero() {
   }, [currentState, txLoading, txError, darkInput, darkBalance]);
 
   const buymoreHighlight = useMemo(() => {
+    if (darkBalance < 0) return false 
     if (buttonConfigs.text === "Insufficient $DARK balance") {
       return true;
     }

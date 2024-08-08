@@ -22,6 +22,7 @@ import USFormatToNumber from "../USFormatToNumber";
 import { errorToast } from "@/hooks/frontend/toast";
 import { motion } from "framer-motion";
 import { TEST_NETWORK } from "@/constants";
+import { DotLoader } from "../header/Header";
 
 const MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION = 0.000001;
 
@@ -100,7 +101,7 @@ export function InputCard({
           inputRef.current.value = "1";
         }
       } else {
-        if (inputRef.current && BigInt(tokenBalance)) {
+        if (inputRef.current && BigInt(tokenBalance) >= 0) {
           inputRef.current.value = String(tokenBalance);
           setCurrentInputValue(tokenBalance);
           setIsInitial(false);
@@ -311,7 +312,7 @@ export function InputCard({
             height={24}
             className={twMerge("object-cover")}
           />
-          {String(tokenBalance)} $DARK
+          {tokenBalance >= 0 ? String(tokenBalance) : <DotLoader />} $DARK
         </motion.div>
       )}
     </div>

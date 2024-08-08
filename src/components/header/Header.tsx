@@ -130,7 +130,9 @@ const Header = () => {
               className={`relative flex justify-center items-center font-extrabold text-lg font-sans gap-[16px] oveflow-hidden`}
             >
               <Link
-                href={location.pathname === "/minting" ? "/minting#" : "/minting"}
+                href={
+                  location.pathname === "/minting" ? "/minting#" : "/minting"
+                }
                 className="p-[8px]"
               >
                 <P
@@ -333,7 +335,9 @@ const Header = () => {
               )}
               <div className="w-full h-[1px] bg-gradient-to-l from-white via-[#999999] to-[#999999] rounded-full" />
               <Link
-                href={location.pathname === "/minting" ? "/minting#" : "/minting"}
+                href={
+                  location.pathname === "/minting" ? "/minting#" : "/minting"
+                }
               >
                 <P
                   uppercase
@@ -464,68 +468,66 @@ const Header = () => {
 export default Header;
 
 const LoaderSpan = ({ data }: { data?: string }) => {
+  return <span>{data ? Number(data).toLocaleString() : <DotLoader />}</span>;
+};
+
+export const DotLoader = () => {
   return (
-    <span>
-      {data ? (
-        Number(data).toLocaleString()
-      ) : (
-        <div className="flex justify-center items-center gap-[4px]">
-          <motion.span
-            animate={{
-              y: "10%",
-            }}
-            initial={{
-              y: "0%",
-            }}
-            transition={{
-              duration: 0.25,
-              repeat: Infinity,
-              repeatType: "reverse",
-              type: "spring",
-              bounce: 0.5,
-              delay: 0,
-            }}
-          >
-            .
-          </motion.span>
-          <motion.span
-            animate={{
-              y: "10%",
-            }}
-            initial={{
-              y: "0%",
-            }}
-            transition={{
-              duration: 0.25,
-              repeat: Infinity,
-              repeatType: "reverse",
-              type: "spring",
-              bounce: 0.5,
-              delay: 0.1,
-            }}
-          >
-            .
-          </motion.span>
-          <motion.span
-            animate={{
-              y: "10%",
-            }}
-            initial={{
-              y: "0%",
-            }}
-            transition={{
-              duration: 0.25,
-              repeat: Infinity,
-              repeatType: "reverse",
-              type: "spring",
-              bounce: 0.5,
-              delay: 0.2,
-            }}
-          >
-            .
-          </motion.span>
-        </div>
-      )}
-    </span>
+    <div className="flex justify-center items-center gap-[4px]">
+      <motion.span
+        animate={{
+          y: "10%",
+        }}
+        initial={{
+          y: "0%",
+        }}
+        transition={{
+          duration: 0.25,
+          repeat: Infinity,
+          repeatType: "reverse",
+          type: "spring",
+          bounce: 0.5,
+          delay: 0,
+        }}
+      >
+        .
+      </motion.span>
+      <motion.span
+        animate={{
+          y: "10%",
+        }}
+        initial={{
+          y: "0%",
+        }}
+        transition={{
+          duration: 0.25,
+          repeat: Infinity,
+          repeatType: "reverse",
+          type: "spring",
+          bounce: 0.5,
+          delay: 0.1,
+        }}
+      >
+        .
+      </motion.span>
+      <motion.span
+        animate={{
+          y: "10%",
+        }}
+        initial={{
+          y: "0%",
+        }}
+        transition={{
+          duration: 0.25,
+          repeat: Infinity,
+          repeatType: "reverse",
+          type: "spring",
+          bounce: 0.5,
+          delay: 0.2,
+        }}
+      >
+        .
+      </motion.span>
+    </div>
   );
 };
