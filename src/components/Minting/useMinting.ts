@@ -23,11 +23,18 @@ import { pulsechain, sepolia } from "viem/chains";
 import { errorToast } from "@/hooks/frontend/toast";
 import { MINTING_STATES } from "./MintingHero";
 import { MintError } from "./types";
+import { ToastPosition } from "react-hot-toast";
 const useMinting = (
   darkInput: bigint,
   setMintStep: Dispatch<SetStateAction<keyof typeof MINTING_STATES>>,
   setTxLoading: Dispatch<SetStateAction<boolean>>,
   setTxError: Dispatch<SetStateAction<MintError>>,
+  options: {
+    toastOption?: {
+      position?: ToastPosition;
+      referencePositionX?: number;
+    };
+  },
 ) => {
   const { darkBalance } = useUserData();
   const account = useAccount();
@@ -57,6 +64,8 @@ const useMinting = (
   const [allowance, setAllowance] = useState({ allowed: false, value: -1 });
 
   useEffect(() => {
+    setTxError({ is: false, value: undefined });
+    setTxLoading(false);
     if (
       account.address &&
       darkInput &&
@@ -98,10 +107,14 @@ const useMinting = (
       abi: LCC_Contract.abi,
       functionName: "mintFuelCell",
       args: [darkInput],
-    }).then((tx) => {
-      console.log({ tx });
-      setMintStep(MINTING_STATES.RECEIPT);
-    });
+    })
+      .then((tx) => {
+        console.log({ tx });
+        setMintStep(MINTING_STATES.RECEIPT);
+      })
+      .catch((err) => {
+        console.log({ err });
+      });
   }, [LCC_Contract, darkInput, mint, setMintStep]);
 
   const approveFn = useCallback(() => {
@@ -114,9 +127,13 @@ const useMinting = (
         LCC_Contract.address as `0x${string}`,
         parseUnits(darkInput.toString(), 18),
       ],
-    }).then((tx) => {
-      console.log({ approveTx: tx });
-    });
+    })
+      .then((tx) => {
+        console.log({ approveTx: tx });
+      })
+      .catch((err) => {
+        console.log({ err });
+      });
   }, [DarkContract, LCC_Contract, darkInput, approve, setMintStep]);
 
   const mintLogic = useCallback(() => {
@@ -167,25 +184,62 @@ const useMinting = (
   useEffect(() => {
     if (mintReceipt) {
       setMintStep(MINTING_STATES.SUCCESS);
+      setTimeout(() => {
+        setMintStep(MINTING_STATES.INITIAL);
+      }, 4000);
       console.log({ mintReceipt });
     }
   }, [mintReceipt, setMintStep]);
+
   useEffect(() => {
     if (approveError) {
       setTxError({ is: true, value: "Approve" });
+      setTxLoading(false);
+      let errorMessage = "";
+      // @ts-ignore
+      if (approveError?.cause?.code === 4001) {
+        errorMessage = "Approve Failed. You denied transaction.";
+      } else {
+        errorMessage = "Something went wrong! Please try again.";
+      }
+      errorToast(
+        errorMessage,
+        {
+          position: options?.toastOption?.position,
+        },
+        options?.toastOption?.referencePositionX,
+      );
       console.log({ approveError });
     }
   }, [approveError]);
 
   useEffect(() => {
     if (mintError) {
+      setMintStep(MINTING_STATES.INITIAL);
+      setAllowance({ allowed: true, value: Number(darkInput.toString()) });
+      setTxLoading(false);
       setTxError({ is: true, value: "Mint" });
       console.log({ mintError });
+
+      let errorMessage = "";
+      // @ts-ignore
+      if (mintError?.cause?.code === 4001) {
+        errorMessage = "Mint of Fuel Cells Failed. You denied transaction.";
+      } else {
+        errorMessage =
+          "Minting of Fuel Cells Failed. Try Again or Contact our team.";
+      }
+      errorToast(
+        errorMessage,
+        {
+          position: options?.toastOption?.position,
+        },
+        options?.toastOption?.referencePositionX,
+      );
     }
   }, [mintError]);
 
   useEffect(() => {
-    console.log({ allowance });
     if (allowance.allowed) {
       setMintStep(MINTING_STATES.MINT);
     } else {

@@ -37,6 +37,7 @@ export default function MintingHero() {
   const account = useAccount();
   const { switchChain } = useSwitchChain();
   const { openConnectModal } = useConnectModal();
+  const heroRef = useRef<HTMLDivElement>(null);
   const timerState = useTimer();
   const [txLoading, setTxLoading] = useState(false);
   const [txError, setTxError] = useState<MintError>({
@@ -58,9 +59,28 @@ export default function MintingHero() {
     setCurrentState,
     setTxLoading,
     setTxError,
+    {
+      toastOption: {
+        position: "bottom-left",
+        referencePositionX: heroRef.current?.offsetLeft,
+      },
+    },
   );
 
-  const heroRef = useRef<HTMLDivElement>(null);
+  const handleMintButton = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    mintLogic();
+  };
+
+  useEffect(() => {});
+
+  const [nftNotifReveal, setNftNotifReveal] = useState<boolean>(false);
+  const handleNFTNotificationReveal = () => {
+    setNftNotifReveal(true);
+    setTimeout(() => {
+      setNftNotifReveal(false);
+    }, 8000);
+  };
 
   useEffect(() => {
     switch (currentState) {
@@ -75,8 +95,7 @@ export default function MintingHero() {
 
       case MINTING_STATES.APPROVAL:
         setMintState({
-          Approve:
-            txError.is && txError.value === "Approve" ? "failed" : "progress",
+          Approve: "progress",
           Mint: "pending",
           Success: "pending",
         });
@@ -86,12 +105,7 @@ export default function MintingHero() {
       case MINTING_STATES.MINT:
         setMintState({
           Approve: "success",
-          Mint:
-            txError.is && txError.value === "Mint"
-              ? "failed"
-              : txLoading
-                ? "progress"
-                : "pending",
+          Mint: txLoading ? "progress" : "pending",
           Success: "pending",
         });
 
@@ -101,7 +115,7 @@ export default function MintingHero() {
         setMintState({
           Approve: "success",
           Mint: "success",
-          Success: "pending",
+          Success: "progress",
         });
 
         return;
@@ -119,13 +133,6 @@ export default function MintingHero() {
 
   const buttonConfigs = useMemo(() => {
     if (txError.is) {
-      errorToast(
-        "Something went wrong! Please try again.",
-        {
-          position: "bottom-left",
-        },
-        heroRef.current?.offsetLeft,
-      );
       return {
         text: "Retry",
         loading: false,
@@ -208,7 +215,8 @@ export default function MintingHero() {
           },
         };
 
-      case MINTING_STATES.SUCCESS:
+      case MINTING_STATES.SUCCESS: {
+        handleNFTNotificationReveal();
         return {
           text: "Minted Fuel Cells!",
           loading: false,
@@ -224,7 +232,7 @@ export default function MintingHero() {
             },
           },
         };
-
+      }
       default:
         return {
           text: "Approve Contract",
@@ -243,20 +251,6 @@ export default function MintingHero() {
         };
     }
   }, [currentState, txLoading, txError]);
-
-  const handleMintButton = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    mintLogic();
-    handleNFTNotificationReveal();
-  };
-
-  const [nftNotifReveal, setNftNotifReveal] = useState<boolean>(false);
-  const handleNFTNotificationReveal = () => {
-    setNftNotifReveal(true);
-    setTimeout(() => {
-      setNftNotifReveal(false);
-    }, 8000);
-  };
 
   return (
     <div
