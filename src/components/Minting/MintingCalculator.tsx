@@ -284,7 +284,7 @@ export function InputCard({
                     className="absolute top-0 left-[calc(100%+16px)] flex text-agwhite w-fit min-w-[300px] rounded-[4px] bg-gradient-to-tr from-brred to-blue p-[1px]"
                   >
                     <div className="w-fit h-fit bg-gradient-to-b from-[#030404] to-[#131A1A] flex items-center justify-between rounded-[inherit] gap-6 px-[16px] py-[8px] text-[16px]">
-                      Add more money to wallet and get more points
+                      Add more darkness to your wallet to pass.
                     </div>
                     <div className="absolute top-0 left-0 h-full w-full bg-gradient-to-tr from-brred to-blue blur-lg z-[-1]"></div>
                   </motion.div>
