@@ -20,14 +20,21 @@ import {
 import { checkCorrectNetwork } from "../RainbowKit";
 import { TEST_NETWORK } from "@/constants";
 import { pulsechain, sepolia } from "viem/chains";
-import { errorToast } from "@/hooks/frontend/toast";
+import { errorToast, generalToast, miningNotif } from "@/hooks/frontend/toast";
 import { MINTING_STATES } from "./MintingHero";
 import { MintError } from "./types";
+import { ToastPosition } from "react-hot-toast";
 const useMinting = (
   darkInput: bigint,
   setMintStep: Dispatch<SetStateAction<keyof typeof MINTING_STATES>>,
   setTxLoading: Dispatch<SetStateAction<boolean>>,
   setTxError: Dispatch<SetStateAction<MintError>>,
+  options: {
+    toastOption?: {
+      position?: ToastPosition;
+      referencePositionX?: number;
+    };
+  },
 ) => {
   const { darkBalance } = useUserData();
   const account = useAccount();
@@ -57,6 +64,8 @@ const useMinting = (
   const [allowance, setAllowance] = useState({ allowed: false, value: -1 });
 
   useEffect(() => {
+    setTxError({ is: false, value: undefined });
+    setTxLoading(false);
     if (
       account.address &&
       darkInput &&
@@ -91,18 +100,25 @@ const useMinting = (
     }
   }, [darkInput, account.address, DarkContract, LCC_Contract, config]);
 
-  const mintFn = useCallback(() => {
-    setMintStep(MINTING_STATES.MINT);
-    mint({
-      address: LCC_Contract.address as `0x${string}`,
-      abi: LCC_Contract.abi,
-      functionName: "mintFuelCell",
-      args: [darkInput],
-    }).then((tx) => {
-      console.log({ tx });
-      setMintStep(MINTING_STATES.RECEIPT);
-    });
-  }, [LCC_Contract, darkInput, mint, setMintStep]);
+  const mintFn = useCallback(
+    (darkInput: bigint) => {
+      setMintStep(MINTING_STATES.MINT);
+      mint({
+        address: LCC_Contract.address as `0x${string}`,
+        abi: LCC_Contract.abi,
+        functionName: "mintFuelCell",
+        args: [darkInput],
+      })
+        .then((tx) => {
+          console.log({ tx });
+          setMintStep(MINTING_STATES.RECEIPT);
+        })
+        .catch((err) => {
+          console.log({ err });
+        });
+    },
+    [LCC_Contract, mint, setMintStep],
+  );
 
   const approveFn = useCallback(() => {
     setMintStep(MINTING_STATES.APPROVAL);
@@ -114,9 +130,13 @@ const useMinting = (
         LCC_Contract.address as `0x${string}`,
         parseUnits(darkInput.toString(), 18),
       ],
-    }).then((tx) => {
-      console.log({ approveTx: tx });
-    });
+    })
+      .then((tx) => {
+        console.log({ approveTx: tx });
+      })
+      .catch((err) => {
+        console.log({ err });
+      });
   }, [DarkContract, LCC_Contract, darkInput, approve, setMintStep]);
 
   const mintLogic = useCallback(() => {
@@ -129,7 +149,7 @@ const useMinting = (
     ) {
       setTxLoading(true);
       if (allowance.allowed) {
-        mintFn();
+        mintFn(darkInput);
       } else {
         approveFn();
       }
@@ -142,7 +162,6 @@ const useMinting = (
       )
         errorToast("You are connected to a wrong network!");
       else if (darkInput < darkBalance) {
-        console.log({ darkInput, darkBalance });
         errorToast("Insufficient Dark Balance!");
       }
     }
@@ -159,7 +178,14 @@ const useMinting = (
 
   useEffect(() => {
     if (approveReceipt) {
-      mintFn();
+      mintFn(darkInput);
+      generalToast(
+        `${Number(darkInput)} $DARK tokens approved for minting.`,
+        {
+          position: options?.toastOption?.position,
+        },
+        options?.toastOption?.referencePositionX,
+      );
       console.log({ approveReceipt });
     }
   }, [approveReceipt, mintFn]);
@@ -167,25 +193,60 @@ const useMinting = (
   useEffect(() => {
     if (mintReceipt) {
       setMintStep(MINTING_STATES.SUCCESS);
+
       console.log({ mintReceipt });
     }
   }, [mintReceipt, setMintStep]);
+
   useEffect(() => {
     if (approveError) {
       setTxError({ is: true, value: "Approve" });
+      setTxLoading(false);
+      let errorMessage = "";
+      // @ts-ignore
+      if (approveError?.cause?.code === 4001) {
+        errorMessage = "Approve Failed. You denied transaction.";
+      } else {
+        errorMessage = "Something went wrong! Please try again.";
+      }
+      errorToast(
+        errorMessage,
+        {
+          position: options?.toastOption?.position,
+        },
+        options?.toastOption?.referencePositionX,
+      );
       console.log({ approveError });
     }
   }, [approveError]);
 
   useEffect(() => {
     if (mintError) {
+      setMintStep(MINTING_STATES.INITIAL);
+      setAllowance({ allowed: true, value: Number(darkInput.toString()) });
+      setTxLoading(false);
       setTxError({ is: true, value: "Mint" });
       console.log({ mintError });
+
+      let errorMessage = "";
+      // @ts-ignore
+      if (mintError?.cause?.code === 4001) {
+        errorMessage = "Mint of Fuel Cells Failed. You denied transaction.";
+      } else {
+        errorMessage =
+          "Minting of Fuel Cells Failed. Try Again or Contact our team.";
+      }
+      errorToast(
+        errorMessage,
+        {
+          position: options?.toastOption?.position,
+        },
+        options?.toastOption?.referencePositionX,
+      );
     }
   }, [mintError]);
 
   useEffect(() => {
-    console.log({ allowance });
     if (allowance.allowed) {
       setMintStep(MINTING_STATES.MINT);
     } else {

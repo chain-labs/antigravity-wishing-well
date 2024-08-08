@@ -112,6 +112,14 @@ export function InputCard({
     setOutOfFocus(true);
   }
 
+  useEffect(() => {
+    if (inputValue) {
+      if (inputRef.current && inputValue) {
+        inputRef.current.value = inputValue.toString();
+      }
+    }
+  }, [inputValue]);
+
   return (
     <div className="flex flex-col gap-[8px] bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-fit min-w-full border-[1px] border-agyellow z-10">
       <div className="flex justify-center items-center gap-[8px] w-full">

@@ -8,8 +8,6 @@ import Button from "@/components/Button";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import CountdownTimer from "@/components/CountdownTimer";
 import ProgressingStates from "@/components/ProgressingStates";
-import NoNFTHero from "./Hero/NoNFTHero";
-import NFTHero from "./Hero/NFTHero";
 import { useAccount, useSwitchChain } from "wagmi";
 import useTimer from "@/hooks/frontend/useTimer";
 import { useChainModal, useConnectModal } from "@rainbow-me/rainbowkit";
@@ -22,7 +20,7 @@ import Image from "next/image";
 import P from "../HTML/P";
 import H1 from "../HTML/H1";
 import { motion } from "framer-motion";
-import { errorToast } from "@/hooks/frontend/toast";
+import { getButtonCofigs, setCurrentMintState } from "./utils";
 
 export const MINTING_STATES = {
   INITIAL: "INITIAL",
@@ -37,6 +35,7 @@ export default function MintingHero() {
   const account = useAccount();
   const { switchChain } = useSwitchChain();
   const { openConnectModal } = useConnectModal();
+  const heroRef = useRef<HTMLDivElement>(null);
   const timerState = useTimer();
   const [txLoading, setTxLoading] = useState(false);
   const [txError, setTxError] = useState<MintError>({
@@ -58,205 +57,53 @@ export default function MintingHero() {
     setCurrentState,
     setTxLoading,
     setTxError,
+    {
+      toastOption: {
+        position: "bottom-left",
+        referencePositionX: heroRef.current?.offsetLeft,
+      },
+    },
   );
-
-  const heroRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    switch (currentState) {
-      case MINTING_STATES.INITIAL:
-        setMintState({
-          Approve: "pending",
-          Mint: "pending",
-          Success: "pending",
-        });
-
-        return;
-
-      case MINTING_STATES.APPROVAL:
-        setMintState({
-          Approve:
-            txError.is && txError.value === "Approve" ? "failed" : "progress",
-          Mint: "pending",
-          Success: "pending",
-        });
-
-        return;
-
-      case MINTING_STATES.MINT:
-        setMintState({
-          Approve: "success",
-          Mint:
-            txError.is && txError.value === "Mint"
-              ? "failed"
-              : txLoading
-                ? "progress"
-                : "pending",
-          Success: "pending",
-        });
-
-        return;
-
-      case MINTING_STATES.RECEIPT:
-        setMintState({
-          Approve: "success",
-          Mint: "success",
-          Success: "pending",
-        });
-
-        return;
-
-      case MINTING_STATES.SUCCESS:
-        setMintState({
-          Approve: "success",
-          Mint: "success",
-          Success: "success",
-        });
-
-        return;
-    }
-  }, [currentState, txLoading, txError]);
-
-  const buttonConfigs = useMemo(() => {
-    if (txError.is) {
-      errorToast(
-        "Something went wrong! Please try again.",
-        {
-          position: "bottom-left",
-        },
-        heroRef.current?.offsetLeft,
-      );
-      return {
-        text: "Retry",
-        loading: false,
-        disabled: false,
-        icon: IMAGEKIT_ICONS.ERROR,
-        variants: {
-          hover: {
-            animationName: "wiggle",
-            animationDuration: "1s",
-            animationFillMode: "forwards",
-            animationTimingFunction: "linear",
-          },
-        },
-      };
-    }
-    switch (currentState) {
-      case MINTING_STATES.INITIAL:
-        return {
-          text: "Approve Contract",
-          loading: false,
-          disabled: false,
-          icon: IMAGEKIT_ICONS.TICK,
-          variants: {
-            hover: {
-              rotate: 360,
-              transition: {
-                duration: 1,
-                type: "spring",
-              },
-            },
-          },
-        };
-      case MINTING_STATES.APPROVAL:
-        return {
-          text: "Approving",
-          loading: true,
-          disabled: true,
-          icon: IMAGEKIT_ICONS.CUBE,
-          variants: {
-            hover: {
-              scale: 1.2,
-              transition: {
-                duration: 1,
-                type: "spring",
-              },
-            },
-          },
-        };
-      case MINTING_STATES.MINT:
-        return {
-          text: txLoading ? "Minting" : "Mint Now",
-          loading: txLoading,
-          disabled: txLoading,
-          icon: IMAGEKIT_ICONS.CUBE,
-          variants: {
-            hover: {
-              scale: 1.2,
-              transition: {
-                duration: 1,
-                type: "spring",
-              },
-            },
-          },
-        };
-
-      case MINTING_STATES.RECEIPT:
-        return {
-          text: "BUILDING FUEL CELLS",
-          loading: true,
-          disabled: true,
-          icon: IMAGEKIT_ICONS.CUBE,
-          variants: {
-            hover: {
-              scale: 1.2,
-              transition: {
-                duration: 1,
-                type: "spring",
-              },
-            },
-          },
-        };
-
-      case MINTING_STATES.SUCCESS:
-        return {
-          text: "Minted Fuel Cells!",
-          loading: false,
-          disabled: false,
-          icon: IMAGEKIT_ICONS.CUBE,
-          variants: {
-            hover: {
-              scale: 1.2,
-              transition: {
-                duration: 1,
-                type: "spring",
-              },
-            },
-          },
-        };
-
-      default:
-        return {
-          text: "Approve Contract",
-          loading: false,
-          disabled: false,
-          icon: IMAGEKIT_ICONS.CUBE,
-          variants: {
-            hover: {
-              scale: 1.2,
-              transition: {
-                duration: 1,
-                type: "spring",
-              },
-            },
-          },
-        };
-    }
-  }, [currentState, txLoading, txError]);
 
   const handleMintButton = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    mintLogic();
-    handleNFTNotificationReveal();
+    if (currentState !== MINTING_STATES.SUCCESS) {
+      mintLogic();
+    }
   };
 
   const [nftNotifReveal, setNftNotifReveal] = useState<boolean>(false);
+
   const handleNFTNotificationReveal = () => {
     setNftNotifReveal(true);
     setTimeout(() => {
       setNftNotifReveal(false);
     }, 8000);
   };
+
+  useEffect(() => {
+    setCurrentMintState(currentState, setMintState, txLoading);
+  }, [currentState, txLoading, txError]);
+
+  useEffect(() => {
+    if (currentState === MINTING_STATES.SUCCESS) {
+      setTimeout(() => {
+        setDarkInput(BigInt(1));
+        setCurrentState(MINTING_STATES.INITIAL);
+      }, 4000);
+    }
+  }, [currentState]);
+
+  const buttonConfigs = useMemo(() => {
+    return getButtonCofigs(
+      Number(darkInput),
+      darkBalance,
+      currentState,
+      txLoading,
+      txError,
+      handleNFTNotificationReveal,
+    );
+  }, [currentState, txLoading, txError, darkInput, darkBalance]);
 
   return (
     <div

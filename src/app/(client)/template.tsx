@@ -10,12 +10,9 @@ const LoadingPage = dynamic(() => import("@/app/(client)/LoadingPage"), {
   ssr: false,
 });
 
-const Header = dynamic(
-  () => import("@/components/header/Header"),
-  {
-    ssr: false,
-  },
-);
+const Header = dynamic(() => import("@/components/header/Header"), {
+  ssr: false,
+});
 const Footer = dynamic(() => import("@/components/Footer"), {
   ssr: false,
 });
