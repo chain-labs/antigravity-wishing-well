@@ -105,13 +105,27 @@ export default function MintingHero() {
     );
   }, [currentState, txLoading, txError, darkInput, darkBalance]);
 
+  const buymoreHighlight = useMemo(() => {
+    if (buttonConfigs.text === "Insufficient $DARK balance") {
+      return true;
+    }
+    return false;
+  }, [buttonConfigs]);
+
   return (
-    <div
-      style={{
-        backgroundImage: `url(${IMAGEKIT_IMAGES.MINING_PAGE_ERA_3})`,
-      }}
-      className="relative w-full min-h-screen h-fit z-10 overflow-hidden bg-auto bg-[40%_50%] md:bg-cover "
-    >
+    <div className="relative w-full min-h-screen h-fit z-10 overflow-hidden">
+      <motion.div
+        style={{
+          backgroundImage: `url(${IMAGEKIT_IMAGES.MINING_PAGE_ERA_3})`,
+        }}
+        animate={{
+          filter: buymoreHighlight ? "saturate(0) brightness(0.3)" : "saturate(1) brightness(1)",
+        }}
+        transition={{
+          duration: 3,
+        }}
+        className="absolute top-0 left-0 h-full w-full bg-auto bg-[40%_50%] md:bg-cover"
+      ></motion.div>
       <div className="h-fit z-0 ">
         <div className="flex flex-col justify-center items-center w-full h-fit py-[30px] md:pt-[100px] z-0">
           <div
@@ -200,6 +214,7 @@ export default function MintingHero() {
                 journey={2}
                 multiplyer={11}
                 bonus={44}
+                buymoreHighlight={buymoreHighlight}
               />
               {account.isConnected ? (
                 checkCorrectNetwork(account.chainId, [
@@ -252,10 +267,26 @@ export default function MintingHero() {
                 />
               )}
 
-              <div className="p-[8px] rounded-[6px] bg-[#030404A8] w-full max-w-[350px] md:max-w-[400px] mt-[16px]">
+              <motion.div
+                animate={{
+                  filter: buymoreHighlight ? "saturate(0) brightness(.5)" : "saturate(1) brightness(1)",
+                }}
+                transition={{
+                  duration: 1,
+                }}
+                className="p-[8px] rounded-[6px] bg-[#030404A8] w-full max-w-[350px] md:max-w-[400px] mt-[16px]"
+              >
                 <ProgressingStates states={mintState} />
-              </div>
-              <div className="p-[8px] rounded-[6px] bg-[#030404A8] w-full max-w-[350px] md:max-w-[400px]">
+              </motion.div>
+              <motion.div
+                animate={{
+                  filter: buymoreHighlight ? "saturate(0) brightness(.5)" : "saturate(1) brightness(1)",
+                }}
+                transition={{
+                  duration: 1,
+                }}
+                className="p-[8px] rounded-[6px] bg-[#030404A8] w-full max-w-[350px] md:max-w-[400px]"
+              >
                 <CountdownTimer
                   state={timerState}
                   fontDesktopSize={40}
@@ -264,7 +295,7 @@ export default function MintingHero() {
                   counterSubtitleClassName="text-[14px] leading-[17.36px] px-[8px]"
                   containerClassName="text-agwhite text-[14px] leading-[17.36px] pb-[8px]"
                 />
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>

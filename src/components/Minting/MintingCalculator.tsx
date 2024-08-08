@@ -19,6 +19,7 @@ import { useAccount } from "wagmi";
 import pointsConverterToUSCommaseparated from "../pointsConverterToUSCommaseparated";
 import USFormatToNumber from "../USFormatToNumber";
 import { errorToast } from "@/hooks/frontend/toast";
+import { motion } from "framer-motion";
 
 const MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION = 0.000001;
 
@@ -34,10 +35,12 @@ export function InputCard({
   inputValue,
   setCurrentInputValue,
   tokenBalance,
+  buymoreHighlight,
 }: {
   inputValue: bigint;
   setCurrentInputValue: Dispatch<SetStateAction<bigint>>;
   tokenBalance: bigint;
+  buymoreHighlight?: boolean;
 }) {
   const [outOfFocus, setOutOfFocus] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -121,9 +124,30 @@ export function InputCard({
   }, [inputValue]);
 
   return (
-    <div className="flex flex-col gap-[8px] bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-fit min-w-full border-[1px] border-agyellow z-10">
+    <div className="relative flex flex-col gap-[8px] rounded-[6px] px-[12px] py-[16px] w-fit min-w-full z-10">
+      <motion.div
+        animate={{
+          filter: buymoreHighlight
+            ? "saturate(0) brightness(.5)"
+            : "saturate(1) brightness(1)",
+        }}
+        transition={{
+          duration: 3,
+        }}
+        className="absolute top-0 left-0 h-full w-full bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[inherit] border-[1px] border-agyellow z-[-1]"
+      ></motion.div>
       <div className="flex justify-center items-center gap-[8px] w-full">
-        <div className="flex flex-col justify-center items-start gap-[8px] w-full">
+        <motion.div
+          animate={{
+            filter: buymoreHighlight
+              ? "saturate(0) brightness(.5)"
+              : "saturate(1) brightness(1)",
+          }}
+          transition={{
+            duration: 3,
+          }}
+          className="flex flex-col justify-center items-start gap-[8px] w-full"
+        >
           <form
             onBlur={handleInputOutOfFocus}
             onFocus={(e) => {
@@ -177,9 +201,17 @@ export function InputCard({
                 )}
             </div>
           </form>
-        </div>
+        </motion.div>
         <div className="flex flex-col justify-end items-end gap-[8px]">
-          <div
+          <motion.div
+            animate={{
+              filter: buymoreHighlight
+                ? "saturate(0) brightness(.5)"
+                : "saturate(1) brightness(1)",
+            }}
+            transition={{
+              duration: 3,
+            }}
             className={twMerge(
               "flex justify-center items-center gap-[8px] h-full w-fit ml-auto",
             )}
@@ -189,10 +221,18 @@ export function InputCard({
               iconSrc={IMAGEKIT_ICONS.PILL_DARK_X_CLAIMED}
               iconAlt={"dark"}
             />
-          </div>
+          </motion.div>
           {account.isConnected && (
             <div className="flex justify-end items-end gap-[4px]">
-              <button
+              <motion.button
+                animate={{
+                  filter: buymoreHighlight
+                    ? "saturate(0) brightness(.5)"
+                    : "saturate(1) brightness(1)",
+                }}
+                transition={{
+                  duration: 3,
+                }}
                 className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
                 onClick={() => {
                   setCurrentInputValue(tokenBalance);
@@ -213,24 +253,55 @@ export function InputCard({
                     MAX
                   </div>
                 </div>
-              </button>
+              </motion.button>
               <a
                 href={"/"}
                 target="_blank"
-                className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
+                className="relative flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
               >
                 <div className="bg-[#142266] rounded-full w-fit h-fit">
                   <div className="uppercase text-nowrap rounded-full text-[12px] leading-[12px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent bg-clip-text">
                     Buy More
                   </div>
+                  {buymoreHighlight && (
+                    <motion.div className="absolute top-0 left-0 h-full w-full bg-gradient-to-tr from-[#B4EBF8] to-[#789DFA] blur-lg z-[-1]"></motion.div>
+                  )}
                 </div>
+                {buymoreHighlight && (
+                  <motion.div
+                    initial={{
+                      height: 0,
+                      opacity: 0,
+                    }}
+                    animate={{
+                      height: "fit-content",
+                      opacity: 1,
+                    }}
+                    exit={{
+                      height: 0,
+                      opacity: 0,
+                    }}
+                    className="absolute top-0 left-[calc(100%+16px)] flex text-agwhite w-fit min-w-[300px] rounded-[4px] bg-gradient-to-tr from-brred to-blue p-[1px]"
+                  >
+                    <div className="w-fit h-fit bg-gradient-to-b from-[#030404] to-[#131A1A] flex items-center justify-between rounded-[inherit] gap-6 px-[16px] py-[8px] text-[16px]">
+                      Add more money to wallet and get more points
+                    </div>
+                    <div className="absolute top-0 left-0 h-full w-full bg-gradient-to-tr from-brred to-blue blur-lg z-[-1]"></div>
+                  </motion.div>
+                )}
               </a>
             </div>
           )}
         </div>
       </div>
       {account.isConnected && (
-        <div
+        <motion.div
+          animate={{
+            filter: buymoreHighlight ? "saturate(0)" : "saturate(1)",
+          }}
+          transition={{
+            duration: 3,
+          }}
           className={`flex gap-[4px] justify-end items-center text-[16px] leading-[16px] text-agwhite opacity-75 font-general-sans font-semibold text-nowrap`}
         >
           <Image
@@ -241,7 +312,7 @@ export function InputCard({
             className={twMerge("object-cover")}
           />
           {String(tokenBalance)} $DARK
-        </div>
+        </motion.div>
       )}
     </div>
   );
@@ -268,6 +339,7 @@ export function Card({
   pillIconAlt,
   onlyValue = false,
   addToWalletLink,
+  buymoreHighlight,
 }: {
   isEditable?: boolean;
   value: bigint;
@@ -278,6 +350,7 @@ export function Card({
   pillIconAlt: string;
   onlyValue?: boolean;
   addToWalletLink?: string;
+  buymoreHighlight?: boolean;
 }) {
   const [currentValue, setCurrentValue] = useState<bigint>(value);
   const targetValueRef = useRef<HTMLDivElement>(null);
@@ -294,7 +367,17 @@ export function Card({
   }, [value]);
 
   return (
-    <div className="flex justify-between gap-[16px] bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-full min-w-full border-[1px] border-agyellow">
+    <motion.div
+      animate={{
+        filter: buymoreHighlight
+          ? "saturate(0) brightness(.5)"
+          : "saturate(1) brightness(1)",
+      }}
+      transition={{
+        duration: 3,
+      }}
+      className="flex justify-between gap-[16px] bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-full min-w-full border-[1px] border-agyellow"
+    >
       <div className="flex flex-col justify-start items-start gap-[8px] w-full">
         <div
           ref={targetValueRef}
@@ -341,7 +424,7 @@ export function Card({
           </a>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -349,20 +432,42 @@ function Multiplyer({
   journey = 2,
   multiplyer = 33,
   bonus = 1,
+  buymoreHighlight,
 }: {
   journey: 1 | 2 | 3;
   bonus: number;
   multiplyer: number;
+  buymoreHighlight?: boolean;
 }) {
   return (
     <div className="grid grid-flow-col place-items-center gap-[8px] mx-auto">
-      <div className="relative flex flex-col justify-center items-center p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit z-0 h-full">
+      <motion.div
+        animate={{
+          filter: buymoreHighlight
+            ? "saturate(0) brightness(0.3)"
+            : "saturate(1) brightness(1)",
+        }}
+        transition={{
+          duration: 3,
+        }}
+        className="relative flex flex-col justify-center items-center p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit z-0 h-full"
+      >
         <div className="absolute inset-0 opacity-[0.66] bg-agblack -z-[1]"></div>
         <div className="text-[16px] leading-[19.2px] text-agwhite font-extrabold font-sans">
           Minting
         </div>
-      </div>
-      <div className="relative flex flex-col justify-center items-center p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit z-0">
+      </motion.div>
+      <motion.div
+        animate={{
+          filter: buymoreHighlight
+            ? "saturate(0) brightness(0.3)"
+            : "saturate(1) brightness(1)",
+        }}
+        transition={{
+          duration: 3,
+        }}
+        className="relative flex flex-col justify-center items-center p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit z-0"
+      >
         <div className="absolute inset-0 opacity-[0.66] bg-agblack -z-[1]"></div>
         <div className="text-[16px] leading-[19.2px] text-agwhite font-extrabold font-sans">
           Journey
@@ -370,8 +475,18 @@ function Multiplyer({
         <div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
           {journey}
         </div>
-      </div>
-      <div className="relative flex flex-col justify-center items-center p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit z-0">
+      </motion.div>
+      <motion.div
+        animate={{
+          filter: buymoreHighlight
+            ? "saturate(0) brightness(0.3)"
+            : "saturate(1) brightness(1)",
+        }}
+        transition={{
+          duration: 3,
+        }}
+        className="relative flex flex-col justify-center items-center p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit z-0"
+      >
         <div className="absolute inset-0 opacity-[0.66] bg-agblack -z-[1]"></div>
         <div className="text-[16px] leading-[19.2px] text-agwhite font-extrabold font-sans">
           Multiplier
@@ -379,11 +494,21 @@ function Multiplyer({
         <div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
           {multiplyer}X
         </div>
-      </div>
+      </motion.div>
       <div className="flex flex-col justify-center items-center p-[8px] overflow-hidden text-agwhite text-[16px] font-semibold font-general-sans w-fit">
         =
       </div>
-      <div className="relative flex flex-col justify-center items-center p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit z-0">
+      <motion.div
+        animate={{
+          filter: buymoreHighlight
+            ? "saturate(0) brightness(0.3)"
+            : "saturate(1) brightness(1)",
+        }}
+        transition={{
+          duration: 3,
+        }}
+        className="relative flex flex-col justify-center items-center p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit z-0"
+      >
         <div className="absolute inset-0 opacity-[0.66] bg-agblack -z-[1]"></div>
         <div className="text-[16px] leading-[19.2px] text-agwhite font-extrabold font-sans">
           Bonus
@@ -391,7 +516,7 @@ function Multiplyer({
         <div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
           {bonus}X
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
@@ -403,6 +528,7 @@ export default function MiningCalculator({
   tokenBalance,
   bonus,
   journey,
+  buymoreHighlight,
 }: {
   value: bigint;
   setValue: Dispatch<SetStateAction<bigint>>;
@@ -410,6 +536,7 @@ export default function MiningCalculator({
   multiplyer: number;
   tokenBalance: bigint;
   bonus: number;
+  buymoreHighlight?: boolean;
 }) {
   return (
     <div className="relative flex flex-col gap-[8px] h-fit min-w-[400px] max-w-full scale-[0.9] md:scale-100 z-10">
@@ -417,8 +544,14 @@ export default function MiningCalculator({
         inputValue={value}
         setCurrentInputValue={setValue}
         tokenBalance={tokenBalance}
+        buymoreHighlight={buymoreHighlight}
       />
-      <Multiplyer journey={journey} bonus={bonus} multiplyer={multiplyer} />
+      <Multiplyer
+        journey={journey}
+        bonus={bonus}
+        multiplyer={multiplyer}
+        buymoreHighlight={buymoreHighlight}
+      />
       <div
         style={{
           gap: "11px",
@@ -451,6 +584,7 @@ export default function MiningCalculator({
         pillIconAlt="fuel cells"
         pillIconSrc={IMAGEKIT_ICONS.FUEL_CELL}
         pillText="Fuel Cells"
+        buymoreHighlight={buymoreHighlight}
       />
       <Card
         value={BigInt(value)}
@@ -458,6 +592,7 @@ export default function MiningCalculator({
         pillIconAlt="points"
         pillIconSrc={IMAGEKIT_ICONS.PILL_POINTS}
         pillText="Points"
+        buymoreHighlight={buymoreHighlight}
       />
     </div>
   );
