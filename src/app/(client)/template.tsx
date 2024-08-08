@@ -10,12 +10,9 @@ const LoadingPage = dynamic(() => import("@/app/(client)/LoadingPage"), {
   ssr: false,
 });
 
-const Header = dynamic(
-  () => import("@/components/header/Header"),
-  {
-    ssr: false,
-  },
-);
+const Header = dynamic(() => import("@/components/header/Header"), {
+  ssr: false,
+});
 const Footer = dynamic(() => import("@/components/Footer"), {
   ssr: false,
 });
@@ -29,7 +26,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
           <div className="z-[100]">
             {!strictNoLoading && <LoadingPage contentLoaded={!loading} />}
           </div>
-          <div className="fixed top-0 w-full z-50 items-center pt-[16px] md:pt-12 px-4">
+          <div className="fixed top-0 w-full z-50 items-center pt-[16px] md:pt-[32px] px-4">
             <Header />
           </div>
           <AnimatePresence>
@@ -38,7 +35,6 @@ export default function Template({ children }: { children: React.ReactNode }) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 2 }}
-              className="z-100"
             >
               {children}
             </motion.div>

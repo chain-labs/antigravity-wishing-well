@@ -10,14 +10,20 @@ export const CONTRACTS: Record<
     darkX: Address;
     darkClaims?: Address;
     dark?: Address;
+    launchControlCenter?: Address;
+    fuelCell?: Address;
+    journeyPhaseManager?: Address;
   }
 > = {
   [sepolia.id]: {
     miningRig: "0x020d3Ca9605bb17CC17Ea0DB2bFfed3fA0869fCF",
     darkX: "0xb1BF01E195D511509B12D980769351eF5255eE0f",
     darkClaims: "0x6b3099EfFF4dAE69e48240d88C141a7cfa793ae6",
-    dark: "0x4dd57D15c12fE104D3245b20E7E69EE8620662C9",
     wishWell: "0x43F4cdC343f39EDD323C66492E9fdf3D72Df0eC0",
+    dark: "0xE441c53319332bac6e1ea79491B65aF42C2CBa11",
+    fuelCell: "0x2112BF237bC033e2C0a9318c00A2c33639051F24",
+    journeyPhaseManager: "0x390E7AF57779A6a672054533beEd7b0dF7eD0bD9",
+    launchControlCenter: "0x7D1a660C0F6385D12A74356fc361613344A1B135",
   },
   [baseSepolia.id]: {
     miningRig: "0x8Dea737AE483153c69934ff8a5c7E3D448c2DB4C",

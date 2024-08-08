@@ -63,6 +63,7 @@ export const IMAGEKIT_ICONS = {
   USDC_COLOR: `${IMAGEKIT_ICONS_URL}/usdc-color.svg`,
   WETH_COLOR: `${IMAGEKIT_ICONS_URL}/weth-color.svg`,
   MEME_COLOR: `${IMAGEKIT_ICONS_URL}/meme-color.png`,
+  FUEL_CELL: `${IMAGEKIT_ICONS_URL}/fuel-cell.png`,
 };
 
 export const IMAGEKIT_IMAGES = {
@@ -91,6 +92,9 @@ export const IMAGEKIT_IMAGES = {
   COLLECTIVE_RANKUP_AND_REWARDS_INFO_BG: `${IMAGEKIT}/collective-rankup-and-rewards-info-bg.png?updatedAt=1719221781752`,
 	MINING_TOKENS_CLAIMED: `${IMAGEKIT}/mining-tokens-claimed.png`,
   NEBULA_BG: `${IMAGEKIT}/nebula-bg.jpg`,
+  MINING_PAGE_ERA_3: `${IMAGEKIT}/mining-page-era-3.png?updatedAt=1722848751526`,
+  FUEL_CELL_NFT_GREEN: `${IMAGEKIT}/fuel-cell-nft-green.png`,
+  FUEL_CELL_NFT_RED: `${IMAGEKIT}/fuel-cell-nft-red.png`,
 };
 
 export const IMAGEKIT_COLLECTIVE = {

@@ -1,9 +1,13 @@
-import toast from "react-hot-toast";
+import toast, { ToastOptions, ToastPosition } from "react-hot-toast";
 import Image from "next/image";
 import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from "@/assets/imageKit";
 var uniqid = require("uniqid");
 
-const GLOBALS = {
+let GLOBALS: {
+  duration: number;
+  position: string;
+  style: any;
+} = {
   duration: 3000,
   position: "bottom-right",
   style: {
@@ -27,7 +31,18 @@ const GLOBALS = {
   },
 };
 
-export function successToast(message: string, options?: any) {
+function marginLeft(referencePositionX: number): `${number}px` {
+  if (window) {
+    if (window.innerWidth > 768) {
+      return `${referencePositionX}px`;
+    } else {
+      return `0px`;
+    }
+  }
+  return `0px`;
+}
+
+export function successToast(message: string, options?: ToastOptions, referencePositionX?: number) {
   const id = uniqid();
   toast(
     <span className="flex justify-start items-start gap-[8px] translate-y-[-4px] mb-[-4px]">
@@ -43,11 +58,12 @@ export function successToast(message: string, options?: any) {
     {
       id,
       duration: 3000,
-      position: GLOBALS.position,
+      position: GLOBALS.position as ToastPosition,
       style: {
         ...GLOBALS.style,
         background: "#00B031",
         color: "#FEFFFF",
+        marginLeft: referencePositionX ? marginLeft(referencePositionX) : "0px",
       },
       icon: (
         <Image src={IMAGEKIT_ICONS.TICK} alt="Tick" height={24} width={24} />
@@ -57,7 +73,7 @@ export function successToast(message: string, options?: any) {
   );
 }
 
-export function errorToast(message: string, options?: any) {
+export function errorToast(message: string, options?: ToastOptions, referencePositionX?: number) {
   const id = uniqid();
   toast(
     <span className="flex justify-start items-start gap-[8px] translate-y-[-4px] mb-[-4px]">
@@ -73,11 +89,12 @@ export function errorToast(message: string, options?: any) {
     {
       id,
       duration: GLOBALS.duration,
-      position: GLOBALS.position,
+      position: GLOBALS.position as ToastPosition,
       style: {
         ...GLOBALS.style,
         background: "#FF5001",
         color: "#FEFFFF",
+        marginLeft: referencePositionX ? marginLeft(referencePositionX) : "0px",
       },
       icon: (
         <Image src={IMAGEKIT_ICONS.ERROR} alt="Error" height={24} width={24} />
@@ -87,14 +104,15 @@ export function errorToast(message: string, options?: any) {
   );
 }
 
-export function warningToast(message: string, options?: any) {
+export function warningToast(message: string, options?: ToastOptions, referencePositionX?: number) {
   toast(message, {
     duration: GLOBALS.duration,
-    position: GLOBALS.position,
+    position: GLOBALS.position as ToastPosition,
     style: {
       ...GLOBALS.style,
       background: "#F5EB00",
       color: "#030404",
+      marginLeft: referencePositionX ? marginLeft(referencePositionX) : "0px",
     },
     icon: (
       <Image
@@ -108,28 +126,34 @@ export function warningToast(message: string, options?: any) {
   });
 }
 
-export function generalToast(message: string, options?: any) {
+export function generalToast(
+  message: string,
+  options?: ToastOptions,
+  referencePositionX?: number,
+) {
   toast(message, {
     duration: GLOBALS.duration,
-    position: GLOBALS.position,
+    position: GLOBALS.position as ToastPosition,
     style: {
       ...GLOBALS.style,
       background: "#030404A8",
       color: "#FEFFFF",
+      marginLeft: referencePositionX ? marginLeft(referencePositionX) : "0px",
     },
     icon: <Image src={IMAGEKIT_ICONS.INFO} alt="Info" height={24} width={24} />,
     ...options,
   });
 }
 
-export function miningNotif(message: string, options?: any) {
+export function miningNotif(message: string, options?: ToastOptions, referencePositionX?: number) {
   toast(message, {
     duration: 8000,
-    position: GLOBALS.position,
+    position: GLOBALS.position as ToastPosition,
     style: {
       ...GLOBALS.style,
       background: "#030404A8",
       color: "#FF5001",
+      marginLeft: referencePositionX ? marginLeft(referencePositionX) : "0px",
     },
     icon: (
       <Image

@@ -1,9 +1,8 @@
 import { TEST_NETWORK } from "@/constants";
-import { baseSepolia, pulsechain, sepolia } from "viem/chains";
-import { useAccount } from "wagmi";
+import { pulsechain, sepolia } from "viem/chains";
 
 interface IContract {
-  address?: `0x${string}`;
+  address?: `0x${string}` | "";
   abi?: any;
 }
 
@@ -17,16 +16,16 @@ const contracts: Record<
   { address: `0x${string}` | undefined; abi: any }
 > = {
   [sepolia.id]: {
-    address: CONTRACTS[sepolia.id].dark,
+    address: CONTRACTS[sepolia.id].launchControlCenter,
     abi,
   },
   [pulsechain.id]: {
-    address: CONTRACTS[pulsechain.id].dark,
+    address: CONTRACTS[pulsechain.id].launchControlCenter,
     abi,
   },
 };
 
-const useDarkContract = (): IContract => {
+const useLCC_Contract = (): IContract => {
   const [contract, setContract] = useState<IContract>({
     abi: {},
     address: zeroAddress,
@@ -42,4 +41,4 @@ const useDarkContract = (): IContract => {
   return contract;
 };
 
-export default useDarkContract;
+export default useLCC_Contract;

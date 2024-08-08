@@ -7,7 +7,7 @@ import { MotionValue, motion, useTransform } from "framer-motion";
 import DynamicNumberCounter from "../../DynamicNumberCounter";
 import AutomaticIncreamentalNumberCounter from "../../AutomaticIncreamentalNumberCounter";
 import useTimer from "@/hooks/frontend/useTimer";
-import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
+import { IMAGEKIT_IMAGES, IMAGEKIT_LOGOS } from "@/assets/imageKit";
 import { useRestPost } from "@/hooks/useRestClient";
 import { getEra } from "@/utils";
 
@@ -251,50 +251,50 @@ function Era() {
         <H1
           era="wishwell"
           stage={activePhase}
-          parentClassName="rotate-[-96deg]"
-          isEraLetter={"W"}
+          parentClassName="rotate-[-100deg]"
+          isEraLetter={"J"}
         />
         <H1
           era="wishwell"
           stage={activePhase}
-          parentClassName="rotate-[-90deg]"
-          isEraLetter={"i"}
+          parentClassName="rotate-[-93.5deg]"
+          isEraLetter={"o"}
         />
         <H1
           era="wishwell"
           stage={activePhase}
-          parentClassName="rotate-[-85deg]"
-          isEraLetter={"s"}
+          parentClassName="rotate-[-86.5deg]"
+          isEraLetter={"u"}
         />
         <H1
           era="wishwell"
           stage={activePhase}
-          parentClassName="rotate-[-78deg]"
-          isEraLetter={"h"}
+          parentClassName="rotate-[-80deg]"
+          isEraLetter={"r"}
         />
         <H1
           era="wishwell"
           stage={activePhase}
-          parentClassName="rotate-[-70deg]"
-          isEraLetter={"w"}
+          parentClassName="rotate-[-73.5deg]"
+          isEraLetter={"n"}
         />
         <H1
           era="wishwell"
           stage={activePhase}
-          parentClassName="rotate-[-62deg]"
+          parentClassName="rotate-[-67deg]"
           isEraLetter={"e"}
         />
         <H1
           era="wishwell"
           stage={activePhase}
-          parentClassName="rotate-[-56deg]"
-          isEraLetter={"l"}
+          parentClassName="rotate-[-60.5deg]"
+          isEraLetter={"y"}
         />
         <H1
           era="wishwell"
           stage={activePhase}
-          parentClassName="rotate-[-50deg]"
-          isEraLetter={"l"}
+          parentClassName="rotate-[-51deg]"
+          isEraLetter={"1"}
         />
       </div>
       <Border eraBorder className="rotate-[-37.5deg]" />
@@ -302,38 +302,50 @@ function Era() {
         <H1
           era="mining"
           stage={activePhase}
-          parentClassName="rotate-[-12deg]"
-          isEraLetter={"M"}
+          parentClassName="rotate-[-22deg]"
+          isEraLetter={"J"}
         />
         <H1
           era="mining"
           stage={activePhase}
-          parentClassName="rotate-[-6deg]"
-          isEraLetter={"i"}
+          parentClassName="rotate-[-16deg]"
+          isEraLetter={"o"}
         />
         <H1
           era="mining"
           stage={activePhase}
-          parentClassName="rotate-[-1deg]"
+          parentClassName="rotate-[-9.5deg]"
+          isEraLetter={"u"}
+        />
+        <H1
+          era="mining"
+          stage={activePhase}
+          parentClassName="rotate-[-3deg]"
+          isEraLetter={"r"}
+        />
+        <H1
+          era="mining"
+          stage={activePhase}
+          parentClassName="rotate-[3.5deg]"
           isEraLetter={"n"}
         />
         <H1
           era="mining"
           stage={activePhase}
-          parentClassName="rotate-[4deg]"
-          isEraLetter={"i"}
+          parentClassName="rotate-[9.5deg]"
+          isEraLetter={"e"}
         />
         <H1
           era="mining"
           stage={activePhase}
-          parentClassName="rotate-[9deg]"
-          isEraLetter={"n"}
+          parentClassName="rotate-[15deg]"
+          isEraLetter={"y"}
         />
         <H1
           era="mining"
           stage={activePhase}
-          parentClassName="rotate-[16deg]"
-          isEraLetter={"g"}
+          parentClassName="rotate-[24deg]"
+          isEraLetter={"2"}
         />
       </div>
       <Border eraBorder className="rotate-[37.5deg]" />
@@ -341,44 +353,50 @@ function Era() {
         <H1
           era="minting"
           stage={activePhase}
-          parentClassName="rotate-[61deg]"
-          isEraLetter={"M"}
+          parentClassName="rotate-[51.5deg]"
+          isEraLetter={"J"}
         />
         <H1
           era="minting"
           stage={activePhase}
-          parentClassName="rotate-[67deg]"
-          isEraLetter={"i"}
+          parentClassName="rotate-[58deg]"
+          isEraLetter={"o"}
         />
         <H1
           era="minting"
           stage={activePhase}
-          parentClassName="rotate-[73deg]"
-          isEraLetter={"n"}
+          parentClassName="rotate-[65deg]"
+          isEraLetter={"u"}
+        />
+        <H1
+          era="minting"
+          stage={activePhase}
+          parentClassName="rotate-[72deg]"
+          isEraLetter={"r"}
         />
         <H1
           era="minting"
           stage={activePhase}
           parentClassName="rotate-[79deg]"
-          isEraLetter={"t"}
-        />
-        <H1
-          era="minting"
-          stage={activePhase}
-          parentClassName="rotate-[84deg]"
-          isEraLetter={"i"}
-        />
-        <H1
-          era="minting"
-          stage={activePhase}
-          parentClassName="rotate-[89deg]"
           isEraLetter={"n"}
         />
         <H1
           era="minting"
           stage={activePhase}
-          parentClassName="rotate-[96deg]"
-          isEraLetter={"g"}
+          parentClassName="rotate-[85deg]"
+          isEraLetter={"e"}
+        />
+        <H1
+          era="minting"
+          stage={activePhase}
+          parentClassName="rotate-[91deg]"
+          isEraLetter={"y"}
+        />
+        <H1
+          era="minting"
+          stage={activePhase}
+          parentClassName="rotate-[100deg]"
+          isEraLetter={"3"}
         />
       </div>
     </>
@@ -539,36 +557,6 @@ function Timer() {
   );
 }
 
-function Bonus({ era }: { era: string }) {
-  const { data = 0, mutate } = useRestPost(
-    ["predict-multiplier"],
-    "/api/predict-multiplier",
-  );
-  const [bonus, setBonus] = useState(0);
-  useEffect(() => {
-    mutate({
-      walletAddress: "",
-      era: getEra(era),
-    });
-  }, [era]);
-
-  useEffect(() => {
-    if (data) {
-      // @ts-ignore
-      setBonus(data?.multiplier as number);
-    }
-  }, [data]);
-
-  return (
-    <>
-      <h1 className="font-sans font-black text-4xl">
-        <AutomaticIncreamentalNumberCounter from={0} to={bonus} />x
-      </h1>
-      <div className="uppercase text-sm font-sans font-bold">Bonus</div>
-    </>
-  );
-}
-
 export default function Spinner({
   scrollYProgress,
 }: {
@@ -605,10 +593,15 @@ export default function Spinner({
           <div className="relative w-[180px] h-[180px] bg-[#1C0068] rounded-full border-[10px] border-agblack flex justify-center items-center z-10">
             <StageNumber />
 
-            <div className="relative w-[100px] h-[100px] bg-agyellow rounded-full flex justify-center items-center">
+            <div className="relative w-[100px] h-[100px] rounded-full flex justify-center items-center">
               <div className="flex flex-col justify-center items-center">
                 <Pointer />
-                <Bonus era={timer.era} />
+                <Image
+                  src={IMAGEKIT_LOGOS.LOGO}
+                  width={100}
+                  height={100}
+                  alt="AG logo"
+                />
               </div>
             </div>
           </div>
