@@ -144,7 +144,7 @@ export default function MintingHero() {
       setTimeout(() => {
         setDarkInput(BigInt(1));
         setCurrentState(MINTING_STATES.INITIAL);
-      }, 4000);
+      }, 3500);
     }
   }, [currentState]);
 
