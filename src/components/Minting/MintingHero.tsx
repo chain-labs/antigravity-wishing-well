@@ -19,9 +19,10 @@ import { pulsechain, sepolia } from "viem/chains";
 import Image from "next/image";
 import P from "../HTML/P";
 import H1 from "../HTML/H1";
-import { motion } from "framer-motion";
+import { delay, motion } from "framer-motion";
 import { getButtonCofigs, setCurrentMintState } from "./utils";
 import { useJourneyData } from "@/app/(client)/store";
+import ThreeDHovercardEffect from "../ThreeDHovercardEffect";
 
 export const MINTING_STATES = {
   INITIAL: "INITIAL",
@@ -145,7 +146,7 @@ export default function MintingHero() {
             : "saturate(1) brightness(1)",
         }}
         transition={{
-          duration: 3,
+          duration: 6,
         }}
         className="absolute top-0 left-0 h-full w-full bg-auto bg-[40%_50%] md:bg-cover"
       ></motion.div>
@@ -168,65 +169,93 @@ export default function MintingHero() {
               </div>
               <motion.div
                 animate={{
-                  height: nftNotifReveal ? "fit-content" : 0,
+                  clipPath: nftNotifReveal
+                    ? "polygon(0 0, 100% 0, 100% 100%, 0% 100%)"
+                    : "polygon(0 50%, 100% 50%, 100% 50%, 0 50%)",
                 }}
                 transition={{
                   duration: 0.5,
                 }}
-                className="flex flex-col justify-center items-center gap-0 z-0 overflow-hidden"
+                className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 lg:relative lg:translate-x-0 lg:translate-y-0 lg:left-0 lg:top-0 flex flex-col justify-center items-center gap-0 overflow-hidden z-20"
               >
-                <div className="relative w-full rounded-[6px] bg-gradient-to-bl from-[#5537A5] to-[#BF6841] p-[1px] z-[1] overflow-hidden">
-                  <div className="rounded-[inherit] bg-gradient-to-b from-agblack to-[#131A1A] overflow-hidden">
-                    <Image
-                      src={IMAGEKIT_IMAGES.FUEL_CELL_NFT_GREEN}
-                      height={198}
-                      width={198}
-                      alt="NFT Icon"
-                      className="object-cover w-full h-full"
-                    />
-                  </div>
-                </div>
-                <div className="relative w-fit rounded-[6px] bg-gradient-to-bl from-[#5537A5] to-[#BF6841] p-[1px] translate-y-[-8px] overflow-hidden">
-                  <div className=" grid grid-cols-[1fr_auto_1fr] grid-rows-[1fr_auto_auto] place-items-start gap-y-[16px] gap-x-[8px] p-[16px] pt-[24px] sm:pl-[24px] sm:pt-[16px] rounded-[inherit] bg-gradient-to-bl from-[#3C00DC] to-[#15004C]">
-                    <div className="flex flex-col gap-[8px]">
-                      <p className="font-general-sans text-agwhite leadign-[14px] text-[14px]">
-                        Minted
-                      </p>
-                      <div className="p-[8px] rounded-[6px] bg-agyellow text-agblack font-sans font-extrabold text-[24px] leading-[24px]">
-                        {nftNotifData.fuelCells.toLocaleString()}
+                <ThreeDHovercardEffect ROTATION_RANGE={10}>
+                  <motion.div
+                    initial={{
+                      top: "0",
+                      left: "0",
+                      opacity: 0,
+                    }}
+                    animate={{
+                      top: nftNotifReveal ? "100%" : "0%",
+                      left: nftNotifReveal ? "100%" : "0%",
+                      opacity: nftNotifReveal ? [0, 1, 1, 0] : 0,
+                    }}
+                    transition={{
+                      duration: 1,
+                      repeat: 1,
+          
+                    }}
+                    className="absolute top-0 left-0 bg-agwhite/20 h-[20px] w-[100vh] origin-center z-10 -rotate-45 -translate-x-1/2 p-[4px]"
+                  >
+                    <div className="w-full h-full bg-agwhite/40 p-[4px]">
+                      <div className="w-full h-full bg-agwhite/60 p-[1px]">
+                        <div className="w-full h-full bg-agwhite"></div>
                       </div>
-                      <p className="font-general-sans text-agwhite leadign-[14px] text-[14px]">
-                        Fuel Cells!
+                    </div>
+                  </motion.div>
+                  <div className="relative w-full rounded-[6px] bg-gradient-to-bl from-[#5537A5] to-[#BF6841] p-[1px] z-[1] overflow-hidden">
+                    <div className="rounded-[inherit] bg-gradient-to-b from-agblack to-[#131A1A] overflow-hidden">
+                      <Image
+                        src={IMAGEKIT_IMAGES.FUEL_CELL_NFT_GREEN}
+                        height={198}
+                        width={198}
+                        alt="NFT Icon"
+                        className="object-cover w-full h-full"
+                      />
+                    </div>
+                  </div>
+                  <div className="relative w-fit rounded-[6px] bg-gradient-to-bl from-[#5537A5] to-[#BF6841] p-[1px] translate-y-[-8px] overflow-hidden">
+                    <div className=" grid grid-cols-[1fr_auto_1fr] grid-rows-[1fr_auto_auto] place-items-start gap-y-[16px] gap-x-[8px] p-[16px] pt-[24px] sm:pl-[24px] sm:pt-[16px] rounded-[inherit] bg-gradient-to-bl from-[#3C00DC] to-[#15004C]">
+                      <div className="flex flex-col gap-[8px]">
+                        <p className="font-general-sans text-agwhite leadign-[14px] text-[14px]">
+                          Minted
+                        </p>
+                        <div className="p-[8px] rounded-[6px] bg-agyellow text-agblack font-sans font-extrabold text-[24px] leading-[24px]">
+                          {nftNotifData.fuelCells.toLocaleString()}
+                        </div>
+                        <p className="font-general-sans text-agwhite leadign-[14px] text-[14px]">
+                          Fuel Cells!
+                        </p>
+                      </div>
+                      <div className="h-full bg-gradient-to-bl from-[#3C00DC] via-[#FF5001] to-[#FF5001] w-[1px] rounded-full"></div>
+                      <div className="flex flex-col gap-[8px]">
+                        <p className="font-general-sans text-agwhite leadign-[14px] text-[14px]">
+                          Earned
+                        </p>
+                        <div className="p-[8px] rounded-[6px] bg-agyellow text-agblack font-sans font-extrabold text-[24px] leading-[24px]">
+                          {nftNotifData.points.toLocaleString()}
+                        </div>
+                        <p className="font-general-sans text-agwhite leadign-[14px] text-[14px]">
+                          Points!
+                        </p>
+                      </div>
+                      <div
+                        style={{
+                          gridColumn: "1 / span 3",
+                        }}
+                        className="w-full bg-gradient-to-bl from-[#3C00DC] via-[#FF5001] to-[#FF5001] h-[1px] rounded-full"
+                      ></div>
+                      <p
+                        style={{
+                          gridColumn: "1 / span 3",
+                        }}
+                        className="place-self-start font-general-sans text-agwhite leadign-[14px] text-[14px] my-auto"
+                      >
+                        {`Journey ${journey}`}
                       </p>
                     </div>
-                    <div className="h-full bg-gradient-to-bl from-[#3C00DC] via-[#FF5001] to-[#FF5001] w-[1px] rounded-full"></div>
-                    <div className="flex flex-col gap-[8px]">
-                      <p className="font-general-sans text-agwhite leadign-[14px] text-[14px]">
-                        Earned
-                      </p>
-                      <div className="p-[8px] rounded-[6px] bg-agyellow text-agblack font-sans font-extrabold text-[24px] leading-[24px]">
-                        {nftNotifData.points.toLocaleString()}
-                      </div>
-                      <p className="font-general-sans text-agwhite leadign-[14px] text-[14px]">
-                        Points!
-                      </p>
-                    </div>
-                    <div
-                      style={{
-                        gridColumn: "1 / span 3",
-                      }}
-                      className="w-full bg-gradient-to-bl from-[#3C00DC] via-[#FF5001] to-[#FF5001] h-[1px] rounded-full"
-                    ></div>
-                    <p
-                      style={{
-                        gridColumn: "1 / span 3",
-                      }}
-                      className="place-self-start font-general-sans text-agwhite leadign-[14px] text-[14px] my-auto"
-                    >
-                      {`Journey ${journey}`}
-                    </p>
                   </div>
-                </div>
+                </ThreeDHovercardEffect>
               </motion.div>
             </div>
             <div className="flex flex-col justify-center items-center gap-[8px]">
@@ -298,7 +327,7 @@ export default function MintingHero() {
                     : "saturate(1) brightness(1)",
                 }}
                 transition={{
-                  duration: 1,
+                  duration: 6,
                 }}
                 className="p-[8px] rounded-[6px] bg-[#030404A8] w-full max-w-[350px] md:max-w-[400px] mt-[16px]"
               >
@@ -311,7 +340,7 @@ export default function MintingHero() {
                     : "saturate(1) brightness(1)",
                 }}
                 transition={{
-                  duration: 1,
+                  duration: 6,
                 }}
                 className="p-[8px] rounded-[6px] bg-[#030404A8] w-full max-w-[350px] md:max-w-[400px]"
               >

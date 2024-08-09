@@ -91,7 +91,7 @@
         background: linear-gradient(to top right, #3c00dc, #ff5001);
         margin: -6px;
       }
-      
+
       .container::after {
         z-index: -2;
         background-color: black;
@@ -149,11 +149,15 @@
         color: #f5eb00;
       }
 
-      .points.small{
+      .points.small {
         font-size: 16px;
         line-height: 16px;
         opacity: 0.66;
         margin-top: 8px;
+      }
+
+      .points > small {
+        opacity: 0.66;
       }
 
       .conversion {
@@ -273,15 +277,30 @@
     </div>
     <script defer>
       function USAbasedNumbering(number) {
-        return number.toLocaleString('en-US');
+        return number.toLocaleString("en-US");
       }
 
-      const totalAmount = USAbasedNumbering(totalAmount);
-      const totalPoints = USAbasedNumbering(totalPoints);
+      function DecimalNumberFormating(number) {
+        const [integer, decimal] = number.split(".");
+        return `${USAbasedNumbering(parseInt(integer))}.<small>${decimal}</small>`;
+      }
 
-      document.querySelector('.total').innerText = totalPoints;
-      document.querySelector('.points').innerText = totalAmount;
+      const allThePoints = document.querySelectorAll(".points, .conversion");
+      allThePoints.forEach((point) => {
+        try {
+          const text = point.innerText;
+          const number = text.match(/\d+.\d+/g);
+          if (number.length) {
+            number.forEach((num) => {
+              const formattedNumber = num.includes(".")
+                ? DecimalNumberFormating(num)
+                : USAbasedNumbering(parseInt(num));
 
+              point.innerHTML = text.replace(num, formattedNumber);
+            });
+          }
+        } catch (e) {}
+      });
     </script>
   </body>
 </html>
