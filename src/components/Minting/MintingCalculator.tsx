@@ -20,7 +20,7 @@ import { useAccount } from "wagmi";
 import pointsConverterToUSCommaseparated from "../pointsConverterToUSCommaseparated";
 import USFormatToNumber from "../USFormatToNumber";
 import { errorToast } from "@/hooks/frontend/toast";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { TEST_NETWORK } from "@/constants";
 import { DotLoader } from "../header/Header";
 
@@ -137,7 +137,7 @@ export function InputCard({
             : "saturate(1) brightness(1)",
         }}
         transition={{
-          duration: 3,
+          duration: 6,
         }}
         className="absolute top-0 left-0 h-full w-full bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[inherit] border-[1px] border-agyellow z-[-1]"
       ></motion.div>
@@ -149,7 +149,7 @@ export function InputCard({
               : "saturate(1) brightness(1)",
           }}
           transition={{
-            duration: 3,
+            duration: 6,
           }}
           className="flex flex-col justify-center items-start gap-[8px] w-full"
         >
@@ -215,7 +215,7 @@ export function InputCard({
                 : "saturate(1) brightness(1)",
             }}
             transition={{
-              duration: 3,
+              duration: 6,
             }}
             className={twMerge(
               "flex justify-center items-center gap-[8px] h-full w-fit ml-auto",
@@ -236,7 +236,7 @@ export function InputCard({
                     : "saturate(1) brightness(1)",
                 }}
                 transition={{
-                  duration: 3,
+                  duration: 6,
                 }}
                 className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
                 onClick={() => {
@@ -264,32 +264,53 @@ export function InputCard({
                   <div className="uppercase text-nowrap rounded-full text-[12px] leading-[12px] px-[8px] py-[4px] from-[#B4EBF8] to-[#789DFA] font-general-sans font-semibold bg-gradient-to-b text-transparent bg-clip-text">
                     Buy More
                   </div>
-                  {buymoreHighlight && (
-                    <motion.div className="absolute top-0 left-0 h-full w-full bg-gradient-to-tr from-[#B4EBF8] to-[#789DFA] blur-lg z-[-1]"></motion.div>
-                  )}
+                  <AnimatePresence>
+                    {buymoreHighlight && (
+                      <motion.div
+                        initial={{
+                          opacity: 0,
+                        }}
+                        animate={{
+                          opacity: 1,
+                        }}
+                        exit={{
+                          opacity: 0,
+                        }}
+                        transition={{
+                          duration: 1,
+                        }}
+                        className="absolute top-0 left-0 h-full w-full bg-gradient-to-tr from-[#B4EBF8] to-[#789DFA] blur-lg z-[-1] scale-[2]"
+                      ></motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
-                {buymoreHighlight && (
-                  <motion.div
-                    initial={{
-                      height: 0,
-                      opacity: 0,
-                    }}
-                    animate={{
-                      height: "fit-content",
-                      opacity: 1,
-                    }}
-                    exit={{
-                      height: 0,
-                      opacity: 0,
-                    }}
-                    className="absolute top-0 left-[calc(100%+16px)] flex text-agwhite w-fit min-w-[300px] rounded-[4px] bg-gradient-to-tr from-brred to-blue p-[1px]"
-                  >
-                    <div className="w-fit h-fit bg-gradient-to-b from-[#030404] to-[#131A1A] flex items-center justify-between rounded-[inherit] gap-6 px-[16px] py-[8px] text-[16px]">
-                      Add more darkness to your wallet to pass.
-                    </div>
-                    <div className="absolute top-0 left-0 h-full w-full bg-gradient-to-tr from-brred to-blue blur-lg z-[-1]"></div>
-                  </motion.div>
-                )}
+                <AnimatePresence>
+                  {buymoreHighlight && (
+                    <motion.div className="absolute top-[calc(100%+8px)] right-0 xl:top-0 xl:left-[calc(100%+16px)] flex text-agwhite w-fit min-w-[300px] rounded-[4px] bg-gradient-to-tr from-brred to-blue p-[1px] z-10">
+                      <motion.div
+                        initial={{
+                          height: 0,
+                          opacity: 0,
+                        }}
+                        animate={{
+                          height: "fit-content",
+                          opacity: 1,
+                        }}
+                        exit={{
+                          height: 0,
+                          opacity: 0,
+                        }}
+                        transition={{
+                          duration: 1,
+                        }}
+                        className="w-fit h-fit bg-gradient-to-b from-[#030404] to-[#131A1A] flex items-center justify-between rounded-[inherit] gap-6 px-[16px] py-[8px] text-[16px] overflow-hidden"
+                      >
+                        Add more darkness to your wallet to pass.
+                      </motion.div>
+                      <div className="absolute top-0 left-0 h-full w-full bg-gradient-to-tr from-brred to-blue blur-lg z-[-1]"></div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </BuyMoreButtonWrapper>
             </div>
           )}
@@ -298,10 +319,12 @@ export function InputCard({
       {account.isConnected && (
         <motion.div
           animate={{
-            filter: buymoreHighlight ? "saturate(0)" : "saturate(1)",
+            filter: buymoreHighlight
+              ? "saturate(0) brightness(0.5)"
+              : "saturate(1) brightness(1)",
           }}
           transition={{
-            duration: 3,
+            duration: 6,
           }}
           className={`flex gap-[4px] justify-end items-center text-[16px] leading-[16px] text-agwhite opacity-75 font-general-sans font-semibold text-nowrap`}
         >
@@ -403,7 +426,7 @@ export function Card({
           : "saturate(1) brightness(1)",
       }}
       transition={{
-        duration: 3,
+        duration: 6,
       }}
       className="flex justify-between gap-[16px] bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-full min-w-full border-[1px] border-agyellow"
     >
@@ -473,27 +496,11 @@ function Multiplyer({
       <motion.div
         animate={{
           filter: buymoreHighlight
-            ? "saturate(0) brightness(0.3)"
+            ? "saturate(0) brightness(0.4)"
             : "saturate(1) brightness(1)",
         }}
         transition={{
-          duration: 3,
-        }}
-        className="relative flex flex-col justify-center items-center p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit z-0 h-full"
-      >
-        <div className="absolute inset-0 opacity-[0.66] bg-agblack -z-[1]"></div>
-        <div className="text-[16px] leading-[19.2px] text-agwhite font-extrabold font-sans">
-          Minting
-        </div>
-      </motion.div>
-      <motion.div
-        animate={{
-          filter: buymoreHighlight
-            ? "saturate(0) brightness(0.3)"
-            : "saturate(1) brightness(1)",
-        }}
-        transition={{
-          duration: 3,
+          duration: 6,
         }}
         className="relative flex flex-col justify-center items-center p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit z-0"
       >
@@ -508,11 +515,11 @@ function Multiplyer({
       <motion.div
         animate={{
           filter: buymoreHighlight
-            ? "saturate(0) brightness(0.3)"
+            ? "saturate(0) brightness(0.4)"
             : "saturate(1) brightness(1)",
         }}
         transition={{
-          duration: 3,
+          duration: 6,
         }}
         className="relative flex flex-col justify-center items-center p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit z-0"
       >
@@ -521,7 +528,7 @@ function Multiplyer({
           Multiplier
         </div>
         <div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
-          {multiplyer}X
+          {multiplyer}x
         </div>
       </motion.div>
       <div className="flex flex-col justify-center items-center p-[8px] overflow-hidden text-agwhite text-[16px] font-semibold font-general-sans w-fit">
@@ -530,11 +537,11 @@ function Multiplyer({
       <motion.div
         animate={{
           filter: buymoreHighlight
-            ? "saturate(0) brightness(0.3)"
+            ? "saturate(0) brightness(0.4)"
             : "saturate(1) brightness(1)",
         }}
         transition={{
-          duration: 3,
+          duration: 6,
         }}
         className="relative flex flex-col justify-center items-center p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit z-0"
       >
@@ -543,7 +550,7 @@ function Multiplyer({
           Bonus
         </div>
         <div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
-          {bonus}X
+          {bonus}x
         </div>
       </motion.div>
     </div>
@@ -570,7 +577,7 @@ export default function MiningCalculator({
   buyMoreFn: (address: string) => void;
 }) {
   return (
-    <div className="relative flex flex-col gap-[8px] h-fit min-w-[400px] max-w-full scale-[0.9] md:scale-100 z-10">
+    <div className="relative flex flex-col gap-[8px] h-fit min-w-[400px] max-w-full scale-[0.8] xs:scale-[0.9] md:scale-100 z-10">
       <InputCard
         inputValue={value}
         setCurrentInputValue={setValue}
@@ -584,7 +591,15 @@ export default function MiningCalculator({
         multiplyer={multiplyer}
         buymoreHighlight={buymoreHighlight}
       />
-      <div
+      <motion.div
+        animate={{
+          filter: buymoreHighlight
+            ? "saturate(0) brightness(0.5)"
+            : "saturate(1) brightness(1)",
+        }}
+        transition={{
+          duration: 6,
+        }}
         style={{
           gap: "11px",
         }}
@@ -609,7 +624,7 @@ export default function MiningCalculator({
             borderRadius: "100px",
           }}
         ></div>
-      </div>
+      </motion.div>
       <Card
         value={BigInt(value)}
         multiplyer={pointsConverterToUSCommaseparated(multiplyer)}

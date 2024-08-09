@@ -59,7 +59,7 @@ export default function Hero() {
             "Here is a one or two line short description about this. Here is a one or two line short description about this."
           }
           backgroundImage={IMAGEKIT_IMAGES.MINING_PAGE_ERA_3}
-          className="lg:object-none object-[20%_55%]"
+          className="lg:object-cover object-[20%_55%]"
           animateFrom="bottom"
           cardExternalLink="/minting"
           defaultImageOpacity={0.35}

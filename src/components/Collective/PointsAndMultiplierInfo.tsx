@@ -128,7 +128,7 @@ export default function PointsAndMultiplierInfo() {
               <P className="text-[14px] leading-[20.3px]">Mining</P>
             </div>
           </Link>
-          <div>
+          <Link href="/minting">
             <div
               className={`relative flex justify-center items-center gap-[8px] rounded-[6px] bg-gradient-to-b from-[#0A1133] to-[#142266] px-[16px] py-[8px] border-1 border-transparent bg-clip-padding z-0
 							before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-b before:from-[#B4EBF8] before:to-[#789DFA] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
@@ -149,7 +149,7 @@ export default function PointsAndMultiplierInfo() {
               </motion.div>
               <P className="text-[14px] leading-[20.3px]">Minting</P>
             </div>
-          </div>
+          </Link>
         </div>
         <P className="relative max-w-[600px]">
           There are bonuses for each Era and Multipliers on top of the bonuses
