@@ -214,7 +214,7 @@ export default function MintingHero() {
                       />
                     </div>
                   </div>
-                  <div className="relative w-fit rounded-[6px] bg-gradient-to-bl from-[#5537A5] to-[#BF6841] p-[1px] translate-y-[-8px] overflow-hidden">
+                  <div className="relative w-fit rounded-[6px] bg-gradient-to-bl from-[#5537A5] to-[#BF6841] p-[1px] translate-y-[-8px] overflow-hidden mx-auto">
                     <div className=" grid grid-cols-[1fr_auto_1fr] grid-rows-[1fr_auto_auto] place-items-start gap-y-[16px] gap-x-[8px] p-[16px] pt-[24px] sm:pl-[24px] sm:pt-[16px] rounded-[inherit] bg-gradient-to-bl from-[#3C00DC] to-[#15004C]">
                       <div className="flex flex-col gap-[8px]">
                         <p className="font-general-sans text-agwhite leadign-[14px] text-[14px]">
