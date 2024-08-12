@@ -23,6 +23,7 @@ import { errorToast } from "@/hooks/frontend/toast";
 import { AnimatePresence, motion } from "framer-motion";
 import { TEST_NETWORK } from "@/constants";
 import { DotLoader } from "../header/Header";
+import { getCurrentBuyAnimation } from "./MintingHero";
 
 const MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION = 0.000001;
 
@@ -132,25 +133,21 @@ export function InputCard({
     <div className="relative flex flex-col gap-[8px] rounded-[6px] px-[12px] py-[16px] w-fit min-w-full z-10">
       <motion.div
         animate={{
-          filter: buymoreHighlight
-            ? "saturate(0) brightness(.5)"
-            : "saturate(1) brightness(1)",
+          filter: getCurrentBuyAnimation(!!buymoreHighlight).darkness.filter,
         }}
-        transition={{
-          duration: 6,
-        }}
+        transition={
+          getCurrentBuyAnimation(!!buymoreHighlight).darkness.transition
+        }
         className="absolute top-0 left-0 h-full w-full bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[inherit] border-[1px] border-agyellow z-[-1]"
       ></motion.div>
       <div className="flex justify-center items-center gap-[8px] w-full">
         <motion.div
           animate={{
-            filter: buymoreHighlight
-              ? "saturate(0) brightness(.5)"
-              : "saturate(1) brightness(1)",
+            filter: getCurrentBuyAnimation(!!buymoreHighlight).light.filter,
           }}
-          transition={{
-            duration: 6,
-          }}
+          transition={
+            getCurrentBuyAnimation(!!buymoreHighlight).light.transition
+          }
           className="flex flex-col justify-center items-start gap-[8px] w-full"
         >
           <form
@@ -210,13 +207,12 @@ export function InputCard({
         <div className="flex flex-col justify-end items-end gap-[8px]">
           <motion.div
             animate={{
-              filter: buymoreHighlight
-                ? "saturate(0) brightness(.5)"
-                : "saturate(1) brightness(1)",
+              filter:
+                getCurrentBuyAnimation(!!buymoreHighlight).darkness.filter,
             }}
-            transition={{
-              duration: 6,
-            }}
+            transition={
+              getCurrentBuyAnimation(!!buymoreHighlight).darkness.transition
+            }
             className={twMerge(
               "flex justify-center items-center gap-[8px] h-full w-fit ml-auto",
             )}
@@ -231,13 +227,12 @@ export function InputCard({
             <div className="flex justify-end items-end gap-[4px]">
               <motion.button
                 animate={{
-                  filter: buymoreHighlight
-                    ? "saturate(0) brightness(.5)"
-                    : "saturate(1) brightness(1)",
+                  filter:
+                    getCurrentBuyAnimation(!!buymoreHighlight).darkness.filter,
                 }}
-                transition={{
-                  duration: 6,
-                }}
+                transition={
+                  getCurrentBuyAnimation(!!buymoreHighlight).darkness.transition
+                }
                 className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
                 onClick={() => {
                   setCurrentInputValue(tokenBalance);
@@ -319,13 +314,11 @@ export function InputCard({
       {account.isConnected && (
         <motion.div
           animate={{
-            filter: buymoreHighlight
-              ? "saturate(0) brightness(0.5)"
-              : "saturate(1) brightness(1)",
+            filter: getCurrentBuyAnimation(!!buymoreHighlight).lighter.filter,
           }}
-          transition={{
-            duration: 6,
-          }}
+          transition={
+            getCurrentBuyAnimation(!!buymoreHighlight).lighter.transition
+          }
           className={`flex gap-[4px] justify-end items-center text-[16px] leading-[16px] text-agwhite opacity-75 font-general-sans font-semibold text-nowrap`}
         >
           <Image
@@ -421,13 +414,11 @@ export function Card({
   return (
     <motion.div
       animate={{
-        filter: buymoreHighlight
-          ? "saturate(0) brightness(.5)"
-          : "saturate(1) brightness(1)",
+        filter: getCurrentBuyAnimation(!!buymoreHighlight).darkness.filter,
       }}
-      transition={{
-        duration: 6,
-      }}
+      transition={
+        getCurrentBuyAnimation(!!buymoreHighlight).darkness.transition
+      }
       className="flex justify-between gap-[16px] bg-gradient-to-b from-[#0A1133] to-[#142266] rounded-[6px] px-[12px] py-[16px] w-full min-w-full border-[1px] border-agyellow"
     >
       <div className="flex flex-col justify-start items-start gap-[8px] w-full">
@@ -495,13 +486,11 @@ function Multiplyer({
     <div className="grid grid-flow-col place-items-center gap-[8px] mx-auto">
       <motion.div
         animate={{
-          filter: buymoreHighlight
-            ? "saturate(0) brightness(0.4)"
-            : "saturate(1) brightness(1)",
+          filter: getCurrentBuyAnimation(!!buymoreHighlight).light.filter,
         }}
-        transition={{
-          duration: 6,
-        }}
+        transition={
+          getCurrentBuyAnimation(!!buymoreHighlight).darkness.transition
+        }
         className="relative flex flex-col justify-center items-center p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit z-0"
       >
         <div className="absolute inset-0 opacity-[0.66] bg-agblack -z-[1]"></div>
@@ -514,13 +503,11 @@ function Multiplyer({
       </motion.div>
       <motion.div
         animate={{
-          filter: buymoreHighlight
-            ? "saturate(0) brightness(0.4)"
-            : "saturate(1) brightness(1)",
+          filter: getCurrentBuyAnimation(!!buymoreHighlight).darkness.filter,
         }}
-        transition={{
-          duration: 6,
-        }}
+        transition={
+          getCurrentBuyAnimation(!!buymoreHighlight).darkness.transition
+        }
         className="relative flex flex-col justify-center items-center p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit z-0"
       >
         <div className="absolute inset-0 opacity-[0.66] bg-agblack -z-[1]"></div>
@@ -531,18 +518,13 @@ function Multiplyer({
           {multiplyer}x
         </div>
       </motion.div>
-      <div className="flex flex-col justify-center items-center p-[8px] overflow-hidden text-agwhite text-[16px] font-semibold font-general-sans w-fit">
-        =
-      </div>
       <motion.div
         animate={{
-          filter: buymoreHighlight
-            ? "saturate(0) brightness(0.4)"
-            : "saturate(1) brightness(1)",
+          filter: getCurrentBuyAnimation(!!buymoreHighlight).darkness.filter,
         }}
-        transition={{
-          duration: 6,
-        }}
+        transition={
+          getCurrentBuyAnimation(!!buymoreHighlight).darkness.transition
+        }
         className="relative flex flex-col justify-center items-center p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit z-0"
       >
         <div className="absolute inset-0 opacity-[0.66] bg-agblack -z-[1]"></div>
@@ -551,6 +533,26 @@ function Multiplyer({
         </div>
         <div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
           {bonus}x
+        </div>
+      </motion.div>
+      <div className="flex flex-col justify-center items-center p-[8px] overflow-hidden text-agwhite text-[16px] font-semibold font-general-sans w-fit">
+        =
+      </div>
+      <motion.div
+        animate={{
+          filter: getCurrentBuyAnimation(!!buymoreHighlight).darkness.filter,
+        }}
+        transition={
+          getCurrentBuyAnimation(!!buymoreHighlight).darkness.transition
+        }
+        className="relative flex flex-col justify-center items-center p-[8px] rounded-[6px] border border-agyellow overflow-hidden w-fit z-0"
+      >
+        <div className="absolute inset-0 opacity-[0.66] bg-agblack -z-[1]"></div>
+        <div className="text-[16px] leading-[19.2px] text-agwhite font-extrabold font-sans">
+          Total
+        </div>
+        <div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
+          {bonus * multiplyer}x
         </div>
       </motion.div>
     </div>
@@ -593,13 +595,11 @@ export default function MiningCalculator({
       />
       <motion.div
         animate={{
-          filter: buymoreHighlight
-            ? "saturate(0) brightness(0.5)"
-            : "saturate(1) brightness(1)",
+          filter: getCurrentBuyAnimation(!!buymoreHighlight).darkness.filter,
         }}
-        transition={{
-          duration: 6,
-        }}
+        transition={
+          getCurrentBuyAnimation(!!buymoreHighlight).darkness.transition
+        }
         style={{
           gap: "11px",
         }}

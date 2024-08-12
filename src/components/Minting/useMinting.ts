@@ -266,16 +266,20 @@ const useMinting = (
     hash: faucetHash,
   });
 
-  const faucetCall = useCallback((address: string) => {
-    faucetOpen({
-      address: DarkFaucetContract.address as `0x${string}`,
-      abi: DarkFaucetContract.abi,
-      args: [address],
-      functionName: "drip",
-    }).catch((err) => {
-      console.log({ err });
-    });
-  }, []);
+  const faucetCall = useCallback(
+    (address: string) => {
+      console.log({ DarkFaucetContract });
+      faucetOpen({
+        address: DarkFaucetContract.address as `0x${string}`,
+        abi: DarkFaucetContract.abi,
+        args: [address],
+        functionName: "drip",
+      }).catch((err) => {
+        console.log({ err });
+      });
+    },
+    [DarkFaucetContract],
+  );
 
   return { darkBalance, allowance, mintLogic, faucetCall };
 };
