@@ -512,10 +512,10 @@ function Multiplyer({
       >
         <div className="absolute inset-0 opacity-[0.66] bg-agblack -z-[1]"></div>
         <div className="text-[16px] leading-[19.2px] text-agwhite font-extrabold font-sans">
-          Multiplier
+          Bonus
         </div>
         <div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
-          {multiplyer}x
+          {bonus}x
         </div>
       </motion.div>
       <motion.div
@@ -529,10 +529,10 @@ function Multiplyer({
       >
         <div className="absolute inset-0 opacity-[0.66] bg-agblack -z-[1]"></div>
         <div className="text-[16px] leading-[19.2px] text-agwhite font-extrabold font-sans">
-          Bonus
+          Multiplier
         </div>
         <div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
-          {bonus}x
+          {multiplyer}x
         </div>
       </motion.div>
       <div className="flex flex-col justify-center items-center p-[8px] overflow-hidden text-agwhite text-[16px] font-semibold font-general-sans w-fit">
@@ -634,7 +634,7 @@ export default function MiningCalculator({
         buymoreHighlight={buymoreHighlight}
       />
       <Card
-        value={BigInt(value)}
+        value={BigInt(Number(value) * multiplyer * bonus)}
         multiplyer={pointsConverterToUSCommaseparated(multiplyer)}
         pillIconAlt="points"
         pillIconSrc={IMAGEKIT_ICONS.PILL_POINTS}
