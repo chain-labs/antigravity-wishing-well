@@ -7,7 +7,7 @@ import { readContract } from "@wagmi/core";
 import useJPMContract from "@/abi/JourneyPhaseManager";
 import { TEST_NETWORK } from "@/constants";
 import { pulsechain, sepolia } from "viem/chains";
-import useUserData from "@/app/(client)/store";
+import { useUserData } from "@/app/(client)/store";
 
 const useHeaderStats = () => {
   const config = useConfig();

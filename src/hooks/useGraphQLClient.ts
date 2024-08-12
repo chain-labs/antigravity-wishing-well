@@ -7,12 +7,13 @@ export const useGQLFetch = <T>(
   chainId: number,
   variables: Record<string, any>,
   options?: {
-    enabled: boolean;
+    enabled?: boolean;
+    url?: string;
   },
 ) => {
   return useQuery<T>({
     queryKey: tags,
-    queryFn: () => gqlFetcher(query, variables, chainId),
+    queryFn: () => gqlFetcher(query, variables, chainId, options?.url),
     enabled: options?.enabled,
   });
 };

@@ -17,7 +17,13 @@ export type StoreUserData = {
   mutation: (state: Partial<StoreUserData>) => void;
 };
 
-const useUserData = create<StoreUserData>((set) => ({
+export type StoreJourneyData = {
+  journey: number;
+  phase: number;
+  mutation: (state: Partial<StoreUserData>) => void;
+};
+
+export const useUserData = create<StoreUserData>((set) => ({
   walletAddress: "",
   rank: "",
   wishwellPulsechainTokenId: "0",
@@ -29,9 +35,14 @@ const useUserData = create<StoreUserData>((set) => ({
   wishwellPoints: 0,
   miningPoints: 0,
   totalPoints: 0,
-  darkBalance: 0,
-  mutation: (state: Partial<StoreUserData>) =>
+  darkBalance: -1,
+  mutation: (state: Partial<StoreJourneyData>) =>
     set((prevState) => ({ ...prevState, ...state })),
 }));
 
-export default useUserData;
+export const useJourneyData = create<StoreJourneyData>((set) => ({
+  journey: 1,
+  phase: 1,
+  mutation: (state: Partial<StoreJourneyData>) =>
+    set((prevState) => ({ ...prevState, ...state })),
+}));

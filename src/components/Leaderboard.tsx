@@ -23,7 +23,7 @@ import { client } from "../../sanity/lib/client";
 import Dropdownbutton from "@/components/Dropdownbutton";
 import pointsConverterToUSCommaseparated from "@/components/pointsConverterToUSCommaseparated";
 import useTimer from "@/hooks/frontend/useTimer";
-import useUserData from "@/app/(client)/store";
+import { useUserData } from "@/app/(client)/store";
 
 function CollectiveLogo() {
   const [hover, setHover] = useState(false);
@@ -314,10 +314,10 @@ export default function Leaderboard({
                     : pointsConverterToUSCommaseparated(
                         rankUpPointsNeeded,
                       )}{" "}
-                  points away from leveling up. Mine now to rank up!
+                  points away from leveling up. Mint now to rank up!
                 </P>
                 {timer.era !== "minting" && (
-                  <Link href={"/mining"}>
+                  <Link href={"/minting"}>
                     {timer.claimStarted ? (
                       <Button
                         innerText={"Start Claiming"}
@@ -335,7 +335,7 @@ export default function Leaderboard({
                       />
                     ) : (
                       <Button
-                        innerText={"Start mining"}
+                        innerText={"Start miting"}
                         iconSrc={IMAGEKIT_ICONS.HAMMER}
                         iconAlt="hammer icon"
                         variants={{

@@ -12,7 +12,10 @@ import {
 export default function NotFound() {
   return (
     <div
-      className={`fixed left-0 h-screen w-screen overflow-hidden bg-gradient-to-b from-[#030404] to-[#131A1A] z-[10000] `}
+      style={{
+        backgroundImage: `url(${IMAGEKIT_IMAGES.NOT_FOUND})`,
+      }}
+      className={`fixed left-0 h-screen w-screen overflow-hidden bg-gradient-to-b from-[#030404] to-[#131A1A] z-[10000] bg-[70%_50%] bg-cover bg-no-repeat`}
     >
       <div className="absolute top-0 left-0 flex justify-center items-center gap-[16px] px-[16px] py-[32px] md:py-[48px] md:px-[96px] w-full md:w-fit">
         <Link href="/" className="flex justify-center items-center">
@@ -62,16 +65,6 @@ export default function NotFound() {
           />
         </Link>
       </div>
-
-      <Image
-        src={IMAGEKIT_IMAGES.NOT_FOUND}
-        alt="404 background"
-        height={1080}
-        width={1920}
-        layout="fixed"
-        className="absolute top-0 left-0 -z-[2] w-[110vw] h-screen object-[70%_50%] object-none md:object-cover"
-      />
-
       <div className="absolute inset-0 bg-gradient-to-b from-[#000] via-[#00000000] to-[#000] -z-[1] opacity-70"></div>
     </div>
   );

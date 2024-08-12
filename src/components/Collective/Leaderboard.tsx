@@ -151,7 +151,7 @@ export default function Leaderboard() {
 
                 <P className="font-medium">Mine now to rank up!</P>
                 {timer.era !== "minting" && (
-                  <Link href={"/mining"}>
+                  <Link href={"/minting"}>
                     {timer.claimStarted ? (
                       <Button
                         innerText={"Start Claiming"}

@@ -567,7 +567,7 @@ export default function MiningCalculator({
   }, [tokenBalance, account.isConnected]);
 
   return (
-    <div className="relative flex flex-col gap-[8px] h-fit min-w-[400px] max-w-full scale-[0.9] md:scale-100 z-10">
+    <div className="relative flex flex-col gap-[8px] h-fit min-w-[400px] max-w-full scale-[0.8] xs:scale-[0.9] md:scale-100 z-10">
       <InputCard
         inputValue={currentValue}
         setCurrentInputValue={setCurrentValue}

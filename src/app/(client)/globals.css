@@ -4,6 +4,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/* width */
+*::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 6px;
+}
+
+/* Track */
+*::-webkit-scrollbar-track {
+  background: #030404;
+}
+
+/* Handle */
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #FF5001, #3C00DC);
+  background-repeat: no-repeat;
+  background-position: 0% 0%;
+  background-size: 100% 120%;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+/* Handle on hover */
+*::-webkit-scrollbar-thumb:hover {
+  background-position: 0% 20%;
+}
+
 @layer base {
   input[type="number"]::-webkit-inner-spin-button,
   input[type="number"]::-webkit-outer-spin-button {

@@ -1,20 +1,22 @@
 import useDarkContract from "@/abi/Dark";
 import useLCC_Contract from "@/abi/LaunchControlCenter";
-import useUserData from "@/app/(client)/store";
-import React, {
+
+import {
   Dispatch,
   SetStateAction,
   useCallback,
   useEffect,
-  useMemo,
   useState,
 } from "react";
-import { formatUnits, parseUnits } from "viem";
+import { formatUnits, parseUnits, zeroAddress } from "viem";
 import { readContract } from "@wagmi/core";
 import {
   useAccount,
+  useClient,
   useConfig,
+  usePublicClient,
   useWaitForTransactionReceipt,
+  useWatchContractEvent,
   useWriteContract,
 } from "wagmi";
 import { checkCorrectNetwork } from "../RainbowKit";
@@ -24,6 +26,12 @@ import { errorToast, generalToast, miningNotif } from "@/hooks/frontend/toast";
 import { MINTING_STATES } from "./MintingHero";
 import { MintError } from "./types";
 import { ToastPosition } from "react-hot-toast";
+import { useUserData } from "@/app/(client)/store";
+import useDarkFaucetContract from "@/abi/DarkFaucet";
+import useFuelCellContract from "@/abi/FuelCell";
+import { condenseAddress } from "@/utils";
+import { useGQLFetch } from "@/hooks/useGraphQLClient";
+import { gql } from "graphql-request";
 const useMinting = (
   darkInput: bigint,
   setMintStep: Dispatch<SetStateAction<keyof typeof MINTING_STATES>>,
@@ -254,7 +262,113 @@ const useMinting = (
     }
   }, [allowance, setMintStep]);
 
-  return { darkBalance, allowance, mintLogic };
+  // <====================DARK FAUCET=================>
+  const DarkFaucetContract = useDarkFaucetContract();
+  const {
+    writeContractAsync: faucetOpen,
+    data: faucetHash,
+    error: faucetError,
+  } = useWriteContract();
+  const { data: faucetReceipt } = useWaitForTransactionReceipt({
+    hash: faucetHash,
+  });
+
+  const faucetCall = useCallback(
+    (address: string) => {
+      console.log({ DarkFaucetContract });
+      faucetOpen({
+        address: DarkFaucetContract.address as `0x${string}`,
+        abi: DarkFaucetContract.abi,
+        args: [address],
+        functionName: "drip",
+      }).catch((err) => {
+        console.log({ err });
+      });
+    },
+    [DarkFaucetContract],
+  );
+
+  // <====================DARK FAUCET END=================>
+
+  // <===================MINTING NOTIFICATIONS==================>
+  const client = usePublicClient();
+
+  const { data: mintsData } = useGQLFetch<{
+    mints: { amount: string; user: { address: string } }[];
+  }>(
+    ["mints"],
+    gql`
+      query MyQuery {
+        mints(orderBy: timestamp, orderDirection: desc, first: 3) {
+          amount
+          user {
+            address
+          }
+        }
+      }
+    `,
+    TEST_NETWORK ? sepolia.id : pulsechain.id,
+    {},
+    { url: `${process.env.NEXT_PUBLIC_ERA3_SUBGRAPH}` },
+  );
+
+  useEffect(() => {
+    let timeoutIds: NodeJS.Timeout[] = [];
+    const mints = mintsData?.mints;
+    mints?.forEach((mint, index) => {
+      const randomDelay = Math.floor(Math.random() * 25000) + 4000; // Random delay between 1s and 5s
+      const timeoutId = setTimeout(() => {
+        miningNotif(
+          `${condenseAddress(mint.user.address)} just minted ${mint.amount} Fuel Cells.`,
+          {
+            position: options?.toastOption?.position,
+          },
+          options?.toastOption?.referencePositionX,
+        );
+      }, randomDelay); // Each mint will be logged randomly between 4 seconds and 25 seconds
+      timeoutIds.push(timeoutId);
+    });
+
+    return () => {
+      timeoutIds.forEach(clearTimeout);
+    };
+  }, [mintsData]);
+
+  useEffect(() => {
+    if (LCC_Contract.abi && LCC_Contract.address !== zeroAddress) {
+      const unwatch = client?.watchContractEvent({
+        address: LCC_Contract.address as `0x${string}`,
+        abi: LCC_Contract.abi,
+        eventName: "FuelCellsMinted",
+        onLogs(logs) {
+          // @ts-ignore
+          const args = logs[0]?.args;
+          const { amountOfFuelCellsMinted, fuelHolder } = args;
+          setTimeout(() => {
+            miningNotif(
+              `${condenseAddress(fuelHolder)} just minted ${amountOfFuelCellsMinted.toString()} Fuel Cells.`,
+              {
+                position: options?.toastOption?.position,
+              },
+              options?.toastOption?.referencePositionX,
+            );
+          }, 3000);
+        },
+        onError(error) {
+          console.log("ERRor", { error });
+        },
+      });
+
+      return () => {
+        if (unwatch) {
+          unwatch();
+        }
+      };
+    }
+  }, [LCC_Contract]);
+  // <====================MINTING NOTIFICATIONS END=================>
+
+  return { darkBalance, allowance, mintLogic, faucetCall };
 };
 
 export default useMinting;
