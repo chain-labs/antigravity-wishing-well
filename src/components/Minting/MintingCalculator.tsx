@@ -25,6 +25,7 @@ import { TEST_NETWORK } from "@/constants";
 import { DotLoader } from "../header/Header";
 import { getCurrentBuyAnimation } from "./MintingHero";
 
+
 const MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION = 0.000001;
 
 function debounce(func: Function, wait: number) {
