@@ -25,7 +25,6 @@ import { TEST_NETWORK } from "@/constants";
 import { DotLoader } from "../header/Header";
 import { getCurrentBuyAnimation } from "./MintingHero";
 
-
 const MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION = 0.000001;
 
 function debounce(func: Function, wait: number) {
@@ -103,7 +102,7 @@ export function InputCard({
           inputRef.current.value = "1";
         }
       } else {
-        if (inputRef.current && BigInt(tokenBalance) >= 0) {
+        if (inputRef.current && BigInt(Math.floor(Number(tokenBalance))) >= 0) {
           inputRef.current.value = String(tokenBalance);
           setCurrentInputValue(tokenBalance);
           setIsInitial(false);

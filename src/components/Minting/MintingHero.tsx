@@ -153,6 +153,7 @@ export default function MintingHero() {
       Number(darkInput),
       darkBalance,
       currentState,
+
       txLoading,
       txError,
       handleNFTNotificationReveal,
@@ -290,7 +291,7 @@ export default function MintingHero() {
             </div>
             <div className="flex flex-col justify-center items-center gap-[8px]">
               <MintingCalculator
-                tokenBalance={BigInt(darkBalance || 0)}
+                tokenBalance={BigInt(Math.floor(Number(darkBalance)) || 0)}
                 value={darkInput}
                 setValue={setDarkInput}
                 journey={journey}
