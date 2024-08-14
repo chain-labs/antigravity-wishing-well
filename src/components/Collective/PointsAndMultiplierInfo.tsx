@@ -10,7 +10,9 @@ import useTimer from "@/hooks/frontend/useTimer";
 import { useState } from "react";
 
 export default function PointsAndMultiplierInfo() {
-  const [tooltipOpen, setTooltipOpen] = useState(false);
+  const [tooltipWishwellOpen, setTooltipWishwellOpen] = useState(false);
+  const [tooltipMintingOpen, setTooltipMintingOpen] = useState(false);
+  const [tooltipMiningOpen, setTooltipMiningOpen] = useState(false);
   const timer = useTimer();
   return (
     <div className="relative h-fit w-full  overflow-hidden z-0">
@@ -47,10 +49,12 @@ export default function PointsAndMultiplierInfo() {
             ) : (
               <div
                 onMouseEnter={() =>
-                  timer.era !== "wishwell" ? setTooltipOpen(true) : null
+                  timer.era !== "wishwell" ? setTooltipWishwellOpen(true) : null
                 }
                 onMouseLeave={() =>
-                  timer.era !== "wishwell" ? setTooltipOpen(false) : null
+                  timer.era !== "wishwell"
+                    ? setTooltipWishwellOpen(false)
+                    : null
                 }
                 className="select-none relative z-10"
               >
@@ -76,7 +80,7 @@ export default function PointsAndMultiplierInfo() {
                   <P className="text-[14px] leading-[20.3px]">Wishwell</P>
                 </div>
                 <AnimatePresence>
-                  {tooltipOpen && (
+                  {tooltipWishwellOpen && (
                     <motion.div
                       initial={{
                         height: 0,
@@ -101,55 +105,174 @@ export default function PointsAndMultiplierInfo() {
               </div>
             )}
           </>
-
-          <Link href="/mining">
-            <div
-              className={`relative flex justify-center items-center gap-[8px] rounded-[6px] bg-gradient-to-b from-[#0A1133] to-[#142266] px-[16px] py-[8px] border-1 border-transparent bg-clip-padding z-0
-							before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-b before:from-[#B4EBF8] before:to-[#789DFA] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
-                    		after:content-[''] after:absolute after:inset-0 after:z-[-2]  after:bg-gradient-to-b after:from-[#0A1133] after:to-[#142266] after:rounded-[inherit] after:overflow-hidden`}
-            >
-              <motion.div
-                whileHover={{
-                  scale: 1.2,
-                  rotate: 390,
-                  transition: {
-                    duration: 1,
-                    type: "spring",
-                  },
-                }}
+          <>
+            {timer.era !== "mining" ? (
+              <Link href="/mining">
+                <div
+                  className={`relative flex justify-center items-center gap-[8px] rounded-[6px] bg-gradient-to-b from-[#0A1133] to-[#142266] px-[16px] py-[8px] border-1 border-transparent bg-clip-padding z-0
+                before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-b before:from-[#B4EBF8] before:to-[#789DFA] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
+                          after:content-[''] after:absolute after:inset-0 after:z-[-2]  after:bg-gradient-to-b after:from-[#0A1133] after:to-[#142266] after:rounded-[inherit] after:overflow-hidden`}
+                >
+                  <motion.div
+                    whileHover={{
+                      scale: 1.2,
+                      rotate: 390,
+                      transition: {
+                        duration: 1,
+                        type: "spring",
+                      },
+                    }}
+                  >
+                    <Image
+                      src={IMAGEKIT_ICONS.HAMMER}
+                      alt="Wishwell"
+                      width={24}
+                      height={24}
+                    />
+                  </motion.div>
+                  <P className="text-[14px] leading-[20.3px]">Mining</P>
+                </div>
+              </Link>
+            ) : (
+              <div
+                onMouseEnter={() =>
+                  timer.era !== "mining" ? setTooltipMiningOpen(true) : null
+                }
+                onMouseLeave={() =>
+                  timer.era !== "mining" ? setTooltipMiningOpen(false) : null
+                }
+                className="select-none relative z-10"
               >
-                <Image
-                  src={IMAGEKIT_ICONS.HAMMER}
-                  alt="Wishwell"
-                  width={24}
-                  height={24}
-                />
-              </motion.div>
-              <P className="text-[14px] leading-[20.3px]">Mining</P>
-            </div>
-          </Link>
-          <Link href="/minting">
-            <div
-              className={`relative flex justify-center items-center gap-[8px] rounded-[6px] bg-gradient-to-b from-[#0A1133] to-[#142266] px-[16px] py-[8px] border-1 border-transparent bg-clip-padding z-0
-							before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-b before:from-[#B4EBF8] before:to-[#789DFA] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
-                    		after:content-[''] after:absolute after:inset-0 after:z-[-2]  after:bg-gradient-to-b after:from-[#0A1133] after:to-[#142266] after:rounded-[inherit] after:overflow-hidden`}
-            >
-              <motion.div
-                whileHover={{
-                  scale: 1.5,
-                  transition: { duration: 1, type: "spring" },
-                }}
+                <div
+                  className={`relative flex justify-center items-center gap-[8px] rounded-[6px] bg-gradient-to-b from-[#0A1133] to-[#142266] px-[16px] py-[8px] border-1 border-transparent bg-clip-padding z-0 saturate-0
+                    before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-b before:from-[#B4EBF8] before:to-[#789DFA] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
+                              after:content-[''] after:absolute after:inset-0 after:z-[-2]  after:bg-gradient-to-b after:from-[#0A1133] after:to-[#142266] after:rounded-[inherit] after:overflow-hidden`}
+                >
+                  <motion.div
+                    whileHover={{
+                      scale: 1.2,
+                      rotate: 390,
+                      transition: {
+                        duration: 1,
+                        type: "spring",
+                      },
+                    }}
+                  >
+                    <Image
+                      src={IMAGEKIT_ICONS.HAMMER}
+                      alt="Mining"
+                      width={24}
+                      height={24}
+                    />
+                  </motion.div>
+                  <P className="text-[14px] leading-[20.3px]">Mining</P>
+                </div>
+                <AnimatePresence>
+                  {tooltipMiningOpen && (
+                    <motion.div
+                      initial={{
+                        height: 0,
+                        opacity: 0,
+                      }}
+                      animate={{
+                        height: "fit-content",
+                        opacity: 1,
+                      }}
+                      exit={{
+                        height: 0,
+                        opacity: 0,
+                      }}
+                      className="absolute top-[calc(100%+16px)] left-0 flex text-agwhite w-fit rounded-[4px] bg-gradient-to-tr from-brred to-blue p-[1px]"
+                    >
+                      <div className="w-fit h-fit bg-gradient-to-b from-[#030404] to-[#131A1A] flex items-center justify-between rounded-[inherit] gap-6 px-[16px] py-[8px] text-[16px] text-nowrap">
+                        Mining is not active.
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            )}
+          </>
+          <>
+            {timer.era !== "minting" ? (
+              <Link href="/minting">
+                <div
+                  className={`relative flex justify-center items-center gap-[8px] rounded-[6px] bg-gradient-to-b from-[#0A1133] to-[#142266] px-[16px] py-[8px] border-1 border-transparent bg-clip-padding z-0
+                before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-b before:from-[#B4EBF8] before:to-[#789DFA] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
+                          after:content-[''] after:absolute after:inset-0 after:z-[-2]  after:bg-gradient-to-b after:from-[#0A1133] after:to-[#142266] after:rounded-[inherit] after:overflow-hidden`}
+                >
+                  <motion.div
+                    whileHover={{
+                      scale: 1.5,
+                      transition: { duration: 1, type: "spring" },
+                    }}
+                  >
+                    <Image
+                      src={IMAGEKIT_ICONS.CUBE}
+                      alt="minting"
+                      width={24}
+                      height={24}
+                    />
+                  </motion.div>
+                  <P className="text-[14px] leading-[20.3px]">Minting</P>
+                </div>
+              </Link>
+            ) : (
+              <div
+                onMouseEnter={() =>
+                  timer.era !== "minting" ? setTooltipMintingOpen(true) : null
+                }
+                onMouseLeave={() =>
+                  timer.era !== "minting" ? setTooltipMintingOpen(false) : null
+                }
+                className="select-none relative z-10"
               >
-                <Image
-                  src={IMAGEKIT_ICONS.CUBE}
-                  alt="Wishwell"
-                  width={24}
-                  height={24}
-                />
-              </motion.div>
-              <P className="text-[14px] leading-[20.3px]">Minting</P>
-            </div>
-          </Link>
+                <div
+                  className={`relative flex justify-center items-center gap-[8px] rounded-[6px] bg-gradient-to-b from-[#0A1133] to-[#142266] px-[16px] py-[8px] border-1 border-transparent bg-clip-padding z-0 saturate-0
+                    before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-b before:from-[#B4EBF8] before:to-[#789DFA] before:rounded-[inherit] before:overflow-hidden before:m-[-1px]
+                              after:content-[''] after:absolute after:inset-0 after:z-[-2]  after:bg-gradient-to-b after:from-[#0A1133] after:to-[#142266] after:rounded-[inherit] after:overflow-hidden`}
+                >
+                  <motion.div
+                     whileHover={{
+                      scale: 1.5,
+                      transition: { duration: 1, type: "spring" },
+                    }}
+                  >
+                    <Image
+                      src={IMAGEKIT_ICONS.CUBE}
+                      alt="Minting"
+                      width={24}
+                      height={24}
+                    />
+                  </motion.div>
+                  <P className="text-[14px] leading-[20.3px]">Minting</P>
+                </div>
+                <AnimatePresence>
+                  {tooltipMintingOpen && (
+                    <motion.div
+                      initial={{
+                        height: 0,
+                        opacity: 0,
+                      }}
+                      animate={{
+                        height: "fit-content",
+                        opacity: 1,
+                      }}
+                      exit={{
+                        height: 0,
+                        opacity: 0,
+                      }}
+                      className="absolute top-[calc(100%+16px)] left-0 flex text-agwhite w-fit rounded-[4px] bg-gradient-to-tr from-brred to-blue p-[1px]"
+                    >
+                      <div className="w-fit h-fit bg-gradient-to-b from-[#030404] to-[#131A1A] flex items-center justify-between rounded-[inherit] gap-6 px-[16px] py-[8px] text-[16px] text-nowrap">
+                        Minting is not active.
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            )}
+          </>
         </div>
         <P className="relative max-w-[600px]">
           There are bonuses for each Era and Multipliers on top of the bonuses

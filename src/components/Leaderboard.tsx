@@ -241,7 +241,7 @@ export default function Leaderboard({
                     { label: "Era 1", value: "era1Leaderboard" },
                     { label: "Era 2", value: "era2Leaderboard" },
                     timer.isMintingActive
-                      ? { label: "Era 3", value: "era2Leaderboard" }
+                      ? { label: "Era 3", value: "era3Leaderboard" }
                       : { label: "", value: "" },
                   ]}
                   selected={selectedLeaderboard}
