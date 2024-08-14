@@ -97,19 +97,7 @@ export default function MintingHero() {
     },
   );
 
-  const multiplier = useMemo(() => {
-    if (journey === 1) {
-      return 33;
-    } else if (journey === 2) {
-      return 22;
-    } else if (journey === 3) {
-      return 11;
-    } else return 1;
-  }, [journey]);
-
-  const bonus = useMemo(() => {
-    return 1;
-  }, []);
+  const { multiplier, rewardMultiplier } = useJourneyData();
 
   const handleMintButton = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -200,6 +188,7 @@ export default function MintingHero() {
                   yield!
                 </P>
               </div>
+              {/* nft notif */}
               <motion.div
                 animate={{
                   clipPath: nftNotifReveal
@@ -296,8 +285,8 @@ export default function MintingHero() {
                 value={darkInput}
                 setValue={setDarkInput}
                 journey={journey}
-                multiplyer={multiplier}
-                bonus={bonus}
+                multiplyer={rewardMultiplier}
+                bonus={multiplier}
                 buymoreHighlight={buymoreHighlight}
                 buyMoreFn={faucetCall}
               />

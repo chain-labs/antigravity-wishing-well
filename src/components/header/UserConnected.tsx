@@ -7,6 +7,8 @@ import { useRestPost } from "@/hooks/useRestClient";
 import { useJourneyData, useUserData } from "@/app/(client)/store";
 import { hydrateUserAndNFT } from "./utils";
 import { Badge } from "@/components/HTML/Badge";
+import axios from "axios";
+import { API_ENDPOINT } from "@/constants";
 export interface UserData {
   rank: string;
   walletAddress: string; // Add the 'walletAddress' property
@@ -23,7 +25,7 @@ export interface UserData {
 export const UserConnected: React.FC = () => {
   const account = useAccount();
   const { mutation: storeUserData, rank } = useUserData();
-  const { mutation: storeJourneyData } = useJourneyData();
+  const { mutation: storeJourneyData, journey, phase } = useJourneyData();
 
   const { mutateAsync: mutateUserData } = useRestPost<UserData>(
     ["user"],
@@ -38,11 +40,6 @@ export const UserConnected: React.FC = () => {
   const { mutateAsync: mutateNFTData2 } = useRestPost<any>(
     ["generate-nft"],
     "/api/generate-nft",
-  );
-
-  const { mutateAsync: mutateMintingMultipliers } = useRestPost<any>(
-    ["era-3-timestamps-multipliers"],
-    "/api/era-3-timestamps-multipliers",
   );
 
   const { nftURLera1, nftURLera2 } = useUserData();
@@ -61,15 +58,17 @@ export const UserConnected: React.FC = () => {
         })
         .catch((err) => console.log({ err }));
     }
-    mutateMintingMultipliers({
-      walletAddress: account.address,
-    }).then((data) => {
-      storeJourneyData({
-        multiplier: data.multiplier,
-        rewardMultiplier: data.rewardMultiplier,
+    axios
+      .post(`${API_ENDPOINT}/api/era-3-timestamps-multipliers`, {
+        walletAddress: account.address,
+      })
+      .then((data: any) => {
+        storeJourneyData({
+          multiplier: Number(data.data.multiplier) ?? 0,
+          rewardMultiplier: Number(data.data.rewardMultiplier) ?? 0,
+        });
       });
-    });
-  }, [account.address, account.chainId]);
+  }, [account.address, account.chainId, journey, phase]);
 
   return (
     <div className="flex text-lg">

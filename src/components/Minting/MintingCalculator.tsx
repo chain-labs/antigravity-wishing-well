@@ -24,6 +24,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { TEST_NETWORK } from "@/constants";
 import { DotLoader } from "../header/Header";
 import { getCurrentBuyAnimation } from "./MintingHero";
+import { useJourneyData } from "@/app/(client)/store";
 
 const MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION = 0.000001;
 
@@ -471,17 +472,8 @@ export function Card({
   );
 }
 
-function Multiplyer({
-  journey = 2,
-  multiplyer = 33,
-  bonus = 1,
-  buymoreHighlight,
-}: {
-  journey: number;
-  bonus: number;
-  multiplyer: number;
-  buymoreHighlight?: boolean;
-}) {
+function Multiplyer({ buymoreHighlight }: { buymoreHighlight?: boolean }) {
+  const { journey, multiplier, rewardMultiplier } = useJourneyData();
   return (
     <div className="grid grid-flow-col place-items-center gap-[8px] mx-auto">
       <motion.div
@@ -515,7 +507,7 @@ function Multiplyer({
           Bonus
         </div>
         <div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
-          {bonus}x
+          {multiplier}x
         </div>
       </motion.div>
       <motion.div
@@ -532,7 +524,7 @@ function Multiplyer({
           Multiplier
         </div>
         <div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
-          {multiplyer}x
+          {rewardMultiplier}x
         </div>
       </motion.div>
       <div className="flex flex-col justify-center items-center p-[8px] overflow-hidden text-agwhite text-[16px] font-semibold font-general-sans w-fit">
@@ -552,7 +544,7 @@ function Multiplyer({
           Total
         </div>
         <div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
-          {bonus * multiplyer}x
+          {rewardMultiplier * multiplier}x
         </div>
       </motion.div>
     </div>
@@ -588,9 +580,6 @@ export default function MiningCalculator({
         buyMoreFn={buyMoreFn}
       />
       <Multiplyer
-        journey={journey}
-        bonus={bonus}
-        multiplyer={multiplyer}
         buymoreHighlight={buymoreHighlight}
       />
       <motion.div
