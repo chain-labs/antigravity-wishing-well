@@ -129,8 +129,8 @@ export default function useTimer() {
   useEffect(() => {
     if (timestamps === null) {
       async function fetchData() {
-        // const timeData = await client.fetch(`*[_type=="timestamps"][0]`);
-        const timeData = createDummyTimestamps();
+        const timeData = await client.fetch(`*[_type=="timestamps"][0]`);
+        // const timeData = createDummyTimestamps();
         const now = new Date().getTime();
         const era2End = new Date(
           timeData?.["era_2_phase_3_end"] || "",
