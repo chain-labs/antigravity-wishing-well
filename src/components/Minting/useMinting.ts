@@ -209,11 +209,13 @@ const useMinting = (
       setMintStep(MINTING_STATES.SUCCESS);
       verifyMint({
         walletAddress: account.address,
-      }).then((res) => {
-        console.log({ res });
-      }).catch((err) => {
-        console.log({ err });
-      });
+      })
+        .then((res) => {
+          console.log({ res });
+        })
+        .catch((err) => {
+          console.log({ err });
+        });
       console.log({ mintReceipt });
     }
   }, [mintReceipt, setMintStep]);
@@ -267,6 +269,7 @@ const useMinting = (
   }, [mintError]);
 
   useEffect(() => {
+    console.log({ allowance });
     if (allowance.allowed) {
       setMintStep(MINTING_STATES.MINT);
     } else {

@@ -59,8 +59,10 @@ export const UserConnected: React.FC = () => {
         .catch((err) => console.log({ err }));
     }
     axios
-      .post(`${API_ENDPOINT}/api/era-3-timestamps-multipliers`, {
-        walletAddress: account.address,
+      .get(`${API_ENDPOINT}/api/era-3-timestamps-multipliers`, {
+        params: {
+          walletAddress: account.address,
+        },
       })
       .then((data: any) => {
         storeJourneyData({

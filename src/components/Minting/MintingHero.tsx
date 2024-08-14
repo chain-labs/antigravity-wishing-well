@@ -73,7 +73,7 @@ export default function MintingHero() {
     value: undefined,
     is: false,
   });
-  const [darkInput, setDarkInput] = useState<bigint>(BigInt(1));
+  const [darkInput, setDarkInput] = useState<string>("1");
   const [currentState, setCurrentState] = useState<keyof typeof MINTING_STATES>(
     MINTING_STATES.INITIAL,
   );
@@ -85,7 +85,7 @@ export default function MintingHero() {
   });
 
   const { darkBalance, mintLogic, allowance, faucetCall } = useMinting(
-    darkInput,
+    BigInt(darkInput),
     setCurrentState,
     setTxLoading,
     setTxError,
@@ -130,7 +130,7 @@ export default function MintingHero() {
   useEffect(() => {
     if (currentState === MINTING_STATES.SUCCESS) {
       setTimeout(() => {
-        setDarkInput(BigInt(1));
+        setDarkInput("1");
         setCurrentState(MINTING_STATES.INITIAL);
       }, 3500);
     }
@@ -149,7 +149,6 @@ export default function MintingHero() {
   }, [currentState, txLoading, txError, darkInput, darkBalance]);
 
   const buymoreHighlight = useMemo(() => {
-    if (darkBalance < 0) return false;
     if (darkBalance < 0) return false;
     if (buttonConfigs.text === "Insufficient $DARK balance") {
       return true;
