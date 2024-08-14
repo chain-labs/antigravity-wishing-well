@@ -29,7 +29,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
       <main className="min-h-screen">
         <div className="z-[0]">
           <div className="z-[100]">
-            {/* {!strictNoLoading && <LoadingPage contentLoaded={!loading} />} */}
+            {!strictNoLoading && <LoadingPage contentLoaded={!loading} />}
           </div>
           <div className="fixed top-0 w-full z-50 items-center pt-[16px] md:pt-[32px] px-4">
             {timer.isMintingActive ? <HeaderEra3 /> : <HeaderEra2 />}

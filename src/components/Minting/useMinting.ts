@@ -269,7 +269,6 @@ const useMinting = (
   }, [mintError]);
 
   useEffect(() => {
-    console.log({ allowance });
     if (allowance.allowed) {
       setMintStep(MINTING_STATES.MINT);
     } else {
@@ -290,7 +289,6 @@ const useMinting = (
 
   const faucetCall = useCallback(
     (address: string) => {
-      console.log({ DarkFaucetContract });
       faucetOpen({
         address: DarkFaucetContract.address as `0x${string}`,
         abi: DarkFaucetContract.abi,

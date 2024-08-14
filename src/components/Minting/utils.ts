@@ -64,7 +64,6 @@ export const getButtonCofigs = (
   txError: MintError,
   handleNFTNotificationReveal: () => void,
 ) => {
-  console.log({ darkInput });
   if (txError.is) {
     return {
       text: "Retry",

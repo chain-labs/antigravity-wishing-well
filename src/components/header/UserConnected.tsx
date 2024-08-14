@@ -66,6 +66,8 @@ export const UserConnected: React.FC = () => {
       })
       .then((data: any) => {
         storeJourneyData({
+          journey: Number(data.data.currentJourney),
+          phase: Number(data.data.currentPhase),
           multiplier: Number(data.data.multiplier) ?? 0,
           rewardMultiplier: Number(data.data.rewardMultiplier) ?? 0,
         });

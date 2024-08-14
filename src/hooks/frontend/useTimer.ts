@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { client } from "../../../sanity/lib/client";
+import axios from "axios";
+import { API_ENDPOINT } from "@/constants";
+import { useAccount } from "wagmi";
 
 export type CountdownType = {
   era: "wishwell" | "mining" | "minting";
@@ -124,134 +127,146 @@ function createDummyTimestamps() {
 export default function useTimer() {
   const [currentTimer, setCurrentTimer] = useState<CountdownType>(timer);
 
-  useEffect(() => {}, []);
+  const account = useAccount();
 
   useEffect(() => {
     if (timestamps === null) {
       async function fetchData() {
         const timeData = await client.fetch(`*[_type=="timestamps"][0]`);
-        // const timeData = createDummyTimestamps();
-        // add the minting timestamps here
-        const mintingTimestamps = {
-          currentJourney: 1,
-          currentPhase: 1,
-          isJourneyPaused: false,
-          nextJourneyTimestamp: new Date().getTime() + 20000000,
-          mintEndTimestamp: new Date().getTime() + 10000000,
-        };
-        const now = new Date().getTime();
-        const era2End = new Date(
-          timeData?.["era_2_phase_3_end"] || "",
-        ).getTime();
-        const claimStart = new Date(timeData?.["claim_starts"] || "").getTime();
-        const claimEnd = new Date(timeData?.["claim_ends"] || "").getTime();
-        const mintStarted = new Date(
-          timeData?.["era_3_phase_1_start"] || "",
-        ).getTime();
+        axios
+          .get(`${API_ENDPOINT}/api/era-3-timestamps-multipliers`, {
+            params: {
+              walletAddress: account.address,
+            },
+          })
+          .then((data) => {
+            const mintingTimestamps = {
+              currentJourney: data.data.currentJourney,
+              currentPhase: data.data.currentPhase,
+              isJourneyPaused: data.data.isJourneyPaused,
+              nextJourneyTimestamp: data.data.nextJourneyTimeStamp * 1000,
+              mintEndTimestamp: data.data.mintEndTimestamp * 1000,
+            };
+            const now = new Date().getTime();
+            const era2End = new Date(
+              timeData?.["era_2_phase_3_end"] || "",
+            ).getTime();
+            const claimStart = new Date(
+              timeData?.["claim_starts"] || "",
+            ).getTime();
+            const claimEnd = new Date(timeData?.["claim_ends"] || "").getTime();
+            const mintStarted = new Date(
+              timeData?.["era_3_phase_1_start"] || "",
+            ).getTime();
 
-        let initialTimer: CountdownType;
+            let initialTimer: CountdownType;
 
-        if (now >= era2End && now < claimStart) {
-          const claimTime = calculateTimeDifference(
-            timeData?.["claim_starts"] || "",
-          );
-          initialTimer = {
-            ...DEFAULT,
-            era: "mining",
-            phase: 3,
-            ...claimTime,
-            claimStarted: false,
-            claimTransition: true,
-          };
-        } else if (now >= claimStart && now <= claimEnd) {
-          const claimTime = calculateTimeDifference(
-            timeData?.["claim_ends"] || "",
-          );
-          initialTimer = {
-            ...DEFAULT,
-            era: "mining",
-            phase: 3,
-            ...claimTime,
-            claimStarted: true,
-            claimTransition: false,
-          };
-        } else if (now >= claimEnd && now <= mintStarted) {
-          const mintTime = calculateTimeDifference(
-            timeData?.["era_3_phase_1_start"] || "",
-          );
-          initialTimer = {
-            ...DEFAULT,
-            era: "mining",
-            phase: 3,
-            ...mintTime,
-            claimStarted: false,
-            claimTransition: false,
-            mintingTransition: true,
-          };
-        } else {
-          const { era, phase } = getCurrentEraAndPhase(timeData);
-          if (era === "era_3") {
-            if (mintingTimestamps.isJourneyPaused) {
+            if (now >= era2End && now < claimStart) {
+              const claimTime = calculateTimeDifference(
+                timeData?.["claim_starts"] || "",
+              );
               initialTimer = {
-                era: "minting",
-                phase: mintingTimestamps.currentJourney as 1 | 2 | 3,
-                days: 0,
-                hours: 0,
-                mins: 0,
-                secs: 0,
+                ...DEFAULT,
+                era: "mining",
+                phase: 3,
+                ...claimTime,
+                claimStarted: false,
+                claimTransition: true,
+              };
+            } else if (now >= claimStart && now <= claimEnd) {
+              const claimTime = calculateTimeDifference(
+                timeData?.["claim_ends"] || "",
+              );
+              initialTimer = {
+                ...DEFAULT,
+                era: "mining",
+                phase: 3,
+                ...claimTime,
+                claimStarted: true,
+                claimTransition: false,
+              };
+            } else if (now >= claimEnd && now <= mintStarted) {
+              const mintTime = calculateTimeDifference(
+                timeData?.["era_3_phase_1_start"] || "",
+              );
+              initialTimer = {
+                ...DEFAULT,
+                era: "mining",
+                phase: 3,
+                ...mintTime,
                 claimStarted: false,
                 claimTransition: false,
-                mintingTransition: false,
-                isMintingActive: true,
-                journey: mintingTimestamps.currentJourney as 1 | 2 | 3,
-                phaseNumber: mintingTimestamps.currentPhase as 1 | 2 | 3,
-                isJourneyPaused: mintingTimestamps.isJourneyPaused,
-                nextJourneyTimeStamp: mintingTimestamps.nextJourneyTimestamp,
-                currentMintEndTimestamp: mintingTimestamps.mintEndTimestamp,
+                mintingTransition: true,
               };
             } else {
-              initialTimer = {
-                era: "minting",
-                phase: mintingTimestamps.currentJourney as 1 | 2 | 3,
-                ...calculateTimeDifference(
-                  new Date(mintingTimestamps.mintEndTimestamp).toISOString(),
-                ),
-                claimStarted: false,
-                claimTransition: false,
-                mintingTransition: false,
-                isMintingActive: true,
-                journey: mintingTimestamps.currentJourney as 1 | 2 | 3,
-                phaseNumber: mintingTimestamps.currentPhase as 1 | 2 | 3,
-                isJourneyPaused: mintingTimestamps.isJourneyPaused,
-                nextJourneyTimeStamp: mintingTimestamps.nextJourneyTimestamp,
-                currentMintEndTimestamp: mintingTimestamps.mintEndTimestamp,
-              };
+              const { era, phase } = getCurrentEraAndPhase(timeData);
+              if (era === "era_3") {
+                if (mintingTimestamps.isJourneyPaused) {
+                  initialTimer = {
+                    era: "minting",
+                    phase: mintingTimestamps.currentJourney as 1 | 2 | 3,
+                    days: 0,
+                    hours: 0,
+                    mins: 0,
+                    secs: 0,
+                    claimStarted: false,
+                    claimTransition: false,
+                    mintingTransition: false,
+                    isMintingActive: true,
+                    journey: mintingTimestamps.currentJourney as 1 | 2 | 3,
+                    phaseNumber: mintingTimestamps.currentPhase as 1 | 2 | 3,
+                    isJourneyPaused: mintingTimestamps.isJourneyPaused,
+                    nextJourneyTimeStamp:
+                      mintingTimestamps.nextJourneyTimestamp,
+                    currentMintEndTimestamp: mintingTimestamps.mintEndTimestamp,
+                  };
+                } else {
+                  initialTimer = {
+                    era: "minting",
+                    phase: mintingTimestamps.currentJourney as 1 | 2 | 3,
+                    ...calculateTimeDifference(
+                      new Date(
+                        mintingTimestamps.mintEndTimestamp,
+                      ).toISOString(),
+                    ),
+                    claimStarted: false,
+                    claimTransition: false,
+                    mintingTransition: false,
+                    isMintingActive: true,
+                    journey: mintingTimestamps.currentJourney as 1 | 2 | 3,
+                    phaseNumber: mintingTimestamps.currentPhase as 1 | 2 | 3,
+                    isJourneyPaused: mintingTimestamps.isJourneyPaused,
+                    nextJourneyTimeStamp:
+                      mintingTimestamps.nextJourneyTimestamp,
+                    currentMintEndTimestamp: mintingTimestamps.mintEndTimestamp,
+                  };
+                }
+              } else {
+                const phaseEndKey = `${era}_phase_${phase}_end`;
+                // @ts-ignore
+                const endTime = timeData[phaseEndKey];
+                const initialTime = calculateTimeDifference(endTime);
+
+                initialTimer = {
+                  ...DEFAULT,
+                  era: era === "era_1" ? "wishwell" : "mining",
+                  phase: phase as 1 | 2 | 3,
+                  ...initialTime,
+                  claimStarted: false,
+                  claimTransition: false,
+                };
+              }
             }
-          } else {
-            const phaseEndKey = `${era}_phase_${phase}_end`;
-            // @ts-ignore
-            const endTime = timeData[phaseEndKey];
-            const initialTime = calculateTimeDifference(endTime);
 
-            initialTimer = {
-              ...DEFAULT,
-              era: era === "era_1" ? "wishwell" : "mining",
-              phase: phase as 1 | 2 | 3,
-              ...initialTime,
-              claimStarted: false,
-              claimTransition: false,
-            };
-          }
-        }
-
-        setTimer(initialTimer);
-        setCurrentTimer(initialTimer);
-        setTimestamps({ timeData, mintingTimestamps });
-        localStorage?.setItem("timestamps", JSON.stringify(timeData));
-        localStorage?.setItem(
-          "current-timestamp",
-          JSON.stringify(initialTimer),
-        );
+            setTimer(initialTimer);
+            setCurrentTimer(initialTimer);
+            setTimestamps({ timeData, mintingTimestamps });
+            localStorage?.setItem("timestamps", JSON.stringify(timeData));
+            localStorage?.setItem(
+              "current-timestamp",
+              JSON.stringify(initialTimer),
+            );
+          });
       }
       fetchData();
     }
@@ -304,7 +319,8 @@ export default function useTimer() {
             mintingTransition: true,
           };
         } else {
-          const { era: currentEra, phase: currentPhase } = getCurrentEraAndPhase(timestamps);
+          const { era: currentEra, phase: currentPhase } =
+            getCurrentEraAndPhase(timestamps);
           const claimTime = calculateTimeDifference(
             timestamps?.[`${currentEra}_phase_${currentPhase}_end`],
           );
@@ -348,7 +364,8 @@ export default function useTimer() {
                   | 3,
                 ...calculateTimeDifference(
                   new Date(
-                    timestamps?.mintingTimestamps.mintEndTimestamp,
+                    timestamps?.mintingTimestamps.mintEndTimestamp ??
+                      "2025-12-31",
                   ).toISOString(),
                 ),
                 claimStarted: false,
