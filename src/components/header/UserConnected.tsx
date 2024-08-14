@@ -65,6 +65,7 @@ export const UserConnected: React.FC = () => {
         },
       })
       .then((data: any) => {
+        console.log({ data });
         storeJourneyData({
           journey: Number(data.data.currentJourney),
           phase: Number(data.data.currentPhase),

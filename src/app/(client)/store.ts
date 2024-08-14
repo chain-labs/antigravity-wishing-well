@@ -45,8 +45,8 @@ export const useUserData = create<StoreUserData>((set) => ({
 export const useJourneyData = create<StoreJourneyData>((set) => ({
   journey: 1,
   phase: 1,
-  multiplier: 0,
-  rewardMultiplier: 0,
+  multiplier: 44,
+  rewardMultiplier: 1,
   mutation: (state: Partial<StoreJourneyData>) =>
     set((prevState) => ({ ...prevState, ...state })),
 }));

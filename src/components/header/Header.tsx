@@ -18,6 +18,9 @@ import useTimer from "@/hooks/frontend/useTimer";
 import useHeaderStats from "./useHeaderStats";
 import { checkCorrectNetwork } from "../RainbowKit";
 import { PiRocketLaunchDuotone, PiTreasureChestDuotone } from "react-icons/pi";
+import { useJourneyData } from "@/app/(client)/store";
+import axios from "axios";
+import { API_ENDPOINT } from "@/constants";
 
 // Use a function to get the latest block number
 async function getLatestBlockNumber(publicClient: PublicClient) {
@@ -67,6 +70,31 @@ const Header = () => {
       openConnectModal();
     }
   };
+
+  const { mutation: storeJourneyData } = useJourneyData();
+
+  useEffect(() => {
+    axios
+      .get(
+        `${API_ENDPOINT}/api/era-3-timestamps-multipliers`,
+        account.address
+          ? {
+              params: {
+                walletAddress: account.address,
+              },
+            }
+          : {},
+      )
+      .then((data: any) => {
+        console.log({ data });
+        storeJourneyData({
+          journey: Number(data.data.currentJourney),
+          phase: Number(data.data.currentPhase),
+          multiplier: Number(data.data.multiplier) ?? 0,
+          rewardMultiplier: Number(data.data.rewardMultiplier) ?? 0,
+        });
+      });
+  }, [account.address]);
 
   const { journey, darkBalance, treasuryBalance } = useHeaderStats();
 
