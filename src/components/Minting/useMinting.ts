@@ -28,6 +28,7 @@ import { MintError } from "./types";
 import { ToastPosition } from "react-hot-toast";
 import { useUserData } from "@/app/(client)/store";
 import useDarkFaucetContract from "@/abi/DarkFaucet";
+import { useRestPost } from "@/hooks/useRestClient";
 import useFuelCellContract from "@/abi/FuelCell";
 import { condenseAddress } from "@/utils";
 import { useGQLFetch } from "@/hooks/useGraphQLClient";
@@ -198,10 +199,23 @@ const useMinting = (
     }
   }, [approveReceipt, mintFn]);
 
+  const { mutateAsync: verifyMint } = useRestPost(
+    ["verify-minting"],
+    "/api/verify-minting",
+  );
+
   useEffect(() => {
     if (mintReceipt) {
       setMintStep(MINTING_STATES.SUCCESS);
-
+      verifyMint({
+        walletAddress: account.address,
+      })
+        .then((res) => {
+          console.log({ res });
+        })
+        .catch((err) => {
+          console.log({ err });
+        });
       console.log({ mintReceipt });
     }
   }, [mintReceipt, setMintStep]);
@@ -275,7 +289,6 @@ const useMinting = (
 
   const faucetCall = useCallback(
     (address: string) => {
-      console.log({ DarkFaucetContract });
       faucetOpen({
         address: DarkFaucetContract.address as `0x${string}`,
         abi: DarkFaucetContract.abi,

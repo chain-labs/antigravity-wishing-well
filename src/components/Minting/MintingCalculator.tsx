@@ -24,6 +24,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { TEST_NETWORK } from "@/constants";
 import { DotLoader } from "../header/Header";
 import { getCurrentBuyAnimation } from "./MintingHero";
+import { useJourneyData } from "@/app/(client)/store";
 
 const MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION = 0.000001;
 
@@ -42,8 +43,8 @@ export function InputCard({
   buymoreHighlight,
   buyMoreFn,
 }: {
-  inputValue: bigint;
-  setCurrentInputValue: Dispatch<SetStateAction<bigint>>;
+  inputValue: string;
+  setCurrentInputValue: Dispatch<SetStateAction<string>>;
   tokenBalance: bigint;
   buymoreHighlight?: boolean;
   buyMoreFn: (address: string) => void;
@@ -52,23 +53,22 @@ export function InputCard({
   const inputRef = useRef<HTMLInputElement>(null);
   const [isInitial, setIsInitial] = useState(true);
 
-  const debouncedHandleInputChange = debounce((inputCurrentValue: bigint) => {
+  const debouncedHandleInputChange = debounce((inputCurrentValue: string) => {
     setCurrentInputValue(inputCurrentValue);
-    if (inputRef.current) {
-      inputRef.current.value = String(inputCurrentValue);
-    }
   }, 100);
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     let inputCurrentValue = e.target.value;
 
     // Remove any non-numeric characters except the decimal point
-    inputCurrentValue = inputCurrentValue.replace(/[^0-9.]/g, "");
+    inputCurrentValue = inputCurrentValue
+      .replace(/[^0-9.]/g, "")
+      .replace(/^0+/, "");
 
+    console.log({ inputCurrentValue });
     // Handle empty input
     if (inputCurrentValue === "") {
-      setCurrentInputValue(BigInt(1));
-      return;
+      setCurrentInputValue("");
     }
 
     // Do not allow decimal value
@@ -78,19 +78,15 @@ export function InputCard({
     }
 
     // Validate the number with integer
-    const numberValue = parseInt(inputCurrentValue);
+    const numberValue = inputCurrentValue;
+    console.log({ numberValue });
 
-    if (numberValue < BigInt(1) && numberValue !== 0) {
+    if (numberValue !== "" && BigInt(numberValue) < BigInt(1)) {
       errorToast("Value must be greater than or equal to 1");
-      if (inputRef.current) {
-        inputRef.current.value = "1";
-      }
-      return;
     }
+    setCurrentInputValue(numberValue);
 
-    if (!isNaN(numberValue) && numberValue >= BigInt(1)) {
-      debouncedHandleInputChange(inputCurrentValue);
-    }
+    debouncedHandleInputChange(inputCurrentValue);
   }
 
   const account = useAccount();
@@ -98,13 +94,10 @@ export function InputCard({
   useEffect(() => {
     if (isInitial) {
       if (!account.isConnected) {
-        if (inputRef.current) {
-          inputRef.current.value = "1";
-        }
+        setCurrentInputValue("1");
       } else {
-        if (inputRef.current && BigInt(Math.floor(Number(tokenBalance))) >= 0) {
-          inputRef.current.value = String(tokenBalance);
-          setCurrentInputValue(tokenBalance);
+        if (BigInt(Math.floor(Number(tokenBalance))) >= 0) {
+          setCurrentInputValue(tokenBalance.toString());
           setIsInitial(false);
         }
       }
@@ -112,22 +105,16 @@ export function InputCard({
   }, [tokenBalance, account.isConnected]);
 
   function handleInputOutOfFocus() {
-    if (inputRef.current) {
-      if (inputRef.current.value === "") {
-        inputRef.current.value = "1";
-        setCurrentInputValue(BigInt(1));
-      }
-    }
     setOutOfFocus(true);
   }
 
-  useEffect(() => {
-    if (inputValue) {
-      if (inputRef.current && inputValue) {
-        inputRef.current.value = inputValue.toString();
-      }
-    }
-  }, [inputValue]);
+  // useEffect(() => {
+  //   if (inputValue) {
+  //     if (inputRef.current && inputValue) {
+  //       inputRef.current.value = inputValue.toString();
+  //     }
+  //   }
+  // }, [inputValue]);
 
   return (
     <div className="relative flex flex-col gap-[8px] rounded-[6px] px-[12px] py-[16px] w-fit min-w-full z-10">
@@ -169,6 +156,7 @@ export function InputCard({
               ref={inputRef}
               className="text-agwhite font-extrabold font-sans bg-transparent w-full h-full"
               type="number"
+              step="1"
               defaultValue={String(inputValue)}
               max={String(tokenBalance)}
               min={0}
@@ -185,6 +173,7 @@ export function InputCard({
                 zIndex: outOfFocus ? 1 : 0,
               }}
               onChange={handleInputChange}
+              value={inputValue}
               autoFocus
             />
 
@@ -198,9 +187,7 @@ export function InputCard({
               className="flex justify-start items-center"
             >
               {inputRef &&
-                pointsConverterToUSCommaseparated(
-                  Number(inputRef.current?.value),
-                )}
+                pointsConverterToUSCommaseparated(Number(inputValue))}
             </div>
           </form>
         </motion.div>
@@ -234,11 +221,7 @@ export function InputCard({
                   getCurrentBuyAnimation(!!buymoreHighlight).darkness.transition
                 }
                 className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
-                onClick={() => {
-                  setCurrentInputValue(tokenBalance);
-                  if (inputRef.current)
-                    inputRef.current.value = tokenBalance.toString();
-                }}
+                onClick={() => setCurrentInputValue(tokenBalance.toString())}
               >
                 <div className="bg-[#142266] rounded-full w-fit h-fit">
                   <div
@@ -471,17 +454,8 @@ export function Card({
   );
 }
 
-function Multiplyer({
-  journey = 2,
-  multiplyer = 33,
-  bonus = 1,
-  buymoreHighlight,
-}: {
-  journey: number;
-  bonus: number;
-  multiplyer: number;
-  buymoreHighlight?: boolean;
-}) {
+function Multiplyer({ buymoreHighlight }: { buymoreHighlight?: boolean }) {
+  const { journey, multiplier, rewardMultiplier } = useJourneyData();
   return (
     <div className="grid grid-flow-col place-items-center gap-[8px] mx-auto">
       <motion.div
@@ -515,7 +489,7 @@ function Multiplyer({
           Bonus
         </div>
         <div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
-          {bonus}x
+          {multiplier}x
         </div>
       </motion.div>
       <motion.div
@@ -532,7 +506,7 @@ function Multiplyer({
           Multiplier
         </div>
         <div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
-          {multiplyer}x
+          {rewardMultiplier}x
         </div>
       </motion.div>
       <div className="flex flex-col justify-center items-center p-[8px] overflow-hidden text-agwhite text-[16px] font-semibold font-general-sans w-fit">
@@ -552,7 +526,7 @@ function Multiplyer({
           Total
         </div>
         <div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
-          {bonus * multiplyer}x
+          {rewardMultiplier * multiplier}x
         </div>
       </motion.div>
     </div>
@@ -569,8 +543,8 @@ export default function MiningCalculator({
   buymoreHighlight,
   buyMoreFn,
 }: {
-  value: bigint;
-  setValue: Dispatch<SetStateAction<bigint>>;
+  value: string;
+  setValue: Dispatch<SetStateAction<string>>;
   journey: number;
   multiplyer: number;
   tokenBalance: bigint;
@@ -587,12 +561,7 @@ export default function MiningCalculator({
         buymoreHighlight={buymoreHighlight}
         buyMoreFn={buyMoreFn}
       />
-      <Multiplyer
-        journey={journey}
-        bonus={bonus}
-        multiplyer={multiplyer}
-        buymoreHighlight={buymoreHighlight}
-      />
+      <Multiplyer buymoreHighlight={buymoreHighlight} />
       <motion.div
         animate={{
           filter: getCurrentBuyAnimation(!!buymoreHighlight).darkness.filter,

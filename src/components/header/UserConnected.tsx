@@ -4,9 +4,11 @@ import { useAccount } from "wagmi";
 import { PiWarningCircle } from "react-icons/pi";
 import { useEffect, useState } from "react";
 import { useRestPost } from "@/hooks/useRestClient";
-import { useUserData } from "@/app/(client)/store";
+import { useJourneyData, useUserData } from "@/app/(client)/store";
 import { hydrateUserAndNFT } from "./utils";
 import { Badge } from "@/components/HTML/Badge";
+import axios from "axios";
+import { API_ENDPOINT } from "@/constants";
 export interface UserData {
   rank: string;
   walletAddress: string; // Add the 'walletAddress' property
@@ -23,6 +25,7 @@ export interface UserData {
 export const UserConnected: React.FC = () => {
   const account = useAccount();
   const { mutation: storeUserData, rank } = useUserData();
+  const { mutation: storeJourneyData, journey, phase } = useJourneyData();
 
   const { mutateAsync: mutateUserData } = useRestPost<UserData>(
     ["user"],
@@ -55,7 +58,22 @@ export const UserConnected: React.FC = () => {
         })
         .catch((err) => console.log({ err }));
     }
-  }, [account.address, account.chainId]);
+    axios
+      .get(`${API_ENDPOINT}/api/era-3-timestamps-multipliers`, {
+        params: {
+          walletAddress: account.address,
+        },
+      })
+      .then((data: any) => {
+        console.log({ data });
+        storeJourneyData({
+          journey: Number(data.data.currentJourney),
+          phase: Number(data.data.currentPhase),
+          multiplier: Number(data.data.multiplier) ?? 0,
+          rewardMultiplier: Number(data.data.rewardMultiplier) ?? 0,
+        });
+      });
+  }, [account.address, account.chainId, journey, phase]);
 
   return (
     <div className="flex text-lg">

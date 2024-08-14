@@ -53,18 +53,32 @@ export default function Hero() {
           defaultImageOpacity={0.5}
           hoverImageOpacity={0.35}
         />
-        <HeroItemCard
-          title="Minting"
-          description={
-            "Here is a one or two line short description about this. Here is a one or two line short description about this."
-          }
-          backgroundImage={IMAGEKIT_IMAGES.MINING_PAGE_ERA_3}
-          className="lg:object-cover object-[20%_55%]"
-          animateFrom="bottom"
-          cardExternalLink="/minting"
-          defaultImageOpacity={0.35}
-          hoverImageOpacity={0.35}
+        {timer.isMintingActive ? (
+          <HeroItemCard
+            title="Minting"
+            description={
+              "Start minting a Fuel Cell to enter into the lottery, earn Collective points and rank up. Secure your treasury yield now!"
+            }
+            backgroundImage={IMAGEKIT_IMAGES.MINING_PAGE_ERA_3}
+            className="lg:object-cover object-[20%_55%]"
+            animateFrom="bottom"
+            cardExternalLink="/minting"
+            defaultImageOpacity={0.35}
+            hoverImageOpacity={0.35}
           />
+        ) : (
+          <HeroItemCard
+            title="Mining"
+            description={
+              timer.claimStarted && (darkBalance as bigint) > 0
+                ? "Surprise! You can now claim your $DARK tokens based on the points you've earned. "
+                : "Start mining with supported tokens to get points + $DARKX tokens + the new Antigravity NFT."
+            }
+            backgroundImage={IMAGEKIT_IMAGES.MINING}
+            animateFrom="bottom"
+            cardExternalLink="/mining"
+          />
+        )}
         <HeroItemCard
           title="The Collective"
           description="Learn how to leverage points, rank up & earn exciting rewards. Join The Collective!"
@@ -73,7 +87,7 @@ export default function Hero() {
           cardExternalLink="/collective"
           defaultImageOpacity={0.5}
           hoverImageOpacity={0.35}
-          />
+        />
       </motion.div>
     </div>
   );

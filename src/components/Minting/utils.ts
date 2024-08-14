@@ -101,7 +101,7 @@ export const getButtonCofigs = (
       return {
         text: "Approve Contract",
         loading: false,
-        disabled: false,
+        disabled: darkInput < 1,
         icon: IMAGEKIT_ICONS.TICK,
         variants: {
           hover: {
@@ -133,7 +133,7 @@ export const getButtonCofigs = (
       return {
         text: txLoading ? "Minting" : "Mint Now",
         loading: txLoading,
-        disabled: txLoading,
+        disabled: txLoading || darkInput < 1,
         icon: IMAGEKIT_ICONS.CUBE,
         variants: {
           hover: {
@@ -185,7 +185,7 @@ export const getButtonCofigs = (
       return {
         text: "Approve Contract",
         loading: false,
-        disabled: false,
+        disabled: darkInput < 1,
         icon: IMAGEKIT_ICONS.CUBE,
         variants: {
           hover: {

@@ -3,11 +3,29 @@
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import DynamicNumberCounter from "./DynamicNumberCounter";
+import { CountdownType } from "@/hooks/frontend/useTimer";
 
 const eraToNumber = {
   wishwell: 1,
   mining: 2,
   minting: 3,
+};
+
+const COUNTDOWN_TITLE: { [key: string]: string[] } = {
+  wishwell: [
+    "ETA for era 1 phase 2",
+    "ETA for era 1 phase 3",
+    "ETA for era 2 phase 1",
+  ],
+  mining: [
+    "ETA for era 2 phase 2",
+    "ETA for era 2 phase 3",
+    "ETA for Journey 1",
+  ],
+  minting: [],
+  journey1: ["ETA for Lottery 1", "ETA for Journey 2", "ETA for Journey 2"],
+  journey2: ["ETA for Lottery 2", "ETA for Journey 3", "ETA for Journey 3"],
+  journey3: ["ETA for Lottery 3", "ETA for Journey 4", "ETA for Journey 4"],
 };
 
 export default function CountdownTimer({
@@ -20,16 +38,7 @@ export default function CountdownTimer({
 }: {
   fontDesktopSize?: number;
   fontMobileSize?: number;
-  state: {
-    days: number;
-    hours: number;
-    mins: number;
-    secs: number;
-    phase: 1 | 2 | 3;
-    era: "wishwell" | "mining" | "minting";
-    claimStarted: boolean;
-    claimTransition: boolean;
-  };
+  state: CountdownType;
   containerClassName?: string;
   counterSubtitleClassName?: string;
   counterClassName?: string;
@@ -41,7 +50,7 @@ export default function CountdownTimer({
     if (!state) return;
     if (state.phase === 3) {
       setPhase(1);
-      if (state.era === "minting") {
+      if (state.isMintingActive) {
         setEra(1);
       } else {
         setEra(eraToNumber[state.era] + 1);
@@ -71,7 +80,15 @@ export default function CountdownTimer({
             ? "Claiming starts in"
             : state.claimStarted
               ? "Claiming ends in"
-              : `ETA for era ${era} phase ${phase}`}
+              : state.mintingTransition
+                ? "Minting starts in"
+                : state.isJourneyPaused && state.isMintingActive
+                  ? "Journey Paused"
+                  : COUNTDOWN_TITLE[
+                      state.isMintingActive
+                        ? `journey${state.journey}`
+                        : state.era
+                    ][state.phase - 1]}
       </div>
       <div
         className={twMerge(

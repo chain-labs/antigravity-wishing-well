@@ -73,7 +73,7 @@ export default function MintingHero() {
     value: undefined,
     is: false,
   });
-  const [darkInput, setDarkInput] = useState<bigint>(BigInt(1));
+  const [darkInput, setDarkInput] = useState<string>("1");
   const [currentState, setCurrentState] = useState<keyof typeof MINTING_STATES>(
     MINTING_STATES.INITIAL,
   );
@@ -85,7 +85,7 @@ export default function MintingHero() {
   });
 
   const { darkBalance, mintLogic, allowance, faucetCall } = useMinting(
-    darkInput,
+    BigInt(darkInput),
     setCurrentState,
     setTxLoading,
     setTxError,
@@ -97,19 +97,7 @@ export default function MintingHero() {
     },
   );
 
-  const multiplier = useMemo(() => {
-    if (journey === 1) {
-      return 33;
-    } else if (journey === 2) {
-      return 22;
-    } else if (journey === 3) {
-      return 11;
-    } else return 1;
-  }, [journey]);
-
-  const bonus = useMemo(() => {
-    return 1;
-  }, []);
+  const { multiplier, rewardMultiplier } = useJourneyData();
 
   const handleMintButton = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -142,7 +130,7 @@ export default function MintingHero() {
   useEffect(() => {
     if (currentState === MINTING_STATES.SUCCESS) {
       setTimeout(() => {
-        setDarkInput(BigInt(1));
+        setDarkInput("1");
         setCurrentState(MINTING_STATES.INITIAL);
       }, 3500);
     }
@@ -199,6 +187,7 @@ export default function MintingHero() {
                   yield!
                 </P>
               </div>
+              {/* nft notif */}
               <motion.div
                 animate={{
                   clipPath: nftNotifReveal
@@ -295,12 +284,48 @@ export default function MintingHero() {
                 value={darkInput}
                 setValue={setDarkInput}
                 journey={journey}
-                multiplyer={multiplier}
-                bonus={bonus}
+                multiplyer={rewardMultiplier}
+                bonus={multiplier}
                 buymoreHighlight={buymoreHighlight}
                 buyMoreFn={faucetCall}
               />
-              {account.isConnected ? (
+              {timerState.isJourneyPaused &&
+              timerState.currentMintEndTimestamp === null &&
+              timerState.nextJourneyTimeStamp === null ? (
+                <Button
+                  innerText="Minting Paused"
+                  iconSrc={IMAGEKIT_ICONS.CUBE}
+                  iconAlt="Minting paused"
+                  iconPosition="start"
+                  variants={{
+                    hover: {
+                      animationName: "wiggle",
+                      animationDuration: "1s",
+                      animationFillMode: "forwards",
+                      animationTimingFunction: "linear",
+                    },
+                  }}
+                  disabled
+                />
+              ) : timerState.isJourneyPaused &&
+                timerState.currentMintEndTimestamp !== null &&
+                timerState.nextJourneyTimeStamp !== null ? (
+                <Button
+                  innerText="Next minting window opens in ⬇️"
+                  iconSrc={IMAGEKIT_ICONS.CUBE}
+                  iconAlt="Minting paused"
+                  iconPosition="start"
+                  variants={{
+                    hover: {
+                      animationName: "wiggle",
+                      animationDuration: "1s",
+                      animationFillMode: "forwards",
+                      animationTimingFunction: "linear",
+                    },
+                  }}
+                  disabled
+                />
+              ) : account.isConnected ? (
                 checkCorrectNetwork(account.chainId, [
                   TEST_NETWORK ? sepolia.id : pulsechain.id,
                 ]) ? (

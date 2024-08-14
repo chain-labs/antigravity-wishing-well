@@ -102,7 +102,7 @@ export default function Dropdown({
         >
           {options.map(
             (option, idx) =>
-              option.value !== selected && (
+              option.value !== selected && option.value !== "" && option.label !== "" && (
                 <>
                   <div
                     onClick={() => setSelected(option.value)}
