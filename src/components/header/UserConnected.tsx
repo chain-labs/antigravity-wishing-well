@@ -4,7 +4,7 @@ import { useAccount } from "wagmi";
 import { PiWarningCircle } from "react-icons/pi";
 import { useEffect, useState } from "react";
 import { useRestPost } from "@/hooks/useRestClient";
-import { useUserData } from "@/app/(client)/store";
+import { useJourneyData, useUserData } from "@/app/(client)/store";
 import { hydrateUserAndNFT } from "./utils";
 import { Badge } from "@/components/HTML/Badge";
 export interface UserData {
@@ -23,6 +23,7 @@ export interface UserData {
 export const UserConnected: React.FC = () => {
   const account = useAccount();
   const { mutation: storeUserData, rank } = useUserData();
+  const { mutation: storeJourneyData } = useJourneyData();
 
   const { mutateAsync: mutateUserData } = useRestPost<UserData>(
     ["user"],
@@ -37,6 +38,11 @@ export const UserConnected: React.FC = () => {
   const { mutateAsync: mutateNFTData2 } = useRestPost<any>(
     ["generate-nft"],
     "/api/generate-nft",
+  );
+
+  const { mutateAsync: mutateMintingMultipliers } = useRestPost<any>(
+    ["era-3-timestamps-multipliers"],
+    "/api/era-3-timestamps-multipliers",
   );
 
   const { nftURLera1, nftURLera2 } = useUserData();
@@ -55,6 +61,14 @@ export const UserConnected: React.FC = () => {
         })
         .catch((err) => console.log({ err }));
     }
+    mutateMintingMultipliers({
+      walletAddress: account.address,
+    }).then((data) => {
+      storeJourneyData({
+        multiplier: data.multiplier,
+        rewardMultiplier: data.rewardMultiplier,
+      });
+    });
   }, [account.address, account.chainId]);
 
   return (

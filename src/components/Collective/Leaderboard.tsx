@@ -44,7 +44,11 @@ export default function Leaderboard() {
   const [tableData, setTableData] = useState<tableDataType[]>([]);
   const targetRef = useRef<HTMLDivElement>(null);
   const [selectedLeaderboard, setSelectedLeaderboard] = useState<
-    "allTimeLeaderboard" | "era1Leaderboard" | "era2Leaderboard" | string
+    | "allTimeLeaderboard"
+    | "era1Leaderboard"
+    | "era2Leaderboard"
+    | "era3Leaderboard"
+    | string
   >("allTimeLeaderboard");
   const { data: leaderboardData, mutate: mutateLeaderboardData } = useRestPost(
     ["leaderboard"],
@@ -92,6 +96,9 @@ export default function Leaderboard() {
                     { label: "All Time", value: "allTimeLeaderboard" },
                     { label: "Era 1", value: "era1Leaderboard" },
                     { label: "Era 2", value: "era2Leaderboard" },
+                    timer.isMintingActive
+                      ? { label: "Era 3", value: "era2Leaderboard" }
+                      : { label: "", value: "" },
                   ]}
                   selected={selectedLeaderboard}
                   setSelected={setSelectedLeaderboard}
@@ -118,7 +125,9 @@ export default function Leaderboard() {
                       ? 1
                       : selectedLeaderboard === "era2Leaderboard"
                         ? 2
-                        : 0
+                        : selectedLeaderboard === "era3Leaderboard"
+                          ? 3
+                          : 0
                   }
                 />
               </div>

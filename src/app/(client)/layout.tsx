@@ -72,7 +72,7 @@ export default function RootLayout({
               <div className="relative z-0 flex flex-col min-h-screen">
                 {children}
                 <div className="w-full h-[100vh] 10 fixed top-0 left-0 -z-[1]">
-                  <SaturnCanvasORImage />
+                  {/* <SaturnCanvasORImage />
                   <StarFieldCanvas
                     count={50}
                     xRange={100}
@@ -80,7 +80,7 @@ export default function RootLayout({
                     zRange={100}
                     speed={0.1}
                   />
-                  <AnimatedNebulaBG />
+                  <AnimatedNebulaBG /> */}
                 </div>
               </div>
             </div>

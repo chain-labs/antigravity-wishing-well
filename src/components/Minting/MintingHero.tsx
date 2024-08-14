@@ -162,6 +162,7 @@ export default function MintingHero() {
 
   const buymoreHighlight = useMemo(() => {
     if (darkBalance < 0) return false;
+    if (darkBalance < 0) return false;
     if (buttonConfigs.text === "Insufficient $DARK balance") {
       return true;
     }
@@ -300,7 +301,43 @@ export default function MintingHero() {
                 buymoreHighlight={buymoreHighlight}
                 buyMoreFn={faucetCall}
               />
-              {account.isConnected ? (
+              {timerState.isJourneyPaused &&
+              timerState.currentMintEndTimestamp === null &&
+              timerState.nextJourneyTimeStamp === null ? (
+                <Button
+                  innerText="Minting Paused"
+                  iconSrc={IMAGEKIT_ICONS.CUBE}
+                  iconAlt="Minting paused"
+                  iconPosition="start"
+                  variants={{
+                    hover: {
+                      animationName: "wiggle",
+                      animationDuration: "1s",
+                      animationFillMode: "forwards",
+                      animationTimingFunction: "linear",
+                    },
+                  }}
+                  disabled
+                />
+              ) : timerState.isJourneyPaused &&
+                timerState.currentMintEndTimestamp !== null &&
+                timerState.nextJourneyTimeStamp !== null ? (
+                <Button
+                  innerText="Next minting window opens in ⬇️"
+                  iconSrc={IMAGEKIT_ICONS.CUBE}
+                  iconAlt="Minting paused"
+                  iconPosition="start"
+                  variants={{
+                    hover: {
+                      animationName: "wiggle",
+                      animationDuration: "1s",
+                      animationFillMode: "forwards",
+                      animationTimingFunction: "linear",
+                    },
+                  }}
+                  disabled
+                />
+              ) : account.isConnected ? (
                 checkCorrectNetwork(account.chainId, [
                   TEST_NETWORK ? sepolia.id : pulsechain.id,
                 ]) ? (

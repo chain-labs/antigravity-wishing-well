@@ -3,43 +3,57 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { twMerge } from "tailwind-merge";
-import useTimer from "../../../hooks/frontend/useTimer";
+import useTimer, { CountdownType } from "../../../hooks/frontend/useTimer";
 import CountdownTimer from "@/components/CountdownTimer";
 import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
 
-type stateType = {
-  days: number;
-  hours: number;
-  mins: number;
-  secs: number;
-  era: "wishwell" | "mining" | "minting";
-  phase: 1 | 2 | 3;
+type stateType = CountdownType & {
+  era: "wishwell" | "mining" | "minting" | "journey1" | "journey2" | "journey3";
+  journey: 1 | 2 | 3;
+  phaseNumber: 1 | 2 | 3;
 };
 
 function checkPhaseCompletedOrActive(
   activeState: stateType,
   currentPhase: stateType["phase"],
-  currentEra: stateType["era"],
+  currentEra: stateType["era"] | "journey1" | "journey2" | "journey3",
 ) {
-  if (activeState.era === "wishwell") {
-    if (currentEra === "wishwell") {
+  const eras = {
+    era1:
+      activeState.isMintingActive && activeState.journey === 1
+        ? true
+        : activeState.era === "wishwell"
+          ? true
+          : false,
+    era2:
+      activeState.isMintingActive && activeState.journey === 2
+        ? true
+        : activeState.era === "mining"
+          ? true
+          : false,
+    era3:
+      activeState.isMintingActive && activeState.journey === 3 ? true : false,
+  };
+
+  if (eras.era1) {
+    if (currentEra === "wishwell" || currentEra === "journey1") {
       return currentPhase <= activeState.phase;
     }
     return false;
   }
 
-  if (activeState.era === "mining") {
-    if (currentEra === "mining") {
+  if (eras.era2) {
+    if (currentEra === "mining" || currentEra === "journey2") {
       return currentPhase <= activeState.phase;
     }
-    if (currentEra === "wishwell") {
+    if (currentEra === "wishwell" || currentEra === "journey1") {
       return true;
     }
     return false;
   }
 
-  if (activeState.era === "minting") {
-    if (currentEra === "minting") {
+  if (eras.era3) {
+    if (currentEra === "minting" || currentEra === "journey3") {
       return currentPhase <= activeState.phase;
     }
     return true;
@@ -52,7 +66,7 @@ function Phase({
   phase,
 }: {
   activeState: stateType;
-  era: stateType["era"];
+  era: stateType["era"] | "journey1" | "journey2" | "journey3";
   phase: stateType["phase"];
 }) {
   return (
@@ -82,8 +96,11 @@ function MobilePhase({
   era,
   phase,
 }: {
-  activeState: stateType;
-  era: stateType["era"];
+  activeState: {
+    era: stateType["era"] | "journey1" | "journey2" | "journey3";
+    phase: stateType["phase"];
+  };
+  era: stateType["era"] | "journey1" | "journey2" | "journey3";
   phase: stateType["phase"];
 }) {
   if (activeState.era === era && activeState.phase === phase) {
@@ -99,7 +116,7 @@ function MobilePhase({
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 1 }}
         className={twMerge(
-            "relative text-[35.82px] leading-[35.82px] font-sans font-extrabold text-center bg-agyellow rounded-lg p-2 px-4",
+          "relative text-[35.82px] leading-[35.82px] font-sans font-extrabold text-center bg-agyellow rounded-lg p-2 px-4",
         )}
       >
         {phase}
@@ -144,13 +161,13 @@ function MobilePhase({
 
 function calculateActivePhasesSlider(activeState: stateType) {
   let activePhase = 0;
-  if (activeState.era === "wishwell") {
+  if (activeState.era === "wishwell" || activeState.journey === 1) {
     activePhase = activeState.phase;
   }
-  if (activeState.era === "mining") {
+  if (activeState.era === "mining" || activeState.journey === 2) {
     activePhase = activeState.phase + 3;
   }
-  if (activeState.era === "minting") {
+  if (activeState.isMintingActive && activeState.journey === 3) {
     activePhase = activeState.phase + 6;
   }
   return activePhase;
@@ -158,6 +175,33 @@ function calculateActivePhasesSlider(activeState: stateType) {
 
 export default function Countdown() {
   const state = useTimer();
+  const eras = {
+    era1:
+      state.isMintingActive && state.journey === 1
+        ? true
+        : state.era === "wishwell"
+          ? true
+          : false,
+    era2:
+      state.isMintingActive && state.journey === 2
+        ? true
+        : state.era === "mining"
+          ? true
+          : false,
+    era3: state.isMintingActive && state.journey === 3 ? true : false,
+  };
+
+  const activeEraAndPhase: {
+    era: stateType["era"] | "journey1" | "journey2" | "journey3";
+    phase: stateType["phase"];
+  } = {
+    era:
+      state.isMintingActive
+        ? `journey${state.journey as 1 | 2 | 3}`
+        : state.era,
+    phase:
+      state.isMintingActive ? (state.phaseNumber as 1 | 2 | 3) : state.phase,
+  };
 
   return (
     <div
@@ -182,12 +226,11 @@ export default function Countdown() {
           <div className="relative h-full flex flex-col gap-[2.98px] p-2">
             <motion.div
               whileInView={{
-                height:
-                  state.era === "minting"
-                    ? "calc(200%)"
-                    : state.era === "mining"
-                      ? "calc(100%)"
-                      : "calc(0%)",
+                height: eras.era3
+                  ? "calc(200%)"
+                  : eras.era2
+                    ? "calc(100%)"
+                    : "calc(0%)",
                 boxShadow: "0px 5px 0px 0px rgba(0,0,0,1)",
               }}
               initial={{
@@ -203,22 +246,34 @@ export default function Countdown() {
             ></motion.div>
             <div
               style={{
-                color: state.era === "wishwell" ? "#f5eb00" : "transparent",
+                color: eras.era1 ? "#f5eb00" : "transparent",
               }}
               className={twMerge(
                 "text-[36px] leading-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text",
-                state.era === "wishwell" && "text-agyellow",
+                eras.era1 && "text-agyellow",
               )}
             >
-              Journey 1
+              {state.isMintingActive ? "Journey 1" : "Wishwell"}
             </div>
             <div className="tracking-widest uppercase text-[14px] leading-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
-              Lottery
+              {state.isMintingActive ? "Lottery" : "Phase"}
             </div>
             <div className="flex justify-center items-center gap-2 relative z-0 px-auto">
-              <MobilePhase activeState={state} era="wishwell" phase={1} />
-              <MobilePhase activeState={state} era="wishwell" phase={2} />
-              <MobilePhase activeState={state} era="wishwell" phase={3} />
+              <MobilePhase
+                activeState={activeEraAndPhase}
+                era={state.isMintingActive ? "journey1" : "wishwell"}
+                phase={1}
+              />
+              <MobilePhase
+                activeState={activeEraAndPhase}
+                era={state.isMintingActive ? "journey1" : "wishwell"}
+                phase={2}
+              />
+              <MobilePhase
+                activeState={activeEraAndPhase}
+                era={state.isMintingActive ? "journey1" : "wishwell"}
+                phase={3}
+              />
             </div>
           </div>
           <div className="flex flex-col gap-[2.98px] p-2">
@@ -231,26 +286,37 @@ export default function Countdown() {
                 state.era === "mining" && "text-agyellow",
               )}
             >
-              Journey 2
+              {state.isMintingActive ? "Journey 2" : "Mining"}
             </div>
             <div className="tracking-widest uppercase text-[14px] leading-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
-              Lottery
+              {state.isMintingActive ? "Lottery" : "Phase"}
             </div>
             <div className="flex justify-center items-center gap-2 relative z-0 px-auto">
-              <MobilePhase activeState={state} era="mining" phase={1} />
-              <MobilePhase activeState={state} era="mining" phase={2} />
-              <MobilePhase activeState={state} era="mining" phase={3} />
+              <MobilePhase
+                activeState={activeEraAndPhase}
+                era={state.isMintingActive ? "journey2" : "mining"}
+                phase={1}
+              />
+              <MobilePhase
+                activeState={activeEraAndPhase}
+                era={state.isMintingActive ? "journey2" : "mining"}
+                phase={2}
+              />
+              <MobilePhase
+                activeState={activeEraAndPhase}
+                era={state.isMintingActive ? "journey2" : "mining"}
+                phase={3}
+              />
             </div>
           </div>
           <div className="relative flex flex-col gap-[2.98px] p-2">
             <motion.div
               whileInView={{
-                height:
-                  state.era === "wishwell"
-                    ? "calc(210%)"
-                    : state.era === "mining"
-                      ? "calc(100%)"
-                      : "calc(0%)",
+                height: eras.era1
+                  ? "calc(210%)"
+                  : state.era === "mining"
+                    ? "calc(100%)"
+                    : "calc(0%)",
                 boxShadow: "0px -5px 0px 0px rgba(0,0,0,1)",
               }}
               initial={{
@@ -266,21 +332,33 @@ export default function Countdown() {
             ></motion.div>
             <div
               style={{
-                color: state.era === "minting" ? "#f5eb00" : "transparent",
+                color: state.isMintingActive ? "#f5eb00" : "transparent",
               }}
               className={twMerge(
                 "text-[36px] leadding-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text",
               )}
             >
-              Journey 3
+              {state.isMintingActive ? "Journey 3" : "Minting"}
             </div>
             <div className="tracking-widest uppercase text-[14px] leading-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
-              Lottery
+              {state.isMintingActive ? "Lottery" : "Phase"}
             </div>
             <div className="flex justify-center items-center gap-2 relative z-0 px-auto">
-              <MobilePhase activeState={state} era="minting" phase={1} />
-              <MobilePhase activeState={state} era="minting" phase={2} />
-              <MobilePhase activeState={state} era="minting" phase={3} />
+              <MobilePhase
+                activeState={activeEraAndPhase}
+                era={state.isMintingActive ? "journey3" : "minting"}
+                phase={1}
+              />
+              <MobilePhase
+                activeState={activeEraAndPhase}
+                era={state.isMintingActive ? "journey3" : "minting"}
+                phase={2}
+              />
+              <MobilePhase
+                activeState={activeEraAndPhase}
+                era={state.isMintingActive ? "journey3" : "minting"}
+                phase={3}
+              />
             </div>
           </div>
         </div>
@@ -292,56 +370,92 @@ export default function Countdown() {
           <div className="h-full flex flex-col gap-2">
             <div
               style={{
-                color: state.era === "wishwell" ? "#f5eb00" : "transparent",
+                color: eras.era1 ? "#f5eb00" : "transparent",
               }}
               className="text-[36px] leading-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text"
             >
-              Journey 1
+              {state.isMintingActive ? "Journey 1" : "Wishwell"}
             </div>
             <div className="tracking-widest uppercase text-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
-              Lottery
+              {state.isMintingActive ? "Lottery" : "Phase"}
             </div>
           </div>
           <div className="flex flex-col gap-2">
             <div
               style={{
-                color: state.era === "mining" ? "#f5eb00" : "transparent",
+                color: eras.era2 ? "#f5eb00" : "transparent",
               }}
               className="text-[36px] leading-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text"
             >
-              Journey 2
+              {state.isMintingActive ? "Journey 2" : "Mining"}
             </div>
             <div className="tracking-widest uppercase text-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
-              Lottery
+              {state.isMintingActive ? "Lottery" : "Phase"}
             </div>
           </div>
           <div className="flex flex-col gap-2">
             <div
               style={{
-                color: state.era === "minting" ? "#f5eb00" : "transparent",
+                color: eras.era3 ? "#f5eb00" : "transparent",
               }}
               className="text-[36px] leading-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text"
             >
-              Journey 3
+              {state.isMintingActive ? "Journey 3" : "Minting"}
             </div>
             <div className="tracking-widest uppercase text-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
-              Lottery
+              {state.isMintingActive ? "Lottery" : "Phase"}
             </div>
           </div>
         </div>
         <div className="grid grid-cols-9 relative z-0">
-          <Phase activeState={state} era="wishwell" phase={1} />
-          <Phase activeState={state} era="wishwell" phase={2} />
-          <Phase activeState={state} era="wishwell" phase={3} />
-          <Phase activeState={state} era="mining" phase={1} />
-          <Phase activeState={state} era="mining" phase={2} />
-          <Phase activeState={state} era="mining" phase={3} />
-          <Phase activeState={state} era="minting" phase={1} />
-          <Phase activeState={state} era="minting" phase={2} />
-          <Phase activeState={state} era="minting" phase={3} />
+          <Phase
+            activeState={state as stateType}
+            era={state.isMintingActive ? "journey1" : "wishwell"}
+            phase={1}
+          />
+          <Phase
+            activeState={state as stateType}
+            era={state.isMintingActive ? "journey1" : "wishwell"}
+            phase={2}
+          />
+          <Phase
+            activeState={state as stateType}
+            era={state.isMintingActive ? "journey1" : "wishwell"}
+            phase={3}
+          />
+          <Phase
+            activeState={state as stateType}
+            era={state.isMintingActive ? "journey2" : "mining"}
+            phase={1}
+          />
+          <Phase
+            activeState={state as stateType}
+            era={state.isMintingActive ? "journey2" : "mining"}
+            phase={2}
+          />
+          <Phase
+            activeState={state as stateType}
+            era={state.isMintingActive ? "journey2" : "mining"}
+            phase={3}
+          />
+          <Phase
+            activeState={state as stateType}
+            era={state.isMintingActive ? "journey3" : "minting"}
+            phase={1}
+          />
+          <Phase
+            activeState={state as stateType}
+            era={state.isMintingActive ? "journey3" : "minting"}
+            phase={2}
+          />
+          <Phase
+            activeState={state as stateType}
+            era={state.isMintingActive ? "journey3" : "minting"}
+            phase={3}
+          />
           <motion.div
             whileInView={{
-              width: `calc(${(100 / 9) * calculateActivePhasesSlider(state)}% + 16px)`,
+              width: `calc(${(100 / 9) * calculateActivePhasesSlider(state as stateType)}% + 16px)`,
             }}
             // viewport={{ once: true }}
             initial={{ width: "1%" }}
@@ -376,12 +490,11 @@ export default function Countdown() {
         </div>
         <motion.div
           whileInView={{
-            width:
-              state.era === "wishwell"
-                ? "0%"
-                : state.era === "mining"
-                  ? "33.33%"
-                  : "calc(66.66%)",
+            width: eras.era1
+              ? "0%"
+              : state.era === "mining"
+                ? "33.33%"
+                : "calc(66.66%)",
             boxShadow: "5px 0px 0px 0px rgba(0,0,0,1)",
           }}
           initial={{
@@ -397,12 +510,11 @@ export default function Countdown() {
         ></motion.div>
         <motion.div
           whileInView={{
-            width:
-              state.era === "wishwell"
-                ? "63.66%"
-                : state.era === "mining"
-                  ? "33.33%"
-                  : "0%",
+            width: eras.era1
+              ? "63.66%"
+              : state.era === "mining"
+                ? "33.33%"
+                : "0%",
             boxShadow: "-5px 0px 0px 0px rgba(0,0,0,1)",
           }}
           initial={{
