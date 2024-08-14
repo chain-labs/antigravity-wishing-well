@@ -94,7 +94,7 @@ function setTimestamps(newTimestamps: any) {
 
 function createDummyTimestamps() {
   const now = new Date().getTime();
-  const timegap = 5000; // 5 seconds
+  const timegap = 50000; // 5 seconds
   const dummyTimestamps: any = {
     era_1_phase_1_start: new Date(now).toISOString(),
     era_1_phase_1_end: new Date(now + timegap).toISOString(),
@@ -131,6 +131,14 @@ export default function useTimer() {
       async function fetchData() {
         // const timeData = await client.fetch(`*[_type=="timestamps"][0]`);
         const timeData = createDummyTimestamps();
+        // add the minting timestamps here
+        const mintingTimestamps = {
+          currentJourney: 1,
+          currentPhase: 1,
+          isJourneyPaused: false,
+          nextJourneyTimestamp: new Date().getTime() + 20000000,
+          mintEndTimestamp: new Date().getTime() + 10000000,
+        };
         const now = new Date().getTime();
         const era2End = new Date(
           timeData?.["era_2_phase_3_end"] || "",
@@ -182,17 +190,7 @@ export default function useTimer() {
           };
         } else {
           const { era, phase } = getCurrentEraAndPhase(timeData);
-
           if (era === "era_3") {
-            // add the minting timestamps here
-            const mintingTimestamps = {
-              currentJourney: 1,
-              currentPhase: 1,
-              isJourneyPaused: false,
-              nextJourneyTimestamp: 1732005780,
-              mintEndTimestamp: 1724229780,
-            };
-
             if (mintingTimestamps.isJourneyPaused) {
               initialTimer = {
                 era: "minting",
@@ -248,7 +246,7 @@ export default function useTimer() {
 
         setTimer(initialTimer);
         setCurrentTimer(initialTimer);
-        setTimestamps(timeData);
+        setTimestamps({ timeData, mintingTimestamps });
         localStorage?.setItem("timestamps", JSON.stringify(timeData));
         localStorage?.setItem(
           "current-timestamp",
@@ -306,25 +304,19 @@ export default function useTimer() {
             mintingTransition: true,
           };
         } else {
-          const { era: currentEra, phase: currentPhase } =
-            getCurrentEraAndPhase(timestamps);
+          const { era: currentEra, phase: currentPhase } = getCurrentEraAndPhase(timestamps);
           const claimTime = calculateTimeDifference(
             timestamps?.[`${currentEra}_phase_${currentPhase}_end`],
           );
           let currentTimer;
           if (currentEra === "era_3") {
-            const mintingTimestamps = {
-              currentJourney: 1,
-              currentPhase: 1,
-              isJourneyPaused: false,
-              nextJourneyTimestamp: 1732005780,
-              mintEndTimestamp: 1724229780,
-            };
-
-            if (mintingTimestamps.isJourneyPaused) {
+            if (timestamps?.mintingTimestamps.isJourneyPaused) {
               currentTimer = {
                 era: "minting",
-                phase: mintingTimestamps.currentJourney as 1 | 2 | 3,
+                phase: timestamps?.mintingTimestamps.currentJourney as
+                  | 1
+                  | 2
+                  | 3,
                 days: 0,
                 hours: 0,
                 mins: 0,
@@ -333,28 +325,49 @@ export default function useTimer() {
                 claimTransition: false,
                 mintingTransition: false,
                 isMintingActive: true,
-                journey: mintingTimestamps.currentJourney as 1 | 2 | 3,
-                phaseNumber: mintingTimestamps.currentPhase as 1 | 2 | 3,
-                isJourneyPaused: mintingTimestamps.isJourneyPaused,
-                nextJourneyTimeStamp: mintingTimestamps.nextJourneyTimestamp,
-                currentMintEndTimestamp: mintingTimestamps.mintEndTimestamp,
+                journey: timestamps?.mintingTimestamps.currentJourney as
+                  | 1
+                  | 2
+                  | 3,
+                phaseNumber: timestamps?.mintingTimestamps.currentPhase as
+                  | 1
+                  | 2
+                  | 3,
+                isJourneyPaused: timestamps?.mintingTimestamps.isJourneyPaused,
+                nextJourneyTimeStamp:
+                  timestamps?.mintingTimestamps.nextJourneyTimestamp,
+                currentMintEndTimestamp:
+                  timestamps?.mintingTimestamps.mintEndTimestamp,
               };
             } else {
               currentTimer = {
                 era: "minting",
-                phase: mintingTimestamps.currentJourney as 1 | 2 | 3,
+                phase: timestamps?.mintingTimestamps.currentJourney as
+                  | 1
+                  | 2
+                  | 3,
                 ...calculateTimeDifference(
-                  new Date(mintingTimestamps.mintEndTimestamp).toISOString(),
+                  new Date(
+                    timestamps?.mintingTimestamps.mintEndTimestamp,
+                  ).toISOString(),
                 ),
                 claimStarted: false,
                 claimTransition: false,
                 mintingTransition: false,
                 isMintingActive: true,
-                journey: mintingTimestamps.currentJourney as 1 | 2 | 3,
-                phaseNumber: mintingTimestamps.currentPhase as 1 | 2 | 3,
-                isJourneyPaused: mintingTimestamps.isJourneyPaused,
-                nextJourneyTimeStamp: mintingTimestamps.nextJourneyTimestamp,
-                currentMintEndTimestamp: mintingTimestamps.mintEndTimestamp,
+                journey: timestamps?.mintingTimestamps.currentJourney as
+                  | 1
+                  | 2
+                  | 3,
+                phaseNumber: timestamps?.mintingTimestamps.currentPhase as
+                  | 1
+                  | 2
+                  | 3,
+                isJourneyPaused: timestamps?.mintingTimestamps.isJourneyPaused,
+                nextJourneyTimeStamp:
+                  timestamps?.mintingTimestamps.nextJourneyTimestamp,
+                currentMintEndTimestamp:
+                  timestamps?.mintingTimestamps.mintEndTimestamp,
               };
             }
           } else {
