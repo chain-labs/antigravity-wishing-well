@@ -288,6 +288,7 @@ export default function MintingHero() {
                 bonus={multiplier}
                 buymoreHighlight={buymoreHighlight}
                 buyMoreFn={faucetCall}
+                txLoading={txLoading}
               />
               {timerState.isJourneyPaused &&
               timerState.currentMintEndTimestamp === null &&

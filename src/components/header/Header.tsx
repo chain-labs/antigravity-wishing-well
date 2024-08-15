@@ -21,6 +21,7 @@ import { PiRocketLaunchDuotone, PiTreasureChestDuotone } from "react-icons/pi";
 import { useJourneyData } from "@/app/(client)/store";
 import axios from "axios";
 import { API_ENDPOINT } from "@/constants";
+import { useRestPost } from "@/hooks/useRestClient";
 
 // Use a function to get the latest block number
 async function getLatestBlockNumber(publicClient: PublicClient) {
@@ -73,27 +74,20 @@ const Header = () => {
 
   const { mutation: storeJourneyData } = useJourneyData();
 
+  const { mutateAsync: fetchEra3 } = useRestPost(
+    ["era-3-timestamps-multipliers"],
+    "/api/era-3-timestamps-multipliers",
+  );
+
   useEffect(() => {
-    axios
-      .get(
-        `${API_ENDPOINT}/api/era-3-timestamps-multipliers`,
-        account.address
-          ? {
-              params: {
-                walletAddress: account.address,
-              },
-            }
-          : {},
-      )
-      .then((data: any) => {
-        console.log({ data });
-        storeJourneyData({
-          journey: Number(data.data.currentJourney),
-          phase: Number(data.data.currentPhase),
-          multiplier: Number(data.data.multiplier) ?? 0,
-          rewardMultiplier: Number(data.data.rewardMultiplier) ?? 0,
-        });
+    fetchEra3({ walletAddress: account.address }).then((data: any) => {
+      storeJourneyData({
+        journey: Number(data.currentJourney),
+        phase: Number(data.currentPhase),
+        multiplier: Number(data.multiplier) ?? 0,
+        rewardMultiplier: Number(data.rewardMultiplier) ?? 0,
       });
+    });
   }, [account.address]);
 
   const { journey, darkBalance, treasuryBalance } = useHeaderStats();

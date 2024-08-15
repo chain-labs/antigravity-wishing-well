@@ -8,10 +8,12 @@ import useJPMContract from "@/abi/JourneyPhaseManager";
 import { TEST_NETWORK } from "@/constants";
 import { pulsechain, sepolia } from "viem/chains";
 import { useUserData } from "@/app/(client)/store";
+import useTreasuryContract from "@/abi/Treasury";
 
 const useHeaderStats = () => {
   const config = useConfig();
   const LCC_Contract = useLCC_Contract();
+  const TreasuryContract = useTreasuryContract();
   const JPM_Contract = useJPMContract();
   const DarkContract = useDarkContract();
   const account = useAccount();
@@ -29,23 +31,15 @@ const useHeaderStats = () => {
     ) {
       timer = setInterval(() => {
         readContract(config, {
-          abi: LCC_Contract.abi,
-          address: LCC_Contract.address as `0x${string}`,
-          functionName: "treasury",
+          abi: DarkContract.abi,
+          address: DarkContract.address as `0x${string}`,
+          functionName: "balanceOf",
           chainId: TEST_NETWORK ? sepolia.id : pulsechain.id,
-          args: [],
-        }).then((treasury) => {
-          readContract(config, {
-            abi: DarkContract.abi,
-            address: DarkContract.address as `0x${string}`,
-            functionName: "balanceOf",
-            chainId: TEST_NETWORK ? sepolia.id : pulsechain.id,
-            args: [treasury],
-          }).then((treasuryBalance) => {
-            setTreasuryBalance(formatUnits(treasuryBalance as bigint, 18));
-          });
+          args: [`${TreasuryContract.address}`],
+        }).then((treasuryBalance) => {
+          setTreasuryBalance(formatUnits(treasuryBalance as bigint, 18));
         });
-      }, 4000);
+      }, 6000);
 
       return () => {
         if (timer) {
@@ -68,7 +62,7 @@ const useHeaderStats = () => {
         }).then((journey) => {
           setJourney((journey as bigint).toString());
         });
-      }, 4000);
+      }, 6000);
 
       return () => {
         if (timer) {

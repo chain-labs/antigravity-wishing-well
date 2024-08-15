@@ -40,6 +40,7 @@ export function InputCard({
   inputValue,
   setCurrentInputValue,
   tokenBalance,
+  txLoading,
   buymoreHighlight,
   buyMoreFn,
 }: {
@@ -47,6 +48,7 @@ export function InputCard({
   setCurrentInputValue: Dispatch<SetStateAction<string>>;
   tokenBalance: bigint;
   buymoreHighlight?: boolean;
+  txLoading: boolean;
   buyMoreFn: (address: string) => void;
 }) {
   const [outOfFocus, setOutOfFocus] = useState(false);
@@ -58,35 +60,37 @@ export function InputCard({
   }, 100);
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    let inputCurrentValue = e.target.value;
+    if (!txLoading) {
+      let inputCurrentValue = e.target.value;
 
-    // Remove any non-numeric characters except the decimal point
-    inputCurrentValue = inputCurrentValue
-      .replace(/[^0-9.]/g, "")
-      .replace(/^0+/, "");
+      // Remove any non-numeric characters except the decimal point
+      inputCurrentValue = inputCurrentValue
+        .replace(/[^0-9.]/g, "")
+        .replace(/^0+/, "");
 
-    console.log({ inputCurrentValue });
-    // Handle empty input
-    if (inputCurrentValue === "") {
-      setCurrentInputValue("");
+      // Handle empty input
+      if (inputCurrentValue === "") {
+        setCurrentInputValue("");
+      }
+
+      // Do not allow decimal value
+      if (inputCurrentValue.includes(".")) {
+        errorToast("Value must be an integer");
+        return;
+      }
+
+      // Validate the number with integer
+      const numberValue = inputCurrentValue;
+
+      if (numberValue !== "" && BigInt(numberValue) < BigInt(1)) {
+        errorToast("Value must be greater than or equal to 1");
+      }
+      setCurrentInputValue(numberValue);
+
+      debouncedHandleInputChange(inputCurrentValue);
+    } else {
+      setCurrentInputValue(inputValue);
     }
-
-    // Do not allow decimal value
-    if (inputCurrentValue.includes(".")) {
-      errorToast("Value must be an integer");
-      return;
-    }
-
-    // Validate the number with integer
-    const numberValue = inputCurrentValue;
-    console.log({ numberValue });
-
-    if (numberValue !== "" && BigInt(numberValue) < BigInt(1)) {
-      errorToast("Value must be greater than or equal to 1");
-    }
-    setCurrentInputValue(numberValue);
-
-    debouncedHandleInputChange(inputCurrentValue);
   }
 
   const account = useAccount();
@@ -107,14 +111,6 @@ export function InputCard({
   function handleInputOutOfFocus() {
     setOutOfFocus(true);
   }
-
-  // useEffect(() => {
-  //   if (inputValue) {
-  //     if (inputRef.current && inputValue) {
-  //       inputRef.current.value = inputValue.toString();
-  //     }
-  //   }
-  // }, [inputValue]);
 
   return (
     <div className="relative flex flex-col gap-[8px] rounded-[6px] px-[12px] py-[16px] w-fit min-w-full z-10">
@@ -175,6 +171,7 @@ export function InputCard({
               onChange={handleInputChange}
               value={inputValue}
               autoFocus
+              disabled={txLoading}
             />
 
             <div
@@ -542,6 +539,7 @@ export default function MiningCalculator({
   journey,
   buymoreHighlight,
   buyMoreFn,
+  txLoading,
 }: {
   value: string;
   setValue: Dispatch<SetStateAction<string>>;
@@ -549,6 +547,7 @@ export default function MiningCalculator({
   multiplyer: number;
   tokenBalance: bigint;
   bonus: number;
+  txLoading: boolean;
   buymoreHighlight?: boolean;
   buyMoreFn: (address: string) => void;
 }) {
@@ -560,6 +559,7 @@ export default function MiningCalculator({
         tokenBalance={tokenBalance}
         buymoreHighlight={buymoreHighlight}
         buyMoreFn={buyMoreFn}
+        txLoading={txLoading}
       />
       <Multiplyer buymoreHighlight={buymoreHighlight} />
       <motion.div
