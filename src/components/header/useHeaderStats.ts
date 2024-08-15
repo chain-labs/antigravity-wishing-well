@@ -21,7 +21,6 @@ const useHeaderStats = () => {
 
   const [darkBalance, setDarkBalance] = useState<string>();
   const [treasuryBalance, setTreasuryBalance] = useState<string>();
-  const [journey, setJourney] = useState("");
 
   useEffect(() => {
     let timer: any = undefined;
@@ -48,29 +47,6 @@ const useHeaderStats = () => {
       };
     }
   }, [DarkContract, LCC_Contract, config]);
-
-  useEffect(() => {
-    let timer: any = undefined;
-    if (JPM_Contract.address !== zeroAddress) {
-      timer = setInterval(() => {
-        readContract(config, {
-          abi: JPM_Contract.abi,
-          address: JPM_Contract.address as `0x${string}`,
-          functionName: "currentJourney",
-          chainId: TEST_NETWORK ? sepolia.id : pulsechain.id,
-          args: [],
-        }).then((journey) => {
-          setJourney((journey as bigint).toString());
-        });
-      }, 6000);
-
-      return () => {
-        if (timer) {
-          clearInterval(timer);
-        }
-      };
-    }
-  }, [JPM_Contract, config]);
 
   useEffect(() => {
     let timer = undefined;
@@ -100,7 +76,6 @@ const useHeaderStats = () => {
   return {
     darkBalance,
     treasuryBalance,
-    journey,
   };
 };
 

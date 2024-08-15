@@ -72,25 +72,27 @@ const Header = () => {
     }
   };
 
-  const { mutation: storeJourneyData } = useJourneyData();
+  const { mutation: storeJourneyData, journey } = useJourneyData();
 
   const { mutateAsync: fetchEra3 } = useRestPost(
     ["era-3-timestamps-multipliers"],
     "/api/era-3-timestamps-multipliers",
   );
+  const { darkBalance, treasuryBalance } = useHeaderStats();
 
   useEffect(() => {
     fetchEra3({ walletAddress: account.address }).then((data: any) => {
       storeJourneyData({
-        journey: Number(data.currentJourney),
+        // journey: Number(data.currentJourney),
         phase: Number(data.currentPhase),
         multiplier: Number(data.multiplier) ?? 0,
         rewardMultiplier: Number(data.rewardMultiplier) ?? 0,
       });
+      if (data.currentJourney !== journey) {
+        storeJourneyData({ journey: data.currentJourney });
+      }
     });
-  }, [account.address]);
-
-  const { journey, darkBalance, treasuryBalance } = useHeaderStats();
+  }, [account.address, journey]);
 
   return (
     <motion.header
@@ -109,7 +111,7 @@ const Header = () => {
             <p className="flex justify-center items-center gap-[8px]">
               <PiTreasureChestDuotone className="text-[24px] leading-[24px] text-agwhite" />
               <span>Treasury $DARK:</span>
-              <LoaderSpan data={treasuryBalance} />
+              <LoaderSpan data={Number(treasuryBalance)} />
             </p>
             <div className="w-[1px] h-full bg-gradient-to-b from-white via-[#999999] to-[#999999] rounded-full" />
             <p className="flex justify-center items-center gap-[8px]">
@@ -129,7 +131,7 @@ const Header = () => {
                     className="w-[24px] h-[24px]"
                   />
                   <span>User $DARK:</span>
-                  <LoaderSpan data={darkBalance} />
+                  <LoaderSpan data={Number(darkBalance)} />
                 </p>
               </Fragment>
             ) : null}
@@ -489,8 +491,8 @@ const Header = () => {
 
 export default Header;
 
-const LoaderSpan = ({ data }: { data?: string }) => {
-  return <span>{data ? Number(data).toLocaleString() : <DotLoader />}</span>;
+const LoaderSpan = ({ data }: { data?: number }) => {
+  return <span>{data ? data.toLocaleString() : <DotLoader />}</span>;
 };
 
 export const DotLoader = () => {

@@ -44,11 +44,6 @@ export const UserConnected: React.FC = () => {
 
   const { nftURLera1, nftURLera2 } = useUserData();
 
-  const { mutateAsync: fetchEra3 } = useRestPost(
-    ["era-3-timestamps-multipliers"],
-    "/api/era-3-timestamps-multipliers",
-  );
-
   useEffect(() => {
     if (account.address) {
       hydrateUserAndNFT(
@@ -63,14 +58,6 @@ export const UserConnected: React.FC = () => {
         })
         .catch((err) => console.log({ err }));
     }
-    fetchEra3({ walletAddress: account.address }).then((data: any) => {
-      storeJourneyData({
-        journey: Number(data.currentJourney),
-        phase: Number(data.currentPhase),
-        multiplier: Number(data.multiplier) ?? 0,
-        rewardMultiplier: Number(data.rewardMultiplier) ?? 0,
-      });
-    });
   }, [account.address, account.chainId, journey, phase]);
 
   return (

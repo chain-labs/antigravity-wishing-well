@@ -149,7 +149,6 @@ export default function useTimer() {
           nextJourneyTimestamp: number;
           mintEndTimestamp: number;
         };
-        console.log({ journeyData });
         const mintingTimestamps = {
           currentJourney: journeyData?.currentJourney,
           currentPhase: journeyData?.currentPhase,
