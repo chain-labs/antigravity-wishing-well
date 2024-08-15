@@ -14,6 +14,9 @@ export const CONTRACTS: Record<
     fuelCell?: Address;
     journeyPhaseManager?: Address;
     darkFaucet?: Address;
+    treasury?: Address;
+    jackpot?: Address;
+    evilAddress?: Address;
   }
 > = {
   [sepolia.id]: {
@@ -22,10 +25,13 @@ export const CONTRACTS: Record<
     darkClaims: "0x6b3099EfFF4dAE69e48240d88C141a7cfa793ae6",
     wishWell: "0x43F4cdC343f39EDD323C66492E9fdf3D72Df0eC0",
     dark: "0xE441c53319332bac6e1ea79491B65aF42C2CBa11",
-    fuelCell: "0x2112BF237bC033e2C0a9318c00A2c33639051F24",
-    journeyPhaseManager: "0x390E7AF57779A6a672054533beEd7b0dF7eD0bD9",
-    launchControlCenter: "0x7D1a660C0F6385D12A74356fc361613344A1B135",
-    darkFaucet: "0xd790fE4955C6F3C895e5a9a4849779D84d40cC2f",
+    fuelCell: "0x2321C1A41e42F3582c4bcAaf95A081a224B929a9",
+    journeyPhaseManager: "0xf504f8924b529d817687fC7B85e12DC0c99E57d4",
+    launchControlCenter: "0x6484A6Ae44Cfa051a1158C918446D08D12fC4168",
+    treasury: "0x12861ab30Dbb50dC3e9b449DD33F9DA693120cF1",
+    jackpot: "0xCf01a966a2485E5c5f4e80e9048bDEFa58422fB2",
+    evilAddress: "0xF8230239e89EA15dDb957aFE6e9EA541Fb36b49f",
+    darkFaucet: "0x319c6427688D0F1c7AfC282d21dD0bDE5F56d354",
   },
   [baseSepolia.id]: {
     miningRig: "0x8Dea737AE483153c69934ff8a5c7E3D448c2DB4C",
