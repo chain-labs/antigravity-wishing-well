@@ -23,6 +23,8 @@ import { delay, motion } from "framer-motion";
 import { getButtonCofigs, setCurrentMintState } from "./utils";
 import { useJourneyData } from "@/app/(client)/store";
 import ThreeDHovercardEffect from "../ThreeDHovercardEffect";
+import { Badge } from "@/components/HTML/Badge";
+import Link from "next/link";
 
 export const MINTING_STATES = {
   INITIAL: "INITIAL",
@@ -186,7 +188,12 @@ export default function MintingHero() {
                   collective points and rank up. It also secures your treasury
                   yield!
                 </P>
+                {/* add nfts to wallet */}
+                <Link href="/nft" target="_blank">
+                    <Badge className="text-[#3C00DC] border-[#3C00DC] px-[8px] py-[4px] text-[12px] leading-[12px]">Add NFTs to Wallet</Badge>
+                </Link>
               </div>
+
               {/* nft notif */}
               <motion.div
                 animate={{
