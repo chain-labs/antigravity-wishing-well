@@ -506,9 +506,20 @@ function Multiplyer({ buymoreHighlight }: { buymoreHighlight?: boolean }) {
           {rewardMultiplier}x
         </div>
       </motion.div>
-      <div className="flex flex-col justify-center items-center p-[8px] overflow-hidden text-agwhite text-[16px] font-semibold font-general-sans w-fit">
-        =
-      </div>
+      <motion.div
+        animate={{
+          filter: getCurrentBuyAnimation(!!buymoreHighlight).darkness.filter,
+        }}
+        transition={
+          getCurrentBuyAnimation(!!buymoreHighlight).darkness.transition
+        }
+        className="relative flex flex-col justify-center items-center px-[8px] py-[4px] rounded-[6px] border border-agyellow overflow-hidden w-fit z-0"
+      >
+        <div className="absolute inset-0 opacity-[0.66] bg-agblack -z-[1]"></div>
+        <div className="text-[32px] leading-[32px] text-agwhite font-extrabold font-sans">
+          =
+        </div>
+      </motion.div>
       <motion.div
         animate={{
           filter: getCurrentBuyAnimation(!!buymoreHighlight).darkness.filter,
