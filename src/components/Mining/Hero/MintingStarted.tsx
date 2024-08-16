@@ -21,7 +21,7 @@ export default function MintingTransitionWait() {
           start mint.
         </P>
         <Link href="/minting">
-          <Button iconSrc={IMAGEKIT_ICONS.CUBE} innerText="Go to Minting" iconAlt="minting" />
+          <Button iconSrc={IMAGEKIT_ICONS.CUBE} innerText="Start Minting" iconAlt="minting" />
         </Link>
       </div>
       <div className="p-[8px] rounded-[6px] bg-[#030404A8]">
