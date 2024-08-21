@@ -15,6 +15,7 @@ import GradientBorder from "../GradientBorder";
 import { useRestPost } from "@/hooks/useRestClient";
 import Dropdownbutton from "../Dropdownbutton";
 import useTimer from "@/hooks/frontend/useTimer";
+import { client } from "../../../sanity/lib/client";
 
 function CollectiveLogo() {
   return (
@@ -54,6 +55,21 @@ export default function Leaderboard() {
     ["leaderboard"],
     "/api/leaderboard",
   );
+  const [externalLinks, setExternalLinks] = useState<{
+    best_way_to_rank_up: string;
+  }>();
+
+  useEffect(() => {
+    client
+      .fetch(
+        `*[_type=="external_links"][0]{
+          best_way_to_rank_up
+        }`,
+      )
+      .then((externalLinks) => {
+        setExternalLinks(externalLinks);
+      });
+  }, []);
 
   const handleRefresh = () => {
     mutateLeaderboardData({
@@ -158,7 +174,7 @@ export default function Leaderboard() {
                   />
                 </motion.div>
 
-                <P className="font-medium">Mine now to rank up!</P>
+                <P className="font-medium">Mint now to rank up!</P>
                 {timer.era !== "minting" && (
                   <Link href={"/minting"}>
                     {timer.claimStarted ? (
@@ -195,7 +211,12 @@ export default function Leaderboard() {
                     )}
                   </Link>
                 )}
-                <a href="/" className="text-agwhite underline">
+                <a
+                  href={externalLinks?.best_way_to_rank_up}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-agwhite underline"
+                >
                   <P>Best ways to rank up →</P>
                 </a>
               </div>
