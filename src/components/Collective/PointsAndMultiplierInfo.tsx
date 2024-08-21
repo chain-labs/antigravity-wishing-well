@@ -13,6 +13,7 @@ export default function PointsAndMultiplierInfo() {
   const [tooltipWishwellOpen, setTooltipWishwellOpen] = useState(false);
   const [tooltipMintingOpen, setTooltipMintingOpen] = useState(false);
   const [tooltipMiningOpen, setTooltipMiningOpen] = useState(false);
+
   const timer = useTimer();
   return (
     <div className="relative h-fit w-full  overflow-hidden z-0">
@@ -106,7 +107,7 @@ export default function PointsAndMultiplierInfo() {
             )}
           </>
           <>
-            {timer.era !== "mining" ? (
+            {timer.era === "mining" ? (
               <Link href="/mining">
                 <div
                   className={`relative flex justify-center items-center gap-[8px] rounded-[6px] bg-gradient-to-b from-[#0A1133] to-[#142266] px-[16px] py-[8px] border-1 border-transparent bg-clip-padding z-0
@@ -194,7 +195,7 @@ export default function PointsAndMultiplierInfo() {
             )}
           </>
           <>
-            {timer.era !== "minting" ? (
+            {timer.era === "minting" ? (
               <Link href="/minting">
                 <div
                   className={`relative flex justify-center items-center gap-[8px] rounded-[6px] bg-gradient-to-b from-[#0A1133] to-[#142266] px-[16px] py-[8px] border-1 border-transparent bg-clip-padding z-0
