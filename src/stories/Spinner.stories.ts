@@ -1,8 +1,9 @@
 "use client";
 
+import Spinner from "@/components/Home/components/Spinner";
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
-import Spinner from "@/components/Spinner";
+import { MotionValue } from "framer-motion";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -19,14 +20,9 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+
 export const Default: Story = {
   args: {
-    era: "mining",
-    stage: 1,
-    bonus: 22,
-    days: 4,
-    hours: 14,
-    mins: 48,
-    secs: 20,
+    scrollYProgress: 0 as unknown as MotionValue<number>,
   },
 };

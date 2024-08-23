@@ -4,7 +4,6 @@ import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { TokenDropdownTypes } from "./Mining/types";
 
 export default function Dropdown({
   icon,

@@ -85,7 +85,10 @@ const config: Config = {
       // => @media (min-width: 1280px) { ... }
 
       "2xl": "1536px",
-      // => @media (min-width: 1536px) { ... }
+      // => @media (min-width: 1536px) { ... },
+
+      "3xl" : "1950px",
+      // => @media (min-width: 1920px) { ... },
 
       tall: { raw: "(max-height: 700px)" },
       // => @media (min-height: 800px) { ... }

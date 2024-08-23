@@ -1,6 +1,6 @@
 "use client";
 import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
-import HeroItemCard from "@/components/HeroItemCard";
+import HeroItemCard from "@/components/Home/components/HeroItemCard";
 import useTimer from "@/hooks/frontend/useTimer";
 import useClaim from "@/hooks/sc-fns/useClaim";
 

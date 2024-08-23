@@ -6,7 +6,7 @@ import {
   sepolia,
 } from "viem/chains";
 import { TEST_NETWORK } from "./constants";
-import { UserData } from "./components/Home/components/header/UserConnected";
+import { UserData } from "./components/header/UserConnected";
 
 export const toBoolean = (query: string | undefined) => {
   if (query?.toLowerCase() === "true") return true;

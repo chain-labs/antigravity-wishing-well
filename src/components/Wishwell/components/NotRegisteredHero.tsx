@@ -1,11 +1,11 @@
 "use client";
+
 import H1 from "@/components/HTML/H1";
 import P from "@/components/HTML/P";
-import { RegisterButton } from "@/components/Home/components/header/RegisterButton";
+import { RegisterButton } from "@/components/header/RegisterButton";
 import Button from "@/components/Button";
 import Image from "next/image";
 import { Dispatch, useEffect, useRef, useState } from "react";
-import { PublicClient } from "viem";
 import { useChainModal, useConnectModal } from "@rainbow-me/rainbowkit";
 import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import { AnimatePresence, motion } from "framer-motion";

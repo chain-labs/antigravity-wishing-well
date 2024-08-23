@@ -1,3 +1,5 @@
+"use client";
+
 import { IMAGEKIT_ICONS, IMAGEKIT_LOGOS } from "@/assets/imageKit";
 import Button from "@/components/Button";
 import H1 from "@/components/HTML/H1";

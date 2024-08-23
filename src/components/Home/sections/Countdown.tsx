@@ -1,10 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { twMerge } from "tailwind-merge";
-import DynamicNumberCounter from "@/components/Home/components/spinner/DynamicNumberCounter";
 import useTimer from "../../../hooks/frontend/useTimer";
 import CountdownTimer from "@/components/CountdownTimer";
 import { IMAGEKIT_IMAGES } from "@/assets/imageKit";

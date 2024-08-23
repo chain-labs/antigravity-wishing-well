@@ -1,3 +1,5 @@
+"use client";
+
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { IToken, StateType } from "../types";
 import useTimer from "@/hooks/frontend/useTimer";
@@ -6,8 +8,6 @@ import { useAccount, useReadContract } from "wagmi";
 import { useRestFetch, useRestPost } from "@/hooks/useRestClient";
 import useMerkleTree from "@/hooks/sc-fns/useMerkleTree.mine";
 import useMining from "@/hooks/sc-fns/useMining";
-import { MULTIPLIER } from "../constants";
-import { errorToast } from "@/hooks/frontend/toast";
 import NFTHero from "./NFTHero";
 import NoNFTHero from "./NoNFTHero";
 import MiningCalculator from "../MiningCalculator";
@@ -19,6 +19,7 @@ import { checkCorrectNetwork } from "@/components/RainbowKit";
 import { pulsechain, sepolia } from "viem/chains";
 import useMiningContract from "@/abi/MiningRig";
 import useUserData from "@/app/(client)/store";
+import { errorToast } from "@/hooks/frontend/toast";
 
 export default function NonContributed({
   state,

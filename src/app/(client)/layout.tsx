@@ -8,10 +8,10 @@ import { Toaster } from "react-hot-toast";
 import GoogleAnalytics from "./analytics";
 import IMAGEKIT from "./home/images";
 import Image from "next/image";
-import Header from "@/components/Home/components/header/Header";
-import StarFieldCanvas from "@/components/Home/components/background/Starfeild";
+import Header from "@/components/header/Header";
+import StarFieldCanvas from "@/components/background/Starfeild";
 import SaturnCanvasORImage from "./SaturnCanvasORImage";
-import Footer from "@/components/Home/sections/Footer";
+import Footer from "@/components/Footer";
 import AnimatedNebulaBG from "@/components/AnimatedNebulaBG";
 import { useEffect } from "react";
 

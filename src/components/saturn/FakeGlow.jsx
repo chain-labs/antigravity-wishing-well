@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import { shaderMaterial } from "@react-three/drei";

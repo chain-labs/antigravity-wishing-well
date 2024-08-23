@@ -1,3 +1,5 @@
+"use client";
+
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import H1 from "../HTML/H1";
 import Image from "next/image";
