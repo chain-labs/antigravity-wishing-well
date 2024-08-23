@@ -39,15 +39,13 @@ export const CONTRACTS: Record<
     wishWell: "0xC8A96A9163C2D11e2002C589a5DC7Ee4267499e2",
   },
   [pulsechain.id]: {
+    miningRig: "0x1Eca1A64E18E72c46971a80D91F015a569FE9FBd",
+    darkX: "0xCC18F40724971Be55AB5508607d8024Ee9Bf8796",
     wishWell: "0x332211A407489F497cD58bac7Db3F10Da5da47Ff",
-    miningRig: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-    darkX: "0x5ecc92CE4B271C32c6DFBC23bd3b15EcC54ea9B6",
-    darkClaims: "0x77EF0D01DC623A4Ac0A87aFCfc66d51E6194067d",
-    dark: "0x87710D5d5815C2A0fc39752Ff73f87812760Bb6E",
   },
   [base.id]: {
+    miningRig: "0x698Ae58B7AB13ad232A84d684e8111D2c6A6d904",
+    darkX: "0xb070db7dCad8F5081c3e9033633782258fCa811c",
     wishWell: "0x332211A407489F497cD58bac7Db3F10Da5da47Ff",
-    miningRig: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-    darkX: "0x6a3282ec6a687105e1B71327bf6B2e7db9A7e889",
   },
 };
