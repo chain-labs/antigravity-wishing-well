@@ -189,8 +189,13 @@ export default function MintingHero() {
                   yield!
                 </P>
                 {/* add nfts to wallet */}
-                <Link href="/nft" target="_blank">
-                    <Badge className="text-[#3C00DC] border-[#3C00DC] px-[8px] py-[4px] text-[12px] leading-[12px]">Add Fuel Cell NFTs to Wallet</Badge>
+                <Link
+                  href={`https://testnets.opensea.com/address/${account.address}`}
+                  target="_blank"
+                >
+                  <Badge className="text-[#3C00DC] border-[#3C00DC] px-[8px] py-[4px] text-[12px] leading-[12px]">
+                    Add Fuel Cell NFTs to Wallet
+                  </Badge>
                 </Link>
               </div>
 
