@@ -190,7 +190,7 @@ export default function MintingHero() {
                 </P>
                 {/* add nfts to wallet */}
                 <Link
-                  href={`https://testnets.opensea.com/address/${account.address}`}
+                  href={`https://testnets.opensea.io/${account.address}`}
                   target="_blank"
                 >
                   <Badge className="text-[#3C00DC] border-[#3C00DC] px-[8px] py-[4px] text-[12px] leading-[12px]">
