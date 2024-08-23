@@ -18,7 +18,7 @@ import { TEST_NETWORK } from "@/constants";
 import { checkCorrectNetwork } from "@/components/RainbowKit";
 import { pulsechain, sepolia } from "viem/chains";
 import useMiningContract from "@/abi/MiningRig";
-import useUserData from "@/app/(client)/store";
+import { useUserData } from "@/app/(client)/store";
 import { errorToast } from "@/hooks/frontend/toast";
 
 export default function NonContributed({

@@ -14,7 +14,7 @@ import SepoliaAG from "@/abi/wishwell/Sepolia";
 import PulsechainAG from "@/abi/wishwell/Pulsechain";
 import ThreeDHovercardEffect from "@/components/ThreeDHovercardEffect";
 import { TEST_NETWORK } from "@/constants";
-import useUserData from "@/app/(client)/store";
+import { useUserData } from "@/app/(client)/store";
 import imageKitLoader from "@/components/imageKitLoader";
 
 export default function ContributedHero() {

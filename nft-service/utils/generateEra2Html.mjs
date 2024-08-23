@@ -1,7 +1,32 @@
-<html>
+import { createWriteStream, existsSync, mkdirSync } from "fs";
+
+function formattingNumber(number) {
+  function USAbasedNumbering(number) {
+    return number.toLocaleString("en-US");
+  }
+
+  const stringNumber = String(number);
+
+  if (stringNumber.includes(".")) {
+    const [integer, decimal] = stringNumber.split(".");
+    return `${USAbasedNumbering(parseInt(integer))}.<small>${decimal}</small>`;
+  }
+
+  return USAbasedNumbering(number);
+}
+
+const generateEra2Html = (htmlPayload, filename) => {
+  const {
+    rank,
+    wishwellPoints,
+    miningPoints,
+    mintingPoints,
+    totalPoints,
+    pointsAverage,
+  } = htmlPayload;
+  const html = `<html>
   <head>
     <style>
-      @import url("https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800,900&f[]=general-sans@400,500,600,700&display=swap");
       * {
         font-family: "Cabinet Grotesk", sans-serif;
         margin: 0;
@@ -83,6 +108,7 @@
         content: "";
         position: absolute;
         inset: 0;
+        border-radius: inherit;
         overflow: hidden;
       }
 
@@ -91,11 +117,10 @@
         background: linear-gradient(to top right, #3c00dc, #ff5001);
         margin: -6px;
       }
-      
+
       .container::after {
         z-index: -2;
         background-color: black;
-        border-radius: 12px;
       }
 
       .background-image {
@@ -149,11 +174,15 @@
         color: #f5eb00;
       }
 
-      .points.small{
+      .points.small {
         font-size: 16px;
         line-height: 16px;
         opacity: 0.66;
         margin-top: 8px;
+      }
+
+      .points > small {
+        opacity: 0.66;
       }
 
       .conversion {
@@ -203,7 +232,7 @@
         text-wrap: wrap;
         max-width: 206px;
       }
-      #container {
+      #container{
         width: fit-content;
       }
     </style>
@@ -237,39 +266,59 @@
           </svg>
         </div>
 
-        <h1 class="title">WISHWELL</h1>
+        <h1 class="title">ANTIGRAVITY</h1>
         <div class="gradient-bar"></div>
         <div class="section">
-          <p class="section-title">${transaction?.contributionTokenName}</p>
-          <p class="points">
+          <p class="section-title">Your Rank</p>
+          <p class="points transparent blue-gradient">
             <!-- Replace with actual value -->
-            ${transaction?.totalContributionTokenAmount}
-            ${transaction?.contributionTokenSymbol}
-          </p>
-          <p class="points small">
-            <!-- Replace with actual value -->
-            $${transaction?.approxContributionValueInUSD}
+            ${rank}
           </p>
         </div>
         <div class="section">
-          <p class="section-title">TOTAL VALUE</p>
+          <p class="section-title">Wishwell Era Points</p>
           <p class="points">
             <!-- Replace with actual value -->
-            $${totalAmount}
+            ${formattingNumber(wishwellPoints)}
+          </p>
+        </div>
+        <div class="section">
+          <p class="section-title">Mining Era Points</p>
+          <p class="points">
+            <!-- Replace with actual value -->
+            ${formattingNumber(miningPoints)}
+          </p>
+        </div>
+        <div class="section">
+          <p class="section-title">Minting Era Points</p>
+          <p class="points">
+            <!-- Replace with actual value -->
+            ${formattingNumber(mintingPoints)}
           </p>
         </div>
         <div class="section">
           <p class="section-title">Total Points</p>
           <p class="points total">
             <!-- Replace with actual value -->
-            ${totalPoints}
+            ${formattingNumber(totalPoints)}
           </p>
         </div>
         <p class="conversion">
           <!-- Replace with actual value -->
-          AVG: ${ Math.round(totalPoints / totalAmount) || 0 } Points / $1
+          ${formattingNumber(pointsAverage)} Points / $1
         </p>
       </div>
     </div>
   </body>
-</html>
+</html>`;
+  if (!existsSync("./static")) {
+    mkdirSync("./static");
+  }
+  const fileNameWithExtension = `./static/${filename}.html`;
+  const stream = createWriteStream(fileNameWithExtension);
+  stream.once("open", function (fd) {
+    stream.end(html);
+  });
+};
+
+export default generateEra2Html;

@@ -4,9 +4,11 @@ import { useAccount } from "wagmi";
 import { PiWarningCircle } from "react-icons/pi";
 import { useEffect, useState } from "react";
 import { useRestPost } from "@/hooks/useRestClient";
-import useUserData from "@/app/(client)/store";
+import { useJourneyData, useUserData } from "@/app/(client)/store";
 import { hydrateUserAndNFT } from "./utils";
 import { Badge } from "@/components/HTML/Badge";
+import axios from "axios";
+import { API_ENDPOINT } from "@/constants";
 export interface UserData {
   rank: string;
   walletAddress: string; // Add the 'walletAddress' property
@@ -23,6 +25,7 @@ export interface UserData {
 export const UserConnected: React.FC = () => {
   const account = useAccount();
   const { mutation: storeUserData, rank } = useUserData();
+  const { mutation: storeJourneyData, journey, phase } = useJourneyData();
 
   const { mutateAsync: mutateUserData } = useRestPost<UserData>(
     ["user"],
@@ -55,7 +58,7 @@ export const UserConnected: React.FC = () => {
         })
         .catch((err) => console.log({ err }));
     }
-  }, [account.address, account.chainId]);
+  }, [account.address, account.chainId, journey, phase]);
 
   return (
     <div className="flex text-lg">
@@ -83,27 +86,57 @@ export const UserConnected: React.FC = () => {
             //   location.reload();
             // setCurrentChain(chain.name as string);
             return (
-              <div className="flex w-full h-full bg-agblack gap-2 items-center rounded-lg cursor-pointer focus:outline-none">
-                {chain.hasIcon ? (
-                  <>
-                    <img
-                      src={chain.iconUrl ?? ""}
-                      alt={chain.name ?? ""}
-                      className="w-[40px] h-[40px] rounded-full aspect-square"
-                      onClick={openChainModal}
-                    />
-                    <p
-                      className="flex flex-col justify-start items-start gap-0 text-[16px] leading-[16px] uppercase bg-gradient-to-b font-extrabold from-[#B4EBF8] to-[#789DFA] text-transparent bg-clip-text"
-                      onClick={openAccountModal}
-                    >
-                      {condenseAddress(`${account.address}`)}
-                      <Badge className="text-agwhite border-agwhite pb-[4px] opacity-[66%]">
+              <>
+                {/* desktop */}
+                <div className="hidden lg:flex w-full h-full bg-agblack gap-2 items-center rounded-lg cursor-pointer focus:outline-none">
+                  {chain.hasIcon ? (
+                    <>
+                      <img
+                        src={chain.iconUrl ?? ""}
+                        alt={chain.name ?? ""}
+                        className="w-[40px] h-[40px] rounded-full aspect-square"
+                        onClick={openChainModal}
+                      />
+                      <p
+                        className="flex flex-col justify-start items-start gap-0 text-[16px] leading-[16px] uppercase bg-gradient-to-b font-extrabold from-[#B4EBF8] to-[#789DFA] text-transparent bg-clip-text"
+                        onClick={openAccountModal}
+                      >
+                        {condenseAddress(`${account.address}`)}
+                        <Badge className="text-agwhite border-agwhite pb-[4px] opacity-[66%]">
+                          {rank || "LOADING..."}
+                        </Badge>
+                      </p>
+                    </>
+                  ) : null}
+                </div>
+                {/* mobile */}
+                <div className="flex flex-col lg:hidden w-full h-full bg-agblack gap-2 items-center rounded-lg cursor-pointer focus:outline-none">
+                  {chain.hasIcon ? (
+                    <>
+                      <Badge className="text-agwhite border-agwhite pb-[4px] opacity-[66%] flex lg:hidden">
                         {rank || "LOADING..."}
                       </Badge>
-                    </p>
-                  </>
-                ) : null}
-              </div>
+                      <div className="flex justify-center items-center gap-2">
+                        <img
+                          src={chain.iconUrl ?? ""}
+                          alt={chain.name ?? ""}
+                          className="w-[40px] h-[40px] rounded-full aspect-square"
+                          onClick={openChainModal}
+                        />
+                        <p
+                          className="flex flex-col justify-start items-start gap-0 text-[16px] leading-[16px] uppercase bg-gradient-to-b font-extrabold from-[#B4EBF8] to-[#789DFA] text-transparent bg-clip-text"
+                          onClick={openAccountModal}
+                        >
+                          {condenseAddress(`${account.address}`)}
+                          <Badge className="text-agwhite border-agwhite pb-[4px] opacity-[66%] hidden lg:flex">
+                            {rank || "LOADING..."}
+                          </Badge>
+                        </p>
+                      </div>
+                    </>
+                  ) : null}
+                </div>
+              </>
             );
           }
         }}

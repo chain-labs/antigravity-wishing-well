@@ -9,6 +9,8 @@ interface IContract {
 
 import abi from "./abi.json";
 import { CONTRACTS } from "../config";
+import { useEffect, useState } from "react";
+import { zeroAddress } from "viem";
 
 const contracts: Record<
   number,
@@ -25,11 +27,19 @@ const contracts: Record<
 };
 
 const useDarkContract = (): IContract => {
-  if (TEST_NETWORK) {
-    return contracts[sepolia.id];
-  } else {
-    return contracts[pulsechain.id];
-  }
+  const [contract, setContract] = useState<IContract>({
+    abi: {},
+    address: zeroAddress,
+  });
+  useEffect(() => {
+    if (TEST_NETWORK) {
+      setContract(contracts[sepolia.id]);
+    } else {
+      setContract(contracts[pulsechain.id]);
+    }
+  }, []);
+
+  return contract;
 };
 
 export default useDarkContract;

@@ -1,7 +1,7 @@
 <html>
   <head>
     <style>
-      /* @import url("https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800,900&f[]=general-sans@400,500,600,700&display=swap"); */
+      @import url("https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800,900&f[]=general-sans@400,500,600,700&display=swap");
       * {
         font-family: "Cabinet Grotesk", sans-serif;
         margin: 0;
@@ -91,7 +91,7 @@
         background: linear-gradient(to top right, #3c00dc, #ff5001);
         margin: -6px;
       }
-      
+
       .container::after {
         z-index: -2;
         background-color: black;
@@ -149,6 +149,17 @@
         color: #f5eb00;
       }
 
+      .points.small {
+        font-size: 16px;
+        line-height: 16px;
+        opacity: 0.66;
+        margin-top: 8px;
+      }
+
+      .points > small {
+        opacity: 0.66;
+      }
+
       .conversion {
         text-transform: uppercase;
         margin-left: auto;
@@ -196,7 +207,7 @@
         text-wrap: wrap;
         max-width: 206px;
       }
-      #container{
+      #container {
         width: fit-content;
       }
     </style>
@@ -230,27 +241,25 @@
           </svg>
         </div>
 
-        <h1 class="title">ANTIGRAVITY</h1>
+        <h1 class="title">WISHWELL</h1>
         <div class="gradient-bar"></div>
         <div class="section">
-          <p class="section-title">Your Rank</p>
-          <p class="points transparent blue-gradient">
+          <p class="section-title">${transaction?.contributionTokenName}</p>
+          <p class="points">
             <!-- Replace with actual value -->
-            ${rank}
+            ${transaction?.totalContributionTokenAmount}
+            ${transaction?.contributionTokenSymbol}
+          </p>
+          <p class="points small">
+            <!-- Replace with actual value -->
+            $${transaction?.approxContributionValueInUSD}
           </p>
         </div>
         <div class="section">
-          <p class="section-title">Wishwell Era Points</p>
+          <p class="section-title">TOTAL VALUE</p>
           <p class="points">
             <!-- Replace with actual value -->
-            ${wishwellPoints}
-          </p>
-        </div>
-        <div class="section">
-          <p class="section-title">Mining Era Points</p>
-          <p class="points">
-            <!-- Replace with actual value -->
-            ${miningPoints}
+            $${totalAmount}
           </p>
         </div>
         <div class="section">
@@ -262,9 +271,36 @@
         </div>
         <p class="conversion">
           <!-- Replace with actual value -->
-          AVG: ${pointsAverage} Points / $1
+          AVG: ${ Math.round(totalPoints / totalAmount) || 0 } Points / $1
         </p>
       </div>
     </div>
+    <script defer>
+      function USAbasedNumbering(number) {
+        return number.toLocaleString("en-US");
+      }
+
+      function DecimalNumberFormating(number) {
+        const [integer, decimal] = number.split(".");
+        return `${USAbasedNumbering(parseInt(integer))}.<small>${decimal}</small>`;
+      }
+
+      const allThePoints = document.querySelectorAll(".points, .conversion");
+      allThePoints.forEach((point) => {
+        try {
+          const text = point.innerText;
+          const number = text.match(/\d+.\d+/g);
+          if (number.length) {
+            number.forEach((num) => {
+              const formattedNumber = num.includes(".")
+                ? DecimalNumberFormating(num)
+                : USAbasedNumbering(parseInt(num));
+
+              point.innerHTML = text.replace(num, formattedNumber);
+            });
+          }
+        } catch (e) {}
+      });
+    </script>
   </body>
 </html>

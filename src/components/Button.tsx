@@ -149,6 +149,7 @@ export default function Button({
         secondary &&
           "border-[1px] border-[#414343] bg-agblack active:bg-[#414343] box-border",
         `text-[${letterSize[size]}px] leading-[${letterSize[size]}px]`,
+          `disabled:bg-[#3C00DC80] shadow-[0_2px_0px_#030404] hover:translate-y-[2px]`,
         className,
         (loading || disabled) && "cursor-not-allowed bg-[#414343]",
       )}

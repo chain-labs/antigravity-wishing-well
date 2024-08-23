@@ -8,7 +8,7 @@ import H1 from "@/components/HTML/H1";
 import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import Link from "next/link";
 import ThreeDHovercardEffect from "@/components/ThreeDHovercardEffect";
-import useUserData from "@/app/(client)/store";
+import { useUserData } from "@/app/(client)/store";
 import imageKitLoader from "@/components/imageKitLoader";
 import { client } from "../../../../sanity/lib/client";
 

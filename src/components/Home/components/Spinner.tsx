@@ -7,14 +7,15 @@ import { MotionValue, motion, useTransform } from "framer-motion";
 import DynamicNumberCounter from "../../DynamicNumberCounter";
 import AutomaticIncreamentalNumberCounter from "../../AutomaticIncreamentalNumberCounter";
 import useTimer from "@/hooks/frontend/useTimer";
-import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
+import { IMAGEKIT_IMAGES, IMAGEKIT_LOGOS } from "@/assets/imageKit";
 import { useRestPost } from "@/hooks/useRestClient";
 import { getEra } from "@/utils";
+import If from "@/components/If";
 
 let globalDelay = 0;
 
 type SpinnerProps = {
-  era: "wishwell" | "mining" | "minting";
+  era: "wishwell" | "mining" | "minting" | "journey1" | "journey2" | "journey3";
   stage: 1 | 2 | 3;
   bonus: number;
   days: number;
@@ -65,7 +66,9 @@ function H1({
   isEraLetter?: string;
 }) {
   const timer = useTimer();
-  const currentEra = timer.era;
+  const currentEra = timer.isMintingActive
+    ? `journey${timer.journey}`
+    : timer.era;
   const currentPhase = timer.phase;
   const active = currentEra === era && currentPhase === stage;
 
@@ -148,12 +151,19 @@ function Border({
 function decideActiveStageLocation({
   activePhase,
   activeEra,
+  mintingActive = false,
 }: {
   activePhase: SpinnerProps["stage"];
   activeEra: SpinnerProps["era"];
+  mintingActive?: boolean;
 }) {
+  const eras = {
+    era1: mintingActive ? "journey1" : "wishwell",
+    era2: mintingActive ? "journey2" : "mining",
+    era3: mintingActive ? "journey3" : "minting",
+  };
   switch (activeEra) {
-    case "wishwell":
+    case eras.era1:
       switch (activePhase) {
         case 1:
           return -100;
@@ -162,7 +172,7 @@ function decideActiveStageLocation({
         case 3:
           return -50;
       }
-    case "mining":
+    case eras.era2:
       switch (activePhase) {
         case 1:
           return -25;
@@ -171,7 +181,7 @@ function decideActiveStageLocation({
         case 3:
           return 25;
       }
-    case "minting":
+    case eras.era3:
       switch (activePhase) {
         case 1:
           return 50;
@@ -186,8 +196,13 @@ function decideActiveStageLocation({
 function StageHighlighter() {
   const activeState = useTimer();
   const rotation = decideActiveStageLocation({
-    activeEra: activeState.era,
-    activePhase: activeState.phase,
+    activeEra: activeState.isMintingActive
+      ? `journey${activeState.journey as 1 | 2 | 3}`
+      : activeState.era,
+    activePhase: activeState.isMintingActive
+      ? (activeState.phaseNumber as 1 | 2 | 3)
+      : activeState.phase,
+    mintingActive: activeState.isMintingActive,
   });
   return (
     <motion.div
@@ -215,14 +230,30 @@ function StageHighlighter() {
 }
 
 function EraHighlighter() {
-  const activeEra = useTimer().era;
+  const timer = useTimer();
+  const activeEra = timer.era;
+  const eras = {
+    era1:
+      activeEra === "minting" && timer.journey === 1
+        ? true
+        : activeEra === "wishwell"
+          ? true
+          : false,
+    era2:
+      activeEra === "minting" && timer.journey === 2
+        ? true
+        : activeEra === "mining"
+          ? true
+          : false,
+    era3: activeEra === "minting" && timer.journey === 3 ? true : false,
+  };
+
   return (
     <motion.div
       whileInView={{
         x: "-50%",
         y: "-50%",
-        rotate:
-          activeEra === "wishwell" ? -75 : activeEra === "minting" ? 75 : 0,
+        rotate: eras.era1 ? -75 : eras.era3 ? 75 : 0,
       }}
       initial={{
         x: "-50%",
@@ -233,7 +264,7 @@ function EraHighlighter() {
       transition={{ duration: 1, delay: globalDelay }}
       className={twMerge(
         "absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-50%] origin-bottom h-[490px] w-[190px] bg-agyellow z-10",
-        `rotate-[${activeEra === "wishwell" ? -75 : activeEra === "minting" ? 75 : 0}deg]`,
+        `rotate-[${eras.era1 ? -75 : eras.era3 ? 75 : 0}deg]`,
       )}
     >
       <div className="absolute bottom-0 left-[50%] translate-x-[calc(-100%_-_10px)] origin-bottom rotate-[37.5deg] h-[490px] w-[90px] bg-agyellow z-20"></div>
@@ -243,6 +274,167 @@ function EraHighlighter() {
 }
 
 function Era() {
+  const activePhase = useTimer().phase;
+  return (
+    <>
+      <EraHighlighter />
+      <div id="journey1">
+        <H1
+          era="journey1"
+          stage={activePhase}
+          parentClassName="rotate-[-100deg]"
+          isEraLetter={"J"}
+        />
+        <H1
+          era="journey1"
+          stage={activePhase}
+          parentClassName="rotate-[-93.5deg]"
+          isEraLetter={"o"}
+        />
+        <H1
+          era="journey1"
+          stage={activePhase}
+          parentClassName="rotate-[-86.5deg]"
+          isEraLetter={"u"}
+        />
+        <H1
+          era="journey1"
+          stage={activePhase}
+          parentClassName="rotate-[-80deg]"
+          isEraLetter={"r"}
+        />
+        <H1
+          era="journey1"
+          stage={activePhase}
+          parentClassName="rotate-[-73.5deg]"
+          isEraLetter={"n"}
+        />
+        <H1
+          era="journey1"
+          stage={activePhase}
+          parentClassName="rotate-[-67deg]"
+          isEraLetter={"e"}
+        />
+        <H1
+          era="journey1"
+          stage={activePhase}
+          parentClassName="rotate-[-60.5deg]"
+          isEraLetter={"y"}
+        />
+        <H1
+          era="journey1"
+          stage={activePhase}
+          parentClassName="rotate-[-51deg]"
+          isEraLetter={"1"}
+        />
+      </div>
+      <Border eraBorder className="rotate-[-37.5deg]" />
+      <div id="journey2">
+        <H1
+          era="journey2"
+          stage={activePhase}
+          parentClassName="rotate-[-22deg]"
+          isEraLetter={"J"}
+        />
+        <H1
+          era="journey2"
+          stage={activePhase}
+          parentClassName="rotate-[-16deg]"
+          isEraLetter={"o"}
+        />
+        <H1
+          era="journey2"
+          stage={activePhase}
+          parentClassName="rotate-[-9.5deg]"
+          isEraLetter={"u"}
+        />
+        <H1
+          era="journey2"
+          stage={activePhase}
+          parentClassName="rotate-[-3deg]"
+          isEraLetter={"r"}
+        />
+        <H1
+          era="journey2"
+          stage={activePhase}
+          parentClassName="rotate-[3.5deg]"
+          isEraLetter={"n"}
+        />
+        <H1
+          era="journey2"
+          stage={activePhase}
+          parentClassName="rotate-[9.5deg]"
+          isEraLetter={"e"}
+        />
+        <H1
+          era="journey2"
+          stage={activePhase}
+          parentClassName="rotate-[15deg]"
+          isEraLetter={"y"}
+        />
+        <H1
+          era="journey2"
+          stage={activePhase}
+          parentClassName="rotate-[24deg]"
+          isEraLetter={"2"}
+        />
+      </div>
+      <Border eraBorder className="rotate-[37.5deg]" />
+      <div id="journey3">
+        <H1
+          era="journey3"
+          stage={activePhase}
+          parentClassName="rotate-[51.5deg]"
+          isEraLetter={"J"}
+        />
+        <H1
+          era="journey3"
+          stage={activePhase}
+          parentClassName="rotate-[58deg]"
+          isEraLetter={"o"}
+        />
+        <H1
+          era="journey3"
+          stage={activePhase}
+          parentClassName="rotate-[65deg]"
+          isEraLetter={"u"}
+        />
+        <H1
+          era="journey3"
+          stage={activePhase}
+          parentClassName="rotate-[72deg]"
+          isEraLetter={"r"}
+        />
+        <H1
+          era="journey3"
+          stage={activePhase}
+          parentClassName="rotate-[79deg]"
+          isEraLetter={"n"}
+        />
+        <H1
+          era="journey3"
+          stage={activePhase}
+          parentClassName="rotate-[85deg]"
+          isEraLetter={"e"}
+        />
+        <H1
+          era="journey3"
+          stage={activePhase}
+          parentClassName="rotate-[91deg]"
+          isEraLetter={"y"}
+        />
+        <H1
+          era="journey3"
+          stage={activePhase}
+          parentClassName="rotate-[100deg]"
+          isEraLetter={"3"}
+        />
+      </div>
+    </>
+  );
+}
+
+function EraOfEra2() {
   const activePhase = useTimer().phase;
   return (
     <>
@@ -388,6 +580,22 @@ function Era() {
 function StageNumber() {
   return (
     <div>
+      <H1 era="journey1" stage={1} parentClassName="rotate-[-100deg] pt-12" />
+      <H1 era="journey1" stage={2} parentClassName="rotate-[-75deg] pt-11" />
+      <H1 era="journey1" stage={3} parentClassName="rotate-[-50deg] pt-10" />
+      <H1 era="journey2" stage={1} parentClassName="rotate-[-25deg] pt-9" />
+      <H1 era="journey2" stage={2} parentClassName="rotate-[0deg] pt-9" />
+      <H1 era="journey2" stage={3} parentClassName="rotate-[25deg] pt-9" />
+      <H1 era="journey3" stage={1} parentClassName="rotate-[50deg] pt-10" />
+      <H1 era="journey3" stage={2} parentClassName="rotate-[75deg] pt-11" />
+      <H1 era="journey3" stage={3} parentClassName="rotate-[100deg] pt-12" />
+    </div>
+  );
+}
+
+function StageNumberOfEra2() {
+  return (
+    <div>
       <H1 era="wishwell" stage={1} parentClassName="rotate-[-100deg] pt-12" />
       <H1 era="wishwell" stage={2} parentClassName="rotate-[-75deg] pt-11" />
       <H1 era="wishwell" stage={3} parentClassName="rotate-[-50deg] pt-10" />
@@ -419,8 +627,13 @@ function StageInBetweenBorders() {
 function Pointer() {
   const activeState = useTimer();
   const rotation = decideActiveStageLocation({
-    activeEra: activeState.era,
-    activePhase: activeState.phase,
+    activeEra: activeState.isMintingActive
+      ? `journey${activeState.journey as 1 | 2 | 3}`
+      : activeState.era,
+    activePhase: activeState.isMintingActive
+      ? (activeState.phaseNumber as 1 | 2 | 3)
+      : activeState.phase,
+    mintingActive: activeState.isMintingActive,
   });
   return (
     <motion.div
@@ -455,8 +668,34 @@ function Pointer() {
   );
 }
 
+const COUNTDOWN_TITLE: { [key: string]: string[] } = {
+  wishwell: ["Til phase 2", "Til phase 3", "Til phase 1"],
+  mining: ["Til phase 2", "Til phase 3", "Til Minting"],
+  minting: [],
+  journey1: ["Til Lottery 1", "Til Journey 2", "Til Journey 2"],
+  journey2: ["Til Lottery 2", "Til Journey 3", "Til Journey 3"],
+  journey3: ["Til Lottery 3", "Til Journey 4", "Til Journey End"],
+};
+
+/* 
+todo 
+{
+    "currentJourney": 1,
+    "currentPhase": 1,
+    "isJourneyPaused": false,
+    "nextJourneyTimestamp": 1732005780,// till journey 2
+    "mintEndTimestamp": 1724229780, // till lottery 1 
+    "multiplier": 33,
+    "rewardMultiplier": "4"
+}
+getting: change logic for timestamp
+zustand multiplier aur rewardMultiplier
+
+*/
+
 function Timer() {
   const timer = useTimer();
+
   return (
     <div className="absolute flex flex-col justify-center items-center gap-2 z-[100] w-[400px] h-[200px] translate-y-[60%]">
       <Image
@@ -513,28 +752,39 @@ function Timer() {
           <div className={styles["timer-styles"].label}>Secs</div>
         </div>
       </div>
-      <div
-        style={{
-          fontSize:
-            timer.claimTransition ||
-            (timer.era === "mining" && timer.phase === 3) ||
-            timer.claimStarted
-              ? "1rem"
-              : "1.5rem",
-        }}
-        className="font-sans text-agyellow text-2xl font-bold text-center uppercase tracking-widest"
-      >
-        {timer.era === "mining" &&
-        timer.phase === 3 &&
-        !timer.claimTransition &&
-        !timer.claimStarted
-          ? "Mining ends in"
-          : timer.claimTransition
-            ? "Public Test goes live in"
-            : timer.claimStarted
-              ? "Claming ends in"
-              : `Till Phase ${(timer.phase + 1) % 4 ? timer.phase + 1 : 1}`}
-      </div>
+
+          <div
+            style={{
+              fontSize:
+                timer.claimTransition ||
+                (timer.era === "mining" && timer.phase === 3) ||
+                timer.claimStarted ||
+                (timer.isJourneyPaused && timer.isMintingActive) ||
+                timer.mintingTransition
+                  ? "1rem"
+                  : "1.5rem",
+            }}
+            className="font-sans text-agyellow text-2xl font-bold text-center uppercase tracking-widest"
+          >
+            {timer.era === "mining" &&
+            timer.phase === 3 &&
+            !timer.claimTransition &&
+            !timer.claimStarted
+              ? "Mining ends in"
+              : timer.claimTransition
+                ? "Public Test goes live in"
+                : timer.claimStarted
+                  ? "Claming ends in"
+                  : timer.mintingTransition
+                    ? "Minting starts in"
+                    : timer.isJourneyPaused && timer.isMintingActive
+                      ? "Journey Paused"
+                      : COUNTDOWN_TITLE[
+                          timer.isMintingActive
+                            ? `journey${timer.journey}`
+                            : timer.era
+                        ]?.[timer.phase - 1]}
+          </div>
     </div>
   );
 }
@@ -597,18 +847,41 @@ export default function Spinner({
       className="absolute top-0 left-[50%] translate-x-[-50%] translate-y-[-60%] md:translate-y-[-37%] w-[500px] h-[500px] bg-black rounded-full flex justify-center items-center scale-[0.7] sm:scale-[0.8] overflow-hidden z-[100]"
     >
       <div className="relative w-[470px] h-[470px] bg-[radial-gradient(circle_at_center,#B7A4EA,#1C0068_65%)] rounded-full flex justify-center items-center overflow-hidden">
-        <Era />
-
+        <If
+          condition={timer.era !== "minting"}
+          then={<EraOfEra2 />}
+          else={<Era />}
+        />
         <div className="relative w-[300px] h-[300px] bg-[radial-gradient(circle_at_center,#B7A4EA,#1C0068_65%)] rounded-full border-[10px] border-agblack flex justify-center items-center overflow-hidden z-10">
           <StageHighlighter />
           <StageInBetweenBorders />
           <div className="relative w-[180px] h-[180px] bg-[#1C0068] rounded-full border-[10px] border-agblack flex justify-center items-center z-10">
-            <StageNumber />
+            <If
+              condition={timer.era !== "minting"}
+              then={<StageNumberOfEra2 />}
+              else={<StageNumber />}
+            />
 
-            <div className="relative w-[100px] h-[100px] bg-agyellow rounded-full flex justify-center items-center">
+            <div
+              className={twMerge(
+                "relative w-[100px] h-[100px] rounded-full flex justify-center items-center",
+                !timer.isMintingActive && "bg-agyellow",
+              )}
+            >
               <div className="flex flex-col justify-center items-center">
                 <Pointer />
-                <Bonus era={timer.era} />
+                <If
+                  condition={timer.era !== "minting"}
+                  then={<Bonus era={timer.era} />}
+                  else={
+                    <Image
+                      src={IMAGEKIT_LOGOS.LOGO}
+                      width={100}
+                      height={100}
+                      alt="AG logo"
+                    />
+                  }
+                />
               </div>
             </div>
           </div>
