@@ -66,7 +66,7 @@ export default function CountdownTimer({
         !state.claimTransition
           ? "Mining ends in"
           : state.claimTransition
-            ? "Claiming starts in"
+            ? "Public Test goes live in"
             : state.claimStarted
               ? "Claiming ends in"
               : `ETA for era ${era} phase ${phase}`}
