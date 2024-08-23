@@ -772,7 +772,7 @@ function Timer() {
             !timer.claimStarted
               ? "Mining ends in"
               : timer.claimTransition
-                ? "Claiming starts in"
+                ? "Public Test goes live in"
                 : timer.claimStarted
                   ? "Claming ends in"
                   : timer.mintingTransition
