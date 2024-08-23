@@ -530,7 +530,7 @@ function Timer() {
         !timer.claimStarted
           ? "Mining ends in"
           : timer.claimTransition
-            ? "Public Test goes live in"
+            ? "Claim Starts in"
             : timer.claimStarted
               ? "Claming ends in"
               : `Till Phase ${(timer.phase + 1) % 4 ? timer.phase + 1 : 1}`}
