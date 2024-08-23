@@ -492,7 +492,9 @@ const Header = () => {
 export default Header;
 
 const LoaderSpan = ({ data }: { data?: number }) => {
-  return <span>{data ? data.toLocaleString() : <DotLoader />}</span>;
+  return (
+    <span>{data !== undefined ? data.toLocaleString() : <DotLoader />}</span>
+  );
 };
 
 export const DotLoader = () => {

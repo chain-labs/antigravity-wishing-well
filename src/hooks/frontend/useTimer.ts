@@ -113,8 +113,8 @@ function createDummyTimestamps() {
     era_2_phase_2_end: new Date(now + timegap * 5).toLocaleString(),
     era_2_phase_3_start: new Date(now + timegap * 5).toLocaleString(),
     era_2_phase_3_end: new Date(now + timegap * 6).toLocaleString(),
-    claim_starts: new Date(now + timegap * 7 ).toLocaleString(),
-    claim_ends: new Date(now + timegap * 8 ).toLocaleString(),
+    claim_starts: new Date(now + timegap * 7).toLocaleString(),
+    claim_ends: new Date(now + timegap * 8).toLocaleString(),
     era_3_phase_1_start: new Date(now + timegap * 10 + 200000).toLocaleString(),
     era_3_phase_1_end: new Date(now + timegap * 11).toLocaleString(),
     era_3_phase_2_start: new Date(now + timegap * 11).toLocaleString(),
@@ -153,8 +153,8 @@ export default function useTimer() {
           currentJourney: journeyData?.currentJourney,
           currentPhase: journeyData?.currentPhase,
           isJourneyPaused: journeyData?.isJourneyPaused,
-          nextJourneyTimestamp: journeyData?.nextJourneyTimestamp,
-          mintEndTimestamp: journeyData?.mintEndTimestamp,
+          nextJourneyTimestamp: journeyData?.nextJourneyTimestamp * 1000,
+          mintEndTimestamp: journeyData?.mintEndTimestamp * 1000,
         };
         const now = new Date().getTime();
         const era2End = new Date(
@@ -312,7 +312,7 @@ export default function useTimer() {
         const mintStarted = new Date(
           timestamps?.timeData?.["era_3_phase_1_start"],
         ).getTime();
-        
+
         if (now >= era2End && now < claimStart) {
           const claimTime = calculateTimeDifference(
             timestamps?.timeData?.["claim_starts"],
@@ -332,7 +332,9 @@ export default function useTimer() {
             currentMintEndTimestamp: null,
           };
         } else if (now >= claimStart && now <= claimEnd) {
-          const claimTime = calculateTimeDifference(timestamps.timeData["claim_ends"]);
+          const claimTime = calculateTimeDifference(
+            timestamps.timeData["claim_ends"],
+          );
           return {
             era: "mining",
             phase: 3,
@@ -413,7 +415,7 @@ export default function useTimer() {
                   new Date(
                     timestamps?.mintingTimestamps.mintEndTimestamp ??
                       "2025-12-31",
-                  ).toLocaleString(),
+                  ).toString(),
                 ),
                 claimStarted: false,
                 claimTransition: false,
