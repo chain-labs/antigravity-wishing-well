@@ -38,6 +38,10 @@ const nextConfig = {
       {
         hostname: "assets.geckoterminal.com",
         protocol: "https"
+      },
+      {
+        hostname: "ui-avatars.com",
+        protocol: "https"
       }
     ],
     dangerouslyAllowSVG: true,
