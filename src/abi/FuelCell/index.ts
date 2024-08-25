@@ -1,5 +1,5 @@
 import { TEST_NETWORK } from "@/constants";
-import { pulsechain, sepolia } from "viem/chains";
+import { pulsechain, pulsechainV4, sepolia } from "viem/chains";
 
 interface IContract {
   address?: `0x${string}`;
@@ -8,6 +8,7 @@ interface IContract {
 
 import abi from "./abi.json";
 import { CONTRACTS } from "../config";
+import { TESTCHAINS } from "@/components/RainbowKit";
 
 const contracts: Record<
   number,
@@ -15,6 +16,10 @@ const contracts: Record<
 > = {
   [sepolia.id]: {
     address: CONTRACTS[sepolia.id].fuelCell,
+    abi,
+  },
+  [pulsechainV4.id]: {
+    address: CONTRACTS[pulsechainV4.id].fuelCell,
     abi,
   },
   [pulsechain.id]: {
@@ -25,7 +30,8 @@ const contracts: Record<
 
 const useFuelCellContract = (): IContract => {
   if (TEST_NETWORK) {
-    return contracts[sepolia.id];
+    const id = TESTCHAINS[0].id;
+    return contracts[id];
   } else {
     return contracts[pulsechain.id];
   }

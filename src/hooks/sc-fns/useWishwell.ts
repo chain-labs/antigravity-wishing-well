@@ -18,7 +18,7 @@ import {
   useWriteContract,
 } from "wagmi";
 import { errorToast, generalToast, successToast } from "../frontend/toast";
-import { checkCorrectNetwork } from "@/components/RainbowKit";
+import { checkCorrectNetwork, TESTCHAINS } from "@/components/RainbowKit";
 import { gqlFetcher } from "@/api/graphqlClient";
 import { gql } from "graphql-request";
 import { useRestPost } from "../useRestClient";
@@ -82,7 +82,7 @@ const useWishwell = () => {
         }
       }
     `,
-    account.chainId || (TEST_NETWORK ? sepolia.id : pulsechain.id),
+    account.chainId || (TEST_NETWORK ? TESTCHAINS[0].id : pulsechain.id),
     { address: account.address },
     {
       enabled:

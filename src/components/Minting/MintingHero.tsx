@@ -13,7 +13,7 @@ import useTimer from "@/hooks/frontend/useTimer";
 import { useChainModal, useConnectModal } from "@rainbow-me/rainbowkit";
 import useMinting from "./useMinting";
 import { MintError, STEPPERS } from "./types";
-import { checkCorrectNetwork } from "../RainbowKit";
+import { checkCorrectNetwork, TESTCHAINS } from "../RainbowKit";
 import { TEST_NETWORK } from "@/constants";
 import { pulsechain, sepolia } from "viem/chains";
 import Image from "next/image";
@@ -345,7 +345,7 @@ export default function MintingHero() {
                 />
               ) : account.isConnected ? (
                 checkCorrectNetwork(account.chainId, [
-                  TEST_NETWORK ? sepolia.id : pulsechain.id,
+                  TEST_NETWORK ? TESTCHAINS[0].id : pulsechain.id,
                 ]) ? (
                   <Button
                     innerText={buttonConfigs.text}

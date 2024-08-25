@@ -1,5 +1,5 @@
 import { TEST_NETWORK } from "@/constants";
-import { baseSepolia, pulsechain, sepolia } from "viem/chains";
+import { baseSepolia, pulsechain, pulsechainV4, sepolia } from "viem/chains";
 import { useAccount } from "wagmi";
 
 interface IContract {
@@ -11,6 +11,7 @@ import abi from "./abi.json";
 import { CONTRACTS } from "../config";
 import { useEffect, useState } from "react";
 import { zeroAddress } from "viem";
+import { TESTCHAINS } from "@/components/RainbowKit";
 
 const contracts: Record<
   number,
@@ -18,6 +19,10 @@ const contracts: Record<
 > = {
   [sepolia.id]: {
     address: CONTRACTS[sepolia.id].darkFaucet,
+    abi,
+  },
+  [pulsechainV4.id]: {
+    address: CONTRACTS[pulsechainV4.id].darkFaucet,
     abi,
   },
   [pulsechain.id]: {
@@ -33,7 +38,8 @@ const useDarkFaucetContract = (): IContract => {
   });
   useEffect(() => {
     if (TEST_NETWORK) {
-      setContract(contracts[sepolia.id]);
+      const id = TESTCHAINS[0].id;
+      setContract(contracts[id]);
     } else {
       setContract(contracts[pulsechain.id]);
     }

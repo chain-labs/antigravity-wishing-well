@@ -15,7 +15,7 @@ import Button from "@/components/Button";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import CountdownTimer from "@/components/CountdownTimer";
 import { TEST_NETWORK } from "@/constants";
-import { checkCorrectNetwork } from "@/components/RainbowKit";
+import { checkCorrectNetwork, TESTCHAINS } from "@/components/RainbowKit";
 import { pulsechain, sepolia } from "viem/chains";
 import useMiningContract from "@/abi/MiningRig";
 import { useUserData } from "@/app/(client)/store";
@@ -62,14 +62,17 @@ export default function NonContributed({
     address: MiningContract?.address as `0x${string}`,
     abi: MiningContract?.abi,
     functionName: "NATIVE_TOKEN",
-    chainId: account.chainId || (TEST_NETWORK ? sepolia.id : pulsechain.id),
+    chainId:
+      account.chainId || (TEST_NETWORK ? TESTCHAINS[0].id : pulsechain.id),
   });
 
   const tokens: IToken[] = useMemo(() => {
     if (!account.chainId || !checkCorrectNetwork(account.chainId)) {
       const tokensData = (s3Data as any)?.data?.tokens?.filter(
         (token: IToken) => {
-          const defaultNetwork = TEST_NETWORK ? sepolia.id : pulsechain.id;
+          const defaultNetwork = TEST_NETWORK
+            ? TESTCHAINS[0].id
+            : pulsechain.id;
           return defaultNetwork === token.chainId;
         },
       );

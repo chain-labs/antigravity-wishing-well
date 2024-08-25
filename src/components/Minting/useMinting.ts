@@ -19,7 +19,7 @@ import {
   useWatchContractEvent,
   useWriteContract,
 } from "wagmi";
-import { checkCorrectNetwork } from "../RainbowKit";
+import { checkCorrectNetwork, TESTCHAINS } from "../RainbowKit";
 import { TEST_NETWORK } from "@/constants";
 import { pulsechain, sepolia } from "viem/chains";
 import { errorToast, generalToast, miningNotif } from "@/hooks/frontend/toast";
@@ -153,7 +153,7 @@ const useMinting = (
     if (
       darkInput > 0 &&
       checkCorrectNetwork(account.chainId, [
-        TEST_NETWORK ? sepolia.id : pulsechain.id,
+        TEST_NETWORK ? TESTCHAINS[0].id : pulsechain.id,
       ])
     ) {
       setTxLoading(true);
@@ -166,7 +166,7 @@ const useMinting = (
       setTxLoading(false);
       if (
         !checkCorrectNetwork(account.chainId, [
-          TEST_NETWORK ? sepolia.id : pulsechain.id,
+          TEST_NETWORK ? TESTCHAINS[0].id : pulsechain.id,
         ])
       )
         errorToast("You are connected to a wrong network!");
@@ -320,7 +320,7 @@ const useMinting = (
         }
       }
     `,
-    TEST_NETWORK ? sepolia.id : pulsechain.id,
+    TEST_NETWORK ? TESTCHAINS[0].id : pulsechain.id,
     {},
     { url: `${process.env.NEXT_PUBLIC_ERA3_SUBGRAPH}` },
   );
