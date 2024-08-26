@@ -14,7 +14,7 @@ import ContributedCard from "./ContributedCard";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import Button from "@/components/Button";
 import useClaimMerkleTree from "@/hooks/sc-fns/useMerkleTree.claim";
-import { checkCorrectNetwork } from "@/components/RainbowKit";
+import { checkCorrectNetwork, TESTCHAINS } from "@/components/RainbowKit";
 import { TEST_NETWORK } from "@/constants";
 import { pulsechain, sepolia } from "viem/chains";
 import { StateType } from "../types";
