@@ -158,11 +158,6 @@ export default function MintingHero() {
     return false;
   }, [buttonConfigs]);
 
-  // log timerState
-  useEffect(() => {
-    console.log("timerState", timerState);
-  }, [timerState]);
-
   return (
     <div className="relative w-full min-h-screen h-fit z-10 overflow-hidden">
       <motion.div
