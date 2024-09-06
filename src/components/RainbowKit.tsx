@@ -17,7 +17,7 @@ const pulseChain = {
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCuUifRyi_k3LEVGmTLdl5keon5NALvBHHqITJYAtBGw&s",
 };
 
-export const TESTCHAINS = [pulsechainV4];
+export const TESTCHAINS = [sepolia];
 
 export const config = getDefaultConfig({
   appName: "AntiGravity",
