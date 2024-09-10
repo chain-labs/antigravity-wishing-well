@@ -1,5 +1,5 @@
 import { TEST_NETWORK } from "@/constants";
-import { pulsechain, pulsechainV4, sepolia } from "viem/chains";
+import { baseSepolia, pulsechain, pulsechainV4, sepolia } from "viem/chains";
 
 interface IContract {
   address?: `0x${string}`;
@@ -25,6 +25,10 @@ const contracts: Record<
     abi,
   },
   [pulsechain.id]: {
+    address: CONTRACTS[baseSepolia.id].jackpot,
+    abi,
+  },
+  [baseSepolia.id]: {
     address: CONTRACTS[pulsechain.id].jackpot,
     abi,
   },

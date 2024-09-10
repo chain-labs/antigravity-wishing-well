@@ -56,7 +56,15 @@ export const CONTRACTS: Record<
   [baseSepolia.id]: {
     miningRig: "0x8Dea737AE483153c69934ff8a5c7E3D448c2DB4C",
     darkX: "0xdE87E198D2A5d6894a03AfCb34876601A6dd226f",
+    dark: "0x659A8AddE309cEd070f8a55795c1D626f8c9ccb8",
     wishWell: "0xC8A96A9163C2D11e2002C589a5DC7Ee4267499e2",
+    fuelCell: "0xe102F79f41C4d6AaD87D43F5adD7D5f26Ca4B156",
+    launchControlCenter: "0x61f3B9719b0182f8f4068735D0D2e19388feA9d0",
+    journeyPhaseManager: "0xB57FBFdc949e30d0628635a85207b9dD225d5482",
+    evilAddress: "0xEAB9A6eac2DcEAf73B2A78d20E32aC85aa1789F2",
+    treasury: "0x6417097DA6D25d716946F793349eF4b456afed51",
+    jackpot: "0x4c9596e62E8C03D995a56Fa2b7bd07BBf3D2f1fE",
+    darkFaucet: "0x2260e58C707E57d21b43B3b74ffD47054A34ACf7",
   },
   [pulsechain.id]: {
     miningRig: "0x1Eca1A64E18E72c46971a80D91F015a569FE9FBd",

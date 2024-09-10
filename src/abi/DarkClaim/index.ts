@@ -22,6 +22,10 @@ const contracts: Record<
     address: CONTRACTS[pulsechain.id].darkClaims,
     abi,
   },
+  [baseSepolia.id]: {
+    address: CONTRACTS[baseSepolia.id].darkClaims,
+    abi,
+  },
 };
 
 const useDarkClaimContract = (): IContract => {
