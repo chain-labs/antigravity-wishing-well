@@ -50,7 +50,7 @@ function setTimer(newTimer: CountdownType) {
   timer = newTimer;
 }
 
-function calculateTimeDifference(endTime: string) {
+export function calculateTimeDifference(endTime: string) {
   const endDate = new Date(endTime).getTime();
   if (isNaN(endDate)) return { days: 0, hours: 0, mins: 0, secs: 0 };
 

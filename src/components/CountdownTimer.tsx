@@ -23,9 +23,21 @@ const COUNTDOWN_TITLE: { [key: string]: string[] } = {
     "ETA for Journey 1",
   ],
   minting: [],
-  journey1: ["Minting window ends in", "Minting window ends in", "ETA for Journey 2"],
-  journey2: ["Minting window ends in", "Minting window ends in", "ETA for Journey 3"],
-  journey3: ["Minting window ends in", "Minting window ends in", "ETA for Journey 4"],
+  journey1: [
+    "Minting window ends in",
+    "Minting window ends in",
+    "ETA for Journey 2",
+  ],
+  journey2: [
+    "Minting window ends in",
+    "Minting window ends in",
+    "ETA for Journey 3",
+  ],
+  journey3: [
+    "Minting window ends in",
+    "Minting window ends in",
+    "ETA for Journey 4",
+  ],
 };
 
 export default function CountdownTimer({
@@ -82,7 +94,7 @@ export default function CountdownTimer({
               ? "Claiming ends in"
               : state.mintingTransition
                 ? "Minting starts in"
-                : state.isJourneyPaused && state.isMintingActive
+                : state.isJourneyPaused && !state.isMintingActive
                   ? "Journey Paused"
                   : COUNTDOWN_TITLE[
                       state.isMintingActive

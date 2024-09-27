@@ -9,7 +9,7 @@ import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import CountdownTimer from "@/components/CountdownTimer";
 import ProgressingStates from "@/components/ProgressingStates";
 import { useAccount, useSwitchChain } from "wagmi";
-import useTimer from "@/hooks/frontend/useTimer";
+import useTimer, { calculateTimeDifference } from "@/hooks/frontend/useTimer";
 import { useChainModal, useConnectModal } from "@rainbow-me/rainbowkit";
 import useMinting from "./useMinting";
 import { MintError, STEPPERS } from "./types";
@@ -26,6 +26,7 @@ import ThreeDHovercardEffect from "../ThreeDHovercardEffect";
 import { Badge } from "@/components/HTML/Badge";
 import Link from "next/link";
 import If from "../If";
+import { useRestPost } from "@/hooks/useRestClient";
 
 export const MINTING_STATES = {
   INITIAL: "INITIAL",
@@ -158,6 +159,28 @@ export default function MintingHero() {
     }
     return false;
   }, [buttonConfigs]);
+
+  const { mutateAsync: fetchEra3 } = useRestPost(
+    ["era-3-timestamps-multipliers"],
+    "/api/era-3-timestamps-multipliers",
+  );
+
+  const [journeyData, setJourneyData] = useState({
+    currentJourney: "",
+    currentPhase: "",
+    isJourneyPaused: false,
+    mintEndTimestamp: "",
+    multiplier: "",
+    nextJourneyTimestamp: "",
+    rewardMultiplier: "",
+  });
+
+  useEffect(() => {
+    fetchEra3({}).then((data) => {
+      console.log({ data });
+      setJourneyData(data as any);
+    });
+  }, []);
 
   return (
     <div className="relative w-full min-h-screen h-fit z-10 overflow-hidden">
@@ -321,9 +344,7 @@ export default function MintingHero() {
                   }}
                   disabled
                 />
-              ) : !timerState.isJourneyPaused &&
-                timerState.currentMintEndTimestamp !== null &&
-                timerState.nextJourneyTimeStamp !== null ? (
+              ) : !Number(journeyData.mintEndTimestamp) ? (
                 <Button
                   innerText="Next minting window opens in ⬇️"
                   iconSrc={IMAGEKIT_ICONS.CUBE}
@@ -427,7 +448,32 @@ export default function MintingHero() {
                 className="p-[8px] rounded-[6px] bg-[#030404A8] w-full max-w-[350px] md:max-w-[400px]"
               >
                 <CountdownTimer
-                  state={timerState}
+                  state={{
+                    claimStarted: false,
+                    claimTransition: false,
+                    ...calculateTimeDifference(
+                      new Date(
+                        ~~Number(
+                          journeyData.mintEndTimestamp !== ""
+                            ? journeyData.mintEndTimestamp
+                            : ~~Number(journeyData.nextJourneyTimestamp),
+                        ),
+                      ).toLocaleString(),
+                    ),
+                    era: "minting",
+                    phase: parseInt(journeyData.mintEndTimestamp) ? 1 : 2,
+                    isMintingActive: !!parseInt(journeyData.mintEndTimestamp),
+                    isJourneyPaused: !!journeyData.isJourneyPaused,
+                    mintingTransition: false,
+                    nextJourneyTimeStamp: ~~(
+                      parseInt(journeyData.nextJourneyTimestamp) / 1000
+                    ),
+                    currentMintEndTimestamp: ~~(
+                      Number(journeyData.mintEndTimestamp) / 1000
+                    ),
+                    journey: 3,
+                    phaseNumber: 1,
+                  }}
                   fontDesktopSize={40}
                   fontMobileSize={48}
                   counterClassName="text-agwhite w-fit mx-auto"
