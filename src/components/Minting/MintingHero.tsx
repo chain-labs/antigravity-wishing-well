@@ -453,12 +453,10 @@ export default function MintingHero() {
                     claimTransition: false,
                     ...calculateTimeDifference(
                       new Date(
-                        ~~Number(
-                          journeyData.mintEndTimestamp !== ""
-                            ? journeyData.mintEndTimestamp
-                            : ~~Number(journeyData.nextJourneyTimestamp),
-                        ),
-                      ).toLocaleString(),
+                        Number(journeyData.mintEndTimestamp)
+                          ? Number(journeyData.mintEndTimestamp) * 1000
+                          : Number(journeyData.nextJourneyTimestamp) * 1000,
+                      ).toString(),
                     ),
                     era: "minting",
                     phase: parseInt(journeyData.mintEndTimestamp) ? 1 : 2,
