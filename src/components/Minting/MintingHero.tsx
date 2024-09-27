@@ -25,6 +25,7 @@ import { useJourneyData } from "@/app/(client)/store";
 import ThreeDHovercardEffect from "../ThreeDHovercardEffect";
 import { Badge } from "@/components/HTML/Badge";
 import Link from "next/link";
+import If from "../If";
 
 export const MINTING_STATES = {
   INITIAL: "INITIAL",
@@ -320,7 +321,7 @@ export default function MintingHero() {
                   }}
                   disabled
                 />
-              ) : timerState.isJourneyPaused &&
+              ) : !timerState.isJourneyPaused &&
                 timerState.currentMintEndTimestamp !== null &&
                 timerState.nextJourneyTimeStamp !== null ? (
                 <Button
@@ -389,18 +390,32 @@ export default function MintingHero() {
                 />
               )}
 
-              <motion.div
-                animate={{
-                  filter:
-                    getCurrentBuyAnimation(!!buymoreHighlight).darkness.filter,
-                }}
-                transition={
-                  getCurrentBuyAnimation(!!buymoreHighlight).darkness.transition
+              <If
+                condition={
+                  !(
+                    timerState.isJourneyPaused ||
+                    (!timerState.isJourneyPaused &&
+                      timerState.currentMintEndTimestamp !== null &&
+                      timerState.nextJourneyTimeStamp !== null)
+                  )
                 }
-                className="p-[8px] rounded-[6px] bg-[#030404A8] w-full max-w-[350px] md:max-w-[400px] mt-[16px]"
-              >
-                <ProgressingStates states={mintState} />
-              </motion.div>
+                then={
+                  <motion.div
+                    animate={{
+                      filter:
+                        getCurrentBuyAnimation(!!buymoreHighlight).darkness
+                          .filter,
+                    }}
+                    transition={
+                      getCurrentBuyAnimation(!!buymoreHighlight).darkness
+                        .transition
+                    }
+                    className="p-[8px] rounded-[6px] bg-[#030404A8] w-full max-w-[350px] md:max-w-[400px] mt-[16px]"
+                  >
+                    <ProgressingStates states={mintState} />
+                  </motion.div>
+                }
+              />
               <motion.div
                 animate={{
                   filter:
