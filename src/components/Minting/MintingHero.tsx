@@ -410,6 +410,14 @@ export default function MintingHero() {
                   onClick={openConnectModal}
                 />
               )}
+              <a
+                href="https://faucet.v4.testnet.pulsechain.com/"
+                target="_blank"
+                rel="noreferrer"
+                className="font-bold hover:underline cursor-pointer"
+              >
+                Get Testnet Tokens here
+              </a>
 
               <If
                 condition={!!journeyData.mintEndTimestamp}
