@@ -17,7 +17,7 @@ const pulseChain = {
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCuUifRyi_k3LEVGmTLdl5keon5NALvBHHqITJYAtBGw&s",
 };
 
-export const TESTCHAINS = [baseSepolia];
+export const TESTCHAINS = [pulsechainV4];
 
 export const config = getDefaultConfig({
   appName: "AntiGravity",
@@ -29,7 +29,7 @@ export const config = getDefaultConfig({
         [baseSepolia.id]: http(
           `https://base-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`,
         ),
-        [pulsechainV4.id]: http("https://rpc.v4.testnet.pulsechain.com"),
+        [pulsechainV4.id]: http("https://rpc-testnet-pulsechain.g4mm4.io"),
         [sepolia.id]: http(
           `https://eth-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`,
         ),
