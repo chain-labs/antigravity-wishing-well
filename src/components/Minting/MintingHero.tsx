@@ -412,14 +412,7 @@ export default function MintingHero() {
               )}
 
               <If
-                condition={
-                  !(
-                    timerState.isJourneyPaused ||
-                    (!timerState.isJourneyPaused &&
-                      timerState.currentMintEndTimestamp !== null &&
-                      timerState.nextJourneyTimeStamp !== null)
-                  )
-                }
+                condition={!!journeyData.mintEndTimestamp}
                 then={
                   <motion.div
                     animate={{
