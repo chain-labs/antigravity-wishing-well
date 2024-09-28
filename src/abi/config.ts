@@ -1,4 +1,10 @@
-import { base, baseSepolia, pulsechain, sepolia } from "viem/chains";
+import {
+  base,
+  baseSepolia,
+  pulsechain,
+  pulsechainV4,
+  sepolia,
+} from "viem/chains";
 
 type Address = `0x${string}`;
 
@@ -37,7 +43,15 @@ export const CONTRACTS: Record<
   [baseSepolia.id]: {
     miningRig: "0x8Dea737AE483153c69934ff8a5c7E3D448c2DB4C",
     darkX: "0xdE87E198D2A5d6894a03AfCb34876601A6dd226f",
+    dark: "0x22e896BE411C1FC4a18945880585172cE2C7Efc9",
     wishWell: "0xC8A96A9163C2D11e2002C589a5DC7Ee4267499e2",
+    fuelCell: "0xff2ad9E8A6F86b1EFD250Ccb60E098EF49D87c55",
+    launchControlCenter: "0x3597936252158be0cb3720a6e18B4c7006c350a6",
+    journeyPhaseManager: "0x852eC407240B3D3059AD58D8CF5897332A2ce907",
+    evilAddress: "0x02a5C61F0E78D8B1eBdca7346654D3d2fFDA5588",
+    treasury: "0x5C0CB2f806Bfe9827709853BE7d950921Fac420E",
+    jackpot: "0x557913C038C51a8f976a4De8032Bea92e8DeB4F3",
+    darkFaucet: "0xde199d27867f42b0F96614FcFe107Fabae19091c",
   },
   [pulsechain.id]: {
     miningRig: "0x1Eca1A64E18E72c46971a80D91F015a569FE9FBd",

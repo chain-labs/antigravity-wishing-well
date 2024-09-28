@@ -1,5 +1,5 @@
 import { TEST_NETWORK } from "@/constants";
-import { pulsechain, sepolia } from "viem/chains";
+import { baseSepolia, pulsechain, pulsechainV4, sepolia } from "viem/chains";
 
 interface IContract {
   address?: `0x${string}`;
@@ -10,6 +10,7 @@ import abi from "./abi.json";
 import { CONTRACTS } from "../config";
 import { zeroAddress } from "viem";
 import { useEffect, useState } from "react";
+import { TESTCHAINS } from "@/components/RainbowKit";
 
 const contracts: Record<
   number,
@@ -19,8 +20,16 @@ const contracts: Record<
     address: CONTRACTS[sepolia.id].evilAddress,
     abi,
   },
+  [pulsechainV4.id]: {
+    address: CONTRACTS[pulsechainV4.id].evilAddress,
+    abi,
+  },
   [pulsechain.id]: {
     address: CONTRACTS[pulsechain.id].evilAddress,
+    abi,
+  },
+  [baseSepolia.id]: {
+    address: CONTRACTS[baseSepolia.id].evilAddress,
     abi,
   },
 };
@@ -32,7 +41,8 @@ const useEvilAddressContract = (): IContract => {
   });
   useEffect(() => {
     if (TEST_NETWORK) {
-      setContract(contracts[sepolia.id]);
+      const id = TESTCHAINS[0].id;
+      setContract(contracts[id]);
     } else {
       setContract(contracts[pulsechain.id]);
     }

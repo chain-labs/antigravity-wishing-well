@@ -12,6 +12,7 @@ import { formatUnits, parseUnits, zeroAddress } from "viem";
 import { readContract } from "@wagmi/core";
 import {
   useAccount,
+  useBalance,
   useClient,
   useConfig,
   usePublicClient,
@@ -19,9 +20,9 @@ import {
   useWatchContractEvent,
   useWriteContract,
 } from "wagmi";
-import { checkCorrectNetwork } from "../RainbowKit";
+import { checkCorrectNetwork, TESTCHAINS } from "../RainbowKit";
 import { TEST_NETWORK } from "@/constants";
-import { pulsechain, sepolia } from "viem/chains";
+import { pulsechain, pulsechainV4, sepolia } from "viem/chains";
 import { errorToast, generalToast, miningNotif } from "@/hooks/frontend/toast";
 import { MINTING_STATES } from "./MintingHero";
 import { MintError } from "./types";
@@ -33,6 +34,10 @@ import useFuelCellContract from "@/abi/FuelCell";
 import { condenseAddress } from "@/utils";
 import { useGQLFetch } from "@/hooks/useGraphQLClient";
 import { gql } from "graphql-request";
+import axios from "axios";
+
+const PULSE_FAUCET = "https://faucet.v4.testnet.pulsechain.com/api/claim";
+
 const useMinting = (
   darkInput: bigint,
   setMintStep: Dispatch<SetStateAction<keyof typeof MINTING_STATES>>,
@@ -51,6 +56,48 @@ const useMinting = (
 
   const LCC_Contract = useLCC_Contract();
   const DarkContract = useDarkContract();
+
+  const { data: pulseChainTestBalance, error: pulsechainBalanceError } =
+    useBalance({
+      address: account.address,
+      chainId: pulsechainV4.id,
+      query: {
+        enabled: account.address && account.chainId === pulsechainV4.id,
+      },
+    });
+
+  useEffect(() => {
+    if (pulsechainBalanceError) {
+      console.log({ pulsechainBalanceError });
+    }
+  }, [pulsechainBalanceError]);
+
+  useEffect(() => {
+    if (account.chainId === pulsechainV4.id) {
+      if (pulseChainTestBalance) {
+        const balance = Number(
+          formatUnits(
+            pulseChainTestBalance.value,
+            pulseChainTestBalance.decimals,
+          ),
+        );
+
+        let formData = new FormData();
+        formData.append("address", account.address as string);
+
+        if (balance < 0.1) {
+          axios
+            .post(PULSE_FAUCET, formData)
+            .then((res) => {
+              console.log({ res });
+            })
+            .catch((err) => {
+              console.log({ err });
+            });
+        }
+      }
+    }
+  }, [account.address, account.chainId, pulseChainTestBalance]);
 
   const {
     data: approveHash,
@@ -153,7 +200,7 @@ const useMinting = (
     if (
       darkInput > 0 &&
       checkCorrectNetwork(account.chainId, [
-        TEST_NETWORK ? sepolia.id : pulsechain.id,
+        TEST_NETWORK ? TESTCHAINS[0].id : pulsechain.id,
       ])
     ) {
       setTxLoading(true);
@@ -166,7 +213,7 @@ const useMinting = (
       setTxLoading(false);
       if (
         !checkCorrectNetwork(account.chainId, [
-          TEST_NETWORK ? sepolia.id : pulsechain.id,
+          TEST_NETWORK ? TESTCHAINS[0].id : pulsechain.id,
         ])
       )
         errorToast("You are connected to a wrong network!");
@@ -320,7 +367,7 @@ const useMinting = (
         }
       }
     `,
-    TEST_NETWORK ? sepolia.id : pulsechain.id,
+    TEST_NETWORK ? TESTCHAINS[0].id : pulsechain.id,
     {},
     { url: `${process.env.NEXT_PUBLIC_ERA3_SUBGRAPH}` },
   );

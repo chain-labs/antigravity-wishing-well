@@ -14,7 +14,7 @@ import ContributedCard from "./ContributedCard";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import Button from "@/components/Button";
 import useClaimMerkleTree from "@/hooks/sc-fns/useMerkleTree.claim";
-import { checkCorrectNetwork } from "@/components/RainbowKit";
+import { checkCorrectNetwork, TESTCHAINS } from "@/components/RainbowKit";
 import { TEST_NETWORK } from "@/constants";
 import { pulsechain, sepolia } from "viem/chains";
 import { StateType } from "../types";
@@ -133,14 +133,14 @@ export default function ContributedHero({
     address: DarkContract.address as `0x${string}`,
     abi: DarkContract.abi,
     functionName: "MAX_SUPPLY",
-    chainId: TEST_NETWORK ? sepolia.id : pulsechain.id,
+    chainId: TEST_NETWORK ? TESTCHAINS[0].id : pulsechain.id,
   });
 
   const { data: dark_total_points } = useReadContract({
     address: DarkClaimContract.address as `0x${string}`,
     abi: DarkClaimContract.abi,
     functionName: "totalPoints",
-    chainId: TEST_NETWORK ? sepolia.id : pulsechain.id,
+    chainId: TEST_NETWORK ? TESTCHAINS[0].id : pulsechain.id,
   });
 
   const darkTokens = useMemo(() => {
@@ -275,10 +275,10 @@ export default function ContributedHero({
             variants={{
               hover: {
                 rotate: 15,
-                transition:{
+                transition: {
                   duration: 0.5,
-                  type: "spring", 
-                }
+                  type: "spring",
+                },
               },
             }}
           />
