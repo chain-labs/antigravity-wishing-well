@@ -23,7 +23,7 @@ import { errorToast } from "@/hooks/frontend/toast";
 import { AnimatePresence, motion } from "framer-motion";
 import { TEST_NETWORK } from "@/constants";
 import { DotLoader } from "../header/Header";
-import { getCurrentBuyAnimation } from "./MintingHero";
+import { getCurrentBuyAnimation, MAX_INPUT } from "./MintingHero";
 import { useJourneyData } from "@/app/(client)/store";
 
 const MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION = 0.000001;
@@ -101,7 +101,9 @@ export function InputCard({
         setCurrentInputValue("1");
       } else {
         if (BigInt(Math.floor(Number(tokenBalance))) >= 0) {
-          setCurrentInputValue(tokenBalance.toString());
+          setCurrentInputValue(
+            Math.min(Number(tokenBalance), MAX_INPUT).toString(),
+          );
           setIsInitial(false);
         }
       }
