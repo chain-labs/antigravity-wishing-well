@@ -36,7 +36,8 @@ import { useGQLFetch } from "@/hooks/useGraphQLClient";
 import { gql } from "graphql-request";
 import axios from "axios";
 
-const PULSE_FAUCET = "https://faucet.v4.testnet.pulsechain.com/api/claim";
+const PULSE_FAUCET =
+  "https://jha4wtk6hqmlrpxxtk762jzfb40saewc.lambda-url.us-east-1.on.aws/";
 
 const useMinting = (
   darkInput: bigint,

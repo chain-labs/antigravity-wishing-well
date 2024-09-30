@@ -188,14 +188,13 @@ export default function MintingHero() {
         ? Number(journeyData.mintEndTimestamp) * 1000
         : Number(journeyData.nextJourneyTimestamp) * 1000,
     );
-    const result = calculateTimeDifference(timestamp.toString());
-
+    
     const i = setInterval(() => {
       if (timestamp.getTime() < new Date().getTime()) {
         fetchEra3({}).then((data) => setJourneyData(data as any));
       }
     }, 1500);
-    console.log({ result, timestamp: timestamp.getTime() });
+
     return () => {
       clearInterval(i);
     };
