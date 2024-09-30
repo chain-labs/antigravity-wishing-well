@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { MINTING_STATES } from "./MintingHero";
+import { MAX_INPUT, MINTING_STATES } from "./MintingHero";
 import { MintError, STEPPERS } from "./types";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 
@@ -69,6 +69,22 @@ export const getButtonCofigs = (
       text: "Retry",
       loading: false,
       disabled: false,
+      icon: IMAGEKIT_ICONS.ERROR,
+      variants: {
+        hover: {
+          animationName: "wiggle",
+          animationDuration: "1s",
+          animationFillMode: "forwards",
+          animationTimingFunction: "linear",
+        },
+      },
+    };
+  }
+  if (darkInput > MAX_INPUT) {
+    return {
+      text: "Minting  Limit Exceeded",
+      loading: false,
+      disabled: true,
       icon: IMAGEKIT_ICONS.ERROR,
       variants: {
         hover: {

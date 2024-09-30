@@ -27,6 +27,7 @@ import { Badge } from "@/components/HTML/Badge";
 import Link from "next/link";
 import If from "../If";
 import { useRestPost } from "@/hooks/useRestClient";
+import { errorToast } from "@/hooks/frontend/toast";
 
 export const MINTING_STATES = {
   INITIAL: "INITIAL",
@@ -64,6 +65,8 @@ export const getCurrentBuyAnimation = (buymoreHighlight: boolean) => {
     },
   };
 };
+
+export const MAX_INPUT = 750;
 
 export default function MintingHero() {
   const nftAvailable = false;
@@ -105,8 +108,12 @@ export default function MintingHero() {
 
   const handleMintButton = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (currentState !== MINTING_STATES.SUCCESS) {
-      mintLogic();
+    if (Number(darkInput) <= MAX_INPUT) {
+      if (currentState !== MINTING_STATES.SUCCESS) {
+        mintLogic();
+      }
+    } else {
+      errorToast(`Cannot mint  more than ${MAX_INPUT} Fuel Cells at a time.`);
     }
   };
 
@@ -188,7 +195,7 @@ export default function MintingHero() {
         ? Number(journeyData.mintEndTimestamp) * 1000
         : Number(journeyData.nextJourneyTimestamp) * 1000,
     );
-    
+
     const i = setInterval(() => {
       if (timestamp.getTime() < new Date().getTime()) {
         fetchEra3({}).then((data) => setJourneyData(data as any));
