@@ -195,12 +195,12 @@ export default function Countdown() {
     era: stateType["era"] | "journey1" | "journey2" | "journey3";
     phase: stateType["phase"];
   } = {
-    era:
-      state.isMintingActive
-        ? `journey${state.journey as 1 | 2 | 3}`
-        : state.era,
-    phase:
-      state.isMintingActive ? (state.phaseNumber as 1 | 2 | 3) : state.phase,
+    era: state.isMintingActive
+      ? `journey${state.journey as 1 | 2 | 3}`
+      : state.era,
+    phase: state.isMintingActive
+      ? (state.phaseNumber as 1 | 2 | 3)
+      : state.phase,
   };
 
   return (
@@ -332,7 +332,10 @@ export default function Countdown() {
             ></motion.div>
             <div
               style={{
-                color: state.isMintingActive && state.journey === 3 ? "#f5eb00" : "transparent",
+                color:
+                  state.isMintingActive && state.journey === 3
+                    ? "#f5eb00"
+                    : "transparent",
               }}
               className={twMerge(
                 "text-[36px] leadding-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text",
@@ -494,7 +497,9 @@ export default function Countdown() {
               ? "0%"
               : state.era === "mining"
                 ? "33.33%"
-                : "calc(66.66%)",
+                : state.era === "minting"
+                  ? "calc(66.66%)"
+                  : "100%",
             boxShadow: "5px 0px 0px 0px rgba(0,0,0,1)",
           }}
           initial={{
