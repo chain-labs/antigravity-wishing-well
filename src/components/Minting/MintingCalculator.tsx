@@ -154,7 +154,7 @@ export function InputCard({
               type="number"
               step="1"
               defaultValue={String(inputValue)}
-              max={String(tokenBalance)}
+              max={Math.min(Number(tokenBalance), 750).toString()}
               min={0}
               onBlur={(e) => {
                 setOutOfFocus(true);
@@ -218,7 +218,7 @@ export function InputCard({
                   getCurrentBuyAnimation(!!buymoreHighlight).darkness.transition
                 }
                 className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
-                onClick={() => setCurrentInputValue(tokenBalance.toString())}
+                onClick={() => setCurrentInputValue(Math.min(Number(tokenBalance), 750).toString())}
               >
                 <div className="bg-[#142266] rounded-full w-fit h-fit">
                   <div
@@ -572,6 +572,7 @@ export default function MiningCalculator({
         buyMoreFn={buyMoreFn}
         txLoading={txLoading}
       />
+      <p className=" font-bold ">Max Input: 750</p>
       <Multiplyer buymoreHighlight={buymoreHighlight} />
       <motion.div
         animate={{
