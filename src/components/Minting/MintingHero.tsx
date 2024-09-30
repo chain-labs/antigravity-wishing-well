@@ -182,6 +182,25 @@ export default function MintingHero() {
     });
   }, []);
 
+  useEffect(() => {
+    const timestamp = new Date(
+      Number(journeyData.mintEndTimestamp)
+        ? Number(journeyData.mintEndTimestamp) * 1000
+        : Number(journeyData.nextJourneyTimestamp) * 1000,
+    );
+    const result = calculateTimeDifference(timestamp.toString());
+
+    const i = setInterval(() => {
+      if (timestamp.getTime() < new Date().getTime()) {
+        fetchEra3({}).then((data) => setJourneyData(data as any));
+      }
+    }, 1500);
+    console.log({ result, timestamp: timestamp.getTime() });
+    return () => {
+      clearInterval(i);
+    };
+  }, [journeyData]);
+
   return (
     <div className="relative w-full min-h-screen h-fit z-10 overflow-hidden">
       <motion.div
