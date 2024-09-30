@@ -103,7 +103,6 @@ function MobilePhase({
   era: stateType["era"] | "journey1" | "journey2" | "journey3";
   phase: stateType["phase"];
 }) {
-  console.log('activeState', activeState, era, phase);
   if (activeState.era === era && activeState.phase === phase) {
     return (
       <motion.div
