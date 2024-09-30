@@ -171,6 +171,8 @@ function decideActiveStageLocation({
           return -75;
         case 3:
           return -50;
+        default:
+          return 180;
       }
     case eras.era2:
       switch (activePhase) {
@@ -180,6 +182,8 @@ function decideActiveStageLocation({
           return 0;
         case 3:
           return 25;
+        default:
+          return 180;
       }
     case eras.era3:
       switch (activePhase) {
@@ -189,7 +193,11 @@ function decideActiveStageLocation({
           return 75;
         case 3:
           return 100;
+        default:
+          return 180;
       }
+    default:
+      return 180;
   }
 }
 
@@ -205,7 +213,6 @@ function StageHighlighter() {
     mintingActive: activeState.isMintingActive,
   });
 
-  console.log('rotation', rotation);
   return (
     <motion.div
       whileInView={{
@@ -214,8 +221,8 @@ function StageHighlighter() {
         rotate: `${rotation}deg`,
       }}
       initial={{
-        x: "0%",
-        y: "0%",
+        x: "-50%",
+        y: "-50%",
         rotate: "180deg",
       }}
       viewport={{ once: true }}
@@ -255,11 +262,11 @@ function EraHighlighter() {
       whileInView={{
         x: "-50%",
         y: "-50%",
-        rotate: eras.era1 ? -75 : eras.era3 ? 75 : 0,
+        rotate: eras.era1 ? -75 : eras.era3 ? 75 : eras.era2 ? 0 : -180,
       }}
       initial={{
-        x: "0%",
-        y: "0%",
+        x: "-50%",
+        y: "-50%",
         rotate: -180,
       }}
       viewport={{ once: true }}
