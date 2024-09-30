@@ -753,38 +753,36 @@ function Timer() {
         </div>
       </div>
 
-          <div
-            style={{
-              fontSize:
-                timer.claimTransition ||
-                (timer.era === "mining" && timer.phase === 3) ||
-                timer.claimStarted ||
-                (timer.isJourneyPaused && timer.isMintingActive) ||
-                timer.mintingTransition
-                  ? "1rem"
-                  : "1.5rem",
-            }}
-            className="font-sans text-agyellow text-2xl font-bold text-center uppercase tracking-widest"
-          >
-            {timer.era === "mining" &&
-            timer.phase === 3 &&
-            !timer.claimTransition &&
-            !timer.claimStarted
-              ? "Mining ends in"
-              : timer.claimTransition
-                ? "Public Test goes live in"
-                : timer.claimStarted
-                  ? "Claming ends in"
-                  : timer.mintingTransition
-                    ? "Minting starts in"
-                    : timer.isJourneyPaused && timer.isMintingActive
-                      ? "Journey Paused"
-                      : COUNTDOWN_TITLE[
-                          timer.isMintingActive
-                            ? `journey${timer.journey}`
-                            : timer.era
-                        ]?.[timer.phase - 1]}
-          </div>
+      <div
+        style={{
+          fontSize:
+            timer.claimTransition ||
+            (timer.era === "mining" && timer.phase === 3) ||
+            timer.claimStarted ||
+            (timer.isJourneyPaused && timer.isMintingActive) ||
+            timer.mintingTransition
+              ? "1rem"
+              : "1.5rem",
+        }}
+        className="font-sans text-agyellow text-2xl font-bold text-center uppercase tracking-widest"
+      >
+        {timer.era === "mining" &&
+        timer.phase === 3 &&
+        !timer.claimTransition &&
+        !timer.claimStarted
+          ? "Mining ends in"
+          : timer.claimTransition
+            ? "Public Test goes live in"
+            : timer.claimStarted
+              ? "Claming ends in"
+              : timer.mintingTransition
+                ? "Minting starts in"
+                : timer.isJourneyPaused && timer.isMintingActive
+                  ? "Journey Paused"
+                  : timer.era === "minting"
+                    ? `Til Journey ${timer.journey + 1}`
+                    : COUNTDOWN_TITLE[timer.era][timer.phase - 1]}
+      </div>
     </div>
   );
 }

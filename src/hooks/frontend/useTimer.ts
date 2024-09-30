@@ -36,9 +36,9 @@ const DEFAULT: CountdownType = {
   claimStarted: false,
   claimTransition: false,
   mintingTransition: false,
-  isMintingActive: false,
-  journey: 1,
-  phaseNumber: 1,
+  isMintingActive: true,
+  journey: 2,
+  phaseNumber: 2,
   isJourneyPaused: true,
   nextJourneyTimeStamp: 0,
   currentMintEndTimestamp: null,
@@ -115,12 +115,12 @@ function createDummyTimestamps() {
     era_2_phase_3_end: new Date(now + timegap * 6).toLocaleString(),
     claim_starts: new Date(now + timegap * 7).toLocaleString(),
     claim_ends: new Date(now + timegap * 8).toLocaleString(),
-    era_3_phase_1_start: new Date(now + timegap * 10 + 200000).toLocaleString(),
-    era_3_phase_1_end: new Date(now + timegap * 11).toLocaleString(),
-    era_3_phase_2_start: new Date(now + timegap * 11).toLocaleString(),
-    era_3_phase_2_end: new Date(now + timegap * 12).toLocaleString(),
-    era_3_phase_3_start: new Date(now + timegap * 12).toLocaleString(),
-    era_3_phase_3_end: new Date(now + timegap * 13).toLocaleString(),
+    era_3_phase_1_start: new Date(now + timegap * 10).toLocaleString(),
+    era_3_phase_1_end: new Date(now + timegap * 11 + 210000).toLocaleString(),
+    era_3_phase_2_start: new Date(now + timegap * 11 + 210000).toLocaleString(),
+    era_3_phase_2_end: new Date(now + timegap * 12 + 220000).toLocaleString(),
+    era_3_phase_3_start: new Date(now + timegap * 12 + 220000).toLocaleString(),
+    era_3_phase_3_end: new Date(now + timegap * 13 + 230000).toLocaleString(),
   };
 
   return dummyTimestamps;
@@ -139,16 +139,36 @@ export default function useTimer() {
   useEffect(() => {
     if (timestamps === null) {
       async function fetchData() {
-        const timeData = await client.fetch(`*[_type=="timestamps"][0]`);
-        const journeyData = (await fetchEra3({
-          walletAddress: account.address,
-        })) as {
-          currentJourney: number;
-          currentPhase: number;
-          isJourneyPaused: boolean;
-          nextJourneyTimestamp: number;
-          mintEndTimestamp: number;
-        };
+        let timeData,
+          journeyData: {
+            currentJourney: number;
+            currentPhase: number;
+            isJourneyPaused: boolean;
+            nextJourneyTimestamp: number;
+            mintEndTimestamp: number;
+          };
+        try {
+          timeData = await client.fetch(`*[_type=="timestamps"][0]`);
+          journeyData = (await fetchEra3({
+            walletAddress: account.address,
+          })) as {
+            currentJourney: number;
+            currentPhase: number;
+            isJourneyPaused: boolean;
+            nextJourneyTimestamp: number;
+            mintEndTimestamp: number;
+          };
+        } catch (e) {
+          timeData = createDummyTimestamps();
+          journeyData = {
+            currentJourney: 2,
+            currentPhase: 2,
+            isJourneyPaused: false,
+            nextJourneyTimestamp: 0,
+            mintEndTimestamp: 0,
+          };
+        }
+
         const mintingTimestamps = {
           currentJourney: journeyData?.currentJourney,
           currentPhase: journeyData?.currentPhase,
@@ -228,7 +248,7 @@ export default function useTimer() {
             if (mintingTimestamps.isJourneyPaused) {
               initialTimer = {
                 era: "minting",
-                phase: mintingTimestamps.currentJourney as 1 | 2 | 3,
+                phase: Number(mintingTimestamps.currentJourney) as 1 | 2 | 3,
                 days: 0,
                 hours: 0,
                 mins: 0,
@@ -237,8 +257,11 @@ export default function useTimer() {
                 claimTransition: false,
                 mintingTransition: false,
                 isMintingActive: true,
-                journey: mintingTimestamps.currentJourney as 1 | 2 | 3,
-                phaseNumber: mintingTimestamps.currentPhase as 1 | 2 | 3,
+                journey: Number(mintingTimestamps.currentJourney) as 1 | 2 | 3,
+                phaseNumber: Number(mintingTimestamps.currentPhase) as
+                  | 1
+                  | 2
+                  | 3,
                 isJourneyPaused: mintingTimestamps.isJourneyPaused,
                 nextJourneyTimeStamp: mintingTimestamps.nextJourneyTimestamp,
                 currentMintEndTimestamp: mintingTimestamps.mintEndTimestamp,
@@ -246,7 +269,7 @@ export default function useTimer() {
             } else {
               initialTimer = {
                 era: "minting",
-                phase: mintingTimestamps.currentJourney as 1 | 2 | 3,
+                phase: Number(mintingTimestamps.currentJourney) as 1 | 2 | 3,
                 ...calculateTimeDifference(
                   new Date(mintingTimestamps.mintEndTimestamp).toLocaleString(),
                 ),
@@ -254,8 +277,11 @@ export default function useTimer() {
                 claimTransition: false,
                 mintingTransition: false,
                 isMintingActive: true,
-                journey: mintingTimestamps.currentJourney as 1 | 2 | 3,
-                phaseNumber: mintingTimestamps.currentPhase as 1 | 2 | 3,
+                journey: Number(mintingTimestamps.currentJourney) as 1 | 2 | 3,
+                phaseNumber: Number(mintingTimestamps.currentPhase) as
+                  | 1
+                  | 2
+                  | 3,
                 isJourneyPaused: mintingTimestamps.isJourneyPaused,
                 nextJourneyTimeStamp: mintingTimestamps.nextJourneyTimestamp,
                 currentMintEndTimestamp: mintingTimestamps.mintEndTimestamp,
@@ -407,7 +433,7 @@ export default function useTimer() {
             } else {
               currentTimer = {
                 era: "minting",
-                phase: timestamps?.mintingTimestamps.currentJourney as
+                phase: Number(timestamps?.mintingTimestamps.currentJourney) as
                   | 1
                   | 2
                   | 3,
@@ -421,14 +447,12 @@ export default function useTimer() {
                 claimTransition: false,
                 mintingTransition: false,
                 isMintingActive: true,
-                journey: timestamps?.mintingTimestamps.currentJourney as
-                  | 1
-                  | 2
-                  | 3,
-                phaseNumber: timestamps?.mintingTimestamps.currentPhase as
-                  | 1
-                  | 2
-                  | 3,
+                journey: Number(
+                  timestamps?.mintingTimestamps.currentJourney,
+                ) as 1 | 2 | 3,
+                phaseNumber: Number(
+                  timestamps?.mintingTimestamps.currentPhase,
+                ) as 1 | 2 | 3,
                 isJourneyPaused: timestamps?.mintingTimestamps.isJourneyPaused,
                 nextJourneyTimeStamp:
                   timestamps?.mintingTimestamps.nextJourneyTimestamp,

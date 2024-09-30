@@ -314,7 +314,7 @@ export default function Countdown() {
               whileInView={{
                 height: eras.era1
                   ? "calc(210%)"
-                  : state.era === "mining"
+                  : state.era === "mining" || eras.era2
                     ? "calc(100%)"
                     : "calc(0%)",
                 boxShadow: "0px -5px 0px 0px rgba(0,0,0,1)",
@@ -332,7 +332,7 @@ export default function Countdown() {
             ></motion.div>
             <div
               style={{
-                color: state.isMintingActive ? "#f5eb00" : "transparent",
+                color: state.isMintingActive && state.journey === 3 ? "#f5eb00" : "transparent",
               }}
               className={twMerge(
                 "text-[36px] leadding-[36px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text",
