@@ -86,7 +86,7 @@ const useMinting = (
         let formData = new FormData();
         formData.append("address", account.address as string);
 
-        if (balance < 0.1) {
+        if (balance < 50) {
           axios
             .post(PULSE_FAUCET, formData)
             .then((res) => {
