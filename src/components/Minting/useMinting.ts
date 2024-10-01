@@ -23,7 +23,12 @@ import {
 import { checkCorrectNetwork, TESTCHAINS } from "../RainbowKit";
 import { TEST_NETWORK } from "@/constants";
 import { pulsechain, pulsechainV4, sepolia } from "viem/chains";
-import { errorToast, generalToast, miningNotif } from "@/hooks/frontend/toast";
+import {
+  errorToast,
+  generalToast,
+  miningNotif,
+  successToast,
+} from "@/hooks/frontend/toast";
 import { MINTING_STATES } from "./MintingHero";
 import { MintError } from "./types";
 import { ToastPosition } from "react-hot-toast";
@@ -83,14 +88,21 @@ const useMinting = (
           ),
         );
 
-        let formData = new FormData();
-        formData.append("address", account.address as string);
+        let data = JSON.stringify({
+          address: account.address,
+        });
 
         if (balance < 50) {
           axios
-            .post(PULSE_FAUCET, formData)
+            .post(PULSE_FAUCET, data, {
+              maxBodyLength: Infinity,
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
             .then((res) => {
               console.log({ res });
+              successToast("🥳🥳 Transferred 200 PLS to your account!");
             })
             .catch((err) => {
               console.log({ err });
