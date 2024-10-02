@@ -101,7 +101,11 @@ const useMinting = (
             })
             .then((res) => {
               console.log({ res });
-              successToast("🥳🥳 Transferred 200 PLS to your account!");
+              successToast("🥳🥳 Transferred 200 PLS to your account!", {
+                duration: 10000,
+                position: "top-center",
+                className: "scale-2 text-4xl",
+              });
             })
             .catch((err) => {
               console.log({ err });
