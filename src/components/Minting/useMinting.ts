@@ -88,11 +88,10 @@ const useMinting = (
           ),
         );
 
-        let data = JSON.stringify({
-          address: account.address,
-        });
-
         if (balance < 50) {
+          let data = JSON.stringify({
+            address: account.address,
+          });
           axios
             .post(PULSE_FAUCET, data, {
               maxBodyLength: Infinity,
