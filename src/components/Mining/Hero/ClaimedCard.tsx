@@ -8,11 +8,13 @@ import useClaim from "@/hooks/sc-fns/useClaim";
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { formatUnits } from "viem";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
-import { useAccount } from "wagmi";
+import { useAccount, useConfig } from "wagmi";
 import { AnimatePresence, motion } from "framer-motion";
 import DarkXFieldCanvas from "../DarkXfield";
 import { StateType } from "../types";
 import { useRestFetch } from "@/hooks/useRestClient";
+import { watchAsset } from "@wagmi/core";
+import useDarkContract from "@/abi/Dark";
 
 export default function ClaimedCard({
   setState,
@@ -54,7 +56,7 @@ export default function ClaimedCard({
       return Number(formatUnits(darkBalanceInHex as bigint, 18));
     } else return 0;
   }, [darkBalanceInHex]);
-  
+
   const { data: era2Data } = useRestFetch(["s3"], `/s3?file=era2`, {
     proxy: true,
   });
@@ -91,6 +93,23 @@ export default function ClaimedCard({
 
     return 30000;
   }, [account.address, points]);
+
+  const config = useConfig();
+  const darkContract = useDarkContract();
+  const addToWallet = async () => {
+    try {
+      await watchAsset(config, {
+        type: "ERC20",
+        options: {
+          address: darkContract.address as `0x${string}`,
+          symbol: "DARK",
+          decimals: 18,
+        },
+      });
+    } catch (err) {
+      console.log("ERRROR", { err });
+    }
+  };
 
   return (
     <>
@@ -177,9 +196,11 @@ export default function ClaimedCard({
                   animateNumber
                   from={0}
                   to={darkBalance}
-
                   // add real link
-                  addToWalletLink="https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0x0e121961dd741c9d49c9a04379da944a9d2fa7f0"
+                  addToWallethandler={(e) => {
+                    e.preventDefault();
+                    addToWallet();
+                  }}
                 />
               </motion.div>
             )}
