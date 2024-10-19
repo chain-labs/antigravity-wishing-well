@@ -84,7 +84,7 @@ export default function CountdownTimer({
                 ? "Minting starts in"
                 : state.isJourneyPaused && !state.isMintingActive
                   ? "Journey Paused"
-                  : COUNTDOWN_TITLE[state.isMintingActive ? `journey${state.journey}` : state.era][state.isMintingActive ? state.phaseNumber - 1 : state.phase - 1]}
+                  : COUNTDOWN_TITLE[state.isMintingActive ? `journey${state.journey}` : state.era][state.isMintingActive ? Number(state.phaseNumber ?? 0) - 1 : Number(state.phase ?? 0) - 1]}
       </div>
       <div
         className={twMerge(

@@ -787,7 +787,7 @@ function Timer() {
                 ? "Minting starts in"
                 : timer.isJourneyPaused && timer.isMintingActive
                   ? "Journey Paused"
-                  : COUNTDOWN_TITLE[timer.isMintingActive ? `journey${timer.journey}` : timer.era][timer.isMintingActive ? timer.phaseNumber - 1 : timer.phase - 1]}
+                  : COUNTDOWN_TITLE[timer.isMintingActive ? `journey${timer.journey}` : timer.era][timer.isMintingActive ? Number(timer.phaseNumber ?? 0) - 1 : Number(timer.phase ?? 0) - 1]}
       </div>
     </div>
   );
