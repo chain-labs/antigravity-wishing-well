@@ -490,6 +490,7 @@ export default function MintingHero() {
                     ),
                     journey: 3,
                     phaseNumber: 1,
+                    nextPhaseStartTimestamp: null,
                   }}
                   fontDesktopSize={40}
                   fontMobileSize={48}
