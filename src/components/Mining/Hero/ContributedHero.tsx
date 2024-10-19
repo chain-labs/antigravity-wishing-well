@@ -7,7 +7,13 @@ import P from "@/components/HTML/P";
 import useClaim from "@/hooks/sc-fns/useClaim";
 import { useRestFetch } from "@/hooks/useRestClient";
 import { useChainModal, useConnectModal } from "@rainbow-me/rainbowkit";
-import { Dispatch, SetStateAction, useEffect, useMemo } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useMemo,
+} from "react";
 import { formatUnits } from "viem";
 import { useAccount, useReadContract, useSwitchChain } from "wagmi";
 import ContributedCard from "./ContributedCard";
@@ -89,11 +95,12 @@ export default function ContributedHero({
   }, [account.address, era2Data]);
 
   const nonces = useMemo(() => {
-    return ERA2_DATA.nonces.filter(
+    const result = ERA2_DATA.nonces.filter(
       (_, index) =>
         account?.address?.toLowerCase() ===
         ERA2_DATA.accounts[index].toLowerCase(),
     );
+    return result;
   }, [ERA2_DATA, account.address]);
 
   const proofs: string[][] = useMemo(() => {
@@ -136,11 +143,22 @@ export default function ContributedHero({
     chainId: TEST_NETWORK ? TESTCHAINS[0].id : pulsechain.id,
   });
 
-  const { data: dark_total_points, error } = useReadContract({
+  const { data: dark_total_points } = useReadContract({
     address: DarkClaimContract.address as `0x${string}`,
     abi: DarkClaimContract.abi,
     functionName: "totalPoints",
     chainId: TEST_NETWORK ? TESTCHAINS[0].id : pulsechain.id,
+  });
+
+  const { data: claimed, isFetched: claimedFetched } = useReadContract({
+    address: DarkClaimContract.address as `0x${string}`,
+    abi: DarkClaimContract.abi,
+    functionName: "claimsLedger",
+    args: [account.address as `0x${string}`, nonces[0]],
+    chainId: TEST_NETWORK ? TESTCHAINS[0].id : pulsechain.id,
+    query: {
+      enabled: !!nonces[0] && !!account.address,
+    },
   });
 
   const darkTokens = useMemo(() => {
@@ -153,18 +171,10 @@ export default function ContributedHero({
       const darkRatio = MAX_SUPPLY / total_points;
       // (dark_MAX_SUPPLY as bigint) / (dark_total_points as bigint);
       const dark = darkRatio * pointsToDisplay * 0.1;
-      console.log({
-        pointsToDisplay,
-        MAX_SUPPLY,
-        dark_total_points,
-        dark,
-        darkRatio,
-        error,
-      });
       return dark;
     }
     return 0;
-  }, [dark_MAX_SUPPLY, dark_total_points, pointsToDisplay, error]);
+  }, [dark_MAX_SUPPLY, dark_total_points, pointsToDisplay]);
 
   const { claim, transactionLoading, darkBalance, receipt } = useClaim();
 
@@ -194,12 +204,17 @@ export default function ContributedHero({
 
   const { switchChain } = useSwitchChain();
 
-  useEffect(() => {
-    if ((darkBalance as bigint) > 0) {
-      console.log("darkBalance", darkBalance);
-      setState("Claimed");
+  const checkClaimed = useCallback(() => {
+    if (claimedFetched) {
+      if (claimed) {
+        setState("Claimed");
+      }
     }
-  }, [darkBalance]);
+  }, [claimed, claimedFetched, setState]);
+
+  useEffect(() => {
+    checkClaimed();
+  }, [claimed, claimedFetched]);
 
   return (
     <div className="relative flex flex-col justify-center items-center gap-[24px] mt-[50px] px-[16px] w-full md:w-fit max-w-full">

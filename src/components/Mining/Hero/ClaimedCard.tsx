@@ -54,12 +54,6 @@ export default function ClaimedCard({
       return Number(formatUnits(darkBalanceInHex as bigint, 18));
     } else return 0;
   }, [darkBalanceInHex]);
-
-  useEffect(() => {
-    if (darkBalance === 0) {
-      setState("Claiming");
-    }
-  }, [darkBalance]);
   
   const { data: era2Data } = useRestFetch(["s3"], `/s3?file=era2`, {
     proxy: true,
