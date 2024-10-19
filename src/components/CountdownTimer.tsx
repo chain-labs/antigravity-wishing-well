@@ -23,21 +23,9 @@ const COUNTDOWN_TITLE: { [key: string]: string[] } = {
     "ETA for Journey 1",
   ],
   minting: [],
-  journey1: [
-    "Minting window ends in",
-    "Minting window ends in",
-    "ETA for Journey 2",
-  ],
-  journey2: [
-    "Minting window ends in",
-    "Minting window ends in",
-    "ETA for Journey 3",
-  ],
-  journey3: [
-    "Minting window ends in",
-    "Minting window ends in",
-    "ETA for Journey 4",
-  ],
+  journey1: ["Til Lottery 1", "Til Lottery 2", "Til Journey 2"],
+  journey2: ["Til Lottery 2", "Til Lottery 3", "Til Journey 3"],
+  journey3: ["Til Lottery 3", "Til Lottery 4", "Til Journey End"],
 };
 
 export default function CountdownTimer({
@@ -96,9 +84,7 @@ export default function CountdownTimer({
                 ? "Minting starts in"
                 : state.isJourneyPaused && !state.isMintingActive
                   ? "Journey Paused"
-                  : state.era === "minting"
-                    ? `Til Journey ${state.journey + 1}`
-                    : COUNTDOWN_TITLE[state.era][state.phase - 1]}
+                  :  COUNTDOWN_TITLE[state.era][state.phase - 1]}
       </div>
       <div
         className={twMerge(

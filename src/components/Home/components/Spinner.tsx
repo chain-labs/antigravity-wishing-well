@@ -680,9 +680,9 @@ const COUNTDOWN_TITLE: { [key: string]: string[] } = {
   wishwell: ["Til phase 2", "Til phase 3", "Til phase 1"],
   mining: ["Til phase 2", "Til phase 3", "Til Minting"],
   minting: [],
-  journey1: ["Til Lottery 1", "Til Journey 2", "Til Journey 2"],
-  journey2: ["Til Lottery 2", "Til Journey 3", "Til Journey 3"],
-  journey3: ["Til Lottery 3", "Til Journey 4", "Til Journey End"],
+  journey1: ["Til Lottery 1", "Til Lottery 2", "Til Journey 2"],
+  journey2: ["Til Lottery 2", "Til Lottery 3", "Til Journey 3"],
+  journey3: ["Til Lottery 3", "Til Lottery 4", "Til Journey End"],
 };
 
 /* 
