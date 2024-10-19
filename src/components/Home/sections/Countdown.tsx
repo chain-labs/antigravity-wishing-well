@@ -495,9 +495,9 @@ export default function Countdown() {
           whileInView={{
             width: eras.era1
               ? "0%"
-              : state.era === "mining"
+              : eras.era2
                 ? "33.33%"
-                : state.era === "minting"
+                : eras.era3
                   ? "calc(66.66%)"
                   : "100%",
             boxShadow: "5px 0px 0px 0px rgba(0,0,0,1)",
@@ -517,7 +517,7 @@ export default function Countdown() {
           whileInView={{
             width: eras.era1
               ? "63.66%"
-              : state.era === "mining"
+              : eras.era2
                 ? "33.33%"
                 : "0%",
             boxShadow: "-5px 0px 0px 0px rgba(0,0,0,1)",

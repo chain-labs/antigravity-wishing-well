@@ -69,9 +69,8 @@ function H1({
   const currentEra = timer.isMintingActive
     ? `journey${timer.journey}`
     : timer.era;
-  const currentPhase = timer.phase;
+  const currentPhase = timer.isMintingActive ? timer.phaseNumber : timer.phase;
   const active = currentEra === era && currentPhase === stage;
-
   return (
     <>
       {isEraLetter !== undefined ? (
