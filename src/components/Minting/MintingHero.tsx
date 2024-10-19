@@ -10,16 +10,16 @@ import CountdownTimer from "@/components/CountdownTimer";
 import ProgressingStates from "@/components/ProgressingStates";
 import { useAccount, useSwitchChain } from "wagmi";
 import useTimer, { calculateTimeDifference } from "@/hooks/frontend/useTimer";
-import { useChainModal, useConnectModal } from "@rainbow-me/rainbowkit";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 import useMinting from "./useMinting";
 import { MintError, STEPPERS } from "./types";
 import { checkCorrectNetwork, TESTCHAINS } from "../RainbowKit";
 import { TEST_NETWORK } from "@/constants";
-import { pulsechain, sepolia } from "viem/chains";
+import { pulsechain } from "viem/chains";
 import Image from "next/image";
 import P from "../HTML/P";
 import H1 from "../HTML/H1";
-import { delay, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { getButtonCofigs, setCurrentMintState } from "./utils";
 import { useJourneyData } from "@/app/(client)/store";
 import ThreeDHovercardEffect from "../ThreeDHovercardEffect";
@@ -348,7 +348,9 @@ export default function MintingHero() {
                 multiplyer={rewardMultiplier}
                 bonus={multiplier}
                 buymoreHighlight={buymoreHighlight}
-                buyMoreFn={faucetCall}
+                buyMoreFn={() => {
+                  window.open("https://uniswap.org", "_blank");
+                }}
                 txLoading={txLoading}
               />
               {timerState.isJourneyPaused &&
@@ -488,6 +490,7 @@ export default function MintingHero() {
                     ),
                     journey: 3,
                     phaseNumber: 1,
+                    nextPhaseStartTimestamp: null,
                   }}
                   fontDesktopSize={40}
                   fontMobileSize={48}

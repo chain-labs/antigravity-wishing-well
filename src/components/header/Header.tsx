@@ -111,7 +111,9 @@ const Header = () => {
             <p className="flex justify-center items-center gap-[8px]">
               <PiTreasureChestDuotone className="text-[24px] leading-[24px] text-agwhite" />
               <span>Treasury $DARK:</span>
-              <LoaderSpan data={Number(treasuryBalance)} />
+              <LoaderSpan
+                data={treasuryBalance ? Number(treasuryBalance) : undefined}
+              />
             </p>
             <div className="w-[1px] h-full bg-gradient-to-b from-white via-[#999999] to-[#999999] rounded-full" />
             <p className="flex justify-center items-center gap-[8px]">
@@ -131,7 +133,9 @@ const Header = () => {
                     className="w-[24px] h-[24px]"
                   />
                   <span>User $DARK:</span>
-                  <LoaderSpan data={Number(darkBalance)} />
+                  <LoaderSpan
+                    data={darkBalance ? Number(darkBalance) : undefined}
+                  />
                 </p>
               </Fragment>
             ) : null}

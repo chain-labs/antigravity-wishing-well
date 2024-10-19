@@ -36,7 +36,8 @@ export const Default: Story = {
       phaseNumber: 1,
       isJourneyPaused: false,
       nextJourneyTimeStamp: 0,
-      currentMintEndTimestamp: undefined
+      currentMintEndTimestamp: undefined,
+      nextPhaseStartTimestamp: null,
     },
   },
 };

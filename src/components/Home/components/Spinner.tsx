@@ -69,9 +69,8 @@ function H1({
   const currentEra = timer.isMintingActive
     ? `journey${timer.journey}`
     : timer.era;
-  const currentPhase = timer.phase;
+  const currentPhase = timer.isMintingActive ? timer.phaseNumber : timer.phase;
   const active = currentEra === era && currentPhase === stage;
-
   return (
     <>
       {isEraLetter !== undefined ? (
@@ -171,6 +170,8 @@ function decideActiveStageLocation({
           return -75;
         case 3:
           return -50;
+        default:
+          return 180;
       }
     case eras.era2:
       switch (activePhase) {
@@ -180,6 +181,8 @@ function decideActiveStageLocation({
           return 0;
         case 3:
           return 25;
+        default:
+          return 180;
       }
     case eras.era3:
       switch (activePhase) {
@@ -189,7 +192,11 @@ function decideActiveStageLocation({
           return 75;
         case 3:
           return 100;
+        default:
+          return 180;
       }
+    default:
+      return 180;
   }
 }
 
@@ -204,6 +211,7 @@ function StageHighlighter() {
       : activeState.phase,
     mintingActive: activeState.isMintingActive,
   });
+
   return (
     <motion.div
       whileInView={{
@@ -253,7 +261,7 @@ function EraHighlighter() {
       whileInView={{
         x: "-50%",
         y: "-50%",
-        rotate: eras.era1 ? -75 : eras.era3 ? 75 : 0,
+        rotate: eras.era1 ? -75 : eras.era3 ? 75 : eras.era2 ? 0 : -180,
       }}
       initial={{
         x: "-50%",
@@ -753,38 +761,36 @@ function Timer() {
         </div>
       </div>
 
-          <div
-            style={{
-              fontSize:
-                timer.claimTransition ||
-                (timer.era === "mining" && timer.phase === 3) ||
-                timer.claimStarted ||
-                (timer.isJourneyPaused && timer.isMintingActive) ||
-                timer.mintingTransition
-                  ? "1rem"
-                  : "1.5rem",
-            }}
-            className="font-sans text-agyellow text-2xl font-bold text-center uppercase tracking-widest"
-          >
-            {timer.era === "mining" &&
-            timer.phase === 3 &&
-            !timer.claimTransition &&
-            !timer.claimStarted
-              ? "Mining ends in"
-              : timer.claimTransition
-                ? "Public Test goes live in"
-                : timer.claimStarted
-                  ? "Claming ends in"
-                  : timer.mintingTransition
-                    ? "Minting starts in"
-                    : timer.isJourneyPaused && timer.isMintingActive
-                      ? "Journey Paused"
-                      : COUNTDOWN_TITLE[
-                          timer.isMintingActive
-                            ? `journey${timer.journey}`
-                            : timer.era
-                        ]?.[timer.phase - 1]}
-          </div>
+      <div
+        style={{
+          fontSize:
+            timer.claimTransition ||
+            (timer.era === "mining" && timer.phase === 3) ||
+            timer.claimStarted ||
+            (timer.isJourneyPaused && timer.isMintingActive) ||
+            timer.mintingTransition
+              ? "1rem"
+              : "1.5rem",
+        }}
+        className="font-sans text-agyellow text-2xl font-bold text-center uppercase tracking-widest"
+      >
+        {timer.era === "mining" &&
+        timer.phase === 3 &&
+        !timer.claimTransition &&
+        !timer.claimStarted
+          ? "Mining ends in"
+          : timer.claimTransition
+            ? "Public Test goes live in"
+            : timer.claimStarted
+              ? "Claming ends in"
+              : timer.mintingTransition
+                ? "Minting starts in"
+                : timer.isJourneyPaused && timer.isMintingActive
+                  ? "Journey Paused"
+                  : timer.era === "minting"
+                    ? `Til Journey ${timer.journey + 1}`
+                    : COUNTDOWN_TITLE[timer.era][timer.phase - 1]}
+      </div>
     </div>
   );
 }
