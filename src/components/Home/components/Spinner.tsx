@@ -680,9 +680,9 @@ const COUNTDOWN_TITLE: { [key: string]: string[] } = {
   wishwell: ["Til phase 2", "Til phase 3", "Til phase 1"],
   mining: ["Til phase 2", "Til phase 3", "Til Minting"],
   minting: [],
-  journey1: ["Til Lottery 1", "Til Journey 2", "Til Journey 2"],
-  journey2: ["Til Lottery 2", "Til Journey 3", "Til Journey 3"],
-  journey3: ["Til Lottery 3", "Til Journey 4", "Til Journey End"],
+  journey1: ["Til Phase 2", "Til Phase 3", "Til Journey 2"],
+  journey2: ["Til Phase 2", "Til Phase 3", "Til Journey 3"],
+  journey3: ["Til Phase 2", "Til Phase 3", "Til Journey 4"],
 };
 
 /* 
@@ -704,7 +704,7 @@ zustand multiplier aur rewardMultiplier
 function Timer() {
   const timer = useTimer();
 
-  return (
+  return ( 
     <div className="absolute flex flex-col justify-center items-center gap-2 z-[100] w-[400px] h-[200px] translate-y-[60%]">
       <Image
         src={IMAGEKIT_IMAGES.COUNTER_BG}
@@ -787,9 +787,7 @@ function Timer() {
                 ? "Minting starts in"
                 : timer.isJourneyPaused && timer.isMintingActive
                   ? "Journey Paused"
-                  : timer.era === "minting"
-                    ? `Til Journey ${timer.journey + 1}`
-                    : COUNTDOWN_TITLE[timer.era][timer.phase - 1]}
+                  : COUNTDOWN_TITLE[timer.isMintingActive ? `journey${timer.journey}` : timer.era][timer.isMintingActive ? timer.phaseNumber - 1 : timer.phase - 1]}
       </div>
     </div>
   );
