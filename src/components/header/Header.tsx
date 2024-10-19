@@ -159,7 +159,7 @@ const Header = () => {
             >
               <Link
                 href={
-                  timer.isMintingActive && timer.claimStarted
+                  timer.isMintingActive && !timer.claimStarted
                     ? location.pathname === "/minting"
                       ? "/minting#"
                       : "/minting"
@@ -175,7 +175,7 @@ const Header = () => {
                   extrabold
                   className="font-sans font-extrabold"
                 >
-                  {timer.isMintingActive && timer.claimStarted ? "Minting" : "Mining"}
+                  {timer.isMintingActive && !timer.claimStarted ? "Minting" : "Mining"}
                 </P>
               </Link>
               <Link
@@ -370,7 +370,7 @@ const Header = () => {
               <div className="w-full h-[1px] bg-gradient-to-l from-white via-[#999999] to-[#999999] rounded-full" />
               <Link
                 href={
-                  timer.isMintingActive && timer.claimStarted
+                  timer.isMintingActive && !timer.claimStarted
                     ? location.pathname === "/minting"
                       ? "/minting#"
                       : "/minting"
@@ -385,7 +385,7 @@ const Header = () => {
                   extrabold
                   className="font-sans font-extrabold"
                 >
-                  {timer.isMintingActive && timer.claimStarted ? "Minting" : "Mining"}
+                  {timer.isMintingActive && !timer.claimStarted ? "Minting" : "Mining"}
                 </P>
               </Link>
               <Link
