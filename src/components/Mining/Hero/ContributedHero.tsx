@@ -72,7 +72,7 @@ export default function ContributedHero({
         }, 0);
 
         return response;
-      }
+      } else return 0;
       // const accountIndex = ERA2_DATA.accounts.findIndex(
       //   (x) => x.toLowerCase() === account.address?.toLowerCase(),
       // );
