@@ -32,7 +32,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
             {!strictNoLoading && <LoadingPage contentLoaded={!loading} />}
           </div>
           <div className="fixed top-0 w-full z-50 items-center pt-[16px] md:pt-[32px] px-4">
-            {timer.isMintingActive ? <HeaderEra3 /> : <HeaderEra2 />}
+            <HeaderEra3 />
           </div>
           <AnimatePresence>
             <motion.div
