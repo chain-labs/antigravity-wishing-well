@@ -78,7 +78,8 @@ const Header = () => {
     ["era-3-timestamps-multipliers"],
     "/api/era-3-timestamps-multipliers",
   );
-  const { darkBalance, treasuryBalance } = useHeaderStats();
+  const { userDark: darkBalance, treasuryDark: treasuryBalance } =
+    useHeaderStats();
 
   useEffect(() => {
     fetchEra3({ walletAddress: account.address }).then((data: any) => {
@@ -112,7 +113,9 @@ const Header = () => {
               <PiTreasureChestDuotone className="text-[24px] leading-[24px] text-agwhite" />
               <span>Treasury $DARK:</span>
               <LoaderSpan
-                data={treasuryBalance ? Number(treasuryBalance) : undefined}
+                data={
+                  treasuryBalance >= 0 ? Number(treasuryBalance) : undefined
+                }
               />
             </p>
             <div className="w-[1px] h-full bg-gradient-to-b from-white via-[#999999] to-[#999999] rounded-full" />
@@ -175,7 +178,9 @@ const Header = () => {
                   extrabold
                   className="font-sans font-extrabold"
                 >
-                  {timer.isMintingActive && !timer.claimStarted ? "Minting" : "Mining"}
+                  {timer.isMintingActive && !timer.claimStarted
+                    ? "Minting"
+                    : "Mining"}
                 </P>
               </Link>
               <Link
@@ -385,7 +390,9 @@ const Header = () => {
                   extrabold
                   className="font-sans font-extrabold"
                 >
-                  {timer.isMintingActive && !timer.claimStarted ? "Minting" : "Mining"}
+                  {timer.isMintingActive && !timer.claimStarted
+                    ? "Minting"
+                    : "Mining"}
                 </P>
               </Link>
               <Link

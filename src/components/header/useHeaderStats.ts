@@ -1,82 +1,116 @@
 import useDarkContract from "@/abi/Dark";
-import useLCC_Contract from "@/abi/LaunchControlCenter";
-import { useEffect, useMemo, useState } from "react";
-import { formatUnits, zeroAddress } from "viem";
-import { useAccount, useConfig } from "wagmi";
-import { readContract } from "@wagmi/core";
 import useJPMContract from "@/abi/JourneyPhaseManager";
-import { TEST_NETWORK } from "@/constants";
-import { pulsechain, sepolia } from "viem/chains";
-import { useUserData } from "@/app/(client)/store";
 import useTreasuryContract from "@/abi/Treasury";
-import { config, TESTCHAINS } from "../RainbowKit";
+import { useEffect, useMemo } from "react";
+import { formatUnits } from "viem";
+import { useAccount, useReadContract, useReadContracts } from "wagmi";
 
 const useHeaderStats = () => {
-  const LCC_Contract = useLCC_Contract();
-  const TreasuryContract = useTreasuryContract();
-  const JPM_Contract = useJPMContract();
-  const DarkContract = useDarkContract();
   const account = useAccount();
-  const { mutation } = useUserData();
+  const TreasuryContract = useTreasuryContract();
+  const JPMContract = useJPMContract();
+  const DarkContract = useDarkContract();
 
-  const [darkBalance, setDarkBalance] = useState<string>();
-  const [treasuryBalance, setTreasuryBalance] = useState<string>();
+  const { data: treasuryDarkData, isFetched: treasuryDarkFetched } =
+    useReadContract({
+      address: DarkContract.address as `0x${string}`,
+      abi: DarkContract.abi,
+      functionName: "balanceOf",
+      args: [TreasuryContract.address as `0x${string}`],
+    });
+
+  const {
+    data: userDarkData,
+    error: userDarkError,
+    isFetched: userDarkFetched,
+  } = useReadContract({
+    address: DarkContract.address as `0x${string}`,
+    abi: DarkContract.abi,
+    functionName: "balanceOf",
+    args: [account.address as `0x${string}`],
+    query: {
+      enabled: !!account.address,
+    },
+  });
+
+  const { data: journeyData, error: journeyError } = useReadContract({
+    address: JPMContract.address as `0x${string}`,
+    abi: JPMContract.abi,
+    functionName: "currentJourney",
+  });
+
+  const {
+    data: totalYieldClaimedData,
+    isFetched: totalYieldClaimedFetched,
+    error: error1,
+  } = useReadContract({
+    address: TreasuryContract.address as `0x${string}`,
+    abi: TreasuryContract.abi,
+    functionName: "totalYieldClaimed",
+  });
+
+  const {
+    data: totalYieldAllocatedData,
+    isFetched: totalYieldAllocatedFetched,
+    error: error2,
+  } = useReadContract({
+    address: TreasuryContract.address as `0x${string}`,
+    abi: TreasuryContract.abi,
+    functionName: "totalYieldAllocated",
+  });
 
   useEffect(() => {
-    let timer: any = undefined;
+    if (error1) {
+      console.error("Error fetching totalYieldClaimed:", error1);
+    }
+    if (error2) {
+      console.error("Error fetching totalYieldAllocated:", error2);
+    }
+  }, [error1, error2]);
+
+  const journey = useMemo(() => {
+    if (journeyData) {
+      return Number(journeyData);
+    }
+    return 0;
+  }, [journeyData]);
+
+  const userDark = useMemo(() => {
+    if (userDarkFetched) {
+      console.log({ userDarkData });
+      return Number(formatUnits((userDarkData as bigint) ?? BigInt(0), 18));
+    }
+    return -1;
+  }, [userDarkData]);
+
+  const treasuryDark = useMemo(() => {
     if (
-      DarkContract.address !== zeroAddress &&
-      LCC_Contract.address !== zeroAddress
+      treasuryDarkFetched &&
+      totalYieldAllocatedFetched &&
+      totalYieldClaimedFetched
     ) {
-      timer = setInterval(() => {
-        readContract(config, {
-          abi: DarkContract.abi,
-          address: DarkContract.address as `0x${string}`,
-          functionName: "balanceOf",
-          chainId: TEST_NETWORK ? TESTCHAINS[0].id : pulsechain.id,
-          args: [`${TreasuryContract.address}`],
-        }).then((treasuryBalance) => {
-          setTreasuryBalance(formatUnits(treasuryBalance as bigint, 18));
-        });
-      }, 6000);
-
-      return () => {
-        if (timer) {
-          clearInterval(timer);
-        }
-      };
-    }
-  }, [DarkContract, LCC_Contract, config]);
-
-  useEffect(() => {
-    let timer = undefined;
-    if (account.address && DarkContract.address !== zeroAddress) {
-      timer = setInterval(() => {
-        readContract(config, {
-          abi: DarkContract.abi,
-          address: DarkContract.address as `0x${string}`,
-          functionName: "balanceOf",
-          chainId: TEST_NETWORK ? TESTCHAINS[0].id : pulsechain.id,
-          args: [account.address as `0x${string}`],
-        }).then((data) => {
-          const balance = formatUnits(data as bigint, 18);
-          mutation({ darkBalance: Number(balance) });
-          setDarkBalance(balance);
-        });
-      }, 4000);
+      const treasuryDarkinBigInt = (treasuryDarkData as bigint) ?? BigInt(0);
+      const totalYieldAllocatedInBigInt =
+        (totalYieldAllocatedData as bigint) ?? BigInt(0);
+      const totalYieldClaimedInBigInt =
+        (totalYieldClaimedData as bigint) ?? BigInt(0);
+      const resultInBigInt: bigint =
+        treasuryDarkinBigInt -
+        (totalYieldAllocatedInBigInt - totalYieldClaimedInBigInt);
+      return Number(formatUnits(resultInBigInt, 18));
     }
 
-    return () => {
-      if (timer) {
-        clearInterval(timer);
-      }
-    };
-  }, [account.address, DarkContract, config]);
+    return -1;
+  }, [
+    treasuryDarkData,
+    totalYieldAllocatedData,
+    totalYieldClaimedData,
+    treasuryDarkFetched,
+    totalYieldAllocatedFetched,
+    totalYieldClaimedFetched,
+  ]);
 
-  return {
-    darkBalance,
-    treasuryBalance,
-  };
+  return { treasuryDark, journey, userDark };
 };
 
 export default useHeaderStats;
