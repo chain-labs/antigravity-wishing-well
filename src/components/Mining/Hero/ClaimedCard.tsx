@@ -14,7 +14,6 @@ import DarkXFieldCanvas from "../DarkXfield";
 import { StateType } from "../types";
 import { useRestFetch } from "@/hooks/useRestClient";
 import useDarkContract from "@/abi/Dark";
-import { watchAsset } from "viem/actions";
 
 export default function ClaimedCard({
   setState,
