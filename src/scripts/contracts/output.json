@@ -3,17 +3,29 @@
     {
         "miningRig": "0x020d3Ca9605bb17CC17Ea0DB2bFfed3fA0869fCF",
         "darkX": "0xb1BF01E195D511509B12D980769351eF5255eE0f",
-        "antigravity": "0x526dDE7Cf1B11357DAEE3fAF8e9f93f6A7FCDc40",
+        "antigravity": "0xbf4d8CD1563E222e62354aE7daa64739FccE310f",
         "darkClaims": "0x6b3099EfFF4dAE69e48240d88C141a7cfa793ae6",
-        "dark": "0x05cE9454cdDaFFE8623DDEEED6C76Bc447a47865",
+        "dark": "0x20E070c2e6eB00bC0ACFD801778a1BE24D5423c1",
         "wishWell": "0x43F4cdC343f39EDD323C66492E9fdf3D72Df0eC0",
-        "fuelCell": "0xF658556E7772aDfB21B53ceE17609BfB3c71cC95",
-        "launchControlCenter": "0x20F7d557043772DE57d147DF7b41F5a10AD81cbe",
-        "journeyPhaseManager": "0x74F1C6A8BA80D30277b98A520515cB864C38742b",
-        "evilAddress": "0x0076929d2BB4244A80Bd721daC0Bb33b3777d3E2",
-        "treasury": "0x0b06B32e7c7A60EE641F7754f46cb102690b1289",
-        "jackpot": "0x320A41436cF1495702cAC89024Bb95AC3ea29Cb4",
-        "darkFaucet": "0x72d9F40C7De5F6F2aB699EAA0ca7c66f937C37b9"
+        "fuelCell": "0x77fB461abB743497dc23EB1e2a4fdEfAc35aFfea",
+        "launchControlCenter": "0x09d12a40EbeA8F7860a32973D514E6b55d279a2c",
+        "journeyPhaseManager": "0xA2893EBA6461c7e9142Bd5781E53782927894d61",
+        "evilAddress": "0x86E29Dbd64F36a66d0Ddb96E2FF2A9d571fb41dB",
+        "treasury": "0xB52C954442f021D85Bd36103e742A07825a1af72",
+        "jackpot": "0x3446Fd1cAd7ABA32b998B757767Be19569f866d6",
+        "darkFaucet": "0x1792dedc1A50849041C063BFB686b8350DF9CD73"
+    },
+    {
+        "antigravity": "0xa2A6b9507eB9bFFCCBdAf853ED98047CdEb154F7",
+        "dark": "0x0e4007B69b83dfD48EEA543623f5A063aCD3431d",
+        "darkClaims": "0x73752740Ba6DFBD634F5f8c67b22f411C5E4a5dA",
+        "fuelCell": "0x6C30F640969dA9F73d08310bAfBee2F9412B7b37",
+        "launchControlCenter": "0x6d61f2206a1C59125dE99d9f584Ed6714793ED2c",
+        "journeyPhaseManager": "0xb04D341c41A7e6eDE93b6D3f3A2884133659cCaf",
+        "evilAddress": "0x8A0d19C588f0fE603fFA34dd919727e2Aafb17aB",
+        "treasury": "0x9385d35B5365a87c93e51bA30fB71591f6Dc4E05",
+        "jackpot": "0x2D9dce0b2Be7B409Ce2d8649740b5A13905fa6f5",
+        "darkFaucet": "0xb21145202372CC4F92621c5C41A3791755c0919b"
     },
     {
         "miningRig": "0x8Dea737AE483153c69934ff8a5c7E3D448c2DB4C",

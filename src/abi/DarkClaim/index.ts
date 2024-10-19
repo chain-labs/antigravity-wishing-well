@@ -1,5 +1,5 @@
 import { TEST_NETWORK } from "@/constants";
-import { baseSepolia, pulsechain, sepolia } from "viem/chains";
+import { baseSepolia, pulsechain, pulsechainV4, sepolia } from "viem/chains";
 import { useAccount } from "wagmi";
 
 interface IContract {
@@ -9,6 +9,7 @@ interface IContract {
 
 import abi from "./abi.json";
 import { CONTRACTS } from "../config";
+import { TESTCHAINS } from "@/components/RainbowKit";
 
 const contracts: Record<
   number,
@@ -16,6 +17,10 @@ const contracts: Record<
 > = {
   [sepolia.id]: {
     address: CONTRACTS[sepolia.id].darkClaims,
+    abi,
+  },
+  [pulsechainV4.id]: {
+    address: CONTRACTS[pulsechainV4.id].darkClaims,
     abi,
   },
   [pulsechain.id]: {
@@ -30,7 +35,7 @@ const contracts: Record<
 
 const useDarkClaimContract = (): IContract => {
   if (TEST_NETWORK) {
-    return contracts[sepolia.id];
+    return contracts[TESTCHAINS[0].id];
   } else {
     return contracts[pulsechain.id];
   }

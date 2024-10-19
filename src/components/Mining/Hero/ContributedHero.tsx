@@ -7,7 +7,13 @@ import P from "@/components/HTML/P";
 import useClaim from "@/hooks/sc-fns/useClaim";
 import { useRestFetch } from "@/hooks/useRestClient";
 import { useChainModal, useConnectModal } from "@rainbow-me/rainbowkit";
-import { Dispatch, SetStateAction, useEffect, useMemo } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useMemo,
+} from "react";
 import { formatUnits } from "viem";
 import { useAccount, useReadContract, useSwitchChain } from "wagmi";
 import ContributedCard from "./ContributedCard";
@@ -16,7 +22,7 @@ import Button from "@/components/Button";
 import useClaimMerkleTree from "@/hooks/sc-fns/useMerkleTree.claim";
 import { checkCorrectNetwork, TESTCHAINS } from "@/components/RainbowKit";
 import { TEST_NETWORK } from "@/constants";
-import { pulsechain, sepolia } from "viem/chains";
+import { pulsechain, pulsechainV4, sepolia } from "viem/chains";
 import { StateType } from "../types";
 import { errorToast } from "@/hooks/frontend/toast";
 
@@ -72,7 +78,7 @@ export default function ContributedHero({
         }, 0);
 
         return response;
-      }
+      } else return 0;
       // const accountIndex = ERA2_DATA.accounts.findIndex(
       //   (x) => x.toLowerCase() === account.address?.toLowerCase(),
       // );
@@ -89,11 +95,12 @@ export default function ContributedHero({
   }, [account.address, era2Data]);
 
   const nonces = useMemo(() => {
-    return ERA2_DATA.nonces.filter(
+    const result = ERA2_DATA.nonces.filter(
       (_, index) =>
         account?.address?.toLowerCase() ===
         ERA2_DATA.accounts[index].toLowerCase(),
     );
+    return result;
   }, [ERA2_DATA, account.address]);
 
   const proofs: string[][] = useMemo(() => {
@@ -143,10 +150,23 @@ export default function ContributedHero({
     chainId: TEST_NETWORK ? TESTCHAINS[0].id : pulsechain.id,
   });
 
+  const { data: claimed, isFetched: claimedFetched } = useReadContract({
+    address: DarkClaimContract.address as `0x${string}`,
+    abi: DarkClaimContract.abi,
+    functionName: "claimsLedger",
+    args: [account.address as `0x${string}`, nonces[0]],
+    chainId: TEST_NETWORK ? TESTCHAINS[0].id : pulsechain.id,
+    query: {
+      enabled: !!nonces[0] && !!account.address,
+    },
+  });
+
   const darkTokens = useMemo(() => {
     if (pointsToDisplay && dark_MAX_SUPPLY) {
       const MAX_SUPPLY = Number(formatUnits(dark_MAX_SUPPLY as bigint, 18));
-      const total_points = Number(formatUnits(dark_total_points as bigint, 18));
+      const total_points = Number(
+        formatUnits((dark_total_points as bigint) ?? BigInt(0), 18),
+      );
 
       const darkRatio = MAX_SUPPLY / total_points;
       // (dark_MAX_SUPPLY as bigint) / (dark_total_points as bigint);
@@ -184,12 +204,17 @@ export default function ContributedHero({
 
   const { switchChain } = useSwitchChain();
 
-  useEffect(() => {
-    if ((darkBalance as bigint) > 0) {
-      console.log("darkBalance", darkBalance);
-      setState("Claimed");
+  const checkClaimed = useCallback(() => {
+    if (claimedFetched) {
+      if (claimed) {
+        setState("Claimed");
+      }
     }
-  }, [darkBalance]);
+  }, [claimed, claimedFetched, setState]);
+
+  useEffect(() => {
+    checkClaimed();
+  }, [claimed, claimedFetched]);
 
   return (
     <div className="relative flex flex-col justify-center items-center gap-[24px] mt-[50px] px-[16px] w-full md:w-fit max-w-full">
@@ -263,7 +288,7 @@ export default function ContributedHero({
           />
         ) : checkCorrectNetwork(
             account.chainId,
-            TEST_NETWORK ? [sepolia.id] : [pulsechain.id],
+            TEST_NETWORK ? [pulsechainV4.id] : [pulsechain.id],
           ) ? (
           <Button
             innerText={transactionLoading ? "Claiming..." : "Claim Now"}
@@ -288,7 +313,7 @@ export default function ContributedHero({
             iconSrc={IMAGEKIT_ICONS.ERROR}
             onClick={() => {
               if (TEST_NETWORK) {
-                switchChain({ chainId: sepolia.id });
+                switchChain({ chainId: pulsechainV4.id });
               } else {
                 switchChain({ chainId: pulsechain.id });
               }
