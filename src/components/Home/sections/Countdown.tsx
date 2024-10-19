@@ -162,13 +162,13 @@ function MobilePhase({
 function calculateActivePhasesSlider(activeState: stateType) {
   let activePhase = 0;
   if (activeState.era === "wishwell" || activeState.journey === 1) {
-    activePhase = activeState.phase;
+    activePhase = activeState.isMintingActive ? activeState.phaseNumber : activeState.phase;
   }
   if (activeState.era === "mining" || activeState.journey === 2) {
-    activePhase = activeState.phase + 3;
+    activePhase = activeState.isMintingActive ? activeState.phaseNumber + 3 : activeState.phase + 3;
   }
   if (activeState.isMintingActive && activeState.journey === 3) {
-    activePhase = activeState.phase + 6;
+    activePhase = activeState.isMintingActive ? activeState.phaseNumber + 6 : activeState.phase + 6;
   }
   return activePhase;
 }
