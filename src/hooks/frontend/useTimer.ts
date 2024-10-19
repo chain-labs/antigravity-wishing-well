@@ -24,6 +24,7 @@ export type CountdownType = {
   isJourneyPaused: boolean;
   nextJourneyTimeStamp: number;
   currentMintEndTimestamp: number | null | undefined;
+  nextPhaseStartTimestamp: number | null | undefined;
 };
 
 const DEFAULT: CountdownType = {
@@ -42,6 +43,7 @@ const DEFAULT: CountdownType = {
   isJourneyPaused: true,
   nextJourneyTimeStamp: 0,
   currentMintEndTimestamp: null,
+  nextPhaseStartTimestamp: null,
 };
 
 let timer: CountdownType = { ...DEFAULT };
@@ -146,6 +148,7 @@ export default function useTimer() {
             isJourneyPaused: boolean;
             nextJourneyTimestamp: number;
             mintEndTimestamp: number;
+            nextPhaseStartTimestamp: string;
           };
         try {
           timeData = await client.fetch(`*[_type=="timestamps"][0]`);
@@ -157,6 +160,7 @@ export default function useTimer() {
             isJourneyPaused: boolean;
             nextJourneyTimestamp: number;
             mintEndTimestamp: number;
+            nextPhaseStartTimestamp: string;
           };
         } catch (e) {
           timeData = createDummyTimestamps();
@@ -166,6 +170,7 @@ export default function useTimer() {
             isJourneyPaused: false,
             nextJourneyTimestamp: 0,
             mintEndTimestamp: 0,
+            nextPhaseStartTimestamp: new Date().toLocaleString(),
           };
         }
 
@@ -175,6 +180,7 @@ export default function useTimer() {
           isJourneyPaused: journeyData?.isJourneyPaused,
           nextJourneyTimestamp: journeyData?.nextJourneyTimestamp * 1000,
           mintEndTimestamp: journeyData?.mintEndTimestamp * 1000,
+          nextPhaseStartTimestamp: Number(journeyData?.nextPhaseStartTimestamp) * 1000,
         };
         const now = new Date().getTime();
         const era2End = new Date(
@@ -205,6 +211,7 @@ export default function useTimer() {
             phaseNumber: 1,
             nextJourneyTimeStamp: 0,
             currentMintEndTimestamp: null,
+            nextPhaseStartTimestamp: null,
           };
         } else if (now >= claimStart && now <= claimEnd) {
           const claimTime = calculateTimeDifference(
@@ -223,6 +230,7 @@ export default function useTimer() {
             phaseNumber: 1,
             nextJourneyTimeStamp: 0,
             currentMintEndTimestamp: null,
+            nextPhaseStartTimestamp: null,
           };
         } else if (now >= claimEnd && now <= mintStarted) {
           const mintTime = calculateTimeDifference(
@@ -241,6 +249,7 @@ export default function useTimer() {
             phaseNumber: 1,
             nextJourneyTimeStamp: 0,
             currentMintEndTimestamp: null,
+            nextPhaseStartTimestamp: null,
           };
         } else {
           const { era, phase } = getCurrentEraAndPhase(timeData);
@@ -265,13 +274,17 @@ export default function useTimer() {
                 isJourneyPaused: mintingTimestamps.isJourneyPaused,
                 nextJourneyTimeStamp: mintingTimestamps.nextJourneyTimestamp,
                 currentMintEndTimestamp: mintingTimestamps.mintEndTimestamp,
+                nextPhaseStartTimestamp:
+                  mintingTimestamps.nextPhaseStartTimestamp,
               };
             } else {
               initialTimer = {
                 era: "minting",
                 phase: Number(mintingTimestamps.currentJourney) as 1 | 2 | 3,
                 ...calculateTimeDifference(
-                  new Date(mintingTimestamps.mintEndTimestamp).toLocaleString(),
+                  new Date(
+                    mintingTimestamps.nextPhaseStartTimestamp,
+                  ).toLocaleString(),
                 ),
                 claimStarted: false,
                 claimTransition: false,
@@ -284,7 +297,10 @@ export default function useTimer() {
                   | 3,
                 isJourneyPaused: mintingTimestamps.isJourneyPaused,
                 nextJourneyTimeStamp: mintingTimestamps.nextJourneyTimestamp,
-                currentMintEndTimestamp: mintingTimestamps.mintEndTimestamp,
+                currentMintEndTimestamp:
+                  mintingTimestamps.nextPhaseStartTimestamp,
+                nextPhaseStartTimestamp:
+                  mintingTimestamps.nextPhaseStartTimestamp,
               };
             }
           } else {
@@ -306,6 +322,7 @@ export default function useTimer() {
               phaseNumber: 1,
               nextJourneyTimeStamp: 0,
               currentMintEndTimestamp: null,
+              nextPhaseStartTimestamp: null,
             };
           }
         }
@@ -356,6 +373,7 @@ export default function useTimer() {
             phaseNumber: 1,
             nextJourneyTimeStamp: 0,
             currentMintEndTimestamp: null,
+            nextPhaseStartTimestamp: null,
           };
         } else if (now >= claimStart && now <= claimEnd) {
           const claimTime = calculateTimeDifference(
@@ -374,6 +392,7 @@ export default function useTimer() {
             phaseNumber: 1,
             nextJourneyTimeStamp: 0,
             currentMintEndTimestamp: null,
+            nextPhaseStartTimestamp: null,
           };
         } else if (now >= claimEnd && now <= mintStarted) {
           const mintTime = calculateTimeDifference(
@@ -392,6 +411,7 @@ export default function useTimer() {
             phaseNumber: 1,
             nextJourneyTimeStamp: 0,
             currentMintEndTimestamp: null,
+            nextPhaseStartTimestamp: null,
           };
         } else {
           const { era: currentEra, phase: currentPhase } =
@@ -428,7 +448,9 @@ export default function useTimer() {
                 nextJourneyTimeStamp:
                   timestamps?.mintingTimestamps.nextJourneyTimestamp,
                 currentMintEndTimestamp:
-                  timestamps?.mintingTimestamps.mintEndTimestamp,
+                  timestamps?.mintingTimestamps.nextPhaseStartTimestamp,
+                nextPhaseStartTimestamp:
+                  timestamps?.mintingTimestamps.nextPhaseStartTimestamp,
               };
             } else {
               currentTimer = {
@@ -439,7 +461,7 @@ export default function useTimer() {
                   | 3,
                 ...calculateTimeDifference(
                   new Date(
-                    timestamps?.mintingTimestamps.mintEndTimestamp ??
+                    timestamps?.mintingTimestamps.nextPhaseStartTimestamp ??
                       "2025-12-31",
                   ).toString(),
                 ),
@@ -457,7 +479,9 @@ export default function useTimer() {
                 nextJourneyTimeStamp:
                   timestamps?.mintingTimestamps.nextJourneyTimestamp,
                 currentMintEndTimestamp:
-                  timestamps?.mintingTimestamps.mintEndTimestamp,
+                  timestamps?.mintingTimestamps.nextPhaseStartTimestamp,
+                nextPhaseStartTimestamp:
+                  timestamps?.mintingTimestamps.nextPhaseStartTimestamp,
               };
             }
           } else {
@@ -480,6 +504,7 @@ export default function useTimer() {
               phaseNumber: 1,
               nextJourneyTimeStamp: 0,
               currentMintEndTimestamp: null,
+              nextPhaseStartTimestamp: null,
             };
           }
           setTimer(currentTimer as CountdownType);
