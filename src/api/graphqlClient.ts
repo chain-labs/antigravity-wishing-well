@@ -1,8 +1,8 @@
 import { gql, request } from "graphql-request";
-import { base, baseSepolia, pulsechain, sepolia } from "viem/chains";
+import { base, baseSepolia, pulsechain, pulsechainV4, sepolia } from "viem/chains";
 
 const endpoint: Record<number, string> = {
-  [sepolia.id]: `${process.env.NEXT_PUBLIC_PULSE_SUBGRAPH}`,
+  [pulsechainV4.id]: `${process.env.NEXT_PUBLIC_PULSE_SUBGRAPH}`,
   [baseSepolia.id]: `${process.env.NEXT_PUBLIC_BASE_SUBGRAPH}`,
   [pulsechain.id]: `${process.env.NEXT_PUBLIC_PULSE_SUBGRAPH}`,
   [base.id]: `${process.env.NEXT_PUBLIC_BASE_SUBGRAPH}`,

@@ -35,7 +35,7 @@ export const getTokenIds = (userData: UserData, chainId: number) => {
   let blockchain = "pulsechain";
 
   if (TEST_NETWORK) {
-    if (chainId === sepolia.id) {
+    if (chainId === pulsechainV4.id) {
       miningTokenId = userData.antigravityPulsechainTokenId;
       wishwellTokenId = userData.wishwellPulsechainTokenId;
       blockchain = "pulsechain";
@@ -62,7 +62,6 @@ export const getTokenIds = (userData: UserData, chainId: number) => {
     blockchain,
   };
 };
-
 
 export const getEra = (era: string) => {
   switch (era) {

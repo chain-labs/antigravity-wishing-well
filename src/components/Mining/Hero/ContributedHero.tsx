@@ -16,7 +16,7 @@ import Button from "@/components/Button";
 import useClaimMerkleTree from "@/hooks/sc-fns/useMerkleTree.claim";
 import { checkCorrectNetwork, TESTCHAINS } from "@/components/RainbowKit";
 import { TEST_NETWORK } from "@/constants";
-import { pulsechain, sepolia } from "viem/chains";
+import { pulsechain, pulsechainV4, sepolia } from "viem/chains";
 import { StateType } from "../types";
 import { errorToast } from "@/hooks/frontend/toast";
 
@@ -136,7 +136,7 @@ export default function ContributedHero({
     chainId: TEST_NETWORK ? TESTCHAINS[0].id : pulsechain.id,
   });
 
-  const { data: dark_total_points } = useReadContract({
+  const { data: dark_total_points, error } = useReadContract({
     address: DarkClaimContract.address as `0x${string}`,
     abi: DarkClaimContract.abi,
     functionName: "totalPoints",
@@ -146,15 +146,25 @@ export default function ContributedHero({
   const darkTokens = useMemo(() => {
     if (pointsToDisplay && dark_MAX_SUPPLY) {
       const MAX_SUPPLY = Number(formatUnits(dark_MAX_SUPPLY as bigint, 18));
-      const total_points = Number(formatUnits(dark_total_points as bigint, 18));
+      const total_points = Number(
+        formatUnits((dark_total_points as bigint) ?? BigInt(0), 18),
+      );
 
       const darkRatio = MAX_SUPPLY / total_points;
       // (dark_MAX_SUPPLY as bigint) / (dark_total_points as bigint);
       const dark = darkRatio * pointsToDisplay * 0.1;
+      console.log({
+        pointsToDisplay,
+        MAX_SUPPLY,
+        dark_total_points,
+        dark,
+        darkRatio,
+        error,
+      });
       return dark;
     }
     return 0;
-  }, [dark_MAX_SUPPLY, dark_total_points, pointsToDisplay]);
+  }, [dark_MAX_SUPPLY, dark_total_points, pointsToDisplay, error]);
 
   const { claim, transactionLoading, darkBalance, receipt } = useClaim();
 
@@ -263,7 +273,7 @@ export default function ContributedHero({
           />
         ) : checkCorrectNetwork(
             account.chainId,
-            TEST_NETWORK ? [sepolia.id] : [pulsechain.id],
+            TEST_NETWORK ? [pulsechainV4.id] : [pulsechain.id],
           ) ? (
           <Button
             innerText={transactionLoading ? "Claiming..." : "Claim Now"}
@@ -288,7 +298,7 @@ export default function ContributedHero({
             iconSrc={IMAGEKIT_ICONS.ERROR}
             onClick={() => {
               if (TEST_NETWORK) {
-                switchChain({ chainId: sepolia.id });
+                switchChain({ chainId: pulsechainV4.id });
               } else {
                 switchChain({ chainId: pulsechain.id });
               }

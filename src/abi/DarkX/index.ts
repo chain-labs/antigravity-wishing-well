@@ -1,5 +1,11 @@
 import { TEST_NETWORK } from "@/constants";
-import { base, baseSepolia, pulsechain, sepolia } from "viem/chains";
+import {
+  base,
+  baseSepolia,
+  pulsechain,
+  pulsechainV4,
+  sepolia,
+} from "viem/chains";
 import { useAccount } from "wagmi";
 
 interface IContract {
@@ -16,6 +22,10 @@ const contracts: Record<
 > = {
   [sepolia.id]: {
     address: CONTRACTS[sepolia.id].darkX,
+    abi,
+  },
+  [pulsechainV4.id]: {
+    address: CONTRACTS[pulsechainV4.id].darkX,
     abi,
   },
   [baseSepolia.id]: {
