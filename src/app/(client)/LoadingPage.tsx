@@ -2,6 +2,7 @@
 
 import { IMAGEKIT_LOGOS } from "@/assets/imageKit";
 import useLoading from "@/hooks/frontend/useLoading";
+import useTimer from "@/hooks/frontend/useTimer";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -13,13 +14,16 @@ export default function LoadingPage({
   const [progress, setProgress] = useState(0);
   const [slideUpProgress, setSlideUpProgress] = useState(0);
   const { setLoadingComplete, loading, strictNoLoading } = useLoading();
+  const { usingFallbackTimer } = useTimer();
 
   useEffect(() => {
     if (contentLoaded || !loading) {
       const interval = setInterval(() => {
         setProgress((prev) => {
-          if (prev < 100) {
-            return prev + 1;
+          if (!usingFallbackTimer) {
+            if (prev < 100) {
+              return prev + 1;
+            }
           }
           return prev;
         });
@@ -36,7 +40,7 @@ export default function LoadingPage({
       }, 50);
       return () => clearInterval(interval);
     }
-  }, [contentLoaded, loading]);
+  }, [contentLoaded, loading, usingFallbackTimer]);
 
   useEffect(() => {
     if (slideUpProgress > 150) return;
@@ -46,10 +50,12 @@ export default function LoadingPage({
       const interval = setInterval(() => {
         setSlideUpProgress((prev) => {
           if (prev > 150) return prev;
-          if (prev < 100) {
-            return prev + 1;
+          if (!usingFallbackTimer) {
+            if (prev < 100) {
+              return prev + 1;
+            }
+            setLoadingComplete(true);
           }
-          setLoadingComplete(true);
           return prev + 100;
         });
       }, 1);
@@ -57,7 +63,7 @@ export default function LoadingPage({
         clearInterval(interval);
       };
     }
-  }, [progress, contentLoaded]);
+  }, [progress, contentLoaded, usingFallbackTimer]);
 
   return (
     <div
