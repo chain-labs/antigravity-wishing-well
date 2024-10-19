@@ -23,9 +23,9 @@ const COUNTDOWN_TITLE: { [key: string]: string[] } = {
     "ETA for Journey 1",
   ],
   minting: [],
-  journey1: ["Til Lottery 1", "Til Lottery 2", "Til Journey 2"],
-  journey2: ["Til Lottery 2", "Til Lottery 3", "Til Journey 3"],
-  journey3: ["Til Lottery 3", "Til Lottery 4", "Til Journey End"],
+  journey1: ["Til Phase 2", "Til Phase 3", "Til Journey 2"],
+  journey2: ["Til Phase 2", "Til Phase 3", "Til Journey 3"],
+  journey3: ["Til Phase 2", "Til Phase 3", "Til Journey 4"],
 };
 
 export default function CountdownTimer({

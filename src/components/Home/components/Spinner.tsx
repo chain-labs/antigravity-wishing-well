@@ -680,9 +680,9 @@ const COUNTDOWN_TITLE: { [key: string]: string[] } = {
   wishwell: ["Til phase 2", "Til phase 3", "Til phase 1"],
   mining: ["Til phase 2", "Til phase 3", "Til Minting"],
   minting: [],
-  journey1: ["Til Lottery 1", "Til Lottery 2", "Til Journey 2"],
-  journey2: ["Til Lottery 2", "Til Lottery 3", "Til Journey 3"],
-  journey3: ["Til Lottery 3", "Til Lottery 4", "Til Journey End"],
+  journey1: ["Til Phase 2", "Til Phase 3", "Til Journey 2"],
+  journey2: ["Til Phase 2", "Til Phase 3", "Til Journey 3"],
+  journey3: ["Til Phase 2", "Til Phase 3", "Til Journey 4"],
 };
 
 /* 
@@ -704,7 +704,7 @@ zustand multiplier aur rewardMultiplier
 function Timer() {
   const timer = useTimer();
 
-  return (
+  return ( 
     <div className="absolute flex flex-col justify-center items-center gap-2 z-[100] w-[400px] h-[200px] translate-y-[60%]">
       <Image
         src={IMAGEKIT_IMAGES.COUNTER_BG}
