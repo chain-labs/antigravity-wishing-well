@@ -23,7 +23,7 @@ import { errorToast } from "@/hooks/frontend/toast";
 import { AnimatePresence, motion } from "framer-motion";
 import { TEST_NETWORK } from "@/constants";
 import { DotLoader } from "../header/Header";
-import { getCurrentBuyAnimation } from "./MintingHero";
+import { getCurrentBuyAnimation, MAX_INPUT } from "./MintingHero";
 import { useJourneyData } from "@/app/(client)/store";
 
 const MINIMUM_VISUAL_VALUE_BEFORE_SCIENTIFIC_NOTATION = 0.000001;
@@ -101,7 +101,9 @@ export function InputCard({
         setCurrentInputValue("1");
       } else {
         if (BigInt(Math.floor(Number(tokenBalance))) >= 0) {
-          setCurrentInputValue(tokenBalance.toString());
+          setCurrentInputValue(
+            Math.min(Number(tokenBalance), MAX_INPUT).toString(),
+          );
           setIsInitial(false);
         }
       }
@@ -154,7 +156,7 @@ export function InputCard({
               type="number"
               step="1"
               defaultValue={String(inputValue)}
-              max={String(tokenBalance)}
+              max={Math.min(Number(tokenBalance), 750).toString()}
               min={0}
               onBlur={(e) => {
                 setOutOfFocus(true);
@@ -218,7 +220,11 @@ export function InputCard({
                   getCurrentBuyAnimation(!!buymoreHighlight).darkness.transition
                 }
                 className="flex justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
-                onClick={() => setCurrentInputValue(tokenBalance.toString())}
+                onClick={() =>
+                  setCurrentInputValue(
+                    Math.min(Number(tokenBalance), 750).toString(),
+                  )
+                }
               >
                 <div className="bg-[#142266] rounded-full w-fit h-fit">
                   <div
@@ -572,6 +578,7 @@ export default function MiningCalculator({
         buyMoreFn={buyMoreFn}
         txLoading={txLoading}
       />
+      <p className=" font-bold text-right">Max Input: 750</p>
       <Multiplyer buymoreHighlight={buymoreHighlight} />
       <motion.div
         animate={{

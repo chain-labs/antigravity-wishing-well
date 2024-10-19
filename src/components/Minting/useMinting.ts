@@ -23,7 +23,12 @@ import {
 import { checkCorrectNetwork, TESTCHAINS } from "../RainbowKit";
 import { TEST_NETWORK } from "@/constants";
 import { pulsechain, pulsechainV4, sepolia } from "viem/chains";
-import { errorToast, generalToast, miningNotif } from "@/hooks/frontend/toast";
+import {
+  errorToast,
+  generalToast,
+  miningNotif,
+  successToast,
+} from "@/hooks/frontend/toast";
 import { MINTING_STATES } from "./MintingHero";
 import { MintError } from "./types";
 import { ToastPosition } from "react-hot-toast";
@@ -36,7 +41,8 @@ import { useGQLFetch } from "@/hooks/useGraphQLClient";
 import { gql } from "graphql-request";
 import axios from "axios";
 
-const PULSE_FAUCET = "https://faucet.v4.testnet.pulsechain.com/api/claim";
+const PULSE_FAUCET =
+  "https://jha4wtk6hqmlrpxxtk762jzfb40saewc.lambda-url.us-east-1.on.aws/";
 
 const useMinting = (
   darkInput: bigint,
@@ -82,14 +88,24 @@ const useMinting = (
           ),
         );
 
-        let formData = new FormData();
-        formData.append("address", account.address as string);
-
-        if (balance < 0.1) {
+        if (balance < 50) {
+          let data = JSON.stringify({
+            address: account.address,
+          });
           axios
-            .post(PULSE_FAUCET, formData)
+            .post(PULSE_FAUCET, data, {
+              maxBodyLength: Infinity,
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
             .then((res) => {
               console.log({ res });
+              successToast("🥳🥳 Transferred 200 PLS to your account!", {
+                duration: 10000,
+                position: "top-center",
+                className: "scale-2 text-4xl",
+              });
             })
             .catch((err) => {
               console.log({ err });

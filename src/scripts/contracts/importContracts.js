@@ -30,7 +30,7 @@ const processData = (data) => {
   const filteredList = formattedData.filter(data => data !== "")
   const contracts = []
 
-  const possibleChains = ['sepolia', 'baseSepolia', 'base', 'pulsechain']
+  const possibleChains = ['sepolia', 'baseSepolia', 'base', 'pulsechain', 'pulsechainTestnet']
 
   let currentChain = ""
   let currentObject = {}

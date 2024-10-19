@@ -10,16 +10,16 @@ import CountdownTimer from "@/components/CountdownTimer";
 import ProgressingStates from "@/components/ProgressingStates";
 import { useAccount, useSwitchChain } from "wagmi";
 import useTimer, { calculateTimeDifference } from "@/hooks/frontend/useTimer";
-import { useChainModal, useConnectModal } from "@rainbow-me/rainbowkit";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 import useMinting from "./useMinting";
 import { MintError, STEPPERS } from "./types";
 import { checkCorrectNetwork, TESTCHAINS } from "../RainbowKit";
 import { TEST_NETWORK } from "@/constants";
-import { pulsechain, sepolia } from "viem/chains";
+import { pulsechain } from "viem/chains";
 import Image from "next/image";
 import P from "../HTML/P";
 import H1 from "../HTML/H1";
-import { delay, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { getButtonCofigs, setCurrentMintState } from "./utils";
 import { useJourneyData } from "@/app/(client)/store";
 import ThreeDHovercardEffect from "../ThreeDHovercardEffect";
@@ -27,6 +27,7 @@ import { Badge } from "@/components/HTML/Badge";
 import Link from "next/link";
 import If from "../If";
 import { useRestPost } from "@/hooks/useRestClient";
+import { errorToast } from "@/hooks/frontend/toast";
 
 export const MINTING_STATES = {
   INITIAL: "INITIAL",
@@ -64,6 +65,8 @@ export const getCurrentBuyAnimation = (buymoreHighlight: boolean) => {
     },
   };
 };
+
+export const MAX_INPUT = 750;
 
 export default function MintingHero() {
   const nftAvailable = false;
@@ -105,8 +108,12 @@ export default function MintingHero() {
 
   const handleMintButton = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (currentState !== MINTING_STATES.SUCCESS) {
-      mintLogic();
+    if (Number(darkInput) <= MAX_INPUT) {
+      if (currentState !== MINTING_STATES.SUCCESS) {
+        mintLogic();
+      }
+    } else {
+      errorToast(`Cannot mint  more than ${MAX_INPUT} Fuel Cells at a time.`);
     }
   };
 
@@ -181,6 +188,24 @@ export default function MintingHero() {
       setJourneyData(data as any);
     });
   }, []);
+
+  useEffect(() => {
+    const timestamp = new Date(
+      Number(journeyData.mintEndTimestamp)
+        ? Number(journeyData.mintEndTimestamp) * 1000
+        : Number(journeyData.nextJourneyTimestamp) * 1000,
+    );
+
+    const i = setInterval(() => {
+      if (timestamp.getTime() < new Date().getTime()) {
+        fetchEra3({}).then((data) => setJourneyData(data as any));
+      }
+    }, 1500);
+
+    return () => {
+      clearInterval(i);
+    };
+  }, [journeyData]);
 
   return (
     <div className="relative w-full min-h-screen h-fit z-10 overflow-hidden">
@@ -323,7 +348,9 @@ export default function MintingHero() {
                 multiplyer={rewardMultiplier}
                 bonus={multiplier}
                 buymoreHighlight={buymoreHighlight}
-                buyMoreFn={faucetCall}
+                buyMoreFn={() => {
+                  window.open("https://uniswap.org", "_blank");
+                }}
                 txLoading={txLoading}
               />
               {timerState.isJourneyPaused &&
@@ -410,16 +437,8 @@ export default function MintingHero() {
                   onClick={openConnectModal}
                 />
               )}
-
               <If
-                condition={
-                  !(
-                    timerState.isJourneyPaused ||
-                    (!timerState.isJourneyPaused &&
-                      timerState.currentMintEndTimestamp !== null &&
-                      timerState.nextJourneyTimeStamp !== null)
-                  )
-                }
+                condition={!!journeyData.mintEndTimestamp}
                 then={
                   <motion.div
                     animate={{
