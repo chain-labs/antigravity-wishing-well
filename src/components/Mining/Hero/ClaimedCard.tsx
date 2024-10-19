@@ -1,6 +1,5 @@
 "use client";
 
-import { watchAsset } from "@wagmi/core";
 import Button from "@/components/Button";
 import ContributedCard from "./ContributedCard";
 import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
@@ -9,12 +8,13 @@ import useClaim from "@/hooks/sc-fns/useClaim";
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { formatUnits } from "viem";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
-import { useAccount, useConfig } from "wagmi";
+import { useAccount, useConfig, useWalletClient } from "wagmi";
 import { AnimatePresence, motion } from "framer-motion";
 import DarkXFieldCanvas from "../DarkXfield";
 import { StateType } from "../types";
 import { useRestFetch } from "@/hooks/useRestClient";
 import useDarkContract from "@/abi/Dark";
+import { watchAsset } from "viem/actions";
 
 export default function ClaimedCard({
   setState,
@@ -94,11 +94,11 @@ export default function ClaimedCard({
     return 30000;
   }, [account.address, points]);
 
-  const config = useConfig();
+  const walletClient = useWalletClient();
   const darkContract = useDarkContract();
   const addToWallet = async () => {
     try {
-      await watchAsset(config, {
+      await walletClient.data?.watchAsset({
         type: "ERC20",
         options: {
           address: darkContract.address as `0x${string}`,
