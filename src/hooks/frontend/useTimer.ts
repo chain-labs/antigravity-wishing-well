@@ -175,8 +175,8 @@ export default function useTimer() {
         }
 
         const mintingTimestamps = {
-          currentJourney: journeyData?.currentJourney,
-          currentPhase: journeyData?.currentPhase,
+          currentJourney: Number(journeyData?.currentJourney),
+          currentPhase: Number(journeyData?.currentPhase),
           isJourneyPaused: journeyData?.isJourneyPaused,
           nextJourneyTimestamp: journeyData?.nextJourneyTimestamp * 1000,
           mintEndTimestamp: journeyData?.mintEndTimestamp * 1000,
@@ -436,11 +436,11 @@ export default function useTimer() {
                 claimTransition: false,
                 mintingTransition: false,
                 isMintingActive: true,
-                journey: timestamps?.mintingTimestamps.currentJourney as
+                journey: Number(timestamps?.mintingTimestamps.currentJourney) as
                   | 1
                   | 2
                   | 3,
-                phaseNumber: timestamps?.mintingTimestamps.currentPhase as
+                phaseNumber: Number(timestamps?.mintingTimestamps.currentPhase) as
                   | 1
                   | 2
                   | 3,
@@ -470,10 +470,10 @@ export default function useTimer() {
                 mintingTransition: false,
                 isMintingActive: true,
                 journey: Number(
-                  timestamps?.mintingTimestamps.currentJourney,
+                 Number(timestamps?.mintingTimestamps.currentJourney),
                 ) as 1 | 2 | 3,
                 phaseNumber: Number(
-                  timestamps?.mintingTimestamps.currentPhase,
+                  Number(timestamps?.mintingTimestamps.currentPhase),
                 ) as 1 | 2 | 3,
                 isJourneyPaused: timestamps?.mintingTimestamps.isJourneyPaused,
                 nextJourneyTimeStamp:
