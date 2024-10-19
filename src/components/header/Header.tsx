@@ -78,7 +78,8 @@ const Header = () => {
     ["era-3-timestamps-multipliers"],
     "/api/era-3-timestamps-multipliers",
   );
-  const { darkBalance, treasuryBalance } = useHeaderStats();
+  const { userDark: darkBalance, treasuryDark: treasuryBalance } =
+    useHeaderStats();
 
   useEffect(() => {
     fetchEra3({ walletAddress: account.address }).then((data: any) => {
@@ -175,7 +176,9 @@ const Header = () => {
                   extrabold
                   className="font-sans font-extrabold"
                 >
-                  {timer.isMintingActive && !timer.claimStarted ? "Minting" : "Mining"}
+                  {timer.isMintingActive && !timer.claimStarted
+                    ? "Minting"
+                    : "Mining"}
                 </P>
               </Link>
               <Link
@@ -385,7 +388,9 @@ const Header = () => {
                   extrabold
                   className="font-sans font-extrabold"
                 >
-                  {timer.isMintingActive && !timer.claimStarted ? "Minting" : "Mining"}
+                  {timer.isMintingActive && !timer.claimStarted
+                    ? "Minting"
+                    : "Mining"}
                 </P>
               </Link>
               <Link
