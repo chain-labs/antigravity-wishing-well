@@ -1,5 +1,6 @@
 "use client";
 
+import { watchAsset } from "@wagmi/core";
 import Button from "@/components/Button";
 import ContributedCard from "./ContributedCard";
 import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
@@ -13,7 +14,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import DarkXFieldCanvas from "../DarkXfield";
 import { StateType } from "../types";
 import { useRestFetch } from "@/hooks/useRestClient";
-import { watchAsset } from "@wagmi/core";
 import useDarkContract from "@/abi/Dark";
 
 export default function ClaimedCard({
