@@ -1,7 +1,7 @@
 import useDarkContract from "@/abi/Dark";
 import useJPMContract from "@/abi/JourneyPhaseManager";
 import useTreasuryContract from "@/abi/Treasury";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { formatUnits } from "viem";
 import { useAccount, useReadContract, useReadContracts } from "wagmi";
 
@@ -39,21 +39,34 @@ const useHeaderStats = () => {
     functionName: "currentJourney",
   });
 
-  const { data: totalYieldClaimedData, isFetched: totalYieldClaimedFetched } =
-    useReadContract({
-      address: TreasuryContract.address as `0x${string}`,
-      abi: TreasuryContract.abi,
-      functionName: "totalYieldClaimed",
-    });
+  const {
+    data: totalYieldClaimedData,
+    isFetched: totalYieldClaimedFetched,
+    error: error1,
+  } = useReadContract({
+    address: TreasuryContract.address as `0x${string}`,
+    abi: TreasuryContract.abi,
+    functionName: "totalYieldClaimed",
+  });
 
   const {
     data: totalYieldAllocatedData,
     isFetched: totalYieldAllocatedFetched,
+    error: error2,
   } = useReadContract({
     address: TreasuryContract.address as `0x${string}`,
     abi: TreasuryContract.abi,
     functionName: "totalYieldAllocated",
   });
+
+  useEffect(() => {
+    if (error1) {
+      console.error("Error fetching totalYieldClaimed:", error1);
+    }
+    if (error2) {
+      console.error("Error fetching totalYieldAllocated:", error2);
+    }
+  }, [error1, error2]);
 
   const journey = useMemo(() => {
     if (journeyData) {
@@ -81,14 +94,24 @@ const useHeaderStats = () => {
         totalYieldAllocatedData,
         totalYieldClaimedData,
       });
+      const treasuryDarkinBigInt = (treasuryDarkData as bigint) ?? BigInt(0);
+      const totalYieldAllocatedInBigInt =
+        (totalYieldAllocatedData as bigint) ?? BigInt(0);
+      const totalYieldClaimedInBigInt =
+        (totalYieldClaimedData as bigint) ?? BigInt(0);
       const resultInBigInt: bigint =
-        (treasuryDarkData as bigint) -
-        ((totalYieldAllocatedData as bigint) -
-          (totalYieldClaimedData as bigint));
+        treasuryDarkinBigInt -
+        (totalYieldAllocatedInBigInt - totalYieldClaimedInBigInt);
+      console.log({
+        treasuryDarkinBigInt,
+        totalYieldAllocatedInBigInt,
+        totalYieldClaimedInBigInt,
+        resultInBigInt,
+      });
       return Number(formatUnits(resultInBigInt, 18));
     }
 
-    return 0;
+    return -1;
   }, [
     treasuryDarkData,
     totalYieldAllocatedData,

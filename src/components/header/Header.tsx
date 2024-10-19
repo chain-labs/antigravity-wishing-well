@@ -113,7 +113,9 @@ const Header = () => {
               <PiTreasureChestDuotone className="text-[24px] leading-[24px] text-agwhite" />
               <span>Treasury $DARK:</span>
               <LoaderSpan
-                data={treasuryBalance ? Number(treasuryBalance) : undefined}
+                data={
+                  treasuryBalance >= 0 ? Number(treasuryBalance) : undefined
+                }
               />
             </p>
             <div className="w-[1px] h-full bg-gradient-to-b from-white via-[#999999] to-[#999999] rounded-full" />
