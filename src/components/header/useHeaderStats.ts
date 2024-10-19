@@ -89,11 +89,6 @@ const useHeaderStats = () => {
       totalYieldAllocatedFetched &&
       totalYieldClaimedFetched
     ) {
-      console.log({
-        treasuryDarkData,
-        totalYieldAllocatedData,
-        totalYieldClaimedData,
-      });
       const treasuryDarkinBigInt = (treasuryDarkData as bigint) ?? BigInt(0);
       const totalYieldAllocatedInBigInt =
         (totalYieldAllocatedData as bigint) ?? BigInt(0);
@@ -102,12 +97,6 @@ const useHeaderStats = () => {
       const resultInBigInt: bigint =
         treasuryDarkinBigInt -
         (totalYieldAllocatedInBigInt - totalYieldClaimedInBigInt);
-      console.log({
-        treasuryDarkinBigInt,
-        totalYieldAllocatedInBigInt,
-        totalYieldClaimedInBigInt,
-        resultInBigInt,
-      });
       return Number(formatUnits(resultInBigInt, 18));
     }
 
