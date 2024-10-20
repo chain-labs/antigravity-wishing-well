@@ -1,6 +1,7 @@
 import useDarkContract from "@/abi/Dark";
 import useJPMContract from "@/abi/JourneyPhaseManager";
 import useTreasuryContract from "@/abi/Treasury";
+import { useUserData } from "@/app/(client)/store";
 import { useEffect, useMemo } from "react";
 import { formatUnits } from "viem";
 import { useAccount, useReadContract, useReadContracts } from "wagmi";
@@ -75,13 +76,19 @@ const useHeaderStats = () => {
     return 0;
   }, [journeyData]);
 
+  const { mutation: updateUser } = useUserData();
+
   const userDark = useMemo(() => {
     if (userDarkFetched) {
-      console.log({ userDarkData });
-      return Number(formatUnits((userDarkData as bigint) ?? BigInt(0), 18));
+      const result = Number(
+        formatUnits((userDarkData as bigint) ?? BigInt(0), 18),
+      );
+      updateUser({ darkBalance: result });
+      return result;
     }
+    updateUser({ darkBalance: -1 });
     return -1;
-  }, [userDarkData]);
+  }, [userDarkData, userDarkFetched]);
 
   const treasuryDark = useMemo(() => {
     if (
