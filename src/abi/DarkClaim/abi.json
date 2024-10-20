@@ -246,6 +246,31 @@
   },
   {
     "type": "event",
+    "name": "Claimed",
+    "inputs": [
+      {
+        "name": "user",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "nonce",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
     "name": "OwnershipTransferred",
     "inputs": [
       {
@@ -296,6 +321,11 @@
   {
     "type": "error",
     "name": "EmptyMysteryBoxAddress",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "ExceedsAllowedArraySize",
     "inputs": []
   },
   {
