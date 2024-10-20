@@ -683,6 +683,7 @@ const COUNTDOWN_TITLE: { [key: string]: string[] } = {
   journey1: ["Til Phase 2", "Til Phase 3", "Til Journey 2"],
   journey2: ["Til Phase 2", "Til Phase 3", "Til Journey 3"],
   journey3: ["Til Phase 2", "Til Phase 3", "Til Journey 4"],
+  default: ["til Phase 2", "Til Phase 3", "Til Next Journey"],
 };
 
 /* 
@@ -787,15 +788,21 @@ function Timer() {
                 ? "Minting starts in"
                 : timer.isJourneyPaused && timer.isMintingActive
                   ? "Journey Paused"
-                  : COUNTDOWN_TITLE?.[
-                      timer.isMintingActive
-                        ? `journey${timer.journey}`
-                        : timer.era
-                    ]?.[
-                      timer.isMintingActive
-                        ? Number(timer.phaseNumber ?? 0) - 1
-                        : Number(timer.phase ?? 0) - 1
-                    ]}
+                  : timer.journey <= 3
+                    ? COUNTDOWN_TITLE?.[
+                        timer.isMintingActive
+                          ? `journey${timer.journey}`
+                          : timer.era
+                      ]?.[
+                        timer.isMintingActive
+                          ? Number(timer.phaseNumber ?? 0) - 1
+                          : Number(timer.phase ?? 0) - 1
+                      ]
+                    : COUNTDOWN_TITLE?.default?.[
+                        timer.isMintingActive
+                          ? Number(timer.phaseNumber ?? 0) - 1
+                          : Number(timer.phase ?? 0) - 1
+                      ]}
       </div>
     </div>
   );
