@@ -497,6 +497,7 @@ export default function MintingHero() {
                   counterClassName="text-agwhite w-fit mx-auto"
                   counterSubtitleClassName="text-[14px] leading-[17.36px] px-[8px]"
                   containerClassName="text-agwhite text-[14px] leading-[17.36px] pb-[8px]"
+                  overrideText={`minting ends in`}
                 />
               </motion.div>
             </div>
