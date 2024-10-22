@@ -180,7 +180,7 @@ const Header = () => {
                 >
                   {timer.isMintingActive && !timer.claimStarted
                     ? "Minting"
-                    : "Mining"}
+                    : timer.claimStarted ? "Claiming" : "Mining"}
                 </P>
               </Link>
               <Link
@@ -392,7 +392,7 @@ const Header = () => {
                 >
                   {timer.isMintingActive && !timer.claimStarted
                     ? "Minting"
-                    : "Mining"}
+                    : timer.claimStarted ? "Claiming" : "Mining"}
                 </P>
               </Link>
               <Link
