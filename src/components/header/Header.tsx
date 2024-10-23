@@ -180,7 +180,9 @@ const Header = () => {
                 >
                   {timer.isMintingActive && !timer.claimStarted
                     ? "Minting"
-                    : "Mining"}
+                    : timer.claimStarted
+                      ? "Claiming"
+                      : "Mining"}
                 </P>
               </Link>
               <Link
@@ -200,6 +202,23 @@ const Header = () => {
                   Collective
                 </P>
               </Link>
+              {timer.isMintingActive && (
+                <Link
+                  href="https://tools.agproject.io/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="p-[8px]"
+                >
+                  <P
+                    uppercase
+                    gradient
+                    extrabold
+                    className="font-sans font-extrabold"
+                  >
+                    Tools
+                  </P>
+                </Link>
+              )}
               <P
                 onClick={() => setAboutSectionOpen(!aboutSectionOpen)}
                 uppercase
@@ -392,7 +411,9 @@ const Header = () => {
                 >
                   {timer.isMintingActive && !timer.claimStarted
                     ? "Minting"
-                    : "Mining"}
+                    : timer.claimStarted
+                      ? "Claiming"
+                      : "Mining"}
                 </P>
               </Link>
               <Link
@@ -411,6 +432,22 @@ const Header = () => {
                   Collective
                 </P>
               </Link>
+              {timer.isMintingActive && (
+                <Link
+                  href="https://tools.agproject.io/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <P
+                    uppercase
+                    gradient
+                    extrabold
+                    className="font-sans font-extrabold"
+                  >
+                    Tools
+                  </P>
+                </Link>
+              )}
               <P
                 onClick={() => setAboutSectionOpen(!aboutSectionOpen)}
                 uppercase

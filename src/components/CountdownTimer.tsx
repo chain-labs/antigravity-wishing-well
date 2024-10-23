@@ -36,6 +36,7 @@ export default function CountdownTimer({
   containerClassName,
   counterSubtitleClassName,
   counterClassName,
+  overrideText,
 }: {
   fontDesktopSize?: number;
   fontMobileSize?: number;
@@ -43,6 +44,7 @@ export default function CountdownTimer({
   containerClassName?: string;
   counterSubtitleClassName?: string;
   counterClassName?: string;
+  overrideText?: string;
 }) {
   const [phase, setPhase] = useState(1);
   const [era, setEra] = useState(1);
@@ -72,34 +74,40 @@ export default function CountdownTimer({
           containerClassName,
         )}
       >
-        {state.era === "mining" &&
-        state.phase === 3 &&
-        !state.claimStarted &&
-        !state.claimTransition
-          ? "Mining ends in"
-          : state.claimTransition
-            ? "Public Test goes live in"
-            : state.claimStarted
-              ? "Claiming ends in"
-              : state.mintingTransition
-                ? "Minting starts in"
-                : state.isJourneyPaused && !state.isMintingActive
-                  ? "Journey Paused"
-                  : state.journey <= 3
+        {typeof overrideText === "string" ? (
+          overrideText
+        ) : (
+          <>
+            {state.era === "mining" &&
+            state.phase === 3 &&
+            !state.claimStarted &&
+            !state.claimTransition
+              ? "Mining ends in"
+              : state.claimTransition
+                ? "Public Test goes live in"
+                : state.claimStarted
+                  ? "Claiming ends in"
+                  : state.mintingTransition
+                    ? "Minting starts in"
+                    : state.isJourneyPaused && !state.isMintingActive
+                      ? "Journey Paused"
+                      : state.journey <= 3
                     ? COUNTDOWN_TITLE?.[
-                        state.isMintingActive
-                          ? `journey${state.journey}`
-                          : state.era
-                      ]?.[
-                        state.isMintingActive
+                            state.isMintingActive
+                              ? `journey${state.journey}`
+                              : state.era
+                          ]?.[
+                            state.isMintingActive
                           ? Number(state.phaseNumber ?? 0) - 1
                           : Number(state.phase ?? 0) - 1
                       ]
                     : COUNTDOWN_TITLE?.default?.[
                         state.isMintingActive
-                          ? Number(state.phaseNumber ?? 0) - 1
-                          : Number(state.phase ?? 0) - 1
-                      ]}
+                              ? Number(state.phaseNumber ?? 0) - 1
+                              : Number(state.phase ?? 0) - 1
+                          ]}
+          </>
+        )}
       </div>
       <div
         className={twMerge(
