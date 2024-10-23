@@ -41,7 +41,7 @@ export default function Hero() {
               "Surprise! You can now claim your $DARK tokens based on the points you've earned. "
             }
             backgroundImage={IMAGEKIT_IMAGES.MINING}
-            animateFrom="bottom"
+            animateFrom="left"
             cardExternalLink="/mining"
           />
         ) : (
