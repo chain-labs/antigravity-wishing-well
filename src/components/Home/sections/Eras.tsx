@@ -9,7 +9,7 @@ export default function Eras() {
   const { darkBalance } = useClaim();
   return (
     <div className="relative grid grid-cols-1 grid-rows-3 w-full h-[180vh] md:h-[100vh] z-0 my-32">
-      {timer.claimStarted && (darkBalance as bigint) > 0 ? (
+      {timer.claimStarted ? (
         <HeroItemCard
           title="Claiming"
           description={
@@ -41,7 +41,7 @@ export default function Eras() {
           hoverImageOpacity={0.35}
         />
       )}
-      {timer.isMintingActive ? (
+      {timer.isMintingActive || timer.claimStarted ? (
         <HeroItemCard
           title="Minting"
           description={

@@ -34,7 +34,7 @@ export default function Hero() {
         className="relative grid grid-rows-3 md:grid-cols-3 md:grid-rows-1 w-full h-[180vh] md:h-[60vh] mt-[50vh] md:mt-[40vh] z-0 lg:opacity-[--opacity]"
       >
         <Spinner scrollYProgress={scrollYProgress} />
-        {timer.claimStarted && (darkBalance as bigint) > 0 ? (
+        {timer.claimStarted ? (
           <HeroItemCard
             title="Claiming"
             description={
@@ -65,7 +65,7 @@ export default function Hero() {
             hoverImageOpacity={0.35}
           />
         )}
-        {timer.isMintingActive ? (
+        {timer.isMintingActive || timer.claimStarted ? (
           <HeroItemCard
             title="Minting"
             description={
