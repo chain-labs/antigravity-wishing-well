@@ -14,6 +14,7 @@ import DarkXFieldCanvas from "../DarkXfield";
 import { StateType } from "../types";
 import { useRestFetch } from "@/hooks/useRestClient";
 import useDarkContract from "@/abi/Dark";
+import { IMAGEKIT } from "@/constants";
 
 export default function ClaimedCard({
   setState,
@@ -103,6 +104,7 @@ export default function ClaimedCard({
           address: darkContract.address as `0x${string}`,
           symbol: "DARK",
           decimals: 18,
+          image: IMAGEKIT_ICONS.PILL_DARK_X_CLAIMED,
         },
       });
     } catch (err) {
