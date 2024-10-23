@@ -9,6 +9,8 @@ export const API_ENDPOINT = TEST_NETWORK
   ? process.env.NEXT_PUBLIC_TEST_BACKEND
   : process.env.NEXT_PUBLIC_BACKEND;
 
+  export const SUBGRAPH = `${process.env.NEXT_PUBLIC_SUBGRAPH}`
+
 export const TIMER = process.env.NEXT_PUBLIC_TIMER;
 
 export const TELEGRAM = "https://t.me/antigravitysaga";
