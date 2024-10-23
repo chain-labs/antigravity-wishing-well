@@ -33,6 +33,7 @@ import { createWalletClient, custom } from "viem";
 import axios from "axios";
 import { DotLoader } from "../header/Header";
 import { twMerge } from "tailwind-merge";
+import toast from "react-hot-toast";
 
 export const MINTING_STATES = {
   INITIAL: "INITIAL",
@@ -255,21 +256,25 @@ export default function MintingHero() {
         hasNextPage =
           response.data.data.user.ownedFuelCells.pageInfo.hasNextPage;
       }
-      await window.ethereum?.sendAsync(
-        fuelCells.map((fc) => ({
-          method: "wallet_watchAsset",
-          params: {
-            type: "ERC721",
-            options: {
-              address: fuelCellContract.address as `0x${string}`,
-              tokenId: fc.tokenId,
-              symbol: "FUEL",
-              decimals: 18,
-              image: IMAGEKIT_IMAGES.FUEL_CELL_NFT_RED,
+      if (fuelCells.length > 0) {
+        await window.ethereum?.sendAsync(
+          fuelCells.map((fc) => ({
+            method: "wallet_watchAsset",
+            params: {
+              type: "ERC721",
+              options: {
+                address: fuelCellContract.address as `0x${string}`,
+                tokenId: fc.tokenId,
+                symbol: "FUEL",
+                decimals: 18,
+                image: IMAGEKIT_IMAGES.FUEL_CELL_NFT_RED,
+              },
             },
-          },
-        })),
-      );
+          })),
+        );
+      } else {
+        toast.error("You don't have any Fuel Cells!");
+      }
       setAddingNFTs(false);
     }
   };
@@ -305,28 +310,30 @@ export default function MintingHero() {
                   yield!
                 </P>
                 {/* add nfts to wallet */}
-                <div
-                  // href={`https://testnets.opensea.io/${account.address}`}
-                  // target="_blank"
-                  onClick={handleAddToWallet}
-                >
-                  <Badge
-                    className={twMerge(
-                      addingNFTs
-                        ? "bg-[#3C00DC] text-agwhite border-[#3C00DC] px-[8px] py-[4px] text-[12px] leading-[12px]"
-                        : "text-[#3C00DC] border-[#3C00DC] px-[8px] py-[4px] text-[12px] leading-[12px] hover:bg-[#3C00DC] hover:text-agwhite hover:border-[#3C00DC]",
-                    )}
+                {account.isConnected && (
+                  <div
+                    // href={`https://testnets.opensea.io/${account.address}`}
+                    // target="_blank"
+                    onClick={handleAddToWallet}
                   >
-                    {addingNFTs ? (
-                      <div className="flex items-center gap-x-1">
-                        Adding
-                        <DotLoader />
-                      </div>
-                    ) : (
-                      "Add Fuel Cell NFTs to Wallet"
-                    )}
-                  </Badge>
-                </div>
+                    <Badge
+                      className={twMerge(
+                        addingNFTs
+                          ? "bg-[#3C00DC] text-agwhite border-[#3C00DC] px-[8px] py-[4px] text-[12px] leading-[12px]"
+                          : "text-[#3C00DC] border-[#3C00DC] px-[8px] py-[4px] text-[12px] leading-[12px] hover:bg-[#3C00DC] hover:text-agwhite hover:border-[#3C00DC]",
+                      )}
+                    >
+                      {addingNFTs ? (
+                        <div className="flex items-center gap-x-1">
+                          Adding
+                          <DotLoader />
+                        </div>
+                      ) : (
+                        "Add Fuel Cell NFTs to Wallet"
+                      )}
+                    </Badge>
+                  </div>
+                )}
               </div>
 
               {/* nft notif */}
