@@ -137,7 +137,7 @@ const Header = () => {
                   />
                   <span>User $DARK:</span>
                   <LoaderSpan
-                    data={darkBalance ? Number(darkBalance) : undefined}
+                    data={darkBalance >= 0 ? Number(darkBalance) : undefined}
                   />
                 </p>
               </Fragment>
