@@ -8,14 +8,14 @@ import Button from "@/components/Button";
 import { IMAGEKIT_ICONS } from "@/assets/imageKit";
 import CountdownTimer from "@/components/CountdownTimer";
 import ProgressingStates from "@/components/ProgressingStates";
-import { useAccount, useSwitchChain } from "wagmi";
+import { useAccount, useClient, useSwitchChain, useWalletClient } from "wagmi";
 import useTimer, { calculateTimeDifference } from "@/hooks/frontend/useTimer";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import useMinting from "./useMinting";
 import { MintError, STEPPERS } from "./types";
 import { checkCorrectNetwork, TESTCHAINS } from "../RainbowKit";
-import { TEST_NETWORK } from "@/constants";
-import { pulsechain } from "viem/chains";
+import { SUBGRAPH, TEST_NETWORK } from "@/constants";
+import { pulsechain, pulsechainV4 } from "viem/chains";
 import Image from "next/image";
 import P from "../HTML/P";
 import H1 from "../HTML/H1";
@@ -28,6 +28,12 @@ import Link from "next/link";
 import If from "../If";
 import { useRestPost } from "@/hooks/useRestClient";
 import { errorToast } from "@/hooks/frontend/toast";
+import useFuelCellContract from "@/abi/FuelCell";
+import { createWalletClient, custom } from "viem";
+import axios from "axios";
+import { DotLoader } from "../header/Header";
+import { twMerge } from "tailwind-merge";
+import toast from "react-hot-toast";
 
 export const MINTING_STATES = {
   INITIAL: "INITIAL",
@@ -207,6 +213,72 @@ export default function MintingHero() {
     };
   }, [journeyData]);
 
+  // implementing adding fuel cell to wallet here
+  const [addingNFTs, setAddingNFTs] = useState(false); // loading state for adding NFTs
+  const fuelCellContract = useFuelCellContract();
+  const handleAddToWallet = async () => {
+    if (typeof window === "undefined") {
+      console.error("Window object is not available.");
+      return;
+    } else {
+      setAddingNFTs(true);
+      const query = (startCursor = null) => {
+        return `
+          query MyQuery {
+            user(id: "${account.address}") {
+              address
+              fuelCellBalance
+              ownedFuelCells(limit: 10, after: ${startCursor !== null ? `"${startCursor}"` : null}) {
+                items {
+                  tokenId
+                  }
+                  pageInfo {
+                    hasNextPage
+                    endCursor
+                    }
+                  }
+              }
+          }
+          `;
+      };
+      let hasNextPage = true;
+      let fuelCells: { tokenId: string }[] = [];
+      let startCursor = null;
+      while (hasNextPage) {
+        const response: any = await axios.post(SUBGRAPH, {
+          query: query(startCursor),
+        });
+        fuelCells = [
+          ...fuelCells,
+          ...response.data.data.user.ownedFuelCells.items,
+        ];
+        startCursor = response.data.data.user.ownedFuelCells.pageInfo.endCursor;
+        hasNextPage =
+          response.data.data.user.ownedFuelCells.pageInfo.hasNextPage;
+      }
+      if (fuelCells.length > 0) {
+        await window.ethereum?.sendAsync(
+          fuelCells.map((fc) => ({
+            method: "wallet_watchAsset",
+            params: {
+              type: "ERC721",
+              options: {
+                address: fuelCellContract.address as `0x${string}`,
+                tokenId: fc.tokenId,
+                symbol: "FUEL",
+                decimals: 18,
+                image: IMAGEKIT_IMAGES.FUEL_CELL_NFT_RED,
+              },
+            },
+          })),
+        );
+      } else {
+        toast.error("You don't have any Fuel Cells!");
+      }
+      setAddingNFTs(false);
+    }
+  };
+
   return (
     <div className="relative w-full min-h-screen h-fit z-10 overflow-hidden">
       <motion.div
@@ -238,14 +310,30 @@ export default function MintingHero() {
                   yield!
                 </P>
                 {/* add nfts to wallet */}
-                <Link
-                  href={`https://testnets.opensea.io/${account.address}`}
-                  target="_blank"
-                >
-                  <Badge className="text-[#3C00DC] border-[#3C00DC] px-[8px] py-[4px] text-[12px] leading-[12px]">
-                    View Your Fuel Cells NFTs
-                  </Badge>
-                </Link>
+                {account.isConnected && (
+                  <div
+                    // href={`https://testnets.opensea.io/${account.address}`}
+                    // target="_blank"
+                    onClick={handleAddToWallet}
+                  >
+                    <Badge
+                      className={twMerge(
+                        addingNFTs
+                          ? "bg-[#3C00DC] text-agwhite border-[#3C00DC] px-[8px] py-[4px] text-[12px] leading-[12px]"
+                          : "text-[#3C00DC] border-[#3C00DC] px-[8px] py-[4px] text-[12px] leading-[12px] hover:bg-[#3C00DC] hover:text-agwhite hover:border-[#3C00DC]",
+                      )}
+                    >
+                      {addingNFTs ? (
+                        <div className="flex items-center gap-x-1">
+                          Adding
+                          <DotLoader />
+                        </div>
+                      ) : (
+                        "Add Fuel Cell NFTs to Wallet"
+                      )}
+                    </Badge>
+                  </div>
+                )}
               </div>
 
               {/* nft notif */}
@@ -497,7 +585,11 @@ export default function MintingHero() {
                   counterClassName="text-agwhite w-fit mx-auto"
                   counterSubtitleClassName="text-[14px] leading-[17.36px] px-[8px]"
                   containerClassName="text-agwhite text-[14px] leading-[17.36px] pb-[8px]"
-                  overrideText={`minting ends in`}
+                  overrideText={
+                    !!parseInt(journeyData.mintEndTimestamp)
+                      ? `minting ends in`
+                      : ""
+                  }
                 />
               </motion.div>
             </div>
