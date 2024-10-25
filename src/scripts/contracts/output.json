@@ -1,12 +1,12 @@
 [
     {},
     {
+        "wishWell": "0x43F4cdC343f39EDD323C66492E9fdf3D72Df0eC0",
         "miningRig": "0x020d3Ca9605bb17CC17Ea0DB2bFfed3fA0869fCF",
         "darkX": "0xb1BF01E195D511509B12D980769351eF5255eE0f",
         "antigravity": "0xbf4d8CD1563E222e62354aE7daa64739FccE310f",
         "darkClaims": "0x6b3099EfFF4dAE69e48240d88C141a7cfa793ae6",
         "dark": "0x20E070c2e6eB00bC0ACFD801778a1BE24D5423c1",
-        "wishWell": "0x43F4cdC343f39EDD323C66492E9fdf3D72Df0eC0",
         "fuelCell": "0x77fB461abB743497dc23EB1e2a4fdEfAc35aFfea",
         "launchControlCenter": "0x09d12a40EbeA8F7860a32973D514E6b55d279a2c",
         "journeyPhaseManager": "0xA2893EBA6461c7e9142Bd5781E53782927894d61",
@@ -16,15 +16,18 @@
         "darkFaucet": "0x1792dedc1A50849041C063BFB686b8350DF9CD73"
     },
     {
+        "wishWell": "0x43F4cdC343f39EDD323C66492E9fdf3D72Df0eC0",
+        "miningRig": "0x020d3Ca9605bb17CC17Ea0DB2bFfed3fA0869fCF",
+        "darkX": "0xb1BF01E195D511509B12D980769351eF5255eE0f",
         "antigravity": "0xa2A6b9507eB9bFFCCBdAf853ED98047CdEb154F7",
-        "dark": "0x0e4007B69b83dfD48EEA543623f5A063aCD3431d",
-        "darkClaims": "0x73752740Ba6DFBD634F5f8c67b22f411C5E4a5dA",
-        "fuelCell": "0x6C30F640969dA9F73d08310bAfBee2F9412B7b37",
-        "launchControlCenter": "0x6d61f2206a1C59125dE99d9f584Ed6714793ED2c",
-        "journeyPhaseManager": "0xb04D341c41A7e6eDE93b6D3f3A2884133659cCaf",
-        "evilAddress": "0x8A0d19C588f0fE603fFA34dd919727e2Aafb17aB",
-        "treasury": "0x9385d35B5365a87c93e51bA30fB71591f6Dc4E05",
-        "jackpot": "0x2D9dce0b2Be7B409Ce2d8649740b5A13905fa6f5",
+        "dark": "0x75B6C6FeF33E38b2534b99431043C96D9C7038F8",
+        "darkClaims": "0x42A1d6d0e43D9FC26fDF7572bc1f63e8E2324Ee7",
+        "fuelCell": "0x8Ba06bC6f421D188F89D615532D88de00d6Cf46A",
+        "launchControlCenter": "0x810F4E5095724dEeC7B42ED2E4148a883df488E9",
+        "journeyPhaseManager": "0x5253A8416127499eB7bb9F580A9FEBbB30bD1EA8",
+        "evilAddress": "0x8882A10bA0dC787141bDCbF8a76c5c90F0950AA1",
+        "treasury": "0xdF25841Dd669c5238848ee276d32b081970dA248",
+        "jackpot": "0xbD9Def17646f0aA33e17146bC5A9dF4789C0fc45",
         "darkFaucet": "0xb21145202372CC4F92621c5C41A3791755c0919b"
     },
     {
