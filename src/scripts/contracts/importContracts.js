@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const {CONFIG_TEMPLATE} = require("./template")
 
 const readFile = (filePath) => {
   return new Promise((resolve, reject) => {
@@ -25,7 +26,7 @@ const writeFile = (filePath, data) => {
   });
 };
 
-const processData = (data) => {
+const processData = async (data) => {
   const formattedData = data.split("\n").map(text => text.charAt(0).toLowerCase() + text.slice(1));
   const filteredList = formattedData.filter(data => data !== "")
   const contracts = []
@@ -34,31 +35,42 @@ const processData = (data) => {
 
   let currentChain = ""
   let currentObject = {}
-  console.log({filteredList})
+  let final = ""
+  // console.log({filteredList})
 
-  filteredList.forEach(data => {
+  filteredList.forEach(async data => {
     if (possibleChains.includes(data)) {
       currentChain = data;
+      if (currentChain === "baseSepolia") {
+        console.log("Setting template", currentObject)
+        const template = `${CONFIG_TEMPLATE}`
+        const template_parts = template.split("#here");
+        const template_final = `${template_parts[0]}${JSON.stringify(currentObject)}${template_parts[1]}`
+        final = template_final
+      }
       if (currentObject) {
         contracts.push(currentObject)
       }
       currentObject = {}
     } else {
       const parts = data.split(": ")
-      currentObject[parts[0]] = parts[1]
+      if (parts[0] !== "antigravity") { 
+        currentObject[parts[0]] = parts[1]
+      }
     }
 
   })
 
-  console.log({contracts})
+  // console.log({contracts})
   // console.log({filteredList})
-  return JSON.stringify(contracts);
+  return final;
 };
 
 const main = async (inputFilePath, outputFilePath) => {
   try {
     const inputData = await readFile(inputFilePath);
-    const formattedData = processData(inputData);
+    const formattedData = await processData(inputData);
+    console.log({formattedData})
     await writeFile(outputFilePath, formattedData);
     console.log(`Data has been formatted and written to ${outputFilePath}`);
   } catch (err) {
@@ -67,6 +79,6 @@ const main = async (inputFilePath, outputFilePath) => {
 };
 
 const inputFilePath = path.join(__dirname, "input_contracts.txt");
-const outputFilePath = path.join(__dirname, "output.json");
+const outputFilePath = path.join(__dirname, "config.txt");
 
 main(inputFilePath, outputFilePath);

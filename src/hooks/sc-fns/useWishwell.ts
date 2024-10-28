@@ -73,11 +73,13 @@ const useWishwell = () => {
   }>(
     ["tokenIDs", account.address as string],
     gql`
-      query TokenIds($address: Bytes) {
-        users(where: { address_contains: $address }, first: 1) {
-          address
-          wishwellId {
-            tokenId
+      query TokenIds($address_contains: String) {
+        users(where: { address_contains: $address_contains }, limit: 1) {
+          items {
+            address
+            wishwell {
+              tokenId
+            }
           }
         }
       }

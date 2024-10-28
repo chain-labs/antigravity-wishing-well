@@ -376,9 +376,11 @@ const useMinting = (
     gql`
       query MyQuery {
         mints(orderBy: timestamp, orderDirection: desc, first: 3) {
-          amount
-          user {
-            address
+          items {
+            amount
+            user {
+              address
+            }
           }
         }
       }
