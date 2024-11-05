@@ -71,12 +71,6 @@ function Phase({
 }) {
   return (
     <motion.div
-      whileInView={{
-        color: checkPhaseCompletedOrActive(activeState, phase, era)
-          ? "black"
-          : "transparent",
-      }}
-      initial={{ color: "white" }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: 1 }}
       className={twMerge(
@@ -106,17 +100,10 @@ function MobilePhase({
   if (activeState.era === era && activeState.phase === phase) {
     return (
       <motion.div
-        style={{
-          color: "black",
-        }}
-        whileInView={{
-          color: "black",
-        }}
-        initial={{ color: "black" }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 1 }}
         className={twMerge(
-          "relative text-[35.82px] leading-[35.82px] font-sans font-extrabold text-center bg-agyellow rounded-lg p-2 px-4",
+          "relative text-[35.82px] leading-[35.82px] font-sans font-extrabold text-center bg-agyellow rounded-lg p-2 px-4 text-agblack",
         )}
       >
         {phase}
@@ -256,7 +243,7 @@ export default function Countdown() {
               {state.isMintingActive ? "Journey 1" : "Wishwell"}
             </div>
             <div className="tracking-widest uppercase text-[14px] leading-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
-              {state.isMintingActive ? "Lottery" : "Phase"}
+              {"Phase"}
             </div>
             <div className="flex justify-center items-center gap-2 relative z-0 px-auto">
               <MobilePhase
@@ -289,7 +276,7 @@ export default function Countdown() {
               {state.isMintingActive ? "Journey 2" : "Mining"}
             </div>
             <div className="tracking-widest uppercase text-[14px] leading-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
-              {state.isMintingActive ? "Lottery" : "Phase"}
+              {"Phase"}
             </div>
             <div className="flex justify-center items-center gap-2 relative z-0 px-auto">
               <MobilePhase
@@ -344,7 +331,7 @@ export default function Countdown() {
               {state.isMintingActive ? "Journey 3" : "Minting"}
             </div>
             <div className="tracking-widest uppercase text-[14px] leading-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
-              {state.isMintingActive ? "Lottery" : "Phase"}
+              {"Phase"}
             </div>
             <div className="flex justify-center items-center gap-2 relative z-0 px-auto">
               <MobilePhase
@@ -380,7 +367,7 @@ export default function Countdown() {
               {state.isMintingActive ? "Journey 1" : "Wishwell"}
             </div>
             <div className="tracking-widest uppercase text-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
-              {state.isMintingActive ? "Lottery" : "Phase"}
+              {"Phase"}
             </div>
           </div>
           <div className="flex flex-col gap-2">
@@ -393,7 +380,7 @@ export default function Countdown() {
               {state.isMintingActive ? "Journey 2" : "Mining"}
             </div>
             <div className="tracking-widest uppercase text-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
-              {state.isMintingActive ? "Lottery" : "Phase"}
+              {"Phase"}
             </div>
           </div>
           <div className="flex flex-col gap-2">
@@ -406,7 +393,7 @@ export default function Countdown() {
               {state.isMintingActive ? "Journey 3" : "Minting"}
             </div>
             <div className="tracking-widest uppercase text-[14px] text-center from-white to-[#999999] font-sans font-extrabold bg-gradient-to-b text-transparent bg-clip-text">
-              {state.isMintingActive ? "Lottery" : "Phase"}
+              {"Phase"}
             </div>
           </div>
         </div>
