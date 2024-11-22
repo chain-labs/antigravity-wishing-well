@@ -111,7 +111,7 @@ const Header = () => {
           <div className="grid grid-flow-col place-items-center gap-[16px] opacity-[0.66] font-sans text-agwhite text-[16px] leading-[16px] uppercase tracking-widest">
             <p className="flex justify-center items-center gap-[8px]">
               <PiTreasureChestDuotone className="text-[24px] leading-[24px] text-agwhite" />
-              <span>Treasury $DARK:</span>
+              <span>$DARK in Treasury:</span>
               <LoaderSpan
                 data={
                   treasuryBalance >= 0 ? Number(treasuryBalance) : undefined
