@@ -135,7 +135,7 @@ const Header = () => {
                     height={24}
                     className="w-[24px] h-[24px]"
                   />
-                  <span>User $DARK:</span>
+                  <span>$Dark Balance:</span>
                   <LoaderSpan
                     data={darkBalance >= 0 ? Number(darkBalance) : undefined}
                   />
