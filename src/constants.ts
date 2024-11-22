@@ -21,6 +21,10 @@ export const TWITTER_HEXIEST = "https://twitter.com/TheHEXiestMan";
 
 export const EMAIL_CODY = "codyasmith@live.com";
 
+export const lotteryBuffer = Number(
+  process.env.NEXT_PUBLIC_LOTTERY_BUFFER ?? "0",
+);
+
 export const TIKTOK_CODY = "https://tiktok.com/@c.asmith";
 
 export const INSTAGRAM_CODY = "https://www.instagram.com/c.asmith87/";
