@@ -132,7 +132,7 @@ export default function MintingHero() {
   const handleNFTNotificationReveal = () => {
     setNftNotifData({
       fuelCells: Number(darkInput),
-      points: multiplier * Number(darkInput),
+      points: multiplier * Number(darkInput) * rewardMultiplier,
     });
     setNftNotifReveal(true);
     setTimeout(() => {
