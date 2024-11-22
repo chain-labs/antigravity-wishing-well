@@ -361,14 +361,12 @@ export default function Leaderboard({
                     )}
                   </Link>
                 )}
-                <a
-                  href={externalLinks?.best_way_to_rank_up}
-                  target="_blank"
-                  rel="noreferrer"
+                <Link
+                  href={"/minting"}
                   className="text-agwhite underline cursor-pointer"
                 >
-                  <P>Best ways to rank up →</P>
-                </a>
+                  <P>Mint now to rank up!</P>
+                </Link>
               </div>
             </div>
           </div>

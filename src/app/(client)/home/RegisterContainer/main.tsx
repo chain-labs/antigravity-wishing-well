@@ -31,7 +31,7 @@
 // 		<div className="h-full w-full z-20 px-4 sm:px-24 flex items-end sm:max-w-[1280px] 2xl:px-32 justify-center absolute pb-8 lg:justify-normal">
 // 			<div className="flex flex-col sm:items-center lg:items-start">
 // 				<p className="font-black font-sans text-6xl lg:text-7xl max-w-[380px] 2xl:text-8xl text-agwhite sm:text-center lg:text-left leading-none">
-// 					Join The Revolution!
+// 					Join The Space Cult!
 // 				</p>
 // 				<p className="font-general-sans text-agwhite mt-1 max-w-[580px] text-base 2xl:text-lg">
 // 					Do you wish there was a project that could help the people

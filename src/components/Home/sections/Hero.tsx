@@ -69,7 +69,7 @@ export default function Hero() {
           <HeroItemCard
             title="Minting"
             description={
-              "Start minting a Fuel Cell to enter into the lottery, earn Collective points and rank up. Secure your treasury yield now!"
+              "Start minting a Fuel Cell to enter into the lottery, earn Collective points, and rank up. Secure your treasury yield now!"
             }
             backgroundImage={IMAGEKIT_IMAGES.MINING_PAGE_ERA_3}
             className="lg:object-cover object-[20%_55%]"
@@ -91,7 +91,7 @@ export default function Hero() {
         )}
         <HeroItemCard
           title="The Collective"
-          description="Learn how to leverage points, rank up & earn exciting rewards. Join The Collective!"
+          description="Learn how to leverage points, rank up and earn exciting rewards. Join The Collective!"
           backgroundImage={IMAGEKIT_IMAGES.MINTING}
           animateFrom="right"
           cardExternalLink="/collective"

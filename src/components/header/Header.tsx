@@ -111,7 +111,7 @@ const Header = () => {
           <div className="grid grid-flow-col place-items-center gap-[16px] opacity-[0.66] font-sans text-agwhite text-[16px] leading-[16px] uppercase tracking-widest">
             <p className="flex justify-center items-center gap-[8px]">
               <PiTreasureChestDuotone className="text-[24px] leading-[24px] text-agwhite" />
-              <span>Treasury $DARK:</span>
+              <span>$DARK in Treasury:</span>
               <LoaderSpan
                 data={
                   treasuryBalance >= 0 ? Number(treasuryBalance) : undefined
@@ -204,7 +204,7 @@ const Header = () => {
               </Link>
               {timer.isMintingActive && (
                 <Link
-                  href="https://tools.agproject.io/"
+                  href="https://beta.agproject.io/"
                   target="_blank"
                   rel="noreferrer"
                   className="p-[8px]"
@@ -219,7 +219,7 @@ const Header = () => {
                   </P>
                 </Link>
               )}
-              <P
+              {/* <P
                 onClick={() => setAboutSectionOpen(!aboutSectionOpen)}
                 uppercase
                 gradient
@@ -312,7 +312,7 @@ const Header = () => {
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </P>
+              </P> */}
             </div>
             {account.isConnected ? (
               <>
@@ -434,7 +434,7 @@ const Header = () => {
               </Link>
               {timer.isMintingActive && (
                 <Link
-                  href="https://tools.agproject.io/"
+                  href="https://beta.agproject.io/"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -448,7 +448,7 @@ const Header = () => {
                   </P>
                 </Link>
               )}
-              <P
+              {/* <P
                 onClick={() => setAboutSectionOpen(!aboutSectionOpen)}
                 uppercase
                 gradient
@@ -540,7 +540,7 @@ const Header = () => {
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </P>
+              </P> */}
             </div>
           </div>
         </div>

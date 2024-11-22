@@ -149,13 +149,19 @@ function MobilePhase({
 function calculateActivePhasesSlider(activeState: stateType) {
   let activePhase = 0;
   if (activeState.era === "wishwell" || activeState.journey === 1) {
-    activePhase = activeState.isMintingActive ? activeState.phaseNumber : activeState.phase;
+    activePhase = activeState.isMintingActive
+      ? activeState.phaseNumber
+      : activeState.phase;
   }
   if (activeState.era === "mining" || activeState.journey === 2) {
-    activePhase = activeState.isMintingActive ? activeState.phaseNumber + 3 : activeState.phase + 3;
+    activePhase = activeState.isMintingActive
+      ? activeState.phaseNumber + 3
+      : activeState.phase + 3;
   }
   if (activeState.isMintingActive && activeState.journey === 3) {
-    activePhase = activeState.isMintingActive ? activeState.phaseNumber + 6 : activeState.phase + 6;
+    activePhase = activeState.isMintingActive
+      ? activeState.phaseNumber + 6
+      : activeState.phase + 6;
   }
   return activePhase;
 }
@@ -192,7 +198,11 @@ export default function Countdown() {
 
   return (
     <div
-      className="relative w-[calc(100%+3px)] border-t-4 border-b-4 max-w-[1200px] lg:translate-x-0 lg:w-full 2xl:w-4/5 md:mx-auto bg-[#0A0025] lg:rounded-xl p-[16px] lg:p-8 border-transparent bg-clip-padding flex flex-col lg:flex-row justify-between gap-10 z-0
+      // className="relative w-[calc(100%+3px)] border-t-4 border-b-4 max-w-[1200px] lg:translate-x-0 md:mx-auto bg-[#0A0025] lg:rounded-xl p-[16px] lg:p-8 border-transparent bg-clip-padding flex flex-col lg:flex-row justify-between gap-10 z-0
+      //       before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-bl before:from-[#5537A5] before:to-[#BF6841] before:rounded-[inherit] before:overflow-hidden before:m-[-1.5px]
+			// after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-[#0A0025] after:rounded-[inherit] after:overflow-hidden
+      //   "
+      className="relative w-[calc(100%+3px)] border-t-4 border-b-4 max-w-[1200px] lg:translate-x-0 md:mx-auto bg-[#0A0025] lg:rounded-xl p-[16px] lg:p-8 border-transparent bg-clip-padding flex flex-col lg:flex-row justify-between gap-10 z-0
             before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-bl before:from-[#5537A5] before:to-[#BF6841] before:rounded-[inherit] before:overflow-hidden before:m-[-1.5px]
 			after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-[#0A0025] after:rounded-[inherit] after:overflow-hidden
         "
@@ -204,10 +214,11 @@ export default function Countdown() {
         height={800}
         className="absolute inset-0 z-[-1] w-full h-full object-cover user-select-none pointer-events-none opacity-[66%]"
       />
-      <div className="flex justify-start items-start flex-col gap-4">
-        <CountdownTimer state={state} />
+      <div className="flex justify-center items-center flex-col gap-4 w-full">
+        <CountdownTimer state={state} overrideText="TIL NEXT LOTTERY" />
       </div>
-      {/* Mobile View */}
+      {/* 
+      // Mobile View
       <div className="relative flex sm:hidden flex-col rounded bg-gradient-to-b from-[#5730BF] to-[#15004C] p-[7.46px,12.69px,7.46px,12.69px] z-0 overflow-hidden">
         <div className="grid grid-cols-1 gap-[16px]">
           <div className="relative h-full flex flex-col gap-[2.98px] p-2">
@@ -354,7 +365,7 @@ export default function Countdown() {
         </div>
       </div>
 
-      {/* Desktop View */}
+      // Desktop View
       <div className="hidden relative sm:flex flex-col rounded-[5px] bg-gradient-to-b from-[#5730BF] to-[#15004C] px-[12px] py-[8px] z-0 overflow-hidden">
         <div className="grid grid-cols-3 gap-14">
           <div className="h-full flex flex-col gap-2">
@@ -521,6 +532,7 @@ export default function Countdown() {
           className="absolute top-0 right-0 bg-gradient-to-b from-[#03040430] to-[#131a1a30] rounded-bl-xl rounded-tl-xl z-1000"
         ></motion.div>
       </div>
+      */}
     </div>
   );
 }
