@@ -9,7 +9,7 @@ export const API_ENDPOINT = TEST_NETWORK
   ? process.env.NEXT_PUBLIC_TEST_BACKEND
   : process.env.NEXT_PUBLIC_BACKEND;
 
-  export const SUBGRAPH = `${process.env.NEXT_PUBLIC_SUBGRAPH}`
+export const SUBGRAPH = `${process.env.NEXT_PUBLIC_SUBGRAPH}`;
 
 export const TIMER = process.env.NEXT_PUBLIC_TIMER;
 
@@ -34,3 +34,5 @@ export const POLL_TIME = parseInt(`${process.env.NEXT_PUBLIC_POLL_TIME}`);
 
 // export const IMAGEKIT = "https://ik.imagekit.io/AGAdmin/Antigravity";
 export const IMAGEKIT = "https://ik.imagekit.io/qvs5pk2dl/Antigravity";
+
+export const BUY_DARK_URL = `${process.env.NEXT_PUBLIC_BUY_DARK_URL}`;

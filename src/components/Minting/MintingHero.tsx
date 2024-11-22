@@ -14,7 +14,7 @@ import { useConnectModal } from "@rainbow-me/rainbowkit";
 import useMinting from "./useMinting";
 import { MintError, STEPPERS } from "./types";
 import { checkCorrectNetwork, TESTCHAINS } from "../RainbowKit";
-import { SUBGRAPH, TEST_NETWORK } from "@/constants";
+import { BUY_DARK_URL, SUBGRAPH, TEST_NETWORK } from "@/constants";
 import { pulsechain, pulsechainV4 } from "viem/chains";
 import Image from "next/image";
 import P from "../HTML/P";
@@ -437,7 +437,7 @@ export default function MintingHero() {
                 bonus={multiplier}
                 buymoreHighlight={buymoreHighlight}
                 buyMoreFn={() => {
-                  window.open("https://uniswap.org", "_blank");
+                  window.open(`${BUY_DARK_URL}`, "_blank");
                 }}
                 txLoading={txLoading}
               />
