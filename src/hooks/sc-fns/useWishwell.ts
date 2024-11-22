@@ -18,12 +18,12 @@ import {
   useWriteContract,
 } from "wagmi";
 import { errorToast, generalToast, successToast } from "../frontend/toast";
-import { checkCorrectNetwork } from "@/components/RainbowKit";
+import { checkCorrectNetwork, TESTCHAINS } from "@/components/RainbowKit";
 import { gqlFetcher } from "@/api/graphqlClient";
 import { gql } from "graphql-request";
 import { useRestPost } from "../useRestClient";
 import { UserData } from "@/components/header/UserConnected";
-import useUserData from "@/app/(client)/store";
+import { useUserData } from "@/app/(client)/store";
 import { useGQLFetch } from "../useGraphQLClient";
 import { hydrateUserAndNFT } from "@/components/header/utils";
 
@@ -73,16 +73,18 @@ const useWishwell = () => {
   }>(
     ["tokenIDs", account.address as string],
     gql`
-      query TokenIds($address: Bytes) {
-        users(where: { address_contains: $address }, first: 1) {
-          address
-          wishwellId {
-            tokenId
+      query TokenIds($address_contains: String) {
+        users(where: { address_contains: $address_contains }, limit: 1) {
+          items {
+            address
+            wishwell {
+              tokenId
+            }
           }
         }
       }
     `,
-    account.chainId || (TEST_NETWORK ? sepolia.id : pulsechain.id),
+    account.chainId || (TEST_NETWORK ? TESTCHAINS[0].id : pulsechain.id),
     { address: account.address },
     {
       enabled:

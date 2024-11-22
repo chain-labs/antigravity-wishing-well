@@ -23,7 +23,7 @@ import { client } from "../../sanity/lib/client";
 import Dropdownbutton from "@/components/Dropdownbutton";
 import pointsConverterToUSCommaseparated from "@/components/pointsConverterToUSCommaseparated";
 import useTimer from "@/hooks/frontend/useTimer";
-import useUserData from "@/app/(client)/store";
+import { useUserData } from "@/app/(client)/store";
 
 function CollectiveLogo() {
   const [hover, setHover] = useState(false);
@@ -137,7 +137,11 @@ export default function Leaderboard({
   const account = useAccount();
   const targetRef = useRef<HTMLDivElement>(null);
   const [selectedLeaderboard, setSelectedLeaderboard] = useState<
-    "allTimeLeaderboard" | "era1Leaderboard" | "era2Leaderboard" | string
+    | "allTimeLeaderboard"
+    | "era1Leaderboard"
+    | "era2Leaderboard"
+    | "era3Leaderboard"
+    | string
   >("allTimeLeaderboard");
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -177,7 +181,7 @@ export default function Leaderboard({
 
   useEffect(() => {
     handleRefresh();
-  }, [userdata]);
+  }, [userdata.totalPoints, userdata.walletAddress]);
 
   useEffect(() => {
     if (leaderboardData) {
@@ -236,6 +240,9 @@ export default function Leaderboard({
                     { label: "All Time", value: "allTimeLeaderboard" },
                     { label: "Era 1", value: "era1Leaderboard" },
                     { label: "Era 2", value: "era2Leaderboard" },
+                    timer.isMintingActive
+                      ? { label: "Era 3", value: "era3Leaderboard" }
+                      : { label: "", value: "" },
                   ]}
                   selected={selectedLeaderboard}
                   setSelected={setSelectedLeaderboard}
@@ -262,7 +269,9 @@ export default function Leaderboard({
                       ? 1
                       : selectedLeaderboard === "era2Leaderboard"
                         ? 2
-                        : 0
+                        : selectedLeaderboard === "era3Leaderboard"
+                          ? 3
+                          : 0
                   }
                 />
               </div>
@@ -309,15 +318,15 @@ export default function Leaderboard({
                 <P className="font-medium">
                   You&apos;re only{" "}
                   {pointsConverterToUSCommaseparated(rankUpPointsNeeded) ===
-                  "NaN" || rankUpPointsNeeded === 0
+                    "NaN" || rankUpPointsNeeded === 0
                     ? 1
                     : pointsConverterToUSCommaseparated(
                         rankUpPointsNeeded,
                       )}{" "}
-                  points away from leveling up. Mine now to rank up!
+                  points away from leveling up. Mint now to rank up!
                 </P>
                 {timer.era !== "minting" && (
-                  <Link href={"/mining"}>
+                  <Link href={"/minting"}>
                     {timer.claimStarted ? (
                       <Button
                         innerText={"Start Claiming"}
@@ -335,7 +344,7 @@ export default function Leaderboard({
                       />
                     ) : (
                       <Button
-                        innerText={"Start mining"}
+                        innerText={"Start miting"}
                         iconSrc={IMAGEKIT_ICONS.HAMMER}
                         iconAlt="hammer icon"
                         variants={{
@@ -352,14 +361,12 @@ export default function Leaderboard({
                     )}
                   </Link>
                 )}
-                <a
-                  href={externalLinks?.best_way_to_rank_up}
-                  target="_blank"
-                  rel="noreferrer"
+                <Link
+                  href={"/minting"}
                   className="text-agwhite underline cursor-pointer"
                 >
-                  <P>Best ways to rank up →</P>
-                </a>
+                  <P>Mint now to rank up!</P>
+                </Link>
               </div>
             </div>
           </div>

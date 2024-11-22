@@ -8,7 +8,7 @@ import H1 from "@/components/HTML/H1";
 import { IMAGEKIT_ICONS, IMAGEKIT_IMAGES } from "@/assets/imageKit";
 import Link from "next/link";
 import ThreeDHovercardEffect from "@/components/ThreeDHovercardEffect";
-import useUserData from "@/app/(client)/store";
+import { useUserData } from "@/app/(client)/store";
 import imageKitLoader from "@/components/imageKitLoader";
 import { client } from "../../../../sanity/lib/client";
 
@@ -52,7 +52,7 @@ export default function NFTReceipt() {
       >
         <H1 center className="text-[32px] leading-[32px]">
           Not everyone makes smart decisions.
-          <br /> Except you. You badass. Here&apos;s your NFT.
+          <br /> Except you. You badass. Check your wallet for your Live NFT. See Example Below!
         </H1>
       </motion.div>
       <motion.div
@@ -71,22 +71,6 @@ export default function NFTReceipt() {
           />
         </ThreeDHovercardEffect>
       </motion.div>
-      <Link target="_blank" href={external_links.collective_rewards_101 || ""}>
-        <Button
-          innerText="Collective rewards 101"
-          iconSrc={IMAGEKIT_ICONS.BOOK}
-          iconAlt="hammer icon"
-          variants={{
-            hover: {
-              scale: 1.25,
-              transition: {
-                duration: 1,
-                type: "spring",
-              },
-            },
-          }}
-        />
-      </Link>
     </div>
   );
 }

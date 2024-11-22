@@ -3,11 +3,30 @@
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import DynamicNumberCounter from "./DynamicNumberCounter";
+import { CountdownType } from "@/hooks/frontend/useTimer";
 
 const eraToNumber = {
   wishwell: 1,
   mining: 2,
   minting: 3,
+};
+
+const COUNTDOWN_TITLE: { [key: string]: string[] } = {
+  wishwell: [
+    "ETA for era 1 phase 2",
+    "ETA for era 1 phase 3",
+    "ETA for era 2 phase 1",
+  ],
+  mining: [
+    "ETA for era 2 phase 2",
+    "ETA for era 2 phase 3",
+    "ETA for Journey 1",
+  ],
+  minting: [],
+  journey1: ["Til Phase 2", "Til Phase 3", "Til Journey 2"],
+  journey2: ["Til Phase 2", "Til Phase 3", "Til Journey 3"],
+  journey3: ["Til Phase 2", "Til Phase 3", "Til Journey 4"],
+  default: ["til Phase 2", "Til Phase 3", "Til Next Journey"],
 };
 
 export default function CountdownTimer({
@@ -16,21 +35,16 @@ export default function CountdownTimer({
   fontMobileSize = 48,
   containerClassName,
   counterSubtitleClassName,
+  counterClassName,
+  overrideText,
 }: {
   fontDesktopSize?: number;
   fontMobileSize?: number;
-  state: {
-    days: number;
-    hours: number;
-    mins: number;
-    secs: number;
-    phase: 1 | 2 | 3;
-    era: "wishwell" | "mining" | "minting";
-    claimStarted: boolean;
-    claimTransition: boolean;
-  };
+  state: CountdownType;
   containerClassName?: string;
   counterSubtitleClassName?: string;
+  counterClassName?: string;
+  overrideText?: string;
 }) {
   const [phase, setPhase] = useState(1);
   const [era, setEra] = useState(1);
@@ -39,7 +53,7 @@ export default function CountdownTimer({
     if (!state) return;
     if (state.phase === 3) {
       setPhase(1);
-      if (state.era === "minting") {
+      if (state.isMintingActive) {
         setEra(1);
       } else {
         setEra(eraToNumber[state.era] + 1);
@@ -60,19 +74,48 @@ export default function CountdownTimer({
           containerClassName,
         )}
       >
-        {state.era === "mining" &&
-        state.phase === 3 &&
-        !state.claimStarted &&
-        !state.claimTransition
-          ? "Mining ends in"
-          : state.claimTransition
-            ? "Public Test goes live in"
-            : state.claimStarted
-              ? "Claiming ends in"
-              : `ETA for era ${era} phase ${phase}`}
+        {typeof overrideText === "string" ? (
+          overrideText
+        ) : (
+          <>
+            {state.era === "mining" &&
+            state.phase === 3 &&
+            !state.claimStarted &&
+            !state.claimTransition
+              ? "Mining ends in"
+              : state.claimTransition
+                ? "Public Test goes live in"
+                : state.claimStarted
+                  ? "Claiming ends in"
+                  : state.mintingTransition
+                    ? "Minting starts in"
+                    : state.isJourneyPaused && !state.isMintingActive
+                      ? "Journey Paused"
+                      : state.journey <= 3
+                    ? COUNTDOWN_TITLE?.[
+                            state.isMintingActive
+                              ? `journey${state.journey}`
+                              : state.era
+                          ]?.[
+                            state.isMintingActive
+                          ? Number(state.phaseNumber ?? 0) - 1
+                          : Number(state.phase ?? 0) - 1
+                      ]
+                    : COUNTDOWN_TITLE?.default?.[
+                        state.isMintingActive
+                              ? Number(state.phaseNumber ?? 0) - 1
+                              : Number(state.phase ?? 0) - 1
+                          ]}
+          </>
+        )}
       </div>
-      <div className="relative flex gap-2 md:gap-3 text-agyellow font-sans">
-        <div className="flex items-center justify-center flex-col">
+      <div
+        className={twMerge(
+          "relative grid grid-flow-col gap-[6px] md:gap-[6px] text-agyellow font-sans",
+          counterClassName,
+        )}
+      >
+        <div className="flex items-center justify-center flex-col w-fit mx-auto">
           <h1
             style={{ fontSize: fontDesktopSize }}
             className="hidden md:flex font-extrabold"
@@ -104,8 +147,8 @@ export default function CountdownTimer({
             Days
           </p>
         </div>
-        <div className="bg-agyellow h-[clac(60px_1.5rem)] lg:full w-[1px]"></div>
-        <div className="flex items-center justify-center flex-col">
+        <div className="bg-[currentColor] h-[clac(60px_1.5rem)] lg:full w-[1px] mx-auto"></div>
+        <div className="flex items-center justify-center flex-col w-fit mx-auto">
           <h1
             style={{ fontSize: fontDesktopSize }}
             className="hidden md:flex font-extrabold"
@@ -137,8 +180,8 @@ export default function CountdownTimer({
             Hours
           </p>
         </div>
-        <div className="bg-agyellow h-[clac(60px_1.5rem)] lg:full w-[1px]"></div>
-        <div className="flex items-center justify-center flex-col">
+        <div className="bg-[currentColor] h-[clac(60px_1.5rem)] lg:full w-[1px] mx-auto"></div>
+        <div className="flex items-center justify-center flex-col w-fit mx-auto">
           <h1
             style={{ fontSize: fontDesktopSize }}
             className="hidden md:flex font-extrabold"
@@ -170,8 +213,8 @@ export default function CountdownTimer({
             Mins
           </p>
         </div>
-        <div className="bg-agyellow h-[clac(60px_1.5rem)] lg:full w-[1px]"></div>
-        <div className="flex items-center justify-center flex-col">
+        <div className="bg-[currentColor] h-[clac(60px_1.5rem)] lg:full w-[1px] mx-auto"></div>
+        <div className="flex items-center justify-center flex-col w-fit mx-auto">
           <h1
             style={{ fontSize: fontDesktopSize }}
             className="hidden md:flex font-extrabold"

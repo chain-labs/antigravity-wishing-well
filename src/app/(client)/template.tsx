@@ -5,23 +5,25 @@ import { AnimatePresence, motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import ReactLenis from "lenis/react";
 import useLoading from "@/hooks/frontend/useLoading";
+import useTimer from "@/hooks/frontend/useTimer";
 
 const LoadingPage = dynamic(() => import("@/app/(client)/LoadingPage"), {
   ssr: false,
 });
 
-const Header = dynamic(
-  () => import("@/components/header/Header"),
-  {
-    ssr: false,
-  },
-);
+const HeaderEra3 = dynamic(() => import("@/components/header/Header"), {
+  ssr: false,
+});
+const HeaderEra2 = dynamic(() => import("@/components/header/HeaderEra2"), {
+  ssr: false,
+});
 const Footer = dynamic(() => import("@/components/Footer"), {
   ssr: false,
 });
 
 export default function Template({ children }: { children: React.ReactNode }) {
   const { loading, strictNoLoading } = useLoading();
+  const timer = useTimer();
   return (
     <ReactLenis root>
       <main className="min-h-screen">
@@ -29,8 +31,8 @@ export default function Template({ children }: { children: React.ReactNode }) {
           <div className="z-[100]">
             {!strictNoLoading && <LoadingPage contentLoaded={!loading} />}
           </div>
-          <div className="fixed top-0 w-full z-50 items-center pt-[16px] md:pt-12 px-4">
-            <Header />
+          <div className="fixed top-0 w-full z-50 items-center pt-[16px] md:pt-[32px] px-4">
+            <HeaderEra3 />
           </div>
           <AnimatePresence>
             <motion.div
@@ -38,7 +40,6 @@ export default function Template({ children }: { children: React.ReactNode }) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 2 }}
-              className="z-100"
             >
               {children}
             </motion.div>

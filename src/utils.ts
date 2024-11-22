@@ -22,7 +22,7 @@ export const getApiNetwork = (chainId: number) => {
 };
 
 export const condenseAddress = (address: string) => {
-  const condensed = `${address.slice(0, 4)}...${address.slice(
+  const condensed = `${address.slice(0, 6)}...${address.slice(
     address?.length - 4,
   )}`;
 
@@ -35,7 +35,7 @@ export const getTokenIds = (userData: UserData, chainId: number) => {
   let blockchain = "pulsechain";
 
   if (TEST_NETWORK) {
-    if (chainId === sepolia.id) {
+    if (chainId === pulsechainV4.id) {
       miningTokenId = userData.antigravityPulsechainTokenId;
       wishwellTokenId = userData.wishwellPulsechainTokenId;
       blockchain = "pulsechain";
@@ -62,7 +62,6 @@ export const getTokenIds = (userData: UserData, chainId: number) => {
     blockchain,
   };
 };
-
 
 export const getEra = (era: string) => {
   switch (era) {
