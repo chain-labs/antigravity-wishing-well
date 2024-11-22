@@ -21,7 +21,7 @@ import {
   useWriteContract,
 } from "wagmi";
 import { checkCorrectNetwork, TESTCHAINS } from "../RainbowKit";
-import { TEST_NETWORK } from "@/constants";
+import { SUBGRAPH, TEST_NETWORK } from "@/constants";
 import { pulsechain, pulsechainV4, sepolia } from "viem/chains";
 import {
   errorToast,
@@ -387,7 +387,7 @@ const useMinting = (
     `,
     TEST_NETWORK ? TESTCHAINS[0].id : pulsechain.id,
     {},
-    { url: `${process.env.NEXT_PUBLIC_ERA3_SUBGRAPH}` },
+    { url: `${SUBGRAPH}` },
   );
 
   useEffect(() => {
