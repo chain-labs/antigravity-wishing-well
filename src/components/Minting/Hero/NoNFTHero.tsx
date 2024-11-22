@@ -8,7 +8,7 @@ export default function NoNFTHero() {
         Mint Fuel Cells
       </H1>
       <P className="text-agblack text-[14px] font-medium">
-        Minting a fuel cell enters you into the lottery, raises your collective
+        Minting a Fuel Cells enters you into the lottery, raises your collective
         points, and increases your rank. It also secures your Treasury yield!
       </P>
     </div>
