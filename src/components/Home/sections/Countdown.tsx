@@ -168,39 +168,40 @@ function calculateActivePhasesSlider(activeState: stateType) {
 
 export default function Countdown() {
   const state = useTimer();
-  const eras = {
-    era1:
-      state.isMintingActive && state.journey === 1
-        ? true
-        : state.era === "wishwell"
-          ? true
-          : false,
-    era2:
-      state.isMintingActive && state.journey === 2
-        ? true
-        : state.era === "mining"
-          ? true
-          : false,
-    era3: state.isMintingActive && state.journey === 3 ? true : false,
-  };
 
-  const activeEraAndPhase: {
-    era: stateType["era"] | "journey1" | "journey2" | "journey3";
-    phase: stateType["phase"];
-  } = {
-    era: state.isMintingActive
-      ? `journey${state.journey as 1 | 2 | 3}`
-      : state.era,
-    phase: state.isMintingActive
-      ? (state.phaseNumber as 1 | 2 | 3)
-      : state.phase,
-  };
+  // const eras = {
+  //   era1:
+  //     state.isMintingActive && state.journey === 1
+  //       ? true
+  //       : state.era === "wishwell"
+  //         ? true
+  //         : false,
+  //   era2:
+  //     state.isMintingActive && state.journey === 2
+  //       ? true
+  //       : state.era === "mining"
+  //         ? true
+  //         : false,
+  //   era3: state.isMintingActive && state.journey === 3 ? true : false,
+  // };
+
+  // const activeEraAndPhase: {
+  //   era: stateType["era"] | "journey1" | "journey2" | "journey3";
+  //   phase: stateType["phase"];
+  // } = {
+  //   era: state.isMintingActive
+  //     ? `journey${state.journey as 1 | 2 | 3}`
+  //     : state.era,
+  //   phase: state.isMintingActive
+  //     ? (state.phaseNumber as 1 | 2 | 3)
+  //     : state.phase,
+  // };
 
   return (
     <div
       // className="relative w-[calc(100%+3px)] border-t-4 border-b-4 max-w-[1200px] lg:translate-x-0 md:mx-auto bg-[#0A0025] lg:rounded-xl p-[16px] lg:p-8 border-transparent bg-clip-padding flex flex-col lg:flex-row justify-between gap-10 z-0
       //       before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-bl before:from-[#5537A5] before:to-[#BF6841] before:rounded-[inherit] before:overflow-hidden before:m-[-1.5px]
-			// after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-[#0A0025] after:rounded-[inherit] after:overflow-hidden
+      // after:content-[''] after:absolute after:inset-0 after:z-[-2] after:bg-[#0A0025] after:rounded-[inherit] after:overflow-hidden
       //   "
       className="relative w-[calc(100%+3px)] border-t-4 border-b-4 max-w-[1200px] lg:translate-x-0 md:mx-auto bg-[#0A0025] lg:rounded-xl p-[16px] lg:p-8 border-transparent bg-clip-padding flex flex-col lg:flex-row justify-between gap-10 z-0
             before:content-[''] before:absolute before:inset-0 before:z-[-10] before:bg-gradient-to-bl before:from-[#5537A5] before:to-[#BF6841] before:rounded-[inherit] before:overflow-hidden before:m-[-1.5px]
