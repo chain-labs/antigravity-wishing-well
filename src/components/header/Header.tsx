@@ -204,7 +204,7 @@ const Header = () => {
               </Link>
               {timer.isMintingActive && (
                 <Link
-                  href="https://tools.agproject.io/"
+                  href="https://beta.agproject.io/"
                   target="_blank"
                   rel="noreferrer"
                   className="p-[8px]"
@@ -219,7 +219,7 @@ const Header = () => {
                   </P>
                 </Link>
               )}
-              <P
+              {/* <P
                 onClick={() => setAboutSectionOpen(!aboutSectionOpen)}
                 uppercase
                 gradient
@@ -312,7 +312,7 @@ const Header = () => {
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </P>
+              </P> */}
             </div>
             {account.isConnected ? (
               <>
@@ -434,7 +434,7 @@ const Header = () => {
               </Link>
               {timer.isMintingActive && (
                 <Link
-                  href="https://tools.agproject.io/"
+                  href="https://beta.agproject.io/"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -448,7 +448,7 @@ const Header = () => {
                   </P>
                 </Link>
               )}
-              <P
+              {/* <P
                 onClick={() => setAboutSectionOpen(!aboutSectionOpen)}
                 uppercase
                 gradient
@@ -540,7 +540,7 @@ const Header = () => {
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </P>
+              </P> */}
             </div>
           </div>
         </div>
