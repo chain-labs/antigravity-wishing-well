@@ -6,6 +6,8 @@ import { twMerge } from "tailwind-merge";
 import useTimer, { CountdownType } from "../../../hooks/frontend/useTimer";
 import CountdownTimer from "@/components/CountdownTimer";
 import { IMAGEKIT_IMAGES } from "@/assets/imageKit";
+import useLotteryTimerData from "@/components/useLotteryTimerData";
+import { useEffect, useState } from "react";
 
 type stateType = CountdownType & {
   era: "wishwell" | "mining" | "minting" | "journey1" | "journey2" | "journey3";
@@ -167,7 +169,47 @@ function calculateActivePhasesSlider(activeState: stateType) {
 }
 
 export default function Countdown() {
-  const state = useTimer();
+  // const state = useTimer();
+  const fetchLotteryTimerData = useLotteryTimerData();
+  const [LotteryTimerData, setLotteryTimerData] = useState<number>(0); // in secs
+  console.log("LotteryTimerData", LotteryTimerData);
+  const state: CountdownType = {
+    // LotteryTimerData.nextLotteryTimestamp is in seconds
+    era: "minting",
+    phase: 3,
+    journey: 3,
+    phaseNumber: 3,
+    claimStarted: false,
+    claimTransition: false,
+    mintingTransition: false,
+    isMintingActive: true,
+    isJourneyPaused: false,
+    nextJourneyTimeStamp: 0,
+    currentMintEndTimestamp: 0,
+    nextPhaseStartTimestamp: 0,
+    secs: LotteryTimerData % 60,
+    mins: Math.floor(LotteryTimerData / 60) % 60,
+    hours: Math.floor(LotteryTimerData / 3600) % 24,
+    days: Math.floor(LotteryTimerData / 86400),
+  };
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const now = Math.floor(Date.now() / 1000);
+      const nextLotteryTimestamp =
+        fetchLotteryTimerData.nextLotteryTimestamp || 0;
+      const time = nextLotteryTimestamp - now;
+      if (time <= 0) {
+        fetchLotteryTimerData.refreshTimer();
+      } else {
+        setLotteryTimerData(nextLotteryTimestamp - now);
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [fetchLotteryTimerData]);
 
   // const eras = {
   //   era1:
