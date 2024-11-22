@@ -172,7 +172,6 @@ export default function Countdown() {
   // const state = useTimer();
   const fetchLotteryTimerData = useLotteryTimerData();
   const [LotteryTimerData, setLotteryTimerData] = useState<number>(0); // in secs
-  console.log("LotteryTimerData", LotteryTimerData);
   const state: CountdownType = {
     // LotteryTimerData.nextLotteryTimestamp is in seconds
     era: "minting",
