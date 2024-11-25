@@ -107,14 +107,12 @@ const Header = () => {
       <div>
         If you are experiencing issues with any of the functions on{" "}
         <span>
-          <a href={`https://${hostname}`} className="underline">
-            {hostname}
-          </a>
+          <i className="underline font-bold">{hostname}</i>
         </span>
-        , please click here to use the alternate site{" "}
+        , please use the alternate site{" "}
         <span>
-          <a href={`https://${alternateSite}`} className="underline">
-            {alternateSite}
+          <a href={`https://${alternateSite}`} className="underline font-bold">
+            <i> {alternateSite} </i>
           </a>{" "}
         </span>
       </div>,
