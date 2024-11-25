@@ -202,4 +202,6 @@ export function warningToastInfinite(message: React.ReactNode, options?: ToastOp
       ...options,
     },
   );
+
+  return id;
 }
