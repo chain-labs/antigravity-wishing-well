@@ -166,3 +166,40 @@ export function miningNotif(message: string, options?: ToastOptions, referencePo
     ...options,
   });
 }
+
+// warning tost with infinite duration with a closing button
+export function warningToastInfinite(message: React.ReactNode, options?: ToastOptions, referencePositionX?: number) {
+  const id = uniqid();
+  toast(
+    <span className="flex justify-start items-start gap-[8px] translate-y-[-4px] mb-[-4px]">
+      {message}
+      <button
+        onClick={() => toast.dismiss(id)}
+        className="close-button w-[16px] h-[16px] leading-[18px] text-[18px] font-general-sans"
+        type="button"
+      >
+        ×
+      </button>
+    </span>,
+    {
+      id,
+      duration: Infinity,
+      position: GLOBALS.position as ToastPosition,
+      style: {
+        ...GLOBALS.style,
+        background: "#F5EB00",
+        color: "#030404",
+        marginLeft: referencePositionX ? marginLeft(referencePositionX) : "0px",
+      },
+      icon: (
+        <Image
+          src={IMAGEKIT_ICONS.INFO_BLACK}
+          alt="Warning"
+          height={24}
+          width={24}
+        />
+      ),
+      ...options,
+    },
+  );
+}

@@ -22,6 +22,7 @@ import { useJourneyData } from "@/app/(client)/store";
 import axios from "axios";
 import { API_ENDPOINT } from "@/constants";
 import { useRestPost } from "@/hooks/useRestClient";
+import { warningToastInfinite } from "../../hooks/frontend/toast";
 
 // Use a function to get the latest block number
 async function getLatestBlockNumber(publicClient: PublicClient) {
@@ -94,6 +95,30 @@ const Header = () => {
       }
     });
   }, [account.address, journey]);
+
+  useEffect(() => {
+    // ADDDING A WARNING TOAST FOR SITE VISITORS
+    if (!window) return;
+    const hostname = window.location.hostname;
+    const alternateSite =
+      hostname === "agproject.io" ? "agproject.xyz" : "agproject.io";
+    warningToastInfinite(
+      <div>
+        If you are experiencing issues with any of the functions on{" "}
+        <span>
+          <a href={`https://${hostname}`} className="underline">
+            {hostname}
+          </a>
+        </span>
+        , please click here to use the alternate site{" "}
+        <span>
+          <a href={`https://${alternateSite}`} className="underline">
+            {alternateSite}
+          </a>{" "}
+        </span>
+      </div>,
+    );
+  }, []);
 
   return (
     <motion.header
