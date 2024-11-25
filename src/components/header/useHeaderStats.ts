@@ -2,8 +2,10 @@ import useDarkContract from "@/abi/Dark";
 import useJPMContract from "@/abi/JourneyPhaseManager";
 import useTreasuryContract from "@/abi/Treasury";
 import { useUserData } from "@/app/(client)/store";
+import { TEST_NETWORK } from "@/constants";
 import { useEffect, useMemo } from "react";
 import { formatUnits } from "viem";
+import { pulsechain, pulsechainV4 } from "viem/chains";
 import { useAccount, useReadContract, useReadContracts } from "wagmi";
 
 const useHeaderStats = () => {
@@ -18,6 +20,7 @@ const useHeaderStats = () => {
       abi: DarkContract.abi,
       functionName: "balanceOf",
       args: [TreasuryContract.address as `0x${string}`],
+      chainId: TEST_NETWORK ? pulsechainV4.id : pulsechain.id,
     });
 
   const {
@@ -32,12 +35,14 @@ const useHeaderStats = () => {
     query: {
       enabled: !!account.address,
     },
+    chainId: TEST_NETWORK ? pulsechainV4.id : pulsechain.id,
   });
 
   const { data: journeyData, error: journeyError } = useReadContract({
     address: JPMContract.address as `0x${string}`,
     abi: JPMContract.abi,
     functionName: "currentJourney",
+    chainId: TEST_NETWORK ? pulsechainV4.id : pulsechain.id,
   });
 
   const {
@@ -48,6 +53,7 @@ const useHeaderStats = () => {
     address: TreasuryContract.address as `0x${string}`,
     abi: TreasuryContract.abi,
     functionName: "totalYieldClaimed",
+    chainId: TEST_NETWORK ? pulsechainV4.id : pulsechain.id,
   });
 
   const {
@@ -58,6 +64,7 @@ const useHeaderStats = () => {
     address: TreasuryContract.address as `0x${string}`,
     abi: TreasuryContract.abi,
     functionName: "totalYieldAllocated",
+    chainId: TEST_NETWORK ? pulsechainV4.id : pulsechain.id,
   });
 
   useEffect(() => {

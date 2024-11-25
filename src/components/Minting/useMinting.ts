@@ -149,6 +149,7 @@ const useMinting = (
         address: DarkContract.address as `0x${string}`,
         abi: DarkContract.abi,
         functionName: "allowance",
+        chainId: TEST_NETWORK ? pulsechainV4.id : pulsechain.id,
         args: [
           account.address as `0x${string}`,
           LCC_Contract.address as `0x${string}`,
@@ -180,6 +181,7 @@ const useMinting = (
         abi: LCC_Contract.abi,
         functionName: "mintFuelCell",
         args: [darkInput],
+        chainId: TEST_NETWORK ? pulsechainV4.id : pulsechain.id,
       })
         .then((tx) => {
           console.log({ tx });
@@ -202,6 +204,7 @@ const useMinting = (
         LCC_Contract.address as `0x${string}`,
         parseUnits(darkInput.toString(), 18),
       ],
+      chainId: TEST_NETWORK ? pulsechainV4.id : pulsechain.id,
     })
       .then((tx) => {
         console.log({ approveTx: tx });
@@ -367,7 +370,9 @@ const useMinting = (
   // <====================DARK FAUCET END=================>
 
   // <===================MINTING NOTIFICATIONS==================>
-  const client = usePublicClient();
+  const client = usePublicClient({
+    chainId: TEST_NETWORK ? pulsechainV4.id : pulsechain.id,
+  });
 
   const { data: mintsData } = useGQLFetch<{
     mints: { amount: string; user: { address: string } }[];
