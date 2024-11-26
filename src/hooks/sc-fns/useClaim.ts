@@ -8,6 +8,8 @@ import {
 } from "wagmi";
 import { errorToast, successToast } from "../frontend/toast";
 import useDarkContract from "@/abi/Dark";
+import { TEST_NETWORK } from "@/constants";
+import { pulsechain, pulsechainV4 } from "viem/chains";
 
 /**
  * Primary utility hook for everything related to the claiming phase
@@ -26,6 +28,7 @@ const useClaim = () => {
     abi: DarkContract?.abi,
     functionName: "balanceOf",
     args: [`${account.address}`],
+    chainId: TEST_NETWORK ? pulsechainV4.id : pulsechain.id,
   });
 
   const {
@@ -55,7 +58,7 @@ const useClaim = () => {
 
     if (receipt) {
       // TODO: Add number of tokens claimed here.
-      successToast(`Succesfully claimed ${"x"} $Dark tokens`);
+      successToast(`Succesfully claimed $Dark tokens`);
       setTransactionLoading(false);
       console.log({ receipt });
     }
@@ -75,6 +78,7 @@ const useClaim = () => {
         abi: DarkClaimContract.abi,
         functionName: "claim",
         args: [addresses, points, nonces, proofs],
+        chainId: TEST_NETWORK ? pulsechainV4.id : pulsechain.id,
       });
     }
   };

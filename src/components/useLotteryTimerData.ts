@@ -28,6 +28,7 @@ const useLotteryTimerData = () => {
       address: JPMContract?.address,
       abi: JPMContract?.abi,
       functionName,
+      chainId: TEST_NETWORK ? pulsechainV4.id : pulsechain.id,
     })),
     query: {
       enabled: refetchInfo,
