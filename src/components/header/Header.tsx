@@ -101,15 +101,17 @@ const Header = () => {
     // ADDDING A WARNING TOAST FOR SITE VISITORS
     if (!window && strictNoLoading) return;
     const hostname = window.location.hostname;
-    const alternateSite =
-      hostname === "agproject.io" ? "agproject.xyz" : "agproject.io";
+
+    const alternateSite = hostname.includes("agproject.io")
+      ? hostname.replace("agproject.io", "agproject.xyz")
+      : hostname.includes("agproject.xyz")
+        ? hostname.replace("agproject.xyz", "agproject.io")
+        : "agproject.io";
     const toastId = warningToastInfinite(
       <div>
         If you are experiencing issues with any of the functions on{" "}
-        <span>
-          <i className="underline font-bold">{hostname}</i>
-        </span>
-        , please use the alternate site{" "}
+        <span className="font-bold">{hostname}</span>, please use the alternate
+        site{" "}
         <span>
           <a href={`https://${alternateSite}`} className="underline font-bold">
             <i> {alternateSite} </i>
