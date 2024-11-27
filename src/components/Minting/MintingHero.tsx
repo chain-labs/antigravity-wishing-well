@@ -305,7 +305,7 @@ export default function MintingHero() {
                   Mint Fuel Cells
                 </H1>
                 <P className="text-agblack text-[14px] font-medium">
-                  Minting a Fuel Cells enters you into the lottery, raises your
+                  Minting Fuel Cells enters you into the lottery, raises your
                   collective points, and increases your rank. It also secures
                   your Treasury yield!
                 </P>

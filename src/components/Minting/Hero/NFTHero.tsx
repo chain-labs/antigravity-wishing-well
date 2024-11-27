@@ -13,7 +13,7 @@ export default function NFTHero() {
           Mint Fuel Cells
         </H1>
         <P className="text-agblack text-[14px] font-medium">
-          Minting a Fuel Cells enters you into the lottery, raises your collective points, and increases your rank. It also secures your Treasury yield!
+          Minting Fuel Cells enters you into the lottery, raises your collective points, and increases your rank. It also secures your Treasury yield!
         </P>
       </div>
       <div className="flex flex-col sm:flex-row mx-auto justify-center items-center gap-0 z-0">
