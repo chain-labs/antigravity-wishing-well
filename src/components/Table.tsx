@@ -357,7 +357,7 @@ export default function Table({
                   <TR
                     key={idx}
                     special={data.special ?? false}
-                    position={data.rank}
+                    position={idx}
                   >
                     <Rank
                       rank={data.rank}
