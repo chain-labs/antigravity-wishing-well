@@ -21,7 +21,7 @@ import pointsConverterToUSCommaseparated from "../pointsConverterToUSCommasepara
 import USFormatToNumber from "../USFormatToNumber";
 import { errorToast } from "@/hooks/frontend/toast";
 import { AnimatePresence, motion } from "framer-motion";
-import { TEST_NETWORK } from "@/constants";
+import { BUY_DARK_URL, TEST_NETWORK } from "@/constants";
 import { DotLoader } from "../header/Header";
 import { getCurrentBuyAnimation, MAX_INPUT } from "./MintingHero";
 import { useJourneyData } from "@/app/(client)/store";
@@ -329,7 +329,7 @@ const BuyMoreButtonWrapper = ({
   children: ReactNode;
 }) => {
   const account = useAccount();
-  if (TEST_NETWORK) {
+  if (!TEST_NETWORK && BUY_DARK_URL) {
     return (
       <div
         onClick={() => buyMoreFn(`${account.address}`)}
