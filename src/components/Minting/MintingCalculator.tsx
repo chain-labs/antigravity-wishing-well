@@ -329,7 +329,7 @@ const BuyMoreButtonWrapper = ({
   children: ReactNode;
 }) => {
   const account = useAccount();
-  if (!TEST_NETWORK && BUY_DARK_URL) {
+  if (!TEST_NETWORK) {
     return (
       <div
         onClick={() => buyMoreFn(`${account.address}`)}
