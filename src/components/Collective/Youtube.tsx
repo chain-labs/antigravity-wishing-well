@@ -19,13 +19,14 @@ export default function Youtube() {
     discord: string;
     telegram: string;
     darkpaper: string;
+    darkerpaper: string;
   }>();
 
   useEffect(() => {
     client
       .fetch(
         `*[_type=="external_links"][0]{
-          twitter, discord, telegram, darkpaper
+          twitter, discord, telegram, darkpaper, darkerpaper
         }`,
       )
       .then((externalLinks) => {
@@ -107,6 +108,26 @@ export default function Youtube() {
             <a href={externalLinks?.darkpaper} target="_blank" rel="noreferrer">
               <Button
                 innerText="Read DarkPaper"
+                iconSrc={IMAGEKIT_ICONS.DOCUMENT}
+                iconAlt="Dark Paper"
+                className="w-full lg:w-fit"
+                variants={{
+                  hover: {
+                    scale: 1.5,
+                    rotate: -11,
+                    transition: {
+                      duration: 0.5,
+                      type: "spring",
+                    },
+                  },
+                }}
+              />
+            </a>
+          ) : null}
+          {externalLinks?.darkpaper ? (
+            <a href={externalLinks?.darkerpaper} target="_blank" rel="noreferrer">
+              <Button
+                innerText="Read DarkerPaper"
                 iconSrc={IMAGEKIT_ICONS.DOCUMENT}
                 iconAlt="Dark Paper"
                 className="w-full lg:w-fit"
