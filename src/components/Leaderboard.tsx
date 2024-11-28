@@ -147,7 +147,7 @@ export default function Leaderboard({
     target: targetRef,
     offset: ["start end", "start start"],
   });
-  const [rankUpPointsNeeded, setRankUpPointsNeeded] = useState<number>(0);
+  const [rankUpPointsNeeded, setRankUpPointsNeeded] = useState<number>(1);
 
   const [externalLinks, setExternalLinks] = useState<{
     best_way_to_rank_up: string;
@@ -323,42 +323,42 @@ export default function Leaderboard({
                     : pointsConverterToUSCommaseparated(
                         rankUpPointsNeeded,
                       )}{" "}
-                  points away from leveling up. Mint now to rank up!
+                  points away from leveling up.
                 </P>
-                {timer.era !== "minting" && (
+                {timer.claimStarted ? (
+                  <Link href={"/mining"}>
+                    <Button
+                      innerText={"Start Claiming"}
+                      iconSrc={IMAGEKIT_ICONS.CLAIM}
+                      iconAlt="claim icon"
+                      variants={{
+                        hover: {
+                          rotate: 15,
+                          transition: {
+                            duration: 0.25,
+                            type: "spring",
+                          },
+                        },
+                      }}
+                    />
+                  </Link>
+                ) : (
                   <Link href={"/minting"}>
-                    {timer.claimStarted ? (
-                      <Button
-                        innerText={"Start Claiming"}
-                        iconSrc={IMAGEKIT_ICONS.CLAIM}
-                        iconAlt="claim icon"
-                        variants={{
-                          hover: {
-                            rotate: 15,
-                            transition: {
-                              duration: 0.25,
-                              type: "spring",
-                            },
+                    <Button
+                      innerText={"Start minting"}
+                      iconSrc={IMAGEKIT_ICONS.HAMMER}
+                      iconAlt="hammer icon"
+                      variants={{
+                        hover: {
+                          scale: 1.35,
+                          rotate: 390,
+                          transition: {
+                            duration: 1,
+                            type: "spring",
                           },
-                        }}
-                      />
-                    ) : (
-                      <Button
-                        innerText={"Start miting"}
-                        iconSrc={IMAGEKIT_ICONS.HAMMER}
-                        iconAlt="hammer icon"
-                        variants={{
-                          hover: {
-                            scale: 1.35,
-                            rotate: 390,
-                            transition: {
-                              duration: 1,
-                              type: "spring",
-                            },
-                          },
-                        }}
-                      />
-                    )}
+                        },
+                      }}
+                    />
                   </Link>
                 )}
                 <Link

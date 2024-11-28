@@ -143,7 +143,7 @@ export default function Leaderboard() {
                         ? 2
                         : selectedLeaderboard === "era3Leaderboard"
                           ? 3
-                          : 0
+                          : 1
                   }
                 />
               </div>
@@ -174,47 +174,43 @@ export default function Leaderboard() {
                   />
                 </motion.div>
 
-                <P className="font-medium">Mint now to rank up!</P>
-                {timer.era !== "minting" && (
+                {timer.claimStarted ? (
+                  <Link href={"/mining"}>
+                    <Button
+                      innerText={"Start Claiming"}
+                      iconSrc={IMAGEKIT_ICONS.CLAIM}
+                      iconAlt="claim icon"
+                      variants={{
+                        hover: {
+                          rotate: 15,
+                          transition: {
+                            duration: 0.25,
+                            type: "spring",
+                          },
+                        },
+                      }}
+                    />
+                  </Link>
+                ) : (
                   <Link href={"/minting"}>
-                    {timer.claimStarted ? (
-                      <Button
-                        innerText={"Start Claiming"}
-                        iconSrc={IMAGEKIT_ICONS.CLAIM}
-                        iconAlt="claim icon"
-                        variants={{
-                          hover: {
-                            rotate: 15,
-                            transition: {
-                              duration: 0.25,
-                              type: "spring",
-                            },
+                    <Button
+                      innerText={"Start minting"}
+                      iconSrc={IMAGEKIT_ICONS.HAMMER}
+                      iconAlt="hammer icon"
+                      variants={{
+                        hover: {
+                          scale: 1.35,
+                          rotate: 390,
+                          transition: {
+                            duration: 1,
+                            type: "spring",
                           },
-                        }}
-                      />
-                    ) : (
-                      <Button
-                        innerText={"Start mining"}
-                        iconSrc={IMAGEKIT_ICONS.HAMMER}
-                        iconAlt="hammer icon"
-                        variants={{
-                          hover: {
-                            scale: 1.35,
-                            rotate: 390,
-                            transition: {
-                              duration: 1,
-                              type: "spring",
-                            },
-                          },
-                        }}
-                      />
-                    )}
+                        },
+                      }}
+                    />
                   </Link>
                 )}
-                <Link
-                  href={"/minting"}
-                  className="text-agwhite underline"
-                >
+                <Link href={"/minting"} className="text-agwhite underline">
                   <P>Mint now to rank up!</P>
                 </Link>
               </div>
