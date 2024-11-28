@@ -21,7 +21,7 @@ import pointsConverterToUSCommaseparated from "../pointsConverterToUSCommasepara
 import USFormatToNumber from "../USFormatToNumber";
 import { errorToast } from "@/hooks/frontend/toast";
 import { AnimatePresence, motion } from "framer-motion";
-import { TEST_NETWORK } from "@/constants";
+import { BUY_DARK_URL, TEST_NETWORK } from "@/constants";
 import { DotLoader } from "../header/Header";
 import { getCurrentBuyAnimation, MAX_INPUT } from "./MintingHero";
 import { useJourneyData } from "@/app/(client)/store";
@@ -329,24 +329,14 @@ const BuyMoreButtonWrapper = ({
   children: ReactNode;
 }) => {
   const account = useAccount();
-  if (TEST_NETWORK) {
-    return (
-      <div
-        onClick={() => buyMoreFn(`${account.address}`)}
-        className="relative flex cursor-pointer justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
-      >
-        {children}
-      </div>
-    );
-  } else {
-    <a
-      href={"/"}
-      target="_blank"
+  return (
+    <div
+      onClick={() => buyMoreFn(`${account.address}`)}
       className="relative flex cursor-pointer justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
     >
       {children}
-    </a>;
-  }
+    </div>
+  );
 };
 
 function fontsizeClamping(
