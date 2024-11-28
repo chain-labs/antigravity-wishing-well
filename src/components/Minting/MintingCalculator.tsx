@@ -329,24 +329,14 @@ const BuyMoreButtonWrapper = ({
   children: ReactNode;
 }) => {
   const account = useAccount();
-  if (!TEST_NETWORK) {
-    return (
-      <div
-        onClick={() => buyMoreFn(`${account.address}`)}
-        className="relative flex cursor-pointer justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
-      >
-        {children}
-      </div>
-    );
-  } else {
-    <a
-      href={"/"}
-      target="_blank"
+  return (
+    <div
+      onClick={() => buyMoreFn(`${account.address}`)}
       className="relative flex cursor-pointer justify-center items-center bg-gradient-to-b from-[#B4EBF8] rounded-full to-[#789DFA] p-[1px] box-padding w-fit h-fit"
     >
       {children}
-    </a>;
-  }
+    </div>
+  );
 };
 
 function fontsizeClamping(
