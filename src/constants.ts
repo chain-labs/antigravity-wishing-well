@@ -36,7 +36,6 @@ export const HOW_TO = process.env.NEXT_PUBLIC_HOW_TO_URL;
 
 export const POLL_TIME = parseInt(`${process.env.NEXT_PUBLIC_POLL_TIME}`);
 
-// export const IMAGEKIT = "https://ik.imagekit.io/AGAdmin/Antigravity";
-export const IMAGEKIT = "https://ik.imagekit.io/qvs5pk2dl/Antigravity";
+export const IMAGEKIT = "https://ik.imagekit.io/AGAdmin/Antigravity";
 
 export const BUY_DARK_URL = `${process.env.NEXT_PUBLIC_BUY_DARK_URL}`;
